@@ -1,32 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj": {}
+    "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
+    "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj",
         "projectName": "CRM.Core",
-        "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj",
-        "packagesPath": "C:\\Users\\lalit bokde\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\obj\\",
+        "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj",
+        "packagesPath": "C:\\Users\\Naresh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit bokde\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Naresh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -87,33 +86,32 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
+    "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj",
         "projectName": "CRM.Data",
-        "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj",
-        "packagesPath": "C:\\Users\\lalit bokde\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\obj\\",
+        "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj",
+        "packagesPath": "C:\\Users\\Naresh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit bokde\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Naresh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -121,8 +119,8 @@
           "netcoreapp2.1": {
             "targetAlias": "netcoreapp2.1",
             "projectReferences": {
-              "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
-                "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj"
+              "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
+                "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj"
               }
             }
           }
@@ -170,33 +168,32 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
+    "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj",
+        "projectUniqueName": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj",
         "projectName": "CRM.Services",
-        "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj",
-        "packagesPath": "C:\\Users\\lalit bokde\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Services\\obj\\",
+        "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj",
+        "packagesPath": "C:\\Users\\Naresh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit bokde\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Naresh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -204,11 +201,11 @@
           "netcoreapp2.1": {
             "targetAlias": "netcoreapp2.1",
             "projectReferences": {
-              "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
-                "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj"
+              "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
+                "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj"
               },
-              "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
-                "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
+              "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
+                "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
               }
             }
           }
@@ -260,33 +257,32 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj": {
+    "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
+        "projectUniqueName": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
         "projectName": "DeVeeraApp",
-        "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
-        "packagesPath": "C:\\Users\\lalit bokde\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\DeVeeraApp\\obj\\",
+        "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
+        "packagesPath": "C:\\Users\\Naresh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit bokde\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Naresh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -294,11 +290,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
-                "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
+              "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
+                "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
               },
-              "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
-                "projectPath": "C:\\Users\\lalit bokde\\Documents\\GitHub\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj"
+              "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
+                "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj"
               }
             }
           }
@@ -330,7 +326,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

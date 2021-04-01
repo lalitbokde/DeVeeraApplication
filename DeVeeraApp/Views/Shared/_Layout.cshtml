@@ -75,15 +75,121 @@ License: You must have a valid license purchased only from themeforest(the above
                 <img alt="Dermtech Surgical" src="~/dist/images/DermTech/logo.png">
             </a>
             <div class="side-nav__devider my-6"></div>
-            <ul>
+            <ul class="border-t border-theme-24 py-5 hidden">
                 <li>
-                    <a asp-controller="Home" asp-action="Index" class="side-menu @(ViewBag.ActiveMenu == "Home" ? "side-menu--active side-menu--open" : "")">
-                        <div class="side-menu__icon"> <i data-feather="home"></i> </div>
-                        <div class="side-menu__title"> Dashboard </div>
+                    @*<input id="userId" value="@_workContext.CurrentUser.Id" type="hidden"/>*@
+                    <a asp-controller="Home" asp-action="Index" class="menu menu--active">
+                        <div class="menu__icon"> <i data-feather="home"></i> </div>
+                        <div class="menu__title"> Dashboard </div>
                     </a>
                 </li>
-         
+                <li class="menu__devider my-6"></li>
+                <li>
+                    <a class="menu @(ViewBag.ActiveMenu == "Users" ? "menu--active" : "")">
+                        <div class="menu__icon"> <i data-feather="user"></i> </div>
+                        <div class="menu__title"> Users <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                    </a>
+                    <ul class="">
+
+
+                        <li>
+                            <a asp-controller="User" asp-action="UserList" class="menu">
+                                <div class="menu__icon"> <i data-feather="users"></i> </div>
+                                <div class="menu__title"> List </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="UserRole" asp-action="UserRoleList" class="menu">
+                                <div class="menu__icon"> <i data-feather="user-check"></i> </div>
+                                <div class="menu__title"> Roles </div>
+                            </a>
+                        </li>
+                        @*<li>
+                        <a asp-controller="Security" asp-action="Permissions" class="menu">
+                            <div class="menu__icon"> <i data-feather="shield"></i> </div>
+                            <div class="menu__title"> Permissions </div>
+                        </a>
+                    </li>*@
+                    </ul>
+                </li>
+
+
+                <li class="menu__devider my-6"></li>
+                <li>
+                    <a asp-controller="Technician" asp-action="UserList" class="menu @(ViewBag.ActiveMenu == "Technician" ? "menu--active" : "")">
+                        <div class="menu__icon"> <i data-feather="edit"></i> </div>
+                        <div class="menu__title"> Technician </div>
+                    </a>
+
+                </li>
+                <li class="menu__devider my-6"></li>
+                <li>
+                    <a class="menu @(ViewBag.ActiveMenu == "WorkRequest" ? "menu--active" : "")">
+                        <div class="menu__icon"> <i data-feather="briefcase"></i> </div>
+                        <div class="menu__title">  Work Request <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                    </a>
+                    <ul class="">
+
+
+                        <li>
+                            <a asp-controller="WorkRequest" asp-action="List" class="menu">
+                                <div class="menu__icon"> <i data-feather="list"></i> </div>
+                                <div class="menu__title"> List </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="WorkRequest" asp-action="Create" class="menu">
+                                <div class="menu__icon"> <i data-feather="plus"></i> </div>
+                                <div class="menu__title"> Create </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="WorkRequest" asp-action="CreateMultiple" class="menu">
+                                <div class="menu__icon"> <i data-feather="plus"></i> </div>
+                                <div class="menu__title"> Create Multiple </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu__devider my-6"></li>
+                <li>
+                    <a class="menu @(ViewBag.ActiveMenu == "Masters" ? "menu--active" : "")">
+                        <div class="menu__icon"> <i data-feather="briefcase"></i> </div>
+                        <div class="menu__title"> Masters <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
+                    </a>
+                    <ul class="">
+
+
+                        <li>
+                            <a asp-controller="Address" asp-action="List" class="menu">
+                                <div class="menu__icon"> <i data-feather="list"></i> </div>
+                                <div class="menu__title"> Work Location </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="menu__devider my-6"></li>
+                <li>
+                    <a asp-controller="Report" asp-action="List" class="menu @(ViewBag.ActiveMenu == "Report" ? "menu--active" : "")">
+                        <div class="menu__icon"> <i data-feather="file-text"></i> </div>
+                        <div class="menu__title"> Report  </div>
+                    </a>
+                    @*<ul class="">
+
+
+                    <li>
+                        <a asp-controller="Address" asp-action="List" class="menu">
+                            <div class="menu__icon"> <i data-feather="file-text"></i> </div>
+                            <div class="menu__title"> Work Location </div>
+                        </a>
+                    </li>
+
+                </ul>*@
+                </li>
+
             </ul>
+
         </nav>
         <!-- END: Side Menu -->
         <!-- BEGIN: Content -->
@@ -98,13 +204,13 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
                 <!-- END: Breadcrumb -->
                 <!-- BEGIN: Notifications -->
-                <input id="userId" value="@_workContext.CurrentUser.Id" type="hidden" />
+                @*<input id="userId" value="@_workContext.CurrentUser.Id" type="hidden" />*@
                
                 <!-- END: Notifications -->
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
                     <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
-                        @{ string url = _workContext.CurrentUser.ImageURL;}
+                        @*@{ string url = _workContext.CurrentUser.ImageURL;}
                         @if (url != null)
                         {
                             <img src="~/TechnicianProfilePic/@_workContext.CurrentUser.ImageURL">
@@ -112,13 +218,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         else
                         {
                             <img src="~/dist/images/user12.png">
-                        }
+                        }*@
                     </div>
                     <div class="dropdown-box w-56">
                         <div class="dropdown-box__content box bg-theme-38 dark:bg-dark-6 text-white">
                             <div class="p-4  border-theme-40 dark:border-dark-3">
                                 <div class="flex">
-                                    <div class="font-medium mt-1 mr-5 p-1">@_workContext.CurrentUser.UserAddress.FirstName</div>
+                                    @*<div class="font-medium mt-1 mr-5 p-1">@_workContext.CurrentUser.UserAddress.FirstName</div>*@
                                     <a asp-controller="User" asp-action="Logout" class="flex items-center block p-2 ml-6  transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="power" class="w-4 h-4 mr-2"></i> Logout </a>
                                 </div>
                                 <div class="text-xs text-theme-41 dark:text-gray-600 p-1">Frontend Engineer</div>
@@ -136,10 +242,10 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
             <!-- END: Top Bar -->
             <!-- BEGIN: Notifications -->
-            <div class="pt-5">
+            @*<div class="pt-5">
 
                 @await Html.PartialAsync("Notifications")
-            </div>
+            </div>*@
             <!-- END: Notifications -->
             <!-- Render body Start -->
 

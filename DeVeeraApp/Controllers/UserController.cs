@@ -510,6 +510,10 @@ namespace DeVeeraApp.Controllers
            return View(model);
         }
 
+        public IActionResult SignUp()
+        {
+            return View();
+        }
       
         #endregion
 
