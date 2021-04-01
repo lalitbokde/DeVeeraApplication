@@ -99,7 +99,7 @@ namespace DeVeeraApp
 
 
             services.AddMvc();
-
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
         }
 

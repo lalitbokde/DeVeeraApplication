@@ -17,37 +17,51 @@
 
 /*!
  * 
- *     Litepicker v1.5.7 (https://github.com/wakirin/Litepicker)
- *     Package: litepicker (https://www.npmjs.com/package/litepicker)
- *     License: MIT (https://github.com/wakirin/Litepicker/blob/master/LICENCE.md)
- *     Copyright 2019-2020 Rinat G.
+ * litepicker.umd.js
+ * Litepicker v2.0.11 (https://github.com/wakirin/Litepicker)
+ * Package: litepicker (https://www.npmjs.com/package/litepicker)
+ * License: MIT (https://github.com/wakirin/Litepicker/blob/master/LICENCE.md)
+ * Copyright 2019-2021 Rinat G.
  *     
- *     Hash: 85b7ce11883a11b98abb
- *     Generated on: 1592979305748
- *     
+ * Hash: 8991663e2f73caec8a52
+ * 
  */
 
 /*!
- * Chart.js v2.9.3
+ * Chart.js v2.9.4
  * https://www.chartjs.org
- * (c) 2019 Chart.js Contributors
+ * (c) 2020 Chart.js Contributors
  * Released under the MIT License
  */
 
 /*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
-/*!
- * Toastify js 1.9.1
+ * Toastify js 1.9.3
  * https://github.com/apvarun/toastify-js
  * @license MIT licensed
  *
  * Copyright (C) 2018 Varun A P
  */
+
+/*!
+FullCalendar v5.5.0
+Docs & License: https://fullcalendar.io/
+(c) 2020 Adam Shaw
+*/
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
 
 /*! ../../internals/path */
 
@@ -546,17 +560,21 @@
   \*******************************************************************************/
 
 /**
- * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 /**
- * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md.
  */
 
-//! moment.js
+/**!
+* tippy.js v6.2.7
+* (c) 2017-2020 atomiks
+* MIT License
+*/
 
-//! moment.js language configuration
+//! moment.js
 
 //! moment.js locale configuration
