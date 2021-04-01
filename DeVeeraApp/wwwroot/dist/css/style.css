@@ -1,0 +1,259 @@
+﻿@charset "UTF-8";
+
+/*Sign-in Page*/
+@font-face {
+    font-family: 'VTCSundaykomixBoldItalic';
+    src: url("../fonts/VTCSundaykomixBoldItalic/vtcsundaykomixbolditalic.ttf-webfont.woff2") format('woff2'),
+         url("../fonts/VTCSundaykomixBoldItalic/vtcsundaykomixbolditalic.ttf-webfont.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Ellipsoideogram';
+    src: url("../fonts/Ellipsoideogram/ellipsoideogram-webfont.woff2") format('woff2'),
+        url("../fonts/Ellipsoideogram/ellipsoideogram-webfont.woff") format('woff');        ;
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.login:before{
+    background-image:url(../images/DermTech/bg-login-page.svg) !important;    
+}
+.text-dermtech{
+    font-family: 'Ellipsoideogram';
+}
+.text-surgical{
+    font-family: 'VTCSundaykomixBoldItalic';
+}
+.btn-color{
+    background-color:#0071BC !important;
+}
+
+.input[type=checkbox]:not(.input--switch):checked{
+    background-color: #0071BC !important;
+    border-color: #0071BC !important;    
+}
+
+.text-blue{
+    color:#8CC540 !important;
+}
+
+
+@media (max-width: 1279px){
+    .bg-color-mob {
+    background: linear-gradient(to bottom, #0071BC, #0071BC) !important;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+}
+
+.star:after {
+    content: " *";
+    color: red;
+}
+.icon-circle1 {
+    width: 15px;
+    height: 15px;
+    background: #FBC500;
+    border-radius: 50%;
+}
+
+.icon-circle2 {
+    width: 15px;
+    height: 15px;
+    background: #0071BC;
+    border-radius: 50%;
+}
+.icon-circle3 {
+    width: 15px;
+    height: 15px;
+    background: #91C714;
+    border-radius: 50%;
+}
+.icon-circle4 {
+    width: 15px;
+    height: 15px;
+    background: #D32929;
+    border-radius: 50%;
+}
+.icon-circle5 {
+    width: 15px;
+    height: 15px;
+    background: #A0A0A0;
+    border-radius: 50%;
+}
+.icon-circle6 {
+    width: 15px;
+    height: 15px;
+    background: #ff7733;
+    border-radius: 50%;
+}
+.icon-circle7 {
+    width: 15px;
+    height: 15px;
+    background: #545454;
+    border-radius: 50%;
+}
+
+.field-validation-error {
+    color: #D32929;
+    
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #D32929;
+}
+select.input-validation-error {
+    border: 1px solid #D32929;
+}
+.validation-summary-errors {
+    color: #D32929;
+   
+    font-size: 1.1em;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.fc-header-toolbar .btn-primary {
+    text-transform: capitalize !important;
+
+}
+@media(max-width:400px) {
+    .fc-header-toolbar .btn-primary {
+        font-size: 13px;
+    }
+    .NotAssigned {
+        background-color: #FBC500;
+        color: white
+    }
+
+    .Accepted {
+        background-color: #91C714;
+        color: white
+    }
+
+    .Declined {
+        background-color: #D32929;
+        color: white
+    }
+
+    .CancelledByTechnician {
+        background-color: #787878;
+        color: white
+    }
+
+    .CancelledByAdmin {
+        background-color: #787878;
+        color: white
+    }
+
+    .MarkComplete {
+        background-color: #ff7733;
+        color: white
+    }
+}
+@media(max-width:320px) {
+    .fc-header-toolbar .btn-primary {
+        font-size: 11px;
+    }
+    .NotAssigned {
+        background-color: #FBC500;
+        color: white
+    }
+
+    .Accepted {
+        background-color: #91C714;
+        color: white
+    }
+
+    .Declined {
+        background-color: #D32929;
+        color: white
+    }
+
+    .CancelledByTechnician {
+        background-color: #787878;
+        color: white
+    }
+
+    .CancelledByAdmin {
+        background-color: #787878;
+        color: white
+    }
+
+    .MarkComplete {
+        background-color: #ff7733;
+        color: white
+    }
+}
+.bootstrap-datetimepicker-widget table td.disabled {
+    background-color: #545454 !important;
+}
+
+.add_profile_img {
+    margin-top: 80px;
+    margin-left: -20px;
+    color: white;
+
+    background-color: #0e7fe1;
+    border-radius:100%;
+    width:25px;
+    z-index:10;
+
+}
+
+
+#imgPrev {
+   z-index:-10;
+}
+
+.text-theme-base {
+    color:#03a9f4;
+}
+
+
+button[disabled]:hover .tooltiptext {
+    visibility: visible; 
+}
+
+
+.tooltiptext {
+    visibility: hidden;
+    width: 225px;
+    background-color: #E6F3FF;
+    color: #D32929;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    Position: absolute;
+    z-index: 1;
+    margin-top: -60px;
+    margin-left: -220px;
+}
+
+
+.pointer {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

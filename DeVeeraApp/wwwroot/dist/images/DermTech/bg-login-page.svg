@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 6396.2 1170.1" style="enable-background:new 0 0 6396.2 1170.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:#8CC540;}
+	.st2{fill:url(#Union_6_1_);}
+</style>
+<g>
+	<g>
+		<defs>
+			<rect id="SVGID_1_" x="3.7" width="6392.5" height="1170.1"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+		</clipPath>
+		<g class="st0">
+			<g id="Mask_Group_1">
+				<g id="Group_118">
+					<path id="Path_142" class="st1" d="M6364.2-22.1c0,0-222.4,206.2-55.3,640.1c45,116.8,81.5,226.1,84.5,304
+						c8.2,211.5-155.9,294.7-155.9,294.7l-653.3-29.5L5567.9-39L6364.2-22.1z"/>
+					
+						<linearGradient id="Union_6_1_" gradientUnits="userSpaceOnUse" x1="9014.0293" y1="615.946" x2="9014.2646" y2="615.3165" gradientTransform="matrix(6373.21 0 0 -1147.63 -57445464 707296.6875)">
+						<stop  offset="0" style="stop-color:#0071BC"/>
+						<stop  offset="0.26" style="stop-color:#036BBA"/>
+						<stop  offset="0.6" style="stop-color:#0C5BB4"/>
+						<stop  offset="0.99" style="stop-color:#1B40AA"/>
+						<stop  offset="1" style="stop-color:#0071BC"/>
+					</linearGradient>
+					<path id="Union_6" class="st2" d="M5597.6,1173.3v-1.7H0V-7h5597.6l0,0H6357c0,0-187.7,215.4-91.6,533.3
+						c49.2,162.5,96.3,279.6,104.6,395.1c8,110.1-58,220-168.6,277.4c-65.8,34.1-144.5,46.3-222.9,46.3
+						C5787.4,1245.1,5597.6,1173.3,5597.6,1173.3z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

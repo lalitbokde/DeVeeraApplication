@@ -1,0 +1,285 @@
+﻿@inject CRM.Core.IWorkContext _workContext
+<!DOCTYPE html>
+<!--
+Template Name: Midone - HTML Admin Dashboard Template
+Author: Left4code
+Website: http://www.left4code.com/
+Contact: muhammadrizki@left4code.com
+Purchase: https://themeforest.net/user/left4code/portfolio
+Renew Support: https://themeforest.net/user/left4code/portfolio
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<html lang="en" class="light">
+<!-- BEGIN: Head -->
+<head>
+    <meta charset="utf-8">
+
+    <link href="../dist/images/DermTech/logo.svg" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="LEFT4CODE">
+    <title>Dashboard - Dermtech Surgical</title>
+    <!-- BEGIN: CSS Assets-->
+
+    <link rel="stylesheet" href="~/dist/css/app.css" />
+    <link href="~/dist/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/styles/vendor/sweetalert2.min.css">
+    <link href="~/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    @*<link href='../../../fullcalendar/css/fullcalendar.css' rel='stylesheet' />
+        <link href='../../../fullcalendar/css/fullcalendar.print.css' rel='stylesheet' media='print' />*@
+    <link rel="stylesheet" href="~/datetimepicker/css/mdtimepicker.css" />
+    <link rel="stylesheet" href="~/datetimepicker/css/duDatepicker.min.css" />
+    <link href="~/calendar/fullcalendar.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link rel="stylesheet" href="~/calendar/lite-blue.min.css">*@
+    @*<link href="~/dist/css/cssForCalendar.css" rel="stylesheet" />*@
+    @*<link href="mdtimepicker.css" rel="stylesheet" type="text/css">*@
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- END: CSS Assets-->
+</head>
+<!-- END: Head -->
+<body class="app">
+
+    <!-- BEGIN: Mobile Menu -->
+    <div class="mobile-menu md:hidden">
+        <div class="mobile-menu-bar">
+            <a class="flex mr-auto">
+                <img alt="Dermtech Surgical" class="w-6" src="~/dist/images/DermTech/logo.svg">
+            </a>
+            <a id="mobile-menu-toggler"> <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+        </div>
+        <ul class="border-t border-theme-24 py-5 hidden">
+            <li>
+                @*<input id="userId" value="@_workContext.CurrentUser.Id" type="hidden"/>*@
+                <a asp-controller="Home" asp-action="Index" class="menu menu--active">
+                    <div class="menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="menu__title"> Dashboard </div>
+                </a>
+            </li>
+          
+
+
+          
+         
+
+        </ul>
+    </div>
+    <!-- END: Mobile Menu -->
+    <div class="flex">
+        <!-- BEGIN: Side Menu -->
+        <nav class="side-nav">
+            <a class="intro-x flex items-center pt-4">
+                <img alt="Dermtech Surgical" src="~/dist/images/DermTech/logo.png">
+            </a>
+            <div class="side-nav__devider my-6"></div>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index" class="side-menu @(ViewBag.ActiveMenu == "Home" ? "side-menu--active side-menu--open" : "")">
+                        <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                        <div class="side-menu__title"> Dashboard </div>
+                    </a>
+                </li>
+         
+            </ul>
+        </nav>
+        <!-- END: Side Menu -->
+        <!-- BEGIN: Content -->
+        <div class="content">
+            <!-- BEGIN: Top Bar -->
+            <div class="top-bar">
+                <!-- BEGIN: Breadcrumb -->
+                <div class="-intro-x breadcrumb mr-auto hidden sm:flex">
+                    <a href="@ViewBag.Url" class="">@ViewBag.Name</a>
+                    <i data-feather="chevron-right" class="breadcrumb__icon"></i>
+                    <a href="@ViewBag.RedirectUrl" class="breadcrumb--active">@ViewBag.Action</a>
+                </div>
+                <!-- END: Breadcrumb -->
+                <!-- BEGIN: Notifications -->
+                <input id="userId" value="@_workContext.CurrentUser.Id" type="hidden" />
+               
+                <!-- END: Notifications -->
+                <!-- BEGIN: Account Menu -->
+                <div class="intro-x dropdown w-8 h-8">
+                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
+                        @{ string url = _workContext.CurrentUser.ImageURL;}
+                        @if (url != null)
+                        {
+                            <img src="~/TechnicianProfilePic/@_workContext.CurrentUser.ImageURL">
+                        }
+                        else
+                        {
+                            <img src="~/dist/images/user12.png">
+                        }
+                    </div>
+                    <div class="dropdown-box w-56">
+                        <div class="dropdown-box__content box bg-theme-38 dark:bg-dark-6 text-white">
+                            <div class="p-4  border-theme-40 dark:border-dark-3">
+                                <div class="flex">
+                                    <div class="font-medium mt-1 mr-5 p-1">@_workContext.CurrentUser.UserAddress.FirstName</div>
+                                    <a asp-controller="User" asp-action="Logout" class="flex items-center block p-2 ml-6  transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="power" class="w-4 h-4 mr-2"></i> Logout </a>
+                                </div>
+                                <div class="text-xs text-theme-41 dark:text-gray-600 p-1">Frontend Engineer</div>
+
+                                <div class="p-2  border-theme-40 dark:border-dark-3">
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Account Menu -->
+            </div>
+            <!-- END: Top Bar -->
+            <!-- BEGIN: Notifications -->
+            <div class="pt-5">
+
+                @await Html.PartialAsync("Notifications")
+            </div>
+            <!-- END: Notifications -->
+            <!-- Render body Start -->
+
+            @RenderBody()
+
+            <div class="ovalicon hidden">
+                <div class="loader oval " id="loader">
+
+                    <i data-loading-icon="oval" class="w-12 h-12 "></i>
+                </div>
+            </div>
+            <!-- Render body End -->
+
+        </div>
+
+        <!-- END: Content -->
+    </div>
+   
+    <!-- BEGIN: JS Assets-->
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
+    <script src="../../assets/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="../../assets/js/vendor/sweetalert2.min.js"></script>
+    <script src="../../assets/js/vendor/jquery.unobtrusive-ajax.js"></script>
+    <script src="../../dist/js/app.js"></script>
+
+    <script src="~/CustomJs/Delete.js"></script>
+    <script src="~/CustomJs/Common.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+    <script src="../../../calendar/fullcalendar.min.js"></script>
+
+    <script src="../../../datepicker/js/bootstrap-datetimepicker.min.js"></script>
+    @*<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>*@
+    <script src="../../../datetimepicker/js/mdtimepicker.js"></script>
+    <script src="../../../datetimepicker/js/duDatepicker.min.js"></script>
+
+    <script src="~/CustomJs/Common.js"></script>
+    <script src="~/CustomJs/DashboardCalendar.js"></script>
+    <script>window.onload = function () {
+
+            duDatepicker('#date', {
+                format: 'mmmm d, yyyy', range: false, clearBtn: true,
+
+            })
+        }
+
+        $('#time').mdtimepicker();
+
+        //$.material.init()</script>
+    <script type="text/javascript">
+        function padValue(value) {
+            return (value < 10) ? "0" + value : value;
+        }
+
+        $('#calendar').fullCalendar({
+
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+
+
+
+            timeFormat: 'H:mm:A',
+            themeSystem: "bootstrap4",
+            droppable: true,
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            drop: function () {
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+            },
+
+            dayClick: function (date, jsEvent, view) {
+
+                var currentdate = new Date();
+                var sMonth = padValue(currentdate.getMonth() + 1);
+                var sDay = padValue(currentdate.getDate());
+                var sYear = currentdate.getFullYear();
+                var sHour = currentdate.getHours();
+                var sMinute = padValue(currentdate.getMinutes());
+
+                var today = sYear + "-" + sMonth + "-" + sDay;
+
+                var fetchDate = $(this).data("date");
+
+                if (fetchDate >= today) {
+                    window.location.href = "/WorkRequest/Create?Date=" + fetchDate;
+                }
+            }
+
+        });
+
+        AddEvents(@Html.Raw(ViewBag.WorkRequests));
+
+        $('.fc-prev-button').click(function () {
+
+        var b = $('#calendar').fullCalendar('getDate');
+        $('#calendar').fullCalendar('removeEvents');
+        $.post("/Home/GetEvents",
+            {
+                Date: b.format('L'),
+                TechnicianId: $("#TechnicianId").val()
+            },
+            function (data, status) {
+
+                AddEventsMonthwise(data);
+
+            });
+
+    });
+        $('.fc-next-button').click(function () {
+        var b = $('#calendar').fullCalendar('getDate');
+
+        $('#calendar').fullCalendar('removeEvents');
+        $.post("/Home/GetEvents",
+            {
+                Date: b.format('L'),
+                TechnicianId: $("#TechnicianId").val()
+            },
+            function (data, status) {
+                debugger
+                var List = JSON.parse(data);
+
+                 AddEvents(List.CalendarDatas);
+
+            });
+
+
+        });
+
+    </script>
+
+    <!-- END: JS Assets-->
+    <script src="~/signalRLib/signalr.min.js"></script>
+    <script src="~/CustomJs/Notification.js"></script>
+</body>
+</html>
