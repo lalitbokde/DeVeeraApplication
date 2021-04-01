@@ -30,7 +30,7 @@ namespace CRM.Services.Authentication
         /// <summary>
         /// The default value for the login path
         /// </summary>
-        public static readonly PathString LoginPath = new PathString("/User/Login/");
+        public static readonly PathString LoginPath = new PathString("/LandingPage/Index/");
 
         /// <summary>
         /// The default value used for the logout path

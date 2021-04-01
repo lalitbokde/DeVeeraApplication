@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DeVeeraApp.Models;
-using DeVeeraApp.Filters;
 
 namespace DeVeeraApp.Controllers
 {
-    [AuthorizeAdmin]
-    public class HomeController : Controller
+    public class LandingPage : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public LandingPage(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
