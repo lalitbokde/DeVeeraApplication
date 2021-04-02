@@ -527,7 +527,7 @@ namespace DeVeeraApp.Controllers
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 2;
+                user.UserRoleId = 3;
 
                 user.Active = true;
 
@@ -546,7 +546,43 @@ namespace DeVeeraApp.Controllers
                     _Userpasswordservice.InsertUserPassword(password);
                 }
                 _UserService.UpdateUser(user);
-                return RedirectToAction("Login");
+                var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.UserPassword.Password);
+                switch (loginResult)
+                {
+                    case UserLoginResults.Successful:
+                        {
+                            var User = _UserService.GetUserByEmail(model.Email);
+
+                            _authenticationService.SignIn(User,true);
+
+                          
+                                HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
+
+                               
+                                    return RedirectToAction("Index", "Home");
+                                
+                          
+                        }
+                    case UserLoginResults.UserNotExist:
+                        ModelState.AddModelError("", "UserNotExist");
+                        break;
+                    case UserLoginResults.Deleted:
+                        ModelState.AddModelError("", "Deleted");
+                        break;
+                    case UserLoginResults.NotActive:
+                        ModelState.AddModelError("", "NotActive");
+                        break;
+                    case UserLoginResults.NotRegistered:
+                        ModelState.AddModelError("", "NotRegistered");
+                        break;
+                    case UserLoginResults.LockedOut:
+                        ModelState.AddModelError("", "LockedOut");
+                        break;
+                    case UserLoginResults.WrongPassword:
+                    default:
+                        ModelState.AddModelError("", "WrongCredentials");
+                        break;
+                }
             }
             return View(model);
         }
