@@ -25,6 +25,13 @@ namespace DeVeeraApp.ViewModels.User
 
         public string Username { get; set; }
 
+        public Gender GenderType { get; set; }
+        public int Age { get; set; }
+        public string Occupation { get; set; }
+        public Education EducationType { get; set; }
+        public bool IncomeAboveOrBelow80K { get; set; }
+        public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
+
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -168,5 +175,29 @@ namespace DeVeeraApp.ViewModels.User
 
 
 
+    }
+    public enum Gender
+    {
+        Male = 1,
+        Female = 2,
+        Other = 3,
+        DontWantToSay = 4
+    }
+
+    public enum Education
+    {
+        HighSchool = 1,
+        AssociateDegree = 2,
+        Bachelor = 3,
+        Master = 4,
+        Doctorate = 5
+    }
+
+    public enum FamilyOrRelationship
+    {
+        Marriied = 1,
+        Divorced = 2,
+        Separated = 3,
+        Other = 4
     }
 }

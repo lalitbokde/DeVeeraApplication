@@ -21,6 +21,7 @@ using CRM.Core;
 using CRM.Core.Domain.Directory;
 using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
+using DeVeeraApp.ViewModels.UserLogin;
 
 namespace DeVeeraApp.Controllers
 {
@@ -431,7 +432,7 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public virtual IActionResult Login(LoginModel model, string returnUrl, bool captchaValid)
+        public virtual IActionResult Login(DeVeeraApp.ViewModels.User.LoginModel model, string returnUrl, bool captchaValid)
         {
 
             if (ModelState.IsValid)
@@ -449,14 +450,14 @@ namespace DeVeeraApp.Controllers
                             if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
                             {
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
-                             
-                                if (_WorkContextService.CurrentUser.UserRole.Name != "Technician")
+
+                                if (_WorkContextService.CurrentUser.UserRole.Name != "User")
                                 {
                                     return Redirect("/Home/Index");
                                 }
                                 else
                                 {
-                                    return Redirect("/Technician/Index");
+                                    return Redirect("/Home/Index");
                                 }
                             }
                             return Redirect(returnUrl);
@@ -504,17 +505,55 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public virtual IActionResult ForgotPassword()
-        {
-            var model = new LoginModel();
-           return View(model);
-        }
+        //public virtual IActionResult ForgotPassword()
+        //{
+        //    var model = new LoginModel();
+        //   return View(model);
+        //}
 
-        public IActionResult SignUp()
+        public IActionResult Register()
         {
             return View();
         }
-      
+
+        [HttpPost]
+        public IActionResult Register(UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //fill entity from model
+                var user = model.ToEntity<User>();
+                UserPassword password = null;
+                user.UserGuid = Guid.NewGuid();
+                user.CreatedOnUtc = DateTime.UtcNow;
+                user.LastActivityDateUtc = DateTime.UtcNow;
+                user.UserRoleId = 2;
+
+                user.Active = true;
+
+                _UserService.InsertUser(user);
+
+                // password
+                if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
+                {
+
+                    password = new UserPassword
+                    {
+                        UserId = user.Id,
+                        Password = model.UserPassword.Password,
+                        CreatedOnUtc = DateTime.UtcNow,
+                    };
+                    _Userpasswordservice.InsertUserPassword(password);
+                }
+                _UserService.UpdateUser(user);
+                var loginModel = new DeVeeraApp.ViewModels.User.LoginModel();
+                loginModel.Email = user.Email;
+                loginModel.Password = password.Password;
+                return RedirectToAction("Login");
+            }
+            return View(model);
+        }
+
         #endregion
 
 

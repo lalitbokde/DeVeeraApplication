@@ -1,5 +1,6 @@
-﻿@{
-
+﻿
+@inject CRM.Core.IWorkContext _workContext;
+@{ 
     Layout = null;
 }
 <!DOCTYPE html>
@@ -19,12 +20,21 @@
             <div class="container">
                 <div class="site-header-inner">
                     <div class="brand header-brand">
-                        <h1 class="m-0">
-                            <a href="#">
-                                <img class="header-logo-image asset-light" src="~/LandingPage/dist/images/logo-light.svg" alt="Logo">
-                                <img class="header-logo-image asset-dark" src="~/LandingPage/dist/images/logo-dark.svg" alt="Logo">
-                            </a>
-                        </h1>
+
+                        @if (_workContext.CurrentUser != null)
+                        {
+                            <span>Welcom @_workContext.CurrentUser.Email</span>
+                        }
+                        else
+                        {
+                            <h1 class="m-0">
+                                <a href="#">
+                                    <img class="header-logo-image asset-light" src="~/LandingPage/dist/images/logo-light.svg" alt="Logo">
+                                    <img class="header-logo-image asset-dark" src="~/LandingPage/dist/images/logo-dark.svg" alt="Logo">
+                                </a>
+                            </h1>
+
+                        }
                     </div>
                 </div>
             </div>
@@ -66,12 +76,12 @@
                     <div class="features-inner section-inner has-bottom-divider">
                         <div class="features-header text-center">
                             <div class="container-sm">
-                                <h2 class="section-title mt-0">The Product</h2>
+                                <h2 class="section-title mt-0">Happ-e</h2>
                                 <p class="section-paragraph">Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.</p>
                                 <div class="cta-cta">
-                                    <a class="button button-primary" asp-controller="User" asp-action="SignUp" style="background-color: darkmagenta; margin-right: 10px" >Sign Up</a>
+                                    <a class="button button-primary" asp-controller="User" asp-action="Register" style="background-color: darkmagenta; margin-right: 10px">Sign Up</a>
                                     OR
-                                    <a class="button button-primary ml-2" asp-controller="User" asp-action="Login" style=" margin-left: 10px" >Sign In</a>
+                                    <a class="button button-primary ml-2" asp-controller="User" asp-action="Login" style=" margin-left: 10px">Sign In</a>
                                 </div>
                                 <div class="features-image">
                                     <img class="features-illustration asset-dark" src="~/LandingPage/dist/images/features-illustration-dark.svg" alt="Feature illustration">
@@ -137,9 +147,9 @@
 
                             <h2 class="section-title mt-0">Interested?</h2>
                             <div class="cta-cta">
-                                <a class="button button-primary" asp-controller="User" asp-action="SignUp" style="background-color: darkmagenta; margin-right: 10px" >Sign Up</a>
+                                <a class="button button-primary" asp-controller="User" asp-action="Register" style="background-color: darkmagenta; margin-right: 10px">Sign Up</a>
                                 OR
-                                <a class="button button-primary ml-2" asp-controller="User" asp-action="Login" style=" margin-left: 10px" >Sign In</a>
+                                <a class="button button-primary ml-2" asp-controller="User" asp-action="Login" style=" margin-left: 10px">Sign In</a>
                             </div>
 
                         </div>

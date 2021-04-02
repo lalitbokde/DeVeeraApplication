@@ -35,7 +35,6 @@ namespace DeVeeraApp.ViewModels.UserLogin
         [DisplayName("Username")]
         public string Username { get; set; }
 
-
         [DataType(DataType.Password)]
        
         [DisplayName("Account.Fields.Password")]
@@ -115,4 +114,5 @@ namespace DeVeeraApp.ViewModels.UserLogin
 
         
     }
+
 }

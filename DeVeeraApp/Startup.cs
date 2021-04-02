@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CRM.Core;
 using CRM.Core.Domain.Security;
+using CRM.Core.Infrastructure;
 using CRM.Data;
 using CRM.Data.Interfaces;
 using CRM.Services.Authentication;
@@ -14,6 +16,7 @@ using CRM.Services.Helpers;
 using CRM.Services.Security;
 using CRM.Services.Users;
 using DeVeeraApp.Factories;
+using DeVeeraApp.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -101,6 +104,26 @@ namespace DeVeeraApp
             services.AddMvc();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
+            AddAutoMapper(services);
+        }
+
+        protected virtual void AddAutoMapper(IServiceCollection services)
+        {
+            //create and sort instances of mapper configurations
+
+            //create AutoMapper configuration
+            var mappingProfile = new AdminMapperConfiguration();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(mappingProfile);
+                cfg.ValidateInlineMaps = false;
+            });
+
+            //register AutoMapper
+            services.AddAutoMapper();
+
+            //register
+            AutoMapperConfiguration.Init(config);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,6 +139,7 @@ namespace DeVeeraApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -131,6 +155,8 @@ namespace DeVeeraApp
             });
         }
     }
+
+
 
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<dbContextCRM>
     {
