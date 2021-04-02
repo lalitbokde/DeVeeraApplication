@@ -20,23 +20,30 @@
             <div class="container">
                 <div class="site-header-inner">
                     <div class="brand header-brand">
+                        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                            @if (_workContext.CurrentUser != null)
+                            {
+                            <div class="intro-y box p-5 col-span-6">
 
-                        @if (_workContext.CurrentUser != null)
-                        {
-                            <span>Welcom @_workContext.CurrentUser.Email</span>
-                        }
-                        else
-                        {
-                            <h1 class="m-0">
-                                <a href="#">
-                                    <img class="header-logo-image asset-light" src="~/LandingPage/dist/images/logo-light.svg" alt="Logo">
-                                    <img class="header-logo-image asset-dark" src="~/LandingPage/dist/images/logo-dark.svg" alt="Logo">
-                                </a>
-                            </h1>
+                                <span>Welcom @_workContext.CurrentUser.Email</span>  <a asp-controller="User" asp-action="Logout">Logout</a>
+                            </div>
+                              
+                            }
+                            else
+                            {
+                                <h1 class="m-0">
+                                    <a href="#">
+                                        <img class="header-logo-image asset-light" src="~/LandingPage/dist/images/logo-light.svg" alt="Logo">
+                                        <img class="header-logo-image asset-dark" src="~/LandingPage/dist/images/logo-dark.svg" alt="Logo">
+                                    </a>
+                                </h1>
+                            }
 
-                        }
+
+                        </div>
+
+                        </div>
                     </div>
-                </div>
             </div>
         </header>
 

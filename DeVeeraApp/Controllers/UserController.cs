@@ -453,11 +453,11 @@ namespace DeVeeraApp.Controllers
 
                                 if (_WorkContextService.CurrentUser.UserRole.Name != "User")
                                 {
-                                    return Redirect("/Home/Index");
+                                    return RedirectToAction("Index", "Home");
                                 }
                                 else
                                 {
-                                    return Redirect("/Home/Index");
+                                    return RedirectToAction("Index", "Home");
                                 }
                             }
                             return Redirect(returnUrl);
@@ -501,7 +501,7 @@ namespace DeVeeraApp.Controllers
             }
             //delete current cookie value
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(".MarketPlaceCRM.User");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
 
         }
 
@@ -546,9 +546,6 @@ namespace DeVeeraApp.Controllers
                     _Userpasswordservice.InsertUserPassword(password);
                 }
                 _UserService.UpdateUser(user);
-                var loginModel = new DeVeeraApp.ViewModels.User.LoginModel();
-                loginModel.Email = user.Email;
-                loginModel.Password = password.Password;
                 return RedirectToAction("Login");
             }
             return View(model);
