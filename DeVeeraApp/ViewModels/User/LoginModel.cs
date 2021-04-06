@@ -10,12 +10,15 @@ namespace DeVeeraApp.ViewModels.User
     public partial class LoginModel : BaseEntityModel
     {
         [DataType(DataType.EmailAddress)]
+        [Required]
         public string Email { get; set; }
 
         public bool UsernamesEnabled { get; set; }
 
         public string Username { get; set; }
 
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [NotMapped]
         public string ConfirmPassword { get; set; }

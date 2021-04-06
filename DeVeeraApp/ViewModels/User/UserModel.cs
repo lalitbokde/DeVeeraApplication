@@ -25,15 +25,23 @@ namespace DeVeeraApp.ViewModels.User
 
         public string Username { get; set; }
 
+        [Required]
         public Gender GenderType { get; set; }
+
+        [Required]
         public int Age { get; set; }
+
+        [Required]
         public string Occupation { get; set; }
+
+        [Required]
         public Education EducationType { get; set; }
         public bool IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
 
 
         [DataType(DataType.EmailAddress)]
+        [Required]
         public string Email { get; set; }
 
         public string ImageUrl { get; set; }
