@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="">
+ 
+    <div class=" mt-10 lg:mt-0">
+        <div class="intro-x text-8xl font-medium">Lesson @ViewBag.LessonNumber</div>
+        @if (Convert.ToInt32(ViewBag.LessonNumber) == 1)
+        {
+        <div class="intro-x text-lg mt-3"> P Presence: Pen and Paper (Write down your thoughts)</div>
+        <div class="intro-x text-lg mt-3"> A Accept: Stay Relaxed</div>
+        <div class="intro-x text-lg mt-3"> L Let go NEGATIVE emotions.</div>
+        <div class="intro-x text-lg mt-3"> FEAR</div>
+        <div class="intro-x text-lg mt-3"> ANGER</div>
+        <div class="intro-x text-lg mt-3"> LUST</div>
+        <div class="intro-x text-lg mt-3"> SADNESS</div>
+        <div class="intro-x text-lg mt-3"> EGO</div>
+        <br />
+        <div class="intro-x text-lg mt-3">
+            What it the feeling/emotion now?
+        </div>
+        <div class="intro-x text-lg mt-3">
+            Can you let go
+        </div>
+        <div class="intro-x text-lg mt-3"> If you can?</div>
+        <div class="intro-x text-lg mt-3"> If not,</div>
+        <div class="intro-x text-lg mt-3">
+            If you could, would you let go
+        </div>
+        <div class="intro-x text-lg mt-3">
+            When? In a bit?
+        </div>
+        <div class="intro-x text-lg mt-3">
+            Objective: Live in 	VALUE, LOVE AND PEACE/PURPOSE
+        </div>
+        }
+
+        <a asp-controller="home" asp-action="index" class="intro-x btn py-3 px-4 border-white dark:border-dark-5  mt-10">Back to Home</a>
+    </div>
+</div>
