@@ -1,0 +1,13 @@
+﻿body {
+}
+
+.field-validation-error {
+    color: #D32929;
+}
+.validation-summary-errors {
+    color: #D32929;
+}
+.star:after {
+    content: " *";
+    color: #D32929;
+}
