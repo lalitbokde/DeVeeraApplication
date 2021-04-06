@@ -20,11 +20,13 @@ namespace DeVeeraApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(int id, string lesson)
         {
             ViewBag.LessonNumber = id.ToString();
+            ViewBag.lessonName = lesson;
             return View();
         }
+
 
         public IActionResult Privacy()
         {
