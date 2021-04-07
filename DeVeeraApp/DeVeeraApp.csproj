@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
   <ItemGroup>
     <ProjectReference Include="..\CRM.Data\CRM.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
