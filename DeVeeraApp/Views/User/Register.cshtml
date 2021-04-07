@@ -80,22 +80,24 @@
                                         <label class="star text-theme-21">Gender</label>
                                         <div class="flex flex-col sm:flex-row mt-2">
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2">
-                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-chris-evans" name="horizontal_radio_button" value="horizontal-radio-chris-evans">
+                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-chris-evans"  value="@Gender.Male">
                                                 <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Male</label>
                                             </div>
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2">
-                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-chris-evans" name="horizontal_radio_button" value="horizontal-radio-chris-evans">
+                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-chris-evans"  value="@Gender.Female">
                                                 <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Female</label>
                                             </div>
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0">
-                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-liam-neeson" name="horizontal_radio_button" value="horizontal-radio-liam-neeson">
+                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-liam-neeson"  value="@Gender.Other">
                                                 <label class="cursor-pointer select-none" for="horizontal-radio-liam-neeson">Other</label>
                                             </div>
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0">
-                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-daniel-craig" name="horizontal_radio_button" value="horizontal-radio-daniel-craig">
+                                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="horizontal-radio-daniel-craig"  value="@Gender.DontWantToSay">
                                                 <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Don’t want to say</label>
                                             </div>
                                         </div>
+                                        <span asp-validation-for="GenderType" class="text-theme-6 mt-2"></span>
+
                                     </div>
 
 
@@ -113,14 +115,12 @@
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.EducationType" class="input border mr-2" id="horizontal-radio-daniel-craig" value="@Education.Master"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Master</label> </div>
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.EducationType" class="input border mr-2" id="horizontal-radio-daniel-craig" value="@Education.Doctorate"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Doctorate</label> </div>
                                         </div>
-                                        <span asp-validation-for="EducationType" class="text-theme-6 mt-2"></span>
 
                                     </div>
 
                                     <div class="mt-5">
                                         <label for="input-wizard-3" class="form-label text-theme-21 star">Occupation</label>
                                         <input id="input-wizard-3" asp-for="@Model.Occupation" type="text" class="form-control" placeholder="Occupation">
-                                        <span asp-validation-for="Occupation" class="text-theme-6 mt-2"></span>
                                     </div>
                                     <div class="mt-5">
                                         <label for="input-wizard-6" class="form-label text-theme-21">Income above or below $80K</label>
@@ -139,7 +139,6 @@
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2" id="horizontal-radio-daniel-craig" value="@FamilyOrRelationship.Separated"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Separated</label> </div>
                                             <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2" id="horizontal-radio-daniel-craig" value="@FamilyOrRelationship.Other"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Other</label> </div>
                                         </div>
-                                        <span asp-validation-for="FamilyOrRelationshipType" class="text-theme-6 mt-2"></span>
                                     </div>
 
                                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
