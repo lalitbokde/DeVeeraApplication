@@ -28,6 +28,8 @@ namespace DeVeeraApp.Controllers
         }
 
 
+     
+
         public IActionResult Privacy()
         {
             return View();

@@ -25,6 +25,19 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+        public IActionResult ExistingUser()
+        {
+            ViewBag.lessonName = "Happiness";
+            return View();
+        }
+
+        public IActionResult NewUser()
+        {
+            ViewBag.lessonName = "Happiness";
+
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

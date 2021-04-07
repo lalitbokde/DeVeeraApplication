@@ -453,7 +453,7 @@ namespace DeVeeraApp.Controllers
 
                                 if (_WorkContextService.CurrentUser.UserRole.Name != "User")
                                 {
-                                    return RedirectToAction("Index", "Home");
+                                    return RedirectToAction("ExistingUser", "Home");
                                 }
                                 else
                                 {
@@ -559,7 +559,7 @@ namespace DeVeeraApp.Controllers
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
                                
-                                    return RedirectToAction("Index", "Home");
+                                    return RedirectToAction("NewUser", "Home");
                                 
                           
                         }
@@ -587,6 +587,26 @@ namespace DeVeeraApp.Controllers
             return View(model);
         }
 
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public IActionResult ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model)
+        //{
+        //    if(model.Email != null)
+        //    {
+        //        var checkUserEmail = _UserService.GetUserByEmail(model.Email);
+
+        //        if(checkUserEmail != null)
+        //        {
+
+        //        }
+        //    }
+
+        //    return View();
+        //}
         #endregion
 
 

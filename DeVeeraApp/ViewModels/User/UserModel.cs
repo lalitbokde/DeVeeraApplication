@@ -31,10 +31,8 @@ namespace DeVeeraApp.ViewModels.User
         [Required]
         public int Age { get; set; }
 
-        [Required]
         public string Occupation { get; set; }
 
-        [Required]
         public Education EducationType { get; set; }
         public bool IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
