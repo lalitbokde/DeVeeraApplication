@@ -522,7 +522,7 @@ namespace DeVeeraApp.Controllers
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 3;
+                user.UserRoleId = 3 ;
 
                 user.Active = true;
 

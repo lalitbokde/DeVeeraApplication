@@ -1,12 +1,6 @@
 ﻿
 @{
     ViewData["Title"] = "NewUser";
-}
-
-
-
-@{
-    ViewData["Title"] = "ExistingUser";
     Layout = null;
 }
 
@@ -35,39 +29,57 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- END: CSS Assets-->
 </head>
 <!-- END: Head -->
-<body class="app">
-    <div class="container">
-        <!-- BEGIN: Error Page -->
-        <div class="error-page flex flex-col lg:flex-row items-center justify-center h-screen text-center lg:text-left">
-            <div class="intro-y grid grid-cols-12 gap-6 mt-5">
-                <div class="col-span-12 lg:col-span-6">
+<!----<body class="app">
+  <div class="container">
+      <!-- BEGIN: Error Page -->
+<!--<div class="error-page flex flex-col lg:flex-row items-center justify-center h-screen text-center lg:text-left">
+    <div class="intro-y grid grid-cols-12 gap-6 mt-5">
+        <div class="col-span-12 lg:col-span-6">-->
 
-                    @*<img alt="Midone Tailwind HTML Admin Template" class="h-48 lg:h-auto" src="dist/images/error-illustration.svg">*@
-                    @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
-                    <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
-                </div>
+<!--@*<img alt="Midone Tailwind HTML Admin Template" class="h-48 lg:h-auto" src="dist/images/error-illustration.svg">*@
+        
+        </div>
 
-                <div class="col-span-12 lg:col-span-6">
-                    <div class="text-white mt-10 lg:mt-0">
-                        <div class="intro-x text-xl lg:text-3xl font-medium">Hi,</div>
+        <div class="col-span-12 lg:col-span-6">
+            <div class="text-white mt-10 lg:mt-0">
+                <div class="intro-x text-xl lg:text-3xl font-medium">Hi,</div>
 
-                        <div class="intro-x text-xl lg:text-3xl font-medium"> Welcome to the LI (Life Integrated) Happiness Method… Let’s begin our journey to finding happiness</div>
-                        <div class="mt-10">
-                            <a asp-controller="Home" asp-action="Index" class="p-4 intro-x button button--lg border border-white dark:border-dark-5 dark:text-gray-300 mt-10">Go to Dashboard</a>
+                <div class="intro-x text-xl lg:text-3xl font-medium"> Welcome to the LI (Life Integrated) Happiness Method… Let’s begin our journey to finding happiness</div>
+                <div class="mt-10">
+                    <a asp-controller="Home" asp-action="Index" class="p-4 intro-x button button--lg border border-white dark:border-dark-5 dark:text-gray-300 mt-10">Go to Dashboard</a>
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- END: Error Page -->
     </div>
-
-    <!-- BEGIN: JS Assets-->
+</div>-->
+<!-- END: Error Page -->
+<!--</div>-->
+<!-- BEGIN: JS Assets-->
+<!--<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
+<script src="~/dist/js/app.js"></script>-->
+<!-- END: JS Assets-->
+<!--</body>-->
+<body class="main">
+    <div class="container">
+        <div class="error-page flex flex-col lg:flex-row items-center justify-center h-screen text-center lg:text-left">
+            <div class="-intro-x lg:mr-20">
+                @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
+                <video src="@Url.Content(src)" controls style="width:100%; height:400px" loop />
+            </div>
+            <div class="text-white mt-10 lg:mt-0">
+                <div class="intro-x text-8xl font-medium">Hi, Welcome</div>
+                <div class="intro-x text-xl lg:text-3xl font-medium mt-5">to the LI (Life Integrated) Happiness Method… Let’s begin our journey to finding happiness</div>
+                <a asp-controller="Home" asp-action="Index" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Go To Dashboard</a>
+            </div>
+        </div>
+    </div>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
-    <script src="~/dist/js/app.js"></script>
-    <!-- END: JS Assets-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
+    <script src="dist/js/app.js"></script>
+
 </body>
+
 </html>
 

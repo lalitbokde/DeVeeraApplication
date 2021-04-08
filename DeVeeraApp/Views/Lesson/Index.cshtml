@@ -4,94 +4,184 @@
 @{
 }
 
-<div class="">
- 
-    <div class=" mt-10 lg:mt-0">
-        <div class="intro-x mt-10 text-4xl font-medium">Level @ViewBag.LessonNumber</div>
 
-        @if (Convert.ToInt32(ViewBag.LessonNumber) == 1)
-        {
-            <div class="">
-                <div class="intro-y news p-5 box mt-8">
-                    <!-- BEGIN: Blog Layout -->
+
+<div class=" mt-10 lg:mt-0">
+    <div class="intro-x mt-10 text-4xl font-medium">Level @ViewBag.LessonNumber</div>
+
+    @if (Convert.ToInt32(ViewBag.LessonNumber) == 1)
+    {
+
+        <div class="intro-y news p-5 box mt-8">
+            <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
+                <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
                     <h2 class="intro-y font-medium text-xl sm:text-2xl">
                         Training Modules - Basic Emotional Balance
                     </h2>
-                    <div class="intro-y mt-6">
-                        <div class="news__preview image-fit">
-                            @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
-                           <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
-                        </div>
-                    </div>
-                    
-                    <div class="intro-y text-justify leading-relaxed mt-10">
-                        <p class="mb-5"><b>Module 1</b></p>
-                        <p class="mb-5"><b>Presence</b></p>
-                        <p >a.Time</p>
-                        <p >
-                            b.Person
-                        </p>
-                        <p class="mb-5">
-                            b.Person
-                        </p>
-                        <p class="mb-5">
-                            If mind wanders into the future or the past:
-                        </p>
-                        <p>
-                            a. Write your thoughts down. If they are not worth writing then they are not
-                            .
-                        </p>
-                        <p>b. Plan the future you want or align your yourself with purpose</p>
-                        <p >c. Make sure that thoughts are about positive people/events</p>
-                        <p class="mb-5">d. Practice acceptance of future events</p>
-                        <p>Be CEO of your mind</p>
-                        <p>Create the future</p>
-                        <p>
-                            Enjoy the present moment
-                            Off (turn the mind off)
-                        </p>
+                </div>
+                <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
+                    <a asp-controller="home" asp-action="index" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Back to Home</a>
+                </div>
+            </div>
+            <!-- BEGIN: Blog Layout -->
 
 
-                        @*<span>SADNESS</span>
-                        <span>What it the feeling/emotion now?</span>
-                        <span>Can you let go</span>
-                        <span>If you can?</span>
-                        <span>If not,</span>
-                        <span>If you could, would you let go.</span>
-                        <span>When? In a bit?</span>
-                        <spa>Objective: Live in VALUE, LOVE AND PEACE/PURPOSE</spa>*@
-                    </div>
-                  <br /><br /> <hr />
-                    <div class="intro-y text-justify leading-relaxed mt-5">
-                        <p class="mb-5"><b>Module 2</b></p>
-                        <p class="mb-5"><b>Acceptance (Heart)</b></p>
-                        <p class="mb-5">Death</p>
-                        <p class="mb-5">
-                            Accept the fact that life is finite and thus appreciate and celebrate every
-                            day you are alive. Make it count.
-                        </p>
-                        <p class="mb-5">Loss</p>
-                        <p>
-                            Loved ones
-                        </p>
-                        <p>Material possessions (cars, money, etc)</p>
-                        <p>Youth</p>
-                        <p class="mb-5">Health</p>
-
-                        <p class="mb-5">People</p>
-                        <p>
-                            Make a list of 3-5 people that are the hardest to accept. Imagine
-                            interacting with them and practice accepting them as your best teachers.
-                        </p>
-
-                    </div>
-                    
+            <div class="intro-y mt-6">
+                <div class="news__preview image-fit">
+                    @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
+                    <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
                 </div>
             </div>
 
+            <div class="intro-y text-justify leading-relaxed mt-10">
+                <p class="mb-5"><b>Module 1</b></p>
+                <p class="mb-5"><b>Presence</b></p>
+                <p>a.Time</p>
+                <p>
+                    b.Person
+                </p>
+                <p class="mb-5">
+                    b.Person
+                </p>
+                <p class="mb-5">
+                    If mind wanders into the future or the past:
+                </p>
+                <p>
+                    a. Write your thoughts down. If they are not worth writing then they are not
+                    .
+                </p>
+                <p>b. Plan the future you want or align your yourself with purpose</p>
+                <p>c. Make sure that thoughts are about positive people/events</p>
+                <p class="mb-5">d. Practice acceptance of future events</p>
+                <p>Be CEO of your mind</p>
+                <p>Create the future</p>
+                <p>
+                    Enjoy the present moment
+                    Off (turn the mind off)
+                </p>
+            </div>
+            <br /><br /> <hr />
+            <div class="intro-y text-justify leading-relaxed mt-5">
+                <p class="mb-5"><b>Module 2</b></p>
+                <p class="mb-5"><b>Acceptance (Heart)</b></p>
+                <p class="mb-5">Death</p>
+                <p class="mb-5">
+                    Accept the fact that life is finite and thus appreciate and celebrate every
+                    day you are alive. Make it count.
+                </p>
+                <p class="mb-5">Loss</p>
+                <p>
+                    Loved ones
+                </p>
+                <p>Material possessions (cars, money, etc)</p>
+                <p>Youth</p>
+                <p class="mb-5">Health</p>
 
-                        }
+                <p class="mb-5">People</p>
+                <p>
+                    Make a list of 3-5 people that are the hardest to accept. Imagine
+                    interacting with them and practice accepting them as your best teachers.
+                </p>
 
-        <a asp-controller="home" asp-action="index" class="intro-x btn py-3 px-4 border-white dark:border-dark-5  mt-10">Back to Home</a>
-    </div>
-</div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="intro-y news p-5 box mt-8">
+            <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
+                <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
+                    <h2 class="intro-y font-medium text-xl sm:text-2xl">
+                        Training Modules - Life Balance
+                    </h2>
+                </div>
+                <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
+                    <a asp-controller="home" asp-action="index" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Back to Home</a>
+                </div>
+            </div>
+            <!-- BEGIN: Blog Layout -->
+
+
+            <div class="intro-y mt-6">
+                <div class="news__preview image-fit">
+                    @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
+                    <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+                </div>
+            </div>
+
+            <div class="intro-y text-justify leading-relaxed mt-10">
+                <p class="mb-5">
+                    <b>
+                        Module 1 - Determining Predominant Elements - VIDEO questionnaire to determine
+                        dominant element
+                    </b>
+                </p>
+                <p>
+                    Gender
+                </p>
+                <p>Age</p>
+                <p>
+                    Education: high school/associate/bachelor/master/doctorate
+
+
+                </p>
+                <p>
+                    Education: high school/associate/bachelor/master/doctorate
+
+
+                </p>
+                <p class="mb-5">
+                    Family/relationship status <b>(need to add if single or in relationships)</b>
+
+
+                </p>
+                <p class="mb-5">
+                    Hobbies:
+
+                </p>
+                <p class="mb-5">
+                    The most important thing in my life is: rank the following that make you happy (from most to
+                    least important):
+                    Family, Career, Friends, Pets, Nature, Car, Money, Books, Other (state what)
+                </p>
+                <p  class="mb-5">
+                    How organized and neat your room/house:
+                </p>
+                <p>a.Everything is very organized and structured</p>
+                <p> b.Things are organized by their functionality</p>
+                <p>c. Things are somewhat organized</p>
+                <p class="mb-5">d. I am focused on my thoughts and plans to pay attention to insignificant things like that I am thinker, feeler, doer, relaxed and enjoy life, very structured and strict with what I do/want</p>
+              
+                    
+
+               
+                <p class="mb-5">
+                    I exercise and eat to:</p>
+                <p> a.get a perfect health/body,</p>
+                <p> B.be better than others,</p>
+                <p>c.for fun,</p>
+                <p>d.to be with my friends</p>
+                <p class="mb-5">e.have more important things to pay attention to</p>
+                <p class="mb-5">
+                    Classification by element
+                </p>
+                <p> Water - creativity, analysis, thinking</p>
+                <p>Fire - emotions, connection, love</p>
+                <p>Wood - drive, competitiveness, determination</p>
+                <p>Metal - precision, perfection, fearlessness</p>
+                <p class="mb-5">Earth - grounded, safety, ability to enjoy simple things, human connection</p>
+                
+                <p>
+                    Balance the elements that are not strong. Usually we have 1 dominant element and 1-2
+                    secondary elements that determine our personality. The idea is to take the best quality of each
+                    element and balance yourself as much as possible
+                </p>
+            </div>
+
+
+
+            <a asp-controller="home" asp-action="index" class="intro-x btn py-3 px-4 border-white dark:border-dark-5 btn-primary  mt-10">Back to Home</a>
+        </div>
+    }
+

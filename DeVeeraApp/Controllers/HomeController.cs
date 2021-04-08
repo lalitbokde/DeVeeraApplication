@@ -27,13 +27,13 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult ExistingUser()
         {
-            ViewBag.lessonName = "Happiness";
+            ViewBag.lessonName = "03. Practice Presence";
             return View();
         }
 
         public IActionResult NewUser()
         {
-            ViewBag.lessonName = "Happiness";
+            ViewBag.lessonName = "04. Positive Thinking";
 
             return View();
         }
