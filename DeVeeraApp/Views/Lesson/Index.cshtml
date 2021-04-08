@@ -28,7 +28,7 @@
 
             <div class="intro-y mt-6">
                 <div class="news__preview image-fit">
-                    @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
+                    @{string src = $"~/videos/Level1.mp4";}
                     <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
                 </div>
             </div>
@@ -105,7 +105,7 @@
 
             <div class="intro-y mt-6">
                 <div class="news__preview image-fit">
-                    @{string src = $"~/videos/{ViewBag.lessonName}.mp4";}
+                    @{string src = $"~/videos/Level2.mp4";}
                     <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
                 </div>
             </div>
@@ -184,4 +184,4 @@
             <a asp-controller="home" asp-action="index" class="intro-x btn py-3 px-4 border-white dark:border-dark-5 btn-primary  mt-10">Back to Home</a>
         </div>
     }
-
+    </div>
