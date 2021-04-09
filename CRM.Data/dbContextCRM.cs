@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Reflection;
+using CRM.Core.Domain;
 
 namespace CRM.Data
 {
@@ -36,6 +37,9 @@ namespace CRM.Data
         //Security
         public DbSet<PermissionRecord> PermissionRecord { get; set; }
 
+        //Video
+        public DbSet<Video> Videos { get; set; }
+        public DbSet<WeeklyVideo> WeeklyVideos { get; set; }
    
       
 

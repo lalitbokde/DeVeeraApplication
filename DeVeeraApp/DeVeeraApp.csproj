@@ -13,7 +13,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\LandingPage\" />
     <Folder Include="wwwroot\LandingPage\" />
   </ItemGroup>

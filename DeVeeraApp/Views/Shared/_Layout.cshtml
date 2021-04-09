@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject CRM.Core.IWorkContext _workContext
+<!DOCTYPE html>
 <!--
 Template Name: Icewall - HTML Admin Dashboard Template
 Author: Left4code
@@ -20,6 +21,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <title>Dashboard - Icewall - Tailwind HTML Admin Template</title>
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="~/dist/css/app.css" />
+    <link href="~/dist/css/style.css" rel="stylesheet" />
+
     <!-- END: CSS Assets-->
 </head>
 <!-- END: Head -->
@@ -38,8 +41,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="menu__icon"> <i data-feather="home"></i> </div>
                     <div class="menu__title"> Dashboard  </div>
                 </a>
-              
-              
+
+
             </li>
             <li>
                 <a class="menu">
@@ -281,7 +284,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="top-menu__icon"> <i data-feather="home"></i> </div>
                     <div class="top-menu__title"> Dashboard  </div>
                 </a>
-              
+
             </li>
             <li>
                 <a href="javascript:;" class="top-menu">
@@ -309,7 +312,30 @@ License: You must have a valid license purchased only from themeforest(the above
                     </li>
                 </ul>
             </li>
-         
+            @if (_workContext.CurrentUser.UserRole.Name == "Admin")
+            {
+                <li>
+                    <a asp-controller="Home" asp-action="CreateAdminUser" class="top-menu">
+                        <div class="top-menu__icon">  <i data-feather="users" class="mx-auto"></i>  </div>
+                        <div class="top-menu__title"> Create User </div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="UploadVideos" class="top-menu">
+                        <div class="top-menu__icon"> <i data-feather="corner-left-up"></i> </div>
+                        <div class="top-menu__title"> Upload Videos </div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
+                        <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                        <div class="top-menu__title"> Weekly Updates </div>
+                    </a>
+
+                </li>
+
+            }
+
         </ul>
     </nav>
     <!-- END: Top Menu -->
@@ -318,16 +344,19 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="wrapper-box">
             <!-- BEGIN: Content -->
             <div class="content">
-             @RenderBody()
+                @RenderBody()
             </div>
             <!-- END: Content -->
         </div>
     </div>
     <!-- END: Content -->
-  
     <!-- BEGIN: JS Assets-->
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="../../dist/js/app.js"></script>
     <!-- END: JS Assets-->
 </body>
