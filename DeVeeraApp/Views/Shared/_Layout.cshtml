@@ -317,39 +317,47 @@ License: You must have a valid license purchased only from themeforest(the above
                
                 <li>
                     <a href="javascript:;" class="top-menu">
-                        <div class="top-menu__icon"> <i data-feather="users" class="mx-auto"></i> </div>
-                        <div class="top-menu__title"> User Management <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
+                        <div class="top-menu__icon"> <i data-feather="lock" class="mx-auto"></i> </div>
+                        <div class="top-menu__title"> Administration <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
                     <ul class="">
                         <li>
                             <a asp-controller="Home" asp-action="CreateAdminUser" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="box"></i> </div>
-                                <div class="top-menu__title"> Create </div>
+                                <div class="top-menu__icon"> <i data-feather="user"></i> </div>
+                                <div class="top-menu__title"> Create Admin </div>
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Home" asp-action="AdminList" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="box"></i> </div>
-                                <div class="top-menu__title"> User </div>
+                                <div class="top-menu__icon"> <i data-feather="users"></i> </div>
+                                <div class="top-menu__title"> List of Admins </div>
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
                                 <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                <div class="top-menu__title"> Weekly Updates </div>
+                                <div class="top-menu__title"> Registration Quote </div>
                             </a>
 
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                <div class="top-menu__title"> Login Quote </div>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="UploadVideos" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="folder"></i> </div>
+                                <div class="top-menu__title"> Create Level </div>
+                            </a>
                         </li>
 
                     </ul>
                 </li>
 
-                <li>
-                    <a asp-controller="Home" asp-action="UploadVideos" class="top-menu">
-                        <div class="top-menu__icon"> <i data-feather="corner-left-up"></i> </div>
-                        <div class="top-menu__title"> Upload Videos </div>
-                    </a>
-                </li>
+             
                
 
 
@@ -373,9 +381,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+  
     <script src="../../dist/js/app.js"></script>
     <!-- END: JS Assets-->
 </body>

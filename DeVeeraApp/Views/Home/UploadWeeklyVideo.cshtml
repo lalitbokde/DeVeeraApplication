@@ -4,12 +4,12 @@
     ViewData["Title"] = "UploadWeeklyVideo";
 }
 
-<form asp-controller="Home" asp-action="UploadVideos" method="post">
+<form asp-controller="Home" asp-action="Add Weekly Quote" method="post">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
-            <div class="font-medium text-center text-lg">Upload Weekly Videos</div>
-            <div class="text-gray-600 text-center mt-2">Please upload the Video and Quotes.</div>
+            <div class="font-medium text-center text-lg">Add Weekly Quote</div>
+            <div class="text-gray-600 text-center mt-2">Please add quote to show on the weekly quote after user login</div>
         </div>
 
 
@@ -23,75 +23,45 @@
                         </div>
                     }
                     <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">User Name</label>
-                        <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Welcome Back Text</label>
+                        <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="title">
                         <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                     </div>
 
-                    <div class="mt-5">
-                        <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                            <label class="font-label  mr-auto text-theme-21">
-                                Upload Video
-                            </label>
+                    @*<div class="mt-5">
+            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                <label class="font-label  mr-auto text-theme-21">
+                    Upload Video
+                </label>
 
+            </div>
+            <div id="single-file-upload" class="p-5">
+                <div class="preview">
+                    <div data-single="true" action="/file-upload" class="dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" />
                         </div>
-                        <div id="single-file-upload" class="p-5">
-                            <div class="preview">
-                                <div data-single="true" action="/file-upload" class="dropzone">
-                                    <div class="fallback">
-                                        <input name="file" type="file" />
-                                    </div>
-                                    <div class="dz-message" data-dz-message>
-                                        <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                        <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div class="dz-message" data-dz-message>
+                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                            <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
                         </div>
                     </div>
+                </div>
 
+            </div>
+        </div>*@
+
+
+                  
 
                     <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Weekly Quotes</label>
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Weekly Quote Text</label>
                     </div>
-                    <div class="p-5" id="document-editor">
+                    <div class="" id="standard-editor">
                         <div class="preview">
-                            <div data-editor="document" class="editor document-editor">
-                                <div class="document-editor__toolbar"></div>
-                                <div class="document-editor__editable-container">
-                                    <div class="document-editor__editable">
-                                        <textarea type="text" asp-for="WeeklyText" placeholder="Weekly Quotes" />
-                                    </div>
-                                </div>
-                            </div>
+                            <textarea asp-for="WeeklyText" class="editor"> </textarea>
                         </div>
                     </div>
-                    <div class="box">
-                        <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                            <h2 class="font-medium text-base mr-auto">
-                                Standard Editor
-                            </h2>
-                            <div class="w-full sm:w-auto flex items-center sm:ml-auto mt-3 sm:mt-0">
-                                <label class="form-check-label ml-0 sm:ml-2" for="show-example-2">Show example code</label>
-                                <input data-target="#standard-editor" class="show-code form-check-switch mr-0 ml-3" type="checkbox" id="show-example-2">
-                            </div>
-                        </div>
-                        <div class="p-5" id="standard-editor">
-                            <div class="preview">
-                                <div class="editor">
-                                    <p>Content of the editor.</p>
-                                </div>
-                            </div>
-                            <div class="source-code hidden">
-                                <button data-target="#copy-standard-editor" class="copy-code btn py-1 px-2 btn-outline-secondary"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Copy example code </button>
-                                <div class="overflow-y-auto mt-3 rounded-md">
-                                    <pre class="source-preview" id="copy-standard-editor"> <code class="text-xs p-0 rounded-md html pl-5 pt-8 pb-4 -mb-10 -mt-10"> HTMLOpenTagdiv class=&quot;editor&quot;HTMLCloseTag HTMLOpenTagpHTMLCloseTagContent of the editor.HTMLOpenTag/pHTMLCloseTag HTMLOpenTag/divHTMLCloseTag </code> </pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <button type="submit" class="btn btn-primary w-24">Save</button>
