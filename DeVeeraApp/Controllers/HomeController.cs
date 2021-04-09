@@ -41,7 +41,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var data = _videoServices.GetAllVideos();
+            return View(data);
         }
 
         public IActionResult ExistingUser()
@@ -94,7 +95,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(user);
 
 
-                return RedirectToAction("Index");
+                return RedirectToAction("AdminList");
             }
 
             return View(model);
@@ -132,6 +133,12 @@ namespace DeVeeraApp.Controllers
                 _weeklyVideoServices.InsertWeeklyVideo(data);
             }
             return View();
+        }
+
+        public IActionResult AdminList()
+        {
+            var data = _UserService.GetUserByUserRoleId(2);
+            return View(data);
         }
         public IActionResult Privacy()
         {

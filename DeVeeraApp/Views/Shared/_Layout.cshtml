@@ -314,25 +314,44 @@ License: You must have a valid license purchased only from themeforest(the above
             </li>
             @if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {
+               
                 <li>
-                    <a asp-controller="Home" asp-action="CreateAdminUser" class="top-menu">
-                        <div class="top-menu__icon">  <i data-feather="users" class="mx-auto"></i>  </div>
-                        <div class="top-menu__title"> Create User </div>
+                    <a href="javascript:;" class="top-menu">
+                        <div class="top-menu__icon"> <i data-feather="users" class="mx-auto"></i> </div>
+                        <div class="top-menu__title"> User Management <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
+                    <ul class="">
+                        <li>
+                            <a asp-controller="Home" asp-action="CreateAdminUser" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="box"></i> </div>
+                                <div class="top-menu__title"> Create </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="AdminList" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="box"></i> </div>
+                                <div class="top-menu__title"> User </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                <div class="top-menu__title"> Weekly Updates </div>
+                            </a>
+
+                        </li>
+
+                    </ul>
                 </li>
+
                 <li>
                     <a asp-controller="Home" asp-action="UploadVideos" class="top-menu">
                         <div class="top-menu__icon"> <i data-feather="corner-left-up"></i> </div>
                         <div class="top-menu__title"> Upload Videos </div>
                     </a>
                 </li>
-                <li>
-                    <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
-                        <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                        <div class="top-menu__title"> Weekly Updates </div>
-                    </a>
+               
 
-                </li>
 
             }
 

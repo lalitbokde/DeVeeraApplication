@@ -7,16 +7,15 @@
 
 
 <div class=" mt-10 lg:mt-0">
-    <div class="intro-x mt-10 text-4xl font-medium">Level @ViewBag.LessonNumber</div>
+    <div class="intro-x mt-10 text-4xl font-medium">@ViewBag.lessonName</div>
 
-    @if (Convert.ToInt32(ViewBag.LessonNumber) == 1)
-    {
+  
 
         <div class="intro-y news p-5 box mt-8">
             <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
                 <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
                     <h2 class="intro-y font-medium text-xl sm:text-2xl">
-                        Training Modules - Basic Emotional Balance
+                        @ViewBag.lessonName
                     </h2>
                 </div>
                 <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
@@ -86,102 +85,4 @@
             </div>
 
         </div>
-    }
-    else
-    {
-        <div class="intro-y news p-5 box mt-8">
-            <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
-                <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
-                    <h2 class="intro-y font-medium text-xl sm:text-2xl">
-                        Training Modules - Life Balance
-                    </h2>
-                </div>
-                <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
-                    <a asp-controller="home" asp-action="index" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Back to Home</a>
-                </div>
-            </div>
-            <!-- BEGIN: Blog Layout -->
-
-
-            <div class="intro-y mt-6">
-                <div class="news__preview image-fit">
-                    @{string src = $"~/videos/Level2.mp4";}
-                    <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
-                </div>
-            </div>
-
-            <div class="intro-y text-justify leading-relaxed mt-10">
-                <p class="mb-5">
-                    <b>
-                        Module 1 - Determining Predominant Elements - VIDEO questionnaire to determine
-                        dominant element
-                    </b>
-                </p>
-                <p>
-                    Gender
-                </p>
-                <p>Age</p>
-                <p>
-                    Education: high school/associate/bachelor/master/doctorate
-
-
-                </p>
-                <p>
-                    Education: high school/associate/bachelor/master/doctorate
-
-
-                </p>
-                <p class="mb-5">
-                    Family/relationship status <b>(need to add if single or in relationships)</b>
-
-
-                </p>
-                <p class="mb-5">
-                    Hobbies:
-
-                </p>
-                <p class="mb-5">
-                    The most important thing in my life is: rank the following that make you happy (from most to
-                    least important):
-                    Family, Career, Friends, Pets, Nature, Car, Money, Books, Other (state what)
-                </p>
-                <p  class="mb-5">
-                    How organized and neat your room/house:
-                </p>
-                <p>a.Everything is very organized and structured</p>
-                <p> b.Things are organized by their functionality</p>
-                <p>c. Things are somewhat organized</p>
-                <p class="mb-5">d. I am focused on my thoughts and plans to pay attention to insignificant things like that I am thinker, feeler, doer, relaxed and enjoy life, very structured and strict with what I do/want</p>
-              
-                    
-
-               
-                <p class="mb-5">
-                    I exercise and eat to:</p>
-                <p> a.get a perfect health/body,</p>
-                <p> B.be better than others,</p>
-                <p>c.for fun,</p>
-                <p>d.to be with my friends</p>
-                <p class="mb-5">e.have more important things to pay attention to</p>
-                <p class="mb-5">
-                    Classification by element
-                </p>
-                <p> Water - creativity, analysis, thinking</p>
-                <p>Fire - emotions, connection, love</p>
-                <p>Wood - drive, competitiveness, determination</p>
-                <p>Metal - precision, perfection, fearlessness</p>
-                <p class="mb-5">Earth - grounded, safety, ability to enjoy simple things, human connection</p>
-                
-                <p>
-                    Balance the elements that are not strong. Usually we have 1 dominant element and 1-2
-                    secondary elements that determine our personality. The idea is to take the best quality of each
-                    element and balance yourself as much as possible
-                </p>
-            </div>
-
-
-
-            <a asp-controller="home" asp-action="index" class="intro-x btn py-3 px-4 border-white dark:border-dark-5 btn-primary  mt-10">Back to Home</a>
-        </div>
-    }
     </div>
