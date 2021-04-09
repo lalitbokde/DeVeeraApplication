@@ -451,9 +451,17 @@ namespace DeVeeraApp.Controllers
                             {
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                             
+                                if(_WorkContextService.CurrentUser.UserRole.Name == "User")
+                                {
                                     return RedirectToAction("ExistingUser", "Home");
-                               
+
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Index", "Home");
+                                }
+
+
                             }
                             return Redirect(returnUrl);
                         }
@@ -522,7 +530,7 @@ namespace DeVeeraApp.Controllers
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 3 ;
+                user.UserRoleId = 2 ;
 
                 user.Active = true;
 
