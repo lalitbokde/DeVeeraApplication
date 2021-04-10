@@ -1,4 +1,4 @@
-﻿@model List<CRM.Core.Domain.Video>
+﻿@model List<DeVeeraApp.ViewModels.VideoModel>
 <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 xxl:col-span-9">
         <div class="grid grid-cols-12 gap-6">
@@ -21,7 +21,7 @@
                                             <div class="report-box__indicator bg-theme-10 tooltip cursor-pointer" title="33% Higher than last month"> 33% <i data-feather="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
                                         </div>
                                     </div>
-                                    <div class="text-3xl font-bold leading-8 mt-6"><a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-lesson="@item.Title">@item.Title</a></div>
+                                    <div class="text-3xl font-bold leading-8 mt-6"><a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id">@item.Title</a></div>
 
                                 </div>
                             </div>

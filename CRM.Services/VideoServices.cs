@@ -9,13 +9,20 @@ namespace CRM.Services
 {
     public class VideoServices : IVideoServices
     {
+        #region fields
         private readonly IRepository<Video> _videoRepository;
+        #endregion
 
+
+        #region ctor
         public VideoServices(IRepository<Video> addressRepository)
         {
             _videoRepository = addressRepository;
         }
 
+        #endregion
+
+        #region Method
         public void DeleteVideo(Video model)
         {
             if (model == null)
@@ -79,5 +86,7 @@ namespace CRM.Services
 
             _videoRepository.Update(model);
         }
+
+        #endregion
     }
 }

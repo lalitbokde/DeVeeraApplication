@@ -20,29 +20,44 @@ namespace DeVeeraApp.Controllers
     [AuthorizeAdmin]
     public class HomeController : Controller
     {
+        #region fields
+
         private readonly ILogger<HomeController> _logger;
-        private readonly IUserService _UserService;
-        private readonly IUserPasswordService _userPasswordService;
         private readonly IVideoServices _videoServices;
         private readonly IWeeklyVideoServices _weeklyVideoServices;
 
+        #endregion
+
+
+        #region ctor
         public HomeController(ILogger<HomeController> logger,
-                              IUserService UserService,
-                              IUserPasswordService userPasswordService,
                               IVideoServices videoServices,
                               IWeeklyVideoServices weeklyVideoServices)
         {
             _logger = logger;
-            _UserService = UserService;
-            _userPasswordService = userPasswordService;
             _videoServices = videoServices;
             _weeklyVideoServices = weeklyVideoServices;
         }
 
+        #endregion
+
+
+
+        #region Method
         public IActionResult Index()
         {
+            var model = new List<VideoModel>();
             var data = _videoServices.GetAllVideos();
-            return View(data);
+            if(data.Count() != 0)
+            {
+                foreach(var item in data)
+                {
+                    model.Add(item.ToModel<VideoModel>());
+                }
+
+                return View(model);
+            }
+            return View();
         }
 
         public IActionResult ExistingUser()
@@ -57,51 +72,6 @@ namespace DeVeeraApp.Controllers
 
             return View();
         }
-
-        public IActionResult CreateAdminUser()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult CreateAdminUser(UserModel model, bool continueEditing)
-        {
-
-            if (ModelState.IsValid)
-            {
-                //fill entity from model
-                var user = model.ToEntity<User>();
-                UserPassword password = null;
-                user.UserGuid = Guid.NewGuid();
-                user.CreatedOnUtc = DateTime.UtcNow;
-                user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 2;
-                user.Active = true;
-
-                _UserService.InsertUser(user);
-
-                // password
-                if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
-                {
-
-                    password = new UserPassword
-                    {
-                        UserId = user.Id,
-                        Password = model.UserPassword.Password,
-                        CreatedOnUtc = DateTime.UtcNow,
-                    };
-                    _userPasswordService.InsertUserPassword(password);
-                }
-                _UserService.UpdateUser(user);
-
-
-                return RedirectToAction("AdminList");
-            }
-
-            return View(model);
-
-        }
-
 
         public IActionResult UploadVideos()
         {
@@ -134,12 +104,6 @@ namespace DeVeeraApp.Controllers
             }
             return View();
         }
-
-        public IActionResult AdminList()
-        {
-            var data = _UserService.GetUserByUserRoleId(2);
-            return View(data);
-        }
         public IActionResult Privacy()
         {
             return View();
@@ -151,5 +115,6 @@ namespace DeVeeraApp.Controllers
         //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         //}
 
+        #endregion
     }
 }

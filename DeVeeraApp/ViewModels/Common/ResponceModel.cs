@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels.Common
 {
-    public class ResponceModel
+    public class ResponseModel
     {
-        public ResponceModel()
+        public ResponseModel()
         {
             this.ResponseList = new List<SelectListItem>();
         }
