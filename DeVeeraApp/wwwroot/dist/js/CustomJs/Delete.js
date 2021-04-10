@@ -1,0 +1,136 @@
+﻿function ShowDeleteConfirmation(url) {
+    swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#0CC27E',
+        cancelButtonColor: '#FF586B',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonClass: 'btn btn-success mr-5',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false
+    }).then(function () {
+        var codeToExecute = url;
+        var tmpFunc = new Function(codeToExecute);
+        tmpFunc();
+
+    }, function (dismiss) {
+        // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+        if (dismiss === 'cancel') {
+            swal(
+                'Cancelled',
+                'Your file is safe :)',
+                'error'
+            )
+        }
+    })
+}
+
+
+
+
+
+function PostDeleteUser(Id) {
+
+    var jsonData = {
+
+        userId: Id
+
+    };
+    $.post("/Admin/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "User data has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+                        
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "User is in use.",
+                    'error',
+
+                )
+        });
+
+}
+
+
+
+
+function PostDeleteVideo(Id) {
+
+    var jsonData = {
+
+        videoId: Id
+
+    };
+    $.post("/UploadVideo/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "User data has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Video is in use.",
+                    'error',
+
+                )
+        });
+
+}

@@ -7,28 +7,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DeVeeraApp.Models;
 using DeVeeraApp.Filters;
+using CRM.Services;
+using DeVeeraApp.ViewModels;
+using DeVeeraApp.Utils;
+using ErrorViewModel = DeVeeraApp.Models.ErrorViewModel;
 
 namespace DeVeeraApp.Controllers
 {
     [AuthorizeAdmin]
     public class LessonController : Controller
     {
+        #region fields
         private readonly ILogger<LessonController> _logger;
+        private readonly IVideoServices _videoServices;
 
-        public LessonController(ILogger<LessonController> logger)
+        #endregion
+
+
+        #region ctor
+        public LessonController(ILogger<LessonController> logger,
+                                IVideoServices videoServices)
         {
             _logger = logger;
+            _videoServices = videoServices;
         }
 
-        public IActionResult Index(int id, string lesson)
+        #endregion
+
+
+        #region Method
+        public IActionResult Index(int id)
         {
-            ViewBag.LessonNumber = id.ToString();
-            ViewBag.lessonName = lesson;
-            return View();
+          if(id != 0)
+            {
+                var data = _videoServices.GetVideoById(id);
+                var videoData = data.ToModel<VideoModel>();
+                return View(videoData);
+            }
+            return RedirectToAction("Index", "Home");
         }
-
-
-     
 
         public IActionResult Privacy()
         {
@@ -40,5 +57,6 @@ namespace DeVeeraApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #endregion
     }
 }

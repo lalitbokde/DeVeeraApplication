@@ -1,13 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-
-
+﻿@model DeVeeraApp.ViewModels.VideoModel
 <div class=" mt-10 lg:mt-0">
-    <div class="intro-x mt-10 text-4xl font-medium">@ViewBag.lessonName</div>
+    <div class="intro-x mt-10 text-4xl font-medium">@Model.Title</div>
 
   
 
@@ -15,7 +8,7 @@
             <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
                 <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
                     <h2 class="intro-y font-medium text-xl sm:text-2xl">
-                        @ViewBag.lessonName
+                        @Model.Title
                     </h2>
                 </div>
                 <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
@@ -27,7 +20,7 @@
 
             <div class="intro-y mt-6">
                 <div class="news__preview image-fit">
-                    @{string src = $"~/videos/Level1.mp4";}
+                    @{string src = $"~/videos/{Model.Title}.mp4";}
                     <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
                 </div>
             </div>

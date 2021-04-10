@@ -98,9 +98,7 @@ namespace CRM.Services.Users
             if (User == null)
                 throw new ArgumentNullException(nameof(User));
 
-            User.Deleted = true;
-
-            UpdateUser(User);
+            _UserRepository.Delete(User);
 
         }
 

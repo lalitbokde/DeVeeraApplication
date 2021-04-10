@@ -10,14 +10,20 @@ namespace CRM.Services
 {
     public class WeeklyVideoServices : IWeeklyVideoServices
     {
-
+        #region fields
         private readonly IRepository<WeeklyVideo> _weeklyVideoRepository;
 
+        #endregion
+
+        #region ctor
         public WeeklyVideoServices(IRepository<WeeklyVideo> weeklyVideoRepository)
         {
             _weeklyVideoRepository = weeklyVideoRepository;
         }
+        #endregion
 
+
+        #region Methods
         public void DeleteWeeklyVideo(WeeklyVideo model)
         {
             if (model == null)
@@ -81,5 +87,7 @@ namespace CRM.Services
 
             _weeklyVideoRepository.Update(model);
         }
+
+        #endregion
     }
 }
