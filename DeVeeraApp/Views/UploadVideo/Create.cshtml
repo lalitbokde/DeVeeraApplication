@@ -27,6 +27,12 @@
                         <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                     </div>
 
+
+                     <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                        <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="title">
+                        <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                    </div>
                     @*<div class="mt-5">
                             <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
                                 <label class="font-label  mr-auto text-theme-21">

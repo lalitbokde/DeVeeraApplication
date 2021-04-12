@@ -82,7 +82,7 @@ namespace DeVeeraApp
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserModelFactory, UserModelFactory>();
             services.AddScoped<IVideoServices, VideoServices>();
-            services.AddScoped<IWeeklyVideoServices, WeeklyVideoServices>();
+            services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
 
 
             var authenticationBuilder = services.AddAuthentication(options =>

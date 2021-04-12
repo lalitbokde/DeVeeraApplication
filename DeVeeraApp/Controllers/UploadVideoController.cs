@@ -15,7 +15,7 @@ namespace DeVeeraApp.Controllers
     {
         #region fields
 
-        private readonly IWeeklyVideoServices _weeklyVideoServices;
+        private readonly IWeeklyUpdateServices _weeklyVideoServices;
         private readonly IVideoServices _videoServices;
 
 
@@ -23,7 +23,7 @@ namespace DeVeeraApp.Controllers
 
 
         #region ctor
-        public UploadVideoController(IWeeklyVideoServices weeklyVideoServices,
+        public UploadVideoController(IWeeklyUpdateServices weeklyVideoServices,
                                      IVideoServices videoServices)
         {
             _weeklyVideoServices = weeklyVideoServices;
@@ -91,7 +91,7 @@ namespace DeVeeraApp.Controllers
             {
                 var data = model.ToEntity<Video>();
                 _videoServices.UpdateVideo(data);
-                return RedirectToAction("List");
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }

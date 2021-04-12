@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels
 {
-    public class VideoModel : BaseEntityModel
+    public class WeeklyUpdateModel : BaseEntityModel
     {
         [Required]
         public string Title { get; set; }
@@ -14,6 +14,16 @@ namespace DeVeeraApp.ViewModels
         public string Subtitle { get; set; }
         public string VideoURL { get; set; }
         [Required]
-        public string FullDescription { get; set; }
+        public string WeeklyText { get; set; }
+        [Required]
+        public Quote QuoteType { get; set; }
+        public bool IsActive { get; set; } = false;
     }
+
+    public enum Quote
+    {
+        Login = 1,
+        Registration = 2
+    }
+
 }

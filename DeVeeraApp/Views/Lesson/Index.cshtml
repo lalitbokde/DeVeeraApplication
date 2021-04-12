@@ -1,81 +1,43 @@
 ﻿@model DeVeeraApp.ViewModels.VideoModel
+@inject CRM.Core.IWorkContext _workContext
+
 <div class=" mt-10 lg:mt-0">
     <div class="intro-x mt-10 text-4xl font-medium">@Model.Title</div>
 
-  
-
-        <div class="intro-y news p-5 box mt-8">
-            <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
-                <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
-                    <h2 class="intro-y font-medium text-xl sm:text-2xl">
-                        @Model.Title
-                    </h2>
-                </div>
-                <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
-                    <a asp-controller="home" asp-action="index" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Back to Home</a>
-                </div>
-            </div>
-            <!-- BEGIN: Blog Layout -->
 
 
-            <div class="intro-y mt-6">
-                <div class="news__preview image-fit">
-                    @{string src = $"~/videos/{Model.Title}.mp4";}
-                    <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
-                </div>
+    <div class="intro-y news p-5 box mt-8">
+        <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
+                <h2 class="intro-y font-medium text-xl sm:text-2xl">
+                    @Model.Subtitle
+                </h2>
             </div>
 
-            <div class="intro-y text-justify leading-relaxed mt-10">
-                <p class="mb-5"><b>Module 1</b></p>
-                <p class="mb-5"><b>Presence</b></p>
-                <p>a.Time</p>
-                <p>
-                    b.Person
-                </p>
-                <p class="mb-5">
-                    b.Person
-                </p>
-                <p class="mb-5">
-                    If mind wanders into the future or the past:
-                </p>
-                <p>
-                    a. Write your thoughts down. If they are not worth writing then they are not
-                    .
-                </p>
-                <p>b. Plan the future you want or align your yourself with purpose</p>
-                <p>c. Make sure that thoughts are about positive people/events</p>
-                <p class="mb-5">d. Practice acceptance of future events</p>
-                <p>Be CEO of your mind</p>
-                <p>Create the future</p>
-                <p>
-                    Enjoy the present moment
-                    Off (turn the mind off)
-                </p>
-            </div>
-            <br /><br /> <hr />
-            <div class="intro-y text-justify leading-relaxed mt-5">
-                <p class="mb-5"><b>Module 2</b></p>
-                <p class="mb-5"><b>Acceptance (Heart)</b></p>
-                <p class="mb-5">Death</p>
-                <p class="mb-5">
-                    Accept the fact that life is finite and thus appreciate and celebrate every
-                    day you are alive. Make it count.
-                </p>
-                <p class="mb-5">Loss</p>
-                <p>
-                    Loved ones
-                </p>
-                <p>Material possessions (cars, money, etc)</p>
-                <p>Youth</p>
-                <p class="mb-5">Health</p>
+            <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
 
-                <p class="mb-5">People</p>
-                <p>
-                    Make a list of 3-5 people that are the hardest to accept. Imagine
-                    interacting with them and practice accepting them as your best teachers.
-                </p>
+                @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
+                {
+                    <a asp-controller="UploadVideo" asp-action="Edit" asp-route-id="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
+                }
 
+                <a asp-controller="home" asp-action="index" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Back to Home</a>
             </div>
 
         </div>
+        <!-- BEGIN: Blog Layout -->
+
+
+        <div class="intro-y mt-6">
+            <div class="news__preview image-fit">
+                @{string src = $"~/videos/{Model.Title}.mp4";}
+                <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+            </div>
+        </div>
+
+        <div class="intro-y text-justify leading-relaxed mt-10">
+            @Html.Raw(Model.FullDescription)
+        </div>
+
     </div>
+</div>

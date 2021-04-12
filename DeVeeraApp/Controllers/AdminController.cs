@@ -31,6 +31,7 @@ namespace DeVeeraApp.Controllers
 
         #region Methods
 
+
         public IActionResult Index()
         {
             return View();

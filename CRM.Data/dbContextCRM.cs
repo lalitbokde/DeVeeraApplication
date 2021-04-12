@@ -39,8 +39,9 @@ namespace CRM.Data
 
         //Video
         public DbSet<Video> Videos { get; set; }
-        public DbSet<WeeklyVideo> WeeklyVideos { get; set; }
    
+        //Quote
+        public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

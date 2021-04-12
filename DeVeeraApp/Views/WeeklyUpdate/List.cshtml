@@ -1,4 +1,4 @@
-﻿@model List<DeVeeraApp.ViewModels.VideoModel>
+﻿@model List<DeVeeraApp.ViewModels.WeeklyUpdateModel>
 @{
     ViewData["Title"] = "List";
 }
@@ -6,7 +6,7 @@
 <div class="intro-y  py-10 sm:py-20 ">
 
     <div class="px-5 ">
-        <div class="font-medium text-center text-lg"> Video List</div>
+        <div class="font-medium text-center text-lg"> Quote List</div>
     </div>
 
 
@@ -22,9 +22,11 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Subtitle</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">IsActive</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">QuoteType</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
                                         </tr>
@@ -36,8 +38,10 @@
                                                 <td class="border-b dark:border-dark-5">@item.Id</td>
                                                 <td class="border-b dark:border-dark-5">@item.Title</td>
                                                 <td class="border-b dark:border-dark-5">@item.Subtitle</td>
-                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="UploadVideo" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteVideo(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                <td class="border-b dark:border-dark-5">@item.IsActive</td>
+                                                <td class="border-b dark:border-dark-5">@item.QuoteType</td>
+                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="WeeklyUpdate" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                             </tr>
 
                                         }

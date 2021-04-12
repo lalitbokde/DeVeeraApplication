@@ -24,7 +24,7 @@ namespace DeVeeraApp.Controllers
 
         private readonly ILogger<HomeController> _logger;
         private readonly IVideoServices _videoServices;
-        private readonly IWeeklyVideoServices _weeklyVideoServices;
+        private readonly IWeeklyUpdateServices _weeklyUpdateServices;
 
         #endregion
 
@@ -32,11 +32,11 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public HomeController(ILogger<HomeController> logger,
                               IVideoServices videoServices,
-                              IWeeklyVideoServices weeklyVideoServices)
+                              IWeeklyUpdateServices weeklyUpdateServices)
         {
             _logger = logger;
             _videoServices = videoServices;
-            _weeklyVideoServices = weeklyVideoServices;
+            _weeklyUpdateServices = weeklyUpdateServices;
         }
 
         #endregion
@@ -60,50 +60,34 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
-        public IActionResult ExistingUser()
+        public IActionResult ExistingUser(int QuoteType)
         {
-            ViewBag.lessonName = "03. Practice Presence";
-            return View();
-        }
-
-        public IActionResult NewUser()
-        {
-            ViewBag.lessonName = "04. Positive Thinking";
-
-            return View();
-        }
-
-        public IActionResult UploadVideos()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult UploadVideos(VideoModel model)
-        {
-            if (ModelState.IsValid)
+            if (QuoteType != 0)
             {
-                var data = model.ToEntity<Video>();
-                _videoServices.InsertVideo(data);
+               var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
+
+                var model = data.ToModel<WeeklyUpdateModel>();
+                return View(model);
+
             }
+
             return View();
         }
 
-        public IActionResult UploadWeeklyVideo()
+        public IActionResult NewUser(int QuoteType)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult UploadWeeklyVideo(WeeklyVideoModel model)
-        {
-            if (ModelState.IsValid)
+            if (QuoteType != 0)
             {
-                var data = model.ToEntity<WeeklyVideo>();
-                _weeklyVideoServices.InsertWeeklyVideo(data);
+                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
+
+                var model = data.ToModel<WeeklyUpdateModel>();
+                return View(model);
+
             }
+
             return View();
         }
+
         public IActionResult Privacy()
         {
             return View();
