@@ -22,6 +22,7 @@ using CRM.Core.Domain.Directory;
 using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.UserLogin;
+using DeVeeraApp.ViewModels;
 
 namespace DeVeeraApp.Controllers
 {
@@ -453,7 +454,7 @@ namespace DeVeeraApp.Controllers
 
                                 if(_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("ExistingUser", "Home");
+                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login });
 
                                 }
                                 else
@@ -530,7 +531,7 @@ namespace DeVeeraApp.Controllers
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 2 ;
+                user.UserRoleId = 1 ;
 
                 user.Active = true;
 
@@ -562,7 +563,7 @@ namespace DeVeeraApp.Controllers
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
                                
-                                    return RedirectToAction("NewUser", "Home");
+                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
                                 
                           
                         }

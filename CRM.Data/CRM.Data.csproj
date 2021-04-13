@@ -15,6 +15,12 @@
     <Compile Include="Migrations\20210401133626_InitialCreate.Designer.cs" />
     <Compile Include="Migrations\20210409111620_VideoANDWeeklyVideoAdded.cs" />
     <Compile Include="Migrations\20210409111620_VideoANDWeeklyVideoAdded.Designer.cs" />
+    <Compile Include="Migrations\20210412074135_AddedWeeklyUpdate.cs" />
+    <Compile Include="Migrations\20210412074135_AddedWeeklyUpdate.Designer.cs" />
+    <Compile Include="Migrations\20210412103945_AddedWeeklyUpdateActiveColumn.cs" />
+    <Compile Include="Migrations\20210412103945_AddedWeeklyUpdateActiveColumn.Designer.cs" />
+    <Compile Include="Migrations\20210412105921_AddedVideo_SubTitleColumn.cs" />
+    <Compile Include="Migrations\20210412105921_AddedVideo_SubTitleColumn.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 

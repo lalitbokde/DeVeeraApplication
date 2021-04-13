@@ -134,3 +134,57 @@ function PostDeleteVideo(Id) {
         });
 
 }
+
+
+
+
+
+function PostDeleteQuote(Id) {
+
+    var jsonData = {
+
+        id: Id
+
+    };
+    $.post("/WeeklyUpdate/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "Quote data has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Quote is in use.",
+                    'error',
+
+                )
+        });
+
+}

@@ -1,4 +1,5 @@
 ﻿@inject CRM.Core.IWorkContext _workContext
+@using DeVeeraApp.ViewModels
 <!DOCTYPE html>
 <!--
 Template Name: Icewall - HTML Admin Dashboard Template
@@ -323,30 +324,73 @@ License: You must have a valid license purchased only from themeforest(the above
                     </a>
                     <ul class="">
                         <li>
-                            <a asp-controller="Admin" asp-action="Create" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="user"></i> </div>
-                                <div class="top-menu__title"> Create Admin </div>
+                            <a href="javascript:;" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="folder"></i> </div>
+                                <div class="top-menu__title"> Admin </div>
                             </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Admin" asp-action="List" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="users"></i> </div>
-                                <div class="top-menu__title"> List of Admins </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                <div class="top-menu__title"> Registration Quote </div>
-                            </a>
+                            <ul>
+                                <li>
+                                    <a asp-controller="Admin" asp-action="Create" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-feather="user"></i>  </div>
+                                        <div class="top-menu__title"> Create </div>
+                                    </a>
+                                </li>
 
+                                <li>
+                                    <a asp-controller="Admin" asp-action="List" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-feather="users"></i> </div>
+                                        <div class="top-menu__title"> List </div>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a asp-controller="Home" asp-action="UploadWeeklyVideo" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                <div class="top-menu__title"> Login Quote </div>
+                            <a href="javascript:;" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="folder"></i> </div>
+                                <div class="top-menu__title"> Quote </div>
                             </a>
-
+                            <ul>
+                                <li>
+                                    <a href="javascript:;" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-feather="folder"></i> </div>
+                                        <div class="top-menu__title"> Registration Quote </div>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Registration" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                                <div class="top-menu__title"> Create </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@Quote.Registration" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                                <div class="top-menu__title"> List </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-feather="folder"></i> </div>
+                                        <div class="top-menu__title"> Login Quote </div>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Login" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                                <div class="top-menu__title"> Create </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@Quote.Login" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                                <div class="top-menu__title"> List </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="javascript:;" class="top-menu">
