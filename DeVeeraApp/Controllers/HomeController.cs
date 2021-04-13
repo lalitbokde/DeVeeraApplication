@@ -93,6 +93,11 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+
+        public IActionResult UnderDevelopment()
+        {
+            return View();
+        }
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()
         //{

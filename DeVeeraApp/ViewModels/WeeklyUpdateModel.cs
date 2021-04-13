@@ -13,8 +13,8 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public string Subtitle { get; set; }
         public string VideoURL { get; set; }
-        [Required]
-        public string WeeklyText { get; set; }
+        public string VideoName { get; set; }
+
         [Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;

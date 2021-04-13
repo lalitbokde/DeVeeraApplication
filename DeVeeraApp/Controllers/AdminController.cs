@@ -80,16 +80,17 @@ namespace DeVeeraApp.Controllers
             return View(model);
 
         }
-        public IActionResult List()
+        public IActionResult List(int roleId)
         {
             var model = new List<UserModel>();
-            var data = _UserService.GetUserByUserRoleId(2);
+            var data = _UserService.GetUserByUserRoleId(roleId);
             if(data.Count() != 0)
             {
                 foreach (var item in data)
                 {
                     model.Add(item.ToModel<UserModel>());
                 }
+                ViewBag.RoleId = roleId;
             return View(model);
 
             }

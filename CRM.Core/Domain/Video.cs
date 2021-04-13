@@ -9,6 +9,7 @@ namespace CRM.Core.Domain
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public string VideoURL { get; set; }
+        public string VideoName { get; set; }
         public string FullDescription { get; set; }
     }
 }
