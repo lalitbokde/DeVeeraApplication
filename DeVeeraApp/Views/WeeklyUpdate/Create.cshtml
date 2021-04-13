@@ -11,7 +11,7 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Add Weekly Quote</div>
+                <div class="font-medium text-center text-lg">After Login Quote</div>
                 <div class="text-gray-600 text-center mt-2">Please add quote to show on the weekly quote after user login</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -30,19 +30,19 @@
                         </div>
 
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Welcome Back Subtitle</label>
-                            <input asp-for="Subtitle" type="text" class="form-control" placeholder="title" />
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
 
-                        </div>
 
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">IsActive</label>
                             <input asp-for="IsActive" type="checkbox" />
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Active</label>
                             <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
 
                         </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Video Name</label>
+                            <input asp-for="VideoName" type="text" class="form-control" placeholder="video name" />
+                        </div>
+
                         @*<div class="mt-5">
             <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
                 <label class="font-label  mr-auto text-theme-21">
@@ -71,8 +71,8 @@
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Weekly Quote Text</label>
-                            <textarea asp-for="WeeklyText" type="text" class="form-control" placeholder="title"></textarea>
-                            <span asp-validation-for="WeeklyText" class="text-theme-6 mt-2"></span>
+                            <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="title"></textarea>
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
                         </div>
 
 
@@ -90,7 +90,7 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Add Weekly Quote</div>
+                <div class="font-medium text-center text-lg">After Registration Quote</div>
                 <div class="text-gray-600 text-center mt-2">Please add quote to show on the weekly quote after user Registration</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -110,50 +110,47 @@
 
 
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">After Registration Subtitle</label>
-                            <input asp-for="Subtitle" type="text" class="form-control" placeholder="title"/>
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
-
-                        </div>
-
-                          <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">IsActive</label>
-                            <input asp-for="IsActive" type="checkbox"  />
+                            <input asp-for="IsActive" type="checkbox" />
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Active</label>
                             <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
 
                         </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Video Name</label>
+                            <input asp-for="VideoName" type="text" class="form-control" placeholder="video name" />
+                        </div>
                         @*<div class="mt-5">
-                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                                <label class="font-label  mr-auto text-theme-21">
-                                    Upload Video
-                                </label>
+            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                <label class="font-label  mr-auto text-theme-21">
+                    Upload Video
+                </label>
 
-                            </div>
-                            <div id="single-file-upload" class="p-5">
-                                <div class="preview">
-                                    <div data-single="true" action="/file-upload" class="dropzone">
-                                        <div class="fallback">
-                                            <input name="file" type="file" />
-                                        </div>
-                                        <div class="dz-message" data-dz-message>
-                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                            <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
-                                        </div>
-                                    </div>
-                                </div>
+            </div>
+            <div id="single-file-upload" class="p-5">
+                <div class="preview">
+                    <div data-single="true" action="/file-upload" class="dropzone">
+                        <div class="fallback">
+                            <input name="file" type="file" />
+                        </div>
+                        <div class="dz-message" data-dz-message>
+                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                            <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+                        </div>
+                    </div>
+                </div>
 
-                            </div>
-                        </div>*@
+            </div>
+        </div>*@
 
 
 
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star"> Quote Text</label>
-                            <textarea asp-for="WeeklyText" type="text" class="form-control" placeholder="title" ></textarea>
-                            <span asp-validation-for="WeeklyText" class="text-theme-6 mt-2"></span>
+                            <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="title"></textarea>
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
                         </div>
-                     
+
 
                         <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                             <button type="submit" class="btn btn-primary w-24">Save</button>

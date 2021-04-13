@@ -79,7 +79,6 @@ namespace DeVeeraApp.Controllers
                 //val = model.ToEntity<WeeklyUpdate>();
                 val.Title = model.Title;
                 val.Subtitle = model.Subtitle;
-                val.WeeklyText = model.WeeklyText;
                 val.IsActive = model.IsActive;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 return RedirectToAction("List");

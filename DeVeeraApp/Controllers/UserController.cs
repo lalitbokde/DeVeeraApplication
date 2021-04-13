@@ -525,13 +525,14 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 //fill entity from model
                 var user = model.ToEntity<User>();
                 UserPassword password = null;
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 1 ;
+                user.UserRoleId = model.UserRoleId;
 
                 user.Active = true;
 

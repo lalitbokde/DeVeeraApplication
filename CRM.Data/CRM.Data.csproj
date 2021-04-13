@@ -21,6 +21,12 @@
     <Compile Include="Migrations\20210412103945_AddedWeeklyUpdateActiveColumn.Designer.cs" />
     <Compile Include="Migrations\20210412105921_AddedVideo_SubTitleColumn.cs" />
     <Compile Include="Migrations\20210412105921_AddedVideo_SubTitleColumn.Designer.cs" />
+    <Compile Include="Migrations\20210413090811_RemoveWeeklyText.cs" />
+    <Compile Include="Migrations\20210413090811_RemoveWeeklyText.Designer.cs" />
+    <Compile Include="Migrations\20210413092408_AddedVideoNameColumn.cs" />
+    <Compile Include="Migrations\20210413092408_AddedVideoNameColumn.Designer.cs" />
+    <Compile Include="Migrations\20210413113428_AddedVideoNameColumnName.cs" />
+    <Compile Include="Migrations\20210413113428_AddedVideoNameColumnName.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
