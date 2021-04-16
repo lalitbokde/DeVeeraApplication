@@ -1,6 +1,7 @@
 ﻿using CRM.Core.Domain.Users;
 using CRM.Services.Users;
 using DeVeeraApp.Utils;
+using DeVeeraApp.ViewModels.Admin;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UserModel model)
+        public IActionResult Create(CreateAdminModel model)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +75,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(user);
 
 
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Admin", new { roleId = user.UserRoleId });
             }
 
             return View(model);
@@ -105,7 +106,7 @@ namespace DeVeeraApp.Controllers
 
                 if(data != null)
                 {
-                    var userdata = data.ToModel<UserModel>();
+                    var userdata = data.ToModel<CreateAdminModel>();
                     return View(userdata);
                 }
 
@@ -146,7 +147,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(user);
 
 
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Admin", new { roleId = user.UserRoleId });
             }
 
             return View(model);

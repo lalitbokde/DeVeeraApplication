@@ -597,6 +597,21 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+
+        public IActionResult UserProfile(int userId)
+        {
+            if(userId != 0)
+            {
+                var userData = _UserService.GetUserById(userId);
+                var model = userData.ToModel<UserModel>();
+                return View(model);
+
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
         //[HttpPost]
         //public IActionResult ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model)
         //{

@@ -80,6 +80,7 @@ namespace DeVeeraApp.Controllers
                 val.Title = model.Title;
                 val.Subtitle = model.Subtitle;
                 val.IsActive = model.IsActive;
+                val.VideoURL = model.VideoURL;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 return RedirectToAction("List");
             }

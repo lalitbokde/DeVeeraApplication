@@ -118,7 +118,7 @@ function PostDeleteVideo(Id) {
                         buttonsStyling: false
                     }).then(function () {
 
-                        window.location.reload();
+                        window.location.href = "/Home/Index"
 
                     })
                 }
