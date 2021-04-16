@@ -8,10 +8,15 @@ namespace DeVeeraApp.ViewModels
 {
     public class DashboardQuoteModel:BaseEntityModel
     {
+        public DashboardQuoteModel()
+        {
+            VideoModelList = new List<VideoModel>();
+        }
         [Required]
         public string Title { get; set; }
         [Required]
         public string Author { get; set; }
         public bool IsActive { get; set; } 
+        public IList<VideoModel> VideoModelList { get; set; }
     }
 }

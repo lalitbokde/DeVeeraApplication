@@ -1,4 +1,4 @@
-﻿@model List<DeVeeraApp.ViewModels.VideoModel>
+﻿@model DeVeeraApp.ViewModels.DashboardQuoteModel
 <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 xxl:col-span-9">
         <div class="grid grid-cols-12 gap-6">
@@ -6,11 +6,11 @@
             <div class="col-span-12 mt-8">
 
                 <div class="intro-y flex items-center h-10">
-                <h2 class="text-lg font-medium truncate mr-5"> Remember, happiness is a way of travel, not a destination” <a class="text-theme-21 dark:text-theme-10" href="">– Roy Goodman.</a></h2>
+                <h2 class="text-lg font-medium truncate mr-5"> @Model.Title <a class="text-theme-21 dark:text-theme-10" href="">– @Model.Author</a></h2>
                     <a href="" class="ml-auto flex text-theme-26 dark:text-theme-33"> <i data-feather="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
                 </div>
                 <div class="grid grid-cols-12 gap-6 mt-5">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.VideoModelList)
                     {
                         <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                             <div class="report-box zoom-in">
