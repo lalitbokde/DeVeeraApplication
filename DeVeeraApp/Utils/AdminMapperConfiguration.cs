@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using CRM.Core.Domain;
 using CRM.Core.Domain.Common;
 using CRM.Core.Domain.Users;
 using DeVeeraApp.Model.Common;
+using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.User;
 
 
@@ -46,7 +48,8 @@ namespace DeVeeraApp.Utils
         ;
 
 
-          
+            CreateMap<DashboardQuote, DashboardQuoteModel>()
+               .ForMember(dest => dest.VideoModelList, mo => mo.Ignore());
 
 
 
