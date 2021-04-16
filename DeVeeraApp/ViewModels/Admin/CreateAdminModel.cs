@@ -18,6 +18,8 @@ namespace DeVeeraApp.ViewModels.Admin
         public string Occupation { get; set; }
         public int UserRoleId { get; set; }
         public Gender GenderType { get; set; }
-       
-    }
+
+        //public CRM.Core.Domain.Users.UserRole UserRole { get; set; }
+
+}
 }

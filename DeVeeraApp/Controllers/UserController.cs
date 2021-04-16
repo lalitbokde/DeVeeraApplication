@@ -630,6 +630,7 @@ namespace DeVeeraApp.Controllers
                     User.EducationType = (CRM.Core.Domain.Users.Education)model.GenderType;
                     User.FamilyOrRelationshipType=(CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
                     _UserService.UpdateUser(User);
+                    model = User.ToModel<UserModel>();
                     return View(model);
                 }
              
