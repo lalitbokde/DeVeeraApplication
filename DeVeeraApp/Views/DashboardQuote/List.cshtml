@@ -41,7 +41,7 @@
                                                 <td class="border-b dark:border-dark-5">@item.Author</td>
                                                 <td class="border-b dark:border-dark-5">@item.IsActive</td>
                                                 <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="DashboardQuote" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteDashboardQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                             </tr>
 
                                         }
@@ -62,5 +62,5 @@
 
     </div>
 </div>
-
+<script src="~/dist/js/CustomJs/Delete.js"></script>
 

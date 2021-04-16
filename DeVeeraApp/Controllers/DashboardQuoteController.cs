@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CRM.Services.DashboardQuotes;
+using DeVeeraApp.ViewModels.Common;
 
 namespace DeVeeraApp.Controllers
 {
@@ -52,7 +53,7 @@ namespace DeVeeraApp.Controllers
             {
                 var quote = model.ToEntity<DashboardQuote>();
                 _dashboardQuoteService.InsertDashboardQutoe(quote);
-                return RedirectToAction("Create");
+                return RedirectToAction("List");
             }
             return View();
         }
@@ -88,6 +89,31 @@ namespace DeVeeraApp.Controllers
                 return RedirectToAction("List");
             }
             return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (id != 0)
+            {
+                var Data = _dashboardQuoteService.GetDashboardQutoeById(id);
+                if (Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No Data found";
+                }
+                _dashboardQuoteService.DeleteDashboardQuote(Data);
+
+                response.Success = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "No Data found";
+
+            }
+            return Json(response);
         }
 
         #endregion

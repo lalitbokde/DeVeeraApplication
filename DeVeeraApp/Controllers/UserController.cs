@@ -416,10 +416,6 @@ namespace DeVeeraApp.Controllers
 
         }
 
-    
-   
-
-
         #endregion
 
         #region UserLogin
@@ -525,68 +521,76 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                //fill entity from model
-                var user = model.ToEntity<User>();
-                UserPassword password = null;
-                user.UserGuid = Guid.NewGuid();
-                user.CreatedOnUtc = DateTime.UtcNow;
-                user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = model.UserRoleId;
-
-                user.Active = true;
-
-                _UserService.InsertUser(user);
-
-                // password
-                if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
+                //validate unique user
+                if (_UserService.GetUserByEmail(model.Email) == null)
                 {
+                    //fill entity from model
+                    var user = model.ToEntity<User>();
+                    UserPassword password = null;
+                    user.UserGuid = Guid.NewGuid();
+                    user.CreatedOnUtc = DateTime.UtcNow;
+                    user.LastActivityDateUtc = DateTime.UtcNow;
+                    user.UserRoleId = model.UserRoleId;
 
-                    password = new UserPassword
+                    user.Active = true;
+
+                    _UserService.InsertUser(user);
+
+                    // password
+                    if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
                     {
-                        UserId = user.Id,
-                        Password = model.UserPassword.Password,
-                        CreatedOnUtc = DateTime.UtcNow,
-                    };
-                    _Userpasswordservice.InsertUserPassword(password);
-                }
-                _UserService.UpdateUser(user);
-                var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.UserPassword.Password);
-                switch (loginResult)
-                {
-                    case UserLoginResults.Successful:
+
+                        password = new UserPassword
                         {
-                            var User = _UserService.GetUserByEmail(model.Email);
+                            UserId = user.Id,
+                            Password = model.UserPassword.Password,
+                            CreatedOnUtc = DateTime.UtcNow,
+                        };
+                        _Userpasswordservice.InsertUserPassword(password);
+                    }
+                    _UserService.UpdateUser(user);
+                    var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.UserPassword.Password);
+                    switch (loginResult)
+                    {
+                        case UserLoginResults.Successful:
+                            {
+                                var User = _UserService.GetUserByEmail(model.Email);
 
-                            _authenticationService.SignIn(User,true);
+                                _authenticationService.SignIn(User, true);
 
-                          
+
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                               
-                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
-                                
-                          
-                        }
-                    case UserLoginResults.UserNotExist:
-                        ModelState.AddModelError("", "UserNotExist");
-                        break;
-                    case UserLoginResults.Deleted:
-                        ModelState.AddModelError("", "Deleted");
-                        break;
-                    case UserLoginResults.NotActive:
-                        ModelState.AddModelError("", "NotActive");
-                        break;
-                    case UserLoginResults.NotRegistered:
-                        ModelState.AddModelError("", "NotRegistered");
-                        break;
-                    case UserLoginResults.LockedOut:
-                        ModelState.AddModelError("", "LockedOut");
-                        break;
-                    case UserLoginResults.WrongPassword:
-                    default:
-                        ModelState.AddModelError("", "WrongCredentials");
-                        break;
+
+                                return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
+
+
+                            }
+                        case UserLoginResults.UserNotExist:
+                            ModelState.AddModelError("", "UserNotExist");
+                            break;
+                        case UserLoginResults.Deleted:
+                            ModelState.AddModelError("", "Deleted");
+                            break;
+                        case UserLoginResults.NotActive:
+                            ModelState.AddModelError("", "NotActive");
+                            break;
+                        case UserLoginResults.NotRegistered:
+                            ModelState.AddModelError("", "NotRegistered");
+                            break;
+                        case UserLoginResults.LockedOut:
+                            ModelState.AddModelError("", "LockedOut");
+                            break;
+                        case UserLoginResults.WrongPassword:
+                        default:
+                            ModelState.AddModelError("", "WrongCredentials");
+                            break;
+                    }
+
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Email Already Exists");
                 }
             }
             return View(model);
@@ -610,6 +614,28 @@ namespace DeVeeraApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public IActionResult UserProfile(UserModel model)
+        {
+            var User = _UserService.GetUserById(model.Id);
+
+            if (ModelState.IsValid)
+            {
+                if (User != null )
+                {
+                    User.Username = model.Username;
+                    User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
+                    User.Age = model.Age;
+                    User.Occupation = model.Occupation;
+                    User.EducationType = (CRM.Core.Domain.Users.Education)model.GenderType;
+                    User.FamilyOrRelationshipType=(CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
+                    _UserService.UpdateUser(User);
+                    return View(model);
+                }
+             
+            }
+                return View(model);
+        }
 
 
         //[HttpPost]
