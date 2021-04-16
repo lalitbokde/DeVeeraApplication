@@ -68,6 +68,23 @@ namespace CRM.Services.DashboardQuotes
         }
 
 
+        public void InActiveAllDashboardQuotes()
+        {
+          var datalist =  _dashboardQuoteRepository.Table.Where(val => val.IsActive == true).ToList();
+
+            if(datalist.Count() != 0)
+            {
+                foreach (var item in datalist)
+                {
+                    item.IsActive = false;
+
+                    _dashboardQuoteRepository.Update(item);
+                }
+
+            }
+
+        }
+
         #endregion
     }
 }
