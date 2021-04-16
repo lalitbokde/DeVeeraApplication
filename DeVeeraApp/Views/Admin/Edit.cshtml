@@ -1,4 +1,4 @@
-﻿@model DeVeeraApp.ViewModels.User.UserModel
+﻿@model DeVeeraApp.ViewModels.Admin.CreateAdminModel
 @using DeVeeraApp.ViewModels.User
 @{
     ViewData["Title"] = "Edit";
@@ -32,37 +32,6 @@
                         <label for="input-wizard-3" class="form-label text-theme-21 star">Password</label>
                         <input id="input-wizard-3" asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="password">
                         <span asp-validation-for="UserPassword.Password" class="text-theme-6 mt-2"></span>
-                    </div>
-
-                    <div class="mt-5">
-                        <label class="star text-theme-21">Gender</label>
-                        <div class="flex flex-col sm:flex-row mt-2">
-                            <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2">
-                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="male" value="@Gender.Male">
-                                <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Male</label>
-                            </div>
-                            <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2">
-                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="female" value="@Gender.Female">
-                                <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Female</label>
-                            </div>
-                            <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0">
-                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="other" value="@Gender.Other">
-                                <label class="cursor-pointer select-none" for="horizontal-radio-liam-neeson">Other</label>
-                            </div>
-                            <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0">
-                                <input type="radio" asp-for="@Model.GenderType" class="input border mr-2" id="dontWantToSay" value="@Gender.DontWantToSay">
-                                <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Don’t want to say</label>
-                            </div>
-                        </div>
-                        <span asp-validation-for="GenderType" class="text-theme-6 mt-2"></span>
-
-                    </div>
-
-
-                    <div class="mt-5">
-                        <label for="input-wizard-2" class="form-label text-theme-21 star">Age</label>
-                        <input id="input-wizard-2" asp-for="@Model.Age" type="number" class="form-control" min="0" placeholder="your age">
-                        <span asp-validation-for="Age" class="text-theme-6 mt-2"></span>
                     </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <button type="submit" class="btn btn-primary w-24">Save</button>

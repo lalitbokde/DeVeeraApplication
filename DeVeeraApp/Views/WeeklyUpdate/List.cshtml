@@ -16,7 +16,7 @@
 
         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
             <div class="intro-y box p-5 col-span-12">
-                <div class="intro-y box">
+                <div class="intro-y ">
 
                     <div class="p-5" id="basic-table">
                         <div class="preview">
@@ -27,6 +27,7 @@
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Subtitle</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video URL</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">IsActive</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">QuoteType</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
@@ -40,6 +41,7 @@
                                                 <td class="border-b dark:border-dark-5">@item.Id</td>
                                                 <td class="border-b dark:border-dark-5">@item.Title</td>
                                                 <td class="border-b dark:border-dark-5">@item.Subtitle</td>
+                                                <td class="border-b dark:border-dark-5">@item.VideoURL</td>
                                                 <td class="border-b dark:border-dark-5">@item.IsActive</td>
                                                 <td class="border-b dark:border-dark-5">@item.QuoteType</td>
                                                 <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="WeeklyUpdate" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
