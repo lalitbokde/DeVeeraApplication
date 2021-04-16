@@ -52,8 +52,8 @@ namespace DeVeeraApp.Controllers
         {
             var model = new DashboardQuoteModel();
             var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a=>a.IsActive==true).FirstOrDefault();
-            model.Title = quote.Title;
-            model.Author = quote.Author;
+            model.Title = quote !=null ? quote.Title : "";
+            model.Author =quote != null ? quote.Author : "";
 
             var data = _videoServices.GetAllVideos();
             if(data.Count() != 0)

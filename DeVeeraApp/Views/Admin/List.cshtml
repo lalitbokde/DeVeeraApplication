@@ -83,18 +83,23 @@
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Gender</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Age</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Occupation</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap"></th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var item in Model)
                                             {
-                                                <tr>
-                                                    <td class="border-b dark:border-dark-5">@item.Id</td>
-                                                    <td class="border-b dark:border-dark-5">@item.Email</td>
-                                                    <td class="border-b dark:border-dark-5">@item.GenderType</td>
-                                                    <td class="border-b dark:border-dark-5">@item.Age</td>
-                                                    <td class="border-b dark:border-dark-5">@item.Occupation</td>
-                                                </tr>
+                                            <tr>
+                               
+                                                <td class="border-b dark:border-dark-5">@item.Id</td>
+                                                <td class="border-b dark:border-dark-5">@item.Email</td>
+                                                <td class="border-b dark:border-dark-5">@item.GenderType</td>
+                                                <td class="border-b dark:border-dark-5">@item.Age</td>
+                                                <td class="border-b dark:border-dark-5">@item.Occupation</td>
+                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Admin" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="eye"></i></a></td>
+
+                                            </tr>
 
                                             }
                                         </tbody>
