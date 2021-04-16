@@ -42,7 +42,8 @@ namespace CRM.Data
    
         //Quote
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
-      
+        public DbSet<DashboardQuote> DashboardQuote { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
