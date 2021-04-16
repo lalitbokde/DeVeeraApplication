@@ -19,7 +19,7 @@
                 </div>
                 <div class="ml-4 mr-auto">
                     <div class="font-medium text-base">@Model.Email</div>
-                    <div class="text-gray-600">DevOps Engineer</div>
+                    <div class="text-gray-600">@Model.UserRole.Name</div>
                 </div>
                 @*<div class="dropdown">
                     <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i> </a>
@@ -112,7 +112,7 @@
                                             <div>
                                                 <label class="form-label">User Name</label>
                                                 <input asp-for="Id" hidden />
-                                                <input asp-for="Email" type="text" class="form-control" placeholder="User Name">
+                                                <input asp-for="Email" type="text" class="form-control" placeholder="User Name" readonly>
                                                 <span asp-validation-for="Email" class="text-theme-6 mt-2"></span>
                                             </div>
                                             <div class="mt-3">
