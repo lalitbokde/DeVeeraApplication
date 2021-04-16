@@ -27,8 +27,13 @@
     <Compile Include="Migrations\20210413092408_AddedVideoNameColumn.Designer.cs" />
     <Compile Include="Migrations\20210413113428_AddedVideoNameColumnName.cs" />
     <Compile Include="Migrations\20210413113428_AddedVideoNameColumnName.Designer.cs" />
+
     <Compile Include="Migrations\20210416090744_AddedQuoteColumnVideoTable.cs" />
     <Compile Include="Migrations\20210416090744_AddedQuoteColumnVideoTable.Designer.cs" />
+
+    <Compile Include="Migrations\20210416083016_DashboardQuote.cs" />
+    <Compile Include="Migrations\20210416083016_DashboardQuote.Designer.cs" />
+
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
