@@ -12,6 +12,7 @@ using CRM.Data.Interfaces;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Common;
+using CRM.Services.DashboardQuotes;
 using CRM.Services.Directory;
 using CRM.Services.Helpers;
 using CRM.Services.Security;
@@ -83,7 +84,7 @@ namespace DeVeeraApp
             services.AddScoped<IUserModelFactory, UserModelFactory>();
             services.AddScoped<IVideoServices, VideoServices>();
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
-
+            services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
 
             var authenticationBuilder = services.AddAuthentication(options =>
             {
