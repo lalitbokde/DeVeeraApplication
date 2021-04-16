@@ -14,6 +14,7 @@ using CRM.Services.Users;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
 using CRM.Core.Domain;
+using CRM.Services.DashboardQuotes;
 
 namespace DeVeeraApp.Controllers
 {
@@ -25,6 +26,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IVideoServices _videoServices;
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
+        private readonly IDashboardQuoteService _dashboardQuoteService;
 
         #endregion
 
@@ -32,11 +34,13 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public HomeController(ILogger<HomeController> logger,
                               IVideoServices videoServices,
-                              IWeeklyUpdateServices weeklyUpdateServices)
+                              IWeeklyUpdateServices weeklyUpdateServices,
+                              IDashboardQuoteService dashboardQuoteService)
         {
             _logger = logger;
             _videoServices = videoServices;
             _weeklyUpdateServices = weeklyUpdateServices;
+            _dashboardQuoteService = dashboardQuoteService;
         }
 
         #endregion
@@ -46,13 +50,17 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
-            var model = new List<VideoModel>();
+            var model = new DashboardQuoteModel();
+            var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a=>a.IsActive==true).FirstOrDefault();
+            model.Title = quote.Title;
+            model.Author = quote.Author;
+
             var data = _videoServices.GetAllVideos();
             if(data.Count() != 0)
             {
                 foreach(var item in data)
                 {
-                    model.Add(item.ToModel<VideoModel>());
+                    model.VideoModelList.Add(item.ToModel<VideoModel>());
                 }
 
                 return View(model);
