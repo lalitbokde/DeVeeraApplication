@@ -45,7 +45,7 @@ namespace DeVeeraApp.Controllers
 
                 var data = model.ToEntity<WeeklyUpdate>();
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
-                return RedirectToAction("List");
+                return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
             return View();
         }
@@ -82,15 +82,15 @@ namespace DeVeeraApp.Controllers
                 val.IsActive = model.IsActive;
                 val.VideoURL = model.VideoURL;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
-                return RedirectToAction("List");
+                return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
             return View();
         }
 
-        public IActionResult List()
+        public IActionResult List(int typeId)
         {
             var model = new List<WeeklyUpdateModel>();
-            var data = _weeklyUpdateServices.GetAllWeeklyUpdates();
+            var data = _weeklyUpdateServices.GetWeeklyUpdatesByQuoteType(typeId);
             if (data.Count() != 0)
             {
                 foreach (var item in data)

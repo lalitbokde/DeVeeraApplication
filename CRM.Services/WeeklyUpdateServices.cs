@@ -40,7 +40,6 @@ namespace CRM.Services
             var warehouses = query.ToList();
             return warehouses;
         }
-
         public WeeklyUpdate GetWeeklyUpdateById(int videoId)
         {
             if (videoId == 0)
@@ -116,6 +115,18 @@ namespace CRM.Services
 
         }
 
+
+
+        public IList<WeeklyUpdate>GetWeeklyUpdatesByQuoteType(int typeId)
+        {
+            if (typeId == 0)
+                throw new ArgumentNullException(nameof(typeId));
+
+            var data = _weeklyUpdateRepository.Table.Where(q => Convert.ToInt32(q.QuoteType) == typeId).ToList();
+
+            return data;
+
+        }
         #endregion
     }
 }

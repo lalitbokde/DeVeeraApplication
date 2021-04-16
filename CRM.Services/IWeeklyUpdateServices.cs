@@ -27,6 +27,8 @@ namespace CRM.Services
 
         void InActiveAllActiveQuotes(int quoteTypeId);
         WeeklyUpdate GetWeeklyUpdateByQuoteType(int typeId);
+        IList<WeeklyUpdate> GetWeeklyUpdatesByQuoteType(int typeId);
+
 
     }
 }

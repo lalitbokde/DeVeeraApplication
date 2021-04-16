@@ -24,57 +24,32 @@
                             </div>
                         }
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Welcome Back Text</label>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                             <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="title">
                             <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                         </div>
 
 
-
-
                         <div class="mt-5">
-                            <input asp-for="IsActive" type="checkbox" />
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Active</label>
-                            <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
-
-                        </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21">Video URL</label>
-                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
-                        </div>
-
-                        @*<div class="mt-5">
-            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                <label class="font-label  mr-auto text-theme-21">
-                    Upload Video
-                </label>
-
-            </div>
-            <div id="single-file-upload" class="p-5">
-                <div class="preview">
-                    <div data-single="true" action="/file-upload" class="dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" />
-                        </div>
-                        <div class="dz-message" data-dz-message>
-                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                            <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>*@
-
-
-
-
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Weekly Quote Text</label>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
                             <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="title"></textarea>
                             <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
                         </div>
 
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
+                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
+                            <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
+                        </div>
+
+
+
+                        <div class="mt-5">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Active</label>
+                            <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
+
+                        </div>
 
                         <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                             <button type="submit" class="btn btn-primary w-24">Save</button>
@@ -103,54 +78,26 @@
                             </div>
                         }
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">After Registration Text</label>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                             <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="title">
                             <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                         </div>
-
-
                         <div class="mt-5">
-                            <input asp-for="IsActive" type="checkbox" />
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Active</label>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                            <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="quote text"></textarea>
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
+                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="videoUrl" />
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                        </div>
+                        <div class="mt-5">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Active</label>
                             <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
 
                         </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21">Video URL</label>
-                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
-                        </div>
-                        @*<div class="mt-5">
-            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                <label class="font-label  mr-auto text-theme-21">
-                    Upload Video
-                </label>
-
-            </div>
-            <div id="single-file-upload" class="p-5">
-                <div class="preview">
-                    <div data-single="true" action="/file-upload" class="dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" />
-                        </div>
-                        <div class="dz-message" data-dz-message>
-                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                            <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>*@
-
-
-
-
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star"> Quote Text</label>
-                            <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="title"></textarea>
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
-                        </div>
-
 
                         <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                             <button type="submit" class="btn btn-primary w-24">Save</button>
