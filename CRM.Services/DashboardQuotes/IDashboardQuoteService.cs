@@ -12,5 +12,6 @@ namespace CRM.Services.DashboardQuotes
         DashboardQuote GetDashboardQutoeById(int quoteId);
         void InsertDashboardQutoe(DashboardQuote quote);
         void UpdateDashboardQutoe(DashboardQuote quote);
+        void InActiveAllDashboardQuotes();
     }
 }

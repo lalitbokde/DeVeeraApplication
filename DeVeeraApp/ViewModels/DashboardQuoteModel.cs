@@ -12,6 +12,6 @@ namespace DeVeeraApp.ViewModels
         public string Title { get; set; }
         [Required]
         public string Author { get; set; }
-        public bool IsActive { get; set; } 
+        public bool IsActive { get; set; } = false;
     }
 }

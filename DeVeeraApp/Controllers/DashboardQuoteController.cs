@@ -51,6 +51,8 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                _dashboardQuoteService.InActiveAllDashboardQuotes();
+
                 var quote = model.ToEntity<DashboardQuote>();
                 _dashboardQuoteService.InsertDashboardQutoe(quote);
                 return RedirectToAction("List");
@@ -80,7 +82,7 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
-              
+                _dashboardQuoteService.InActiveAllDashboardQuotes();
                 var quote = _dashboardQuoteService.GetDashboardQutoeById(model.Id);
                 quote.Title = model.Title;
                 quote.Author = model.Author;
