@@ -32,8 +32,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN: Mobile Menu -->
     <div class="mobile-menu md:hidden">
         <div class="mobile-menu-bar">
-            <a href="" class="flex mr-auto">
-                <img alt="Icewall Tailwind HTML Admin Template" class="w-6" src="~/dist/images/logo.svg">
+            <a href="" class="-intro-x hidden md:flex">
+                <img alt="Icewall Tailwind HTML Admin Template" class="w-20" src="/dist/images/Asset 1.png">
+
             </a>
             <a href="javascript:;" id="mobile-menu-toggler"> <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
         </div>
@@ -181,10 +182,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="h-full flex items-center">
             <!-- BEGIN: Logo -->
             <a href="" class="-intro-x hidden md:flex">
-                <img alt="Icewall Tailwind HTML Admin Template" class="w-6" src="~/dist/images/logo.svg">
-                <span class="text-white text-lg ml-3"> Ice<span class="font-medium">wall</span> </span>
-            </a>
-            <!-- END: Logo -->
+                <img alt="Icewall Tailwind HTML Admin Template" class="w-20" src="/dist/images/Asset 1.png">
+
+            </a>            <!-- END: Logo -->
             <!-- BEGIN: Breadcrumb -->
             <div class="-intro-x breadcrumb mr-auto"> <a href="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a href="" class="breadcrumb--active">Dashboard</a> </div>
             <!-- END: Breadcrumb -->
@@ -360,11 +360,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="dropdown-menu__content box bg-theme-11 dark:bg-dark-6 text-white">
                         <div class="p-4 border-b border-theme-12 dark:border-dark-3">
                             <div class="font-medium">@_workContext.CurrentUser.Email</div>
-                            <div class="text-xs text-theme-13 mt-0.5 dark:text-gray-600">Backend Engineer</div>
+                            <div class="text-xs text-theme-13 mt-0.5 dark:text-gray-600">@_workContext.CurrentUser.UserRole.Name</div>
                         </div>
                         <div class="p-2">
                             <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
-                            <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="edit" class="w-4 h-4 mr-2"></i> Add Account </a>
                             <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
                             <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
                         </div>
@@ -425,20 +424,20 @@ License: You must have a valid license purchased only from themeforest(the above
                     <ul class="">
                         <li>
                             <a href="javascript:;" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="folder" class="mx-auto"></i> </div>
+                                <div class="top-menu__icon"> <i data-feather="user" class="mx-auto"></i> </div>
                                 <div class="top-menu__title"> Admin <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                             </a>
                             <ul>
                                 <li>
                                     <a asp-controller="Admin" asp-action="Create" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-feather="user"></i>  </div>
+                                        <div class="top-menu__icon"> <i data-feather="user-plus"></i>  </div>
                                         <div class="top-menu__title"> Create </div>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a asp-controller="Admin" asp-action="List" asp-route-roleId="2" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-feather="users"></i> </div>
+                                        <div class="top-menu__icon"> <i data-feather="list"></i> </div>
                                         <div class="top-menu__title"> List </div>
                                     </a>
                                 </li>
@@ -446,25 +445,25 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
                         <li>
                             <a href="javascript:;" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="folder" class="mx-auto"></i> </div>
+                                <div class="top-menu__icon"> <i data-feather="edit-2" class="mx-auto"></i> </div>
                                 <div class="top-menu__title"> Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                             </a>
                             <ul>
                                 <li>
                                     <a href="javascript:;" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-feather="folder"></i> </div>
+                                        <div class="top-menu__icon"> <i data-feather="edit-3"></i> </div>
                                         <div class="top-menu__title"> Registration Quote<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                     </a>
                                     <ul>
                                         <li>
-                                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Registration" class="top-menu">
+                                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Registration)" class="top-menu">
                                                 <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
                                                 <div class="top-menu__title"> Create </div>
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@Quote.Registration" class="top-menu">
-                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                            <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Registration)" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="list"></i> </div>
                                                 <div class="top-menu__title"> List </div>
                                             </a>
                                         </li>
@@ -472,19 +471,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </li>
                                 <li>
                                     <a href="javascript:;" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-feather="folder" class="mx-auto"></i> </div>
+                                        <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
                                         <div class="top-menu__title"> Login Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                     </a>
                                     <ul>
                                         <li>
-                                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Login" class="top-menu">
+                                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Login)" class="top-menu">
                                                 <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
                                                 <div class="top-menu__title"> Create </div>
                                             </a>
                                         </li>
                                         <li>
-                                            <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@Quote.Login" class="top-menu">
-                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                            <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Login)" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="list"></i> </div>
                                                 <div class="top-menu__title"> List </div>
                                             </a>
                                         </li>

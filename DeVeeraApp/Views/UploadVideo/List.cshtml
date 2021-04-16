@@ -26,6 +26,7 @@
                                         <tr>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Quote</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Subtitle</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video URL</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
@@ -38,6 +39,7 @@
                                             <tr>
                                                 <td class="border-b dark:border-dark-5">@item.Id</td>
                                                 <td class="border-b dark:border-dark-5">@item.Title</td>
+                                                <td class="border-b dark:border-dark-5">@item.Quote</td>
                                                 <td class="border-b dark:border-dark-5">@item.Subtitle</td>
                                                 <td class="border-b dark:border-dark-5">@item.VideoURL</td>
                                                 <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="UploadVideo" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
