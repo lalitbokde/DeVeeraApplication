@@ -11,11 +11,14 @@ using CRM.Services;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.Utils;
 using ErrorViewModel = DeVeeraApp.Models.ErrorViewModel;
+using CRM.Core;
+using CRM.Services.Authentication;
+using Microsoft.AspNetCore.Http;
 
 namespace DeVeeraApp.Controllers
 {
     [AuthorizeAdmin]
-    public class LessonController : Controller
+    public class LessonController : BaseController
     {
         #region fields
         private readonly ILogger<LessonController> _logger;
@@ -26,7 +29,12 @@ namespace DeVeeraApp.Controllers
 
         #region ctor
         public LessonController(ILogger<LessonController> logger,
-                                IVideoServices videoServices)
+                                IVideoServices videoServices,
+                                IWorkContext workContext,
+                                IHttpContextAccessor httpContextAccessor,
+                                IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _logger = logger;
             _videoServices = videoServices;
@@ -38,7 +46,9 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index(int id)
         {
-          if(id != 0)
+            AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
+
+            if (id != 0)
             {
                 var data = _videoServices.GetVideoById(id);
                 var videoData = data.ToModel<VideoModel>();
