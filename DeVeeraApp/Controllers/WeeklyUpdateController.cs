@@ -104,6 +104,7 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Quote", "List", $"/WeeklyUpdate/List?typeId={typeId}", $"/WeeklyUpdate/List?typeId={typeId}");
 
+            ViewBag.QuoteType = (CRM.Core.Domain.Quote)typeId;
             var model = new List<WeeklyUpdateModel>();
             var data = _weeklyUpdateServices.GetWeeklyUpdatesByQuoteType(typeId);
             if (data.Count() != 0)
