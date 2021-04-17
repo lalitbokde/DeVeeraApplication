@@ -8,16 +8,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using CRM.Services.DashboardQuotes;
 using DeVeeraApp.ViewModels.Common;
+using CRM.Core;
+using Microsoft.AspNetCore.Http;
+using CRM.Services.Authentication;
 
 namespace DeVeeraApp.Controllers
 {
-    public class DashboardQuoteController : Controller
+    public class DashboardQuoteController : BaseController
     {
         #region fields
         private readonly IDashboardQuoteService _dashboardQuoteService;
         #endregion
         #region ctor
-        public DashboardQuoteController(IDashboardQuoteService dashboardQuoteService)
+        public DashboardQuoteController(IDashboardQuoteService dashboardQuoteService,
+                                        IWorkContext workContext,
+                                        IHttpContextAccessor httpContextAccessor,
+                                        IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             this._dashboardQuoteService = dashboardQuoteService;
         }
@@ -30,6 +38,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
+            AddBreadcrumbs("Dashboard Quote", "List", "/DashboardQuote/List", "/DashboardQuote/List");
+
             var model = new List<DashboardQuoteModel>();
             var data = _dashboardQuoteService.GetAllDashboardQutoes();
             if (data.Count() != 0)
@@ -44,11 +54,15 @@ namespace DeVeeraApp.Controllers
         }
         public IActionResult Create()
         {
+            AddBreadcrumbs("Dashboard Quote", "Create", "/DashboardQuote/List", "/DashboardQuote/Create");
+
             return View();
         }
         [HttpPost]
         public IActionResult Create(DashboardQuoteModel model)
         {
+            AddBreadcrumbs("Dashboard Quote", "Create", "/DashboardQuote/List", "/DashboardQuote/Create");
+
             if (ModelState.IsValid)
             {
                 _dashboardQuoteService.InActiveAllDashboardQuotes();
@@ -62,6 +76,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            AddBreadcrumbs("Dashboard Quote", "Edit", "/DashboardQuote/List", $"/DashboardQuote/Edit/{id}");
+
             if (id != 0)
             {
                 var data = _dashboardQuoteService.GetDashboardQutoeById(id);
@@ -80,6 +96,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(DashboardQuoteModel model)
         {
+            AddBreadcrumbs("Dashboard Quote", "Edit", "/DashboardQuote/List", $"/DashboardQuote/Edit/{model.Id}");
+
             if (ModelState.IsValid)
             {
                 _dashboardQuoteService.InActiveAllDashboardQuotes();
@@ -90,7 +108,7 @@ namespace DeVeeraApp.Controllers
                 _dashboardQuoteService.UpdateDashboardQutoe(quote);
                 return RedirectToAction("List");
             }
-            return View();
+            return View(model);
         }
 
         public IActionResult Delete(int id)

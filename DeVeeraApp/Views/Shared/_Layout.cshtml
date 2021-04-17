@@ -186,7 +186,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
             </a>            <!-- END: Logo -->
             <!-- BEGIN: Breadcrumb -->
-            <div class="-intro-x breadcrumb mr-auto"> <a href="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a href="" class="breadcrumb--active">Dashboard</a> </div>
+            <div class="-intro-x breadcrumb mr-auto"> 
+            <a href="@ViewBag.PageUrl">@ViewBag.Page</a>
+                <i data-feather="chevron-right" class="breadcrumb__icon"></i>
+                <a href="@ViewBag.ActionUrl" class="breadcrumb--active">@ViewBag.Action</a>
+            </div>
             <!-- END: Breadcrumb -->
             <!-- BEGIN: Search -->
             <div class="intro-x relative mr-3 sm:mr-6">

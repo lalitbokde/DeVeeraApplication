@@ -1,9 +1,12 @@
-﻿using CRM.Core.Domain.Users;
+﻿using CRM.Core;
+using CRM.Core.Domain.Users;
+using CRM.Services.Authentication;
 using CRM.Services.Users;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.Admin;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace DeVeeraApp.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         #region fields
         private readonly IUserService _UserService;
@@ -20,7 +23,12 @@ namespace DeVeeraApp.Controllers
 
         #region ctor
         public AdminController(IUserService userService,
-                       IUserPasswordService userPasswordService)
+                               IUserPasswordService userPasswordService, 
+                               IWorkContext workContext,
+                               IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _UserService = userService;
             _userPasswordService = userPasswordService;
@@ -41,12 +49,17 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+
+            AddBreadcrumbs("Admin", "Create", "/Admin/Create", "/Admin/Create");
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(CreateAdminModel model)
         {
+            AddBreadcrumbs("Admin", "Create", "/Admin/Create", "/Admin/Create");
+
             if (ModelState.IsValid)
             {
                 //fill entity from model
@@ -83,6 +96,11 @@ namespace DeVeeraApp.Controllers
         }
         public IActionResult List(int roleId)
         {
+
+            var UserRole = _UserService.GetUserRoleById(roleId);
+
+            AddBreadcrumbs($"{UserRole.Name}", "List", $"/Admin/List?roleId={roleId}", $"/Admin/List?roleId={roleId}");
+
             var model = new List<UserModel>();
             var data = _UserService.GetUserByUserRoleId(roleId);
             if(data.Count() != 0)
@@ -100,7 +118,9 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            if(id != 0)
+            AddBreadcrumbs("Admin", "Edit", $"/Admin/Edit/{id}", $"/Admin/Edit/{id}");
+
+            if (id != 0)
             {
                 var data = _UserService.GetUserById(id);
 
@@ -119,6 +139,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(UserModel model)
         {
+            AddBreadcrumbs("Level", "List", "/UploadVideo/List", "/UploadVideo/List");
+
             if (ModelState.IsValid)
             {
                 //fill entity from model

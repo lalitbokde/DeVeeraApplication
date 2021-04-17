@@ -1,8 +1,11 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class UploadVideoController : Controller
+    public class UploadVideoController : BaseController
     {
         #region fields
 
@@ -24,7 +27,12 @@ namespace DeVeeraApp.Controllers
 
         #region ctor
         public UploadVideoController(IWeeklyUpdateServices weeklyVideoServices,
-                                     IVideoServices videoServices)
+                                     IVideoServices videoServices,
+                                     IWorkContext workContext,
+                                     IHttpContextAccessor httpContextAccessor,
+                                     IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _weeklyVideoServices = weeklyVideoServices;
             _videoServices = videoServices;
@@ -41,12 +49,16 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+            AddBreadcrumbs("Level", "Create", "/UploadVideo/List", "/UploadVideo/Create");
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(VideoModel model)
         {
+            AddBreadcrumbs("Level", "Create", "/UploadVideo/List", "/UploadVideo/Create");
+
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Video>();
@@ -58,6 +70,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
+            AddBreadcrumbs("Level", "List", "/UploadVideo/List", "/UploadVideo/List");
+
             var model = new List<VideoModel>();
             var data = _videoServices.GetAllVideos();
             if(data.Count() != 0)
@@ -74,7 +88,9 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            if(id != 0)
+            AddBreadcrumbs("Level", "Edit", "/UploadVideo/List", $"/UploadVideo/Edit/{id}");
+
+            if (id != 0)
             {
                 var data = _videoServices.GetVideoById(id);
                 var model = data.ToModel<VideoModel>();
@@ -87,6 +103,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(VideoModel model)
         {
+            AddBreadcrumbs("Level", "Edit", "/UploadVideo/List", $"/UploadVideo/Edit/{model.Id}");
+
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Video>();

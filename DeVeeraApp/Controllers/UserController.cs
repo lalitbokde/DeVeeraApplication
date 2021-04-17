@@ -604,7 +604,9 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult UserProfile(int userId)
         {
-            if(userId != 0)
+            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
+
+            if (userId != 0)
             {
                 var userData = _UserService.GetUserById(userId);
                 var model = userData.ToModel<UserModel>();
@@ -617,6 +619,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult UserProfile(UserModel model)
         {
+            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={model.Id}", $"/User/UserProfile?userId={model.Id}");
+
             var User = _UserService.GetUserById(model.Id);
 
             if (ModelState.IsValid)
