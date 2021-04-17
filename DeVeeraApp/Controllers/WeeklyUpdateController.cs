@@ -1,8 +1,11 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class WeeklyUpdateController : Controller
+    public class WeeklyUpdateController : BaseController
     {
 
         #region fields
@@ -20,25 +23,31 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region ctor
-
-        public WeeklyUpdateController(IWeeklyUpdateServices weeklyUpdateServices)
+        public WeeklyUpdateController(IWeeklyUpdateServices weeklyUpdateServices,
+                                      IWorkContext workContext,
+                                      IHttpContextAccessor httpContextAccessor,
+                                      IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _weeklyUpdateServices = weeklyUpdateServices;
         }
-
         #endregion
-
+        
         #region methods
 
-        public IActionResult Create(string type)
+        public IActionResult Create(CRM.Core.Domain.Quote type)
         {
-            ViewBag.QuoteType = type;
+            AddBreadcrumbs( $"{type} Quote", "Create", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Create?type={type}");
+            ViewBag.QuoteType = type.ToString();
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(WeeklyUpdateModel model)
         {
+            AddBreadcrumbs($"{model.QuoteType} Quote", "Create", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Create?type={model.QuoteType}");
+
             if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
@@ -51,8 +60,10 @@ namespace DeVeeraApp.Controllers
         }
 
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id, CRM.Core.Domain.Quote type)
         {
+            AddBreadcrumbs($"{type} Quote", "Edit", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Edit/{id}?type={type}");
+
             if (id != 0)
             {
                 var data = _weeklyUpdateServices.GetWeeklyUpdateById(id);
@@ -71,6 +82,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(WeeklyUpdateModel model)
         {
+            AddBreadcrumbs($"{model.QuoteType} Quote", "Edit", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
+
             if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
@@ -89,6 +102,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List(int typeId)
         {
+            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Quote", "List", $"/WeeklyUpdate/List?typeId={typeId}", $"/WeeklyUpdate/List?typeId={typeId}");
+
             var model = new List<WeeklyUpdateModel>();
             var data = _weeklyUpdateServices.GetWeeklyUpdatesByQuoteType(typeId);
             if (data.Count() != 0)

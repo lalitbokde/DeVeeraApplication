@@ -29,9 +29,7 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
-        #region Ctor
-
-        #endregion
+        
 
 
         public virtual void AddNotification(string title, string message, string type)
@@ -41,12 +39,12 @@ namespace DeVeeraApp.Controllers
             TempData["type"] = type;
         }
 
-        public virtual void AddBreadcrumbs(string name, string action, string url,string redirectUrl)
+        public virtual void AddBreadcrumbs(string Page, string Action, string PageUrl, string ActionUrl)
         {
-            ViewBag.Name = name;
-            ViewBag.Action = action;
-            ViewBag.Url = url;
-            ViewBag.RedirectUrl = redirectUrl;
+            ViewBag.Page = Page;
+            ViewBag.Action = Action;
+            ViewBag.PageUrl = PageUrl;
+            ViewBag.ActionUrl = ActionUrl;
         }
 
         public virtual void SetActiveMenu(string MenuName)

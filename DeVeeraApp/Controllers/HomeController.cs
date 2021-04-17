@@ -15,11 +15,14 @@ using CRM.Services;
 using DeVeeraApp.ViewModels;
 using CRM.Core.Domain;
 using CRM.Services.DashboardQuotes;
+using CRM.Core;
+using Microsoft.AspNetCore.Http;
+using CRM.Services.Authentication;
 
 namespace DeVeeraApp.Controllers
 {
     [AuthorizeAdmin]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         #region fields
 
@@ -35,12 +38,18 @@ namespace DeVeeraApp.Controllers
         public HomeController(ILogger<HomeController> logger,
                               IVideoServices videoServices,
                               IWeeklyUpdateServices weeklyUpdateServices,
-                              IDashboardQuoteService dashboardQuoteService)
+                              IDashboardQuoteService dashboardQuoteService,
+                              IWorkContext workContext,
+                              IHttpContextAccessor httpContextAccessor,
+                              IAuthenticationService authenticationService) :base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _logger = logger;
             _videoServices = videoServices;
             _weeklyUpdateServices = weeklyUpdateServices;
             _dashboardQuoteService = dashboardQuoteService;
+           
         }
 
         #endregion
@@ -50,6 +59,8 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
+            AddBreadcrumbs("Application", "Dashboard","/Home/Index", "/Home/Index");
+
             var model = new DashboardQuoteModel();
             var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a=>a.IsActive==true).FirstOrDefault();
             model.Title = quote !=null ? quote.Title : "";
