@@ -80,7 +80,7 @@ namespace DeVeeraApp.Controllers
 
                 var data = model.ToEntity<WeeklyUpdate>();
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
-                _notificationService.SuccessNotification("Quote created successfully.");
+                _notificationService.SuccessNotification("Video url created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
             PrepareVideoUrl(model);
@@ -119,12 +119,11 @@ namespace DeVeeraApp.Controllers
                 
                 var val = _weeklyUpdateServices.GetWeeklyUpdateById(model.Id);
                 //val = model.ToEntity<WeeklyUpdate>();
-                val.Title = model.Title;
-                val.Subtitle = model.Subtitle;
+              
                 val.IsActive = model.IsActive;
                 val.VideoURL = model.VideoURL;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
-                _notificationService.SuccessNotification("Quote edited successfully.");
+                _notificationService.SuccessNotification("Video url edited successfully.");
 
                 return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
