@@ -23,12 +23,12 @@ namespace DeVeeraApp.ViewModels
 
         public int VideoId { get; set; }
 
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string Subtitle { get; set; }
+        //[Required]
+        //public string Title { get; set; }
+        //[Required]
+        //public string Subtitle { get; set; }
 
-        [Required]
+        //[Required]
         public string VideoURL { get; set; }
         //public string VideoName { get; set; }
 
