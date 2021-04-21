@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210421070650_Module")]
+    partial class Module
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,25 +328,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("Videos");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Modules", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FullDescription");
-
-                    b.Property<int>("VideoId");
-
-                    b.Property<string>("VideoURL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VideoId");
-
-                    b.ToTable("VideoModules");
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.WeeklyUpdate", b =>
                 {
                     b.Property<int>("Id")
@@ -421,14 +404,6 @@ namespace CRM.Data.Migrations
                     b.HasOne("CRM.Core.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Modules", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

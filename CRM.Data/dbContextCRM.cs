@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using CRM.Core.Domain;
+using CRM.Core.Domain.VideoModules;
 
 namespace CRM.Data
 {
@@ -39,7 +40,8 @@ namespace CRM.Data
 
         //Video
         public DbSet<Video> Videos { get; set; }
-   
+        public DbSet<Modules> VideoModules { get; set; }
+
         //Quote
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
         public DbSet<DashboardQuote> DashboardQuote { get; set; }
