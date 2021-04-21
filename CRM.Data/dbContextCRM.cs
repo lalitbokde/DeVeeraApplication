@@ -39,8 +39,8 @@ namespace CRM.Data
         public DbSet<PermissionRecord> PermissionRecord { get; set; }
 
         //Video
-        public DbSet<Video> Videos { get; set; }
-        public DbSet<Modules> VideoModules { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<Modules> Levelmodules { get; set; }
 
         //Quote
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }

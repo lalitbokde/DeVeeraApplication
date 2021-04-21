@@ -51,7 +51,7 @@ namespace DeVeeraApp.Controllers
             if (id != 0)
             {
                 var data = _videoServices.GetVideoById(id);
-                var videoData = data.ToModel<VideoModel>();
+                var videoData = data.ToModel<LevelModel>();
                 return View(videoData);
             }
             return RedirectToAction("Index", "Home");

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class UploadVideoController : BaseController
+    public class LevelController : BaseController
     {
         #region fields
 
@@ -28,7 +28,7 @@ namespace DeVeeraApp.Controllers
 
 
         #region ctor
-        public UploadVideoController(IWeeklyUpdateServices weeklyVideoServices,
+        public LevelController(IWeeklyUpdateServices weeklyVideoServices,
                                      IVideoServices videoServices,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
@@ -59,13 +59,13 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(VideoModel model)
+        public IActionResult Create(LevelModel model)
         {
             AddBreadcrumbs("Level", "Create", "/UploadVideo/List", "/UploadVideo/Create");
 
             if (ModelState.IsValid)
             {
-                var data = model.ToEntity<Video>();
+                var data = model.ToEntity<Level>();
                 _videoServices.InsertVideo(data);
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("List");
@@ -77,13 +77,13 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("Level", "List", "/UploadVideo/List", "/UploadVideo/List");
 
-            var model = new List<VideoModel>();
+            var model = new List<LevelModel>();
             var data = _videoServices.GetAllVideos();
             if(data.Count() != 0)
             {
                 foreach(var item in data)
                 {
-                    model.Add(item.ToModel<VideoModel>());
+                    model.Add(item.ToModel<LevelModel>());
                 }
                 return View(model);
             }
@@ -98,7 +98,7 @@ namespace DeVeeraApp.Controllers
             if (id != 0)
             {
                 var data = _videoServices.GetVideoById(id);
-                var model = data.ToModel<VideoModel>();
+                var model = data.ToModel<LevelModel>();
                 return View(model);
             }
             return RedirectToAction("List");
@@ -106,13 +106,13 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(VideoModel model)
+        public IActionResult Edit(LevelModel model)
         {
             AddBreadcrumbs("Level", "Edit", "/UploadVideo/List", $"/UploadVideo/Edit/{model.Id}");
 
             if (ModelState.IsValid)
             {
-                var data = model.ToEntity<Video>();
+                var data = model.ToEntity<Level>();
                 _videoServices.UpdateVideo(data);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 

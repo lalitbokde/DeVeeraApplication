@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CRM.Core.Domain
 {
-    public class Video : BaseEntity
+    public class Level : BaseEntity
     {
         public string Title { get; set; }
         public string Subtitle { get; set; }

@@ -8,23 +8,23 @@ namespace CRM.Services
     public interface IVideoServices
     {
        
-        void DeleteVideo(Video model);
+        void DeleteVideo(Level model);
 
        
-        IList<Video> GetAllVideos();
+        IList<Level> GetAllVideos();
 
 
        
-        Video GetVideoById(int videoId);
+        Level GetVideoById(int videoId);
 
        
-        IList<Video> GetVideoByIds(int[] VideoIds);
+        IList<Level> GetVideoByIds(int[] VideoIds);
 
        
-        void InsertVideo(Video model);
+        void InsertVideo(Level model);
 
        
-        void UpdateVideo(Video model);
+        void UpdateVideo(Level model);
 
 
     }

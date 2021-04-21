@@ -39,6 +39,8 @@
     <Compile Include="Migrations\20210421071405_VideoModules.Designer.cs" />
     <Compile Include="Migrations\20210421071810_ModuleTable.cs" />
     <Compile Include="Migrations\20210421071810_ModuleTable.Designer.cs" />
+    <Compile Include="Migrations\20210421090253_renameTables.cs" />
+    <Compile Include="Migrations\20210421090253_renameTables.Designer.cs" />
 
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
