@@ -8,13 +8,13 @@ namespace DeVeeraApp.ViewModels
 {
     public class WeeklyUpdateModel : BaseEntityModel
     {
-        [Required]
-        public string Title { get; set; }
-        [Required]
-        public string Subtitle { get; set; }
+        //[Required]
+        //public string Title { get; set; }
+        //[Required]
+        //public string Subtitle { get; set; }
         [Required]
         public string VideoURL { get; set; }
-        public string VideoName { get; set; }
+        //public string VideoName { get; set; }
 
         [Required]
         public Quote QuoteType { get; set; }

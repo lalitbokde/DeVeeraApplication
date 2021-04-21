@@ -11,8 +11,8 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">After Login Quote</div>
-                <div class="text-gray-600 text-center mt-2">Please add quote to show on the weekly quote after user login</div>
+                <div class="font-medium text-center text-lg">Create Login Video Url</div>
+                <div class="text-gray-600 text-center mt-2">Please add video url to show  weekly video after user login</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -23,18 +23,7 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="title">
-                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
-                        </div>
-
-
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                            <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="title"></textarea>
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
-                        </div>
+                      
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
@@ -65,8 +54,8 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">After Registration Quote</div>
-                <div class="text-gray-600 text-center mt-2">Please add quote to show on the weekly quote after user Registration</div>
+                <div class="font-medium text-center text-lg">Create Registration Video Url</div>
+                <div class="text-gray-600 text-center mt-2">Please add video url to show on the weekly video after user Registration</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -78,19 +67,9 @@
                             </div>
                         }
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="title">
-                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
-                        </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                            <textarea asp-for="Subtitle" type="text" class="form-control" placeholder="quote text"></textarea>
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
-                        </div>
-                        <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="videoUrl" />
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
+                            <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
                         </div>
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
