@@ -23,8 +23,8 @@
                     <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
                     <a onclick="ShowDeleteConfirmation('PostDeleteVideo(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
                 }
-
-                <a asp-controller="Lesson" asp-action="index" asp-route-id="@(Model.Id++)"  class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
+                @{Model.Id = Model.Id + 1; }
+                <a asp-controller="Lesson" asp-action="index" asp-route-id="@Model.Id"  class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
             </div>
 
         </div>
