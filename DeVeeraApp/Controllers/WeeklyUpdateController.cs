@@ -8,6 +8,7 @@ using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,13 @@ namespace DeVeeraApp.Controllers
         #region fields
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
         private readonly INotificationService _notificationService;
+        private readonly IVideoMasterService _videoServices;
 
         #endregion
 
         #region ctor
         public WeeklyUpdateController(IWeeklyUpdateServices weeklyUpdateServices,
+                                      IVideoMasterService videoService,
                                       IWorkContext workContext,
                                       IHttpContextAccessor httpContextAccessor,
                                       IAuthenticationService authenticationService,
@@ -35,16 +38,35 @@ namespace DeVeeraApp.Controllers
         {
             _weeklyUpdateServices = weeklyUpdateServices;
             _notificationService = notificationService;
+            _videoServices = videoService;
         }
         #endregion
-        
+        #region Utilities
+        public virtual void PrepareVideoUrl(WeeklyUpdateModel model)
+        {
+            //prepare available url
+            model.AvailableVideoUrl.Add(new SelectListItem { Text = "Select VideoUrl", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideoUrl.Add(new SelectListItem
+                {
+                    Value = url.VideoUrl,
+                    Text = url.VideoUrl,
+                    Selected = url.Id == model.VideoId
+                });
+            }
+        }
+        #endregion
         #region methods
 
         public IActionResult Create(CRM.Core.Domain.Quote type)
         {
             AddBreadcrumbs( $"{type} Quote", "Create", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Create?type={type}");
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
             ViewBag.QuoteType = type.ToString();
-            return View();
+            PrepareVideoUrl(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -61,7 +83,8 @@ namespace DeVeeraApp.Controllers
                 _notificationService.SuccessNotification("Video url created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
-            return View();
+            PrepareVideoUrl(model);
+            return View(model);
         }
 
 
@@ -76,6 +99,7 @@ namespace DeVeeraApp.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<WeeklyUpdateModel>();
+                    PrepareVideoUrl(model);
                     return View(model);
                 }
 
@@ -103,7 +127,8 @@ namespace DeVeeraApp.Controllers
 
                 return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
-            return View();
+            PrepareVideoUrl(model);
+            return View(model);
         }
 
         public IActionResult List(int typeId)
