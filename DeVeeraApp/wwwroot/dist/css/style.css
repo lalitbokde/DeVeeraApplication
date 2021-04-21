@@ -11,3 +11,7 @@
     content: " *";
     color: #D32929;
 }
+.nav-tabs .active {
+    color: white;
+    background-color: rgba(7,26,80,var(--tw-bg-opacity));
+}
