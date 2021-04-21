@@ -14,6 +14,7 @@ using ErrorViewModel = DeVeeraApp.Models.ErrorViewModel;
 using CRM.Core;
 using CRM.Services.Authentication;
 using Microsoft.AspNetCore.Http;
+using CRM.Services.VideoModules;
 
 namespace DeVeeraApp.Controllers
 {
@@ -23,6 +24,7 @@ namespace DeVeeraApp.Controllers
         #region fields
         private readonly ILogger<LessonController> _logger;
         private readonly ILevelServices _levelServices;
+        private readonly IModuleService _moduleServices;
 
         #endregion
 
@@ -30,6 +32,7 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public LessonController(ILogger<LessonController> logger,
                                 ILevelServices levelServices,
+                                IModuleService moduleService,
                                 IWorkContext workContext,
                                 IHttpContextAccessor httpContextAccessor,
                                 IAuthenticationService authenticationService) : base(workContext: workContext,
@@ -38,6 +41,7 @@ namespace DeVeeraApp.Controllers
         {
             _logger = logger;
             _levelServices = levelServices;
+            _moduleServices = moduleService;
         }
 
         #endregion
@@ -52,6 +56,7 @@ namespace DeVeeraApp.Controllers
             {
                 var data = _levelServices.GetLevelById(id);
                 var videoData = data.ToModel<LevelModel>();
+                videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
                 return View(videoData);
             }
             return RedirectToAction("Index", "Home");

@@ -20,7 +20,7 @@
 
                 @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
                 {
-                    <a asp-controller="UploadVideo" asp-action="Edit" asp-route-id="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
+                    <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
                     <a onclick="ShowDeleteConfirmation('PostDeleteVideo(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
                 }
 
@@ -29,8 +29,6 @@
 
         </div>
         <!-- BEGIN: Blog Layout -->
-
-
         <div class="intro-y mt-6">
             <div class="news__preview image-fit">
                 @{string src = Model.VideoURL;}
@@ -41,7 +39,29 @@
         <div class="intro-y text-justify leading-relaxed mt-10">
             @Html.Raw(Model.FullDescription)
         </div>
-
+        <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
+            @{int i = 1;
+                foreach (var item in Model.ModuleList)
+                {
+                    <div class="intro-y col-span-6 lg:col-span-6 xxl:col-span-6">
+                        <h2 class="intro-y font-medium text-xl sm:text-2xl ml-2">
+                            Module @i
+                        </h2>
+                        <!-- BEGIN: Blog Layout -->
+                        <div class="intro-y mt-6">
+                            <div class="news__preview image-fit">
+                                @{string url = item.VideoURL;}
+                                <video src="@Url.Content(url)" controls style="width:100%; height:100%" loop />
+                            </div>
+                        </div>
+                        <div class="intro-y text-justify leading-relaxed mt-10">
+                            @Html.Raw(item.FullDescription)
+                        </div>
+                    </div>
+                    i++;
+                }
+            }
+        </div>
     </div>
 </div>
 <script src="~/lib/jquery/jquery.min.js"></script>

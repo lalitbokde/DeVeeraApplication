@@ -36,7 +36,6 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public LevelController(IWeeklyUpdateServices weeklyVideoServices,
 
-                                    
                                      IModuleService moduleService,
 
                                      ILevelServices levelServices,
@@ -83,7 +82,7 @@ namespace DeVeeraApp.Controllers
                 var data = model.ToEntity<Level>();
                 _levelServices.InsertLevel(data);
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
-                return RedirectToAction("List");
+                return RedirectToAction("Edit", "Level", new { id = data.Id });
             }
             return View();
         }
@@ -106,14 +105,26 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id,int ModuleId)
         {
             AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{id}");
+
+            ViewBag.ActiveTab = "Level";
 
             if (id != 0)
             {
                 var data = _levelServices.GetLevelById(id);
                 var model = data.ToModel<LevelModel>();
+                model.ModuleList = _moduleServices.GetModulesByLevelId(id);
+
+                if( ModuleId > 0 && ModuleId != 0)
+                {
+                    var module = _moduleServices.GetModuleById(ModuleId);
+                    model.Modules.VideoURL = module.VideoURL;
+                    model.Modules.FullDescription = module.FullDescription;
+                    model.Modules.Id = module.Id;
+                    ViewBag.ActiveTab = "Add Module";
+                }
                 return View(model);
             }
             return RedirectToAction("List");
@@ -141,12 +152,22 @@ namespace DeVeeraApp.Controllers
         {
            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{model.Id}");
 
-            var modules = new Modules();
-            modules.VideoId = model.Id;
-            modules.VideoURL = model.Modules.VideoURL;
-            modules.FullDescription = model.Modules.FullDescription;
-
-            _moduleServices.InsertModule(modules);
+            if (model.Modules.Id == 0)
+            { 
+                var modules = new Modules();
+                modules.VideoId = model.Id;
+                modules.VideoURL = model.Modules.VideoURL;
+                modules.FullDescription = model.Modules.FullDescription;
+                _moduleServices.InsertModule(modules);
+            }
+            else
+            {
+                var modules = _moduleServices.GetModuleById(model.Modules.Id);
+                modules.VideoId = model.Id;
+                modules.VideoURL = model.Modules.VideoURL;
+                modules.FullDescription = model.Modules.FullDescription;
+                _moduleServices.UpdateModule(modules);
+            }
 
             return RedirectToAction("Edit","Level", new { id = model.Id });
            
@@ -178,6 +199,31 @@ namespace DeVeeraApp.Controllers
             return Json(response);
         }
 
+        public IActionResult DeleteModule(int id)
+        {
+
+            ResponseModel response = new ResponseModel();
+
+            if (id != 0)
+            {
+                var module = _moduleServices.GetModuleById(id);
+                if (module == null)
+                {
+                    response.Success = false;
+                    response.Message = "No user found";
+                }
+                _moduleServices.DeleteModule(module);
+
+                response.Success = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "";
+
+            }
+            return Json(response);
+        }
 
         #endregion
     }
