@@ -35,7 +35,7 @@
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
+                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" class="form-control" placeholder="video name"></select>
                             <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
                         </div>
                         <div class="mt-5">
@@ -85,7 +85,7 @@
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
+                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" class="form-control" placeholder="video name"></select>
                             <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
 
                         </div>
