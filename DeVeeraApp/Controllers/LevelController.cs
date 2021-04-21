@@ -1,8 +1,10 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain;
+using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Message;
+using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -21,6 +23,7 @@ namespace DeVeeraApp.Controllers
 
         private readonly IWeeklyUpdateServices _weeklyVideoServices;
         private readonly IVideoServices _videoServices;
+        private readonly IModuleService _moduleServices;
         private readonly INotificationService _notificationService;
 
 
@@ -30,6 +33,7 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public LevelController(IWeeklyUpdateServices weeklyVideoServices,
                                      IVideoServices videoServices,
+                                     IModuleService moduleService,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
@@ -39,6 +43,7 @@ namespace DeVeeraApp.Controllers
         {
             _weeklyVideoServices = weeklyVideoServices;
             _videoServices = videoServices;
+            _moduleServices = moduleService;
             _notificationService = notificationService;
         }
         #endregion
@@ -53,7 +58,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
-            AddBreadcrumbs("Level", "Create", "/UploadVideo/List", "/UploadVideo/Create");
+            AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
 
             return View();
         }
@@ -61,7 +66,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Create(LevelModel model)
         {
-            AddBreadcrumbs("Level", "Create", "/UploadVideo/List", "/UploadVideo/Create");
+            AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
 
             if (ModelState.IsValid)
             {
@@ -75,7 +80,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("Level", "List", "/UploadVideo/List", "/UploadVideo/List");
+            AddBreadcrumbs("Level", "List", "/Level/List", "/Level/List");
 
             var model = new List<LevelModel>();
             var data = _videoServices.GetAllVideos();
@@ -93,7 +98,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("Level", "Edit", "/UploadVideo/List", $"/UploadVideo/Edit/{id}");
+            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{id}");
 
             if (id != 0)
             {
@@ -108,7 +113,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(LevelModel model)
         {
-            AddBreadcrumbs("Level", "Edit", "/UploadVideo/List", $"/UploadVideo/Edit/{model.Id}");
+            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{model.Id}");
 
             if (ModelState.IsValid)
             {
@@ -121,6 +126,21 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult AddModule(LevelModel model)
+        {
+           AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{model.Id}");
+
+            var modules = new Modules();
+            modules.VideoId = model.Id;
+            modules.VideoURL = model.Modules.VideoURL;
+            modules.FullDescription = model.Modules.FullDescription;
+
+            _moduleServices.InsertModule(modules);
+
+            return RedirectToAction("Edit","Level", new { id = model.Id });
+           
+        }
 
         public IActionResult Delete(int videoId)
         {

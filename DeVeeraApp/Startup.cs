@@ -18,6 +18,7 @@ using CRM.Services.Helpers;
 using CRM.Services.Message;
 using CRM.Services.Security;
 using CRM.Services.Users;
+using CRM.Services.VideoModules;
 using DeVeeraApp.Factories;
 using DeVeeraApp.Utils;
 using Microsoft.AspNetCore.Builder;
@@ -84,6 +85,7 @@ namespace DeVeeraApp
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserModelFactory, UserModelFactory>();
             services.AddScoped<IVideoServices, VideoServices>();
+            services.AddScoped<IModuleService, ModuleService>();
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
             services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
             services.AddScoped<INotificationService, NotificationService>();

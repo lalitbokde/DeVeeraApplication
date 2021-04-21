@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRM.Core.Domain.VideoModules;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,5 +22,7 @@ namespace DeVeeraApp.ViewModels
 
         [Required]
         public string FullDescription { get; set; }
+
+        public Modules Modules { get; set; }
     }
 }

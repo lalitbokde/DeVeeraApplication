@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="UploadVideo" asp-action="Create" method="post">
+<form asp-controller="Level" asp-action="Create" method="post">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -15,72 +15,79 @@
         <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
             <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-
                 <div class="intro-y box p-5 col-span-12">
-                    <div class="intro-y pr-1">
-                        <div class="p-2">
-                            <div class="pos__tabs nav nav-tabs justify-center" role="tablist">
-                                <a id="level-tab" data-toggle="tab" data-target="#level" href="javascript:;" class="flex-1 py-2 rounded-md text-center active" role="tab" aria-controls="ticket" aria-selected="true">Level</a>
-                                <a id="modules-tab" data-toggle="tab" data-target="#modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center" role="tab" aria-controls="details" aria-selected="false">Modules</a>
-                            </div>
+                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                    {
+                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
                         </div>
+                    }
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                        <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">
+                        <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                     </div>
-                    <div class="tab-content">
-                        <div id="level" class="tab-pane active" role="tabpanel" aria-labelledby="level-tab">
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                        <input id="input-wizard-1" asp-for="@Model.Quote" type="text" class="form-control" placeholder="quote">
+                        <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                    </div>
 
-                            @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
-                            {
-                                <div asp-validation-summary="All" class="text-theme-6 mt-4">
-                                </div>
-                            }
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">
-                                <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
-                            </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                                <input id="input-wizard-1" asp-for="@Model.Quote" type="text" class="form-control" placeholder="quote">
-                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                            </div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                        <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="title">
+                        <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                    </div>
 
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                                <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="title">
-                                <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
-                            </div>
+                    <div class="mt-5">
+                        <label class="form-label text-theme-21 star">Video URL</label>
+                        <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
+                        <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
 
-                            <div class="mt-5">
-                                <label class="form-label text-theme-21 star">Video URL</label>
-                                <input asp-for="VideoURL" type="text" class="form-control" placeholder="video name" />
-                                <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
-
+                    </div>
+                    @*<div class="mt-5">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                    Upload Video
+                                </label>
                             </div>
-
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
-                            </div>
-                            <div class="" id="standard-editor">
+                            <div id="single-file-upload" class="p-5">
                                 <div class="preview">
-                                    <textarea asp-for="FullDescription" class="editor"> </textarea>
-                                    <span asp-validation-for="FullDescription" class="text-theme-6 mt-2"></span>
-
+                                    <div data-single="true" action="/file-upload" class="dropzone">
+                                        <div class="fallback">
+                                            <input name="file" type="file" />
+                                        </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                            <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+                                        </div>
+                                    </div>
                                 </div>
-
                             </div>
+                        </div>*@
 
-                            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                                <button type="submit" class="btn btn-primary w-24">Save</button>
-                            </div>
-                        </div>
-                        <div id="modules" class="tab-pane active" role="tabpanel" aria-labelledby="modules-tab">
-                        </div>
-                        </div>
+
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
                     </div>
+                    <div class="" id="standard-editor">
+                        <div class="preview">
+                            <textarea asp-for="FullDescription" class="editor"> </textarea>
+                            <span asp-validation-for="FullDescription" class="text-theme-6 mt-2"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                </div>
             </div>
+
         </div>
+
     </div>
 
 
 </form>
-
