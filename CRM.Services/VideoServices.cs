@@ -10,12 +10,12 @@ namespace CRM.Services
     public class VideoServices : IVideoServices
     {
         #region fields
-        private readonly IRepository<Video> _videoRepository;
+        private readonly IRepository<Level> _videoRepository;
         #endregion
 
 
         #region ctor
-        public VideoServices(IRepository<Video> addressRepository)
+        public VideoServices(IRepository<Level> addressRepository)
         {
             _videoRepository = addressRepository;
         }
@@ -23,7 +23,7 @@ namespace CRM.Services
         #endregion
 
         #region Method
-        public void DeleteVideo(Video model)
+        public void DeleteVideo(Level model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
@@ -31,7 +31,7 @@ namespace CRM.Services
             _videoRepository.Delete(model);
         }
 
-        public IList<Video> GetAllVideos()
+        public IList<Level> GetAllVideos()
         {
             var query = from vdo in _videoRepository.Table
                         orderby vdo.Title
@@ -40,7 +40,7 @@ namespace CRM.Services
             return warehouses;
         }
 
-        public virtual Video GetVideoById(int videoId)
+        public virtual Level GetVideoById(int videoId)
         {
             if (videoId == 0)
                 return null;
@@ -49,17 +49,17 @@ namespace CRM.Services
             return _videoRepository.GetById(videoId);
         }
 
-        public IList<Video> GetVideoByIds(int[] VideoIds)
+        public IList<Level> GetVideoByIds(int[] VideoIds)
         {
             if (VideoIds == null || VideoIds.Length == 0)
-                return new List<Video>();
+                return new List<Level>();
 
             var query = from c in _videoRepository.Table
                         where VideoIds.Contains(c.Id)
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers
-            var sortedUsers = new List<Video>();
+            var sortedUsers = new List<Level>();
             foreach (var id in VideoIds)
             {
                 var User = Users.Find(x => x.Id == id);
@@ -69,7 +69,7 @@ namespace CRM.Services
             return sortedUsers;
         }
 
-        public void InsertVideo(Video model)
+        public void InsertVideo(Level model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
@@ -77,7 +77,7 @@ namespace CRM.Services
            _videoRepository.Insert(model);
         }
 
-        public void UpdateVideo(Video model)
+        public void UpdateVideo(Level model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));

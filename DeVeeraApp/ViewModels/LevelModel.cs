@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels
 {
-    public class VideoModel : BaseEntityModel
+    public class LevelModel : BaseEntityModel
     {
         [Required]
         public string Title { get; set; }

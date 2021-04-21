@@ -71,7 +71,7 @@ namespace DeVeeraApp.Controllers
             {
                 foreach(var item in data)
                 {
-                    model.VideoModelList.Add(item.ToModel<VideoModel>());
+                    model.VideoModelList.Add(item.ToModel<LevelModel>());
                 }
 
                 return View(model);

@@ -10,7 +10,7 @@ namespace DeVeeraApp.ViewModels
     {
         public DashboardQuoteModel()
         {
-            VideoModelList = new List<VideoModel>();
+            VideoModelList = new List<LevelModel>();
         }
         [Required]
         public string Title { get; set; }
@@ -20,7 +20,7 @@ namespace DeVeeraApp.ViewModels
         public bool IsActive { get; set; } = false;
 
       
-        public IList<VideoModel> VideoModelList { get; set; }
+        public IList<LevelModel> VideoModelList { get; set; }
 
     }
 }

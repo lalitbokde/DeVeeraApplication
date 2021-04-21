@@ -9,6 +9,6 @@ namespace CRM.Core.Domain.VideoModules
         public int VideoId { get; set; }
         public string VideoURL { get; set; }
         public string FullDescription { get; set; }
-        public virtual Video Video { get; set; }
+        public virtual Level Video { get; set; }
     }
 }
