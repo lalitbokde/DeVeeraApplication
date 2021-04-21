@@ -33,6 +33,12 @@
 
     <Compile Include="Migrations\20210416083016_DashboardQuote.cs" />
     <Compile Include="Migrations\20210416083016_DashboardQuote.Designer.cs" />
+    <Compile Include="Migrations\20210421070650_Module.cs" />
+    <Compile Include="Migrations\20210421070650_Module.Designer.cs" />
+    <Compile Include="Migrations\20210421071405_VideoModules.cs" />
+    <Compile Include="Migrations\20210421071405_VideoModules.Designer.cs" />
+    <Compile Include="Migrations\20210421071810_ModuleTable.cs" />
+    <Compile Include="Migrations\20210421071810_ModuleTable.Designer.cs" />
 
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
