@@ -27,7 +27,7 @@ namespace DeVeeraApp.Controllers
         #region fields
 
         private readonly ILogger<HomeController> _logger;
-        private readonly IVideoServices _videoServices;
+        private readonly ILevelServices _levelServices;
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
         private readonly IDashboardQuoteService _dashboardQuoteService;
 
@@ -36,7 +36,7 @@ namespace DeVeeraApp.Controllers
 
         #region ctor
         public HomeController(ILogger<HomeController> logger,
-                              IVideoServices videoServices,
+                              ILevelServices levelServices,
                               IWeeklyUpdateServices weeklyUpdateServices,
                               IDashboardQuoteService dashboardQuoteService,
                               IWorkContext workContext,
@@ -46,7 +46,7 @@ namespace DeVeeraApp.Controllers
                                                                                   authenticationService: authenticationService)
         {
             _logger = logger;
-            _videoServices = videoServices;
+            _levelServices = levelServices;
             _weeklyUpdateServices = weeklyUpdateServices;
             _dashboardQuoteService = dashboardQuoteService;
            
@@ -66,7 +66,7 @@ namespace DeVeeraApp.Controllers
             model.Title = quote !=null ? quote.Title : "";
             model.Author =quote != null ? quote.Author : "";
 
-            var data = _videoServices.GetAllVideos();
+            var data = _levelServices.GetAllLevels();
             if(data.Count() != 0)
             {
                 foreach(var item in data)

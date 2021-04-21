@@ -95,7 +95,7 @@ namespace CRM.Core.Domain.Users
         /// </summary>
         public int? ParentUserId { get; set; }
 
-        public int LastLevel { get; set; }
+        public int? LastLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time of entity creation

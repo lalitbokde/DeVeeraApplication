@@ -161,13 +161,13 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul>
                                 <li>
-                                    <a asp-controller="UploadVideo" asp-action="Create" class="menu">
+                                    <a asp-controller="Level" asp-action="Create" class="menu">
                                         <div class="menu__icon"> <i data-feather="user"></i> </div>
                                         <div class="menu__title"> Create </div>
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="UploadVideo" asp-action="List" class="menu">
+                                    <a asp-controller="Level" asp-action="List" class="menu">
                                         <div class="menu__icon"> <i data-feather="user"></i> </div>
                                         <div class="menu__title"> List </div>
                                     </a>
@@ -460,13 +460,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         <li>
                             <a href="javascript:;" class="top-menu">
                                 <div class="top-menu__icon"> <i data-feather="edit-2" class="mx-auto"></i> </div>
-                                <div class="top-menu__title"> Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                                <div class="top-menu__title"> Video <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                             </a>
                             <ul>
                                 <li>
                                     <a href="javascript:;" class="top-menu">
                                         <div class="top-menu__icon"> <i data-feather="edit-3"></i> </div>
-                                        <div class="top-menu__title"> Registration Quote<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                                        <div class="top-menu__title"> Registration Video<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                     </a>
                                     <ul>
                                         <li>
@@ -486,7 +486,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <li>
                                     <a href="javascript:;" class="top-menu">
                                         <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
-                                        <div class="top-menu__title"> Login Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                                        <div class="top-menu__title"> Login Video <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                     </a>
                                     <ul>
                                         <li>
@@ -503,30 +503,31 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="javascript:;" class="top-menu">
-                                        <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
-                                        <div class="top-menu__title"> Dashboard Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                    </a>
-                                    <ul>
-                                        <li>
-                                            <a asp-controller="DashboardQuote" asp-action="Create" class="top-menu">
-                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                                <div class="top-menu__title"> Create </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a asp-controller="DashboardQuote" asp-action="List" class="top-menu">
-                                                <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                                <div class="top-menu__title"> List </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a asp-controller="UploadVideo" asp-action="Create" class="top-menu">
+                            <a href="javascript:;" class="top-menu">
+                                <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
+                                <div class="top-menu__title"> Dashboard Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a asp-controller="DashboardQuote" asp-action="Create" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                        <div class="top-menu__title"> Create </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="DashboardQuote" asp-action="List" class="top-menu">
+                                        <div class="top-menu__icon"> <i data-feather="list"></i> </div>
+                                        <div class="top-menu__title"> List </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Level" asp-action="Create" class="top-menu">
                                 <div class="top-menu__icon"> <i data-feather="folder" class="mx-auto"></i> </div>
                                 <div class="top-menu__title"> Level </div>
                             </a>

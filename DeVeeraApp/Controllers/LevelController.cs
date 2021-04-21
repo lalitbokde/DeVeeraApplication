@@ -20,7 +20,7 @@ namespace DeVeeraApp.Controllers
         #region fields
 
         private readonly IWeeklyUpdateServices _weeklyVideoServices;
-        private readonly IVideoServices _videoServices;
+        private readonly ILevelServices _levelServices;
         private readonly INotificationService _notificationService;
 
 
@@ -29,7 +29,7 @@ namespace DeVeeraApp.Controllers
 
         #region ctor
         public LevelController(IWeeklyUpdateServices weeklyVideoServices,
-                                     IVideoServices videoServices,
+                                     ILevelServices levelServices,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
@@ -38,7 +38,7 @@ namespace DeVeeraApp.Controllers
                                                                                   authenticationService: authenticationService)
         {
             _weeklyVideoServices = weeklyVideoServices;
-            _videoServices = videoServices;
+            _levelServices = levelServices;
             _notificationService = notificationService;
         }
         #endregion
@@ -66,7 +66,7 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Level>();
-                _videoServices.InsertVideo(data);
+                _levelServices.InsertLevel(data);
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("List");
             }
@@ -78,7 +78,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Level", "List", "/UploadVideo/List", "/UploadVideo/List");
 
             var model = new List<LevelModel>();
-            var data = _videoServices.GetAllVideos();
+            var data = _levelServices.GetAllLevels();
             if(data.Count() != 0)
             {
                 foreach(var item in data)
@@ -97,7 +97,7 @@ namespace DeVeeraApp.Controllers
 
             if (id != 0)
             {
-                var data = _videoServices.GetVideoById(id);
+                var data = _levelServices.GetLevelById(id);
                 var model = data.ToModel<LevelModel>();
                 return View(model);
             }
@@ -113,7 +113,7 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Level>();
-                _videoServices.UpdateVideo(data);
+                _levelServices.UpdateLevel(data);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 
                 return RedirectToAction("Index", "Home");
@@ -129,13 +129,13 @@ namespace DeVeeraApp.Controllers
 
             if (videoId != 0)
             {
-                var videoData = _videoServices.GetVideoById(videoId);
+                var videoData = _levelServices.GetLevelById(videoId);
                 if (videoData == null)
                 {
                     response.Success = false;
                     response.Message = "No user found";
                 }
-                _videoServices.DeleteVideo(videoData);
+                _levelServices.DeleteLevel(videoData);
 
                 response.Success = true;
             }
