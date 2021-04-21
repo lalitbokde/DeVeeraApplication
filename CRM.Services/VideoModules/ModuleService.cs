@@ -55,7 +55,7 @@ namespace CRM.Services.VideoModules
             if (ModuleId == 0)
                 return null;
             var query = from a in _modulesRepository.Table
-                        where a.VideoId == ModuleId
+                        where a.LevelId == ModuleId
                         select a;
 
             var data = query.ToList();

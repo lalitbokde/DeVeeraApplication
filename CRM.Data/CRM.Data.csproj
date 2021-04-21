@@ -45,6 +45,8 @@
     <Compile Include="Migrations\20210421093523_addnullableColumn.Designer.cs" />
     <Compile Include="Migrations\20210421100403_AddedVideoTable.cs" />
     <Compile Include="Migrations\20210421100403_AddedVideoTable.Designer.cs" />
+    <Compile Include="Migrations\20210421153306_LevelId.cs" />
+    <Compile Include="Migrations\20210421153306_LevelId.Designer.cs" />
 
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>

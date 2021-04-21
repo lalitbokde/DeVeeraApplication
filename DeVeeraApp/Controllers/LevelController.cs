@@ -10,6 +10,7 @@ using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,9 @@ namespace DeVeeraApp.Controllers
         #region fields
 
         private readonly IWeeklyUpdateServices _weeklyVideoServices;
-
         private readonly IModuleService _moduleServices;
-
         private readonly ILevelServices _levelServices;
-
+        private readonly IVideoMasterService _videoServices;
         private readonly INotificationService _notificationService;
 
 
@@ -35,11 +34,9 @@ namespace DeVeeraApp.Controllers
 
         #region ctor
         public LevelController(IWeeklyUpdateServices weeklyVideoServices,
-
                                      IModuleService moduleService,
-
                                      ILevelServices levelServices,
-
+                                     IVideoMasterService videoService,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
@@ -48,14 +45,27 @@ namespace DeVeeraApp.Controllers
                                                                                   authenticationService: authenticationService)
         {
             _weeklyVideoServices = weeklyVideoServices;
-
             _moduleServices = moduleService;
-
             _levelServices = levelServices;
-
+            _videoServices = videoService;
             _notificationService = notificationService;
         }
         #endregion
+        public virtual void PrepareVideoUrl(LevelModel model)
+        {
+            //prepare available url
+            model.AvailableVideoUrl.Add(new SelectListItem { Text = "Select VideoUrl", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideoUrl.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.VideoUrl,
+                    Selected = url.Id == model.VideoId
+                });
+            }
+        }
 
 
         #region Methods
@@ -155,7 +165,7 @@ namespace DeVeeraApp.Controllers
             if (model.Modules.Id == 0)
             { 
                 var modules = new Modules();
-                modules.VideoId = model.Id;
+                modules.LevelId = model.Id;
                 modules.VideoURL = model.Modules.VideoURL;
                 modules.FullDescription = model.Modules.FullDescription;
                 _moduleServices.InsertModule(modules);
@@ -163,7 +173,7 @@ namespace DeVeeraApp.Controllers
             else
             {
                 var modules = _moduleServices.GetModuleById(model.Modules.Id);
-                modules.VideoId = model.Id;
+                modules.LevelId = model.Id;
                 modules.VideoURL = model.Modules.VideoURL;
                 modules.FullDescription = model.Modules.FullDescription;
                 _moduleServices.UpdateModule(modules);
