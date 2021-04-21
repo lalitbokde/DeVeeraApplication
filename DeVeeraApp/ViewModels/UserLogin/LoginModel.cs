@@ -24,6 +24,9 @@ namespace DeVeeraApp.ViewModels.UserLogin
         [DisplayName("Password")]
         public string Password { get; set; }
 
+
+        public string ConfirmPassword { get; set; }
+
         [DisplayName("RememberMe")]
         public bool RememberMe { get; set; }
 

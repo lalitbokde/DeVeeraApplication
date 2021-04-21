@@ -46,6 +46,7 @@ namespace DeVeeraApp.ViewModels.User
         public UserPassword UserPassword { get; set; }
         [NotMapped]
         public string OldPassword { get; set; }
+
         [NotMapped]
         public string ConfirmPassword { get; set; }
         public string CompanyName { get; set; }
@@ -187,6 +188,7 @@ namespace DeVeeraApp.ViewModels.User
         Male = 1,
         Female = 2,
         Other = 3,
+        [Display(Name = "Dont want to say.")]
         DontWantToSay = 4
     }
 
@@ -201,9 +203,10 @@ namespace DeVeeraApp.ViewModels.User
 
     public enum FamilyOrRelationship
     {
-        Marriied = 1,
+        Married = 1,
         Divorced = 2,
         Separated = 3,
         Other = 4
     }
+
 }

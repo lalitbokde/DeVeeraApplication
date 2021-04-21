@@ -2,6 +2,7 @@
 using CRM.Core.Domain;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Message;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -19,6 +20,7 @@ namespace DeVeeraApp.Controllers
 
         #region fields
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
+        private readonly INotificationService _notificationService;
 
         #endregion
 
@@ -26,11 +28,13 @@ namespace DeVeeraApp.Controllers
         public WeeklyUpdateController(IWeeklyUpdateServices weeklyUpdateServices,
                                       IWorkContext workContext,
                                       IHttpContextAccessor httpContextAccessor,
-                                      IAuthenticationService authenticationService) : base(workContext: workContext,
+                                      IAuthenticationService authenticationService,
+                                      INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             _weeklyUpdateServices = weeklyUpdateServices;
+            _notificationService = notificationService;
         }
         #endregion
         
@@ -54,6 +58,7 @@ namespace DeVeeraApp.Controllers
 
                 var data = model.ToEntity<WeeklyUpdate>();
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
+                _notificationService.SuccessNotification("Quote created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
             return View();
@@ -95,6 +100,8 @@ namespace DeVeeraApp.Controllers
                 val.IsActive = model.IsActive;
                 val.VideoURL = model.VideoURL;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
+                _notificationService.SuccessNotification("Quote edited successfully.");
+
                 return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
             return View();

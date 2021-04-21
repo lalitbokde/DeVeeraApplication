@@ -2,6 +2,7 @@
 using CRM.Core.Domain;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Message;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -20,6 +21,7 @@ namespace DeVeeraApp.Controllers
 
         private readonly IWeeklyUpdateServices _weeklyVideoServices;
         private readonly IVideoServices _videoServices;
+        private readonly INotificationService _notificationService;
 
 
         #endregion
@@ -30,12 +32,14 @@ namespace DeVeeraApp.Controllers
                                      IVideoServices videoServices,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
-                                     IAuthenticationService authenticationService) : base(workContext: workContext,
+                                     IAuthenticationService authenticationService,
+                                     INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             _weeklyVideoServices = weeklyVideoServices;
             _videoServices = videoServices;
+            _notificationService = notificationService;
         }
         #endregion
 
@@ -63,6 +67,7 @@ namespace DeVeeraApp.Controllers
             {
                 var data = model.ToEntity<Video>();
                 _videoServices.InsertVideo(data);
+                _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("List");
             }
             return View();
@@ -109,6 +114,8 @@ namespace DeVeeraApp.Controllers
             {
                 var data = model.ToEntity<Video>();
                 _videoServices.UpdateVideo(data);
+                _notificationService.SuccessNotification("video lesson has been edited successfully.");
+
                 return RedirectToAction("Index", "Home");
             }
             return View();

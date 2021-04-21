@@ -146,6 +146,14 @@ namespace CRM.Services.Users
         /// <summary>
         /// Gets a User role
         /// </summary>
+        /// <param name="name">User role identifier</param>
+        /// <returns>User role</returns>
+        UserRole GetUserRoleByRoleName(string name);
+
+
+        /// <summary>
+        /// Gets a User role
+        /// </summary>
         /// <param name="systemName">User role system name</param>
         /// <returns>User role</returns>
         UserRole GetUserRoleBySystemName(string systemName);

@@ -29,7 +29,7 @@
 }
 
 
-function PostDeleteUser(Id) {
+function PostDeleteAdminUser(Id) {
 
     var jsonData = {
 
@@ -64,6 +64,57 @@ function PostDeleteUser(Id) {
 
                         window.location.reload();
                         
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "User is in use.",
+                    'error',
+
+                )
+        });
+
+}
+
+
+function PostDeleteRegisteredUser(Id) {
+
+    var jsonData = {
+
+        userId: Id
+
+    };
+    $.post("/User/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "User data has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
                     })
                 }
 

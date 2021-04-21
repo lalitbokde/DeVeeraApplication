@@ -1,6 +1,7 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain.Users;
 using CRM.Services.Authentication;
+using CRM.Services.Message;
 using CRM.Services.Users;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.Admin;
@@ -19,6 +20,7 @@ namespace DeVeeraApp.Controllers
         #region fields
         private readonly IUserService _UserService;
         private readonly IUserPasswordService _userPasswordService;
+        private readonly INotificationService _notificationService;
         #endregion
 
         #region ctor
@@ -26,12 +28,14 @@ namespace DeVeeraApp.Controllers
                                IUserPasswordService userPasswordService, 
                                IWorkContext workContext,
                                IHttpContextAccessor httpContextAccessor,
-                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                               IAuthenticationService authenticationService,
+                               INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             _UserService = userService;
             _userPasswordService = userPasswordService;
+            _notificationService = notificationService;
         }
 
         #endregion
@@ -59,16 +63,24 @@ namespace DeVeeraApp.Controllers
         public IActionResult Create(CreateAdminModel model)
         {
             AddBreadcrumbs("Admin", "Create", "/Admin/Create", "/Admin/Create");
-
+            string userRoleName = "Admin";
             if (ModelState.IsValid)
             {
+                
                 //fill entity from model
                 var user = model.ToEntity<User>();
                 UserPassword password = null;
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 2;
+                var userRoleData = _UserService.GetAllUserRoles();
+                foreach(var item in userRoleData)
+                {
+                    if(item.Name == userRoleName)
+                    {
+                        user.UserRoleId = item.Id;
+                    }
+                }
                 user.Active = true;
 
                 _UserService.InsertUser(user);
@@ -87,29 +99,29 @@ namespace DeVeeraApp.Controllers
                 }
                 _UserService.UpdateUser(user);
 
-
-                return RedirectToAction("List", "Admin", new { roleId = user.UserRoleId });
+                _notificationService.SuccessNotification("New Admin has been added successfully.");
+                return RedirectToAction("List", "Admin", new { roleName = userRoleName });
             }
 
             return View(model);
 
         }
-        public IActionResult List(int roleId)
+        public IActionResult List(string roleName)
         {
 
-            var UserRole = _UserService.GetUserRoleById(roleId);
+            var UserRole = _UserService.GetUserRoleByRoleName(roleName);
 
-            AddBreadcrumbs($"{UserRole.Name}", "List", $"/Admin/List?roleId={roleId}", $"/Admin/List?roleId={roleId}");
+            AddBreadcrumbs($"{UserRole.Name}", "List", $"/Admin/List?roleName={roleName}", $"/Admin/List?roleName={roleName}");
 
             var model = new List<UserModel>();
-            var data = _UserService.GetUserByUserRoleId(roleId);
+            var data = _UserService.GetUserByUserRoleId(UserRole.Id);
             if(data.Count() != 0)
             {
                 foreach (var item in data)
                 {
                     model.Add(item.ToModel<UserModel>());
                 }
-                ViewBag.RoleId = roleId;
+                ViewBag.roleName = roleName;
             return View(model);
 
             }
@@ -137,9 +149,10 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(UserModel model)
+        public IActionResult Edit(CreateAdminModel model)
         {
             AddBreadcrumbs("Level", "List", "/UploadVideo/List", "/UploadVideo/List");
+            string userRoleName = "Admin";
 
             if (ModelState.IsValid)
             {
@@ -149,7 +162,15 @@ namespace DeVeeraApp.Controllers
                 user.UserGuid = Guid.NewGuid();
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
-                user.UserRoleId = 2;
+                var userRoleData = _UserService.GetAllUserRoles();
+
+                foreach (var item in userRoleData)
+                { 
+                    if (item.Name == userRoleName)
+                    {
+                        user.UserRoleId = item.Id;
+                    }
+                }
                 user.Active = true;
 
                 _UserService.UpdateUser(user);
@@ -164,12 +185,13 @@ namespace DeVeeraApp.Controllers
                         Password = model.UserPassword.Password,
                         CreatedOnUtc = DateTime.UtcNow,
                     };
-                    _userPasswordService.InsertUserPassword(password);
+                    _userPasswordService.UpdatePassword(password);
                 }
                 _UserService.UpdateUser(user);
 
+                _notificationService.SuccessNotification(" Admin has been edited successfully.");
 
-                return RedirectToAction("List", "Admin", new { roleId = user.UserRoleId });
+                return RedirectToAction("List", "Admin", new { roleName = userRoleName });
             }
 
             return View(model);

@@ -4,7 +4,7 @@
 }
 <div class="intro-y  py-10 sm:py-20 ">
 
-    @if (ViewBag.RoleId == 2)
+    @if (ViewBag.roleName == "Admin")
     {
 
         <div class="px-5 ">
@@ -37,7 +37,7 @@
                                                     <td class="border-b dark:border-dark-5">@item.Id</td>
                                                     <td class="border-b dark:border-dark-5">@item.Email</td>
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Admin" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                    <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteUser(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteAdminUser(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                 </tr>
 
                                             }
@@ -83,7 +83,8 @@
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Gender</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Age</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Occupation</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap"></th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
 
                                             </tr>
                                         </thead>
@@ -97,7 +98,8 @@
                                                 <td class="border-b dark:border-dark-5">@item.GenderType</td>
                                                 <td class="border-b dark:border-dark-5">@item.Age</td>
                                                 <td class="border-b dark:border-dark-5">@item.Occupation</td>
-                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="User" asp-action="UserProfile" asp-route-userId="@item.Id"><i data-feather="eye"></i></a></td>
+                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="User" asp-action="UserProfile" asp-route-userId="@item.Id"><i data-feather="edit"></i></a></td>
+                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteRegisteredUser(@item.Id)')"><i data-feather="trash-2"></i></a></td>
 
                                             </tr>
 
