@@ -51,6 +51,8 @@ namespace DeVeeraApp.Controllers
             _notificationService = notificationService;
         }
         #endregion
+
+        #region Utilities
         public virtual void PrepareVideoUrl(LevelModel model)
         {
             //prepare available url
@@ -60,13 +62,13 @@ namespace DeVeeraApp.Controllers
             {
                 model.AvailableVideoUrl.Add(new SelectListItem
                 {
-                    Value = url.Id.ToString(),
+                    Value = url.VideoUrl,
                     Text = url.VideoUrl,
                     Selected = url.Id == model.VideoId
                 });
             }
         }
-
+        #endregion
 
         #region Methods
         public IActionResult Index()
@@ -78,8 +80,9 @@ namespace DeVeeraApp.Controllers
         public IActionResult Create()
         {
             AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
-
-            return View();
+            LevelModel model = new LevelModel();
+            PrepareVideoUrl(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -94,7 +97,8 @@ namespace DeVeeraApp.Controllers
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("Edit", "Level", new { id = data.Id });
             }
-            return View();
+            PrepareVideoUrl(model);
+            return View(model);
         }
 
         public IActionResult List()
@@ -135,6 +139,8 @@ namespace DeVeeraApp.Controllers
                     model.Modules.Id = module.Id;
                     ViewBag.ActiveTab = "Add Module";
                 }
+
+                PrepareVideoUrl(model);
                 return View(model);
             }
             return RedirectToAction("List");
