@@ -84,8 +84,12 @@ namespace DeVeeraApp
             services.AddScoped<SecuritySettings, SecuritySettings>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserModelFactory, UserModelFactory>();
-            services.AddScoped<IVideoServices, VideoServices>();
+
             services.AddScoped<IModuleService, ModuleService>();
+
+            services.AddScoped<ILevelServices, LevelServices>();
+            services.AddScoped<IVideoMasterService, VideoMasterService>();
+
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
             services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
             services.AddScoped<INotificationService, NotificationService>();
