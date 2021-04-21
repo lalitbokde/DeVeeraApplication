@@ -25,6 +25,8 @@ namespace CRM.Services
 
        
         void UpdateLevel(Level model);
+        Level GetFirstRecord();
+
 
 
     }

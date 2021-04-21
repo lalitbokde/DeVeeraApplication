@@ -6,8 +6,8 @@
 <div class="intro-y  py-10 sm:py-20 ">
 
     <div class="px-5 ">
-        <div class="font-medium text-center text-lg"> Video List</div>
-        <div class="text-gray-600 text-center mt-2">Below are the list of videos for different levels.</div>
+        <div class="font-medium text-center text-lg"> Level List</div>
+        <div class="text-gray-600 text-center mt-2">Below are the list of levels.</div>
 
     </div>
 
@@ -43,7 +43,7 @@
                                                 <td class="border-b dark:border-dark-5">@item.Subtitle</td>
                                                 <td class="border-b dark:border-dark-5">@item.VideoURL</td>
                                                 <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteVideo(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteLevel(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                             </tr>
 
                                         }
@@ -51,10 +51,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="source-code hidden">
-                            <button data-target="#copy-basic-table" class="copy-code btn py-1 px-2 btn-outline-secondary"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Copy example code </button>
-
-                        </div>
+                    
                     </div>
                 </div>
 
