@@ -22,14 +22,14 @@ namespace DeVeeraApp.Controllers
     {
         #region fields
         private readonly ILogger<LessonController> _logger;
-        private readonly IVideoServices _videoServices;
+        private readonly ILevelServices _levelServices;
 
         #endregion
 
 
         #region ctor
         public LessonController(ILogger<LessonController> logger,
-                                IVideoServices videoServices,
+                                ILevelServices levelServices,
                                 IWorkContext workContext,
                                 IHttpContextAccessor httpContextAccessor,
                                 IAuthenticationService authenticationService) : base(workContext: workContext,
@@ -37,7 +37,7 @@ namespace DeVeeraApp.Controllers
                                                                                   authenticationService: authenticationService)
         {
             _logger = logger;
-            _videoServices = videoServices;
+            _levelServices = levelServices;
         }
 
         #endregion
@@ -50,7 +50,7 @@ namespace DeVeeraApp.Controllers
 
             if (id != 0)
             {
-                var data = _videoServices.GetVideoById(id);
+                var data = _levelServices.GetLevelById(id);
                 var videoData = data.ToModel<LevelModel>();
                 return View(videoData);
             }
