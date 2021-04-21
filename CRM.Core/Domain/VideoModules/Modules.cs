@@ -5,10 +5,10 @@ using System.Text;
 namespace CRM.Core.Domain.VideoModules
 {
     public class Modules : BaseEntity
-    { 
-        public int VideoId { get; set; }
+    {
+        public int LevelId { get; set; }
         public string VideoURL { get; set; }
         public string FullDescription { get; set; }
-        public virtual Level Video { get; set; }
+        public virtual Level Level { get; set; }
     }
 }
