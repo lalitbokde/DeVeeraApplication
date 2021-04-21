@@ -71,16 +71,21 @@ namespace DeVeeraApp.Controllers
 
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
+
             if (id == 0 && isNewUser == false)
             {
                 var data = _levelServices.GetLevelById((int)currentUser.LastLevel);
+
                 var videoData = data.ToModel<LevelModel>();
+                videoData.ModuleList = _moduleServices.GetModulesByLevelId((int)currentUser.LastLevel);
                 return View(videoData);
             }
             else if(id == 0 && isNewUser == true)
             {
                 var data = _levelServices.GetFirstRecord();
                 var videoData = data.ToModel<LevelModel>();
+                videoData.ModuleList = _moduleServices.GetModulesByLevelId(data.Id);
+
                 currentUser.LastLevel = videoData.Id;
                 _userService.UpdateUser(currentUser);
                 return View(videoData);
