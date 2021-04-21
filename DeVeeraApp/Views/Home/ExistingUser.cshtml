@@ -28,7 +28,7 @@
             <div class="text-white mt-10 lg:mt-0">
                 <div class="intro-x text-8xl font-medium">Welcome back</div>
                 <div class="intro-x text-xl lg:text-3xl font-medium mt-5">Let's continue</div>
-                <a asp-controller="Lesson" asp-action="Index" asp-route-id="0" asp-route-isNewUser="false" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Go To Dashboard</a>
+                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@Model.LastLevel" asp-route-srno="@ViewBag.SrNo" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Go To Dashboard</a>
             </div>
         </div>
     </div>

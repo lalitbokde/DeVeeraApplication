@@ -65,45 +65,50 @@ namespace DeVeeraApp.Controllers
 
 
         #region Method
-        public IActionResult Index(int id, bool isNewUser)
+        public IActionResult Index(int id,int srno)
         {
+            ViewBag.SrNo = srno;
+            ViewBag.TotalLevels = _levelServices.GetAllLevels().Count;
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
-            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-
-
-            if (id == 0 && isNewUser == false)
-            {
-                var data = _levelServices.GetLevelById((int)currentUser.LastLevel);
-
-                var videoData = data.ToModel<LevelModel>();
-                videoData.ModuleList = _moduleServices.GetModulesByLevelId((int)currentUser.LastLevel);
-                return View(videoData);
-            }
-            else if(id == 0 && isNewUser == true)
-            {
-                var data = _levelServices.GetFirstRecord();
-                var videoData = data.ToModel<LevelModel>();
-                videoData.ModuleList = _moduleServices.GetModulesByLevelId(data.Id);
-
-                currentUser.LastLevel = videoData.Id;
-                _userService.UpdateUser(currentUser);
-                return View(videoData);
-            }
-            else
-            {
+          
                 var data = _levelServices.GetLevelById(id);
                 var videoData = data.ToModel<LevelModel>();
-
                 videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
-
-
-                currentUser.LastLevel = videoData.Id;
-                _userService.UpdateUser(currentUser);
-
                 return View(videoData);
-            }
         }
+
+        
+        public IActionResult Previous(int id, int srno)
+        {
+           
+            var data = _levelServices.GetAllLevels().Where(a=>a.Id < id).FirstOrDefault();
+            if (data != null)
+            {
+                return RedirectToAction("Index", new { id = data.Id, srno = srno -1 });
+            }
+            return RedirectToAction("Index", new { id = id, srno = srno -1 });
+        }
+
+        public IActionResult Next(int id, int srno)
+        {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+          
+
+            ViewBag.SrNo = srno;
+            var data = _levelServices.GetAllLevels().Where(a => a.Id > id).FirstOrDefault();
+            if (data != null)
+            {
+                if (data.Id > currentUser.LastLevel)
+                {
+                    currentUser.LastLevel = data.Id;
+                    _userService.UpdateUser(currentUser);
+                }
+                return RedirectToAction("Index", new { id = data.Id, srno = srno +1 });
+            }
+            return RedirectToAction("Index", new { id = id, srno = srno +1 });
+        }
+
 
         public IActionResult Privacy()
         {
