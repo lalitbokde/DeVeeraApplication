@@ -11,6 +11,7 @@ using DeVeeraApp.ViewModels.Common;
 using CRM.Core;
 using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
+using CRM.Services.Message;
 
 namespace DeVeeraApp.Controllers
 {
@@ -18,16 +19,19 @@ namespace DeVeeraApp.Controllers
     {
         #region fields
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly INotificationService _notificationService;
         #endregion
         #region ctor
         public DashboardQuoteController(IDashboardQuoteService dashboardQuoteService,
                                         IWorkContext workContext,
                                         IHttpContextAccessor httpContextAccessor,
-                                        IAuthenticationService authenticationService) : base(workContext: workContext,
+                                        IAuthenticationService authenticationService,
+                                        INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             this._dashboardQuoteService = dashboardQuoteService;
+            _notificationService = notificationService;
         }
         #endregion
         #region methods
@@ -69,6 +73,7 @@ namespace DeVeeraApp.Controllers
 
                 var quote = model.ToEntity<DashboardQuote>();
                 _dashboardQuoteService.InsertDashboardQutoe(quote);
+                _notificationService.SuccessNotification("Dashboard quote added successfully.");
                 return RedirectToAction("List");
             }
             return View();
@@ -106,6 +111,8 @@ namespace DeVeeraApp.Controllers
                 quote.Author = model.Author;
                 quote.IsActive = model.IsActive;
                 _dashboardQuoteService.UpdateDashboardQutoe(quote);
+                _notificationService.SuccessNotification("Dashboard quote edited successfully.");
+
                 return RedirectToAction("List");
             }
             return View(model);

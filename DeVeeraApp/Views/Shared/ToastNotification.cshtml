@@ -1,0 +1,66 @@
+﻿
+@using Newtonsoft.Json
+@using CRM.Services.Message
+
+@{
+
+
+    //Get messages from TempData
+    var notes = TempData.ContainsKey("NotificationList")
+    ? JsonConvert.DeserializeObject<IList<NotifyData>>(TempData["NotificationList"].ToString())
+  : null;
+    if (notes != null)
+    {
+        foreach (var note in notes)
+        {
+            <div id="notifications" class="row">
+                @switch (note.Type)
+                {
+                    case NotifyType.Success:
+
+                        <div class="toastify on  toastify-right toastify-top" style=" transform: translate(0px, 0px); top: 15px;">
+                            <div id="success-notification-content" class="toastify-content  flex">
+                                <i class="text-theme-10" data-feather="check-circle"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Success</div>
+                                    <div class="text-gray-600 mt-1"> @note.Message</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        break;
+                    case NotifyType.Error:
+                        <div class="toastify on  toastify-right toastify-top" style=" transform: translate(0px, 0px); top: 15px;">
+                            <div id="success-notification-content" class="toastify-content  flex">
+                                <i class="text-theme-24" data-feather="alert-triangle"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Error</div>
+                                    <div class="text-gray-600 mt-1"> @note.Message</div>
+                                </div>
+                            </div>
+                        </div>
+                        break;
+                    case NotifyType.Warning:
+                        <div class="toastify on  toastify-right toastify-top" style=" transform: translate(0px, 0px); top: 15px;">
+                            <div id="success-notification-content" class="toastify-content  flex">
+                                <i class="text-theme-22" data-feather="info"></i>
+                                <div class="ml-4 mr-4">
+                                    <div class="font-medium">Warning</div>
+                                    <div class="text-gray-600 mt-1"> @note.Message</div>
+                                </div>
+                            </div>
+                        </div>
+                        break;
+                }
+            </div>
+
+        }
+    }
+
+}
+<script type="text/javascript">
+    setTimeout(function () {
+        $('#notifications').fadeOut('slow');
+    }, 5000); // <-- time in milliseconds
+</script>
+

@@ -15,6 +15,7 @@ using CRM.Services.Common;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Directory;
 using CRM.Services.Helpers;
+using CRM.Services.Message;
 using CRM.Services.Security;
 using CRM.Services.Users;
 using DeVeeraApp.Factories;
@@ -85,7 +86,7 @@ namespace DeVeeraApp
             services.AddScoped<IVideoServices, VideoServices>();
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
             services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
-
+            services.AddScoped<INotificationService, NotificationService>();
             var authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;

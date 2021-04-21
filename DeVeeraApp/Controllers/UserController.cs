@@ -23,6 +23,8 @@ using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.UserLogin;
 using DeVeeraApp.ViewModels;
+using CRM.Services.Message;
+using DeVeeraApp.ViewModels.Common;
 
 namespace DeVeeraApp.Controllers
 {
@@ -45,6 +47,7 @@ namespace DeVeeraApp.Controllers
         private readonly IWorkContext _WorkContextService;
         //private readonly INotificationService _notificationService;
         private readonly IEncryptionService _encryptionService;
+        private readonly INotificationService _notificationService;
 
         #endregion
 
@@ -62,7 +65,8 @@ namespace DeVeeraApp.Controllers
                                   IAuthenticationService authenticationService,
                                   IUserModelFactory UserModelFactory,
                                  // INotificationService notificationService,
-                                  IEncryptionService encryptionService
+                                  IEncryptionService encryptionService,
+                                  INotificationService notificationService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -82,8 +86,8 @@ namespace DeVeeraApp.Controllers
             this._permissionService = permissionService;
            // this._notificationService = notificationService;
             _encryptionService = encryptionService;
-            
-    }
+           _notificationService = notificationService;
+        }
 
         #endregion
 
@@ -448,13 +452,16 @@ namespace DeVeeraApp.Controllers
                             {
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                                if(_WorkContextService.CurrentUser.UserRole.Name == "User")
+                                _notificationService.SuccessNotification("Login successfull.");
+
+                                if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
                                     return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login });
 
                                 }
                                 else
                                 {
+
                                     return RedirectToAction("Index", "Home");
                                 }
 
@@ -501,6 +508,7 @@ namespace DeVeeraApp.Controllers
             }
             //delete current cookie value
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(".MarketPlaceCRM.User");
+
             return RedirectToAction("Login");
 
         }
@@ -561,6 +569,7 @@ namespace DeVeeraApp.Controllers
 
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
+                                _notificationService.SuccessNotification("User registered successfull.");
 
                                 return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
 
@@ -625,23 +634,90 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                if (User != null )
+                if (User != null)
                 {
-                    User.Username = model.Username;
-                    User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
-                    User.Age = model.Age;
-                    User.Occupation = model.Occupation;
-                    User.EducationType = (CRM.Core.Domain.Users.Education)model.GenderType;
-                    User.FamilyOrRelationshipType=(CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
-                    _UserService.UpdateUser(User);
+                    if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword.Password)
+                    {
+                        var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
+                        userPassword.Password = model.UserPassword.Password;
+
+                        _Userpasswordservice.UpdatePassword(userPassword);
+                        _notificationService.SuccessNotification("Password updated successfull.");
+                    }
+                    else
+                    {
+                        User.Username = model.Username;
+                        User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
+                        User.Age = model.Age;
+                        User.Occupation = model.Occupation;
+                        User.EducationType = (CRM.Core.Domain.Users.Education)model.GenderType;
+                        User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
+                        _notificationService.SuccessNotification("User info updated successfull.");
+
+                        _UserService.UpdateUser(User);
+
+                    }
+
                     model = User.ToModel<UserModel>();
+
                     return View(model);
                 }
-             
+
             }
-                return View(model);
+
+
+            return View(model);
         }
 
+
+
+        //[HttpPost]
+        //public IActionResult ChangePassword(DeVeeraApp.ViewModels.UserLogin.LoginModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (!string.IsNullOrWhiteSpace(model?.Password) && model.ConfirmPassword == model.Password)
+        //        {
+        //            var User = _UserService.GetUserById(model.Id);
+        //            var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
+        //            userPassword.Password = model.Password;
+
+        //            _Userpasswordservice.UpdatePassword(userPassword);
+        //            _notificationService.SuccessNotification("Password updated successfull.");
+
+        //        }
+
+        //    }
+
+        //    return RedirectToAction("UserProfile");
+        //}
+
+        public IActionResult Delete(int userId)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (userId != 0)
+            {
+                var userData = _UserService.GetUserById(userId);
+                if (userData == null)
+                {
+                    response.Success = false;
+                    response.Message = "No user found";
+                }
+                _UserService.DeleteUser(userData);
+
+                response.Success = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "userId is 0";
+
+            }
+            return Json(response);
+
+
+        }
 
         //[HttpPost]
         //public IActionResult ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model)

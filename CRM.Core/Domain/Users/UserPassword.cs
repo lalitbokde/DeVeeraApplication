@@ -27,7 +27,8 @@ namespace CRM.Core.Domain.Users
         /// Gets or sets the password
         /// </summary>
         [Required]
-        
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
+        ErrorMessage = "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
         public string Password { get; set; }
 
         /// <summary>

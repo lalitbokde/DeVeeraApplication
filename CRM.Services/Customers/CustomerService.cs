@@ -334,6 +334,14 @@ namespace CRM.Services.Users
             return _UserRoleRepository.GetById(UserRoleId);
         }
 
+        public virtual UserRole GetUserRoleByRoleName(string name)
+        {
+            if (name == null)
+                return null;
+
+            return _UserRoleRepository.Table.Where(n => n.Name == name).SingleOrDefault();
+        }
+
         /// <summary>
         /// Gets a User role
         /// </summary>
