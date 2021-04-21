@@ -1,4 +1,4 @@
-﻿function ShowDeleteConfirmation(url) {
+function ShowDeleteConfirmation(url) {
     debugger
     swal({
         title: 'Are you sure?',
@@ -138,7 +138,7 @@ function PostDeleteVideo(Id) {
         videoId: Id
 
     };
-    $.post("/UploadVideo/Delete",
+    $.post("/Level/Delete",
         jsonData
         ,
         function (data, status) {
@@ -307,6 +307,56 @@ function PostDeleteModule(Id) {
                     swal({
                         title: 'Deleted!',
                         text: "Module has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Quote is in use.",
+                    'error',
+
+                )
+        });
+
+}
+
+function PostDeleteVideo(Id) {
+
+    var jsonData = {
+
+        videoId: Id
+
+    };
+    $.post("/Video/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "Video data has been deleted.",
                         type: 'success',
                         confirmButtonColor: '#2f47c2',
                         confirmButtonText: 'Ok',

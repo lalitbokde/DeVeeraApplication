@@ -87,6 +87,16 @@ namespace CRM.Services
             _levelRepository.Update(model);
         }
 
+        public Level GetFirstRecord()
+        {
+
+            var query = from vdo in _levelRepository.Table
+                        orderby vdo.Title
+                        select vdo;
+            var data = query.Take(1).FirstOrDefault();
+            return data;
+        }
+
         #endregion
     }
 }
