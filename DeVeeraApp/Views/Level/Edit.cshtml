@@ -16,15 +16,15 @@
                 <div class="intro-y pr-1">
                     <div class="p-2">
                         <div class="pos__tabs nav nav-tabs justify-center" role="tablist">
-                            <a id="level-tab" data-toggle="tab" data-target="#level" href="javascript:;" class="flex-1 py-2 rounded-md text-center active" role="tab" aria-controls="level" aria-selected="true">Level</a>
-                            <a id="modules-tab" data-toggle="tab" data-target="#modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center" role="tab" aria-controls="modules" aria-selected="false">Add Module</a>
-                            <a id="view-modules-tab" data-toggle="tab" data-target="#view-modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center" role="tab" aria-controls="view-modules" aria-selected="false">View Modules</a>
+                            <a id="level-tab" data-toggle="tab" data-target="#level" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab=="Level" ? "active":"")" role="tab" aria-controls="level" aria-selected="true">Level</a>
+                            <a id="modules-tab" data-toggle="tab" data-target="#modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tab" aria-controls="modules" aria-selected="false">Add / Edit Module</a>
+                            <a id="view-modules-tab" data-toggle="tab" data-target="#view-modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab=="View-Module" ?"active":"")" role="tab" aria-controls="view-modules" aria-selected="false">View Modules</a>
 
                         </div>
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div id="level" class="tab-pane active" role="tabpanel" aria-labelledby="level-tab">
+                    <div id="level" class="tab-pane @(ViewBag.ActiveTab=="Level" ? "active":"")" role="tabpanel" aria-labelledby="level-tab">
                         <form asp-controller="Level" asp-action="Edit" method="post">
                             @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                             {
@@ -70,12 +70,13 @@
                             </div>
                         </form>
                     </div>
-                    <div id="modules" class="tab-pane" role="tabpanel" aria-labelledby="modules-tab">
+                    <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
                         <form asp-controller="Level" asp-action="AddModule" method="post">
                             <div class="mt-5">
                                 <label class="form-label text-theme-21 star">Video URL</label>
-                                <input asp-for="Id" hidden/>
-                                <input asp-for="Modules.VideoURL" type="text" class="form-control" placeholder="video name" />
+                                <input asp-for="Id" hidden />
+                                <input asp-for="Modules.Id" hidden />
+                                <input asp-for="Modules.VideoURL" type="text" class="form-control" placeholder="video name" required/>
                                 <span asp-validation-for="Modules.VideoURL" class="text-theme-6 mt-2"></span>
 
                             </div>
@@ -85,7 +86,7 @@
                             </div>
                             <div class="" id="standard-editor">
                                 <div class="preview">
-                                    <textarea asp-for="Modules.FullDescription" class="editor"> </textarea>
+                                    <textarea asp-for="Modules.FullDescription" class="editor" required> </textarea>
                                     <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
 
                                 </div>
@@ -98,8 +99,43 @@
                         </form>
                     </div>
 
-                    <div id="view-modules" class="tab-pane " role="tabpanel" aria-labelledby="view-modules-tab">
+                    <div id="view-modules" class="tab-pane @(ViewBag.ActiveTab=="View-Module" ? "active":"")" role="tabpanel" aria-labelledby="view-modules-tab">
+                        <div class="p-5" id="basic-table">
+                            <div class="preview">
+                                <div class="overflow-x-auto">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video URL</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int i =1;
+                                                foreach (var item in Model.ModuleList)
+                                                {
+                                                <tr>
+                                                    <td class="border-b dark:border-dark-5">@item.Id</td>
+                                                    <td class="border-b dark:border-dark-5">Module @i</td>
+                                                    <td class="border-b dark:border-dark-5">@item.VideoURL</td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteModule(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="source-code hidden">
+                                <button data-target="#copy-basic-table" class="copy-code btn py-1 px-2 btn-outline-secondary"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Copy example code </button>
 
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -109,3 +145,5 @@
 
 </div>
 
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/dist/js/CustomJs/Delete.js"></script>

@@ -9,6 +9,11 @@ namespace DeVeeraApp.ViewModels
 {
     public class LevelModel : BaseEntityModel
     {
+        public LevelModel()
+        {
+            Modules = new Modules();
+        }
+
         [Required]
         public string Title { get; set; }
         [Required]
@@ -22,7 +27,7 @@ namespace DeVeeraApp.ViewModels
 
         [Required]
         public string FullDescription { get; set; }
-
         public Modules Modules { get; set; }
+        public IList<Modules>ModuleList { get; set; }
     }
 }

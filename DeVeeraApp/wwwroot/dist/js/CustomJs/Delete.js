@@ -1,4 +1,5 @@
-﻿function ShowDeleteConfirmation(url) {
+function ShowDeleteConfirmation(url) {
+    debugger
     swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -130,7 +131,7 @@ function PostDeleteRegisteredUser(Id) {
 
 }
 
-function PostDeleteLevel(Id) {
+function PostDeleteVideo(Id) {
 
     var jsonData = {
 
@@ -155,7 +156,7 @@ function PostDeleteLevel(Id) {
                 else {
                     swal({
                         title: 'Deleted!',
-                        text: "Level data has been deleted.",
+                        text: "User data has been deleted.",
                         type: 'success',
                         confirmButtonColor: '#2f47c2',
                         confirmButtonText: 'Ok',
@@ -280,6 +281,55 @@ function PostDeleteDashboardQuote(Id) {
 
 }
 
+function PostDeleteModule(Id) {
+    debugger
+    var jsonData = {
+
+        id: Id
+
+    };
+    $.post("/Level/DeleteModule",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "Module has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Quote is in use.",
+                    'error',
+
+                )
+        });
+
+}
 
 function PostDeleteVideo(Id) {
 
