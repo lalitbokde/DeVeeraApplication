@@ -34,7 +34,7 @@ namespace CRM.Core.Domain.Users
         public int? Age { get; set; }
         public string Occupation { get; set; }
         public Education? EducationType { get; set; }
-        public bool IncomeAboveOrBelow80K { get; set; }
+        public Income? IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship? FamilyOrRelationshipType { get; set; }
 
         /// <summary>
@@ -153,6 +153,11 @@ namespace CRM.Core.Domain.Users
         DontWantToSay = 4
     }
 
+    public enum Income
+    {
+        IncomeAbove80K = 1,
+        IncomeBelow80K= 2
+    }
     public enum Education
     {
         HighSchool = 1,

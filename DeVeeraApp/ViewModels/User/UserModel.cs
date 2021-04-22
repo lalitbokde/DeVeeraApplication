@@ -32,7 +32,7 @@ namespace DeVeeraApp.ViewModels.User
         public int Age { get; set; }
         public string Occupation { get; set; }
         public Education EducationType { get; set; }
-        public bool IncomeAboveOrBelow80K { get; set; }
+        public Income IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
         public string ImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
@@ -183,6 +183,12 @@ namespace DeVeeraApp.ViewModels.User
         Other = 3,
         [Display(Name = "Dont want to say.")]
         DontWantToSay = 4
+    }
+
+    public enum Income
+    {
+        IncomeAbove80K = 1,
+        IncomeBelow80K = 2
     }
 
     public enum Education

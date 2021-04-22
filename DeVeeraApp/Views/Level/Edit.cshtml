@@ -76,7 +76,7 @@
                                 <label class="form-label text-theme-21 star">Video URL</label>
                                 <input asp-for="Id" hidden />
                                 <input asp-for="Modules.Id" hidden />
-                                <select asp-for="Modules.VideoURL" asp-items="Model.AvailableVideoUrl" type="text" class="form-control" placeholder="video name"></select>
+                                <select asp-for="Modules.VideoURL" asp-items="Model.AvailableVideoUrl" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                                 <span asp-validation-for="Modules.VideoURL" class="text-theme-6 mt-2"></span>
 
                             </div>

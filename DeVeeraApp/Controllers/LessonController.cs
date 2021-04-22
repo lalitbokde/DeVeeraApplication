@@ -97,7 +97,7 @@ namespace DeVeeraApp.Controllers
 
             if (currentUser.RegistrationComplete == false)
             {
-                return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno });
+                return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno, userId = currentUser.Id });
             }
             else
             {

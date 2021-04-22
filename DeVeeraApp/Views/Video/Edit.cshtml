@@ -29,11 +29,20 @@
                         <span asp-validation-for="VideoUrl" class="text-theme-6 mt-2"></span>
 
                     </div>
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                            <div class="intro-y   col-span-6">
+                                <a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>
+                            </div>
+                            <div class="intro-y  col-span-6 ml-auto">
+
+                                <button type="submit" class="btn btn-primary w-24">Save</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                    <button type="submit" class="btn btn-primary w-24">Save</button>
-                </div>
+             
             </div>
 
         </div>
