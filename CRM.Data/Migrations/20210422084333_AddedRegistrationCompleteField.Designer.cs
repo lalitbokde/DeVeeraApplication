@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210422084333_AddedRegistrationCompleteField")]
+    partial class AddedRegistrationCompleteField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -343,27 +345,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("videos");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Diary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comment");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("LevelId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LevelId");
-
-                    b.ToTable("Diaries");
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.VideoModules.Modules", b =>
                 {
                     b.Property<int>("Id")
@@ -459,14 +440,6 @@ namespace CRM.Data.Migrations
                     b.HasOne("CRM.Core.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Diary", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Level", "Level")
-                        .WithMany()
-                        .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
