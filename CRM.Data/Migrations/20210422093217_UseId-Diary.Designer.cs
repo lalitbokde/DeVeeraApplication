@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210422093217_UseId-Diary")]
+    partial class UseIdDiary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,7 +217,7 @@ namespace CRM.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<int?>("Age");
+                    b.Property<int>("Age");
 
                     b.Property<string>("Alias");
 
@@ -225,7 +227,7 @@ namespace CRM.Data.Migrations
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<int?>("EducationType");
+                    b.Property<int>("EducationType");
 
                     b.Property<string>("Email")
                         .HasMaxLength(1000);
@@ -235,9 +237,9 @@ namespace CRM.Data.Migrations
 
                     b.Property<int>("FailedLoginAttempts");
 
-                    b.Property<int?>("FamilyOrRelationshipType");
+                    b.Property<int>("FamilyOrRelationshipType");
 
-                    b.Property<int?>("GenderType");
+                    b.Property<int>("GenderType");
 
                     b.Property<string>("ImageURL");
 
@@ -261,8 +263,6 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("SystemName")
                         .HasMaxLength(400);
-
-                    b.Property<bool>("TwoFactorAuthentication");
 
                     b.Property<int?>("UserAddressId");
 
