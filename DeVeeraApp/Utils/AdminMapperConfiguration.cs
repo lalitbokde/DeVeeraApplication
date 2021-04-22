@@ -25,7 +25,10 @@ namespace DeVeeraApp.Utils
             CreateMap<UserModel, User>()             
                .ForMember(dest => dest.Addresses, mo => mo.Ignore());
 
-      
+            CreateMap<Level, LevelModel>()
+             .ForMember(dest => dest.srno, mo => mo.Ignore());
+
+
 
 
             CreateMap<AddressModel, Address>()

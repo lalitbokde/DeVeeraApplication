@@ -30,6 +30,8 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelServices _levelServices;
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly IUserService _UserService;
+        private readonly IWorkContext _workContext;
 
         #endregion
 
@@ -41,7 +43,11 @@ namespace DeVeeraApp.Controllers
                               IDashboardQuoteService dashboardQuoteService,
                               IWorkContext workContext,
                               IHttpContextAccessor httpContextAccessor,
-                              IAuthenticationService authenticationService) :base(workContext: workContext,
+                              IAuthenticationService authenticationService,
+                               IUserService userService
+                              
+
+                              ) :base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -49,7 +55,9 @@ namespace DeVeeraApp.Controllers
             _levelServices = levelServices;
             _weeklyUpdateServices = weeklyUpdateServices;
             _dashboardQuoteService = dashboardQuoteService;
-           
+            _UserService = userService;
+            _workContext = workContext;
+
         }
 
         #endregion
@@ -81,30 +89,35 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult ExistingUser(int QuoteType)
         {
-            if (QuoteType != 0)
-            {
+            var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
+          
+           
                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
-                return View(model);
+                model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel  == 0)? _levelServices.GetAllLevels().FirstOrDefault().Id : (int)currentUser.LastLevel;
 
-            }
+              
 
-            return View();
+            
+            ViewBag.SrNo = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel).Count();
+
+            return View(model);
         }
 
         public IActionResult NewUser(int QuoteType)
         {
-            if (QuoteType != 0)
-            {
+            var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
+       
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
-                return View(model);
+               var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
+                if(firstLevel!=null)
+                model.LastLevel = firstLevel.Id;
+            ViewBag.SrNo = 1;
+            return View(model);
 
-            }
-
-            return View();
         }
 
         public IActionResult Privacy()

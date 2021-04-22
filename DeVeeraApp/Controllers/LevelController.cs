@@ -92,7 +92,9 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
+
                 var data = model.ToEntity<Level>();
+                data.Title = "Level " + (_levelServices.GetAllLevels().Count + 1);
                 _levelServices.InsertLevel(data);
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("Edit", "Level", new { id = data.Id });
@@ -119,16 +121,20 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult Edit(int id,int ModuleId)
+        public IActionResult Edit(int id,int ModuleId, int srno)
         {
             AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{id}");
 
+           
             ViewBag.ActiveTab = "Level";
 
             if (id != 0)
             {
                 var data = _levelServices.GetLevelById(id);
+                
                 var model = data.ToModel<LevelModel>();
+                
+                model.srno = srno;
                 model.ModuleList = _moduleServices.GetModulesByLevelId(id);
 
                 if( ModuleId > 0 && ModuleId != 0)
@@ -155,6 +161,7 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Level>();
+                data.Title = "Level " + model.srno;
                 _levelServices.UpdateLevel(data);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 

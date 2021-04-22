@@ -2,7 +2,7 @@
 @inject CRM.Core.IWorkContext _workContext
 
 <div class=" mt-10 lg:mt-0">
-    <div class="intro-x mt-10 text-4xl font-medium">@Model.Title</div>
+    <div class="intro-x mt-10 text-4xl font-medium">Level @ViewBag.SrNo</div></div>
     <div class="text-gray-600 text-left mt-2">@Model.Quote</div>
 
 
@@ -20,11 +20,24 @@
 
                 @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
                 {
-                    <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
+                    <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
                     <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
+
                 }
-                @{Model.Id = Model.Id + 1; }
-                <a asp-controller="Lesson" asp-action="index" asp-route-id="@Model.Id"  class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
+                @if (Convert.ToInt32(ViewBag.SrNo) != 1)
+                {
+                 
+
+                        <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
+              
+                }
+                @if (ViewBag.TotalLevels > ViewBag.SrNo)
+                {
+
+
+                    <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
+                }
+
             </div>
 
         </div>
