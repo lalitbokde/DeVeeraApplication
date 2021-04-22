@@ -47,8 +47,13 @@
     <Compile Include="Migrations\20210421100403_AddedVideoTable.Designer.cs" />
     <Compile Include="Migrations\20210421153306_LevelId.cs" />
     <Compile Include="Migrations\20210421153306_LevelId.Designer.cs" />
+
+    <Compile Include="Migrations\20210422084831_DiaryTable.cs" />
+    <Compile Include="Migrations\20210422084831_DiaryTable.Designer.cs" />
+
     <Compile Include="Migrations\20210422084333_AddedRegistrationCompleteField.cs" />
     <Compile Include="Migrations\20210422084333_AddedRegistrationCompleteField.Designer.cs" />
+
 
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
