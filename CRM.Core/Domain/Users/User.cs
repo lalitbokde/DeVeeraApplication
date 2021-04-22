@@ -97,6 +97,8 @@ namespace CRM.Core.Domain.Users
 
         public int? LastLevel { get; set; }
 
+        public bool RegistrationComplete { get; set; }
+
         /// <summary>
         /// Gets or sets the date and time of entity creation
         /// </summary>
