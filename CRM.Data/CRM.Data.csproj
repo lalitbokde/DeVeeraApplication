@@ -53,6 +53,8 @@
 
     <Compile Include="Migrations\20210422084333_AddedRegistrationCompleteField.cs" />
     <Compile Include="Migrations\20210422084333_AddedRegistrationCompleteField.Designer.cs" />
+    <Compile Include="Migrations\20210422093217_UseId-Diary.cs" />
+    <Compile Include="Migrations\20210422093217_UseId-Diary.Designer.cs" />
 
 
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
