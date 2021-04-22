@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210422092214_ChangeUserTableFieldsProperty")]
+    partial class ChangeUserTableFieldsProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,8 +264,6 @@ namespace CRM.Data.Migrations
                     b.Property<string>("SystemName")
                         .HasMaxLength(400);
 
-                    b.Property<bool>("TwoFactorAuthentication");
-
                     b.Property<int?>("UserAddressId");
 
                     b.Property<int?>("UserAvailabilityId");
@@ -358,8 +358,6 @@ namespace CRM.Data.Migrations
                     b.Property<bool>("Deleted");
 
                     b.Property<int>("LevelId");
-
-                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 

@@ -30,12 +30,12 @@ namespace CRM.Core.Domain.Users
         /// </summary>
         public string Username { get; set; }
 
-        public Gender GenderType { get; set; }
-        public int Age { get; set; }
+        public Gender? GenderType { get; set; }
+        public int? Age { get; set; }
         public string Occupation { get; set; }
-        public Education EducationType { get; set; }
+        public Education? EducationType { get; set; }
         public bool IncomeAboveOrBelow80K { get; set; }
-        public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
+        public FamilyOrRelationship? FamilyOrRelationshipType { get; set; }
 
         /// <summary>
         /// Gets or sets the username
@@ -99,6 +99,7 @@ namespace CRM.Core.Domain.Users
 
         public bool RegistrationComplete { get; set; }
 
+        public bool TwoFactorAuthentication { get; set; }
         /// <summary>
         /// Gets or sets the date and time of entity creation
         /// </summary>
