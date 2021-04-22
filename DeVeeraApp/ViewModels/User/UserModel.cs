@@ -25,23 +25,15 @@ namespace DeVeeraApp.ViewModels.User
 
         public string Username { get; set; }
 
-        [Required]
-        public Gender GenderType { get; set; }
-
-        [Required]
-        public int Age { get; set; }
-
-        public string Occupation { get; set; }
-
-        public Education EducationType { get; set; }
-        public bool IncomeAboveOrBelow80K { get; set; }
-        public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
-
-
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
-
+        public Gender GenderType { get; set; }
+        public int Age { get; set; }
+        public string Occupation { get; set; }
+        public Education EducationType { get; set; }
+        public bool IncomeAboveOrBelow80K { get; set; }
+        public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
         public string ImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
         [NotMapped]
@@ -183,6 +175,7 @@ namespace DeVeeraApp.ViewModels.User
 
 
     }
+
     public enum Gender
     {
         Male = 1,
@@ -208,5 +201,4 @@ namespace DeVeeraApp.ViewModels.User
         Separated = 3,
         Other = 4
     }
-
 }

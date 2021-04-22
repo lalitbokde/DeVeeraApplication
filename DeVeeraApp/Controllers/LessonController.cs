@@ -78,7 +78,8 @@ namespace DeVeeraApp.Controllers
                 return View(videoData);
         }
 
-        
+       
+
         public IActionResult Previous(int id, int srno)
         {
            
@@ -93,20 +94,28 @@ namespace DeVeeraApp.Controllers
         public IActionResult Next(int id, int srno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-          
 
-            ViewBag.SrNo = srno;
-            var data = _levelServices.GetAllLevels().Where(a => a.Id > id).FirstOrDefault();
-            if (data != null)
+            if (currentUser.RegistrationComplete == false)
             {
-                if (data.Id > currentUser.LastLevel)
-                {
-                    currentUser.LastLevel = data.Id;
-                    _userService.UpdateUser(currentUser);
-                }
-                return RedirectToAction("Index", new { id = data.Id, srno = srno +1 });
+                return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno });
             }
-            return RedirectToAction("Index", new { id = id, srno = srno +1 });
+            else
+            {
+                ViewBag.SrNo = srno;
+                var data = _levelServices.GetAllLevels().Where(a => a.Id > id).FirstOrDefault();
+                if (data != null)
+                {
+                    if (data.Id > currentUser.LastLevel)
+                    {
+                        currentUser.LastLevel = data.Id;
+                        _userService.UpdateUser(currentUser);
+                    }
+                    return RedirectToAction("Index", new { id = data.Id, srno = srno + 1 });
+                }
+                return RedirectToAction("Index", new { id = id, srno = srno + 1 });
+
+            }
+
         }
 
 

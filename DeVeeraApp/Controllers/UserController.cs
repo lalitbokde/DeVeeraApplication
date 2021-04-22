@@ -671,6 +671,12 @@ namespace DeVeeraApp.Controllers
 
 
 
+
+        public IActionResult CompleteRegistration(int Id, int SrNo)
+        {
+            return View();
+        }
+
         //[HttpPost]
         //public IActionResult ChangePassword(DeVeeraApp.ViewModels.UserLogin.LoginModel model)
         //{
