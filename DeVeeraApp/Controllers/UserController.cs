@@ -25,6 +25,10 @@ using DeVeeraApp.ViewModels.UserLogin;
 using DeVeeraApp.ViewModels;
 using CRM.Services.Message;
 using DeVeeraApp.ViewModels.Common;
+using Education = CRM.Core.Domain.Users.Education;
+using FamilyOrRelationship = CRM.Core.Domain.Users.FamilyOrRelationship;
+using Gender = CRM.Core.Domain.Users.Gender;
+using Income = CRM.Core.Domain.Users.Income;
 
 namespace DeVeeraApp.Controllers
 {
@@ -672,8 +676,35 @@ namespace DeVeeraApp.Controllers
 
 
 
-        public IActionResult CompleteRegistration(int Id, int SrNo)
+        public IActionResult CompleteRegistration(int Id, int SrNo, int userId)
         {
+            ViewBag.id = Id;
+            ViewBag.srNo = SrNo;
+            ViewBag.UserId = userId;
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult CompleteRegistration(CompleteRegistrationModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUser = _UserService.GetUserById(model.UserId);
+
+                currentUser.Age = model.Age;
+                currentUser.EducationType = (Education)model.EducationType;
+                currentUser.FamilyOrRelationshipType = (FamilyOrRelationship)model.FamilyOrRelationshipType;
+                currentUser.GenderType = (Gender)model.GenderType;
+                currentUser.IncomeAboveOrBelow80K = (Income)model.IncomeAboveOrBelow80K;
+                currentUser.Occupation = model.Occupation;
+                currentUser.RegistrationComplete = true;
+                currentUser.LastLevel = model.LevelId;
+
+                _UserService.UpdateUser(currentUser);
+                _notificationService.SuccessNotification("User info updated successfull.");
+                return RedirectToAction("Next", "Lesson", new { id = model.LevelId, srno = model.SrNo });
+            }
             return View();
         }
 

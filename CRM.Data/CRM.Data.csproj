@@ -61,6 +61,10 @@
 
     <Compile Include="Migrations\20210422093217_UseId-Diary.cs" />
     <Compile Include="Migrations\20210422093217_UseId-Diary.Designer.cs" />
+    <Compile Include="Migrations\20210422144148_ChangeIncomeAboveOrBelow80KCollumn.cs" />
+    <Compile Include="Migrations\20210422144148_ChangeIncomeAboveOrBelow80KCollumn.Designer.cs" />
+    <Compile Include="Migrations\20210422144647_ChangeIncomeAboveOrBelow80KCollumnUpdate.cs" />
+    <Compile Include="Migrations\20210422144647_ChangeIncomeAboveOrBelow80KCollumnUpdate.Designer.cs" />
 
 
 

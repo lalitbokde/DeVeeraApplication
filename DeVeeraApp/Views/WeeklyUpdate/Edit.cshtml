@@ -23,10 +23,10 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
-                       
+
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" class="form-control" placeholder="video name"></select>
+                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
                         </div>
                         <div class="mt-5">
@@ -36,7 +36,15 @@
 
                         </div>
                         <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <button type="submit" class="btn btn-primary w-24">Save</button>
+                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                                <div class="intro-y   col-span-6">
+                                    <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Login)" class="btn btn-primary w-24"> List</a>
+                                </div>
+                                <div class="intro-y  col-span-6 ml-auto">
+
+                                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -61,10 +69,10 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
-                     
+
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" class="form-control" placeholder="video name"></select>
+                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
 
                         </div>
@@ -78,7 +86,15 @@
                         </div>
 
                         <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <button type="submit" class="btn btn-primary w-24">Save</button>
+                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                                <div class="intro-y   col-span-6">
+                                    <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Registration)" class="btn btn-primary w-24"> List</a>
+                                </div>
+                                <div class="intro-y  col-span-6 ml-auto">
+
+                                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
