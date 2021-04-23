@@ -37,8 +37,9 @@ namespace DeVeeraApp.Controllers
         {
             ViewBag.SrNo = srno;
             ViewBag.LevelSrNo = levelSrno;
-            ViewBag.TotalModules = _moduleService.GetAllModules().Count;
             var data = _moduleService.GetModuleById(id);
+            ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();
+           
             var moduleData = data.ToModel<ModulesModel>();
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
