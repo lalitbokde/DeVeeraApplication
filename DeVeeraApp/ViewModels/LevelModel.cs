@@ -1,4 +1,5 @@
-﻿using CRM.Core.Domain.VideoModules;
+﻿using CRM.Core.Domain;
+using CRM.Core.Domain.VideoModules;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace DeVeeraApp.ViewModels
             Modules = new Modules();
             this.AvailableVideo = new List<SelectListItem>();
         }
+        [Required]
         public int VideoId { get; set; }
         [Required]
         public string Title { get; set; }
@@ -24,7 +26,7 @@ namespace DeVeeraApp.ViewModels
 
         [Required]
         public string Quote { get; set; }
-        [Required]
+       
         public string VideoUrl { get; set; }
         public string VideoName { get; set; }
 
