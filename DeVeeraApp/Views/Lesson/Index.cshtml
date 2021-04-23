@@ -1,10 +1,27 @@
 ﻿@model DeVeeraApp.ViewModels.LevelModel
 @inject CRM.Core.IWorkContext _workContext
+<div class="intro-y col-span-12 flex">
+    <div class="intro-y col-span-6 mr-auto">
+        <div class=" mt-10 lg:mt-0">
+            <div class="intro-x mt-10 text-4xl font-medium">Level @ViewBag.SrNo</div>
 
-<div class=" mt-10 lg:mt-0">
-    <div class="intro-x mt-10 text-4xl font-medium">Level @ViewBag.SrNo</div>
+        </div>
+        <div class="text-gray-600 text-left mt-2">@Model.Quote</div>
+    </div>
+    <div class="intro-y col-span-6 flex items-center">
+        <div class="alert alert-warning show mb-2 mt-10" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-lg mr-4">Latest Diary</div>
+                <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
+            </div>
+            <div class="mt-3">@Model.DiaryText</div>
+        </div>
+
+    </div>
 </div>
-<div class="text-gray-600 text-left mt-2">@Model.Quote</div>
+
+
+
 
 
 
@@ -19,29 +36,27 @@
 
         <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
 
+
+
             @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
             {
                 <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
                 <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
 
-             }
-                else
-                {
-                    <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-                }
-                @if (Convert.ToInt32(ViewBag.SrNo) != 1)
-                {
-
-
-                    <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
-
-                }
-               
-            
-            @if (ViewBag.TotalLevels > ViewBag.SrNo)
+            }
+            else
+            {
+                <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+            }
+            @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
 
 
+
+
+                <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
+
+<
                 <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
             }
 
@@ -86,6 +101,7 @@
 
 
     }
+
 
 </div>
 

@@ -32,6 +32,7 @@ namespace DeVeeraApp.Controllers
 
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
+        private readonly IDiaryMasterService _diaryMasterService;
 
 
         #endregion
@@ -47,7 +48,8 @@ namespace DeVeeraApp.Controllers
 
                                 IWorkContext workContext,
                                 IHttpContextAccessor httpContextAccessor,
-                                IAuthenticationService authenticationService) : base(workContext: workContext,
+                                IAuthenticationService authenticationService,
+                                IDiaryMasterService diaryMasterService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -58,6 +60,7 @@ namespace DeVeeraApp.Controllers
 
             _userService = userService;
             _workContext = workContext;
+            _diaryMasterService = diaryMasterService;
 
         }
 
@@ -65,30 +68,35 @@ namespace DeVeeraApp.Controllers
 
 
         #region Method
-        public IActionResult Index(int id,int srno)
+        public IActionResult Index(int id, int srno)
         {
             ViewBag.SrNo = srno;
             ViewBag.TotalLevels = _levelServices.GetAllLevels().Count;
+
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
-          
-                var data = _levelServices.GetLevelById(id);
-                var videoData = data.ToModel<LevelModel>();
-                videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
-                return View(videoData);
+            var diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
+            var data = _levelServices.GetLevelById(id);
+            var videoData = data.ToModel<LevelModel>();
+            videoData.DiaryText = diary != null ? diary.Comment : "";
+            videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
+            videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
+            return View(videoData);
         }
 
-       
+
 
         public IActionResult Previous(int id, int srno)
         {
+
            
             var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id).Where(a=>a.Id < id).FirstOrDefault();
+
             if (data != null)
             {
-                return RedirectToAction("Index", new { id = data.Id, srno = srno -1 });
+                return RedirectToAction("Index", new { id = data.Id, srno = srno - 1 });
             }
-            return RedirectToAction("Index", new { id = id, srno = srno -1 });
+            return RedirectToAction("Index", new { id = id, srno = srno - 1 });
         }
 
         public IActionResult Next(int id, int srno)
