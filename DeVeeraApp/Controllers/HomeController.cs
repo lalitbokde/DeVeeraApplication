@@ -95,12 +95,21 @@ namespace DeVeeraApp.Controllers
                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
-                model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel  == 0)? _levelServices.GetAllLevels().FirstOrDefault().Id : (int)currentUser.LastLevel;
+            var level = _levelServices.GetLevelById((int)currentUser.LastLevel);
+            var firstlevel = _levelServices.GetAllLevels().FirstOrDefault().Id;
+            model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel  == 0)? firstlevel : (level!= null? (int)currentUser.LastLevel : firstlevel);
 
-              
 
-            
-            ViewBag.SrNo = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel).Count();
+            var lastLevel = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel);
+
+            if (lastLevel != null)
+            {
+                ViewBag.SrNo = lastLevel.Count();
+            }
+            else
+            {
+                ViewBag.SrNo = 1;
+            }
 
             return View(model);
         }
