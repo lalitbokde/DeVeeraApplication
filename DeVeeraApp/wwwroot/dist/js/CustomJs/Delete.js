@@ -131,8 +131,8 @@ function PostDeleteRegisteredUser(Id) {
 
 }
 
-function PostDeleteVideo(Id) {
-
+function PostDeleteLevel(Id) {
+    debugger
     var jsonData = {
 
         videoId: Id
@@ -156,7 +156,7 @@ function PostDeleteVideo(Id) {
                 else {
                     swal({
                         title: 'Deleted!',
-                        text: "User data has been deleted.",
+                        text: "Video lesson has been deleted.",
                         type: 'success',
                         confirmButtonColor: '#2f47c2',
                         confirmButtonText: 'Ok',

@@ -1,0 +1,55 @@
+﻿@model DeVeeraApp.ViewModels.ModulesModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="intro-y news p-5 box mt-8">
+    <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
+            <h2 class="intro-y font-medium text-xl sm:text-2xl">
+                Module @ViewBag.SrNo
+            </h2>
+
+        </div>
+
+        <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
+
+            @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
+            {
+                <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
+                <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
+
+            }
+            @if (Convert.ToInt32(ViewBag.SrNo) != 1)
+            {
+
+
+                <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
+
+            }
+            @if (ViewBag.TotalModules > ViewBag.SrNo)
+            {
+
+
+                <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
+            }
+            else
+            {
+                <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next Lesson</a>
+
+            }
+
+        </div>
+
+    </div>
+    <div class="intro-y mt-6">
+        <div class="news__preview image-fit">
+            @{string src = Model.VideoURL;}
+            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+        </div>
+    </div>
+    <div class="intro-y text-justify leading-relaxed mt-10">
+        @Html.Raw(Model.FullDescription)
+    </div>
+
+</div>
