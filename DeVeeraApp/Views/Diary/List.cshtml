@@ -1,4 +1,4 @@
-﻿@model List<DeVeeraApp.ViewModels.VideoModel>
+﻿@model List<DeVeeraApp.ViewModels.Diaries.DiaryModel>
 @{
     ViewData["Title"] = "List";
 }
@@ -6,8 +6,8 @@
 <div class="intro-y  py-10 sm:py-20 ">
 
     <div class="px-5 ">
-        <div class="font-medium text-center text-lg"> Video List</div>
-        <div class="text-gray-600 text-center mt-2">Below are the list of videos.</div>
+        <div class="font-medium text-center text-lg"> Diary List</div>
+        <div class="text-gray-600 text-center mt-2">Below are the list of Diarys.</div>
 
     </div>
 
@@ -25,7 +25,7 @@
                                     <thead>
                                         <tr>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
-                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">VideoUrl</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">DiaryUrl</th>
 
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
@@ -37,9 +37,9 @@
                                             <tr>
                                                 <td class="border-b dark:border-dark-5">@item.Id</td>
                                             
-                                                <td class="border-b dark:border-dark-5">@item.VideoUrl</td>
-                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Video" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteVideo(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                <td class="border-b dark:border-dark-5">@item.Comment</td>
+                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Diary" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteDiary(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                             </tr>
 
                                         }

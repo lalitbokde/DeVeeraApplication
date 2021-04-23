@@ -69,6 +69,10 @@
 
 
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
+    <Compile Include="Migrations\20210423110251_diaryTableUpdate.cs" />
+    <Compile Include="Migrations\20210423110251_diaryTableUpdate.Designer.cs" />
+    <Compile Include="Migrations\20210423121810_moduleIdAdded.Designer.cs" />
+    <Compile Include="Migrations\20210423121810_moduleIdAdded.cs" />
   </ItemGroup>
 
   <ItemGroup>
