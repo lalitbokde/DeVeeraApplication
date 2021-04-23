@@ -22,6 +22,7 @@
         public int PageSize { get; set; }
 
         public string SortBy { get; set; }
+
         public bool GetAll { get; set; }
 
         public int SortByStatus { get; set; }

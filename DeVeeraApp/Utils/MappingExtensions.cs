@@ -2,6 +2,7 @@
 using CRM.Core;
 using DeVeeraApp.ViewModels;
 using System;
+using System.Collections.Generic;
 
 namespace DeVeeraApp.Utils
 {
@@ -67,6 +68,26 @@ namespace DeVeeraApp.Utils
         /// <param name="model">Model to map into</param>
         /// <returns>Mapped model</returns>
         public static TModel ToModel<TEntity, TModel>(this TEntity entity, TModel model)
+            where TEntity : BaseEntity where TModel : BaseEntityModel
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+            return entity.MapTo(model);
+        }
+
+        /// <summary>
+        /// Execute a mapping from the entity to the existing model
+        /// </summary>
+        /// <typeparam name="TEntity">Entity type</typeparam>
+        /// <typeparam name="TModel">Model type</typeparam>
+        /// <param name="entity">Entity to map from</param>
+        /// <param name="model">Model to map into</param>
+        /// <returns>Mapped model</returns>
+        public static List<TModel> ToModelList<TEntity, TModel>(this List<TEntity> entity, List<TModel> model)
             where TEntity : BaseEntity where TModel : BaseEntityModel
         {
             if (entity == null)

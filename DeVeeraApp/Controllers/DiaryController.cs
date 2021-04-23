@@ -1,4 +1,5 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
@@ -21,6 +22,7 @@ namespace DeVeeraApp.Controllers
 
         private readonly INotificationService _notificationService;
         private readonly IDiaryMasterService _DiaryMasterService;
+        private readonly IWorkContext _workContext;
 
         #endregion
 
@@ -28,10 +30,12 @@ namespace DeVeeraApp.Controllers
         #region ctor
 
         public DiaryController(INotificationService notificationService,
-                       IDiaryMasterService DiaryMasterService)
+                       IDiaryMasterService DiaryMasterService,
+                       IWorkContext workContext)
         {
             _notificationService = notificationService;
             _DiaryMasterService = DiaryMasterService;
+            _workContext = workContext;
         }
 
         #endregion
@@ -61,8 +65,9 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Diary>();
+                data.UserId = _workContext.CurrentUser.Id;
                 _DiaryMasterService.InsertDiary(data);
-                _notificationService.SuccessNotification("Diary url added successfully.");
+                _notificationService.SuccessNotification("Diary added successfully.");
                 return RedirectToAction("List");
             }
             return View();
@@ -102,18 +107,18 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
-            var DiaryList = _DiaryMasterService.GetAllDiarys();
-            var model = new List<DiaryModel>();
-            if(DiaryList.Count != 0)
+            List<DiaryModel> DiaryList = new List<DiaryModel>();
+            if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {
-                foreach(var item in DiaryList)
-                {
-                    model.Add(item.ToModel<DiaryModel>());
-                }
-                return View(model);
+                DiaryList = _DiaryMasterService.GetAllDiarys().ToList().ToModelList(DiaryList);
+            }
+            else
+            {
+                DiaryList = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList().ToModelList(DiaryList);
 
             }
-            return RedirectToAction("Index", "Home");
+
+            return View(DiaryList);
 
         }
 
