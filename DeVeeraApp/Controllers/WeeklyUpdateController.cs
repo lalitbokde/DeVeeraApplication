@@ -146,7 +146,7 @@ namespace DeVeeraApp.Controllers
                 }
                 return View(model);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("List", "WeeklyUpdate", new { typeId = typeId });
         }
 
         public IActionResult Delete(int id)

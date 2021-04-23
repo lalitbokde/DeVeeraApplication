@@ -92,7 +92,7 @@ namespace DeVeeraApp.Controllers
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
           
            
-               var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
+               var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
             var level = _levelServices.GetLevelById((int)currentUser.LastLevel);
@@ -118,7 +118,7 @@ namespace DeVeeraApp.Controllers
         {
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
        
-                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
+                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
                var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();

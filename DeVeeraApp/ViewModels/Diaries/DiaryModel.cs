@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace DeVeeraApp.ViewModels.Diaries
 {
     public class DiaryModel : BaseEntityModel
@@ -11,5 +13,7 @@ namespace DeVeeraApp.ViewModels.Diaries
         public string Level { get; set; }
 
         public string Module { get; set; }
+
+        public List<DiaryModel> diaryModels { get; set; }
     }
 }
