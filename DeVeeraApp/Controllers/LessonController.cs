@@ -83,7 +83,7 @@ namespace DeVeeraApp.Controllers
         public IActionResult Previous(int id, int srno)
         {
            
-            var data = _levelServices.GetAllLevels().Where(a=>a.Id < id).FirstOrDefault();
+            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id).Where(a=>a.Id < id).FirstOrDefault();
             if (data != null)
             {
                 return RedirectToAction("Index", new { id = data.Id, srno = srno -1 });
