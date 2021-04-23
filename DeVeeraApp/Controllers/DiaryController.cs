@@ -51,6 +51,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create(int levelid, int moduleid)
         {
+           
             DiaryModel model= new DiaryModel(){
                  ModuleId = moduleid,
                  LevelId = levelid
