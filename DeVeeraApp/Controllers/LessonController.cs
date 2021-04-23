@@ -75,9 +75,10 @@ namespace DeVeeraApp.Controllers
 
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
-            var diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
             var data = _levelServices.GetLevelById(id);
             var videoData = data.ToModel<LevelModel>();
+            var diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
+           
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
