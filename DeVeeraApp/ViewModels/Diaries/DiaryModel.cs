@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CRM.Core.Domain.VideoModules
+namespace DeVeeraApp.ViewModels.Diaries
 {
-    public class Diary : BaseEntity
+    public class DiaryModel : BaseEntityModel
     {
-        public int UserId { get; set; }
         public int? LevelId { get; set; }
         public int? ModuleId { get; set; }
         public string Comment { get; set; }
