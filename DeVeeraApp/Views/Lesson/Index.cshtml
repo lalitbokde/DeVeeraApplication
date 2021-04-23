@@ -24,6 +24,7 @@
 
 
 
+
 <div class="intro-y news p-5 box mt-8">
     <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
         <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
@@ -34,6 +35,8 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
+
+
 
             @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
             {
@@ -49,13 +52,11 @@
             {
 
 
+
+
                 <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
 
-            }
-            @if (ViewBag.TotalLevels > ViewBag.SrNo)
-            {
-
-
+<
                 <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
             }
 
@@ -76,29 +77,32 @@
     <br />
     <br />
     <hr />
-    <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
-        @{int i = 1;
-            foreach (var item in Model.ModuleList)
-            {
-                <div class="intro-y col-span-6 lg:col-span-6 xxl:col-span-6">
-                    <h2 class="intro-y font-medium text-xl sm:text-2xl ml-2">
-                        Module @i
-                    </h2>
-                    <!-- BEGIN: Blog Layout -->
-                    <div class="intro-y mt-6">
-                        <div class="news__preview image-fit">
-                            @{string url = item.VideoURL;}
-                            <video src="@Url.Content(url)" controls style="width:100%; height:100%" loop />
-                        </div>
-                    </div>
-                    <div class="intro-y text-justify leading-relaxed mt-10">
-                        @Html.Raw(item.FullDescription)
-                    </div>
+    @if (Model.ModuleList.Count() > 0)
+    {
+        <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-12">
+
+                <div class="grid grid-cols-12 gap-5 mt-5">
+                    @{int i = 1;
+                        foreach (var item in Model.ModuleList)
+                        {
+                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
+                                <div class="font-medium text-base text-white">Module @i</div>
+                                <div class="text-theme-33 dark:text-gray-400">@Model.Subtitle</div>
+                            </a>
+                            i++;
+                        }
+                    }
                 </div>
-                i++;
-            }
-        }
-    </div>
+            </div>
+        </div>
+
+
+
+
+    }
+
+
 </div>
 
 <script src="~/lib/jquery/jquery.min.js"></script>
