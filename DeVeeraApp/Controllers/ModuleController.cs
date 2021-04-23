@@ -1,4 +1,5 @@
 ﻿using CRM.Core;
+using CRM.Services;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -16,14 +17,17 @@ namespace DeVeeraApp.Controllers
         private readonly IModuleService _moduleService;
         private readonly IWorkContext _workContext;
         private readonly IUserService _userService;
+        private readonly IDiaryMasterService _diaryMasterService;
 
         public ModuleController(IModuleService moduleService,
                                 IWorkContext workContext,
-                                IUserService userService)
+                                IUserService userService,
+                                IDiaryMasterService diaryMasterService)
         {
             _moduleService = moduleService;
             _workContext = workContext;
             _userService = userService;
+            _diaryMasterService = diaryMasterService;
         }
 
         #region methods
@@ -35,6 +39,10 @@ namespace DeVeeraApp.Controllers
             ViewBag.TotalModules = _moduleService.GetAllModules().Count;
             var data = _moduleService.GetModuleById(id);
             var moduleData = data.ToModel<ModulesModel>();
+            var diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
+
+            moduleData.DiaryText = diary != null ? diary.Comment : "";
+            moduleData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             return View(moduleData);
         }
 

@@ -42,6 +42,7 @@
             {
                 <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
                 <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
+                <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
 
             }
             else
@@ -56,7 +57,7 @@
 
                 <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
 
-<
+
                 <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
             }
 

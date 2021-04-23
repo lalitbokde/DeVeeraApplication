@@ -8,5 +8,8 @@ namespace DeVeeraApp.ViewModels.Diaries
         public string Comment { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool Deleted { get; set; }
+        public string Level { get; set; }
+
+        public string Module { get; set; }
     }
 }
