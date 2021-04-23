@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Http;
 
 using CRM.Services.VideoModules;
 using CRM.Services.Users;
-
+using CRM.Core.Domain.VideoModules;
 
 namespace DeVeeraApp.Controllers
 {
@@ -77,8 +77,16 @@ namespace DeVeeraApp.Controllers
 
             var data = _levelServices.GetLevelById(id);
             var videoData = data.ToModel<LevelModel>();
-            var diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
-           
+            Diary diary = new Diary();
+            if (_workContext.CurrentUser.UserRole.Name == "Admin")
+            {
+                diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
+            }
+            else
+            {
+                diary = _diaryMasterService.GetAllDiarys().Where(a=>a.UserId == _workContext.CurrentUser.Id).OrderByDescending(a => a.Id).FirstOrDefault();
+
+            }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);

@@ -1,4 +1,5 @@
 ﻿using CRM.Core;
+using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -39,8 +40,16 @@ namespace DeVeeraApp.Controllers
             ViewBag.TotalModules = _moduleService.GetAllModules().Count;
             var data = _moduleService.GetModuleById(id);
             var moduleData = data.ToModel<ModulesModel>();
-            var diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
+            Diary diary = new Diary();
+            if (_workContext.CurrentUser.UserRole.Name == "Admin")
+            {
+                diary = _diaryMasterService.GetAllDiarys().OrderByDescending(a => a.Id).FirstOrDefault();
+            }
+            else
+            {
+                diary = _diaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).OrderByDescending(a => a.Id).FirstOrDefault();
 
+            }
             moduleData.DiaryText = diary != null ? diary.Comment : "";
             moduleData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             return View(moduleData);
