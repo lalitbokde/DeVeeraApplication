@@ -84,6 +84,7 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var videoData = _videoMasterService.GetVideoById(model.Id);
+                videoData.Name = model.Name;
                 videoData.VideoUrl = model.VideoUrl;
                 _videoMasterService.UpdateVideo(videoData);
                 _notificationService.SuccessNotification("Video url updated successfully.");
