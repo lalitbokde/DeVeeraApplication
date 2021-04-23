@@ -14,7 +14,7 @@ namespace DeVeeraApp.ViewModels
         public LevelModel()
         {
             Modules = new Modules();
-            this.AvailableVideoUrl = new List<SelectListItem>();
+            this.AvailableVideo = new List<SelectListItem>();
         }
         public int VideoId { get; set; }
         [Required]
@@ -25,14 +25,16 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public string Quote { get; set; }
         [Required]
-        public string VideoURL { get; set; }
+        public string VideoUrl { get; set; }
         public string VideoName { get; set; }
 
         [Required]
         public string FullDescription { get; set; }
         public Modules Modules { get; set; }
-        public IList<Modules> ModuleList { get; set; }
-        public IList<SelectListItem> AvailableVideoUrl { get; set; }
+
+        public IList<Modules>ModuleList { get; set; }
+        public IList<SelectListItem> AvailableVideo { get; set; }
+
 
         [NotMapped]
         public int srno { get; set; }

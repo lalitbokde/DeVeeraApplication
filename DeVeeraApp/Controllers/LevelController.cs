@@ -56,14 +56,14 @@ namespace DeVeeraApp.Controllers
         public virtual void PrepareVideoUrl(LevelModel model)
         {
             //prepare available url
-            model.AvailableVideoUrl.Add(new SelectListItem { Text = "Select VideoUrl", Value = "0" });
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
             var AvailableVideoUrl = _videoServices.GetAllVideos();
             foreach (var url in AvailableVideoUrl)
             {
-                model.AvailableVideoUrl.Add(new SelectListItem
+                model.AvailableVideo.Add(new SelectListItem
                 {
-                    Value = url.VideoUrl,
-                    Text = url.VideoUrl,
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
                     Selected = url.Id == model.VideoId
                 });
             }
@@ -140,7 +140,7 @@ namespace DeVeeraApp.Controllers
                 if( ModuleId > 0 && ModuleId != 0)
                 {
                     var module = _moduleServices.GetModuleById(ModuleId);
-                    model.Modules.VideoURL = module.VideoURL;
+                    model.Modules.VideoId = module.VideoId;
                     model.Modules.FullDescription = module.FullDescription;
                     model.Modules.Id = module.Id;
                     ViewBag.ActiveTab = "Add Module";
@@ -179,7 +179,7 @@ namespace DeVeeraApp.Controllers
             { 
                 var modules = new Modules();
                 modules.LevelId = model.Id;
-                modules.VideoURL = model.Modules.VideoURL;
+                modules.VideoId = model.Modules.VideoId;
                 modules.FullDescription = model.Modules.FullDescription;
                 _moduleServices.InsertModule(modules);
             }
@@ -187,7 +187,7 @@ namespace DeVeeraApp.Controllers
             {
                 var modules = _moduleServices.GetModuleById(model.Modules.Id);
                 modules.LevelId = model.Id;
-                modules.VideoURL = model.Modules.VideoURL;
+                modules.VideoId = model.Modules.VideoId;
                 modules.FullDescription = model.Modules.FullDescription;
                 _moduleServices.UpdateModule(modules);
             }

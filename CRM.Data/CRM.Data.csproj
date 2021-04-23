@@ -65,6 +65,10 @@
     <Compile Include="Migrations\20210422144148_ChangeIncomeAboveOrBelow80KCollumn.Designer.cs" />
     <Compile Include="Migrations\20210422144647_ChangeIncomeAboveOrBelow80KCollumnUpdate.cs" />
     <Compile Include="Migrations\20210422144647_ChangeIncomeAboveOrBelow80KCollumnUpdate.Designer.cs" />
+    <Compile Include="Migrations\20210423135701_AddedColumnInVideo.cs" />
+    <Compile Include="Migrations\20210423135701_AddedColumnInVideo.Designer.cs" />
+    <Compile Include="Migrations\20210423145859_VideoIdChanges.cs" />
+    <Compile Include="Migrations\20210423145859_VideoIdChanges.Designer.cs" />
 
 
 

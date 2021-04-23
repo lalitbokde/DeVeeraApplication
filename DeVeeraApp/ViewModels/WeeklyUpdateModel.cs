@@ -19,24 +19,23 @@ namespace DeVeeraApp.ViewModels
 
         public WeeklyUpdateModel()
         {
-            this.AvailableVideoUrl = new List<SelectListItem>();
+            this.AvailableVideo = new List<SelectListItem>();
         }
 
         public int VideoId { get; set; }
-
+        public string VideoUrl { get; set; }
         //[Required]
         //public string Title { get; set; }
         //[Required]
         //public string Subtitle { get; set; }
 
         //[Required]
-        public string VideoURL { get; set; }
         //public string VideoName { get; set; }
 
         [Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
-        public IList<SelectListItem> AvailableVideoUrl { get; set; }
+        public IList<SelectListItem> AvailableVideo { get; set; }
 
         [NotMapped]
         public int LastLevel { get; set; }
