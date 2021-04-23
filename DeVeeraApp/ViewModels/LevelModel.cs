@@ -31,11 +31,20 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public string FullDescription { get; set; }
         public Modules Modules { get; set; }
+
         public IList<Modules>ModuleList { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
 
+
         [NotMapped]
         public int srno { get; set; }
+
+
+        [NotMapped]
+        public string DiaryText { get; set; }
+
+        [NotMapped]
+        public string DiaryLatestUpdateDate { get; set; }
 
     }
 }
