@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Security\" />
+    <Folder Include="Diaries\" />
   </ItemGroup>
 
   <ItemGroup>

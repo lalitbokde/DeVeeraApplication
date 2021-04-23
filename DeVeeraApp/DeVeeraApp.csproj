@@ -16,6 +16,8 @@
   <ItemGroup>
     <Folder Include="Views\LandingPage\" />
     <Folder Include="wwwroot\LandingPage\" />
+    <Folder Include="ViewModels\Diaries\" />
+    <Folder Include="Views\Diary\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
