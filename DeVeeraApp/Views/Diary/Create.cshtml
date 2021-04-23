@@ -7,20 +7,20 @@
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
-            <div class="font-medium text-center text-lg">Create Diary</div>
+            <div class="font-medium text-center text-lg">Diary</div>
 
-            @if (!string.IsNullOrEmpty(Model.Module))
-            {
-                <div class="font-medium text-center text-lg">
-                     @Model.Level ->   @Model.Module
-                </div>
-            }
-            else
-            {
-                <div class="font-medium text-center text-lg">
-                     @Model.Level 
-                </div>
-            }
+            @*@if (!string.IsNullOrEmpty(Model.Module))
+                {
+                    <div class="font-medium text-center text-lg">
+                        @Model.Level ->   @Model.Module
+                    </div>
+                }
+                else
+                {
+                    <div class="font-medium text-center text-lg">
+                        @Model.Level
+                    </div>
+                }*@
 
         </div>
 
@@ -38,17 +38,14 @@
                     <input asp-for="ModuleId" hidden />
 
                     <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Note</label>
-                        <input asp-for="Comment" type="text" class="form-control" placeholder="Diary Note" />
+                        <label class="form-label text-theme-21 star">Add Diary Entry</label>
+                        <input asp-for="Comment" type="text" class="form-control" placeholder="Diary" />
                         <span asp-validation-for="Comment" class="text-theme-6 mt-2"></span>
 
                     </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                            <div class="intro-y   col-span-6">
-                                <a asp-controller="Diary" asp-action="List" class="btn btn-primary w-100">View all</a>
-                            </div>
-                            <div class="intro-y  col-span-6 ml-auto">
+                            <div class="intro-y justify-end">
 
                                 <button type="submit" class="btn btn-primary w-24">Save</button>
                             </div>
@@ -56,12 +53,45 @@
                     </div>
 
                 </div>
+                @if (Model.diaryModels.Count() != 0)
+                {
+                    <div class="intro-y box p-5 col-span-12">
+                        <!-- BEGIN: Recent Activities -->
+                        <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">
+
+                            <div class="report-timeline mt-5 relative">
+                                @foreach (var item in Model.diaryModels)
+                                {
+                                    <div class="intro-x relative flex items-center mb-3">
+                                        <div class="report-timeline__image">
+                                            <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                                <img alt="Icewall Tailwind HTML Admin Template" src="~/dist/images/profile-12.jpg">
+                                            </div>
+                                        </div>
+                                        <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                                            <div class="flex items-center">
+                                                <div class="font-medium">Source</div>
+                                                <div class="text-xs text-gray-500 ml-auto">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
+                                            </div>
+                                            <div class="text-gray-600 mt-1">@item.Comment</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                        <!-- END: Recent Activities -->
+                    </div>
+                }
+
 
             </div>
 
         </div>
 
     </div>
+
+
 
 
 </form>
