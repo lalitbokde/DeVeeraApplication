@@ -42,17 +42,17 @@ namespace DeVeeraApp.Controllers
         }
         #endregion
         #region Utilities
-        public virtual void PrepareVideoUrl(WeeklyUpdateModel model)
+        public virtual void PrepareVideo(WeeklyUpdateModel model)
         {
             //prepare available url
-            model.AvailableVideoUrl.Add(new SelectListItem { Text = "Select VideoUrl", Value = "0" });
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
             var AvailableVideoUrl = _videoServices.GetAllVideos();
             foreach (var url in AvailableVideoUrl)
             {
-                model.AvailableVideoUrl.Add(new SelectListItem
+                model.AvailableVideo.Add(new SelectListItem
                 {
-                    Value = url.VideoUrl,
-                    Text = url.VideoUrl,
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
                     Selected = url.Id == model.VideoId
                 });
             }
@@ -65,7 +65,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs( $"{type} Quote", "Create", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Create?type={type}");
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             ViewBag.QuoteType = type.ToString();
-            PrepareVideoUrl(model);
+            PrepareVideo(model);
             return View(model);
         }
 
@@ -83,7 +83,7 @@ namespace DeVeeraApp.Controllers
                 _notificationService.SuccessNotification("Video url created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
-            PrepareVideoUrl(model);
+            PrepareVideo(model);
             return View(model);
         }
 
@@ -99,7 +99,7 @@ namespace DeVeeraApp.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<WeeklyUpdateModel>();
-                    PrepareVideoUrl(model);
+                    PrepareVideo(model);
                     return View(model);
                 }
 
@@ -121,13 +121,13 @@ namespace DeVeeraApp.Controllers
                 //val = model.ToEntity<WeeklyUpdate>();
               
                 val.IsActive = model.IsActive;
-                val.VideoURL = model.VideoURL;
+                //val.VideoURL = model.VideoURL;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 _notificationService.SuccessNotification("Video url edited successfully.");
 
                 return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
-            PrepareVideoUrl(model);
+            PrepareVideo(model);
             return View(model);
         }
 

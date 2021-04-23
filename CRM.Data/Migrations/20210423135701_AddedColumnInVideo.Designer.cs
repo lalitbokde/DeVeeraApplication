@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210423135701_AddedColumnInVideo")]
+    partial class AddedColumnInVideo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,11 +159,11 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int>("VideoId");
+                    b.Property<string>("VideoName");
+
+                    b.Property<string>("VideoURL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("VideoId");
 
                     b.ToTable("Levels");
                 });
@@ -380,13 +382,11 @@ namespace CRM.Data.Migrations
 
                     b.Property<int>("LevelId");
 
-                    b.Property<int>("VideoId");
+                    b.Property<string>("VideoURL");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LevelId");
-
-                    b.HasIndex("VideoId");
 
                     b.ToTable("Levelmodules");
                 });
@@ -405,11 +405,11 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<int>("VideoId");
+                    b.Property<string>("VideoName");
+
+                    b.Property<string>("VideoURL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("VideoId");
 
                     b.ToTable("WeeklyUpdates");
                 });
@@ -434,14 +434,6 @@ namespace CRM.Data.Migrations
                     b.HasOne("CRM.Core.Domain.Directory.Country", "Country")
                         .WithMany("StateProvinces")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Level", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -483,19 +475,6 @@ namespace CRM.Data.Migrations
                     b.HasOne("CRM.Core.Domain.Level", "Level")
                         .WithMany()
                         .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CRM.Core.Domain.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.WeeklyUpdate", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

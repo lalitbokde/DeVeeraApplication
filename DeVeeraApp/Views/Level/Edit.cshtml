@@ -48,9 +48,9 @@
                             </div>
 
                             <div class="mt-5">
-                                <label class="form-label text-theme-21 star">Video URL</label>
-                                <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" class="form-control" placeholder="video name"></select>
-                                <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
+                                <label class="form-label text-theme-21 star">Video</label>
+                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" class="form-control" placeholder="video name"></select>
+                                <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
 
                             </div>
 
@@ -73,11 +73,11 @@
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
                         <form asp-controller="Level" asp-action="AddModule" method="post">
                             <div class="mt-5">
-                                <label class="form-label text-theme-21 star">Video URL</label>
+                                <label class="form-label text-theme-21 star">Video</label>
                                 <input asp-for="Id" hidden />
                                 <input asp-for="Modules.Id" hidden />
-                                <select asp-for="Modules.VideoURL" asp-items="Model.AvailableVideoUrl" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="Modules.VideoURL" class="text-theme-6 mt-2"></span>
+                                <select asp-for="Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                                <span asp-validation-for="Modules.VideoId" class="text-theme-6 mt-2"></span>
 
                             </div>
 
@@ -108,7 +108,7 @@
                                             <tr>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video URL</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
                                             </tr>
@@ -120,7 +120,7 @@
                                                 <tr>
                                                     <td class="border-b dark:border-dark-5">@item.Id</td>
                                                     <td class="border-b dark:border-dark-5">Module @i</td>
-                                                    <td class="border-b dark:border-dark-5">@item.VideoURL</td>
+                                                    <td class="border-b dark:border-dark-5">@item.Video.Name</td>
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>
                                                     <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteModule(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                 </tr>

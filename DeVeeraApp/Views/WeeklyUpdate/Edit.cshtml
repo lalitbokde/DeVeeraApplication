@@ -11,7 +11,7 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Edit Login Video Url</div>
+                <div class="font-medium text-center text-lg">Edit Login Video</div>
                 <div class="text-gray-600 text-center mt-2">Please edit video to show on the weekly quote after user login</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -25,9 +25,9 @@
                         }
 
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                            <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                            <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
                         </div>
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
@@ -57,8 +57,8 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Edit Registration Video Url</div>
-                <div class="text-gray-600 text-center mt-2">Please edit video url to show on the weekly video after user Registration</div>
+                <div class="font-medium text-center text-lg">Edit Registration Video</div>
+                <div class="text-gray-600 text-center mt-2">Please edit video to show on the weekly video after user Registration</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -71,9 +71,9 @@
                         }
 
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video URL</label>
-                            <select asp-for="VideoURL" asp-items="Model.AvailableVideoUrl" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                            <span asp-validation-for="VideoURL" class="text-theme-6 mt-2"></span>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                            <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
 
                         </div>
 
