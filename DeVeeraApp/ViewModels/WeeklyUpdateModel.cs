@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CRM.Core.Domain;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,13 +25,15 @@ namespace DeVeeraApp.ViewModels
 
         public int VideoId { get; set; }
         public string VideoUrl { get; set; }
+
+        public Video Video { get; set; }
         //[Required]
         //public string Title { get; set; }
         //[Required]
         //public string Subtitle { get; set; }
 
         //[Required]
-        //public string VideoName { get; set; }
+        public string VideoName { get; set; }
 
         [Required]
         public Quote QuoteType { get; set; }

@@ -141,7 +141,7 @@ namespace DeVeeraApp.Controllers
             if (data.Count() != 0)
             {
                 foreach (var item in data)
-                {
+                {                    
                     model.Add(item.ToModel<WeeklyUpdateModel>());
                 }
                 return View(model);
