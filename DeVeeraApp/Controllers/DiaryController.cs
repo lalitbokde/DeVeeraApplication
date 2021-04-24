@@ -4,6 +4,7 @@ using CRM.Core.Domain;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Message;
+using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
@@ -26,6 +27,7 @@ namespace DeVeeraApp.Controllers
         private readonly IWorkContext _workContext;
         private readonly ILevelServices _levelServices;
         private readonly IModuleService _moduleService;
+        private readonly IUserService _userService;
 
         #endregion
 
@@ -36,13 +38,15 @@ namespace DeVeeraApp.Controllers
                        IDiaryMasterService DiaryMasterService,
                        IWorkContext workContext,
                        ILevelServices levelServices,
-                       IModuleService moduleService)
+                       IModuleService moduleService,
+                       IUserService userService)
         {
             _notificationService = notificationService;
             _DiaryMasterService = DiaryMasterService;
             _workContext = workContext;
             _levelServices = levelServices;
             _moduleService = moduleService;
+            _userService = userService;
         }
 
         #endregion
@@ -55,79 +59,90 @@ namespace DeVeeraApp.Controllers
         public IActionResult Create(int levelid, int moduleid)
         {
             DiaryModel model = new DiaryModel();
-            var levelCount = _levelServices.GetAllLevels().Where(a => a.Id <= levelid).Count();
-            var module = _moduleService.GetModuleById(moduleid);
-            if (module != null)
+
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+
+            if (currentUser.TwoFactorAuthentication == false)
             {
-                var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= module.Id && a.LevelId == module.LevelId).Count();
-                model.Module = "Module " + moduleCount;
-            }
-
-            model.Level = "Level " + levelCount;
-            model.ModuleId = moduleid;
-            model.LevelId = levelid;
-
-            #region Diary 
-            List<DiaryModel> DiaryList = new List<DiaryModel>();
-            var AllDiaries = _DiaryMasterService.GetAllDiarys();
-            if (_workContext.CurrentUser.UserRole.Name == "Admin")
-            {
-
-                foreach (var item in AllDiaries)
-                {
-                    DiaryModel diaryModel = new DiaryModel();
-
-                    diaryModel.Id = item.Id;
-                    diaryModel.Comment = item.Comment;
-                    diaryModel.CreatedOn = item.CreatedOn;
-                    var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
-                    var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
-                    if (moduleInner != null)
-                    {
-                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
-                        diaryModel.Module = "Module " + moduleCount;
-                    }
-
-                    diaryModel.Level = "Level " + levelCountInner;
-
-                    diaryModel.ModuleId = item.ModuleId;
-                    diaryModel.LevelId = item.LevelId;
-                    DiaryList.Add(diaryModel);
-
-                }
-
+                return RedirectToAction("TwoFactorAuthentication", "User", new { LevelId = levelid, ModuleId = moduleid, UserId = currentUser.Id });
             }
             else
             {
-                foreach (var item in AllDiaries.Where(a => a.UserId == _workContext.CurrentUser.Id))
+                var levelCount = _levelServices.GetAllLevels().Where(a => a.Id <= levelid).Count();
+                var module = _moduleService.GetModuleById(moduleid);
+                if (module != null)
                 {
-                    DiaryModel diaryModel = new DiaryModel();
-
-                    diaryModel.Id = item.Id;
-                    diaryModel.Comment = item.Comment;
-                    diaryModel.CreatedOn = item.CreatedOn;
-                    var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
-                    var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
-                    if (moduleInner != null)
-                    {
-                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
-                        diaryModel.Module = "Module " + moduleCount;
-                    }
-
-                    diaryModel.Level = "Level " + levelCountInner;
-
-                    diaryModel.ModuleId = item.ModuleId;
-                    diaryModel.LevelId = item.LevelId;
-                    DiaryList.Add(diaryModel);
-
+                    var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= module.Id && a.LevelId == module.LevelId).Count();
+                    model.Module = "Module " + moduleCount;
                 }
 
+                model.Level = "Level " + levelCount;
+                model.ModuleId = moduleid;
+                model.LevelId = levelid;
+
+                #region Diary 
+                List<DiaryModel> DiaryList = new List<DiaryModel>();
+                var AllDiaries = _DiaryMasterService.GetAllDiarys();
+                if (_workContext.CurrentUser.UserRole.Name == "Admin")
+                {
+
+                    foreach (var item in AllDiaries)
+                    {
+                        DiaryModel diaryModel = new DiaryModel();
+
+                        diaryModel.Id = item.Id;
+                        diaryModel.Comment = item.Comment;
+                        diaryModel.CreatedOn = item.CreatedOn;
+                        var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
+                        var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
+                        if (moduleInner != null)
+                        {
+                            var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
+                            diaryModel.Module = "Module " + moduleCount;
+                        }
+
+                        diaryModel.Level = "Level " + levelCountInner;
+
+                        diaryModel.ModuleId = item.ModuleId;
+                        diaryModel.LevelId = item.LevelId;
+                        DiaryList.Add(diaryModel);
+
+                    }
+
+                }
+                else
+                {
+                    foreach (var item in AllDiaries.Where(a => a.UserId == _workContext.CurrentUser.Id))
+                    {
+                        DiaryModel diaryModel = new DiaryModel();
+
+                        diaryModel.Id = item.Id;
+                        diaryModel.Comment = item.Comment;
+                        diaryModel.CreatedOn = item.CreatedOn;
+                        var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
+                        var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
+                        if (moduleInner != null)
+                        {
+                            var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
+                            diaryModel.Module = "Module " + moduleCount;
+                        }
+
+                        diaryModel.Level = "Level " + levelCountInner;
+
+                        diaryModel.ModuleId = item.ModuleId;
+                        diaryModel.LevelId = item.LevelId;
+                        DiaryList.Add(diaryModel);
+
+                    }
+
+                }
+                #endregion
+
+                model.diaryModels = DiaryList;
+
+                return View(model);
+
             }
-            #endregion
-
-            model.diaryModels = DiaryList;
-
-            return View(model);
 
         }
 

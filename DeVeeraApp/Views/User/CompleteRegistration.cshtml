@@ -8,9 +8,9 @@
 
 <form asp-controller="User" asp-action="CompleteRegistration" method="post">
     <div class="content">
-        <input type="hidden" asp-for="@Model.UserId" value="@ViewBag.UserId" />
-        <input type="hidden" asp-for="@Model.LevelId" value="@ViewBag.id" />
-        <input type="hidden" asp-for="@Model.SrNo" value="@ViewBag.srNo" />
+        <input type="hidden" asp-for="@Model.UserId" />
+        <input type="hidden" asp-for="@Model.LevelId" />
+        <input type="hidden" asp-for="@Model.SrNo" />
         <!-- BEGIN: Wizard Layout -->
         <div class="intro-y  py-10 sm:py-20 ">
           
@@ -95,10 +95,11 @@
                         <div class="mt-5">
                             <label for="input-wizard-6" class="form-label text-theme-21 star">Family/relationship status </label>
                             <div class="flex flex-col sm:flex-row mt-2">
-                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2" id="horizontal-radio-chris-evans" value="@FamilyOrRelationship.Married"> <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Married</label> </div>
-                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2" id="horizontal-radio-liam-neeson" value="@FamilyOrRelationship.Divorced"> <label class="cursor-pointer select-none" for="horizontal-radio-liam-neeson">Divorced</label> </div>
-                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2" id="horizontal-radio-daniel-craig" value="@FamilyOrRelationship.Separated"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Separated</label> </div>
-                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2" id="horizontal-radio-daniel-craig" value="@FamilyOrRelationship.Other"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Other</label> </div>
+                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2"  value="@FamilyOrRelationship.Single"> <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Single</label> </div>
+                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2"  value="@FamilyOrRelationship.Married"> <label class="cursor-pointer select-none" for="horizontal-radio-chris-evans">Married</label> </div>
+                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2"  value="@FamilyOrRelationship.Divorced"> <label class="cursor-pointer select-none" for="horizontal-radio-liam-neeson">Divorced</label> </div>
+                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2"  value="@FamilyOrRelationship.Separated"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Separated</label> </div>
+                                <div class="flex items-center text-gray-700 dark:text-gray-500 mr-2 mt-2 sm:mt-0"> <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="input border mr-2"  value="@FamilyOrRelationship.Other"> <label class="cursor-pointer select-none" for="horizontal-radio-daniel-craig">Other</label> </div>
                             </div>
                             <span asp-validation-for="FamilyOrRelationshipType" class="text-theme-6 mt-2"></span>
 

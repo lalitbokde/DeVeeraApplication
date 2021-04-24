@@ -29,7 +29,7 @@ namespace CRM.Core.Domain.Users
         /// Gets or sets the username
         /// </summary>
         public string Username { get; set; }
-
+        public string MobileNumber { get; set; }
         public Gender? GenderType { get; set; }
         public int? Age { get; set; }
         public string Occupation { get; set; }
@@ -169,9 +169,10 @@ namespace CRM.Core.Domain.Users
 
     public enum FamilyOrRelationship
     {
-        Marriied = 1,
+        Married = 1,
         Divorced = 2,
         Separated = 3,
-        Other = 4
+        Other = 4,
+        Single = 5
     }
 }
