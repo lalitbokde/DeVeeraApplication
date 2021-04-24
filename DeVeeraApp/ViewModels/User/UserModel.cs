@@ -28,6 +28,8 @@ namespace DeVeeraApp.ViewModels.User
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
+        [Required]
+        public string MobileNumber { get; set; }
         public Gender GenderType { get; set; }
         public int Age { get; set; }
         public string Occupation { get; set; }
@@ -205,6 +207,7 @@ namespace DeVeeraApp.ViewModels.User
         Married = 1,
         Divorced = 2,
         Separated = 3,
-        Other = 4
+        Other = 4,
+        Single = 5
     }
 }

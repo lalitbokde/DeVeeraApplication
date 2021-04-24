@@ -74,6 +74,7 @@ namespace DeVeeraApp.Controllers
                 user.CreatedOnUtc = DateTime.UtcNow;
                 user.LastActivityDateUtc = DateTime.UtcNow;
                 user.RegistrationComplete = true;
+                user.TwoFactorAuthentication = true;
                 var userRoleData = _UserService.GetAllUserRoles();
                 foreach(var item in userRoleData)
                 {

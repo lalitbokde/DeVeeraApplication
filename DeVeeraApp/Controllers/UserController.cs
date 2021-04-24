@@ -678,10 +678,15 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult CompleteRegistration(int Id, int SrNo, int userId)
         {
-            ViewBag.id = Id;
-            ViewBag.srNo = SrNo;
-            ViewBag.UserId = userId;
-            return View();
+
+            var model = new CompleteRegistrationModel()
+            {
+                LevelId = Id,
+                SrNo = SrNo,
+                UserId = userId
+            };
+
+            return View(model);
         }
 
 
@@ -708,6 +713,49 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+
+        #region 2-FactorAuthentication
+
+        public IActionResult TwoFactorAuthentication(int LevelId, int ModuleId, int UserId)
+        {
+            var model = new TwoFactorAuthModel() 
+            {
+                LevelId = LevelId,
+                ModuleId = ModuleId,
+                UserId = UserId
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult TwoFactorAuthentication(TwoFactorAuthModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string passcode = "1234";
+
+                if(model.OTP != passcode)
+                {
+                    ModelState.AddModelError("", "Invalid Code");
+
+                    return View();
+                }
+                else
+                {
+                    var currentUser = _UserService.GetUserById(model.UserId);
+
+                    currentUser.TwoFactorAuthentication = true;
+
+                    _UserService.UpdateUser(currentUser);
+
+                    return RedirectToAction("Create", "Diary", new { levelid = model.LevelId, moduleid = model.ModuleId });
+                }
+
+            }
+            return View();
+        }
+
+        #endregion
         //[HttpPost]
         //public IActionResult ChangePassword(DeVeeraApp.ViewModels.UserLogin.LoginModel model)
         //{
