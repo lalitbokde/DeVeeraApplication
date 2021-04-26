@@ -70,7 +70,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Application", "Dashboard","/Home/Index", "/Home/Index");
 
             var model = new DashboardQuoteModel();
-            var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a=>a.IsActive==true).FirstOrDefault();
+            var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsActive == true).FirstOrDefault();
             model.Title = quote !=null ? quote.Title : "";
             model.Author =quote != null ? quote.Author : "";
 
@@ -89,13 +89,16 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult ExistingUser(int QuoteType)
         {
+            var level = new Level();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
-          
-           
+            
                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
-            var level = _levelServices.GetLevelById((int)currentUser.LastLevel);
+
+                if(currentUser.LastLevel!=null)
+                level = _levelServices.GetLevelById((int)currentUser.LastLevel);
+            
             var firstlevel = _levelServices.GetAllLevels().FirstOrDefault().Id;
             model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel  == 0)? firstlevel : (level!= null? (int)currentUser.LastLevel : firstlevel);
 
