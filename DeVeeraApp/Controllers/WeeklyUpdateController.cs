@@ -118,10 +118,9 @@ namespace DeVeeraApp.Controllers
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
                 
                 var val = _weeklyUpdateServices.GetWeeklyUpdateById(model.Id);
-                //val = model.ToEntity<WeeklyUpdate>();
-              
                 val.IsActive = model.IsActive;
-                //val.VideoURL = model.VideoURL;
+                val.VideoId = model.VideoId;
+                val.QuoteType = (CRM.Core.Domain.Quote)model.QuoteType;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 _notificationService.SuccessNotification("Video url edited successfully.");
 

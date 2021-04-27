@@ -92,12 +92,12 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-
+                model.VideoId =  (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
                 var data = model.ToEntity<Level>();
                 data.Title = "Level " + (_levelServices.GetAllLevels().Count + 1);
                 _levelServices.InsertLevel(data);
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
-                return RedirectToAction("Edit", "Level", new { id = data.Id });
+                return RedirectToAction("Index", "Home");
             }
             PrepareVideoUrl(model);
             return View(model);
@@ -168,9 +168,15 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                var data = model.ToEntity<Level>();
-                data.Title = "Level " + model.srno;
-                _levelServices.UpdateLevel(data);
+                model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
+
+                var levelData = _levelServices.GetLevelById(model.Id);
+                levelData.Title = "Level " + model.srno;
+                levelData.Subtitle = model.Subtitle;
+                levelData.Quote = model.Quote;
+                levelData.FullDescription = model.FullDescription;
+                levelData.VideoId = model.VideoId;
+                _levelServices.UpdateLevel(levelData);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 
                 return RedirectToAction("Index", "Home");
@@ -183,25 +189,40 @@ namespace DeVeeraApp.Controllers
         {
            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{model.Id}");
 
-            if (model.Modules.Id == 0)
-            { 
-                var modules = new Modules();
-                modules.LevelId = model.Id;
-                modules.VideoId = model.Modules.VideoId;
-                modules.FullDescription = model.Modules.FullDescription;
-                _moduleServices.InsertModule(modules);
-            }
-            else
+            if (model.Modules.FullDescription != null)
             {
-                var modules = _moduleServices.GetModuleById(model.Modules.Id);
-                modules.LevelId = model.Id;
-                modules.VideoId = model.Modules.VideoId;
-                modules.FullDescription = model.Modules.FullDescription;
-                _moduleServices.UpdateModule(modules);
-            }
+                if (model.Modules.Id == 0)
+                {
+                    model.Modules.VideoId = (model.Modules.VideoId == 0) ? model.Modules.VideoId = null : model.Modules.VideoId;
 
-            return RedirectToAction("Edit","Level", new { id = model.Id });
-           
+                    var modules = new Modules();
+                    modules.LevelId = model.Id;
+                    modules.VideoId = model.Modules.VideoId;
+                    modules.FullDescription = model.Modules.FullDescription;
+                    _moduleServices.InsertModule(modules);
+                    _notificationService.SuccessNotification("Module has been added successfully");
+
+                }
+                else
+                {
+                    model.Modules.VideoId = (model.Modules.VideoId == 0) ? model.Modules.VideoId = null : model.Modules.VideoId;
+
+                    var modules = _moduleServices.GetModuleById(model.Modules.Id);
+                    modules.LevelId = model.Id;
+                    modules.VideoId = model.Modules.VideoId;
+                    modules.FullDescription = model.Modules.FullDescription;
+                    _moduleServices.UpdateModule(modules);
+                    _notificationService.SuccessNotification("Module has been updated successfully");
+
+                }
+
+                return RedirectToAction("Edit", "Level", new { id = model.Id });
+
+            }
+            _notificationService.ErrorNotification("The filed Full Description is required.");
+            return RedirectToAction("Edit", "Level", new { id = model.Id });
+
+
         }
 
         public IActionResult Delete(int videoId)

@@ -71,6 +71,10 @@
     <Compile Include="Migrations\20210423145859_VideoIdChanges.Designer.cs" />
     <Compile Include="Migrations\20210424115630_AddedMobileNoColumn.cs" />
     <Compile Include="Migrations\20210424115630_AddedMobileNoColumn.Designer.cs" />
+    <Compile Include="Migrations\20210427090000_updatedLevelTable.cs" />
+    <Compile Include="Migrations\20210427090000_updatedLevelTable.Designer.cs" />
+    <Compile Include="Migrations\20210427113309_UpdatedModuleTable.cs" />
+    <Compile Include="Migrations\20210427113309_UpdatedModuleTable.Designer.cs" />
 
 
 
