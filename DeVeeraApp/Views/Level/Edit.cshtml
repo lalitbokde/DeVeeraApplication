@@ -26,6 +26,7 @@
                 <div class="tab-content">
                     <div id="level" class="tab-pane @(ViewBag.ActiveTab=="Level" ? "active":"")" role="tabpanel" aria-labelledby="level-tab">
                         <form asp-controller="Level" asp-action="Edit" method="post">
+                            <input type="hidden" asp-for="@Model.srno" />
                             @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                             {
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">
@@ -48,20 +49,18 @@
                             </div>
 
                             <div class="mt-5">
-                                <label class="form-label text-theme-21 star">Video</label>
+                                <label class="form-label text-theme-21 ">Video</label>
                                 <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" class="form-control" placeholder="video name"></select>
-                                <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
 
                             </div>
 
 
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                             </div>
                             <div class="" id="standard-editor">
                                 <div class="preview">
                                     <textarea asp-for="FullDescription" class="editor"> </textarea>
-                                    <span asp-validation-for="FullDescription" class="text-theme-6 mt-2"></span>
 
                                 </div>
                             </div>
@@ -72,12 +71,19 @@
                     </div>
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
                         <form asp-controller="Level" asp-action="AddModule" method="post">
+                            @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                                <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                                </div>
+                            }
                             <div class="mt-5">
-                                <label class="form-label text-theme-21 star">Video</label>
+                                <label class="form-label text-theme-21 ">Video</label>
                                 <input asp-for="Id" hidden />
                                 <input asp-for="Modules.Id" hidden />
-                                <select asp-for="Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="Modules.VideoId" class="text-theme-6 mt-2"></span>
+                                @{
+                                   Model.Modules.VideoId = Model.Modules.VideoId == null ? Model.Modules.VideoId = 0 : Model.Modules.VideoId;
+                                }
+                                <select asp-for="@Model.Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
 
@@ -87,10 +93,10 @@
                             <div class="" id="standard-editor">
                                 <div class="preview">
                                     <textarea asp-for="Modules.FullDescription" class="editor" required> </textarea>
-                                    <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
+
 
                                 </div>
-
+                                <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
                             </div>
 
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
@@ -120,7 +126,7 @@
                                                 <tr>
                                                     <td class="border-b dark:border-dark-5">@item.Id</td>
                                                     <td class="border-b dark:border-dark-5">Module @i</td>
-                                                    <td class="border-b dark:border-dark-5">@item.Video.Name</td>
+                                                    <td class="border-b dark:border-dark-5">@(item.Video?.Name == null ? "Not Available" : item.Video?.Name)</td>
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>
                                                     <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteModule(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                 </tr>

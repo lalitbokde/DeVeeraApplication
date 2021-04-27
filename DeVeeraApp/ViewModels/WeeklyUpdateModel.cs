@@ -26,7 +26,6 @@ namespace DeVeeraApp.ViewModels
         public int VideoId { get; set; }
         public string VideoUrl { get; set; }
 
-        public Video Video { get; set; }
         //[Required]
         //public string Title { get; set; }
         //[Required]

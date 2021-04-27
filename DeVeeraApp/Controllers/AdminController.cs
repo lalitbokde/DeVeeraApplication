@@ -66,43 +66,50 @@ namespace DeVeeraApp.Controllers
             string userRoleName = "Admin";
             if (ModelState.IsValid)
             {
-                
-                //fill entity from model
-                var user = model.ToEntity<User>();
-                UserPassword password = null;
-                user.UserGuid = Guid.NewGuid();
-                user.CreatedOnUtc = DateTime.UtcNow;
-                user.LastActivityDateUtc = DateTime.UtcNow;
-                user.RegistrationComplete = true;
-                user.TwoFactorAuthentication = true;
-                var userRoleData = _UserService.GetAllUserRoles();
-                foreach(var item in userRoleData)
+                if (_UserService.GetUserByEmail(model.Email) == null)
                 {
-                    if(item.Name == userRoleName)
+                    var user = model.ToEntity<User>();
+                    UserPassword password = null;
+                    user.UserGuid = Guid.NewGuid();
+                    user.CreatedOnUtc = DateTime.UtcNow;
+                    user.LastActivityDateUtc = DateTime.UtcNow;
+                    user.RegistrationComplete = true;
+                    user.TwoFactorAuthentication = true;
+                    var userRoleData = _UserService.GetAllUserRoles();
+                    foreach (var item in userRoleData)
                     {
-                        user.UserRoleId = item.Id;
+                        if (item.Name == userRoleName)
+                        {
+                            user.UserRoleId = item.Id;
+                        }
                     }
-                }
-                user.Active = true;
+                    user.Active = true;
 
-                _UserService.InsertUser(user);
+                    _UserService.InsertUser(user);
 
-                // password
-                if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
-                {
-
-                    password = new UserPassword
+                    // password
+                    if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
                     {
-                        UserId = user.Id,
-                        Password = model.UserPassword.Password,
-                        CreatedOnUtc = DateTime.UtcNow,
-                    };
-                    _userPasswordService.InsertUserPassword(password);
-                }
-                _UserService.UpdateUser(user);
 
-                _notificationService.SuccessNotification("New Admin has been added successfully.");
-                return RedirectToAction("List", "Admin", new { roleName = userRoleName });
+                        password = new UserPassword
+                        {
+                            UserId = user.Id,
+                            Password = model.UserPassword.Password,
+                            CreatedOnUtc = DateTime.UtcNow,
+                        };
+                        _userPasswordService.InsertUserPassword(password);
+                    }
+                    _UserService.UpdateUser(user);
+
+                    _notificationService.SuccessNotification("New Admin has been added successfully.");
+                    return RedirectToAction("List", "Admin", new { roleName = userRoleName });
+
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Email Already Exists");
+
+                }
             }
 
             return View(model);
@@ -158,38 +165,35 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                //fill entity from model
-                var user = model.ToEntity<User>();
+                var admin = _UserService.GetUserById(model.Id);
+
+                admin.Email = model.Email;
+
+                _UserService.UpdateUser(admin);
                 UserPassword password = null;
-                user.UserGuid = Guid.NewGuid();
-                user.CreatedOnUtc = DateTime.UtcNow;
-                user.LastActivityDateUtc = DateTime.UtcNow;
+                admin.LastActivityDateUtc = DateTime.UtcNow;
                 var userRoleData = _UserService.GetAllUserRoles();
 
                 foreach (var item in userRoleData)
                 { 
                     if (item.Name == userRoleName)
                     {
-                        user.UserRoleId = item.Id;
+                        admin.UserRoleId = item.Id;
                     }
                 }
-                user.Active = true;
+                admin.Active = true;
 
-                _UserService.UpdateUser(user);
+                _UserService.UpdateUser(admin);
 
                 // password
                 if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
                 {
-
-                    password = new UserPassword
-                    {
-                        UserId = user.Id,
-                        Password = model.UserPassword.Password,
-                        CreatedOnUtc = DateTime.UtcNow,
-                    };
-                    _userPasswordService.UpdatePassword(password);
+                    var adminPassword = _userPasswordService.GetPasswordByUserId(admin.Id);
+                    adminPassword.Password = model.UserPassword.Password;
+                    adminPassword.UserId = model.Id;
+                    _userPasswordService.UpdatePassword(adminPassword);
                 }
-                _UserService.UpdateUser(user);
+                _UserService.UpdateUser(admin);
 
                 _notificationService.SuccessNotification(" Admin has been edited successfully.");
 

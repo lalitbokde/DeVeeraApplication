@@ -17,8 +17,7 @@ namespace DeVeeraApp.ViewModels
             Modules = new Modules();
             this.AvailableVideo = new List<SelectListItem>();
         }
-        [Required]
-        public int VideoId { get; set; }
+        public int? VideoId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -30,7 +29,6 @@ namespace DeVeeraApp.ViewModels
         public string VideoUrl { get; set; }
         public string VideoName { get; set; }
 
-        [Required]
         public string FullDescription { get; set; }
         public Modules Modules { get; set; }
 

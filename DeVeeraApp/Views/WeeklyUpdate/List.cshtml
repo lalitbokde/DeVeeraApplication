@@ -38,7 +38,7 @@
                                         <tr>
                                             <td class="border-b dark:border-dark-5">@item.Id</td>
 
-                                            <td class="border-b dark:border-dark-5">@item.Video.Name</td>
+                                            <td class="border-b dark:border-dark-5">@item.VideoName</td>
                                             <td class="border-b dark:border-dark-5">@(item.IsActive == true ? "Yes" : "No")</td>
                                             <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="WeeklyUpdate" asp-action="Edit" asp-route-Id="@item.Id" asp-route-Type="@item.QuoteType"><i data-feather="edit"></i></a></td>
                                             <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>

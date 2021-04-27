@@ -73,9 +73,12 @@
                                                 <div class="font-medium">Source</div>
                                                 <div class="text-xs text-gray-500 ml-auto">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
                                             </div>
-                                            <div class="text-gray-600 mt-1">@item.Comment</div>
+                                            <div class="flex items-center">
+                                                <div class="text-gray-600 mt-1">@item.Comment</div>
+                                                <div class="text-gray-600 mt-1 ml-auto">@item.Level  @(item.Module != null ? $":{item.Module}" : "")</div>
+                                            </div>
+                                            </div>
                                         </div>
-                                    </div>
                                 }
                             </div>
 

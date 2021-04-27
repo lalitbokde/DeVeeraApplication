@@ -40,9 +40,8 @@
 
                     <div class="mt-5">
 
-                        <label class="form-label text-theme-21 star">Video</label>
+                        <label class="form-label text-theme-21 ">Video</label>
                         <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name" ></select>
-                        <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
 
 
                     </div>
@@ -69,12 +68,11 @@
 
 
                     <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                        <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                     </div>
                     <div class="" id="standard-editor">
                         <div class="preview">
                             <textarea asp-for="FullDescription" class="editor"> </textarea>
-                            <span asp-validation-for="FullDescription" class="text-theme-6 mt-2"></span>
 
                         </div>
 
