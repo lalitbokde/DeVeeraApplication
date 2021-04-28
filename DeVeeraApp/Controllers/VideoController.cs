@@ -5,7 +5,9 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Hosting;
+
 using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,12 @@ namespace DeVeeraApp.Controllers
 
         private readonly INotificationService _notificationService;
         private readonly IVideoMasterService _videoMasterService;
-        [Obsolete]
+
+        private readonly IVideoUploadService _videoUploadService;
         private readonly IHostingEnvironment _hostingEnvironment;
+
+
+
         #endregion
 
 
@@ -32,10 +38,16 @@ namespace DeVeeraApp.Controllers
 
         public VideoController(INotificationService notificationService,
                        IVideoMasterService videoMasterService,
+
+                       IVideoUploadService videoUploadService,
+
                        IHostingEnvironment hostingEnvironment)
         {
             _notificationService = notificationService;
             _videoMasterService = videoMasterService;
+
+            _videoUploadService = videoUploadService;
+
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -213,6 +225,19 @@ namespace DeVeeraApp.Controllers
 
             }
             return Json(response);
+        }
+
+
+        public async Task UploadVideo()
+        {
+            var path = Path.Combine( _hostingEnvironment.WebRootPath + "\\Video", "THE SEED __ Inspirational Short Film.mp4");
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                var val = await _videoUploadService.UploadFileAsync(stream, path);
+
+                await stream.CopyToAsync(memory);
+            }
         }
         #endregion
 

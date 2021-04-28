@@ -13,6 +13,11 @@ namespace DeVeeraApp.ViewModels
         public string Name { get; set; }
         [Required]
         public string VideoUrl { get; set; }
+
+
+        public string Key { get; set; }
+
         public string FileName { get; set; }
+
     }
 }
