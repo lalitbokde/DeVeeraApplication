@@ -75,6 +75,8 @@
     <Compile Include="Migrations\20210427090000_updatedLevelTable.Designer.cs" />
     <Compile Include="Migrations\20210427113309_UpdatedModuleTable.cs" />
     <Compile Include="Migrations\20210427113309_UpdatedModuleTable.Designer.cs" />
+    <Compile Include="Migrations\20210428133844_UpdatedVideoTable.cs" />
+    <Compile Include="Migrations\20210428133844_UpdatedVideoTable.Designer.cs" />
 
 
 
