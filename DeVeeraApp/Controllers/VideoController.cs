@@ -5,12 +5,17 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Hosting;
+
+using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xabe.FFmpeg;
+using Xabe.FFmpeg.Enums;
 
 namespace DeVeeraApp.Controllers
 {
@@ -20,8 +25,11 @@ namespace DeVeeraApp.Controllers
 
         private readonly INotificationService _notificationService;
         private readonly IVideoMasterService _videoMasterService;
+
         private readonly IVideoUploadService _videoUploadService;
         private readonly IHostingEnvironment _hostingEnvironment;
+
+
 
         #endregion
 
@@ -30,12 +38,16 @@ namespace DeVeeraApp.Controllers
 
         public VideoController(INotificationService notificationService,
                        IVideoMasterService videoMasterService,
+
                        IVideoUploadService videoUploadService,
+
                        IHostingEnvironment hostingEnvironment)
         {
             _notificationService = notificationService;
             _videoMasterService = videoMasterService;
+
             _videoUploadService = videoUploadService;
+
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -55,8 +67,8 @@ namespace DeVeeraApp.Controllers
             return View();
 
         }
-
         [HttpPost]
+        [Obsolete]
         public IActionResult Create(VideoModel model)
         {
             if (ModelState.IsValid)
@@ -70,12 +82,50 @@ namespace DeVeeraApp.Controllers
 
         }
 
+        [Obsolete]
+        public async Task<bool> ConvertVideo(string OriginalFileName, string CompressedFileName)
+        {
+            try
+            {
+
+
+                var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
+                var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
+
+                FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+
+                var info = await MediaInfo.Get(originalFile);
+
+                var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
+
+                await Conversion.New().AddStream(videoStream).SetOutput(CompressedFile).Start();
+
+
+                // Delete all files in a directory    
+                string[] files = Directory.GetFiles(_hostingEnvironment.WebRootPath + "/Files");
+
+                FileInfo file = new FileInfo(OriginalFileName);
+                if (file.Exists)//check file exsit or not  
+                {
+                    file.Delete();
+
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return true;
+        }
+
         public IActionResult Edit(int id)
         {
-            if(id != 0)
+            if (id != 0)
             {
                 var data = _videoMasterService.GetVideoById(id);
-                if(data != null)
+                if (data != null)
                 {
                     var model = data.ToModel<VideoModel>();
                     return View(model);
@@ -106,9 +156,9 @@ namespace DeVeeraApp.Controllers
         {
             var videoList = _videoMasterService.GetAllVideos();
             var model = new List<VideoModel>();
-            if(videoList.Count != 0)
+            if (videoList.Count != 0)
             {
-                foreach(var item in videoList)
+                foreach (var item in videoList)
                 {
                     model.Add(item.ToModel<VideoModel>());
                 }
@@ -118,6 +168,39 @@ namespace DeVeeraApp.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+
+        [Obsolete]
+        public async Task<bool> Upload(IFormFile file)
+        {
+
+            var FileDic = "Files";
+
+            string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+            if (!Directory.Exists(FilePath))
+
+                Directory.CreateDirectory(FilePath);
+
+            var fileName = file.FileName;
+
+            var filePath = Path.Combine(FilePath, "UploadedVideo.mp4");
+
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                file.CopyTo(fs);
+            }
+
+            var OriginalFileName = Path.Combine(FilePath, "UploadedVideo.mp4");
+
+            var CompressedFileName = fileName;
+
+            await ConvertVideo(OriginalFileName, CompressedFileName);
+
+            return true;
+        }
+
+
+
 
         public IActionResult Delete(int videoId)
         {

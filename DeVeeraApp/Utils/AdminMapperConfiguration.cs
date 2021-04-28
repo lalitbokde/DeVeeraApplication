@@ -28,7 +28,8 @@ namespace DeVeeraApp.Utils
             CreateMap<Level, LevelModel>()
              .ForMember(dest => dest.srno, mo => mo.Ignore());
 
-
+            CreateMap<Video, VideoModel>()
+            .ForMember(dest => dest.FileName, mo => mo.Ignore());
 
 
             CreateMap<AddressModel, Address>()

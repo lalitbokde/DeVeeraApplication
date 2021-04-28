@@ -678,6 +678,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult CompleteRegistration(int Id, int SrNo, int userId)
         {
+            AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{Id}?SrNo={SrNo}&userId={userId}", $"/User/CompleteRegistration/{Id}?SrNo={SrNo}&userId={userId}");
 
             var model = new CompleteRegistrationModel()
             {
@@ -693,6 +694,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
+            AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelId}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelId}?SrNo={model.SrNo}&userId={model.UserId}");
+
             if (ModelState.IsValid)
             {
                 var currentUser = _UserService.GetUserById(model.UserId);

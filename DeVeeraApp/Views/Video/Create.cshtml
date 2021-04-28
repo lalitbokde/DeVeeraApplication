@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="Video" asp-action="Create" method="post">
+<form asp-controller="Video" asp-action="Create" method="post" enctype="multipart/form-data" onsubmit="return GetFileName();">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -24,6 +24,7 @@
 
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">Name</label>
+                        <input asp-for="FileName" hidden />
                         <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
                         <span asp-validation-for="Name" class="text-theme-6 mt-2"></span>
 
@@ -36,9 +37,9 @@
                         </div>
                         <div id="single-file-upload" class="p-5">
                             <div class="preview">
-                                <div data-single="true" action="/file-upload" class="dropzone">
+                                <div data-single="true" fallback="true" action="/video/Upload" class="dropzone">
                                     <div class="fallback">
-                                        <input name="file" type="file" />
+
                                     </div>
                                     <div class="dz-message" data-dz-message>
                                         <div class="text-lg font-medium">Drop files here or click to upload.</div>
@@ -80,3 +81,9 @@
 
 
 </form>
+<script>
+    function GetFileName() {
+        var filename = $(".dz-filename").text();
+        document.getElementById("FileName").value = filename;
+    }
+</script>
