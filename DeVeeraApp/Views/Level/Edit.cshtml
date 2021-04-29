@@ -124,7 +124,7 @@
                                                 foreach (var item in Model.ModuleList)
                                                 {
                                                 <tr>
-                                                    <td class="border-b dark:border-dark-5">@item.Id</td>
+                                                    <td class="border-b dark:border-dark-5">@i</td>
                                                     <td class="border-b dark:border-dark-5">Module @i</td>
                                                     <td class="border-b dark:border-dark-5">@(item.Video?.Name == null ? "Not Available" : item.Video?.Name)</td>
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>

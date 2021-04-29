@@ -47,12 +47,17 @@
             </div>
         </header>
 
-        <main>
+        <main>          
             <section class="hero">
                 <div class="container">
                     <div class="hero-inner">
                         <div class="hero-copy">
-                            <h1 class="hero-title mt-0">Happiness is the state of balance.</h1>
+                            <label class="mb-1">Choose Language</label><br/>
+                            <select>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                            </select>
+                            <h1 class="hero-title mt-8">Happiness is the state of balance.</h1>
 
                             <h3>Our LI (Life Integrated) Happiness Method</h3>
                             <p class="hero-paragraph">
@@ -70,7 +75,7 @@
                                 In order to truly be happy,
                                 however, you must be able to maintain a positive emotional state, even in the down
                                 cycles of life. Happiness as a constant state of being is a skill that must be learned,
-                                practiced, and perfected, just like riding a bike or playing an instrument. 
+                                practiced, and perfected, just like riding a bike or playing an instrument.
                             </p>
                             <p class="hero-paragraph">
                                 We believe
@@ -80,31 +85,30 @@
 
                         </div>
                         <div class="hero-media">
-                            <div class="header-illustration">
+                            @*<div class="header-illustration">
                                 <img class="header-illustration-image asset-light" src="~/LandingPage/dist/images/header-illustration-light.svg" alt="Header illustration">
                                 <img class="header-illustration-image asset-dark" src="~/LandingPage/dist/images/header-illustration-dark.svg" alt="Header illustration">
                             </div>
                             <div class="hero-media-illustration">
                                 <img class="hero-media-illustration-image asset-light" src="~/LandingPage/dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
                                 <img class="hero-media-illustration-image asset-dark" src="~/LandingPage/dist/images/hero-media-illustration-dark.svg" alt="Hero media illustration">
-                            </div>
-                            <div class="hero-media-container">
-                                <img class="hero-media-image asset-light" src="~/LandingPage/dist/images/hero-media-light.svg" alt="Hero media">
-                                <img class="hero-media-image asset-dark" src="~/LandingPage/dist/images/hero-media-dark.svg" alt="Hero media">
+                            </div>*@
+                            <!--<div class="hero-media-container">-->
+                                @*<img class="hero-media-image asset-light" src="~/LandingPage/dist/images/hero-media-light.svg" alt="Hero media">
+                                <img class="hero-media-image asset-dark" src="~/LandingPage/dist/images/hero-media-dark.svg" alt="Hero media">*@
+                            <!--</div>-->
+                            <div class="hero-video-container">
+                                <video src="@Url.Content("")" controls style="width:500px; height:400px" loop />
                             </div>
                         </div>
-                    </div>
+                        </div>
                 </div>
             </section>
-
-            
 
             <section class="cta section">
                 <div class="container-sm">
                     <div class="cta-inner section-inner">
                         <div class="cta-header text-center">
-                
-
                             <h2 class="section-title mt-0">Interested?</h2>
                             <div class="cta-cta">
                                 <a class="button button-primary" asp-controller="User" asp-action="Register" style="background-color: darkmagenta; margin-right: 10px">Sign Up</a>
