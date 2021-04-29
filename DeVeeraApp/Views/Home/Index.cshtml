@@ -6,7 +6,7 @@
             <div class="col-span-12 mt-8">
 
                 <div class="intro-y flex items-center h-10">
-                <h2 class="text-lg font-medium truncate mr-5"> @Model.Title <a class="text-theme-21 dark:text-theme-10" href="">– @Model.Author</a></h2>
+                    <h2 class="text-lg font-medium truncate mr-5"> @Model.Title <a class="text-theme-21 dark:text-theme-10" href="">– @Model.Author</a></h2>
                     <a href="" class="ml-auto flex text-theme-26 dark:text-theme-33"> <i data-feather="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
                 </div>
                 <div class="grid grid-cols-12 gap-6 mt-5">
@@ -14,25 +14,48 @@
 
                         int i = 1;
                         @foreach (var item in Model.VideoModelList)
-                    {
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <i data-feather="folder" class="report-box__icon text-theme-21"></i>
-                                        <div class="ml-auto">
-                                            <div class="report-box__indicator bg-theme-10 tooltip cursor-pointer" title="33% Higher than last month"> 33% <i data-feather="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                        {
+                            <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                                <div class="report-box zoom-in">
+                                    <div class="box p-5">
+                                        <div class="flex">
+                                            <i data-feather="folder" class="report-box__icon text-theme-21"></i>
+                                            <div class="ml-auto">
+                                                <div class="report-box__indicator bg-theme-10 tooltip cursor-pointer" title="33% Higher than last month"> 33% <i data-feather="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="text-3xl font-bold leading-8 mt-6"><a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i">Level @i</a></div>
+                                        <div class="text-3xl font-bold leading-8 mt-6"><a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i">@item.Title</a></div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                             i++;
 
                         }
-                        }
+                    }
+                </div>
+
+                <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
+                    <div class="intro-y col-span-12 lg:col-span-12">
+
+                        <div class="grid grid-cols-12 gap-5 mt-5">
+
+                            <a asp-controller="Home" asp-action="UnderDevelopment" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
+                                <div class="font-medium text-base text-white"> Weekly Inspiring Quotes</div>
+                                <div class="text-theme-33 dark:text-gray-400"> Training Videos And Other Materials  </div>
+                            </a>
+                            <a asp-controller="Home" asp-action="UnderDevelopment" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
+                                <div class="font-medium text-base text-white"> Weekly Inspiring Quotes</div>
+                                <div class="text-theme-33 dark:text-gray-400"> Training Videos And Other Materials  </div>
+                            </a>
+                            <a asp-controller="Home" asp-action="UnderDevelopment" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
+                                <div class="font-medium text-base text-white"> Weekly Inspiring Quotes</div>
+                                <div class="text-theme-33 dark:text-gray-400"> Training Videos And Other Materials  </div>
+                            </a>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END: General Report -->

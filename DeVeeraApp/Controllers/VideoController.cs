@@ -26,7 +26,7 @@ namespace DeVeeraApp.Controllers
         private readonly INotificationService _notificationService;
         private readonly IVideoMasterService _videoMasterService;
 
-        private readonly IVideoUploadService _videoUploadService;
+        private readonly IS3BucketService _videoUploadService;
         private readonly IHostingEnvironment _hostingEnvironment;
 
 
@@ -39,7 +39,7 @@ namespace DeVeeraApp.Controllers
         public VideoController(INotificationService notificationService,
                        IVideoMasterService videoMasterService,
 
-                       IVideoUploadService videoUploadService,
+                       IS3BucketService videoUploadService,
 
                        IHostingEnvironment hostingEnvironment)
         {
@@ -73,7 +73,11 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = model.ToEntity<Video>();
+                var url = UploadVideo(model.FileName);
+                var data = new Video();
+                data.Key = model.FileName;
+                data.VideoUrl = url.Result.ToString();
+                data.Name = model.Name;
                 _videoMasterService.InsertVideo(data);
                 _notificationService.SuccessNotification("Video url added successfully.");
                 return RedirectToAction("List");
@@ -103,8 +107,7 @@ namespace DeVeeraApp.Controllers
                 await Conversion.New().AddStream(videoStream).SetOutput(CompressedFile).Start();
 
 
-                // Delete all files in a directory    
-                string[] files = Directory.GetFiles(_hostingEnvironment.WebRootPath + "/Files");
+               
 
                 FileInfo file = new FileInfo(OriginalFileName);
                 if (file.Exists)//check file exsit or not  
@@ -230,16 +233,18 @@ namespace DeVeeraApp.Controllers
         }
 
 
-        public async Task UploadVideo()
+        public async Task<string> UploadVideo(string fileName)
         {
-            var path = Path.Combine( _hostingEnvironment.WebRootPath + "\\Video", "THE SEED __ Inspirational Short Film.mp4");
+            string val;
+            var path = Path.Combine( _hostingEnvironment.WebRootPath + "\\Files", fileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                var val = await _videoUploadService.UploadFileAsync(stream, path);
+                 val = await _videoUploadService.UploadFileAsync(stream, path, fileName);
 
-                await stream.CopyToAsync(memory);
+               
             }
+            return val;
         }
         #endregion
 

@@ -401,32 +401,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 </a>
 
             </li>
-            <li>
-                <a href="javascript:;" class="top-menu">
-                    <div class="top-menu__icon"> <i data-feather="play"></i> </div>
-                    <div class="top-menu__title"> Training Videos And Other Materials <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
-                </a>
-                <ul class="">
-                    <li>
-                        <a asp-controller="Home" asp-action="UnderDevelopment" class="top-menu">
-                            <div class="top-menu__icon"> <i data-feather="message-circle"></i> </div>
-                            <div class="top-menu__title"> Weekly Inspiring Quotes </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Home" asp-action="UnderDevelopment" class="top-menu">
-                            <div class="top-menu__icon">  <i data-feather="play-circle" class="mx-auto"></i>  </div>
-                            <div class="top-menu__title"> Weekly Videos </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Home" asp-action="UnderDevelopment" class="top-menu">
-                            <div class="top-menu__icon"> <i data-feather="map"></i> </div>
-                            <div class="top-menu__title"> Weekly Positive News </div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             @if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {
 

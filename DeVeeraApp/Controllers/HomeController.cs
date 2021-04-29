@@ -69,19 +69,37 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("Application", "Dashboard","/Home/Index", "/Home/Index");
 
+            var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
             var model = new DashboardQuoteModel();
             var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsActive == true).FirstOrDefault();
             model.Title = quote !=null ? quote.Title : "";
             model.Author =quote != null ? quote.Author : "";
 
             var data = _levelServices.GetAllLevels();
-            if(data.Count() != 0)
+            int lastlevel = data.LastOrDefault().Id;
+            if (data.Count() != 0)
             {
-                foreach(var item in data)
+                if(!(_workContext.CurrentUser.UserRole.Name == "Admin"))
                 {
-                    model.VideoModelList.Add(item.ToModel<LevelModel>());
+                    var LevelOne = data.FirstOrDefault();
+                    var lastLevelForNewUser = data.Where(a => a.Id > LevelOne.Id).FirstOrDefault();
+                    var lastLevelForOldUser = data.Where(a => a.Id > currentUser.LastLevel).FirstOrDefault();
+
+                    lastlevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? lastlevel = lastLevelForNewUser.Id : lastlevel = lastLevelForOldUser.Id;
+
                 }
 
+
+                foreach (var item in data)
+                {
+
+                    model.VideoModelList.Add(item.ToModel<LevelModel>());
+                    if(item.Id == lastlevel)
+                    {
+                        break;
+                    }
+
+                }
                 return View(model);
             }
             return View();
