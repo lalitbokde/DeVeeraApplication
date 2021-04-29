@@ -24,7 +24,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Author</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Active</th>
@@ -33,19 +33,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td class="border-b dark:border-dark-5">@item.Id</td>
-                                                <td class="border-b dark:border-dark-5">@item.Title</td>
-                                                <td class="border-b dark:border-dark-5">@item.Author</td>
-                                                <td class="border-b dark:border-dark-5">@(item.IsActive == true ? "Yes" : "No")</td>
-                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="DashboardQuote" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteDashboardQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>
-                                            </tr>
-
-                                        }
-                                    </tbody>
+                                        @{
+                                            int i = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                    <tr>
+                                                        <td class="border-b dark:border-dark-5">@i</td>
+                                                        <td class="border-b dark:border-dark-5">@item.Title</td>
+                                                        <td class="border-b dark:border-dark-5">@item.Author</td>
+                                                        <td class="border-b dark:border-dark-5">@(item.IsActive == true ? "Yes" : "No")</td>
+                                                        <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="DashboardQuote" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                        <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteDashboardQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                    </tr>
+                                                i++;
+                                            }
+                                            }
+                                            </tbody>
                                 </table>
                             </div>
                         </div>
