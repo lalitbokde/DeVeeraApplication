@@ -95,7 +95,7 @@ namespace DeVeeraApp
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
             services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
             services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IVideoUploadService, VideoUploadService>();
+            services.AddScoped<IS3BucketService, S3BucketService>();
             var authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;

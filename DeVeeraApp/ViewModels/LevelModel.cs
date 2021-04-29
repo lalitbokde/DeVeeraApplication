@@ -31,6 +31,7 @@ namespace DeVeeraApp.ViewModels
 
         public string FullDescription { get; set; }
         public Modules Modules { get; set; }
+        public Video Video { get; set; }
 
         public IList<Modules>ModuleList { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }

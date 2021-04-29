@@ -6,6 +6,12 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
   <ItemGroup>
+    <Compile Remove="wwwroot\FFmpeg\**" />
+    <Content Remove="wwwroot\FFmpeg\**" />
+    <EmbeddedResource Remove="wwwroot\FFmpeg\**" />
+    <None Remove="wwwroot\FFmpeg\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CRM.Data\CRM.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
@@ -18,7 +24,7 @@
     <Folder Include="wwwroot\LandingPage\" />
     <Folder Include="ViewModels\Diaries\" />
     <Folder Include="Views\Diary\" />
-    <Folder Include="wwwroot\FFmpeg\" />
+    <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Files\" />
   </ItemGroup>
   <ItemGroup>

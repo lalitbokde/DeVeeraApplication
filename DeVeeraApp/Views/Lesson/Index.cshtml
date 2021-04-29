@@ -34,6 +34,7 @@
         </div>
 
 
+
     </div>
 
 
@@ -47,6 +48,7 @@
                 </h2>
 
             </div>
+
 
             <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
 
@@ -76,12 +78,15 @@
             </div>
 
         </div>
-        <!-- BEGIN: Blog Layout -->
-        <div class="intro-y mt-6">
-            <div class="news__preview image-fit">
-                @{string src = Model.VideoUrl;}
-                <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
-            </div>
+
+
+    </div>
+    <!-- BEGIN: Blog Layout -->
+    <div class="intro-y mt-6">
+        <div class="news__preview image-fit">
+            @{string src = Model.Video.VideoUrl;}
+            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+
         </div>
 
         <div class="intro-y text-justify leading-relaxed mt-10">
