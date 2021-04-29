@@ -27,9 +27,9 @@ namespace DeVeeraApp.Controllers
         #region fields
         private readonly ILogger<LessonController> _logger;
         private readonly ILevelServices _levelServices;
-
+        private readonly IVideoMasterService _videoMasterService;
         private readonly IModuleService _moduleServices;
-
+        private readonly IS3BucketService _s3BucketService;
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
         private readonly IDiaryMasterService _diaryMasterService;
@@ -41,9 +41,9 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public LessonController(ILogger<LessonController> logger,
                                 ILevelServices levelServices,
-
+                                IVideoMasterService videoMasterService,
                                 IModuleService moduleService,
-
+                                IS3BucketService s3BucketService,
                                 IUserService userService,
 
                                 IWorkContext workContext,
@@ -55,9 +55,9 @@ namespace DeVeeraApp.Controllers
         {
             _logger = logger;
             _levelServices = levelServices;
-
+            _videoMasterService = videoMasterService;
             _moduleServices = moduleService;
-
+            _s3BucketService = s3BucketService;
             _userService = userService;
             _workContext = workContext;
             _diaryMasterService = diaryMasterService;
@@ -76,7 +76,18 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
             var data = _levelServices.GetLevelById(id);
-            var videoData = data.ToModel<LevelModel>();
+
+            var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
+
+            var videoUrl =  _s3BucketService.GetPreSignedURL(videoRecord.Key);
+
+            videoRecord.VideoUrl = videoUrl.Result;
+
+            _videoMasterService.UpdateVideo(videoRecord);
+
+            var updatedVideoData = _levelServices.GetLevelById(id);
+
+            var videoData = updatedVideoData.ToModel<LevelModel>();
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {

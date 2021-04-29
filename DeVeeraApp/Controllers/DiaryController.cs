@@ -139,7 +139,6 @@ namespace DeVeeraApp.Controllers
                 #endregion
 
                 model.diaryModels = DiaryList;
-
                 return View(model);
 
             }
@@ -219,6 +218,7 @@ namespace DeVeeraApp.Controllers
                 #endregion
 
                 model.diaryModels = DiaryList;
+                return RedirectToAction("Create", "Diary", new { levelid = model.LevelId });
             }
 
             return View(model);

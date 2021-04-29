@@ -29,6 +29,7 @@ using Education = CRM.Core.Domain.Users.Education;
 using FamilyOrRelationship = CRM.Core.Domain.Users.FamilyOrRelationship;
 using Gender = CRM.Core.Domain.Users.Gender;
 using Income = CRM.Core.Domain.Users.Income;
+using CRM.Services;
 
 namespace DeVeeraApp.Controllers
 {
@@ -38,6 +39,7 @@ namespace DeVeeraApp.Controllers
         #region fields
 
         private readonly IUserService _UserService;
+        private readonly ILevelServices _levelServices;
         private readonly IUserModelFactory _UserModelFactory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAuthenticationService _authenticationService;
@@ -60,6 +62,7 @@ namespace DeVeeraApp.Controllers
                                   IWorkContext WorkContextService,
                                   IUserPasswordService Userpasswordservice,
                                   IUserService UserService,
+                                  ILevelServices levelServices,
                                   IAddressService addressService,
                                   ICountryService countryService,
                                   IStateProvinceService stateProvinceService,
@@ -79,6 +82,7 @@ namespace DeVeeraApp.Controllers
             this._httpContextAccessor = httpContextAccessor;
             this._WorkContextService = WorkContextService;
             this._UserService = UserService;
+            _levelServices = levelServices;
             this._addressService = addressService;
             this._countryService = countryService;
             this._stateProvinceService = stateProvinceService;
@@ -465,7 +469,7 @@ namespace DeVeeraApp.Controllers
                                 }
                                 else
                                 {
-
+                                   
                                     return RedirectToAction("Index", "Home");
                                 }
 
