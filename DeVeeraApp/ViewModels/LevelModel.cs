@@ -26,8 +26,7 @@ namespace DeVeeraApp.ViewModels
         public string Title { get; set; }
         [Required]
         public string Subtitle { get; set; }
-
-        [Required]
+     
         public string Quote { get; set; }
        
         public string VideoUrl { get; set; }

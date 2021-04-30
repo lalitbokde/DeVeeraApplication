@@ -37,11 +37,11 @@
                                 <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">
                                 <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                             </div>
-                            <div class="mt-5">
+                            @*<div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="input-wizard-1" asp-for="@Model.Quote" type="text" class="form-control" placeholder="quote">
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                            </div>
+                            </div>*@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
                                 <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="title">
@@ -50,7 +50,7 @@
 
                             <div class="mt-5">
                                 <label class="form-label text-theme-21 ">Video</label>
-                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" class="form-control" placeholder="video name"></select>
+                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
                             <div class="mt-5">
@@ -118,7 +118,7 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
