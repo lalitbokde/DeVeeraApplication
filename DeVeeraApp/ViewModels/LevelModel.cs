@@ -16,8 +16,12 @@ namespace DeVeeraApp.ViewModels
         {
             Modules = new Modules();
             this.AvailableVideo = new List<SelectListItem>();
+            this.AvailableImages = new List<SelectListItem>();
         }
         public int? VideoId { get; set; }
+        public int Image1 { get; set; }
+        public int Image2 { get; set; }
+        public int Image3 { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -32,9 +36,11 @@ namespace DeVeeraApp.ViewModels
         public string FullDescription { get; set; }
         public Modules Modules { get; set; }
         public Video Video { get; set; }
+        public Image Image { get; set; }
 
         public IList<Modules>ModuleList { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
+        public IList<SelectListItem> AvailableImages { get; set; }
 
 
         [NotMapped]

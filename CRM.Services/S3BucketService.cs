@@ -14,27 +14,30 @@ namespace CRM.Services
     public class S3BucketService : IS3BucketService
     {
         private readonly IConfiguration _configuration;
+        private readonly string _bucketName;
+        private readonly string _secretkey;
+        private readonly string _accesskey;
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USEast1;
         public S3BucketService(IConfiguration configuration)
         {
             _configuration = configuration;
+            _bucketName = _configuration.GetSection("AWSs3Bucket").GetSection("BucketName").Value.ToString();
+            _secretkey = _configuration.GetSection("AWSs3Bucket").GetSection("SecretAccessKey").Value.ToString();
+            _accesskey = _configuration.GetSection("AWSs3Bucket").GetSection("AccessKeyID").Value.ToString();
         }
 
         public async Task<string> UploadFileAsync(Stream file, string filePath, string fileName)
         {
             string url = "";
-            var bucketName = _configuration.GetSection("AWSs3Bucket").GetSection("BucketName").Value.ToString();
-            string secretkey = _configuration.GetSection("AWSs3Bucket").GetSection("SecretAccessKey").Value.ToString();
-            string accesskey = _configuration.GetSection("AWSs3Bucket").GetSection("AccessKeyID").Value.ToString();
 
-            var s3Client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
+            var s3Client = new AmazonS3Client(_accesskey, _secretkey, bucketRegion);
 
             var fileTransferUtility = new TransferUtility(s3Client);
             try
             {
                 var fileTransferUtilityRequest = new TransferUtilityUploadRequest
                 {
-                    BucketName = bucketName,
+                    BucketName = _bucketName,
                     FilePath = filePath,
                     StorageClass = S3StorageClass.StandardInfrequentAccess,
                     PartSize = 524288000, // 500 MB.  
@@ -48,7 +51,7 @@ namespace CRM.Services
 
                 url = s3Client.GetPreSignedURL(new GetPreSignedUrlRequest
                 {
-                    BucketName = bucketName,
+                    BucketName = _bucketName,
                     Key = fileName,
                     Expires = DateTime.UtcNow.AddDays(1),
 
@@ -80,17 +83,12 @@ namespace CRM.Services
 
             if (!string.IsNullOrWhiteSpace(key))
             {
-                var bucketName = _configuration.GetSection("AWSs3Bucket").GetSection("BucketName").Value.ToString();
 
-                string secretkey = _configuration.GetSection("AWSs3Bucket").GetSection("SecretAccessKey").Value.ToString();
-
-                string accesskey = _configuration.GetSection("AWSs3Bucket").GetSection("AccessKeyID").Value.ToString();
-
-                var s3Client = new AmazonS3Client(accesskey, secretkey, bucketRegion);
+                var s3Client = new AmazonS3Client(_accesskey, _secretkey, bucketRegion);
 
                 url = s3Client.GetPreSignedURL(new GetPreSignedUrlRequest
                 {
-                    BucketName = bucketName,
+                    BucketName = _bucketName,
                     Key = key,
                     Expires = DateTime.UtcNow.AddDays(1),
                  });
@@ -99,6 +97,23 @@ namespace CRM.Services
             }
             return url;
            
+        }
+
+
+        public async Task DeleteFile(string key)
+        {
+            if (!string.IsNullOrWhiteSpace(key))
+            {
+                var s3Client = new AmazonS3Client(_accesskey, _secretkey, bucketRegion);
+
+                var request = new DeleteObjectRequest
+                {
+                    BucketName = _bucketName,
+                    Key = key
+                };
+
+                await s3Client.DeleteObjectAsync(request);
+            }
         }
 
     }

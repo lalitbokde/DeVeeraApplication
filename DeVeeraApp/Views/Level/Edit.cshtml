@@ -53,7 +53,13 @@
                                 <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" class="form-control" placeholder="video name"></select>
 
                             </div>
+                            <div class="mt-5">
 
+                                <label class="form-label text-theme-21 ">Images</label>
+                                <select asp-for="Image.Id" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="image name"></select>
+
+
+                            </div>
 
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>

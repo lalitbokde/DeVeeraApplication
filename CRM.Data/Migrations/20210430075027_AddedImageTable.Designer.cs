@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210430075027_AddedImageTable")]
+    partial class AddedImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,9 +155,13 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Key");
 
+                    b.Property<int?>("LevelId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LevelId");
 
                     b.ToTable("Images");
                 });
@@ -181,25 +187,6 @@ namespace CRM.Data.Migrations
                     b.HasIndex("VideoId");
 
                     b.ToTable("Levels");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.LevelImageList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ImageId");
-
-                    b.Property<int>("LevelId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.HasIndex("LevelId");
-
-                    b.ToTable("LevelImageLists");
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Security.PermissionRecord", b =>
@@ -477,24 +464,18 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("CRM.Core.Domain.Image", b =>
+                {
+                    b.HasOne("CRM.Core.Domain.Level", "Level")
+                        .WithMany()
+                        .HasForeignKey("LevelId");
+                });
+
             modelBuilder.Entity("CRM.Core.Domain.Level", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Video", "Video")
                         .WithMany()
                         .HasForeignKey("VideoId");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.LevelImageList", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CRM.Core.Domain.Level", "Level")
-                        .WithMany()
-                        .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Security.PermissionRecord_Role_Mapping", b =>

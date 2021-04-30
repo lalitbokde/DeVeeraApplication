@@ -1,0 +1,70 @@
+﻿@model List<DeVeeraApp.ViewModels.ImageModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="intro-y  py-10 sm:py-20 ">
+
+    <div class="px-5 ">
+        <div class="font-medium text-center text-lg"> Image List</div>
+        <div class="text-gray-600 text-center mt-2">Below are the list of Images.</div>
+
+    </div>
+
+
+    <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+            <div class="intro-y box p-5 col-span-12">
+                <div class="intro-y ">
+
+                    <div class="p-5" id="basic-table">
+                        <div class="preview">
+                            <div class="overflow-x-auto">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Images</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Show</th>
+
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int i = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="border-b dark:border-dark-5">@i</td>
+
+                                                    <td class="border-b dark:border-dark-5">@item.Name</td>
+                                                    <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Level" asp-action="Play" asp-route-url="@item.ImageUrl"><i data-feather="image"></i></a></td>
+
+                                                    <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Image" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteImage(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                </tr>
+                                                i++;
+                                            }
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/dist/js/CustomJs/Delete.js"></script>
+

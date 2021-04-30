@@ -10,5 +10,6 @@ namespace CRM.Services
     {
         Task<string> UploadFileAsync(Stream file,string filePath, string fileName);
         Task<string> GetPreSignedURL(string key);
+        Task DeleteFile(string key);
     }
 }

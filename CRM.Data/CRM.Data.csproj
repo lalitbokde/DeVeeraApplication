@@ -77,6 +77,12 @@
     <Compile Include="Migrations\20210427113309_UpdatedModuleTable.Designer.cs" />
     <Compile Include="Migrations\20210428133844_UpdatedVideoTable.cs" />
     <Compile Include="Migrations\20210428133844_UpdatedVideoTable.Designer.cs" />
+    <Compile Include="Migrations\20210430075027_AddedImageTable.cs" />
+    <Compile Include="Migrations\20210430075027_AddedImageTable.Designer.cs" />
+    <Compile Include="Migrations\20210430081146_UpdatedImageTable.cs" />
+    <Compile Include="Migrations\20210430081146_UpdatedImageTable.Designer.cs" />
+    <Compile Include="Migrations\20210430082345_AddedLevelImageListTable.cs" />
+    <Compile Include="Migrations\20210430082345_AddedLevelImageListTable.Designer.cs" />
 
 
 

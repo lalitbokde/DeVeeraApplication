@@ -26,6 +26,7 @@ namespace DeVeeraApp.Controllers
         private readonly IModuleService _moduleServices;
         private readonly ILevelServices _levelServices;
         private readonly IVideoMasterService _videoServices;
+        private readonly IImageMasterService _imageMasterService;
         private readonly INotificationService _notificationService;
 
 
@@ -37,6 +38,7 @@ namespace DeVeeraApp.Controllers
                                      IModuleService moduleService,
                                      ILevelServices levelServices,
                                      IVideoMasterService videoService,
+                                     IImageMasterService imageMasterService,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
@@ -48,6 +50,7 @@ namespace DeVeeraApp.Controllers
             _moduleServices = moduleService;
             _levelServices = levelServices;
             _videoServices = videoService;
+            _imageMasterService = imageMasterService;
             _notificationService = notificationService;
         }
         #endregion
@@ -68,6 +71,21 @@ namespace DeVeeraApp.Controllers
                 });
             }
         }
+
+        public virtual void PrepareImageUrl(LevelModel model)
+        {
+            model.AvailableImages.Add(new SelectListItem { Text = "Select Image", Value = "0" });
+            var AvailableImageUrl = _imageMasterService.GetAllImages();
+            foreach(var url in AvailableImageUrl)
+            {
+                model.AvailableImages.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
+                    //Selected = url.Id == model.Image.Id
+                });
+            }
+        }
         #endregion
 
         #region Methods
@@ -82,6 +100,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
             LevelModel model = new LevelModel();
             PrepareVideoUrl(model);
+            PrepareImageUrl(model);
             return View(model);
         }
 
@@ -100,6 +119,8 @@ namespace DeVeeraApp.Controllers
                 return RedirectToAction("Index", "Home");
             }
             PrepareVideoUrl(model);
+            PrepareImageUrl(model);
+
             return View(model);
         }
 
@@ -155,6 +176,8 @@ namespace DeVeeraApp.Controllers
                 }
 
                 PrepareVideoUrl(model);
+                PrepareImageUrl(model);
+
                 return View(model);
             }
             return RedirectToAction("List");
