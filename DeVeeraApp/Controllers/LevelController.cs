@@ -94,7 +94,7 @@ namespace DeVeeraApp.Controllers
             {
                 model.VideoId =  (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
                 var data = model.ToEntity<Level>();
-                data.Title = "Level " + (_levelServices.GetAllLevels().Count + 1);
+                data.Title = model.Title;
                 _levelServices.InsertLevel(data);
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("Index", "Home");
@@ -171,9 +171,9 @@ namespace DeVeeraApp.Controllers
                 model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
 
                 var levelData = _levelServices.GetLevelById(model.Id);
-                levelData.Title = "Level " + model.srno;
+                levelData.Title = model.Title;
                 levelData.Subtitle = model.Subtitle;
-                levelData.Quote = model.Quote;
+                //levelData.Quote = model.Quote;
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
                 _levelServices.UpdateLevel(levelData);

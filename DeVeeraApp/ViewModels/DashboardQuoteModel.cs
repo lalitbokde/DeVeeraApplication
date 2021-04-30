@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,16 +12,20 @@ namespace DeVeeraApp.ViewModels
         public DashboardQuoteModel()
         {
             VideoModelList = new List<LevelModel>();
+            this.AvailableLevels = new List<SelectListItem>();
         }
+
+        public int? LevelId { get; set; }
+
         [Required]
-        public string Title { get; set; }
-        [Required]
+        public string Title { get; set; }     
         public string Author { get; set; }
+        public string Level { get; set; }
 
-        public bool IsActive { get; set; } = false;
-
-      
+        //public bool IsActive { get; set; } = false;
+        public bool IsDashboardQuote { get; set; }
+        public bool IsRandom { get; set; }     
         public IList<LevelModel> VideoModelList { get; set; }
-
+        public IList<SelectListItem> AvailableLevels { get; set; }
     }
 }

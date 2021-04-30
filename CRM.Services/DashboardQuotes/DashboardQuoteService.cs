@@ -70,19 +70,32 @@ namespace CRM.Services.DashboardQuotes
 
         public void InActiveAllDashboardQuotes()
         {
-          var datalist =  _dashboardQuoteRepository.Table.Where(val => val.IsActive == true).ToList();
+            var datalist = _dashboardQuoteRepository.Table.Where(val => val.IsDashboardQuote == true).ToList();
 
-            if(datalist.Count() != 0)
+            if (datalist.Count() != 0)
             {
                 foreach (var item in datalist)
                 {
-                    item.IsActive = false;
+                    item.IsDashboardQuote = false;
 
                     _dashboardQuoteRepository.Update(item);
                 }
 
             }
 
+        }
+
+        public IList<DashboardQuote> GetDashboardQuoteByLevelId(int LevelId)
+        {
+            if (LevelId == 0)
+                return null;
+            var query = from a in _dashboardQuoteRepository.Table
+                        where a.LevelId == LevelId
+                        select a;
+
+            var data = query.ToList();
+
+            return data;
         }
 
         #endregion
