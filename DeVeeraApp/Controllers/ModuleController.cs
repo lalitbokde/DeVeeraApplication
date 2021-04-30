@@ -16,16 +16,19 @@ namespace DeVeeraApp.Controllers
     public class ModuleController : Controller
     {
         private readonly IModuleService _moduleService;
+        private readonly ILevelServices _levelServices;
         private readonly IWorkContext _workContext;
         private readonly IUserService _userService;
         private readonly IDiaryMasterService _diaryMasterService;
 
         public ModuleController(IModuleService moduleService,
+                                ILevelServices levelServices,
                                 IWorkContext workContext,
                                 IUserService userService,
                                 IDiaryMasterService diaryMasterService)
         {
             _moduleService = moduleService;
+            _levelServices = levelServices;
             _workContext = workContext;
             _userService = userService;
             _diaryMasterService = diaryMasterService;
@@ -53,6 +56,7 @@ namespace DeVeeraApp.Controllers
             }
             moduleData.DiaryText = diary != null ? diary.Comment : "";
             moduleData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
+            ViewBag.LevelName = _levelServices.GetLevelById(data.LevelId).Title;
             return View(moduleData);
         }
 

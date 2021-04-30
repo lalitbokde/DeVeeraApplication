@@ -82,8 +82,8 @@ namespace DeVeeraApp.Controllers
                 if(!(_workContext.CurrentUser.UserRole.Name == "Admin"))
                 {
                     var LevelOne = data.FirstOrDefault();
-                    var lastLevelForNewUser = data.Where(a => a.Id > LevelOne.Id).FirstOrDefault();
-                    var lastLevelForOldUser = data.Where(a => a.Id > currentUser.LastLevel).FirstOrDefault();
+                    var lastLevelForNewUser = data.Where(a => a.Id == LevelOne.Id).FirstOrDefault();
+                    var lastLevelForOldUser = data.Where(a => a.Id == currentUser.LastLevel).FirstOrDefault();
 
                     lastlevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? lastlevel = lastLevelForNewUser.Id : lastlevel = lastLevelForOldUser.Id;
 
@@ -139,14 +139,16 @@ namespace DeVeeraApp.Controllers
         {
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
        
-                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
-
+                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
+            
                 var model = data.ToModel<WeeklyUpdateModel>();
-               var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
-                if(firstLevel!=null)
-                model.LastLevel = firstLevel.Id;
-            ViewBag.SrNo = 1;
-            return View(model);
+                var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
+                if (firstLevel != null)
+                    model.LastLevel = firstLevel.Id;
+                ViewBag.SrNo = 1;
+                return View(model);
+          
+    
 
         }
 
