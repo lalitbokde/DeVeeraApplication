@@ -14,7 +14,7 @@ using CRM.Core.Domain.VideoModules;
 
 namespace CRM.Data
 {
-    public class dbContextCRM: DbContext
+    public class dbContextCRM : DbContext
     {
         public dbContextCRM(DbContextOptions<dbContextCRM> options)
            : base(options)
@@ -22,14 +22,14 @@ namespace CRM.Data
             Database.SetCommandTimeout(1500000);
         }
 
-      
 
-        
+
+
         public DbSet<Country> Country { get; set; }
         public DbSet<StateProvince> StateProvince { get; set; }
         public DbSet<Address> Address { get; set; }
 
- 
+
         //User
         public DbSet<User> User { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
@@ -41,6 +41,9 @@ namespace CRM.Data
         //Video
         public DbSet<Video> videos { get; set; }
 
+        //Image
+        public DbSet<Image> Images { get; set; }
+        public DbSet<LevelImageList> LevelImageLists {get; set;}
         //Level
         public DbSet<Level> Levels { get; set; }
         public DbSet<Modules> Levelmodules { get; set; }
