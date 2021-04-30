@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using CRM.Services.VideoModules;
 using CRM.Services.Users;
 using CRM.Core.Domain.VideoModules;
+using CRM.Services.DashboardQuotes;
 
 namespace DeVeeraApp.Controllers
 {
@@ -33,7 +34,7 @@ namespace DeVeeraApp.Controllers
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
         private readonly IDiaryMasterService _diaryMasterService;
-
+        private readonly IDashboardQuoteService _dashboardQuoteService;
 
         #endregion
 
@@ -45,7 +46,7 @@ namespace DeVeeraApp.Controllers
                                 IModuleService moduleService,
                                 IS3BucketService s3BucketService,
                                 IUserService userService,
-
+                                IDashboardQuoteService dashboardQuoteService,
                                 IWorkContext workContext,
                                 IHttpContextAccessor httpContextAccessor,
                                 IAuthenticationService authenticationService,
@@ -61,6 +62,7 @@ namespace DeVeeraApp.Controllers
             _userService = userService;
             _workContext = workContext;
             _diaryMasterService = diaryMasterService;
+            _dashboardQuoteService = dashboardQuoteService;
 
         }
 
@@ -70,6 +72,7 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index(int id, int srno)
         {
+            var random = new Random();
             ViewBag.SrNo = srno;
             ViewBag.TotalLevels = _levelServices.GetAllLevels().Count;
 
@@ -86,8 +89,14 @@ namespace DeVeeraApp.Controllers
             _videoMasterService.UpdateVideo(videoRecord);
 
             var updatedVideoData = _levelServices.GetLevelById(id);
-
             var videoData = updatedVideoData.ToModel<LevelModel>();
+
+            var quoteList = _dashboardQuoteService.GetDashboardQuoteByLevelId(id).Where(a => a.IsRandom == true).ToList();
+            if (quoteList != null && quoteList.Count > 0)
+            {
+                int index = random.Next(quoteList.Count);
+                videoData.Quote = quoteList[index].Title;
+            }
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {

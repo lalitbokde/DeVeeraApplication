@@ -71,7 +71,7 @@ namespace DeVeeraApp.Controllers
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
             var model = new DashboardQuoteModel();
-            var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsActive == true).FirstOrDefault();
+            var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
             model.Title = quote !=null ? quote.Title : "";
             model.Author =quote != null ? quote.Author : "";
 
