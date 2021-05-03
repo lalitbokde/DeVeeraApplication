@@ -6,6 +6,7 @@ namespace CRM.Core.Domain
 {
     public class Level : BaseEntity
     {
+        public int? LevelNo { get; set; }
         public int? VideoId { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }

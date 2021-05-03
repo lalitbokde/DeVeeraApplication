@@ -91,6 +91,8 @@
     <Compile Include="Migrations\20210430110354_DashboardQuote-Level.Designer.cs" />
     <Compile Include="Migrations\20210430144853_Level-Remove-quote.cs" />
     <Compile Include="Migrations\20210430144853_Level-Remove-quote.Designer.cs" />
+    <Compile Include="Migrations\20210501092152_Level-LevelNo.cs" />
+    <Compile Include="Migrations\20210501092152_Level-LevelNo.Designer.cs" />
 
 
 

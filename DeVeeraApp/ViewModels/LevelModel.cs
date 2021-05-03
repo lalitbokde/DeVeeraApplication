@@ -18,6 +18,9 @@ namespace DeVeeraApp.ViewModels
             this.AvailableVideo = new List<SelectListItem>();
             this.AvailableImages = new List<SelectListItem>();
         }
+
+        [Required]
+        public int? LevelNo { get; set; }
         public int? VideoId { get; set; }
         public int Image1 { get; set; }
         public int Image2 { get; set; }

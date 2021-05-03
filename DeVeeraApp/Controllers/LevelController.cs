@@ -11,6 +11,7 @@ using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,6 +137,8 @@ namespace DeVeeraApp.Controllers
                 {
                     model.Add(item.ToModel<LevelModel>());
                 }
+
+                ViewBag.TableData = JsonConvert.SerializeObject(model);
                 return View(model);
             }
             return RedirectToAction("Index", "Home");
@@ -196,7 +199,7 @@ namespace DeVeeraApp.Controllers
                 var levelData = _levelServices.GetLevelById(model.Id);
                 levelData.Title = model.Title;
                 levelData.Subtitle = model.Subtitle;
-                //levelData.Quote = model.Quote;
+                levelData.LevelNo = model.LevelNo;
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
                 _levelServices.UpdateLevel(levelData);
