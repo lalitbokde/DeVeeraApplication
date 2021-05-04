@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace CRM.Core.Domain
@@ -17,8 +18,12 @@ namespace CRM.Core.Domain
 
     public enum Quote
     {
+        [Description("Login")]
         Login = 1,
-        Registration = 2
+        [Description("Registration")]
+        Registration = 2,
+        [Description("Landing Page")]
+        Landing = 3
     }
 
 }

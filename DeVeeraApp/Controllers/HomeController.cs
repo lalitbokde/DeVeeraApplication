@@ -113,7 +113,7 @@ namespace DeVeeraApp.Controllers
                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
                 var model = data.ToModel<WeeklyUpdateModel>();
-
+                model.VideoUrl = data?.Video?.VideoUrl;
                 if(currentUser.LastLevel!=null)
                 level = _levelServices.GetLevelById((int)currentUser.LastLevel);
             
