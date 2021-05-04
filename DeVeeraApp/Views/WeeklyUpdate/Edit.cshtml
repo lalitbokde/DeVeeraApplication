@@ -53,7 +53,7 @@
             </div>
 
         }
-        else
+        else if (Enum.GetName(typeof(Quote), Model.QuoteType) == "Registration")
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
@@ -103,7 +103,53 @@
             </div>
 
         }
+        else
+        {
+            <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Landing" />
+            <div class="px-5 ">
+                <div class="font-medium text-center text-lg">Edit Landing Page Video</div>
+                <div class="text-gray-600 text-center mt-2">Please edit video to show on the landing page</div>
+            </div>
+            <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                    <div class="intro-y box p-5 col-span-12">
+                        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                        {
+                            <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                            </div>
+                        }
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
+
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+
+                        </div>
+                        <div class="mt-5">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Active</label>
+                            <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
+
+                        </div>
+
+                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                                <div class="intro-y   col-span-6">
+                                    <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="btn btn-primary w-24"> List</a>
+                                </div>
+                                <div class="intro-y  col-span-6 ml-auto">
+
+                                    <button type="submit" class="btn btn-primary w-24">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
 
     </div>
 

@@ -98,7 +98,8 @@
                                 <img class="hero-media-image asset-dark" src="~/LandingPage/dist/images/hero-media-dark.svg" alt="Hero media">*@
                             <!--</div>-->
                             <div class="hero-video-container">
-                                <video src="@Url.Content("")" controls style="width:500px; height:400px" loop />
+                                @{string src = ViewBag.VideoUrl;}
+                                <video src="@Url.Content(src)" controls style="width:500px; height:400px" loop />
                             </div>
                         </div>
                         </div>

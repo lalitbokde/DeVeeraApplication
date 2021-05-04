@@ -98,16 +98,13 @@ namespace DeVeeraApp.Controllers
                 //linux
                 FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
                //windows
-               // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+                //FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
 
                 var info = await MediaInfo.Get(originalFile);
 
                 var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
-
-                await Conversion.New().AddStream(videoStream).SetOutput(CompressedFile).Start();
-
-
-               
+                var audioStream = info.AudioStreams.First().SetCodec(AudioCodec.Aac);
+                await Conversion.New().AddStream(audioStream).AddStream(videoStream).SetOutput(CompressedFile).Start();
 
                 FileInfo file = new FileInfo(OriginalFileName);
                 if (file.Exists)//check file exsit or not  

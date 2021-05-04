@@ -6,12 +6,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
   <ItemGroup>
-    <Compile Remove="wwwroot\FFmpeg\**" />
-    <Content Remove="wwwroot\FFmpeg\**" />
-    <EmbeddedResource Remove="wwwroot\FFmpeg\**" />
-    <None Remove="wwwroot\FFmpeg\**" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CRM.Data\CRM.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
@@ -26,6 +20,7 @@
     <Folder Include="Views\Diary\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\FFmpeg\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />

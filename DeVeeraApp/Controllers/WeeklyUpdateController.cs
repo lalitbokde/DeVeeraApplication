@@ -1,5 +1,6 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain;
+using CRM.Core.Infrastructure;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Message;
@@ -62,7 +63,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create(CRM.Core.Domain.Quote type)
         {
-            AddBreadcrumbs( $"{type} Quote", "Create", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Create?type={type}");
+            AddBreadcrumbs( $"{type} Video", "Create", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Create?type={type}");
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             ViewBag.QuoteType = type.ToString();
             PrepareVideo(model);
@@ -72,7 +73,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Create(WeeklyUpdateModel model)
         {
-            AddBreadcrumbs($"{model.QuoteType} Quote", "Create", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Create?type={model.QuoteType}");
+            AddBreadcrumbs($"{model.QuoteType} Video", "Create", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Create?type={model.QuoteType}");
 
             if (ModelState.IsValid)
             {
@@ -90,7 +91,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id, CRM.Core.Domain.Quote type)
         {
-            AddBreadcrumbs($"{type} Quote", "Edit", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Edit/{id}?type={type}");
+            AddBreadcrumbs($"{type} Video", "Edit", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Edit/{id}?type={type}");
 
             if (id != 0)
             {
@@ -111,7 +112,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(WeeklyUpdateModel model)
         {
-            AddBreadcrumbs($"{model.QuoteType} Quote", "Edit", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
+            AddBreadcrumbs($"{model.QuoteType} Video", "Edit", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
 
             if (ModelState.IsValid)
             {
@@ -132,9 +133,9 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List(int typeId)
         {
-            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Quote", "List", $"/WeeklyUpdate/List?typeId={typeId}", $"/WeeklyUpdate/List?typeId={typeId}");
+            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Video", "List", $"/WeeklyUpdate/List?typeId={typeId}", $"/WeeklyUpdate/List?typeId={typeId}");
 
-            ViewBag.QuoteType = (CRM.Core.Domain.Quote)typeId;
+            ViewBag.QuoteType = EnumDescription.GetDescription((CRM.Core.Domain.Quote)typeId);
             var model = new List<WeeklyUpdateModel>();
             var data = _weeklyUpdateServices.GetWeeklyUpdatesByQuoteType(typeId);
             if (data.Count() != 0)

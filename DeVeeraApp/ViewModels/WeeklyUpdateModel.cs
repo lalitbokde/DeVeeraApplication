@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -46,8 +47,12 @@ namespace DeVeeraApp.ViewModels
 
     public enum Quote
     {
+        [Description("Login")]
         Login = 1,
-        Registration = 2
+        [Description("Registration")]
+        Registration = 2,
+        [Description("Landing Page")]
+        Landing = 3
     }
 
 }
