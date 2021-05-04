@@ -142,7 +142,8 @@ namespace DeVeeraApp.Controllers
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
             
                 var model = data.ToModel<WeeklyUpdateModel>();
-                var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
+            model.VideoUrl = data?.Video?.VideoUrl;
+            var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
                 if (firstLevel != null)
                     model.LastLevel = firstLevel.Id;
                 ViewBag.SrNo = 1;
