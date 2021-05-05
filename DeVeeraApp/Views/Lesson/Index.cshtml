@@ -1,41 +1,39 @@
 ﻿@model DeVeeraApp.ViewModels.LevelModel
 @inject CRM.Core.IWorkContext _workContext
 
-    <div class="grid grid-cols-12 gap-6  mt-5">
+<div class="grid grid-cols-12 gap-6  mt-5">
 
-        <div class="intro-y col-span-3 mr-auto">
-            <div class=" mt-10 lg:mt-0">
-                <div class="intro-x mt-10 text-4xl font-medium">@Model.Title</div>
+    <div class="intro-y col-span-3 mr-auto">
+        <div class=" mt-10 lg:mt-0">
+            <div class="intro-x mt-10 text-4xl font-medium">@Model.Title</div>
 
+        </div>
+        <div class="text-gray-600 text-left mt-2">@Model.Quote</div>
+    </div>
+    @foreach(var item in Model.SelectedImages)
+        {
+         <div class="intro-y col-span-2 flex">
+            <img alt="Icewall Tailwind HTML Admin Template" src="@item.ImageUrl">
+
+        </div>
+        }
+  
+
+
+    <div class="intro-y col-span-3 flex items-center ml-8">
+        <div class="alert alert-warning show mb-2 mt-10" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-lg mr-4">Recent Diary</div>
+                <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
             </div>
-            <div class="text-gray-600 text-left mt-2">@Model.Quote</div>
+            <div class="mt-3">@Model.DiaryText</div>
         </div>
-        <div class="intro-y col-span-2 flex">
-            <img alt="Icewall Tailwind HTML Admin Template" src="~/dist/images/preview-6.jpg">
- 
-        </div>
-        <div class="intro-y col-span-2 flex">
-            <img alt="Icewall Tailwind HTML Admin Template" src="~/dist/images/preview-6.jpg">
-            
-        </div>
-        <div class="intro-y col-span-2 flex">
-            <img alt="Icewall Tailwind HTML Admin Template" src="~/dist/images/preview-6.jpg">
-           
-        </div>
-        <div class="intro-y col-span-3 flex items-center ml-8">
-            <div class="alert alert-warning show mb-2 mt-10" role="alert">
-                <div class="flex items-center">
-                    <div class="font-medium text-lg mr-4">Recent Diary</div>
-                    <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
-                </div>
-                <div class="mt-3">@Model.DiaryText</div>
-            </div>
-
-        </div>
-
-
 
     </div>
+
+
+
+</div>
 
 
 
