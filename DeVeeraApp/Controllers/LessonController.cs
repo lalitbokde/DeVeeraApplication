@@ -29,10 +29,12 @@ namespace DeVeeraApp.Controllers
         private readonly ILogger<LessonController> _logger;
         private readonly ILevelServices _levelServices;
         private readonly IVideoMasterService _videoMasterService;
+        private readonly IImageMasterService _imageMasterService;
         private readonly IModuleService _moduleServices;
         private readonly IS3BucketService _s3BucketService;
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
+        private readonly ILevelImageListServices _levelImageListServices;
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
 
@@ -43,6 +45,7 @@ namespace DeVeeraApp.Controllers
         public LessonController(ILogger<LessonController> logger,
                                 ILevelServices levelServices,
                                 IVideoMasterService videoMasterService,
+                                IImageMasterService imageMasterService,
                                 IModuleService moduleService,
                                 IS3BucketService s3BucketService,
                                 IUserService userService,
@@ -50,6 +53,7 @@ namespace DeVeeraApp.Controllers
                                 IWorkContext workContext,
                                 IHttpContextAccessor httpContextAccessor,
                                 IAuthenticationService authenticationService,
+                                ILevelImageListServices levelImageListServices,
                                 IDiaryMasterService diaryMasterService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -57,10 +61,12 @@ namespace DeVeeraApp.Controllers
             _logger = logger;
             _levelServices = levelServices;
             _videoMasterService = videoMasterService;
+            _imageMasterService = imageMasterService;
             _moduleServices = moduleService;
             _s3BucketService = s3BucketService;
             _userService = userService;
             _workContext = workContext;
+            _levelImageListServices = levelImageListServices;
             _diaryMasterService = diaryMasterService;
             _dashboardQuoteService = dashboardQuoteService;
 
@@ -75,10 +81,31 @@ namespace DeVeeraApp.Controllers
             var random = new Random();
             ViewBag.SrNo = srno;
             ViewBag.TotalLevels = _levelServices.GetAllLevels().Count;
-
+            var videoData = new LevelModel();
+            videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
             var data = _levelServices.GetLevelById(id);
+            var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
+
+            if(levelImages.Count != 0)
+            {
+                foreach(var item in levelImages)
+                {
+                    var seletedImages = new SelectedImage();
+                    var imagesRecord = _imageMasterService.GetImageById(item.Image.Id);
+                    var imageUrl = _s3BucketService.GetPreSignedURL(imagesRecord.Key);
+                    imagesRecord.ImageUrl = imageUrl.Result;
+                    _imageMasterService.UpdateImage(imagesRecord);
+                    seletedImages.ImageUrl = imagesRecord.ImageUrl;
+                    seletedImages.Key = imagesRecord.Key;
+                    seletedImages.Name = imagesRecord.Name;
+                    seletedImages.id = imagesRecord.Id;
+                    videoData.SelectedImages.Add(seletedImages);
+
+                }
+            }
+
 
             var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
 
@@ -89,7 +116,14 @@ namespace DeVeeraApp.Controllers
             _videoMasterService.UpdateVideo(videoRecord);
 
             var updatedVideoData = _levelServices.GetLevelById(id);
-            var videoData = updatedVideoData.ToModel<LevelModel>();
+            videoData.Id = updatedVideoData.Id;
+            videoData.FullDescription = updatedVideoData.FullDescription;
+            videoData.Video = updatedVideoData.Video;
+            videoData.srno = srno;
+            videoData.Subtitle = updatedVideoData.Subtitle;
+            videoData.Title = updatedVideoData.Title;
+            videoData.LevelNo = updatedVideoData.LevelNo;
+
 
             var quoteList = _dashboardQuoteService.GetDashboardQuoteByLevelId(id).Where(a => a.IsRandom == true).ToList();
             if (quoteList != null && quoteList.Count > 0)

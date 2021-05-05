@@ -130,6 +130,7 @@ namespace DeVeeraApp.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<VideoModel>();
+
                     return View(model);
                 }
             }
@@ -144,8 +145,10 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var videoData = _videoMasterService.GetVideoById(model.Id);
+                var url = UploadVideo(model.FileName);
                 videoData.Name = model.Name;
-                videoData.VideoUrl = model.VideoUrl;
+                videoData.VideoUrl = url.Result;
+                videoData.Key = model.FileName;
                 _videoMasterService.UpdateVideo(videoData);
                 _notificationService.SuccessNotification("Video url updated successfully.");
                 return RedirectToAction("List");
@@ -203,6 +206,37 @@ namespace DeVeeraApp.Controllers
 
 
 
+        public IActionResult DeleteVideo(int videoId)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (videoId != 0)
+            {
+                var data = _videoMasterService.GetVideoById(videoId);
+
+                if(data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No video found";
+                }
+                _videoUploadService.DeleteFile(data.Key);
+
+                data.Key = null;
+                data.VideoUrl = null;
+
+                _videoMasterService.UpdateVideo(data);
+                response.Success = true;
+
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "videoId is 0";
+
+            }
+            return Json(response);
+        }
+
 
         public IActionResult Delete(int videoId)
         {
@@ -216,6 +250,7 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No video found";
                 }
+                _videoUploadService.DeleteFile(videoData.Key);
                 _videoMasterService.DeleteVideo(videoData);
 
                 response.Success = true;

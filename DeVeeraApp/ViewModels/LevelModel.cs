@@ -15,16 +15,18 @@ namespace DeVeeraApp.ViewModels
         public LevelModel()
         {
             Modules = new Modules();
+            ImageLists = new List<Image>();
             this.AvailableVideo = new List<SelectListItem>();
-            this.AvailableImages = new List<SelectListItem>();
+            AvailableImages = new List<SelectListItem>();
+            SelectedImg = new List<string>();
         }
 
         [Required]
         public int? LevelNo { get; set; }
         public int? VideoId { get; set; }
-        public int Image1 { get; set; }
-        public int Image2 { get; set; }
-        public int Image3 { get; set; }
+        public IList<SelectedImage> SelectedImages { get; set; }
+
+        public IList<string> SelectedImg { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -41,6 +43,7 @@ namespace DeVeeraApp.ViewModels
         public Image Image { get; set; }
 
         public IList<Modules>ModuleList { get; set; }
+        public List<Image> ImageLists { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
 
@@ -55,5 +58,14 @@ namespace DeVeeraApp.ViewModels
         [NotMapped]
         public string DiaryLatestUpdateDate { get; set; }
 
+    }
+
+    public class SelectedImage
+    {
+        public bool Selected { get; set; }
+        public int id { get; set; }
+        public string Name { get; set; }
+        public string Key { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

@@ -381,7 +381,55 @@ function PostDeleteVideo(Id) {
 
 }
 
+function DeleteEditPageVideo(Id) {
 
+    var jsonData = {
+
+        videoId: Id
+
+    };
+    $.post("/Video/DeleteVideo",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "Video data has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Video is in use.",
+                    'error',
+
+                )
+        });
+
+}
 
 function PostDeleteImage(Id) {
 

@@ -28,6 +28,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelServices _levelServices;
         private readonly IVideoMasterService _videoServices;
         private readonly IImageMasterService _imageMasterService;
+        private readonly ILevelImageListServices _levelImageListServices;
         private readonly INotificationService _notificationService;
 
 
@@ -43,6 +44,7 @@ namespace DeVeeraApp.Controllers
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
+                                     ILevelImageListServices levelImageListServices,
                                      INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -52,6 +54,7 @@ namespace DeVeeraApp.Controllers
             _levelServices = levelServices;
             _videoServices = videoService;
             _imageMasterService = imageMasterService;
+            _levelImageListServices = levelImageListServices;
             _notificationService = notificationService;
         }
         #endregion
@@ -73,17 +76,15 @@ namespace DeVeeraApp.Controllers
             }
         }
 
-        public virtual void PrepareImageUrl(LevelModel model)
+        public virtual void PrepareImageList(LevelModel model)
         {
-            model.AvailableImages.Add(new SelectListItem { Text = "Select Image", Value = "0" });
-            var AvailableImageUrl = _imageMasterService.GetAllImages();
-            foreach(var url in AvailableImageUrl)
+            var AvailableImages = _imageMasterService.GetAllImages();
+            foreach (var item in AvailableImages)
             {
                 model.AvailableImages.Add(new SelectListItem
                 {
-                    Value = url.Id.ToString(),
-                    Text = url.Name,
-                    //Selected = url.Id == model.Image.Id
+                    Value = item.Id.ToString(),
+                    Text = item.Name,
                 });
             }
         }
@@ -101,7 +102,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
             LevelModel model = new LevelModel();
             PrepareVideoUrl(model);
-            PrepareImageUrl(model);
+            PrepareImageList(model);
             return View(model);
         }
 
@@ -113,14 +114,33 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 model.VideoId =  (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
+
                 var data = model.ToEntity<Level>();
+
                 data.Title = model.Title;
+
                 _levelServices.InsertLevel(data);
+
+                if (model.SelectedImg.Count() != 0)
+                {
+                   for(int i= 0; i< model.SelectedImg.Count(); i++)
+                    {
+                        var record = new LevelImageList
+                        {
+                            LevelId = data.Id,
+                            ImageId = Convert.ToInt32(model.SelectedImg[i])
+                        };
+
+                        _levelImageListServices.InsertLevelImage(record);
+                    }
+
+                }
+
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("Index", "Home");
             }
             PrepareVideoUrl(model);
-            PrepareImageUrl(model);
+            PrepareImageList(model);
 
             return View(model);
         }
@@ -167,8 +187,17 @@ namespace DeVeeraApp.Controllers
                 var model = data.ToModel<LevelModel>();
                 
                 model.srno = srno;
-                model.ModuleList = _moduleServices.GetModulesByLevelId(id);
 
+                var imagedata = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
+
+                if(imagedata.Count != 0)
+                {
+                    foreach(var item in imagedata)
+                    {
+                        model.SelectedImg.Add(item.ImageId.ToString());
+                    }
+                }
+                model.ModuleList = _moduleServices.GetModulesByLevelId(id);
                 if( ModuleId > 0 && ModuleId != 0)
                 {
                     var module = _moduleServices.GetModuleById(ModuleId);
@@ -179,7 +208,7 @@ namespace DeVeeraApp.Controllers
                 }
 
                 PrepareVideoUrl(model);
-                PrepareImageUrl(model);
+                PrepareImageList(model);
 
                 return View(model);
             }
@@ -202,6 +231,22 @@ namespace DeVeeraApp.Controllers
                 levelData.LevelNo = model.LevelNo;
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
+
+                _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
+
+                if (model.SelectedImg.Count() != 0)
+                {
+                    for (int i = 0; i < model.SelectedImg.Count(); i++)
+                    {
+                        var record = new LevelImageList
+                        {
+                            LevelId = levelData.Id,
+                            ImageId = Convert.ToInt32(model.SelectedImg[i])
+                        };
+
+                        _levelImageListServices.InsertLevelImage(record);
+                    }
+                }
                 _levelServices.UpdateLevel(levelData);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 
