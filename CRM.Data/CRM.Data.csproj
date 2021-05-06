@@ -93,6 +93,8 @@
     <Compile Include="Migrations\20210430144853_Level-Remove-quote.Designer.cs" />
     <Compile Include="Migrations\20210501092152_Level-LevelNo.cs" />
     <Compile Include="Migrations\20210501092152_Level-LevelNo.Designer.cs" />
+    <Compile Include="Migrations\20210506133806_UpdatedDiaryTable.cs" />
+    <Compile Include="Migrations\20210506133806_UpdatedDiaryTable.Designer.cs" />
 
 
 
