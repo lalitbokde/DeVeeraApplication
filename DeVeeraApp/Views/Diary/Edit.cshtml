@@ -43,6 +43,21 @@
                         <span asp-validation-for="Comment" class="text-theme-6 mt-2"></span>
 
                     </div>
+                    <div class="" id="standard-editor">
+                        <div class="preview">
+                            <input type="text" asp-for="Title" class="form-control" placeholder="title"/>
+
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                    </div>
+                    <div class="" id="standard-editor">
+                        <div class="preview">
+                            <textarea asp-for="Description" class="editor"> </textarea>
+
+                        </div>
+                    </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                             <div class="intro-y   col-span-6">

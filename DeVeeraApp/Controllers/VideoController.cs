@@ -205,7 +205,19 @@ namespace DeVeeraApp.Controllers
         }
 
 
-
+        public IActionResult Play(int Id)
+        {
+            if(Id != 0)
+            {
+                var data = _videoMasterService.GetVideoById(Id);
+                data.VideoUrl = _videoUploadService.GetPreSignedURL(data.Key).Result;
+                _videoMasterService.UpdateVideo(data);
+                var model = data.ToModel<VideoModel>();
+                return View(model);
+            }
+            return RedirectToAction("List");
+          
+        }
         public IActionResult DeleteVideo(int videoId)
         {
             ResponseModel response = new ResponseModel();

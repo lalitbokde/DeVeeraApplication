@@ -107,9 +107,9 @@ namespace DeVeeraApp.Controllers
         {
             var imageList = _imageMasterService.GetAllImages();
             var model = new List<ImageModel>();
-            if(imageList.Count() != 0)
+            if (imageList.Count() != 0)
             {
-                foreach(var item in imageList)
+                foreach (var item in imageList)
                 {
                     model.Add(item.ToModel<ImageModel>());
                 }
@@ -154,6 +154,22 @@ namespace DeVeeraApp.Controllers
             }
             System.IO.File.Delete(path);
             return val;
+        }
+
+
+        public IActionResult ImagePreview(int Id)
+        {
+            if(Id != 0)
+            {
+                var data = _imageMasterService.GetImageById(Id);
+
+                data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                _imageMasterService.UpdateImage(data);
+                var model = data.ToModel<ImageModel>();
+                return View(model);
+
+            }
+            return RedirectToAction("List");
         }
 
         public IActionResult Delete(int imageId)

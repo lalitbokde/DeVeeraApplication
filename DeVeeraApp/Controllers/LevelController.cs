@@ -166,12 +166,7 @@ namespace DeVeeraApp.Controllers
         }
 
 
-        public IActionResult Play(string url)
-        {
-            var model = new LevelModel();
-            model.VideoUrl = url;
-            return View(model);
-        }
+       
 
         public IActionResult Edit(int id,int ModuleId, int srno)
         {
