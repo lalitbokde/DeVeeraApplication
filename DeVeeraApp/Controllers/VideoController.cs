@@ -30,7 +30,6 @@ namespace DeVeeraApp.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
 
 
-
         #endregion
 
 
