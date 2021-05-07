@@ -19,6 +19,7 @@ using System.Data;
 using OfficeOpenXml;
 using Microsoft.AspNetCore.Hosting;
 using DeVeeraApp.ViewModels.Response;
+using Newtonsoft.Json;
 
 namespace DeVeeraApp.Controllers
 {
@@ -88,6 +89,8 @@ namespace DeVeeraApp.Controllers
                     }
                     model.Add(item.ToModel<DashboardQuoteModel>());
                 }
+
+                ViewBag.QuoteTable = JsonConvert.SerializeObject(model);
                 return View(model);
             }
             return View();
