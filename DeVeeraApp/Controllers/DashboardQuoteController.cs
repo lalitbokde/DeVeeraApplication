@@ -229,7 +229,7 @@ namespace DeVeeraApp.Controllers
 
             string ErrorMessage = "";
 
-            var path = Path.Combine(_hostingEnvironment.WebRootPath + "\\ImportExcel", filename);
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//ImportExcel", filename);
 
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
