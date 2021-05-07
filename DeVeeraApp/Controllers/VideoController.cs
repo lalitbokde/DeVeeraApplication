@@ -281,7 +281,7 @@ namespace DeVeeraApp.Controllers
         public async Task<string> UploadVideo(string fileName)
         {
             string val;
-            var path = Path.Combine(_hostingEnvironment.WebRootPath + "\\Files", fileName);
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files", fileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {

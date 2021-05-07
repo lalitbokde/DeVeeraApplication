@@ -152,7 +152,7 @@ namespace DeVeeraApp.Controllers
         {
             string val;
 
-            var path = Path.Combine(_hostingEnvironment.WebRootPath + "\\Files\\Images", fileName);
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files//Images", fileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
