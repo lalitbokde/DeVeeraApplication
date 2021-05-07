@@ -98,11 +98,11 @@ namespace DeVeeraApp.Controllers
 
                         foreach (var item in data)
                         {
-                            if(item.Active == true && item.Id <= lastlevel + 1)
+                            if(item.Active == true && item.Id <= lastlevel)
                             {
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
 
-                                if (item.Id > lastlevel)
+                                if (item.Id == lastlevel)
                                 {
                                     break;
                                 }

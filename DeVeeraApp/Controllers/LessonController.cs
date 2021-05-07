@@ -154,7 +154,7 @@ namespace DeVeeraApp.Controllers
         {
 
            
-            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id).Where(a=>a.Id < id).FirstOrDefault();
+            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id).Where(a=>a.Id < id && a.Active == true).FirstOrDefault();
 
             if (data != null)
             {
@@ -174,7 +174,7 @@ namespace DeVeeraApp.Controllers
             else
             {
                 ViewBag.SrNo = srno;
-                var data = _levelServices.GetAllLevels().Where(a => a.Id > id).FirstOrDefault();
+                var data = _levelServices.GetAllLevels().Where(a => a.Id > id && a.Active == true).FirstOrDefault();
                 if (data != null)
                 {
                     if (data.Id > currentUser.LastLevel)

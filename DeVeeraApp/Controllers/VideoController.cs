@@ -179,30 +179,31 @@ namespace DeVeeraApp.Controllers
 
             var FileDic = "Files";
 
+
             string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
 
             if (!Directory.Exists(FilePath))
 
                 Directory.CreateDirectory(FilePath);
 
-            var fileName = file.FileName;
+            string fileName = file.Length > 52428800 ? "UploadedVideo.mp4" : file.FileName;
 
-            var filePath = Path.Combine(FilePath, "UploadedVideo.mp4");
+            var filePath = Path.Combine(FilePath, fileName);
 
             using (FileStream fs = System.IO.File.Create(filePath))
             {
                 file.CopyTo(fs);
             }
 
-            var OriginalFileName = Path.Combine(FilePath, "UploadedVideo.mp4");
+            var OriginalFileName = Path.Combine(FilePath, fileName);
 
             var CompressedFileName = fileName;
-
-            await ConvertVideo(OriginalFileName, CompressedFileName);
-
+            if (file.Length > 52428800)
+            {
+                await ConvertVideo(OriginalFileName, CompressedFileName);
+            }
             return true;
         }
-
 
         public IActionResult Play(int Id)
         {
