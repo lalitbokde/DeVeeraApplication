@@ -33,9 +33,11 @@ namespace DeVeeraApp.ViewModels
         public string Subtitle { get; set; }
      
         public string Quote { get; set; }
-       
+        public string Author { get; set; }
+
         public string VideoUrl { get; set; }
         public string VideoName { get; set; }
+        public bool Active { get; set; }
 
         public string FullDescription { get; set; }
         public Modules Modules { get; set; }
