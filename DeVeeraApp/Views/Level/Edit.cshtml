@@ -63,7 +63,13 @@
                                 @Html.ListBoxFor(m => m.SelectedImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
 
                             </div>
+                            <div class="mt-5">
 
+                                <label class="form-label text-theme-21 ">Active</label>
+                                <input asp-for="Active" type="checkbox" class="form-check-input" placeholder="IsActive" />
+
+
+                            </div>
                             @*<div class="mt-5">
 
             <label class="form-label text-theme-21 ">Images</label>
@@ -127,12 +133,12 @@
                                 <input asp-for="Id" hidden />
                                 <input asp-for="Modules.Id" hidden />
                                 @{
-                                   Model.Modules.VideoId = Model.Modules.VideoId == null ? Model.Modules.VideoId = 0 : Model.Modules.VideoId;
+                                    Model.Modules.VideoId = Model.Modules.VideoId == null ? Model.Modules.VideoId = 0 : Model.Modules.VideoId;
                                 }
                                 <select asp-for="@Model.Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
-
+                          
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
                             </div>

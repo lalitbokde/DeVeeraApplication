@@ -130,6 +130,7 @@ namespace DeVeeraApp.Controllers
             {
                 int index = random.Next(quoteList.Count);
                 videoData.Quote = quoteList[index].Title;
+                videoData.Author = quoteList[index].Author;
             }
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")

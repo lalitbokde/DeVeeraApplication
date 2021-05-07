@@ -66,36 +66,65 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Application", "Dashboard","/Home/Index", "/Home/Index");
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
+
             var model = new DashboardQuoteModel();
+
             var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
+
             model.Title = quote?.Title;
             model.Author = quote?.Author;
 
-            var data = _levelServices.GetAllLevels();
+
+            var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo); 
+
             int lastlevel = data.LastOrDefault().Id;
+
             if (data.Count() != 0)
             {
                 if(!(_workContext.CurrentUser.UserRole.Name == "Admin"))
                 {
-                    var LevelOne = data.FirstOrDefault();
-                    var lastLevelForNewUser = data.Where(a => a.Id == LevelOne.Id).FirstOrDefault();
-                    var lastLevelForOldUser = data.Where(a => a.Id == currentUser.LastLevel).FirstOrDefault();
+                    var activeLevel = data.Where(l => l.Active == true).ToList();
 
-                    lastlevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? lastlevel = lastLevelForNewUser.Id : lastlevel = lastLevelForOldUser.Id;
-
-                }
-
-
-                foreach (var item in data)
-                {
-
-                    model.VideoModelList.Add(item.ToModel<LevelModel>());
-                    if(item.Id == lastlevel)
+                    if(activeLevel.Count() != 0)
                     {
-                        break;
+                        var LevelOne = data.FirstOrDefault();
+
+                        var lastLevelForNewUser = data.Where(a => a.Id == LevelOne.Id).FirstOrDefault();
+
+                        var lastLevelForOldUser = data.Where(a => a.Id == currentUser.LastLevel).FirstOrDefault();
+
+
+                        lastlevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? lastlevel = lastLevelForNewUser.Id : lastlevel = lastLevelForOldUser.Id;
+
+                        foreach (var item in data)
+                        {
+                            if(item.Active == true && item.Id <= lastlevel + 1)
+                            {
+                                model.VideoModelList.Add(item.ToModel<LevelModel>());
+
+                                if (item.Id > lastlevel)
+                                {
+                                    break;
+                                }
+
+                            }
+
+                        }
+
                     }
 
+
                 }
+                else
+                {
+                    foreach (var item in data)
+                    {
+                        model.VideoModelList.Add(item.ToModel<LevelModel>());
+
+                    }
+                }
+
+               
                 return View(model);
             }
             return View();
