@@ -59,14 +59,22 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Create(ImageModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var data = model.ToEntity<Image>();
-                var imageUrl = UploadToAWS(model.FileName);
-                data.ImageUrl = imageUrl.Result.ToString();
-                data.Key = model.FileName;
-                _imageMasterService.InsertImage(data);
-                _notificationService.SuccessNotification("Image url added successfully");
+                if (ModelState.IsValid)
+                {
+                    var data = model.ToEntity<Image>();
+                    var imageUrl = UploadToAWS(model.FileName);
+                    data.ImageUrl = imageUrl.Result.ToString();
+                    data.Key = model.FileName;
+                    _imageMasterService.InsertImage(data);
+                    _notificationService.SuccessNotification("Image url added successfully");
+                    return RedirectToAction("List");
+                }
+            }
+            catch(Exception ex)
+            {
+                _notificationService.ErrorNotification(ex.Message);
                 return RedirectToAction("List");
             }
             return View();

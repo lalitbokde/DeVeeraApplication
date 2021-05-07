@@ -70,15 +70,24 @@ namespace DeVeeraApp.Controllers
         [Obsolete]
         public IActionResult Create(VideoModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var url = UploadVideo(model.FileName);
-                var data = new Video();
-                data.Key = model.FileName;
-                data.VideoUrl = url.Result.ToString();
-                data.Name = model.Name;
-                _videoMasterService.InsertVideo(data);
-                _notificationService.SuccessNotification("Video url added successfully.");
+                if (ModelState.IsValid)
+                {
+                    var url = UploadVideo(model.FileName);
+                    var data = new Video();
+                    data.Key = model.FileName;
+                    data.VideoUrl = url.Result.ToString();
+                    data.Name = model.Name;
+                    _videoMasterService.InsertVideo(data);
+                    _notificationService.SuccessNotification("Video url added successfully.");
+                    return RedirectToAction("List");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _notificationService.ErrorNotification(ex.Message);
                 return RedirectToAction("List");
             }
             return View();
@@ -88,37 +97,29 @@ namespace DeVeeraApp.Controllers
         [Obsolete]
         public async Task<bool> ConvertVideo(string OriginalFileName, string CompressedFileName)
         {
-            try
+
+
+            var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
+            var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
+            //linux
+            FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
+            //windows
+            // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+
+            var info = await MediaInfo.Get(originalFile);
+
+            var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
+            var audioStream = info.AudioStreams.First().SetCodec(AudioCodec.Aac);
+            await Conversion.New().AddStream(audioStream).AddStream(videoStream).SetOutput(CompressedFile).Start();
+
+            FileInfo file = new FileInfo(OriginalFileName);
+            if (file.Exists)//check file exsit or not  
             {
+                file.Delete();
 
-
-                var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
-                var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
-                //linux
-                FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
-               //windows
-               // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
-
-                var info = await MediaInfo.Get(originalFile);
-
-                var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
-                var audioStream = info.AudioStreams.First().SetCodec(AudioCodec.Aac);
-                await Conversion.New().AddStream(audioStream).AddStream(videoStream).SetOutput(CompressedFile).Start();
-
-                FileInfo file = new FileInfo(OriginalFileName);
-                if (file.Exists)//check file exsit or not  
-                {
-                    file.Delete();
-
-                }
-                return true;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
             return true;
+
         }
 
         public IActionResult Edit(int id)
@@ -207,7 +208,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Play(int Id)
         {
-            if(Id != 0)
+            if (Id != 0)
             {
                 var data = _videoMasterService.GetVideoById(Id);
                 data.VideoUrl = _videoUploadService.GetPreSignedURL(data.Key).Result;
@@ -216,7 +217,7 @@ namespace DeVeeraApp.Controllers
                 return View(model);
             }
             return RedirectToAction("List");
-          
+
         }
         public IActionResult DeleteVideo(int videoId)
         {
@@ -226,7 +227,7 @@ namespace DeVeeraApp.Controllers
             {
                 var data = _videoMasterService.GetVideoById(videoId);
 
-                if(data == null)
+                if (data == null)
                 {
                     response.Success = false;
                     response.Message = "No video found";
@@ -280,13 +281,13 @@ namespace DeVeeraApp.Controllers
         public async Task<string> UploadVideo(string fileName)
         {
             string val;
-            var path = Path.Combine( _hostingEnvironment.WebRootPath + "\\Files", fileName);
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "\\Files", fileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                 val = await _videoUploadService.UploadFileAsync(stream, path, fileName);
+                val = await _videoUploadService.UploadFileAsync(stream, path, fileName);
 
-               
+
             }
             return val;
         }
