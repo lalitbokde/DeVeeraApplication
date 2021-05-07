@@ -3,7 +3,7 @@
     ViewData["Title"] = "List";
 }
 
-<div class="intro-y  py-10 sm:py-20 ">
+<div class="intro-y  py-5 sm:py-5 ">
 
     <div class="px-5 ">
         <div class="font-medium text-center text-lg">Quote List</div>
@@ -11,10 +11,27 @@
 
     </div>
 
-
-    <div class="pt-10 border-t border-gray-200 dark:border-dark-5">
-
+    <div class="pt-5 border-t border-gray-200 dark:border-dark-5">
+        <div class="intro-y col-span-12">
+            <div class="grid grid-cols-12">
+                <div class="intro-y col-span-12 pr-5 text-right">
+                    <a data-toggle="modal" data-target="#ImportExcel" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Import Excel</a>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN: HTML Table Data -->
         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+            <div class="intro-y p-5 col-span-12">
+                <div class="intro-y box">
+                    <div class="overflow-x-auto scrollbar-hidden">
+                        <input id="QuoteTable" value="@ViewBag.QuoteTable" hidden />
+                        <div id="tabulator1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: HTML Table Data -->
+        @*<div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
             <div class="intro-y p-5 col-span-12">
                 <div class="intro-y box">
 
@@ -65,9 +82,57 @@
 
             </div>
 
-        </div>
+        </div>*@
 
     </div>
+        </div>
+<!-- BEGIN: Modal Content -->
+<div id="ImportExcel" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- BEGIN: Modal Header -->
+            <div class="modal-header">
+                <h2 class="font-medium text-base mr-auto">
+                    Import
+                </h2>
+            </div>
+            <!-- END: Modal Header -->
+            <!-- BEGIN: Modal Body -->
+            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                <div class="col-span-12 sm:col-span-12">
+                    <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                        <label class="font-label ml-5 text-theme-21">
+                            Import File
+                        </label>
+                    </div>
+                    <div id="single-file-upload" class="p-5">
+                        <div class="preview">
+                            <div data-single="true" fallback="true" action="/DashboardQuote/UploadExcel" class="dropzone">
+                                <div class="fallback">
+
+                                </div>
+                                <div class="dz-message" data-dz-message>
+                                    <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                    <div class="text-gray-600"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Modal Body -->
+            <!-- BEGIN: Modal Footer -->
+            <div class="modal-footer text-right">
+                <a asp-controller="DashboardQuote" asp-action="SampleExcel" class="btn btn-primary w-40">Import Sample File</a>
+                <button type="submit" class="btn btn-primary w-20" onclick="ImportExcel();">Import</button>
+            </div>
+            <!-- END: Modal Footer -->
+        </div>
+    </div>
 </div>
+<!-- END: Modal Content -->
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+<script src="~/dist/js/Quote.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
 

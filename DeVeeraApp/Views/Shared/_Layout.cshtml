@@ -27,6 +27,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/dist/css/style.css" rel="stylesheet" />
     <link href="~/dist/css/sweetalert2.min.css" rel="stylesheet" />
 
+
+    @*<link rel="stylesheet" href="~/ckeditor 3/samples/css/samples.css">*@
+
     <!-- END: CSS Assets-->
 </head>
 <!-- END: Head -->
@@ -426,6 +429,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </a>
                                     </li>
 
+
                                     <li>
                                         <a asp-controller="Admin" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name" class="top-menu">
                                             <div class="top-menu__icon"> <i data-feather="list"></i> </div>
@@ -552,6 +556,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="top-menu__title"> List </div>
                                         </a>
 
+
                                     </li>
                                 </ul>
                             </li>
@@ -616,6 +621,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/dist/js/sweetalert2.min.js"></script>
     <script src="../../dist/js/app.js"></script>
+    <script src="../../ckeditor 3/ckeditor.js"></script>
+
+    <script src="../../ckeditor 3/samples/js/sample.js"></script>
+    <script>initSample();</script>
     <!-- END: JS Assets-->
 </body>
 </html>

@@ -44,9 +44,7 @@ namespace DeVeeraApp.Controllers
                               IWorkContext workContext,
                               IHttpContextAccessor httpContextAccessor,
                               IAuthenticationService authenticationService,
-                               IUserService userService
-                              
-
+                              IUserService userService                             
                               ) :base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -62,8 +60,6 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
-
-
         #region Method
         public IActionResult Index()
         {
@@ -75,9 +71,9 @@ namespace DeVeeraApp.Controllers
 
             var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
 
-            model.Title = quote !=null ? quote.Title : "";
+            model.Title = quote?.Title;
+            model.Author = quote?.Author;
 
-            model.Author =quote != null ? quote.Author : "";
 
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo); 
 
