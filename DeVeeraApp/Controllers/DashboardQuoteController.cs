@@ -242,7 +242,7 @@ namespace DeVeeraApp.Controllers
 
                         int totalRows = workSheet.Dimension.Rows;
 
-                        var IsValidColumns = (totalColumns == 4);
+                        var IsValidColumns = (totalColumns == 2);
                         if (!IsValidColumns) ErrorMessage += "Invalid Columns";
 
                         var IsEmpty = (totalRows <= 0);
@@ -254,8 +254,8 @@ namespace DeVeeraApp.Controllers
                             {
                                 Title = (workSheet.Cells[row, 1].Value != null) ? workSheet.Cells[row, 1].Value.ToString().Trim() : "",
                                 Author = (workSheet.Cells[row, 2].Value != null) ? workSheet.Cells[row, 2].Value.ToString().Trim() : "",
-                                IsDashboardQuote = (workSheet.Cells[row, 3].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 3].Value.ToString().Trim()) : false,
-                                IsRandom = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
+                                IsDashboardQuote = false,
+                                IsRandom = false,
                                 //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
                             });
 
