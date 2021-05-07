@@ -20,7 +20,13 @@ namespace DeVeeraApp
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                      {
+                          serverOptions.Limits.MaxRequestBodySize = null;
+                      });
+
                     webBuilder.UseStartup<Startup>();
+
                 });
     }
 }
