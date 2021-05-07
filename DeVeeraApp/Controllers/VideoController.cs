@@ -187,7 +187,7 @@ namespace DeVeeraApp.Controllers
 
                 Directory.CreateDirectory(FilePath);
 
-            string fileName = file.Length > 52428800 ? "UploadedVideo.mp4" : file.FileName;
+            string fileName = file.Length > 104857600 ? "UploadedVideo.mp4" : file.FileName;
 
             var filePath = Path.Combine(FilePath, fileName);
 
@@ -199,7 +199,7 @@ namespace DeVeeraApp.Controllers
             var OriginalFileName = Path.Combine(FilePath, fileName);
 
             var CompressedFileName = fileName;
-            if (file.Length > 52428800)
+            if (file.Length >= 104857600)
             {
                 await ConvertVideo(OriginalFileName, CompressedFileName);
             }
