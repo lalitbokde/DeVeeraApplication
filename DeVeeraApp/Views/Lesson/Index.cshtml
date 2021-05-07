@@ -10,15 +10,35 @@
         </div>
         <div class="text-gray-600 text-left mt-2">@Model.Quote</div>
     </div>
-    @foreach(var item in Model.SelectedImages)
+    @*@foreach(var item in Model.SelectedImages)
         {
          <div class="intro-y col-span-2 flex">
             <img alt="Icewall Tailwind HTML Admin Template" src="@item.ImageUrl">
 
         </div>
-        }
-  
+        }*@
 
+    <div class="intro-y col-span-6 mt-5">
+        <div id="single-item-slider" class="p-5">
+            <div class="preview">
+                <div class="mx-6">
+                    <div class="single-item">
+                        @foreach (var item in Model.SelectedImages)
+                        {
+                            <div class="h-32 px-2">
+                                <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md">
+                                    <h3 class="h-full font-medium flex items-center justify-center text-2xl">
+                                        <img src="@item.ImageUrl">
+                                    </h3>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="intro-y col-span-3 flex items-center ml-8">
         <div class="alert alert-warning show mb-2 mt-10" role="alert">
@@ -38,88 +58,88 @@
 
 
 
-    <div class="intro-y news p-5 box mt-8">
-        <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
-            <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
-                <h2 class="intro-y font-medium text-xl sm:text-2xl">
-                    @Model.Subtitle
-                </h2>
-
-            </div>
-
-
-            <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
-
-
-
-                @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
-                {
-                    <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
-                    <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
-
-                }   <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-
-                @if (Convert.ToInt32(ViewBag.SrNo) != 1)
-                {
-
-
-                    <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
-
-                }
-                @if (ViewBag.TotalLevels > ViewBag.SrNo)
-                {
-
-
-                    <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
-                }
-
-            </div>
+<div class="intro-y news p-5 box mt-8">
+    <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
+            <h2 class="intro-y font-medium text-xl sm:text-2xl">
+                @Model.Subtitle
+            </h2>
 
         </div>
 
+
+        <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
+
+
+
+            @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
+            {
+                <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
+                <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
+
+            }   <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+
+            @if (Convert.ToInt32(ViewBag.SrNo) != 1)
+            {
+
+
+                <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
+
+            }
+            @if (ViewBag.TotalLevels > ViewBag.SrNo)
+            {
+
+
+                <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
+            }
+
+        </div>
 
     </div>
-    <!-- BEGIN: Blog Layout -->
-    <div class="intro-y mt-6">
-        <div class="news__preview image-fit">
-            @{string src = Model.Video.VideoUrl;}
-            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
 
-        </div>
 
-        <div class="intro-y text-justify leading-relaxed mt-10">
-            @Html.Raw(Model.FullDescription)
-        </div>
-        <br />
-        <br />
-        <hr />
-        @if (Model.ModuleList.Count() > 0)
-        {
-            <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
-                <div class="intro-y col-span-12 lg:col-span-12">
+</div>
+<!-- BEGIN: Blog Layout -->
+<div class="intro-y mt-6">
+    <div class="news__preview image-fit">
+        @{string src = Model.Video.VideoUrl;}
+        <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
 
-                    <div class="grid grid-cols-12 gap-5 mt-5">
-                        @{int i = 1;
-                            foreach (var item in Model.ModuleList)
-                            {
-                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
-                                    <div class="font-medium text-base text-white">Module @i</div>
-                                    <div class="text-theme-33 dark:text-gray-400">@Model.Subtitle</div>
-                                </a>
-                                i++;
-                            }
+    </div>
+
+    <div class="intro-y text-justify leading-relaxed mt-10">
+        @Html.Raw(Model.FullDescription)
+    </div>
+    <br />
+    <br />
+    <hr />
+    @if (Model.ModuleList.Count() > 0)
+    {
+        <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
+            <div class="intro-y col-span-12 lg:col-span-12">
+
+                <div class="grid grid-cols-12 gap-5 mt-5">
+                    @{int i = 1;
+                        foreach (var item in Model.ModuleList)
+                        {
+                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
+                                <div class="font-medium text-base text-white">Module @i</div>
+                                <div class="text-theme-33 dark:text-gray-400">@Model.Subtitle</div>
+                            </a>
+                            i++;
                         }
-                    </div>
+                    }
                 </div>
             </div>
+        </div>
 
 
 
 
-        }
+    }
 
 
-    </div>
+</div>
 
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/dist/js/CustomJs/Delete.js"></script>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/dist/js/CustomJs/Delete.js"></script>

@@ -6,6 +6,8 @@ namespace CRM.Core.Domain.VideoModules
 {
     public class Diary : BaseEntity
     {
+        public string Title { get; set; }
+        public string Description { get; set; }
         public int UserId { get; set; }
         public int? LevelId { get; set; }
         public int? ModuleId { get; set; }

@@ -3,6 +3,7 @@ using DeVeeraApp.ViewModels;
 using DeVeeraApp.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,10 @@ using CRM.Services.Authentication;
 using CRM.Services.Message;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CRM.Services;
+using System.Data;
+using OfficeOpenXml;
+using Microsoft.AspNetCore.Hosting;
+using DeVeeraApp.ViewModels.Response;
 
 namespace DeVeeraApp.Controllers
 {
@@ -23,6 +28,7 @@ namespace DeVeeraApp.Controllers
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ILevelServices _levelService;
         private readonly INotificationService _notificationService;
+        private readonly IHostingEnvironment _hostingEnvironment;
         #endregion
         #region ctor
         public DashboardQuoteController(IDashboardQuoteService dashboardQuoteService,
@@ -30,13 +36,15 @@ namespace DeVeeraApp.Controllers
                                         IWorkContext workContext,
                                         IHttpContextAccessor httpContextAccessor,
                                         IAuthenticationService authenticationService,
-                                        INotificationService notificationService) : base(workContext: workContext,
+                                        INotificationService notificationService,
+                                        IHostingEnvironment hostingEnvironment) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             this._dashboardQuoteService = dashboardQuoteService;
             _levelService = levelServices;
             _notificationService = notificationService;
+            _hostingEnvironment = hostingEnvironment;
         }
         #endregion
 
@@ -181,6 +189,95 @@ namespace DeVeeraApp.Controllers
 
             }
             return Json(response);
+        }
+
+        #endregion
+        #region ImportExcel
+
+        [Obsolete]
+        public async Task<bool> UploadExcel(IFormFile file)
+        {
+
+            var FileDic = "ImportExcel";
+
+            string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+            if (!Directory.Exists(FilePath))
+                Directory.CreateDirectory(FilePath);
+
+            var fileName = file.FileName;
+
+            var filePath = Path.Combine(FilePath, fileName);
+
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                await file.CopyToAsync(fs);
+            }
+
+            return true;
+        }
+
+        [HttpPost]
+        public IActionResult ImportExcel(string filename)
+        {
+            ResponceModel response = new ResponceModel();
+
+            List<DashboardQuote> _QuoteList = new List<DashboardQuote>();
+
+            string ErrorMessage = "";
+
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "\\ImportExcel", filename);
+
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                if (filename != null)
+                {
+                    using (ExcelPackage package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
+                        int totalColumns = workSheet.Dimension.Columns;
+
+                        int totalRows = workSheet.Dimension.Rows;
+
+                        var IsValidColumns = (totalColumns == 4);
+                        if (!IsValidColumns) ErrorMessage += "Invalid Columns";
+
+                        var IsEmpty = (totalRows <= 0);
+                        if (IsEmpty) ErrorMessage += "No Data To Import";
+
+                        for (int row = 2; row <= totalRows; row++)
+                        {
+                            _QuoteList.Add(new DashboardQuote
+                            {
+                                Title = (workSheet.Cells[row, 1].Value != null) ? workSheet.Cells[row, 1].Value.ToString().Trim() : "",
+                                Author = (workSheet.Cells[row, 2].Value != null) ? workSheet.Cells[row, 2].Value.ToString().Trim() : "",
+                                IsDashboardQuote = (workSheet.Cells[row, 3].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 3].Value.ToString().Trim()) : false,
+                                IsRandom = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
+                                //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
+                            });
+
+                        }
+
+                        foreach (var item in _QuoteList)
+                        {
+                            _dashboardQuoteService.InsertDashboardQutoe(item);
+                        }
+
+                    }
+                    _notificationService.SuccessNotification("Quotes added successfully.");
+                    response.Success = true;
+                    return Json(response);
+                }
+
+            }
+            response.Success = false;
+            return Json(response);
+        }
+        public virtual IActionResult SampleExcel()
+        {          
+            string filename = _hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(_hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx");
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Xml, filename);
         }
 
         #endregion
