@@ -384,6 +384,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                             <div class="p-2">
                                 <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
+                                <a asp-controller="Home" asp-action="UnderDevelopment" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="flag" class="w-4 h-4 mr-2"></i> Language</a>
                                 <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
                                 <a asp-controller="Home" asp-action="Help" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
                             </div>
@@ -560,7 +561,28 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="javascript:;" class="top-menu">
+                                    <div class="top-menu__icon"> <i data-feather="film" class="mx-auto"></i> </div>
+                                    <div class="top-menu__title"> Feel-Good-Stories <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Home" asp-action="UnderDevelopment" class="top-menu">
+                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                            <div class="top-menu__title"> Create </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="DashboardQuote" asp-action="Index" class="top-menu">
+                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
+                                            <div class="top-menu__title"> List </div>
+                                        </a>
 
+
+                                    </li>
+                                </ul>
+                            </li>
                             <li>
                                 <a href="javascript:;" class="top-menu">
                                     <div class="top-menu__icon"> <i data-feather="folder" class="mx-auto"></i> </div>
