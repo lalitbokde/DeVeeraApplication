@@ -146,9 +146,18 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var videoData = _videoMasterService.GetVideoById(model.Id);
-                var url = UploadVideo(model.FileName);
+                try
+                {
+                    var url = UploadVideo(model.FileName);
+                    videoData.VideoUrl = url.Result;
+                }
+                catch(Exception ex)
+                {
+
+                }
+               
                 videoData.Name = model.Name;
-                videoData.VideoUrl = url.Result;
+                videoData.IsNew = model.IsNew;
                 videoData.Key = model.FileName;
                 videoData.IsNew = model.IsNew;
 
