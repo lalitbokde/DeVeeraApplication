@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Weekly Inspiring";
+   
+}
+
+<div class="top-bar-boxed  border-theme-2 -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-6">
+    <div class="h-full flex items-center pt-5">
+        <div class="pl-5"><label class="text-lg font-medium mr-auto " style="font-size: 20px;">Weeky Inspire Quote!!! </label></div>
+    </div>
+</div>
+
+
+    <!-- BEGIN: Basic Alert -->
+         
+      <div class="intro-y box mb-3">
+          <div class="intro-y box">
+              <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                  <h2 class="font-medium text-base mr-auto">
+                      Weeky  Quotes !!!!
+                  </h2>
+              </div>
+
+             
+              <div id="basic-alert" class="p-5">
+                  @for (var i = 0; i < 12; i++)
+                  {
+                      <div class="preview">
+                          <div class="alert alert-primary show mb-2" role="alert">
+                              "Awesome simple alert"
+                              <br />
+                              <span>Loren</span> <span>@DateTime.Now.ToLongDateString()</span>
+                          </div>
+                          <div class="alert alert-secondary show mb-2" role="alert">"Awesome simple alert"</div>
+                          <div class="alert alert-success show mb-2" role="alert">"Awesome simple alert"</div>
+                          <div class="alert alert-warning show mb-2" role="alert">"Awesome simple alert"</div>
+                          <div class="alert alert-danger show mb-2" role="alert">"Awesome simple alert"</div>
+                          <div class="alert alert-dark show mb-2" role="alert">"Awesome simple alert"</div>
+                      </div>
+                      <div class="source-code hidden">
+                          <button data-target="#copy-basic-alert" class="copy-code btn py-1 px-2 btn-outline-secondary">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file w-4 h-4 mr-2">
+                                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                  <polyline points="13 2 13 9 20 9"></polyline>
+                              </svg> Copy example code
+                          </button>
+                          <div class="overflow-y-auto mt-3 rounded-md">
+                              <pre id="copy-basic-alert" class="source-preview"> <code class="text-xs p-0 rounded-md html pl-5 pt-8 pb-4 -mb-10 -mt-10 hljs xml"> 
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=
+                              <span class="hljs-string">"alert alert-primary show mb-2"</span> <span class="hljs-attr">role</span>=
+                              <span class="hljs-string">"alert"</span>&gt;</span>Awesome simple alert
+                              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+                              <span class="hljs-attr">class</span>=
+                              <span class="hljs-string">"alert alert-secondary show mb-2"</span>
+                              <span class="hljs-attr">role</span>=
+                              <span class="hljs-string">"alert"</span>&gt;</span>
+                    Awesome simple alert<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                              <span class="hljs-tag">&lt;
+                              <span class="hljs-name">div</span> 
+                              <span class="hljs-attr">class</span>=
+                              <span class="hljs-string">"alert alert-success show mb-2"</span> 
+                              <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+                    Awesome simple alert<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> 
+                              <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-warning show mb-2"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>Awesome simple alert<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-danger show mb-2"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>Awesome simple alert<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                              <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-dark show mb-2"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>Awesome simple alert<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code> <textarea style="margin-left: 1000000px;" class="fixed w-1 h-1"></textarea></pre>
+                          </div>
+                      </div>
+                  }
+                  </div>
+
+            
+              </div>
+</div>
+   
+   
+
