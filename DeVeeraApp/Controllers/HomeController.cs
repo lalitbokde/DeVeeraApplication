@@ -187,7 +187,15 @@ namespace DeVeeraApp.Controllers
         {
             return View();
         }
-        public IActionResult UnderDevelopment()
+        public IActionResult TrainingVideos()
+        {
+            return View();
+        }
+        public IActionResult WeekyInspireQuote()
+        {
+            return View();
+        }
+        public IActionResult FeelGoodStories()
         {
             return View();
         }
