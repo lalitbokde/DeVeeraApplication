@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210508102848_AddedFeelGoodStoryTable")]
+    partial class AddedFeelGoodStoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,15 +159,11 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Author");
 
-                    b.Property<int?>("ImageId");
-
                     b.Property<string>("Story");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("FeelGoodStories");
                 });
@@ -508,13 +506,6 @@ namespace CRM.Data.Migrations
                         .WithMany("StateProvinces")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.FeelGoodStory", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Level", b =>

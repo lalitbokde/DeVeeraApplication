@@ -4,7 +4,8 @@
     var jsondata = { filename: filename };
 
     $.post("/DashboardQuote/ImportExcel", jsondata, function (data) {
-        if (data.success == true) {
+        debugger
+        if (data) {
             location.reload()
         }
 

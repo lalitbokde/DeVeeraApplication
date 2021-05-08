@@ -136,10 +136,10 @@ namespace DeVeeraApp.Controllers
                     PrepareLevelDropdown(model);
                     return View(model);
                 }
-                
+
                 return View();
             }
-           
+
             return View();
         }
 
@@ -156,7 +156,7 @@ namespace DeVeeraApp.Controllers
                 quote.IsRandom = model.IsRandom;
                 quote.IsDashboardQuote = model.IsDashboardQuote;
                 quote.LevelId = model.LevelId;
-                if (model.IsDashboardQuote==true)
+                if (model.IsDashboardQuote == true)
                 {
                     _dashboardQuoteService.InActiveAllDashboardQuotes();
                 }
@@ -225,59 +225,90 @@ namespace DeVeeraApp.Controllers
         {
             ResponceModel response = new ResponceModel();
 
-            List<DashboardQuote> _QuoteList = new List<DashboardQuote>();
-
-            string ErrorMessage = "";
-
-            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//ImportExcel", filename);
-
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            if (filename != null)
             {
-                if (filename != null)
+                List<DashboardQuote> _QuoteList = new List<DashboardQuote>();
+
+                string ErrorMessage = "";
+
+                var path = Path.Combine(_hostingEnvironment.WebRootPath + "//ImportExcel", filename);
+
+                using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
                     using (ExcelPackage package = new ExcelPackage(stream))
                     {
                         ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
+
                         int totalColumns = workSheet.Dimension.Columns;
 
                         int totalRows = workSheet.Dimension.Rows;
 
                         var IsValidColumns = (totalColumns == 2);
+
                         if (!IsValidColumns) ErrorMessage += "Invalid Columns";
 
                         var IsEmpty = (totalRows <= 0);
+
                         if (IsEmpty) ErrorMessage += "No Data To Import";
 
                         for (int row = 2; row <= totalRows; row++)
                         {
-                            _QuoteList.Add(new DashboardQuote
+                            if (workSheet.Cells[row, 1].Value != null && workSheet.Cells[row, 2].Value != null)
                             {
-                                Title = (workSheet.Cells[row, 1].Value != null) ? workSheet.Cells[row, 1].Value.ToString().Trim() : "",
-                                Author = (workSheet.Cells[row, 2].Value != null) ? workSheet.Cells[row, 2].Value.ToString().Trim() : "",
-                                IsDashboardQuote = false,
-                                IsRandom = false,
-                                //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
-                            });
+                                _QuoteList.Add(new DashboardQuote
+                                {
+                                    Title = workSheet.Cells[row, 1].Value.ToString().Trim(),
+
+                                    Author = workSheet.Cells[row, 2].Value.ToString().Trim(),
+
+                                    IsDashboardQuote = false,
+
+                                    IsRandom = false,
+
+                                    //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
+                                });
+                            }
 
                         }
 
-                        foreach (var item in _QuoteList)
-                        {
-                            _dashboardQuoteService.InsertDashboardQutoe(item);
-                        }
 
                     }
+
+                }
+                if (_QuoteList.Count() != 0)
+                {
+                    foreach (var item in _QuoteList)
+                    {
+                        _dashboardQuoteService.InsertDashboardQutoe(item);
+                    }
+
                     _notificationService.SuccessNotification("Quotes added successfully.");
+
                     response.Success = true;
-                    return Json(response);
+
+                }
+                else
+                {
+                    _notificationService.ErrorNotification("Empty File.");
+                    System.IO.File.Delete(path);
+
+                    response.Success = false;
                 }
 
             }
-            response.Success = false;
+            else
+            {
+                _notificationService.ErrorNotification("File Not Selected.");
+
+                response.Success = false;
+
+            }
+
+
             return Json(response);
         }
         public virtual IActionResult SampleExcel()
-        {          
+        {
             string filename = _hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx";
             byte[] fileBytes = System.IO.File.ReadAllBytes(_hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx");
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Xml, filename);
