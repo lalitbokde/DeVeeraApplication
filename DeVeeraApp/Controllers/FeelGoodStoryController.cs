@@ -160,7 +160,6 @@ namespace DeVeeraApp.Controllers
             return Json(response);
         }
 
-
         #endregion
     }
 }

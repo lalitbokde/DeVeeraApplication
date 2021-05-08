@@ -103,6 +103,10 @@
     <Compile Include="Migrations\20210508104023_UpdatedStoryTable.Designer.cs" />
     <Compile Include="Migrations\20210508124918_UpdatedStoryTableAgain.cs" />
     <Compile Include="Migrations\20210508124918_UpdatedStoryTableAgain.Designer.cs" />
+    <Compile Include="Migrations\20210508140232_UpdatedVideoTableBool.cs" />
+    <Compile Include="Migrations\20210508140232_UpdatedVideoTableBool.Designer.cs" />
+    <Compile Include="Migrations\20210508145716_UpdatedDashBoardQuoteTable.cs" />
+    <Compile Include="Migrations\20210508145716_UpdatedDashBoardQuoteTable.Designer.cs" />
 
 
 

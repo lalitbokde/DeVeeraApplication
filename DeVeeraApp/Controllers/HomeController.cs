@@ -32,6 +32,10 @@ namespace DeVeeraApp.Controllers
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly IUserService _UserService;
         private readonly IWorkContext _workContext;
+        private readonly IFeelGoodStoryServices _feelGoodStoryServices;
+        private readonly IImageMasterService _imageMasterService;
+        private readonly IVideoMasterService _videoMasterService;
+        private readonly IS3BucketService _s3BucketService;
 
         #endregion
 
@@ -44,6 +48,10 @@ namespace DeVeeraApp.Controllers
                               IWorkContext workContext,
                               IHttpContextAccessor httpContextAccessor,
                               IAuthenticationService authenticationService,
+                              IFeelGoodStoryServices feelGoodStoryServices,
+                              IImageMasterService imageMasterService,
+                              IVideoMasterService videoMasterService,
+                              IS3BucketService s3BucketService,
                               IUserService userService                             
                               ) :base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -55,7 +63,10 @@ namespace DeVeeraApp.Controllers
             _dashboardQuoteService = dashboardQuoteService;
             _UserService = userService;
             _workContext = workContext;
-
+            _feelGoodStoryServices = feelGoodStoryServices;
+            _imageMasterService = imageMasterService;
+            _videoMasterService = videoMasterService;
+            _s3BucketService = s3BucketService;
         }
 
         #endregion
@@ -187,24 +198,61 @@ namespace DeVeeraApp.Controllers
         {
             return View();
         }
-        public IActionResult TrainingVideos()
+        public IActionResult WeeklyInspiringQuotes()
         {
-            return View();
+            var model = new List<DashboardQuoteModel>();
+
+            var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQutoes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
+            if (WeeklyQuoteData.Count != 0)
+            {
+                foreach (var item in WeeklyQuoteData)
+                {
+                    model.Add(item.ToModel<DashboardQuoteModel>());
+                }
+            }
+            return View(model);
         }
-        public IActionResult WeekyInspireQuote()
+        public IActionResult NewVideos()
         {
-            return View();
+            var model = new List<VideoModel>();
+
+            var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
+
+            if(newVideoList.Count != 0)
+            {
+                foreach(var item in newVideoList)
+                {
+                    model.Add(item.ToModel<VideoModel>());
+                }
+            }
+            return View(model);
         }
         public IActionResult FeelGoodStories()
         {
-            return View();
-        }
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+            var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
+            var model = new List<FeelGoodStoryModel>();
+
+            if(data.Count() != 0)
+            {
+                foreach(var item in data)
+                {
+                    var imagedata = _imageMasterService.GetImageById((int)item.ImageId);
+
+                    if(imagedata != null)
+                    {
+                        imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key).Result;
+
+                        _imageMasterService.UpdateImage(imagedata);
+
+                        item.Image.ImageUrl = imagedata.ImageUrl;
+                    }
+
+                    model.Add(item.ToModel<FeelGoodStoryModel>());
+                }
+            }
+            return View(model);
+        }
 
         #endregion
     }

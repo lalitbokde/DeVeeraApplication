@@ -17,6 +17,8 @@ namespace DeVeeraApp.ViewModels
         public string Key { get; set; }
 
         public string FileName { get; set; }
+        public bool IsNew { get; set; }
+
 
     }
 }
