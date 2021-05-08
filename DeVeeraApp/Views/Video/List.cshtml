@@ -26,6 +26,8 @@
                                         <tr>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video</th>
+                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">New</th>
+
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Play</th>
 
                                             <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
@@ -41,6 +43,7 @@
                                                     <td class="border-b dark:border-dark-5">@i</td>
 
                                                     <td class="border-b dark:border-dark-5">@item.Name</td>
+                                                    <td class="border-b dark:border-dark-5">@item.IsNew</td>
                                                     <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Video" asp-action="Play" asp-route-Id="@item.Id"><i data-feather="play"></i></a></td>
 
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Video" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>

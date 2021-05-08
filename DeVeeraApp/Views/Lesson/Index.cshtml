@@ -18,7 +18,7 @@
         </div>
         }*@
 
-    <div class="intro-y col-span-6 mt-5">
+    @*<div class="intro-y col-span-6 mt-5">
         <div id="single-item-slider" class="p-5">
             <div class="preview">
                 <div class="mx-6">
@@ -35,6 +35,26 @@
 
                         }
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <div class="intro-y col-span-6 mt-5">
+        <div id="multiple-item-slider" class="p-5">
+            <div class="preview">
+                <div class="mx-6">
+                    <div class="multiple-items">
+                        @foreach (var item in Model.SelectedImages)
+                        {
+                            <div class="h-32 px-2">
+                                <div class="h-full bg-gray-200 dark:bg-dark-1 rounded-md">
+                                    <h3 class="h-full font-medium flex items-center justify-center text-2xl">
+                                        <img src="@item.ImageUrl">
+                                    </h3>
+                                </div>
+                            </div>
+                        }
+                        </div>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 <form asp-controller="Video" asp-action="Edit" method="post" enctype="multipart/form-data" onsubmit="return GetFileName();">
-    <div class="intro-y  py-10 sm:py-20 ">
+    <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
             <div class="font-medium text-center text-lg">Edit Video</div>
@@ -21,14 +21,22 @@
                         <div asp-validation-summary="All" class="text-theme-6 mt-4">
                         </div>
                     }
-                <div class="mt-5">
-                    <label class="form-label text-theme-21 star">Name</label>
-                    <input asp-for="FileName" hidden />
+                    <div class="mt-5">
+                        <label class="form-label text-theme-21 star">Name</label>
+                        <input asp-for="FileName" hidden />
 
-                    <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
-                    <span asp-validation-for="Name" class="text-theme-6 mt-2"></span>
+                        <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
+                        <span asp-validation-for="Name" class="text-theme-6 mt-2"></span>
 
-                </div>
+                    </div>
+                    <div class="mt-5">
+
+                        <label class="form-label text-theme-21 ">New</label>
+                        <input asp-for="IsNew" type="checkbox" class="form-check-input" placeholder="IsActive" />
+
+
+                    </div>
+
 
                     @if (!string.IsNullOrWhiteSpace(Model.Key))
                     {

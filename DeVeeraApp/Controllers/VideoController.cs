@@ -79,6 +79,7 @@ namespace DeVeeraApp.Controllers
                     data.Key = model.FileName;
                     data.VideoUrl = url.Result.ToString();
                     data.Name = model.Name;
+                    data.IsNew = model.IsNew;
                     _videoMasterService.InsertVideo(data);
                     _notificationService.SuccessNotification("Video url added successfully.");
                     return RedirectToAction("List");
@@ -149,6 +150,8 @@ namespace DeVeeraApp.Controllers
                 videoData.Name = model.Name;
                 videoData.VideoUrl = url.Result;
                 videoData.Key = model.FileName;
+                videoData.IsNew = model.IsNew;
+
                 _videoMasterService.UpdateVideo(videoData);
                 _notificationService.SuccessNotification("Video url updated successfully.");
                 return RedirectToAction("List");

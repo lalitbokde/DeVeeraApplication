@@ -24,7 +24,8 @@ namespace DeVeeraApp.ViewModels
 
         //public bool IsActive { get; set; } = false;
         public bool IsDashboardQuote { get; set; }
-        public bool IsRandom { get; set; }     
+        public bool IsRandom { get; set; }
+        public bool IsWeeklyInspiringQuotes { get; set; }
         public IList<LevelModel> VideoModelList { get; set; }
         public IList<SelectListItem> AvailableLevels { get; set; }
     }
