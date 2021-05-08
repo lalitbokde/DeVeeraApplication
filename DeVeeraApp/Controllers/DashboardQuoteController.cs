@@ -154,6 +154,7 @@ namespace DeVeeraApp.Controllers
                 quote.Title = model.Title;
                 quote.Author = model.Author;
                 quote.IsRandom = model.IsRandom;
+                quote.IsWeeklyInspiringQuotes = model.IsWeeklyInspiringQuotes;
                 quote.IsDashboardQuote = model.IsDashboardQuote;
                 quote.LevelId = model.LevelId;
                 if (model.IsDashboardQuote == true)
@@ -311,7 +312,7 @@ namespace DeVeeraApp.Controllers
         {
             string filename = _hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx";
             byte[] fileBytes = System.IO.File.ReadAllBytes(_hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx");
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Xml, filename);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Xml, "SampleQuote.xlsx");
         }
 
         #endregion

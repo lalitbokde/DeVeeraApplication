@@ -1,0 +1,47 @@
+﻿@model IList<DeVeeraApp.ViewModels.VideoModel>
+
+@{
+    ViewData["Title"] = "New Videos";
+
+}
+
+<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <h2 class="text-lg font-medium mr-auto">
+        New Videos
+    </h2>
+</div>
+@if (Model.Count != 0)
+{
+<div class="intro-y col-span-12 lg:col-span-8">
+    <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-25">
+        @foreach (var item in Model)
+        {
+
+            <a href="javascript:;" data-toggle="modal" data-target="#add-item-modal" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                <div class="box rounded-md p-3 relative zoom-in">
+                    <div class="flex-none pos-image relative block">
+                        <div class="pos-image__preview image-fit">
+                            @{string src = item.VideoUrl;}
+                            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+                        </div>
+                    </div>
+                    <div class="block font-medium text-center truncate mt-3">@item.Name</div>
+                </div>
+            </a>
+
+
+
+        }
+    </div>
+
+</div>
+
+
+        }
+        else
+        {
+        <h2 class="text-lg font-medium mr-auto">
+            There are no new Videos yet.
+        </h2>
+        }
+
