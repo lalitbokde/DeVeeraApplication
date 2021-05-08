@@ -97,6 +97,12 @@
     <Compile Include="Migrations\20210506133806_UpdatedDiaryTable.Designer.cs" />
     <Compile Include="Migrations\20210507123623_UpdatedLevelTable2.cs" />
     <Compile Include="Migrations\20210507123623_UpdatedLevelTable2.Designer.cs" />
+    <Compile Include="Migrations\20210508102848_AddedFeelGoodStoryTable.cs" />
+    <Compile Include="Migrations\20210508102848_AddedFeelGoodStoryTable.Designer.cs" />
+    <Compile Include="Migrations\20210508104023_UpdatedStoryTable.cs" />
+    <Compile Include="Migrations\20210508104023_UpdatedStoryTable.Designer.cs" />
+    <Compile Include="Migrations\20210508124918_UpdatedStoryTableAgain.cs" />
+    <Compile Include="Migrations\20210508124918_UpdatedStoryTableAgain.Designer.cs" />
 
 
 

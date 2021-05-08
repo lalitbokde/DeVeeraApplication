@@ -87,6 +87,7 @@ namespace DeVeeraApp
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserModelFactory, UserModelFactory>();
             services.AddScoped<IDiaryMasterService, DiaryMasterService>();
+            services.AddScoped<IFeelGoodStoryServices, FeelGoodStoryServices>();
             
             services.AddScoped<IModuleService, ModuleService>();
 

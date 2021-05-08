@@ -53,6 +53,9 @@ namespace CRM.Data
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
         public DbSet<DashboardQuote> DashboardQuote { get; set; }
 
+        //feelGoodStory
+
+        public DbSet<FeelGoodStory> FeelGoodStories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

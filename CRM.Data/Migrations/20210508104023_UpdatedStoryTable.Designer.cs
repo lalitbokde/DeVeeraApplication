@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210508104023_UpdatedStoryTable")]
+    partial class UpdatedStoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,7 +159,7 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Author");
 
-                    b.Property<int?>("ImageId");
+                    b.Property<int>("ImageId");
 
                     b.Property<string>("Story");
 
@@ -514,7 +516,8 @@ namespace CRM.Data.Migrations
                 {
                     b.HasOne("CRM.Core.Domain.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId");
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Level", b =>
