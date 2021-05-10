@@ -234,171 +234,171 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult Edit(int id)
-        {
-            if (id != 0)
-            {
-                var data = _DiaryMasterService.GetDiaryById(id);
-                if (data != null)
-                {
-                    var model = data.ToModel<DiaryModel>();
+        //public IActionResult Edit(int id)
+        //{
+        //    if (id != 0)
+        //    {
+        //        var data = _DiaryMasterService.GetDiaryById(id);
+        //        if (data != null)
+        //        {
+        //            var model = data.ToModel<DiaryModel>();
 
-                    var levelCount = _levelServices.GetAllLevels().Where(a => a.Id <= model.LevelId).Count();
-                    var module = _moduleService.GetModuleById((int)model.ModuleId);
-                    if (module != null)
-                    {
-                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= module.Id && a.LevelId == module.LevelId).Count();
-                        model.Module = "Module " + moduleCount;
-                    }
+        //            var levelCount = _levelServices.GetAllLevels().Where(a => a.Id <= model.LevelId).Count();
+        //            var module = _moduleService.GetModuleById((int)model.ModuleId);
+        //            if (module != null)
+        //            {
+        //                var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= module.Id && a.LevelId == module.LevelId).Count();
+        //                model.Module = "Module " + moduleCount;
+        //            }
 
-                    model.Level = "Level " + levelCount;
-
-
-                    #region Diary 
-                    List<DiaryModel> DiaryList = new List<DiaryModel>();
-                    var AllDiaries = _DiaryMasterService.GetAllDiarys();
-                    if (_workContext.CurrentUser.UserRole.Name == "Admin")
-                    {
-
-                        foreach (var item in AllDiaries)
-                        {
-                            DiaryModel diaryModel = new DiaryModel();
-
-                            diaryModel.Id = item.Id;
-                            diaryModel.Comment = item.Comment;
-                            diaryModel.CreatedOn = item.CreatedOn;
-                            var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
-                            var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
-                            if (moduleInner != null)
-                            {
-                                var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
-                                diaryModel.Module = "Module " + moduleCount;
-                            }
-
-                            diaryModel.Level = "Level " + levelCountInner;
-
-                            diaryModel.ModuleId = item.ModuleId;
-                            diaryModel.LevelId = item.LevelId;
-                            DiaryList.Add(diaryModel);
-
-                        }
-
-                    }
-                    else
-                    {
-                        foreach (var item in AllDiaries.Where(a => a.UserId == _workContext.CurrentUser.Id))
-                        {
-                            DiaryModel diaryModel = new DiaryModel();
-
-                            diaryModel.Id = item.Id;
-                            diaryModel.Comment = item.Comment;
-                            diaryModel.CreatedOn = item.CreatedOn;
-                            var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
-                            var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
-                            if (moduleInner != null)
-                            {
-                                var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
-                                diaryModel.Module = "Module " + moduleCount;
-                            }
-
-                            diaryModel.Level = "Level " + levelCountInner;
-
-                            diaryModel.ModuleId = item.ModuleId;
-                            diaryModel.LevelId = item.LevelId;
-                            DiaryList.Add(diaryModel);
-
-                        }
-
-                    }
-                    #endregion
-
-                    model.diaryModels = DiaryList;
+        //            model.Level = "Level " + levelCount;
 
 
-                    return RedirectToAction("Edit", new { id = model.Id });
-                }
-            }
-            return RedirectToAction("Edit", new { id = id });
+        //            #region Diary 
+        //            List<DiaryModel> DiaryList = new List<DiaryModel>();
+        //            var AllDiaries = _DiaryMasterService.GetAllDiarys();
+        //            if (_workContext.CurrentUser.UserRole.Name == "Admin")
+        //            {
 
-        }
+        //                foreach (var item in AllDiaries)
+        //                {
+        //                    DiaryModel diaryModel = new DiaryModel();
 
-        [HttpPost]
-        public IActionResult Edit(DiaryModel model)
-        {
+        //                    diaryModel.Id = item.Id;
+        //                    diaryModel.Comment = item.Comment;
+        //                    diaryModel.CreatedOn = item.CreatedOn;
+        //                    var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
+        //                    var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
+        //                    if (moduleInner != null)
+        //                    {
+        //                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
+        //                        diaryModel.Module = "Module " + moduleCount;
+        //                    }
 
-            if (ModelState.IsValid)
-            {
-                var DiaryData = _DiaryMasterService.GetDiaryById(model.Id);
-                DiaryData.Comment = model.Comment;
-                _DiaryMasterService.UpdateDiary(DiaryData);
-                _notificationService.SuccessNotification("Diary url updated successfully.");
-                return RedirectToAction("Edit",new { id = model.Id});
-            }
+        //                    diaryModel.Level = "Level " + levelCountInner;
+
+        //                    diaryModel.ModuleId = item.ModuleId;
+        //                    diaryModel.LevelId = item.LevelId;
+        //                    DiaryList.Add(diaryModel);
+
+        //                }
+
+        //            }
+        //            else
+        //            {
+        //                foreach (var item in AllDiaries.Where(a => a.UserId == _workContext.CurrentUser.Id))
+        //                {
+        //                    DiaryModel diaryModel = new DiaryModel();
+
+        //                    diaryModel.Id = item.Id;
+        //                    diaryModel.Comment = item.Comment;
+        //                    diaryModel.CreatedOn = item.CreatedOn;
+        //                    var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
+        //                    var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
+        //                    if (moduleInner != null)
+        //                    {
+        //                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
+        //                        diaryModel.Module = "Module " + moduleCount;
+        //                    }
+
+        //                    diaryModel.Level = "Level " + levelCountInner;
+
+        //                    diaryModel.ModuleId = item.ModuleId;
+        //                    diaryModel.LevelId = item.LevelId;
+        //                    DiaryList.Add(diaryModel);
+
+        //                }
+
+        //            }
+        //            #endregion
+
+        //            model.diaryModels = DiaryList;
 
 
-            #region Diary 
-            List<DiaryModel> DiaryList = new List<DiaryModel>();
-            var AllDiaries = _DiaryMasterService.GetAllDiarys();
-            if (_workContext.CurrentUser.UserRole.Name == "Admin")
-            {
+        //            return RedirectToAction("Edit", new { id = model.Id });
+        //        }
+        //    }
+        //    return RedirectToAction("Edit", new { id = id });
 
-                foreach (var item in AllDiaries)
-                {
-                    DiaryModel diaryModel = new DiaryModel();
+        //}
 
-                    diaryModel.Id = item.Id;
-                    diaryModel.Comment = item.Comment;
-                    diaryModel.CreatedOn = item.CreatedOn;
-                    var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
-                    var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
-                    if (moduleInner != null)
-                    {
-                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
-                        diaryModel.Module = "Module " + moduleCount;
-                    }
+        //[HttpPost]
+        //public IActionResult Edit(DiaryModel model)
+        //{
 
-                    diaryModel.Level = "Level " + levelCountInner;
+        //    if (ModelState.IsValid)
+        //    {
+        //        var DiaryData = _DiaryMasterService.GetDiaryById(model.Id);
+        //        DiaryData.Comment = model.Comment;
+        //        _DiaryMasterService.UpdateDiary(DiaryData);
+        //        _notificationService.SuccessNotification("Diary url updated successfully.");
+        //        return RedirectToAction("Edit",new { id = model.Id});
+        //    }
 
-                    diaryModel.ModuleId = item.ModuleId;
-                    diaryModel.LevelId = item.LevelId;
-                    DiaryList.Add(diaryModel);
 
-                }
+        //    #region Diary 
+        //    List<DiaryModel> DiaryList = new List<DiaryModel>();
+        //    var AllDiaries = _DiaryMasterService.GetAllDiarys();
+        //    if (_workContext.CurrentUser.UserRole.Name == "Admin")
+        //    {
 
-            }
-            else
-            {
-                foreach (var item in AllDiaries.Where(a => a.UserId == _workContext.CurrentUser.Id))
-                {
-                    DiaryModel diaryModel = new DiaryModel();
+        //        foreach (var item in AllDiaries)
+        //        {
+        //            DiaryModel diaryModel = new DiaryModel();
 
-                    diaryModel.Id = item.Id;
-                    diaryModel.Comment = item.Comment;
-                    diaryModel.CreatedOn = item.CreatedOn;
-                    var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
-                    var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
-                    if (moduleInner != null)
-                    {
-                        var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
-                        diaryModel.Module = "Module " + moduleCount;
-                    }
+        //            diaryModel.Id = item.Id;
+        //            diaryModel.Comment = item.Comment;
+        //            diaryModel.CreatedOn = item.CreatedOn;
+        //            var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
+        //            var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
+        //            if (moduleInner != null)
+        //            {
+        //                var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
+        //                diaryModel.Module = "Module " + moduleCount;
+        //            }
 
-                    diaryModel.Level = "Level " + levelCountInner;
+        //            diaryModel.Level = "Level " + levelCountInner;
 
-                    diaryModel.ModuleId = item.ModuleId;
-                    diaryModel.LevelId = item.LevelId;
-                    DiaryList.Add(diaryModel);
+        //            diaryModel.ModuleId = item.ModuleId;
+        //            diaryModel.LevelId = item.LevelId;
+        //            DiaryList.Add(diaryModel);
 
-                }
+        //        }
 
-            }
-            #endregion
+        //    }
+        //    else
+        //    {
+        //        foreach (var item in AllDiaries.Where(a => a.UserId == _workContext.CurrentUser.Id))
+        //        {
+        //            DiaryModel diaryModel = new DiaryModel();
 
-            model.diaryModels = DiaryList;
+        //            diaryModel.Id = item.Id;
+        //            diaryModel.Comment = item.Comment;
+        //            diaryModel.CreatedOn = item.CreatedOn;
+        //            var levelCountInner = _levelServices.GetAllLevels().Where(a => a.Id <= item.LevelId).Count();
+        //            var moduleInner = _moduleService.GetModuleById((int)item.ModuleId);
+        //            if (moduleInner != null)
+        //            {
+        //                var moduleCount = _moduleService.GetAllModules().Where(a => a.Id <= moduleInner.Id && a.LevelId == moduleInner.LevelId).Count();
+        //                diaryModel.Module = "Module " + moduleCount;
+        //            }
 
-            return View(model);
+        //            diaryModel.Level = "Level " + levelCountInner;
 
-        }
+        //            diaryModel.ModuleId = item.ModuleId;
+        //            diaryModel.LevelId = item.LevelId;
+        //            DiaryList.Add(diaryModel);
+
+        //        }
+
+        //    }
+        //    #endregion
+
+        //    model.diaryModels = DiaryList;
+
+        //    return View(model);
+
+        //}
 
       
 
