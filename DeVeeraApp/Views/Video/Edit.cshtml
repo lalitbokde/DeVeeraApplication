@@ -29,13 +29,8 @@
                         <span asp-validation-for="Name" class="text-theme-6 mt-2"></span>
 
                     </div>
-                    <div class="mt-5">
-
-                        <label class="form-label text-theme-21 ">New</label>
-                        <input asp-for="IsNew" type="checkbox" class="form-check-input" placeholder="IsActive" />
 
 
-                    </div>
 
 
                     @if (!string.IsNullOrWhiteSpace(Model.Key))
@@ -99,7 +94,11 @@
 
                     }
 
+                    <div class="mt-5">
+                        <input asp-for="IsNew" type="checkbox" class="form-check-input" placeholder="IsActive" />
+                        <label class="form-label text-theme-21 ml-2">New</label>
 
+                    </div>
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">

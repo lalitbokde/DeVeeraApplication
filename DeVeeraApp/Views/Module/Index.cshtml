@@ -11,17 +11,20 @@
 
         </div>
     </div>
-    <div class="intro-y col-span-6 flex items-center">
-        <div class="alert alert-warning show mb-2 mt-10" role="alert">
-            <div class="flex items-center">
-                <div class="font-medium text-lg mr-4">Latest Diary</div>
-                <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
+    @if (_workContext.CurrentUser.UserRole.Name != "Admin")
+    {
+        <div class="intro-y col-span-6 flex items-center">
+            <div class="alert alert-warning show mb-2 mt-10" role="alert">
+                <div class="flex items-center">
+                    <div class="font-medium text-lg mr-4">Latest Diary</div>
+                    <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
+                </div>
+                <div class="mt-3">@Html.Raw(Model.DiaryText)</div>
             </div>
-            <div class="mt-3">@Html.Raw(Model.DiaryText)</div>
-        </div>
 
+        </div>
+    }
     </div>
-</div>
 
 
 
@@ -37,11 +40,14 @@
 
             @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
             {
-                <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
-                <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
+                <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.LevelId" asp-route-ModuleId="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
+                <a onclick="ShowDeleteConfirmation('PostDeleteModule(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
 
-            }   <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-
+            }
+            else
+            {
+                <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+            }
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
 
@@ -76,16 +82,24 @@
     <div class="intro-y text-justify leading-relaxed mt-10">
         @Html.Raw(Model.FullDescription)
     </div>
-
-    <div class="intro-x mt-10 text-2xl font-medium">Questions & Answers</div>
-    <div class="mt-5">
-        <label for="input-wizard-1" class="form-label">Validated questionnaire to assess effectiveness of an online research mentoring (distance learning)?</label>
-        <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
-
-    </div>
-    <div class="mt-5">
-        <label for="input-wizard-1" class="form-label">Are you with distance learning and education in universities due to the Corona virus pandemic? What are the pros and cons of this topic ? </label>
-        <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
+   <div class="border-t border-theme-25 mt-5"></div>
+    <div class="grid grid-cols-12 gap-6 mt-10">
+        <div class="col-span-12 lg:col-span-8 xl:col-span-6">
+            <div class="intro-x text-2xl font-medium">Questions & Answers</div>
+        </div>
+        <div class="col-span-12 lg:col-span-8 xl:col-span-6 text-right">
+             <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
+        </div>
 
     </div>
-</div>
+            <div class="mt-5">
+                <label for="input-wizard-1" class="form-label">Validated questionnaire to assess effectiveness of an online research mentoring (distance learning)?</label>
+                <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
+
+            </div>
+            <div class="mt-5">
+                <label for="input-wizard-1" class="form-label">Are you with distance learning and education in universities due to the Corona virus pandemic? What are the pros and cons of this topic ? </label>
+                <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
+
+            </div>
+        </div>

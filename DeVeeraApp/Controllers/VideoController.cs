@@ -1,5 +1,7 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using CRM.Services.Message;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
@@ -19,7 +21,7 @@ using Xabe.FFmpeg.Enums;
 
 namespace DeVeeraApp.Controllers
 {
-    public class VideoController : Controller
+    public class VideoController :BaseController
     {
         #region field
 
@@ -40,7 +42,11 @@ namespace DeVeeraApp.Controllers
 
                        IS3BucketService videoUploadService,
 
-                       IHostingEnvironment hostingEnvironment)
+                       IHostingEnvironment hostingEnvironment, IWorkContext workContext,
+                               IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _notificationService = notificationService;
             _videoMasterService = videoMasterService;
@@ -63,6 +69,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+            AddBreadcrumbs("Video", "Create", "/Video/Create", "/Video/Create");
             return View();
 
         }
@@ -125,6 +132,9 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
+
+            AddBreadcrumbs("Video", "Edit", $"/Video/Edit/{id}", $"/Video/Edit/{id}");
+
             if (id != 0)
             {
                 var data = _videoMasterService.GetVideoById(id);
@@ -175,6 +185,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
+            AddBreadcrumbs("Video", "List", "/Video/List", "/Video/List");
+           
             var videoList = _videoMasterService.GetAllVideos();
             var model = new List<VideoModel>();
             if (videoList.Count != 0)
