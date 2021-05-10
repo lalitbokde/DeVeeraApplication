@@ -35,7 +35,7 @@
 
                     @if (!string.IsNullOrWhiteSpace(Model.Key))
                     {
-                        <div class="mt-3">
+                        <div class="mt-3" id="previousVideo">
                             <div class=" pt-4">
                                 <div class="flex flex-wrap px-4">
                                     <div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
@@ -50,6 +50,25 @@
                             </div>
                         </div>
 
+                        <div class="mt-5" id="uploadFile" style="display:none;">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                    Upload File
+                                </label>
+                            </div>
+                            <div id="single-file-upload" class="p-5">
+                                <div class="preview">
+                                    <div data-single="true" fallback="true" action="/video/Upload" class="dropzone">
+                                        <div class="fallback">
+
+                                        </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
                     else
                     {

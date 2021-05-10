@@ -1,7 +1,11 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain;
 using CRM.Services;
+
+using CRM.Services.Message;
+
 using CRM.Services.Authentication;
+
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -22,20 +26,26 @@ namespace DeVeeraApp.Controllers
         #region fields
         private readonly IFeelGoodStoryServices _feelGoodStoryServices;
         private readonly IImageMasterService _imageMasterService;
+        private readonly INotificationService _notificationService;
         #endregion
 
         #region ctor
 
         public FeelGoodStoryController(IFeelGoodStoryServices feelGoodStoryServices,
+
+                                       INotificationService notificationService,)
+
                                        IImageMasterService imageMasterService,                                      
                                        IWorkContext workContext,
                                        IHttpContextAccessor httpContextAccessor,
                                        IAuthenticationService authenticationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
+
         {
             _feelGoodStoryServices = feelGoodStoryServices;
             _imageMasterService = imageMasterService;
+            _notificationService = notificationService;
         }
         #endregion
 
@@ -89,6 +99,7 @@ namespace DeVeeraApp.Controllers
                 data.ImageId = model.ImageId;
 
                 _feelGoodStoryServices.InsertFeelGoodStory(data);
+                _notificationService.SuccessNotification("Story added successfully");
                 return RedirectToAction("List");
             }
             PrepareImages(model);
@@ -121,6 +132,8 @@ namespace DeVeeraApp.Controllers
                 data.ImageId = model.ImageId;
 
                 _feelGoodStoryServices.UpdateFeelGoodStory(data);
+                _notificationService.SuccessNotification("Story updated successfully");
+
                 return RedirectToAction("List");
             }
             PrepareImages(model);
@@ -142,10 +155,9 @@ namespace DeVeeraApp.Controllers
                     model.Add(item.ToModel<FeelGoodStoryModel>());
                 }
 
-                return View(model);
             }
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Delete(int storyId)

@@ -93,7 +93,7 @@ namespace DeVeeraApp
 
             services.AddScoped<ILevelServices, LevelServices>();
             services.AddScoped<IVideoMasterService, VideoMasterService>();
-
+            services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
             services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
             services.AddScoped<INotificationService, NotificationService>();

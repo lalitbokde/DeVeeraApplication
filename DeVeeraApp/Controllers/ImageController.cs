@@ -131,9 +131,8 @@ namespace DeVeeraApp.Controllers
                 {
                     model.Add(item.ToModel<ImageModel>());
                 }
-                return View(model);
             }
-            return View();
+            return View(model);
         }
 
 

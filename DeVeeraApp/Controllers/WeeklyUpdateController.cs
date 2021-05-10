@@ -144,9 +144,9 @@ namespace DeVeeraApp.Controllers
                 {                    
                     model.Add(item.ToModel<WeeklyUpdateModel>());
                 }
-                return View(model);
+               
             }
-            return RedirectToAction("List", "WeeklyUpdate", new { typeId = typeId });
+            return View(model);
         }
 
         public IActionResult Delete(int id)
