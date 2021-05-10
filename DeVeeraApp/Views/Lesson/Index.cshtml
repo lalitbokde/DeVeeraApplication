@@ -39,7 +39,9 @@
                 </div>
             </div>
         </div>*@
-    <div class="intro-y col-span-6  mt-5">
+
+    <div class="intro-y col-span-6 mt-5">
+
         <div id="multiple-item-slider" class="p-5">
             <div class="preview">
                 <div class="mx-6">
@@ -60,17 +62,20 @@
         </div>
     </div>
 
-    <div class="intro-y col-span-3 flex items-center ml-8 ">
-        <div class="alert alert-warning show mb-2 mt-10" role="alert">
-            <div class="flex items-center">
-                <div class="font-medium text-lg mr-4">Recent Diary</div>
-                <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
+    @if (_workContext?.CurrentUser.UserRole.Name != "Admin")
+    {
+        <div class="intro-y col-span-3 flex items-center ml-8">
+            <div class="alert alert-warning show mb-2 mt-10" role="alert">
+                <div class="flex items-center">
+                    <div class="font-medium text-lg mr-4">Recent Diary</div>
+                    <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
+                </div>
+              
+
             </div>
-            <div class="mt-3">@Html.Raw(Model.DiaryText)</div>
+
         </div>
-
-    </div>
-
+    }
 
     @*<div class="intro-y col-span-12 flex">
         <div class="intro-y col-span-6 mr-auto">
@@ -92,7 +97,7 @@
     </div>*@
 
 
-</div>
+    </div>
 
 
 
@@ -116,8 +121,11 @@
                 <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
                 <a onclick="ShowDeleteConfirmation('PostDeleteLevel(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
 
-            }   <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-
+            }
+            else
+            {
+                <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+            }
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
 
