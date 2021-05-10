@@ -93,7 +93,7 @@ namespace DeVeeraApp.Controllers
                 ViewBag.QuoteTable = JsonConvert.SerializeObject(model);
                 return View(model);
             }
-            return View();
+            return View(model);
         }
         public IActionResult Create()
         {

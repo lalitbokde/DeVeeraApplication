@@ -413,8 +413,9 @@ function DeleteEditPageVideo(Id) {
                         confirmButtonClass: 'btn btn-lg btn-primary',
                         buttonsStyling: false
                     }).then(function () {
-
-                        window.location.reload();
+                        debugger
+                        $("#previousVideo").hide();
+                        $("#uploadFile").show();
 
                     })
                 }
@@ -529,6 +530,62 @@ function PostDeleteFeelGoodStory(Id) {
                 swal(
                     'Error!',
                     "story is in use.",
+                    'error',
+
+                )
+        });
+
+}
+
+
+
+
+
+
+
+function PostDeleteLanguage(Id) {
+
+    var jsonData = {
+
+        languageId: Id
+
+    };
+    $.post("/Language/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "Language has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "language is in use.",
                     'error',
 
                 )
