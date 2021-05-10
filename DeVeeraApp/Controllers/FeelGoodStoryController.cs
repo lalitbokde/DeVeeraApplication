@@ -1,8 +1,12 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -12,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class FeelGoodStoryController : Controller
+    public class FeelGoodStoryController : BaseController
     {
 
         #region fields
@@ -23,7 +27,12 @@ namespace DeVeeraApp.Controllers
         #region ctor
 
         public FeelGoodStoryController(IFeelGoodStoryServices feelGoodStoryServices,
-                                       IImageMasterService imageMasterService)
+                                       IImageMasterService imageMasterService,                                      
+                                       IWorkContext workContext,
+                                       IHttpContextAccessor httpContextAccessor,
+                                       IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _feelGoodStoryServices = feelGoodStoryServices;
             _imageMasterService = imageMasterService;
@@ -61,6 +70,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+            AddBreadcrumbs("FeelGoodStory", "Create", "/FeelGoodStory/Create", "/FeelGoodStory/Create");
             FeelGoodStoryModel model = new FeelGoodStoryModel();
             PrepareImages(model);
             return View(model);
@@ -89,6 +99,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int Id)
         {
+
+            AddBreadcrumbs("FeelGoodStory", "Edit", $"/FeelGoodStory/Edit/{Id}", $"/FeelGoodStory/Edit/{Id}");
             var data = _feelGoodStoryServices.GetFeelGoodStoryById(Id);
             var model = data.ToModel<FeelGoodStoryModel>();
             PrepareImages(model);
@@ -119,6 +131,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
+            AddBreadcrumbs("FeelGoodStory", "List", "/FeelGoodStory/List", "/FeelGoodStory/List");
             var model = new List<FeelGoodStoryModel>();
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 

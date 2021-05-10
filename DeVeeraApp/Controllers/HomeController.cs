@@ -200,6 +200,7 @@ namespace DeVeeraApp.Controllers
         }
         public IActionResult WeeklyInspiringQuotes()
         {
+            AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes");
             var model = new List<DashboardQuoteModel>();
 
             var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQutoes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
@@ -214,6 +215,7 @@ namespace DeVeeraApp.Controllers
         }
         public IActionResult NewVideos()
         {
+            AddBreadcrumbs("Home", "NewVideos", "/Home/NewVideos", "/Home/NewVideos");
             var model = new List<VideoModel>();
 
             var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
@@ -229,6 +231,7 @@ namespace DeVeeraApp.Controllers
         }
         public IActionResult FeelGoodStories()
         {
+            AddBreadcrumbs("Home", "FeelGoodStories", "/Home/FeelGoodStories", "/Home/FeelGoodStories");
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
             var model = new List<FeelGoodStoryModel>();
