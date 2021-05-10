@@ -3,6 +3,7 @@ using CRM.Core.Domain;
 
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
+using CRM.Services.Authentication;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -10,6 +11,7 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Diaries;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class DiaryController : Controller
+    public class DiaryController :BaseController
     {
         #region field
 
@@ -39,7 +41,12 @@ namespace DeVeeraApp.Controllers
                        IWorkContext workContext,
                        ILevelServices levelServices,
                        IModuleService moduleService,
-                       IUserService userService)
+                       IUserService userService,
+                        IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService
+                               ) : base(workContext: workContext,
+                                    httpContextAccessor: httpContextAccessor,
+                                    authenticationService: authenticationService)
         {
             _notificationService = notificationService;
             _DiaryMasterService = DiaryMasterService;
@@ -58,6 +65,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create(int levelid, int moduleid)
         {
+
+            AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
             DiaryModel model = new DiaryModel();
 
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);

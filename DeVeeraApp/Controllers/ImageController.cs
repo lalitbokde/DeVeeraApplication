@@ -1,5 +1,7 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using CRM.Services.Message;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
@@ -15,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class ImageController : Controller
+    public class ImageController : BaseController
     {
         #region fields
 
@@ -33,7 +35,12 @@ namespace DeVeeraApp.Controllers
         public ImageController(IImageMasterService imageMasterService,
                                IHostingEnvironment hostingEnvironment,
                                INotificationService notificationService,
-                               IS3BucketService s3BucketService)
+                               IS3BucketService s3BucketService,
+                               IWorkContext workContext,
+                               IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _imageMasterService = imageMasterService;
             _hostingEnvironment = hostingEnvironment;
@@ -53,6 +60,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+            AddBreadcrumbs("Image", "Create", "/Image/Create", "/Image/Create");
             return View();
         }
 
@@ -83,6 +91,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            AddBreadcrumbs("Image", "Edit", $"/Image/Edit/{id}", $"/Image/Edit/{id}");
             if (id != 0)
             {
                 var data = _imageMasterService.GetImageById(id);
@@ -113,6 +122,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
+            AddBreadcrumbs("Image", "List", "/Image/List", "/Image/List");
             var imageList = _imageMasterService.GetAllImages();
             var model = new List<ImageModel>();
             if (imageList.Count() != 0)
