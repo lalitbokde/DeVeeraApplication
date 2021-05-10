@@ -61,6 +61,10 @@ namespace CRM.Data
 
         public DbSet<FeelGoodStory> FeelGoodStories { get; set; }
 
+
+        //Language
+
+        public DbSet<Language> Languages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {

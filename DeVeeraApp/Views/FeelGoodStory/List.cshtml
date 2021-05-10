@@ -29,6 +29,7 @@
                                     </thead>
                                     <tbody>
                                         @{
+                                            if (Model != null) { 
                                             int i = 1;
                                             foreach (var item in Model)
                                             {
@@ -39,9 +40,9 @@
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="FeelGoodStory" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
                                                     <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteFeelGoodStory(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                 </tr>
-                                                i++;
+                                                    i++;
+                                                }
                                             }
-
                                         }
                                     </tbody>
                                 </table>

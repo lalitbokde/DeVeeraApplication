@@ -107,8 +107,13 @@
     <Compile Include="Migrations\20210508140232_UpdatedVideoTableBool.Designer.cs" />
     <Compile Include="Migrations\20210508145716_UpdatedDashBoardQuoteTable.cs" />
     <Compile Include="Migrations\20210508145716_UpdatedDashBoardQuoteTable.Designer.cs" />
+
     <Compile Include="Migrations\20210510085313_QuestionMapping.cs" />
     <Compile Include="Migrations\20210510085313_QuestionMapping.Designer.cs" />
+
+    <Compile Include="Migrations\20210510081916_AddedLanguageTable.cs" />
+    <Compile Include="Migrations\20210510081916_AddedLanguageTable.Designer.cs" />
+
 
 
 
