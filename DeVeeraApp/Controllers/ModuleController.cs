@@ -1,6 +1,7 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
+using CRM.Services.QuestionsAnswer;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -20,9 +21,11 @@ namespace DeVeeraApp.Controllers
         private readonly IWorkContext _workContext;
         private readonly IUserService _userService;
         private readonly IDiaryMasterService _diaryMasterService;
+        private readonly IQuestionAnswerService _QuestionAnswerService;
 
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
+                                IQuestionAnswerService questionAnswerService,
                                 IWorkContext workContext,
                                 IUserService userService,
                                 IDiaryMasterService diaryMasterService)
@@ -32,6 +35,7 @@ namespace DeVeeraApp.Controllers
             _workContext = workContext;
             _userService = userService;
             _diaryMasterService = diaryMasterService;
+            _QuestionAnswerService = questionAnswerService;
         }
 
         #region methods
@@ -41,8 +45,7 @@ namespace DeVeeraApp.Controllers
             ViewBag.SrNo = srno;
             ViewBag.LevelSrNo = levelSrno;
             var data = _moduleService.GetModuleById(id);
-            ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();
-           
+            ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
@@ -57,6 +60,7 @@ namespace DeVeeraApp.Controllers
             moduleData.DiaryText = diary != null ? diary.Comment : "";
             moduleData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             ViewBag.LevelName = _levelServices.GetLevelById(data.LevelId).Title;
+            moduleData.QuestionsList = _QuestionAnswerService.GetQuestionsByModuleId(id).ToList();
             return View(moduleData);
         }
 

@@ -2,8 +2,10 @@
 using CRM.Core.Domain;
 using CRM.Core.Domain.Common;
 using CRM.Core.Domain.Users;
+using CRM.Core.Domain.VideoModules;
 using DeVeeraApp.Model.Common;
 using DeVeeraApp.ViewModels;
+using DeVeeraApp.ViewModels.QuestionAnswer;
 using DeVeeraApp.ViewModels.User;
 
 
@@ -13,7 +15,7 @@ namespace DeVeeraApp.Utils
     {
         public AdminMapperConfiguration()
         {
-          
+
             //User
             CreateMap<User, UserModel>()
                 .ForMember(dest => dest.UserPassword, mo => mo.Ignore())
@@ -22,7 +24,7 @@ namespace DeVeeraApp.Utils
                   .ForMember(dest => dest.AvailableUsers, mo => mo.Ignore())
                    .ForMember(dest => dest.AvailableUserRoles, mo => mo.Ignore());
 
-            CreateMap<UserModel, User>()             
+            CreateMap<UserModel, User>()
                .ForMember(dest => dest.Addresses, mo => mo.Ignore());
 
             CreateMap<Level, LevelModel>()
@@ -55,7 +57,13 @@ namespace DeVeeraApp.Utils
             CreateMap<DashboardQuote, DashboardQuoteModel>()
                .ForMember(dest => dest.VideoModelList, mo => mo.Ignore());
 
+            CreateMap<Modules, ModulesModel>()
+             .ForMember(dest => dest.QuestionsList, mo => mo.Ignore());
 
+            CreateMap<Questions, QuestionModel>()
+           .ForMember(dest => dest.QuestionsList, mo => mo.Ignore())
+            .ForMember(dest => dest.AvailableLevels, mo => mo.Ignore())
+            .ForMember(dest => dest.AvailableModules, mo => mo.Ignore());
 
 
         }

@@ -167,7 +167,7 @@
                             foreach (var item in Model.ModuleList)
                             {
                                 <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
-                                    <div class="font-medium text-base text-white">Module @i</div>
+                                    <div class="font-medium text-base text-white">@item.Title</div>
                                     @*<div class="text-theme-33 dark:text-gray-400">@Model.Subtitle</div>*@
                                 </a>
                                 i++;
