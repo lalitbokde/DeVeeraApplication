@@ -191,11 +191,9 @@ namespace DeVeeraApp.Controllers
             var model = new List<VideoModel>();
             if (videoList.Count != 0)
             {
-                foreach (var item in videoList)
-                {
-                    model.Add(item.ToModel<VideoModel>());
-                }
-               
+                model = videoList.ToList().ToModelList<Video, VideoModel>(model);
+
+
 
             }
             return View(model);

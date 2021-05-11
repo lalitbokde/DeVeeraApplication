@@ -153,10 +153,8 @@ namespace DeVeeraApp.Controllers
             var data = _levelServices.GetAllLevels();
             if(data.Count() != 0)
             {
-                foreach(var item in data)
-                {
-                    model.Add(item.ToModel<LevelModel>());
-                }
+                model = data.ToList().ToModelList<Level, LevelModel>(model);
+
 
                 ViewBag.TableData = JsonConvert.SerializeObject(model);
                 return View(model);

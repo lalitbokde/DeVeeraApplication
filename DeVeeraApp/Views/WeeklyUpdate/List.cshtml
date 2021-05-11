@@ -5,7 +5,7 @@
 
 @if (Model.Count != 0)
 {
-    <div class="intro-y  py-10 sm:py-20 ">
+    <div class="intro-y  py-5 sm:py-5 ">
 
         <div class="px-5 ">
             <div class="font-medium text-center text-lg"> @ViewBag.QuoteType Video List</div>
@@ -15,6 +15,19 @@
 
 
         <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+
+            <div class="intro-y col-span-12">
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                        <div class="intro-y col-span-12 pr-5 text-right">
+                            <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@ViewBag.QuoteType" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Create</a>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
 
             <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                 <div class="intro-y box p-5 col-span-12">

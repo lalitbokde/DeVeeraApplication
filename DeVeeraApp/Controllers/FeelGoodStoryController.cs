@@ -150,10 +150,8 @@ namespace DeVeeraApp.Controllers
 
             if(data.Count != 0)
             {
-                foreach(var item in data)
-                {
-                    model.Add(item.ToModel<FeelGoodStoryModel>());
-                }
+                model = data.ToList().ToModelList<FeelGoodStory, FeelGoodStoryModel>(model);
+
 
             }
 
