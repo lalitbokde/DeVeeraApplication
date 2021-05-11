@@ -1,4 +1,4 @@
-﻿using CRM.Core;
+using CRM.Core;
 using CRM.Core.Domain;
 
 using CRM.Core.Domain.VideoModules;
@@ -79,7 +79,7 @@ namespace DeVeeraApp.Controllers
                 List<DiaryModel> DiaryList = new List<DiaryModel>();
                 if (_workContext.CurrentUser.UserRole.Name != "Admin")
                 {
-                    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+                    var item = DiaryMasterService.GetAllDiarys().Where(a => a.UserId == workContext.CurrentUser.Id).ToList();
 
                     DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
                 }
@@ -108,7 +108,7 @@ namespace DeVeeraApp.Controllers
                 List<DiaryModel> DiaryList = new List<DiaryModel>();
                 if (_workContext.CurrentUser.UserRole.Name != "Admin")
                 {
-                    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+                    var item = DiaryMasterService.GetAllDiarys().Where(a => a.UserId == workContext.CurrentUser.Id).ToList();
 
                     DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
                 }
