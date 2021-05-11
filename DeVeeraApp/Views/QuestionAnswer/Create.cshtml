@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="Level" asp-action="Create" method="post">
+<form asp-controller="QuestionAnswer" asp-action="Create" method="post">
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -28,18 +28,19 @@
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21 ">Video</label>
-                        <select @*asp-for="LevelId" asp-items="Model.AvailableLevels"*@ type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select id="levelId" asp-for="LevelId" asp-items="Model.AvailableLevels" onchange="GetModuleByLevelId(0)" type="text" data-search="true" class="select form-control w-full " placeholder="Select Level"></select>
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21 ">Video</label>
-                        <select @*asp-for="ModuleId" asp-items="Model.AvailableModules"*@ type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select id="moduleId" asp-for="ModuleId" asp-items="Model.AvailableModules" type="text" data-search="true" class="select form-control w-full" placeholder="Select Module"></select>
+                    </div>
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <a asp-controller="QuestionAnswer" asp-action="List" class="btn btn-primary mr-2 w-24">List</a>
+                        <button type="submit" class="btn btn-primary w-24">Save</button>
                     </div>
 
                 </div>
 
-                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                    <button type="submit" class="btn btn-primary w-24">Save</button>
-                </div>
             </div>
 
         </div>
@@ -48,4 +49,4 @@
 
 
 </form>
-
+<script src="~/dist/js/QuestionAnswer.js"></script>

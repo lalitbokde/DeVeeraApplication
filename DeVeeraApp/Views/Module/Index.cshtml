@@ -7,7 +7,7 @@
 <div class="intro-y col-span-12 flex">
     <div class="intro-y col-span-6 mr-auto">
         <div class=" mt-10 lg:mt-0">
-            <div class="intro-x mt-10 text-4xl font-medium">@ViewBag.LevelName : Module @ViewBag.SrNo</div>
+            <div class="intro-x mt-10 text-4xl font-medium">@ViewBag.LevelName : @Model.Title</div>
 
         </div>
     </div>
@@ -24,7 +24,7 @@
 
         </div>
     }
-    </div>
+</div>
 
 
 
@@ -82,24 +82,22 @@
     <div class="intro-y text-justify leading-relaxed mt-10">
         @Html.Raw(Model.FullDescription)
     </div>
-   <div class="border-t border-theme-25 mt-5"></div>
+    <div class="border-t border-theme-25 mt-5"></div>
     <div class="grid grid-cols-12 gap-6 mt-10">
         <div class="col-span-12 lg:col-span-8 xl:col-span-6">
             <div class="intro-x text-2xl font-medium">Questions & Answers</div>
         </div>
         <div class="col-span-12 lg:col-span-8 xl:col-span-6 text-right">
-             <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
+            <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
         </div>
 
     </div>
-            <div class="mt-5">
-                <label for="input-wizard-1" class="form-label">Validated questionnaire to assess effectiveness of an online research mentoring (distance learning)?</label>
-                <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
+    @foreach (var item in Model.QuestionsList)
+    {
+        <div class="mt-5">
+            <label for="input-wizard-1" class="form-label">@item.Question</label>
+            <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
 
-            </div>
-            <div class="mt-5">
-                <label for="input-wizard-1" class="form-label">Are you with distance learning and education in universities due to the Corona virus pandemic? What are the pros and cons of this topic ? </label>
-                <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
-
-            </div>
         </div>
+    }
+</div>

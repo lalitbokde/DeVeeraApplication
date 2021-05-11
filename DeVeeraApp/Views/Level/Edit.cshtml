@@ -128,17 +128,23 @@
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">
                                 </div>
                             }
+
                             <div class="mt-5">
-                                <label class="form-label text-theme-21 ">Video</label>
+                                <label class="form-label text-theme-21 ">title</label>
                                 <input asp-for="Id" hidden />
-                                <input asp-for="Modules.Id" hidden />
+                                <input asp-for="Modules.Id" hidden />                                
+                                <input asp-for="@Model.Modules.Title"  type="text"  class="form-control w-full" placeholder="Title"/>
+
+                            </div>
+                            <div class="mt-5">
+                                <label class="form-label text-theme-21 ">Video</label>                             
                                 @{
                                     Model.Modules.VideoId = Model.Modules.VideoId == null ? Model.Modules.VideoId = 0 : Model.Modules.VideoId;
                                 }
                                 <select asp-for="@Model.Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
-                          
+
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
                             </div>
@@ -176,7 +182,7 @@
                                                 {
                                                 <tr>
                                                     <td class="border-b dark:border-dark-5">@i</td>
-                                                    <td class="border-b dark:border-dark-5">Module @i</td>
+                                                    <td class="border-b dark:border-dark-5">@item.Title</td>
                                                     <td class="border-b dark:border-dark-5">@(item.Video?.Name == null ? "Not Available" : item.Video?.Name)</td>
                                                     <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>
                                                     <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteModule(@item.Id)')"><i data-feather="trash-2"></i></a></td>

@@ -196,6 +196,7 @@ namespace DeVeeraApp.Controllers
                 if( ModuleId > 0 && ModuleId != 0)
                 {
                     var module = _moduleServices.GetModuleById(ModuleId);
+                    model.Modules.Title = module.Title;
                     model.Modules.VideoId = module.VideoId;
                     model.Modules.FullDescription = module.FullDescription;
                     model.Modules.Id = module.Id;
@@ -263,6 +264,7 @@ namespace DeVeeraApp.Controllers
 
                     var modules = new Modules();
                     modules.LevelId = model.Id;
+                    modules.Title = model.Modules.Title;
                     modules.VideoId = model.Modules.VideoId;
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.InsertModule(modules);
@@ -275,6 +277,7 @@ namespace DeVeeraApp.Controllers
 
                     var modules = _moduleServices.GetModuleById(model.Modules.Id);
                     modules.LevelId = model.Id;
+                    modules.Title = model.Modules.Title;
                     modules.VideoId = model.Modules.VideoId;
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.UpdateModule(modules);
