@@ -127,10 +127,8 @@ namespace DeVeeraApp.Controllers
             var model = new List<ImageModel>();
             if (imageList.Count() != 0)
             {
-                foreach (var item in imageList)
-                {
-                    model.Add(item.ToModel<ImageModel>());
-                }
+                model = imageList.ToList().ToModelList<Image, ImageModel>(model);
+
             }
             return View(model);
         }

@@ -126,10 +126,9 @@ namespace DeVeeraApp.Controllers
             var data = _UserService.GetUserByUserRoleId(UserRole.Id);
             if(data.Count() != 0)
             {
-                foreach (var item in data)
-                {
-                    model.Add(item.ToModel<UserModel>());
-                }
+                model = data.ToList().ToModelList<User, UserModel>(model);
+
+               
                 ViewBag.roleName = roleName;
             return View(model);
 

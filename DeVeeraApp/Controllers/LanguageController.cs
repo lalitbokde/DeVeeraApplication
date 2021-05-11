@@ -92,10 +92,8 @@ namespace DeVeeraApp.Controllers
             var data = _languageService.GetAllLanguages();
             if(data.Count != 0)
             {
-                foreach(var item in data)
-                {
-                    model.Add(item.ToModel<LanguageModel>());
-                }
+                model = data.ToList().ToModelList<Language, LanguageModel>(model);
+
 
             }
             return View(model);

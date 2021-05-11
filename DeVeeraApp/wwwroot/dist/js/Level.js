@@ -2,6 +2,8 @@
 
 var table = new Tabulator("#tabulator1",
     {
+        layout: "fitColumns",
+        responsiveLayout: "collapse",
         columns: [
 
             { title: "Level No", field: "LevelNo", sorter: "number", width: 150, editor: true },
