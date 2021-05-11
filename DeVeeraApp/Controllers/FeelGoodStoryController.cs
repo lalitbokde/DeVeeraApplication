@@ -33,7 +33,7 @@ namespace DeVeeraApp.Controllers
 
         public FeelGoodStoryController(IFeelGoodStoryServices feelGoodStoryServices,
 
-                                       INotificationService notificationService,)
+                                       INotificationService notificationService,
 
                                        IImageMasterService imageMasterService,                                      
                                        IWorkContext workContext,
