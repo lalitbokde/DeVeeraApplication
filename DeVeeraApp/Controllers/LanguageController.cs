@@ -1,9 +1,12 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using CRM.Services.Message;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class LanguageController : Controller
+    public class LanguageController : BaseController
     {
         private readonly ILanguageService _languageService;
         private readonly INotificationService _notificationService;
@@ -21,7 +24,12 @@ namespace DeVeeraApp.Controllers
         #region fields
 
         public LanguageController(ILanguageService languageService,
-                                  INotificationService notificationService)
+                                  INotificationService notificationService,
+                                   IWorkContext workContext,
+                               IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _languageService = languageService;
             _notificationService = notificationService;
@@ -35,6 +43,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+            AddBreadcrumbs("Language", "Create", "/Language/Create", "/Language/Create");
             return View();
         }
 

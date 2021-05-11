@@ -13,6 +13,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <html lang="en" class="light">
+
 <!-- BEGIN: Head -->
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="LEFT4CODE">
-    <title>Dashboard - Icewall - Tailwind HTML Admin Template</title>
+    <title>Dashboard - app-e - Tailwind HTML Admin Template</title>
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="~/dist/css/app.css" />
     <link href="~/dist/css/style.css" rel="stylesheet" />
@@ -31,8 +32,23 @@ License: You must have a valid license purchased only from themeforest(the above
     @*<link rel="stylesheet" href="~/ckeditor 3/samples/css/samples.css">*@
 
     <!-- END: CSS Assets-->
+    <style>
+
+        .ovalicon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            margin: -50px 0px 0px -50px;
+            z-index: 998;
+            color: #0071BC;
+        }
+       
+    </style>
+    
 </head>
 <!-- END: Head -->
+
 <body class="main">
     <div class="pt-5">
 
@@ -641,19 +657,20 @@ License: You must have a valid license purchased only from themeforest(the above
         </nav>
         <!-- END: Top Menu -->
         <!-- BEGIN: Content -->
-        <div class="wrapper wrapper--top-nav">
+        <div class="wrapper wrapper--top-nav " >
             <div class="wrapper-box">
                 <!-- BEGIN: Content -->
-                
 
-                <div class="content">
+
+                <div class="content " >
+
+
                     @RenderBody()
-                    @*<div class="ovalicon hidden">
-                        <div class="loader oval " id="loader">
-
-                            <i data-loading-icon="oval" class="w-12 h-12 "></i>
+                    <div class="ovalicon">
+                        <div class="loader oval hidden" id="loader">
+                            <i data-loading-icon="oval" class="w-12 h-12 " ></i>
                         </div>
-                    </div>*@
+                    </div>
 
                 </div>
 
@@ -685,6 +702,23 @@ License: You must have a valid license purchased only from themeforest(the above
         initSample1();
     </script>
     <script src="~/CustomJS/Common.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document.querySelectorAll("button[type=submit]")).click(function () {
+                $('.ovalicon').css('display', 'block');
+                $('.oval').css('display', 'block');
+               $('.loader').removeAttr("hidden");
+                setTimeout(function () {
+                    $("#loader").hide();
+                }, 500);
+            });            
+        });
+    </script>
+    <script>
+       
+    </script>
+
     <!-- END: JS Assets-->
 </body>
 </html>
