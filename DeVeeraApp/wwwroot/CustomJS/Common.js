@@ -10,3 +10,4 @@ function hideloaderfn() {
 setTimeout(function () {
     $("#loader").hide();
 }, 100);
+
