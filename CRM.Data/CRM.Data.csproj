@@ -113,6 +113,8 @@
 
     <Compile Include="Migrations\20210510081916_AddedLanguageTable.cs" />
     <Compile Include="Migrations\20210510081916_AddedLanguageTable.Designer.cs" />
+    <Compile Include="Migrations\20210511111404_ModuleTable-AddTitle.cs" />
+    <Compile Include="Migrations\20210511111404_ModuleTable-AddTitle.Designer.cs" />
 
 
 

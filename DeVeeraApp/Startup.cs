@@ -17,6 +17,7 @@ using CRM.Services.DashboardQuotes;
 using CRM.Services.Directory;
 using CRM.Services.Helpers;
 using CRM.Services.Message;
+using CRM.Services.QuestionsAnswer;
 using CRM.Services.Security;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -100,6 +101,7 @@ namespace DeVeeraApp
             services.AddScoped<IImageMasterService, ImageMasterService>();
             services.AddScoped<ILevelImageListServices, LevelImageListServices>();
             services.AddScoped<IS3BucketService, S3BucketService>();
+            services.AddScoped<IQuestionAnswerService, QuestionAnswerService>();
             var authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;

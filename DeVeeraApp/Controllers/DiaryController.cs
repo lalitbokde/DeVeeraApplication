@@ -1,4 +1,4 @@
-﻿using CRM.Core;
+using CRM.Core;
 using CRM.Core.Domain;
 
 using CRM.Core.Domain.VideoModules;
