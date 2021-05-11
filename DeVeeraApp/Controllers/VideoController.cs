@@ -158,8 +158,13 @@ namespace DeVeeraApp.Controllers
                 var videoData = _videoMasterService.GetVideoById(model.Id);
                 try
                 {
-                    var url = UploadVideo(model.FileName);
-                    videoData.VideoUrl = url.Result;
+                    if(model.FileName != null)
+                    {
+                        var url = UploadVideo(model.FileName);
+                        videoData.VideoUrl = url.Result;
+                        videoData.Key = model.FileName;
+
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -168,7 +173,6 @@ namespace DeVeeraApp.Controllers
                
                 videoData.Name = model.Name;
                 videoData.IsNew = model.IsNew;
-                videoData.Key = model.FileName;
                 videoData.IsNew = model.IsNew;
 
                 _videoMasterService.UpdateVideo(videoData);
@@ -191,11 +195,10 @@ namespace DeVeeraApp.Controllers
                 {
                     model.Add(item.ToModel<VideoModel>());
                 }
-                return View(model);
+               
 
             }
-            return RedirectToAction("Index", "Home");
-
+            return View(model);
         }
 
         [Obsolete]

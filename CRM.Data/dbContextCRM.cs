@@ -53,10 +53,18 @@ namespace CRM.Data
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
         public DbSet<DashboardQuote> DashboardQuote { get; set; }
 
+        //Questions
+        public DbSet<Questions> Question { get; set; }
+        public DbSet<Question_Answer_Mapping> Questions_Answers_Mapping { get; set; }
+
         //feelGoodStory
 
         public DbSet<FeelGoodStory> FeelGoodStories { get; set; }
 
+
+        //Language
+
+        public DbSet<Language> Languages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {

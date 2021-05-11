@@ -1,4 +1,4 @@
-﻿
+﻿@model DeVeeraApp.ViewModels.LanguageModel
 @inject CRM.Core.IWorkContext _workContext;
 @{ 
     Layout = null;
@@ -53,9 +53,8 @@
                     <div class="hero-inner">
                         <div class="hero-copy">
                             <label class="mb-1">Choose Language</label><br/>
-                            <select>
-                                <option value="English">English</option>
-                                <option value="Spanish">Spanish</option>
+                            <select asp-for="LanguageId" asp-items="@Model.AvailableLanguages">
+                               
                             </select>
                             <h1 class="hero-title mt-8">Happiness is the state of balance.</h1>
 

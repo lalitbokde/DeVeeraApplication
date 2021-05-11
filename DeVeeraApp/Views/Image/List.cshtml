@@ -4,16 +4,18 @@
     ViewData["Title"] = "List";
 }
 
-<div class="intro-y  py-10 sm:py-20 ">
+@if (Model.Count != 0)
+{
+    <div class="intro-y  py-10 sm:py-20 ">
 
-    <div class="px-5 ">
-        <div class="font-medium text-center text-lg"> Image List</div>
-        <div class="text-gray-600 text-center mt-2">Below are the list of Images.</div>
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg"> Image List</div>
+            <div class="text-gray-600 text-center mt-2">Below are the list of Images.</div>
 
-    </div>
+        </div>
 
 
-    <div class="mt-5">
+        <div class="mt-5">
 
             <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
                 @foreach (var item in Model)
@@ -21,7 +23,7 @@
 
                     <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2">
                         <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
-                          
+
                             <a href="" class="w-3/5 file__icon file__icon--file mx-auto">
                                 <div class="file__icon__file-name">IMAGE</div>
                             </a>
@@ -38,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                            
+
 
                     </div>
                 }
@@ -46,58 +48,67 @@
 
 
         </div>
-    @*<div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+        @*<div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                <div class="intro-y box p-5 col-span-12">
-                    <div class="intro-y ">
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                    <div class="intro-y box p-5 col-span-12">
+                        <div class="intro-y ">
 
-                        <div class="p-5" id="basic-table">
-                            <div class="preview">
-                                <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Images</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Show</th>
+                            <div class="p-5" id="basic-table">
+                                <div class="preview">
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Images</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Show</th>
 
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
-                                                int i = 1;
-                                                foreach (var item in Model)
-                                                {
-                                                    <tr>
-                                                        <td class="border-b dark:border-dark-5">@i</td>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    int i = 1;
+                                                    foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td class="border-b dark:border-dark-5">@i</td>
 
-                                                        <td class="border-b dark:border-dark-5">@item.Name</td>
-                                                        <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Level" asp-action="Play" asp-route-url="@item.ImageUrl"><i data-feather="image"></i></a></td>
+                                                            <td class="border-b dark:border-dark-5">@item.Name</td>
+                                                            <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Level" asp-action="Play" asp-route-url="@item.ImageUrl"><i data-feather="image"></i></a></td>
 
-                                                        <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Image" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                        <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteImage(@item.Id)')"><i data-feather="trash-2"></i></a></td>
-                                                    </tr>
-                                                    i++;
+                                                            <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Image" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                            <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteImage(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                        </tr>
+                                                        i++;
+                                                    }
+
                                                 }
-
-                                            }
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
 
-            </div>
+            </div>*@
+    </div>
 
-        </div>*@
-</div>
+}
+else
+{
+    <div class="px-5 ">
+        <div class="font-medium text-center text-lg"> There is no data to show.</div>
+
+    </div>
+}
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
 

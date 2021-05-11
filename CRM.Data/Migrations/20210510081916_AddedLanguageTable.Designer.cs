@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210510081916_AddedLanguageTable")]
+    partial class AddedLanguageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -483,52 +485,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("Levelmodules");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Question_Answer_Mapping", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Answer");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("QuestionId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Questions_Answers_Mapping");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Questions", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("ModuleId");
-
-                    b.Property<string>("Question");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ModuleId");
-
-                    b.ToTable("Question");
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.WeeklyUpdate", b =>
                 {
                     b.Property<int>("Id")
@@ -645,27 +601,6 @@ namespace CRM.Data.Migrations
                     b.HasOne("CRM.Core.Domain.Video", "Video")
                         .WithMany()
                         .HasForeignKey("VideoId");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Question_Answer_Mapping", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.VideoModules.Questions", "Question")
-                        .WithMany("Question_Answer_Mapping")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CRM.Core.Domain.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.VideoModules.Questions", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.VideoModules.Modules", "Module")
-                        .WithMany()
-                        .HasForeignKey("ModuleId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.WeeklyUpdate", b =>

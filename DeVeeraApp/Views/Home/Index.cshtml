@@ -7,8 +7,10 @@
 
                 <div class="intro-y flex items-center h-10">
                     <h2 class="text-lg font-medium truncate mr-5"> @Model.Title <a class="text-theme-21 dark:text-theme-10" href="">– @Model.Author</a></h2>
+                    @if (_workContext.CurrentUser.UserRole.Name != "Admin")
+                    {
                     <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="ml-auto flex btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-                  
+                    }
                 </div>
                 <div class="grid grid-cols-12 gap-6 mt-5">
                     @{
