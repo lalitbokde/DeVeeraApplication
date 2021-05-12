@@ -36,7 +36,7 @@
                     </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <a asp-controller="QuestionAnswer" asp-action="List" class="btn btn-primary mr-2 w-24">List</a>
-                        <button type="submit" class="btn btn-primary w-24">Save</button>
+                        <button type="submit" class="btn btn-primary w-24" onclick="Questionloader()">Save</button>
                     </div>
 
                 </div>
@@ -50,3 +50,13 @@
 
 </form>
 <script src="~/dist/js/QuestionAnswer.js"></script>
+<script>
+    function Questionloader() {
+        $('.ovalicon').css('display', 'block');
+        $('.oval').css('display', 'block');
+        $('.loader').removeAttr("hidden");
+        setTimeout(function () {
+            $("#loader").hide();
+        }, 500);
+    }
+</script>

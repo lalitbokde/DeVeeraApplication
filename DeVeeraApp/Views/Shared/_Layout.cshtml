@@ -32,18 +32,21 @@ License: You must have a valid license purchased only from themeforest(the above
     @*<link rel="stylesheet" href="~/ckeditor 3/samples/css/samples.css">*@
 
     <!-- END: CSS Assets-->
-    <style>
+<style>
 
-        .ovalicon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            margin: -50px 0px 0px -50px;
-            z-index: 998;
-            color: #0071BC;
-        }
-       
+    .ovalicon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        margin: -50px 0px 0px -50px;
+        z-index: 998;
+        color: #0071BC;
+    }
+
+   
+   
+
     </style>
     
 </head>
@@ -684,7 +687,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- BEGIN: Content -->
 
 
-                <div class="content " >
+                <div class="content "  id="maincontentid">
 
 
                     @RenderBody()
@@ -726,16 +729,16 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/CustomJS/Common.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $(document.querySelectorAll("button[type=submit]")).click(function () {
-                $('.ovalicon').css('display', 'block');
-                $('.oval').css('display', 'block');
-               $('.loader').removeAttr("hidden");
-                setTimeout(function () {
-                    $("#loader").hide();
-                }, 500);
-            });            
-        });
+        //$(document).ready(function () {
+        //    $(document.querySelectorAll("button[type=submit]")).click(function () {
+        //        $('.ovalicon').css('display', 'block');
+        //        $('.oval').css('display', 'block');
+        //       $('.loader').removeAttr("hidden");
+        //        setTimeout(function () {
+        //            $("#loader").hide();
+        //        }, 500);
+        //    });            
+        //});
     </script>
     <script>
        
