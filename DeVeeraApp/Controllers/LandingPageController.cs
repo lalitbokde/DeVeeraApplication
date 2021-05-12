@@ -36,7 +36,7 @@ namespace DeVeeraApp.Controllers
         public virtual void PrepareLanguages(LanguageModel model)
         {
             //prepare available url
-            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
             var AvailableLanguage = _languageService.GetAllLanguages();
             foreach (var item in AvailableLanguage)
             {

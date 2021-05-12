@@ -240,15 +240,19 @@ namespace DeVeeraApp.Controllers
             {
                 foreach(var item in data)
                 {
-                    var imagedata = _imageMasterService.GetImageById((int)item.ImageId);
-
-                    if(imagedata != null)
+                    if(item.ImageId != null)
                     {
-                        imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key).Result;
+                        var imagedata = _imageMasterService.GetImageById((int)item.ImageId);
 
-                        _imageMasterService.UpdateImage(imagedata);
+                        if (imagedata != null)
+                        {
+                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key).Result;
 
-                        item.Image.ImageUrl = imagedata.ImageUrl;
+                            _imageMasterService.UpdateImage(imagedata);
+
+                            item.Image.ImageUrl = imagedata.ImageUrl;
+                        }
+
                     }
 
                     model.Add(item.ToModel<FeelGoodStoryModel>());

@@ -57,7 +57,7 @@
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
 
-                                <button type="submit" class="btn btn-primary w-24">Save</button>
+                                <button type="submit" class="btn btn-primary w-24" onclick="ImageLoader()">Save</button>
                             </div>
                         </div>
                     </div>
@@ -77,5 +77,15 @@
     function GetFileName() {
         var filename = $(".dz-filename").text();
         document.getElementById("FileName").value = filename;
+    }
+</script>
+<script>
+    function ImageLoader() {
+        $('.ovalicon').css('display', 'block');
+        $('.oval').css('display', 'block');
+        $('.loader').removeAttr("hidden");
+        setTimeout(function () {
+            $("#loader").hide();
+        }, 500);
     }
 </script>

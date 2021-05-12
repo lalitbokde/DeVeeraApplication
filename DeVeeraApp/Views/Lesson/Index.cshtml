@@ -1,10 +1,21 @@
 ﻿@model DeVeeraApp.ViewModels.LevelModel
 @inject CRM.Core.IWorkContext _workContext
 
+<style>
+   .imgbackLevel { 
+    background-image: url('/Images/beauty.jpg'); 
+    width:100%;  
+    height:auto;
+    background-size: cover;
 
-<div class="grid grid-cols-12 gap-6  mt-5  " >
+   }
+  
+        
+</style>
 
+<div class="grid grid-cols-12 gap-6  mt-5  ">
 
+    
     @*@foreach(var item in Model.SelectedImages)
         {
          <div class="intro-y col-span-2 flex">
@@ -36,17 +47,22 @@
         </div>*@
 
 
-    <div class="intro-y  xxl:col-span-3  col-span-4  ">
+    <div class="intro-y  xxl:col-span-3   col-span-12 ">
         <div class=" mt-10 lg:mt-0">
-            <div class="intro-x mt-10 text-4xl font-medium">@Model.Title</div>
+            <div class="intro-x mt-10 text-4xl font-medium mr-4 ml-4">@Model.Title</div>
 
         </div>
-        <div class="text-gray-600 text-left mt-2">@Model.Quote -@Model.Author</div>
+        <div class="text-gray-600 text-left mt-2 mr-4 ml-4">@Model.Quote -@Model.Author</div>
+    @*<div class="text-gray-600 text-left mt-2 mr-4 ml-4">
+        “Do not set aside your happiness.
+        Do not wait to be happy in the future.
+        The best time to be happy is always now.” -Roy T. Bennett
+    </div>*@
     </div>
 
-    <div class="intro-y col-span-4  xxl:col-span-6 mt-5  ">
+    <div class="intro-y   xxl:col-span-6 mt-5  col-span-12  ">
 
-        <div id="multiple-item-slider" class="">
+        <div id="multiple-item-slider" class="p-1">
             <div class="preview">
                 <div class="mx-6">
                     <div class="multiple-items">
@@ -68,8 +84,8 @@
 
     @if (_workContext?.CurrentUser.UserRole.Name != "Admin")
     {
-        <div class="intro-y xxl:col-span-3 col-span-4  items-center pl-32 ">
-            <div class="alert alert-warning show mb-2 mt-10  " role="alert">
+        <div class="intro-y xxl:col-span-3   items-center pl-32  col-span-12   ">
+            <div class="alert alert-warning show mb-2 mt-10 mr-4 ml-4 " role="alert">
                 <div class="flex items-center sm\:justify-start">
                     <div class="font-medium text-lg ">Recent Diary</div> 
                     <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
@@ -194,3 +210,12 @@
 
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
+
+<script>
+       $(document).ready(function () {
+
+           $('#maincontentid').addClass("imgbackLevel");
+               
+                    
+        });
+</script>

@@ -37,7 +37,7 @@
 
                     </div>
                     <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Image</label>
+                        <label class="form-label text-theme-21 ">Image</label>
 
                         <select asp-for="ImageId" asp-items="@Model.AvailableImages" data-search="true" class="tail-select w-full"></select>
                         <span asp-validation-for="ImageId" class="text-theme-6 mt-2"></span>
@@ -53,6 +53,8 @@
                         </div>
 
                     </div>
+                    <span asp-validation-for="Story" class="text-theme-6 mt-2"></span>
+
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                             <div class="intro-y   col-span-6">
@@ -60,7 +62,7 @@
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
 
-                                <button type="submit" class="btn btn-primary w-24">Save</button>
+                                <button type="submit" class="btn btn-primary w-24" id="Feelgoodstoryid" onclick="FeelGoodStory()"> Save</button>
                             </div>
                         </div>
                     </div>
@@ -76,3 +78,13 @@
 
 </form>
 
+<script>
+    function FeelGoodStory() {
+        $('.ovalicon').css('display', 'block');
+        $('.oval').css('display', 'block');
+        $('.loader').removeAttr("hidden");
+        setTimeout(function () {
+            $("#loader").hide();
+        }, 500);
+    }
+</script>
