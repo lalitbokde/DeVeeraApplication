@@ -85,19 +85,56 @@
     <div class="border-t border-theme-25 mt-5"></div>
     <div class="grid grid-cols-12 gap-6 mt-10">
         <div class="col-span-12 lg:col-span-8 xl:col-span-6">
-            <div class="intro-x text-2xl font-medium">Questions & Answers</div>
+            <div class="intro-x text-2xl font-medium">Questions Array</div>
         </div>
+        @if (_workContext.CurrentUser.UserRole.Name=="Admin") 
+        {
         <div class="col-span-12 lg:col-span-8 xl:col-span-6 text-right">
             <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
         </div>
-
+        }
     </div>
-    @foreach (var item in Model.QuestionsList)
-    {
-        <div class="mt-5">
-            <label for="input-wizard-1" class="form-label">@item.Question</label>
-            <textarea type="text" rows="2" class="form-control" placeholder="Answer"></textarea>
+    @{
 
-        </div>
+        int UserId = _workContext.CurrentUser.Id;
+        string UserRole = _workContext.CurrentUser.UserRole.Name;
+
+        foreach (var item in Model.QuestionsList)
+        {
+            <form asp-controller="QuestionAnswer" asp-action="Answer" method="post">
+                <div class="mt-5">
+                    <label for="input-wizard-1" class="form-label">Q.  @item.Question</label>
+                </div>
+                @if (UserRole != "Admin")
+                {
+
+                    @if (item.Question_Answer_Mapping.Where(a => a.UserId == UserId).ToList().Count == 0)
+                    {
+                        <div class="pt-4 pb-10 sm:py-4 flex items-center border-t border-gray-200 dark:border-dark-5">
+                            <input id="Id" name="Id" value="@item.Id" hidden />
+                            <input asp-for="Id" name="ModuleId" hidden />
+                            <textarea id="Answer" name="Answer" class="chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0" rows="1" placeholder="Type your answer..."></textarea>
+                            <button type="submit" class="w-8 h-8 sm:w-10 sm:h-10 block bg-theme-17 text-white rounded-full flex-none flex items-center justify-center mr-5"> <i data-feather="send" class="w-4 h-4"></i> </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label">A. @item.Question_Answer_Mapping.FirstOrDefault().Answer</label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    @foreach (var data in item.Question_Answer_Mapping)
+                    {
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label">A. @data.Answer</label>
+                        </div>
+                    }
+                }
+            </form>
+
+        }
     }
 </div>

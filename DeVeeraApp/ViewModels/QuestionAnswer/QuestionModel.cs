@@ -19,6 +19,7 @@ namespace DeVeeraApp.ViewModels.QuestionAnswer
         public int ModuleId { get; set; }
         [Required]
         public string Question { get; set; }
+        public string Answer { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool Deleted { get; set; }
         public ModulesModel Module { get; set; }
