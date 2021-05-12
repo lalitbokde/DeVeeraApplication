@@ -5,6 +5,7 @@ using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
+using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.QuestionAnswer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,21 +23,23 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelServices _levelService;
         private readonly IModuleService _moduleService;
         private readonly IQuestionAnswerService _QuestionAnswerService;
+        private readonly IWorkContext _workContext;
         #endregion
 
         #region ctor
         public QuestionAnswerController(ILevelServices levelServices,
                                         IModuleService moduleService,
                                         IQuestionAnswerService questionAnswerService,
-                                        IWorkContext workContext,
+                                        IWorkContext WorkContextService,
                                         IHttpContextAccessor httpContextAccessor,
-                                        IAuthenticationService authenticationService) : base(workContext: workContext,
+                                        IAuthenticationService authenticationService) : base(workContext: WorkContextService,
                                                                                              httpContextAccessor: httpContextAccessor,
                                                                                              authenticationService: authenticationService)
         {
             _levelService = levelServices;
             _moduleService = moduleService;
             _QuestionAnswerService = questionAnswerService;
+            this._workContext = WorkContextService;
         }
         #endregion
 
@@ -71,6 +74,7 @@ namespace DeVeeraApp.Controllers
         }
 
         #endregion
+
         #region Methods
         public IActionResult List()
         {
@@ -127,6 +131,32 @@ namespace DeVeeraApp.Controllers
             }
 
             return Json(Modules);
+        }
+
+        [HttpPost]
+        public IActionResult Answer(QuestionModel model)
+        {          
+            model.Id =Convert.ToInt32(Request.Form["Id"]);
+            model.ModuleId = Convert.ToInt32(Request.Form["ModuleId"]);
+            model.Answer = Request.Form["Answer"];
+            int UserId = _workContext.CurrentUser.Id;
+
+            var Question = _QuestionAnswerService.GetQuestionById(model.Id);
+            if (Question.Question_Answer_Mapping.Where(a => a.UserId == UserId).ToList().Count == 0)
+            {
+                Question.Question_Answer_Mapping.Add(new Question_Answer_Mapping
+                {
+                    QuestionId = model.Id,
+                    UserId = _workContext.CurrentUser.Id,
+                    CreatedOn = DateTime.UtcNow,
+                    Answer = model.Answer
+                });
+
+                _QuestionAnswerService.UpdateQuestion(Question);
+            }
+
+            return RedirectToAction("Index", "Module", new { id = model.ModuleId });
+
         }
 
         #endregion
