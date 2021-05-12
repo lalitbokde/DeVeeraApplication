@@ -22,10 +22,12 @@
                 <!-- BEGIN: Blog Layout -->
                 <div class="intro-y blog col-span-12 md:col-span-6 box">
                     <div class="blog__preview image-fit">
-                        <img class="rounded-t-md" src="@item.Image.ImageUrl">
+                        @{var smallImg = (item.Image?.ImageUrl == null) ? "/dist/images/profile-14.jpg" : item.Image.ImageUrl;}
+                        <img class="rounded-t-md" src="@smallImg">
                         <div class="absolute w-full flex items-center px-5 pt-6 z-10">
                             <div class="w-10 h-10 flex-none image-fit">
-                                <img class="rounded-full" src="@item.Image.ImageUrl">
+                                @{var largeImg = (item.Image?.ImageUrl == null) ? "/dist/images/preview-4.jpg" : item.Image.ImageUrl;}
+                                <img class="rounded-full" src="@largeImg">
                             </div>
                             <div class="ml-3 text-white mr-auto">
                                 <a href="" class="font-medium">@item.Author</a>
