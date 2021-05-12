@@ -152,37 +152,86 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Previous(int id, int srno)
         {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
-           
-            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id).Where(a=>a.Id < id && a.Active == true).FirstOrDefault();
+            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id);
 
-            if (data != null)
+            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.Id < id).FirstOrDefault() : data.Where(a => a.Id < id && a.Active == true).FirstOrDefault();
+
+            if(level != null)
             {
-                return RedirectToAction("Index", new { id = data.Id, srno = srno - 1 });
+                return RedirectToAction("Index", new { id = level.Id, srno = srno - 1 });
             }
             return RedirectToAction("Index", new { id = id, srno = srno - 1 });
+
+
+            //if (!(currentUser.UserRole.Name == "Admin"))
+            //{
+            //    var userPreviousLevel = data.OrderByDescending(a => a.Id).Where(a => a.Id < id && a.Active == true).FirstOrDefault();
+
+            //    if (userPreviousLevel != null)
+            //    {
+            //        return RedirectToAction("Index", new { id = userPreviousLevel.Id, srno = srno - 1 });
+            //    }
+            //    return RedirectToAction("Index", new { id = id, srno = srno - 1 });
+
+            //}
+            //else
+            //{
+            //    var adminPreviousLevel = data.OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
+
+            //    if(adminPreviousLevel != null)
+            //    {
+            //        return RedirectToAction("Index", new { id = adminPreviousLevel.Id, srno = srno - 1 });
+            //    }
+            //    return RedirectToAction("Index", new { id = id, srno = srno - 1 });
+
+            //}
+
         }
 
         public IActionResult Next(int id, int srno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
-            if (currentUser.RegistrationComplete == false)
+            var data = _levelServices.GetAllLevels();
+
+            if(!(currentUser.UserRole.Name == "Admin"))
             {
-                return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno, userId = currentUser.Id });
+                if (currentUser.RegistrationComplete == false)
+                {
+                    return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno, userId = currentUser.Id });
+                }
+                else
+                {
+                    ViewBag.SrNo = srno;
+                    var userNextLevel = data.Where(a => a.Id > id && a.Active == true).FirstOrDefault();
+
+                    if (userNextLevel != null)
+                    {
+                        if (userNextLevel.Id > currentUser.LastLevel)
+                        {
+                            currentUser.LastLevel = userNextLevel.Id;
+
+                            _userService.UpdateUser(currentUser);
+                        }
+                        return RedirectToAction("Index", new { id = userNextLevel.Id, srno = srno + 1 });
+                    }
+                    return RedirectToAction("Index", new { id = id, srno = srno + 1 });
+
+                }
+
             }
             else
             {
                 ViewBag.SrNo = srno;
-                var data = _levelServices.GetAllLevels().Where(a => a.Id > id && a.Active == true).FirstOrDefault();
-                if (data != null)
+
+                var adminNextLevel = data.Where(a => a.Id > id).FirstOrDefault();
+
+                if(adminNextLevel != null)
                 {
-                    if (data.Id > currentUser.LastLevel)
-                    {
-                        currentUser.LastLevel = data.Id;
-                        _userService.UpdateUser(currentUser);
-                    }
-                    return RedirectToAction("Index", new { id = data.Id, srno = srno + 1 });
+                    return RedirectToAction("Index", new { id = adminNextLevel.Id, srno = srno + 1 });
+
                 }
                 return RedirectToAction("Index", new { id = id, srno = srno + 1 });
 

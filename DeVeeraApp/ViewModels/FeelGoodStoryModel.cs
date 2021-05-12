@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,9 @@ namespace DeVeeraApp.ViewModels
             AvailableImages = new List<SelectListItem>();
         }
 
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Author { get; set; }
         public string Story { get; set; }
         public int? ImageId { get; set; }

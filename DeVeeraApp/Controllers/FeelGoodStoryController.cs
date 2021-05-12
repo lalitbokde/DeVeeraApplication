@@ -54,7 +54,7 @@ namespace DeVeeraApp.Controllers
         public virtual void PrepareImages(FeelGoodStoryModel model)
         {
             //prepare available url
-            model.AvailableImages.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            model.AvailableImages.Add(new SelectListItem { Text = "Select Image", Value = "0" });
             var AvailableVideoUrl = _imageMasterService.GetAllImages();
             foreach (var item in AvailableVideoUrl)
             {
