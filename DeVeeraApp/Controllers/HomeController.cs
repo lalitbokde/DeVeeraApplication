@@ -52,8 +52,8 @@ namespace DeVeeraApp.Controllers
                               IImageMasterService imageMasterService,
                               IVideoMasterService videoMasterService,
                               IS3BucketService s3BucketService,
-                              IUserService userService                             
-                              ) :base(workContext: workContext,
+                              IUserService userService
+                              ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -74,7 +74,7 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
-            AddBreadcrumbs("Application", "Dashboard","/Home/Index", "/Home/Index");
+            AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Home/Index");
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
@@ -86,17 +86,17 @@ namespace DeVeeraApp.Controllers
             model.Author = quote?.Author;
 
 
-            var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo); 
+            var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
 
             int lastlevel = data.LastOrDefault().Id;
 
             if (data.Count() != 0)
             {
-                if(!(_workContext.CurrentUser.UserRole.Name == "Admin"))
+                if (!(_workContext.CurrentUser.UserRole.Name == "Admin"))
                 {
                     var activeLevel = data.Where(l => l.Active == true).ToList();
 
-                    if(activeLevel.Count() != 0)
+                    if (activeLevel.Count() != 0)
                     {
                         var LevelOne = data.FirstOrDefault();
 
@@ -109,7 +109,7 @@ namespace DeVeeraApp.Controllers
 
                         foreach (var item in data)
                         {
-                            if(item.Active == true && item.Id <= lastlevel)
+                            if (item.Active == true && item.Id <= lastlevel)
                             {
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
 
@@ -125,6 +125,7 @@ namespace DeVeeraApp.Controllers
                     }
 
 
+
                 }
                 else
                 {
@@ -135,7 +136,7 @@ namespace DeVeeraApp.Controllers
                     }
                 }
 
-               
+
                 return View(model);
             }
             return View();
@@ -145,27 +146,30 @@ namespace DeVeeraApp.Controllers
         {
             var level = new Level();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
-            
-               var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
-                var model = data.ToModel<WeeklyUpdateModel>();
-                model.VideoUrl = data?.Video?.VideoUrl;
-                if(currentUser.LastLevel!=null)
+            var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
+
+            var model = data.ToModel<WeeklyUpdateModel>();
+
+            model.VideoUrl = data?.Video?.VideoUrl;
+
+            if (currentUser.LastLevel != null)
                 level = _levelServices.GetLevelById((int)currentUser.LastLevel);
-            
+
             var firstlevel = _levelServices.GetAllLevels().FirstOrDefault().Id;
-            model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel  == 0)? firstlevel : (level!= null? (int)currentUser.LastLevel : firstlevel);
+
+            model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? firstlevel : (level != null ? (int)currentUser.LastLevel : firstlevel);
 
 
-            var lastLevel = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel);
+            var lastLevel = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel && a.Active == true).ToList();
 
-            if (lastLevel != null)
+            if (lastLevel.Count() != 0)
             {
                 ViewBag.SrNo = lastLevel.Count();
             }
             else
             {
-                ViewBag.SrNo = 1;
+                ViewBag.SrNo = 0;
             }
 
             return View(model);
@@ -174,18 +178,22 @@ namespace DeVeeraApp.Controllers
         public IActionResult NewUser(int QuoteType)
         {
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
-       
-                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
-            
-                var model = data.ToModel<WeeklyUpdateModel>();
+
+            var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
+
+            var model = data.ToModel<WeeklyUpdateModel>();
             model.VideoUrl = data?.Video?.VideoUrl;
             var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
-                if (firstLevel != null)
-                    model.LastLevel = firstLevel.Id;
+            if (firstLevel != null && firstLevel.Active == true)
+            {
+                model.LastLevel = firstLevel.Id;
                 ViewBag.SrNo = 1;
-                return View(model);
-          
-    
+
+            }
+            
+            return View(model);
+
+
 
         }
 
@@ -220,9 +228,9 @@ namespace DeVeeraApp.Controllers
 
             var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
 
-            if(newVideoList.Count != 0)
+            if (newVideoList.Count != 0)
             {
-                foreach(var item in newVideoList)
+                foreach (var item in newVideoList)
                 {
                     model.Add(item.ToModel<VideoModel>());
                 }
@@ -236,11 +244,11 @@ namespace DeVeeraApp.Controllers
 
             var model = new List<FeelGoodStoryModel>();
 
-            if(data.Count() != 0)
+            if (data.Count() != 0)
             {
-                foreach(var item in data)
+                foreach (var item in data)
                 {
-                    if(item.ImageId != null)
+                    if (item.ImageId != null)
                     {
                         var imagedata = _imageMasterService.GetImageById((int)item.ImageId);
 

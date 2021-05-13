@@ -77,12 +77,11 @@ namespace DeVeeraApp.Controllers
             {
                 #region Diary 
                 List<DiaryModel> DiaryList = new List<DiaryModel>();
-                if (_workContext.CurrentUser.UserRole.Name != "Admin")
-                {
+                
                     var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
 
                     DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
-                }
+                
                 #endregion
 
                 model.diaryModels = DiaryList;
@@ -106,12 +105,11 @@ namespace DeVeeraApp.Controllers
 
                 #region Diary 
                 List<DiaryModel> DiaryList = new List<DiaryModel>();
-                if (_workContext.CurrentUser.UserRole.Name != "Admin")
-                {
+                
                     var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
 
                     DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
-                }
+                
                 #endregion
 
                 model.diaryModels = DiaryList;
@@ -124,6 +122,48 @@ namespace DeVeeraApp.Controllers
         }
 
 
+        public IActionResult Edit(int Id)
+        {
+            AddBreadcrumbs("Diary", "Edit", $"/Diary/Edit/{Id}", $"/Diary/Edit/{Id}");
+            DiaryModel model = new DiaryModel();
+
+            if (Id > 0) 
+            {
+                var diary = _DiaryMasterService.GetDiaryById(Id);
+                 model = diary.ToModel<DiaryModel>();
+            }
+
+                #region Diary 
+                List<DiaryModel> DiaryList = new List<DiaryModel>();
+
+                var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+
+                DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+
+                #endregion
+
+                model.diaryModels = DiaryList;
+                return View(model);
+            
+        }
+        [HttpPost]
+        public IActionResult Edit(DiaryModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var diary = _DiaryMasterService.GetDiaryById(model.Id);
+                diary.Title = model.Title;
+                diary.Comment = model.Comment;
+                diary.LastUpdatedOn= DateTime.UtcNow;
+                _DiaryMasterService.UpdateDiary(diary);
+                _notificationService.SuccessNotification("Diary updated successfully.");
+
+                return RedirectToAction("Create", "Diary", new { levelid = model.LevelId });
+            }
+
+            return View(model);
+
+        }
         #endregion
 
 

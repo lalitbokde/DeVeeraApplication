@@ -32,7 +32,16 @@
                             <div class="intro-x text-xl lg:text-3xl font-medium mt-5"> Welcome back, Glad to see you again. </div>
                             <div class="intro-x text-xl lg:text-3xl font-medium mt-5">Let's continue </div>
                             <div class="intro-x text-lg mt-3">The pessimist sees difficulty in every opportunity.</div>
-                            <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>
+                            @if (ViewBag.SrNo != 0)
+                            {
+                                <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>
+
+                            }
+                            else
+                            {
+                                <a asp-controller="home" asp-action="Index" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Dashboard</a>
+
+                            }
                         </div>
 
                     </div>

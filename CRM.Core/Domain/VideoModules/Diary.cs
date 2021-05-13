@@ -13,6 +13,7 @@ namespace CRM.Core.Domain.VideoModules
         public int? ModuleId { get; set; }
         public string Comment { get; set; }
         public DateTime CreatedOn { get; set; }
+        public DateTime LastUpdatedOn { get; set; }
         public bool Deleted { get; set; }
     }
 }
