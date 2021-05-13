@@ -89,11 +89,38 @@
                                                 <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
                                             </div>
                                             <div class="flex items-center">
-                                                <div class="text-gray-600 mt-1">@Html.Raw(@item.Comment)</div>
+                                                <div class="text-gray-600 line-clamp-1 mt-1">@Html.Raw(@item.Comment)</div>
 
                                             </div>
+                                            <div class="flex -ml-2 lg:ml-0 lg:justify-end mt-3 lg:mt-0">
+                                                <a href="javascript:;" data-toggle="modal" data-target="#diary-modal-preview_@item.Id" class="w-8 h-8 rounded-full flex items-center justify-center border dark:border-dark-5 ml-2 text-gray-500 zoom-in tooltip" title="View"> <i class="w-4 h-4 text-theme-21" data-feather="eye"></i> </a>
+                                                <a a asp-controller="Diary" asp-action="Edit" asp-route-Id="@item.Id" class="w-8 h-8 rounded-full flex items-center justify-center border dark:border-dark-5 ml-2 text-gray-500 zoom-in tooltip" title="Edit"> <i class="w-4 h-4 text-theme-21" data-feather="edit-2"></i> </a>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <!-- BEGIN: Modal Content -->
+                                    <div id="diary-modal-preview_@item.Id" class="modal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-body grid grid-cols-12">
+                                                    <div class="col-span-12">
+                                                        <div class="px-5 py-3 ml-4 flex-1">
+                                                            <div class="flex items-center">
+                                                                <div class="font-medium">@item.Title</div>
+                                                            </div>
+                                                            <div class="flex items-center">
+                                                                <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
+                                                            </div>
+                                                            <div class="flex items-center mt-2">
+                                                                <div class="text-gray-600 mt-1">@Html.Raw(@item.Comment)</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <!-- END: Modal Content -->
                                 }
                             </div>
 

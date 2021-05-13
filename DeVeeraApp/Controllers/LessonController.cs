@@ -125,7 +125,9 @@ namespace DeVeeraApp.Controllers
             videoData.LevelNo = updatedVideoData.LevelNo;
 
 
-            var quoteList = _dashboardQuoteService.GetDashboardQuoteByLevelId(id).Where(a => a.IsRandom == true).ToList();
+            var quoteList = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsRandom == true).ToList();
+            quoteList = quoteList.Where(a => a.LevelId == id || a.Level == "All Level").ToList();
+
             if (quoteList != null && quoteList.Count > 0)
             {
                 int index = random.Next(quoteList.Count);

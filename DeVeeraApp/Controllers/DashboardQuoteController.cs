@@ -109,14 +109,24 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                var quote = model.ToEntity<DashboardQuote>();
-                if (model.IsDashboardQuote == true)
+                var ExistingQuote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.Title == model.Title);
+                if (ExistingQuote.Count() == 0)
                 {
-                    _dashboardQuoteService.InActiveAllDashboardQuotes();
+                    var quote = model.ToEntity<DashboardQuote>();
+                    if (model.IsDashboardQuote == true)
+                    {
+                        _dashboardQuoteService.InActiveAllDashboardQuotes();
+                    }
+                    _dashboardQuoteService.InsertDashboardQutoe(quote);
+                    _notificationService.SuccessNotification("Dashboard quote added successfully.");
+                    return RedirectToAction("List");
                 }
-                _dashboardQuoteService.InsertDashboardQutoe(quote);
-                _notificationService.SuccessNotification("Dashboard quote added successfully.");
-                return RedirectToAction("List");
+                else
+                {
+                    _notificationService.ErrorNotification("Quote already exists.");
+                    PrepareLevelDropdown(model);
+                    return View(model);
+                }
             }
             PrepareLevelDropdown(model);
             return View(model);
@@ -229,8 +239,10 @@ namespace DeVeeraApp.Controllers
             if (filename != null)
             {
                 List<DashboardQuote> _QuoteList = new List<DashboardQuote>();
+                List<DashboardQuote> _UniqueQuoteList = new List<DashboardQuote>();
 
                 string ErrorMessage = "";
+                int duplicatecount = 0;
 
                 var path = Path.Combine(_hostingEnvironment.WebRootPath + "//ImportExcel", filename);
 
@@ -264,7 +276,7 @@ namespace DeVeeraApp.Controllers
 
                                     IsDashboardQuote = false,
 
-                                    IsRandom = false,
+                                    IsRandom = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : true,
 
                                     //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
                                 });
@@ -276,9 +288,47 @@ namespace DeVeeraApp.Controllers
                     }
 
                 }
+
                 if (_QuoteList.Count() != 0)
                 {
                     foreach (var item in _QuoteList)
+                    {
+                        var ExistingQuote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.Title == item.Title);
+
+                        if (ExistingQuote.Count() == 0)
+                        {
+                            _UniqueQuoteList.Add(new DashboardQuote
+                            {
+                                Title = item.Title,
+
+                                Author = item.Author,
+
+                                IsDashboardQuote = item.IsDashboardQuote,
+
+                                IsRandom = item.IsRandom,
+
+                                Level="All Level"
+
+                            });;;
+                        }
+                        else
+                        {
+                            duplicatecount++;
+                        }
+
+                    }
+                }
+                else
+                {
+                    _notificationService.ErrorNotification("Empty File.");
+                    System.IO.File.Delete(path);
+
+                    response.Success = false;
+                }
+
+                if (_UniqueQuoteList.Count() != 0)
+                {
+                    foreach (var item in _UniqueQuoteList)
                     {
                         _dashboardQuoteService.InsertDashboardQutoe(item);
                     }
@@ -290,9 +340,9 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    _notificationService.ErrorNotification("Empty File.");
+                    ErrorMessage = duplicatecount != 0 ? $"{duplicatecount} Duplicate Quote in sheet." : "";
+                    _notificationService.ErrorNotification(ErrorMessage);
                     System.IO.File.Delete(path);
-
                     response.Success = false;
                 }
 
