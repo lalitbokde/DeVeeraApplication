@@ -47,7 +47,7 @@
         </div>*@
 
 
-    <div class="intro-y  xxl:col-span-3   col-span-12 ">
+    <div class="intro-y  xxl:col-span-3   col-span-12 xl\:col-span-4 ">
         <div class=" mt-10 lg:mt-0">
             <div class="intro-x mt-10 text-4xl font-medium mr-4 ml-4">@Model.Title</div>
 
@@ -60,7 +60,7 @@
     </div>*@
     </div>
 
-    <div class="intro-y   xxl:col-span-6 mt-5  col-span-12  ">
+    <div class="intro-y   xxl:col-span-6 mt-5  col-span-12  xl\:col-span-4 ">
 
         <div id="multiple-item-slider" class="p-1">
             <div class="preview">
@@ -82,7 +82,11 @@
         </div>
     </div>
 
-        <div class="intro-y xxl:col-span-3   items-center pl-32  col-span-12   ">
+
+    @if (_workContext?.CurrentUser.UserRole.Name != "Admin")
+    {
+        <div class="intro-y xxl:col-span-3   items-center pl-32  col-span-12   xl\:col-span-4 ">
+
             <div class="alert alert-warning show mb-2 mt-10 mr-4 ml-4 " role="alert">
                 <div class="flex items-center sm\:justify-start">
                     <div class="font-medium text-lg ">Recent Diary</div>
