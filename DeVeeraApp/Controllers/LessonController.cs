@@ -80,7 +80,7 @@ namespace DeVeeraApp.Controllers
         {
             var random = new Random();
             ViewBag.SrNo = srno;
-            ViewBag.TotalLevels = _levelServices.GetAllLevels().Count;
+            ViewBag.TotalLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList().Count;
             var videoData = new LevelModel();
             videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
