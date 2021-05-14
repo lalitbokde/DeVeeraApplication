@@ -52,10 +52,6 @@
         </div>
     </div>
 
-
-
-    @if (_workContext?.CurrentUser.UserRole.Name != "Admin")
-    {
         <div class="intro-y xxl:col-span-3   items-center pl-32   xxl\:col-span-3  xl\:col-span-4 col-span-12 lg\:col-span-3">
 
 
@@ -67,7 +63,7 @@
                 <div class="line-clamp-3 mt-3">@Html.Raw(Model.DiaryText)</div>
             </div>
         </div>
-    }
+
 </div>
 
 
