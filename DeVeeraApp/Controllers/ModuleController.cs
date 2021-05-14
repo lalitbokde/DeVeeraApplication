@@ -1,11 +1,13 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
+using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-    public class ModuleController : Controller
+    public class ModuleController : BaseController
     {
         private readonly IModuleService _moduleService;
         private readonly ILevelServices _levelServices;
@@ -28,7 +30,11 @@ namespace DeVeeraApp.Controllers
                                 IQuestionAnswerService questionAnswerService,
                                 IWorkContext workContext,
                                 IUserService userService,
-                                IDiaryMasterService diaryMasterService)
+                                IDiaryMasterService diaryMasterService,
+                                IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _moduleService = moduleService;
             _levelServices = levelServices;
@@ -42,6 +48,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Index(int id, int srno, int levelSrno)
         {
+            AddBreadcrumbs("Module", "Index", "/Module/Index", "/Module/Index");
             ViewBag.SrNo = srno;
             ViewBag.LevelSrNo = levelSrno;
             var data = _moduleService.GetModuleById(id);
@@ -68,7 +75,6 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Previous(int id, int srno, int levelSrno)
         {
-
             var data = _moduleService.GetAllModules().OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
             if (data != null)
             {

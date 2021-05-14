@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-20 mt-3">Save</button>
+                                    <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary w-20 mt-3" onclick="Userprofileloader()">Save</button>
+                                    <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">Save</button>
                                 </div>
 
                             </div>
@@ -156,13 +156,3 @@
     </div>
 </div>
 <!-- END: Profile Menu -->
-<script>
-    function Userprofileloader() {
-        $('.ovalicon').css('display', 'block');
-        $('.oval').css('display', 'block');
-        $('.loader').removeAttr("hidden");
-        setTimeout(function () {
-            $("#loader").hide();
-        }, 500);
-    }
-</script>

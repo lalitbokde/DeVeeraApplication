@@ -97,12 +97,12 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
+            AddBreadcrumbs("Language", "List", "/Language/List", "/Language/List");
             var model = new List<LanguageModel>();
             var data = _languageService.GetAllLanguages();
             if(data.Count != 0)
             {
                 model = data.ToList().ToModelList<Language, LanguageModel>(model);
-
 
             }
             return View(model);

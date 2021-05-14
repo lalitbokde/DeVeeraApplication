@@ -11,3 +11,12 @@ setTimeout(function () {
     $("#loader").hide();
 }, 100);
 
+
+function LoadLoader() {
+$('.ovalicon').css('display', 'block');
+$('.oval').css('display', 'block');
+$('.loader').removeAttr("hidden");
+setTimeout(function () {
+    $("#loader").hide();
+}, 500);
+}
