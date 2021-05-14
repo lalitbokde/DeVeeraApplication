@@ -124,7 +124,7 @@
                                     </div>
                                     <div class="intro-y  col-span-6 ml-auto">
 
-                                        <a asp-controller="Level" asp-action="Edit" target="_blank" class="btn btn-primary w-24" onclick="submit()">Preview</a>
+                                        <a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index/@Model.Id">Preview</a>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +166,12 @@
                             </div>
 
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                                <button type="submit" class="btn btn-primary w-24" onclick="LevelEditLoader()">Save</button>
+
+                                <button type="submit" class="btn btn-primary mr-2 w-24" onclick="LevelEditLoader()">Save</button>
+                                @if (Model.Modules.Id != 0)
+                                {                     
+                                  <a target="_blank" class="btn btn-primary w-24" href="/Module/Index/@Model.Modules.Id">Preview</a>                                    
+                                }
                             </div>
                         </form>
                     </div>
