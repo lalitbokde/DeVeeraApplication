@@ -117,6 +117,8 @@
     <Compile Include="Migrations\20210511111404_ModuleTable-AddTitle.Designer.cs" />
     <Compile Include="Migrations\20210513115706_LastUpdateOn-Diary.cs" />
     <Compile Include="Migrations\20210513115706_LastUpdateOn-Diary.Designer.cs" />
+    <Compile Include="Migrations\20210514072807_DasboardMenu.cs" />
+    <Compile Include="Migrations\20210514072807_DasboardMenu.Designer.cs" />
 
 
 

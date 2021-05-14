@@ -1,0 +1,63 @@
+﻿@model DeVeeraApp.ViewModels.DashboardMenuModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form asp-controller="DashboardMenu" asp-action="Edit" method="post">
+    <div class="intro-y inbox py-10 sm:py-20 ">
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg">Dashboard Menu</div>
+            <div class="text-gray-600 text-center mt-2"></div>
+        </div>
+        <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                <div class="intro-y box p-5 col-span-12">
+                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                    {
+                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                        </div>
+                    }
+
+
+                <div class="mt-5">
+                    <label for="input-wizard-1" class="form-label text-theme-21 star">Menu 1</label>
+                    <input asp-for="Id" hidden/>
+                    <input asp-for="Menu_1" type="text" class="form-control w-full" placeholder="Menu 1" />
+                    <span asp-validation-for="Menu_1" class="text-theme-6 mt-2"></span>
+                </div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Menu 2</label>
+                        <input asp-for="Menu_2" type="text" class="form-control w-full" placeholder="Menu 2" />
+                        <span asp-validation-for="Menu_2" class="text-theme-6 mt-2"></span>
+                    </div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Menu 3</label>
+                        <input asp-for="Menu_3" type="text" class="form-control w-full" placeholder="Menu 3" />
+                        <span asp-validation-for="Menu_3" class="text-theme-6 mt-2"></span>
+                    </div>
+
+
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                            <div class="intro-y col-span-6">
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-primary w-28">Back to Home</a>
+                            </div>
+                            <div class="intro-y col-span-6 ml-auto">
+                                <button type="submit" class="btn btn-primary w-24">Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</form>
+
