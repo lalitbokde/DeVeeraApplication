@@ -16,15 +16,15 @@
     }
 </style>
 
-<div class="intro-y col-span-12 flex  mt-5">
-    <div class="intro-y col-span-6 mr-auto">
+<div class=" grid grid-cols-12  gap-6 intro-y col-span-12 flex  mt-5">
+    <div class="intro-y  xxl:col-span-6 xxl\:col-span-6  xl\:col-span-6 col-span-12 lg\:col-span-6 mr-auto">
         <div class=" mt-10 lg:mt-0">
             <div class="intro-x mt-10 text-4xl font-medium ml-2">@ViewBag.LevelName : @Model.Title</div>
 
         </div>
     </div>
 
-    <div class="intro-y col-span-6 flex items-center">
+    <div class="intro-y xxl:col-span-6 xxl\:col-span-6  xl\:col-span-6 col-span-12 lg\:col-span-6 flex items-center  ">
         <div class="alert alert-warning show mb-2 mt-10" role="alert">
             <div class="flex items-center">
                 <div class="font-medium text-lg mr-4">Latest Diary</div>
@@ -84,7 +84,7 @@
     <!-- BEGIN: Blog Layout -->
     <div class="intro-y mt-6">
         <div class="news__preview image-fit">
-            @{string src = Model.Level.Video.VideoUrl; }
+            @{string src = Model.Video.VideoUrl; }
             <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
         </div>
     </div>

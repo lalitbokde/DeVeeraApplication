@@ -21,6 +21,10 @@ namespace DeVeeraApp.ViewModels
         public virtual Level Level { get; set; }
 
         [NotMapped]
+        public virtual Video Video { get; set; }
+
+
+        [NotMapped]
         public string DiaryText { get; set; }
 
         [NotMapped]
