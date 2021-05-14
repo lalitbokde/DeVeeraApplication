@@ -37,13 +37,13 @@
                     <input asp-for="LevelId" hidden />
                     <input asp-for="ModuleId" hidden />
 
-                 
+
                     <div class="mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
                     </div>
                     <div class="" id="standard-editor">
                         <div class="preview">
-                            <input type="text" asp-for="Title" class="form-control" placeholder="title" /> 
+                            <input type="text" asp-for="Title" class="form-control" placeholder="title" />
 
                         </div>
                     </div>
@@ -85,9 +85,19 @@
                                             <div class="flex items-center">
                                                 <div class="font-medium">@item.Title</div>
                                             </div>
-                                            <div class="flex items-center">
-                                                <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
+                                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-1">
+                                                <div class="intro-y   col-span-6">
+                                                    <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
+                                                </div>
+                                                @if (item.LastUpdatedOn.ToShortDateString() != "01/01/0001")
+                                                {
+                                                    <div class="intro-y  col-span-6 ml-auto">
+                                                        <div class="text-xs text-gray-500 ">Last Updated On:- @item.LastUpdatedOn.ToShortDateString() @item.LastUpdatedOn.ToShortTimeString()</div>
+                                                    </div>
+                                                }
                                             </div>
+
+
                                             <div class="flex items-center">
                                                 <div class="text-gray-600 line-clamp-1 mt-1">@Html.Raw(@item.Comment)</div>
 
