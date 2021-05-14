@@ -18,6 +18,7 @@ using CRM.Services.DashboardQuotes;
 using CRM.Core;
 using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
+using CRM.Services.DashboardMenu;
 
 namespace DeVeeraApp.Controllers
 {
@@ -30,6 +31,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelServices _levelServices;
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly IDashboardMenuService _dashboardMenuService;
         private readonly IUserService _UserService;
         private readonly IWorkContext _workContext;
         private readonly IFeelGoodStoryServices _feelGoodStoryServices;
@@ -45,6 +47,7 @@ namespace DeVeeraApp.Controllers
                               ILevelServices levelServices,
                               IWeeklyUpdateServices weeklyUpdateServices,
                               IDashboardQuoteService dashboardQuoteService,
+                              IDashboardMenuService dashboardMenuService,
                               IWorkContext workContext,
                               IHttpContextAccessor httpContextAccessor,
                               IAuthenticationService authenticationService,
@@ -61,6 +64,7 @@ namespace DeVeeraApp.Controllers
             _levelServices = levelServices;
             _weeklyUpdateServices = weeklyUpdateServices;
             _dashboardQuoteService = dashboardQuoteService;
+            _dashboardMenuService = dashboardMenuService;
             _UserService = userService;
             _workContext = workContext;
             _feelGoodStoryServices = feelGoodStoryServices;
@@ -80,11 +84,12 @@ namespace DeVeeraApp.Controllers
 
             var model = new DashboardQuoteModel();
 
-            var quote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
+            var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
 
             model.Title = quote?.Title;
             model.Author = quote?.Author;
 
+            model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
 
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
 
@@ -211,7 +216,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes");
             var model = new List<DashboardQuoteModel>();
 
-            var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQutoes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
+            var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
             if (WeeklyQuoteData.Count != 0)
             {
                 foreach (var item in WeeklyQuoteData)

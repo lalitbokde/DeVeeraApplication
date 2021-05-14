@@ -52,6 +52,7 @@ namespace CRM.Data
         //Quote
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
         public DbSet<DashboardQuote> DashboardQuote { get; set; }
+        public DbSet<DashboardMenus> DashboardMenus { get; set; }
 
         //Questions
         public DbSet<Questions> Question { get; set; }
