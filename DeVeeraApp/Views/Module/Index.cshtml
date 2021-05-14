@@ -10,7 +10,8 @@
         height: auto;
         background-size: cover;
     }
-    .gridclass{
+
+    .gridclass {
         grid-column: span 11/span 11;
     }
 </style>
@@ -22,18 +23,18 @@
 
         </div>
     </div>
-    
-        <div class="intro-y col-span-6 flex items-center">
-            <div class="alert alert-warning show mb-2 mt-10" role="alert">
-                <div class="flex items-center">
-                    <div class="font-medium text-lg mr-4">Latest Diary</div>
-                    <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
-                </div>
-                <div class="mt-3">@Html.Raw(Model.DiaryText)</div>
-            </div>
 
+    <div class="intro-y col-span-6 flex items-center">
+        <div class="alert alert-warning show mb-2 mt-10" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-lg mr-4">Latest Diary</div>
+                <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
+            </div>
+            <div class="mt-3">@Html.Raw(Model.DiaryText)</div>
         </div>
-    
+
+    </div>
+
 </div>
 
 
@@ -54,9 +55,9 @@
                 <a onclick="ShowDeleteConfirmation('PostDeleteModule(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
 
             }
-            
-                <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-            
+
+            <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
 
@@ -92,17 +93,17 @@
         @Html.Raw(Model.FullDescription)
     </div>
     <div class="border-t border-theme-25 mt-5"></div>
-            <div class="grid grid-cols-12 gap-6 mt-10">
-                <div class="col-span-12 lg:col-span-8 xl:col-span-6">
-                    <div class="intro-x text-2xl font-medium">Questionnaire</div>
-                </div>
-                @if (_workContext.CurrentUser.UserRole.Name=="Admin") 
-                {
-                <div class="col-span-12 lg:col-span-8 xl:col-span-6 text-right">
-                    <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
-                </div>
-                }
+    <div class="grid grid-cols-12 gap-6 mt-10">
+        <div class="col-span-12 lg:col-span-8 xl:col-span-6">
+            <div class="intro-x text-2xl font-medium">Questionnaire</div>
+        </div>
+        @if (_workContext.CurrentUser.UserRole.Name == "Admin")
+        {
+            <div class="col-span-12 lg:col-span-8 xl:col-span-6 text-right">
+                <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
             </div>
+        }
+    </div>
     @{
 
         int UserId = _workContext.CurrentUser.Id;
@@ -110,89 +111,73 @@
 
         foreach (var item in Model.QuestionsList)
         {
-        <form asp-controller="QuestionAnswer" asp-action="Answer" method="post">
-            @*<div class="mt-5">
-            <label for="input-wizard-1" class="form-label">Q.  @item.Question</label>
-        </div>*@
+            <form asp-controller="QuestionAnswer" asp-action="Answer" method="post">
+                @*<div class="mt-5">
+                        <label for="input-wizard-1" class="form-label">Q.  @item.Question</label>
+                    </div>*@
 
-            <div class="intro-y col-span-12 mt-5">
-                <div class="box shadow-lg">
-                    <div class="flex flex-col lg:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                        <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
-                            <a class="font-medium"> @item.Question</a>
-                        </div>
-                    </div>
-                    @if (item.Question_Answer_Mapping.Where(a => a.UserId == UserId).ToList().Count == 0)
-                  {
-                    
-                        <div class=" grid grid-cols-12  col-span-12 mb-4 lg:mb-0 mr-auto p-5">
-                            <div class="bg-gray-200 grid grid-cols-12   col-span-12 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md ">
-                             
-                                <div class="grid-cols-12 gridclass">
-                                    <input id="Id" name="Id" value="@item.Id" hidden />
-                                    <input asp-for="Id" name="ModuleId" hidden />
-                                    <textarea id="Answer" name="Answer" class="chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0" rows="1" placeholder="Type your answer..."></textarea>
-                                  
-                                </div>
-                                <div class="grid-cols-12  ml-auto">
-                                    <button type="submit" class="w-8 h-8 sm:w-10 mt-4 sm:h-10 block bg-theme-17 text-white rounded-full flex-none flex items-center justify-center mr-5"> 
-                                    <i data-feather="send" class="w-4 h-4"></i> 
-                                    </button>
-                                </div>
+                <div class="intro-y col-span-12 mt-5">
+                    <div class="box shadow-lg">
+                        <div class="flex flex-col lg:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                            <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
+                                <a class="font-medium"> @item.Question</a>
                             </div>
                         </div>
-                   
+                        @if (item.Question_Answer_Mapping.Where(a => a.UserId == UserId).ToList().Count == 0)
+                        {
+
+                            <div class=" grid grid-cols-12  col-span-12 mb-4 lg:mb-0 mr-auto p-5">
+                                <div class="bg-gray-200 grid grid-cols-12   col-span-12 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md ">
+
+                                    <div class="grid-cols-12 gridclass">
+                                        <input id="Id" name="Id" value="@item.Id" hidden />
+                                        <input asp-for="Id" name="ModuleId" hidden />
+                                        <textarea id="Answer" name="Answer" class="chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0" rows="1" placeholder="Type your answer..."></textarea>
+
+                                    </div>
+                                    <div class="grid-cols-12  ml-auto">
+                                        <button type="submit" class="w-8 h-8 sm:w-10 mt-4 sm:h-10 block bg-theme-17 text-white rounded-full flex-none flex items-center justify-center mr-5">
+                                            <i data-feather="send" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            @if (UserRole != "Admin")
+                            {
+                                <div class="flex flex-wrap lg:flex-nowrap items-center justify-center p-5">
+                                    <div class="w-full  mb-4 lg:mb-0 mr-auto">
+                                        <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
+                                            <div class="mt-1 text-xs text-gray-600"> @item.Question_Answer_Mapping.FirstOrDefault().User.Email </div>
+                                            <label for="input-wizard-1" class="form-label"> @item.Question_Answer_Mapping.FirstOrDefault().Answer</label>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                else
-                {
-                    <div class="flex flex-wrap lg:flex-nowrap items-center justify-center p-5">
-                        <div class="w-full  mb-4 lg:mb-0 mr-auto">
-                            <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
-                                <a href="simple-menu-dark-chat.html" class="side-menu">
-                                    <div class="side-menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class=""><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> </div>
-                                  
-                                </a>
-                                <label for="input-wizard-1" class="form-label"> @item.Question_Answer_Mapping.FirstOrDefault().Answer</label>
-                                <div class="mt-1 text-xs text-gray-600">2 mins ago</div>
-                            </div>
-                        </div>
+                            else
+                            {
+                                <div class="flex flex-wrap lg:flex-nowrap items-center justify-center p-5">
+                                    <div class="w-full  mb-4 lg:mb-0 mr-auto">
+                                        <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
+                                            @foreach (var data in item.Question_Answer_Mapping)
+                                            {
+                                                <div class="mt-1 text-xs text-gray-600"> @data.User.Email </div>
+                                                <label for="input-wizard-1" class="form-label"> @data.Answer </label>                                    
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
-                    }
                 </div>
-            </div>
 
-           
 
-            @*@if (UserRole != "Admin")
-            {
-
-                @if (item.Question_Answer_Mapping.Where(a => a.UserId == UserId).ToList().Count == 0)
-                {
-                    <div class="pt-4 pb-10 sm:py-4 flex items-center border-t border-gray-200 dark:border-dark-5">
-                        <input id="Id" name="Id" value="@item.Id" hidden />
-                        <input asp-for="Id" name="ModuleId" hidden />
-                        <textarea id="Answer" name="Answer" class="chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0" rows="1" placeholder="Type your answer..."></textarea>
-                        <button type="submit" class="w-8 h-8 sm:w-10 sm:h-10 block bg-theme-17 text-white rounded-full flex-none flex items-center justify-center mr-5"> <i data-feather="send" class="w-4 h-4"></i> </button>
-                    </div>
-                }
-                else
-                {
-                    <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label">A. @item.Question_Answer_Mapping.FirstOrDefault().Answer</label>
-                    </div>
-                }
-            }
-            else
-            {
-                @foreach (var data in item.Question_Answer_Mapping)
-                {
-                    <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label">A. @data.Answer</label>
-                    </div>
-                }
-            }*@
-
-        </form>
+            </form>
 
         }
     }
