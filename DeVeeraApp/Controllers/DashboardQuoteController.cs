@@ -78,7 +78,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Dashboard Quote", "List", "/DashboardQuote/List", "/DashboardQuote/List");
 
             var model = new List<DashboardQuoteModel>();
-            var data = _dashboardQuoteService.GetAllDashboardQutoes();
+            var data = _dashboardQuoteService.GetAllDashboardQuotes();
             if (data.Count() != 0)
             {
                 foreach (var item in data)
@@ -109,7 +109,7 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                var ExistingQuote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.Title == model.Title);
+                var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == model.Title);
                 if (ExistingQuote.Count() == 0)
                 {
                     var quote = model.ToEntity<DashboardQuote>();
@@ -117,7 +117,7 @@ namespace DeVeeraApp.Controllers
                     {
                         _dashboardQuoteService.InActiveAllDashboardQuotes();
                     }
-                    _dashboardQuoteService.InsertDashboardQutoe(quote);
+                    _dashboardQuoteService.InsertDashboardQuote(quote);
                     _notificationService.SuccessNotification("Dashboard quote added successfully.");
                     return RedirectToAction("List");
                 }
@@ -138,7 +138,7 @@ namespace DeVeeraApp.Controllers
 
             if (id != 0)
             {
-                var data = _dashboardQuoteService.GetDashboardQutoeById(id);
+                var data = _dashboardQuoteService.GetDashboardQuoteById(id);
 
                 if (data != null)
                 {
@@ -160,7 +160,7 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                var quote = _dashboardQuoteService.GetDashboardQutoeById(model.Id);
+                var quote = _dashboardQuoteService.GetDashboardQuoteById(model.Id);
                 quote.Title = model.Title;
                 quote.Author = model.Author;
                 quote.IsRandom = model.IsRandom;
@@ -171,7 +171,7 @@ namespace DeVeeraApp.Controllers
                 {
                     _dashboardQuoteService.InActiveAllDashboardQuotes();
                 }
-                _dashboardQuoteService.UpdateDashboardQutoe(quote);
+                _dashboardQuoteService.UpdateDashboardQuote(quote);
                 _notificationService.SuccessNotification("Dashboard quote edited successfully.");
 
                 return RedirectToAction("List");
@@ -186,7 +186,7 @@ namespace DeVeeraApp.Controllers
 
             if (id != 0)
             {
-                var Data = _dashboardQuoteService.GetDashboardQutoeById(id);
+                var Data = _dashboardQuoteService.GetDashboardQuoteById(id);
                 if (Data == null)
                 {
                     response.Success = false;
@@ -293,7 +293,7 @@ namespace DeVeeraApp.Controllers
                 {
                     foreach (var item in _QuoteList)
                     {
-                        var ExistingQuote = _dashboardQuoteService.GetAllDashboardQutoes().Where(a => a.Title == item.Title);
+                        var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == item.Title);
 
                         if (ExistingQuote.Count() == 0)
                         {
@@ -330,7 +330,7 @@ namespace DeVeeraApp.Controllers
                 {
                     foreach (var item in _UniqueQuoteList)
                     {
-                        _dashboardQuoteService.InsertDashboardQutoe(item);
+                        _dashboardQuoteService.InsertDashboardQuote(item);
                     }
 
                     _notificationService.SuccessNotification("Quotes added successfully.");

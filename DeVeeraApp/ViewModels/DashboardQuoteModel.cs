@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CRM.Core.Domain;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,6 +28,7 @@ namespace DeVeeraApp.ViewModels
         public bool IsRandom { get; set; }
         public bool IsWeeklyInspiringQuotes { get; set; }
         public int AutoIncrement { get; set; }
+        public DashboardMenus Menus { get; set; }
         public IList<LevelModel> VideoModelList { get; set; }
         public IList<SelectListItem> AvailableLevels { get; set; }
     }

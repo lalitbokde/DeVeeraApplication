@@ -31,7 +31,7 @@ namespace CRM.Services.DashboardQuotes
             _dashboardQuoteRepository.Delete(model);
         }
 
-        public IList<DashboardQuote> GetAllDashboardQutoes()
+        public IList<DashboardQuote> GetAllDashboardQuotes()
         {
             var query = from vdo in _dashboardQuoteRepository.Table
                         orderby vdo.Id
@@ -40,7 +40,7 @@ namespace CRM.Services.DashboardQuotes
             return quote;
         }
 
-        public DashboardQuote GetDashboardQutoeById(int quoteId)
+        public DashboardQuote GetDashboardQuoteById(int quoteId)
         {
             if (quoteId == 0)
                 return null;
@@ -49,7 +49,7 @@ namespace CRM.Services.DashboardQuotes
             return _dashboardQuoteRepository.GetById(quoteId);
         }
 
-        public void InsertDashboardQutoe(DashboardQuote model)
+        public void InsertDashboardQuote(DashboardQuote model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
@@ -57,7 +57,7 @@ namespace CRM.Services.DashboardQuotes
             _dashboardQuoteRepository.Insert(model);
         }
 
-        public void UpdateDashboardQutoe(DashboardQuote model)
+        public void UpdateDashboardQuote(DashboardQuote model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));

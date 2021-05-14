@@ -13,6 +13,7 @@ using CRM.Data.Interfaces;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Common;
+using CRM.Services.DashboardMenu;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Directory;
 using CRM.Services.Helpers;
@@ -97,6 +98,7 @@ namespace DeVeeraApp
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IWeeklyUpdateServices, WeeklyUpdateServices>();
             services.AddScoped<IDashboardQuoteService, DashboardQuoteService>();
+            services.AddScoped<IDashboardMenuService, DashboardMenuService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IImageMasterService, ImageMasterService>();
             services.AddScoped<ILevelImageListServices, LevelImageListServices>();

@@ -244,7 +244,7 @@ namespace DeVeeraApp.Controllers
                 _levelServices.UpdateLevel(levelData);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Edit", "Level", model.Id);
             }
             return View();
         }
@@ -281,6 +281,7 @@ namespace DeVeeraApp.Controllers
                     _moduleServices.UpdateModule(modules);
                     _notificationService.SuccessNotification("Module has been updated successfully");
 
+                    return RedirectToAction("Edit", "Level", new { id = model.Id , ModuleId = model.Modules.Id });
                 }
 
                 return RedirectToAction("Edit", "Level", new { id = model.Id });

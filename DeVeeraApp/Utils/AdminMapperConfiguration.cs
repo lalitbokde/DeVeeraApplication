@@ -55,7 +55,8 @@ namespace DeVeeraApp.Utils
 
 
             CreateMap<DashboardQuote, DashboardQuoteModel>()
-               .ForMember(dest => dest.VideoModelList, mo => mo.Ignore());
+               .ForMember(dest => dest.VideoModelList, mo => mo.Ignore())
+               .ForMember(dest => dest.Menus, mo => mo.Ignore());
 
             CreateMap<Modules, ModulesModel>()
              .ForMember(dest => dest.QuestionsList, mo => mo.Ignore());
