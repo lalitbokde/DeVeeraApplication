@@ -56,11 +56,8 @@
 
                     </div>
                     <div class="mt-5">
-
-                        <label class="form-label text-theme-21 ">Active</label>
                         <input asp-for="Active" type="checkbox" class="form-check-input" placeholder="IsActive" checked="checked" />
-
-
+                        <label class="form-label text-theme-21 ml-2">Active</label>
                     </div>
 
                     <div class="mt-5">
@@ -77,7 +74,7 @@
                 </div>
 
                 <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                    <button type="submit" class="btn btn-primary w-24" onclick="LevelLoader()" >Save</button>
+                    <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()" >Save</button>
                 </div>
             </div>
 
@@ -89,13 +86,4 @@
 </form>
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
-<script>
-    function LevelLoader() {
-        $('.ovalicon').css('display', 'block');
-        $('.oval').css('display', 'block');
-        $('.loader').removeAttr("hidden");
-        setTimeout(function () {
-            $("#loader").hide();
-        }, 500);
-    }
-</script>
+

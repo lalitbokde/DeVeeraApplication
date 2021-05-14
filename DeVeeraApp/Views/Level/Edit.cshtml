@@ -120,7 +120,7 @@
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                                     <div class="intro-y   col-span-6">
-                                        <button type="submit" class="btn btn-primary w-24" onclick="LevelEditLoader()">Save</button>
+                                        <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
                                     </div>
                                     <div class="intro-y  col-span-6 ml-auto">
 
@@ -166,7 +166,7 @@
                             </div>
 
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                                <button type="submit" class="btn btn-primary w-24" onclick="LevelEditLoader()">Save</button>
+                                <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
                             </div>
                         </form>
                     </div>
@@ -217,14 +217,7 @@
 
 </div>
 <script>
-    function LevelEditLoader() {
-        $('.ovalicon').css('display', 'block');
-        $('.oval').css('display', 'block');
-        $('.loader').removeAttr("hidden");
-        setTimeout(function () {
-            $("#loader").hide();
-        }, 500);
-    }
+   
 
     function sendRequest() {
 
