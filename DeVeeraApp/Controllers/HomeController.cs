@@ -188,14 +188,16 @@ namespace DeVeeraApp.Controllers
 
             var model = data.ToModel<WeeklyUpdateModel>();
             model.VideoUrl = data?.Video?.VideoUrl;
-            var firstLevel = _levelServices.GetAllLevels().FirstOrDefault();
-            if (firstLevel != null && firstLevel.Active == true)
+            var firstLevel = _levelServices.GetAllLevels().Where(a=>a.Active==true).FirstOrDefault();
+            if (firstLevel != null)
             {
                 model.LastLevel = firstLevel.Id;
                 ViewBag.SrNo = 1;
 
             }
-            
+            currentUser.LastLevel = model.LastLevel;
+            _UserService.UpdateUser(currentUser);
+
             return View(model);
 
 

@@ -225,7 +225,7 @@ namespace DeVeeraApp.Controllers
                 levelData.LevelNo = model.LevelNo;
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
-
+                levelData.Active = model.Active;
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
                 if (model.SelectedImg.Count() != 0)
