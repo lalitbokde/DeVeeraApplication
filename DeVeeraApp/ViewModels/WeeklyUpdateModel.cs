@@ -12,27 +12,16 @@ namespace DeVeeraApp.ViewModels
 {
     public class WeeklyUpdateModel : BaseEntityModel
     {
-
-        //[Required]
-        //public string Title { get; set; }
-        //[Required]
-        //public string Subtitle { get; set; }
-
-
         public WeeklyUpdateModel()
         {
             this.AvailableVideo = new List<SelectListItem>();
         }
 
         public int VideoId { get; set; }
-        public string VideoUrl { get; set; }
+        public string VideoUrl { get; set; }       
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
 
-        //[Required]
-        //public string Title { get; set; }
-        //[Required]
-        //public string Subtitle { get; set; }
-
-        //[Required]
         public string VideoName { get; set; }
 
         [Required]
