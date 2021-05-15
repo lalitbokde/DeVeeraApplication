@@ -39,9 +39,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <div class="intro-y col-span-12 lg:col-span-6">
                         <div class="text-white mt-10 lg:mt-0">
-                            <div class="intro-x text-xl lg:text-3xl font-medium mt-5"> Welcome to Happ-e!</div>
+                            <div class="intro-x text-xl lg:text-3xl font-medium mt-5"> @Model.Title </div>
                             <div class="intro-x text-xl lg:text-3xl font-medium mt-5">Let's Start </div>
-                            <div class="intro-x text-lg mt-3">The Best Way To Get Started Is To Quit Talking And Begin Doing. – Walt Disney</div>
+                            <div class="intro-x text-lg mt-3"> @Model.Subtitle </div>
                             @if (Model.LastLevel != 0)
                             {
                                 <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>

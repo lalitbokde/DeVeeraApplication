@@ -23,7 +23,17 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
+                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                        </div>
 
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Quote" />
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                        </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
@@ -69,7 +79,17 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
+                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                        </div>
 
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Quote" />
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                        </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
@@ -120,9 +140,24 @@
                             </div>
                         }
                         <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
+                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                        </div>
+                        <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
 
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                        </div>
+                        <div class="" id="standard-editor">
+                            <div class="preview">
+                                <textarea id="editor2" asp-for="Subtitle" class="editor2"> </textarea>
+
+                            </div>
 
                         </div>
                         <div class="mt-5">

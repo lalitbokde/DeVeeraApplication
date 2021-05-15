@@ -1,4 +1,4 @@
-﻿@model DeVeeraApp.ViewModels.LanguageModel
+﻿@model DeVeeraApp.ViewModels.LandingPageModel
 @inject CRM.Core.IWorkContext _workContext;
 @{ 
     Layout = null;
@@ -53,33 +53,15 @@
                     <div class="hero-inner">
                         <div class="hero-copy">
                             <label class="mb-1">Choose Language</label><br/>
-                            <select asp-for="LanguageId" asp-items="@Model.AvailableLanguages">
+                            <select asp-for="Language.LanguageId" asp-items="@Model.Language.AvailableLanguages">
                                
                             </select>
-                            <h1 class="hero-title mt-8">Happiness is the state of balance.</h1>
+                            <h1 class="hero-title mt-8">@Model.WeeklyUpdate?.Title</h1>
 
-                            <h3>Our LI (Life Integrated) Happiness Method</h3>
+                            
+
                             <p class="hero-paragraph">
-                                To feel happy, one needs to balance his or her
-                                emotions and energy, and, to be happy, people need to balance certain aspects of their
-                                lives.
-                            </p>
-                            <p class="hero-paragraph">
-                                Feeling happy is the state of experiencing positive emotions that are brought
-                                about by external circumstances. This could be as seemingly life changing as winning
-                                the lottery, or as simple as eating a delicious meal, or meeting someone new, or even
-                                watching your favorite football team win the Superbowl.
-                            </p>
-                            <p class="hero-paragraph">
-                                In order to truly be happy,
-                                however, you must be able to maintain a positive emotional state, even in the down
-                                cycles of life. Happiness as a constant state of being is a skill that must be learned,
-                                practiced, and perfected, just like riding a bike or playing an instrument.
-                            </p>
-                            <p class="hero-paragraph">
-                                We believe
-                                that, by practicing our <b><i>LI (Life Integrated) Happiness Method</i></b>, you will be able maintain a
-                                positive emotional state during the up and, especially, the down cycles of life.
+                                @Html.Raw(Model.WeeklyUpdate?.Subtitle)
                             </p>
 
                         </div>

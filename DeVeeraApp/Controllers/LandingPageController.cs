@@ -10,6 +10,8 @@ using CRM.Services;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ErrorViewModel = DeVeeraApp.Models.ErrorViewModel;
+using DeVeeraApp.Utils;
+using CRM.Core.Domain;
 
 namespace DeVeeraApp.Controllers
 {
@@ -56,10 +58,13 @@ namespace DeVeeraApp.Controllers
         #region methods
         public IActionResult Index()
         {
+            var model = new LandingPageModel();
+
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
+            model.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
             ViewBag.VideoUrl = data?.Video?.VideoUrl;
-            var model = new LanguageModel();
-            PrepareLanguages(model);
+           
+            PrepareLanguages(model.Language);
             return View(model);
         }
 

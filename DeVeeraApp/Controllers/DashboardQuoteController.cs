@@ -109,7 +109,7 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
-                var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == model.Title);
+                var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == model.Title && a.Author == model.Author);
                 if (ExistingQuote.Count() == 0)
                 {
                     var quote = model.ToEntity<DashboardQuote>();
@@ -276,7 +276,7 @@ namespace DeVeeraApp.Controllers
 
                                     IsDashboardQuote = false,
 
-                                    IsRandom = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : true,
+                                    IsRandom = true,
 
                                     //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
                                 });
@@ -293,7 +293,7 @@ namespace DeVeeraApp.Controllers
                 {
                     foreach (var item in _QuoteList)
                     {
-                        var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == item.Title);
+                        var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == item.Title && a.Author==item.Author);
 
                         if (ExistingQuote.Count() == 0)
                         {

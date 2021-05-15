@@ -13,8 +13,10 @@
 }
 
 
-
-
+//automatic number generating formatter
+var autoNumFormatter = function () {
+    return $("#tabulator1 .tabulator-row").length ;
+};
 
 var table = new Tabulator("#tabulator1",
     {
@@ -24,7 +26,7 @@ var table = new Tabulator("#tabulator1",
         columns: [
             
             //{ title: "#", field: "", sorter: "number", width: 50, editor: true, headerSort: false},
-            { title: "#",  field: "Id", sorter: "string", width: 90 },
+            { title: "#", width: 90, headerSort: false, formatter: autoNumFormatter},
             { title: "Quote", field: "Title", sorter: "string", width: 290 },
             { title: "Author", field: "Author", sorter: "string", width: 170 },
             { title: "Level", field: "Level", sorter: "string", width: 140 },
