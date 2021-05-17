@@ -30,6 +30,7 @@ using FamilyOrRelationship = CRM.Core.Domain.Users.FamilyOrRelationship;
 using Gender = CRM.Core.Domain.Users.Gender;
 using Income = CRM.Core.Domain.Users.Income;
 using CRM.Services;
+using CRM.Services.VideoModules;
 
 namespace DeVeeraApp.Controllers
 {
@@ -41,6 +42,7 @@ namespace DeVeeraApp.Controllers
         private readonly IUserService _UserService;
         private readonly ILevelServices _levelServices;
         private readonly IUserModelFactory _UserModelFactory;
+        private readonly IModuleService _moduleService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAddressService _addressService;
@@ -71,7 +73,8 @@ namespace DeVeeraApp.Controllers
                                   IUserRegistrationService UserRegistrationService,
                                   IAuthenticationService authenticationService,
                                   IUserModelFactory UserModelFactory,
-                                 // INotificationService notificationService,
+                                  IModuleService moduleService,
+                                  // INotificationService notificationService,
                                   IEncryptionService encryptionService,
                                   INotificationService notificationService
                                 ) : base(
@@ -91,6 +94,7 @@ namespace DeVeeraApp.Controllers
             this._UserRegistrationService = UserRegistrationService;
             this._authenticationService = authenticationService;
             this._UserModelFactory = UserModelFactory;
+            this._moduleService = moduleService;
             this._permissionService = permissionService;
            // this._notificationService = notificationService;
             _encryptionService = encryptionService;
@@ -622,11 +626,43 @@ namespace DeVeeraApp.Controllers
         public IActionResult UserProfile(int userId)
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
-
+           
             if (userId != 0)
             {
+                var model = new UserModel();
+
                 var userData = _UserService.GetUserById(userId);
-                var model = userData.ToModel<UserModel>();
+                if(userData != null)
+                {
+                    model.Email = userData.Email;
+                    model.MobileNumber = userData.MobileNumber;
+                    model.Age = (int)userData.Age;
+                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
+                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
+                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+                    model.Occupation = userData.Occupation;
+                    model.UserRoleName = userData.UserRole.Name;
+
+                    if(_WorkContextService.CurrentUser.UserRole.Name == "Admin")
+                    {
+                        if (userData.LastLevel != 0 && userData.LastLevel != null)
+                        {
+                            var lastLevel = _levelServices.GetLevelById((int)userData.LastLevel);
+
+                            model.LevelTitle = lastLevel.Title;
+                        }
+                        if (userData.ActiveModule != null && userData.ActiveModule != 0)
+                        {
+                            var activeModule = _moduleService.GetModuleById((int)userData.ActiveModule);
+
+                            model.ModuleTitle = activeModule.Title;
+                            var level = _levelServices.GetLevelById(activeModule.LevelId);
+                            model.ActiveModuleLevelName = level.Title;
+                        }
+
+
+                    }
+                }
                 return View(model);
 
             }
@@ -658,7 +694,7 @@ namespace DeVeeraApp.Controllers
                         User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
                         User.Age = model.Age;
                         User.Occupation = model.Occupation;
-                        User.EducationType = (CRM.Core.Domain.Users.Education)model.GenderType;
+                        User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                         User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
                         _notificationService.SuccessNotification("User info updated successfull.");
 

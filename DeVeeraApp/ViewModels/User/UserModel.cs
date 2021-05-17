@@ -30,7 +30,7 @@ namespace DeVeeraApp.ViewModels.User
         public string Email { get; set; }
         [Required]
         public string MobileNumber { get; set; }
-        public Gender GenderType { get; set; }
+        public Gender? GenderType { get; set; }
         public int Age { get; set; }
         public string Occupation { get; set; }
         public Education EducationType { get; set; }
@@ -44,7 +44,12 @@ namespace DeVeeraApp.ViewModels.User
         [NotMapped]
         public string ConfirmPassword { get; set; }
         public string CompanyName { get; set; }
-
+        public int? LastLevel { get; set; }
+        public int? ActiveModule { get; set; }
+        public string LevelTitle { get; set; }
+        public string ModuleTitle { get; set; }
+        public string ActiveModuleLevelName { get; set; }
+        public string UserRoleName { get; set; }
         /// <summary>
         /// Gets or sets the username
         /// </summary>
