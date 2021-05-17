@@ -31,7 +31,7 @@
             </div>
             <!-- BEGIN: HTML Table Data -->
 
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+            @*<div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                 <div class="intro-y p-5 col-span-12">
                     <div class="intro-y box">
                         <div class="overflow-x-auto scrollbar-hidden">
@@ -40,8 +40,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
+            <div class="intro-y box p-5">
+                <div class="overflow-x-auto scrollbar-hidden">
+                    <input id="QuoteTable" value="@ViewBag.QuoteTable" hidden />
+                    <div id="tabulator1"></div>
+                </div>
+            </div>
 
 
         </div>

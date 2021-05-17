@@ -18,5 +18,5 @@ $('.oval').css('display', 'block');
 $('.loader').removeAttr("hidden");
 setTimeout(function () {
     $("#loader").hide();
-}, 500);
+}, 1000);
 }

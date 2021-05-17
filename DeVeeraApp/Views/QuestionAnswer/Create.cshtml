@@ -35,11 +35,21 @@
                         <select id="moduleId" asp-for="ModuleId" asp-items="Model.AvailableModules" type="text" data-search="true" class="select form-control w-full" placeholder="Select Module"></select>
                     </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                        <a asp-controller="QuestionAnswer" asp-action="List" class="btn btn-primary mr-2 w-24">List</a>
-                        <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
-                    </div>
+                        @*<a asp-controller="QuestionAnswer" asp-action="List" class="btn btn-primary mr-2 w-24">List</a>*@
+                        <div class="intro-y   col-span-6 pr-5">
+                            <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                Back to List
+                                <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="QuestionAnswer" asp-action="List">
+                                    <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="intro-y   col-span-6">
+                            <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                        </div>
+                        </div>
 
-                </div>
+                    </div>
 
             </div>
 
