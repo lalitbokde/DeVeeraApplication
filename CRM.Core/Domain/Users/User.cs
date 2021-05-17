@@ -97,6 +97,7 @@ namespace CRM.Core.Domain.Users
 
         public int? LastLevel { get; set; }
 
+        public int? ActiveModule { get; set; }
         public bool RegistrationComplete { get; set; }
 
         public bool TwoFactorAuthentication { get; set; }
