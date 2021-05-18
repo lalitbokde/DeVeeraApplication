@@ -28,10 +28,11 @@
                 </div>
             </div>
             <div class="p-5 border-t border-gray-200 dark:border-dark-5">
-                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium" data-toggle="tab" data-target="#accountInfo"> <i data-feather="activity" class="w-4 h-4 mr-2"></i> Personal Information </a>
-                <a class="flex items-center mt-5" data-toggle="tab" data-target="#changePassword"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Change Password </a>
-                <a class="flex items-center mt-5"> <i data-feather="settings" class="w-4 h-4 mr-2"></i> User Settings </a>
-                <a asp-controller="Home" asp-action="Help" class="flex items-center mt-5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium"  data-toggle="tab" data-target="#accountInfo"> <i data-feather="activity" class="w-4 h-4 mr-2"></i> Personal Information </a>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#changePassword"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Change Password </a>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#questionAnswerResponse"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> User Question Answer </a>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5" > <i data-feather="settings" class="w-4 h-4 mr-2"></i> User Settings </a>
+                <a asp-controller="Home" asp-action="Help" class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
             </div>
         </div>
         @if (_workContext.CurrentUser.UserRole.Name == "Admin")
@@ -43,7 +44,7 @@
                         <div class="font-medium text-lg">@Model.LevelTitle</div>
                         <div class="text-xs bg-white dark:bg-theme-17 dark:text-white text-gray-800 px-1 rounded-md ml-auto">Last Level</div>
                     </div>
-                 
+
                 </div>
 
             }
@@ -54,7 +55,7 @@
                         <div class="font-medium text-lg">@Model.ActiveModuleLevelName: @Model.ModuleTitle</div>
                         <div class="text-xs bg-white dark:bg-theme-17 dark:text-white text-gray-800 px-1 rounded-md ml-auto">Active Module</div>
                     </div>
-                  
+
                 </div>
 
             }
@@ -68,7 +69,7 @@
             <div id="changePassword" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
                 <form asp-controller="User" asp-action="UserProfile" method="post">
                     <input asp-for="Id" hidden />
-                    <input asp-for="@Model.Email" hidden   />
+                    <input asp-for="@Model.Email" id="hiddenEmail" hidden />
                     <div class="intro-y box lg:mt-5">
                         <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
                             <h2 class="font-medium text-base mr-auto">
@@ -82,7 +83,7 @@
                                         <div class="col-span-12 xxl:col-span-6">
                                             <div>
                                                 <label class="form-label">New Password</label>
-                                                <input asp-for="@Model.UserPassword.Password" type="password" class="form-control"   placeholder="Password" >
+                                                <input asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="Password">
                                                 <span asp-validation-for="UserPassword.Password" class="text-theme-6 mt-2"></span>
 
                                             </div>
@@ -125,7 +126,6 @@
                                         <div class="col-span-12 xxl:col-span-6">
                                             <div>
                                                 <label class="form-label">User Name</label>
-                                                <input asp-for="Id" hidden />
                                                 <input asp-for="Email" type="text" class="form-control" placeholder="User Name" readonly>
                                                 <span asp-validation-for="Email" class="text-theme-6 mt-2"></span>
 
@@ -173,6 +173,53 @@
                     <!-- END: Display Information -->
 
                 </form>
+
+
+            </div>
+            <div id="questionAnswerResponse" class="tab-pane">
+                <div class="intro-y inbox box mt-5">
+                    @if (Model.UserQuestionAnswerResponse.Count > 0)
+                    {
+                        <div class="p-5 flex flex-col-reverse sm:flex-row text-gray-600 border-b border-gray-200 dark:border-dark-1">
+                            <div class="flex items-center mt-3 sm:mt-0 border-t sm:border-0 border-gray-200 pt-5 sm:pt-0 mt-5 sm:mt-0 -mx-5 sm:mx-0 px-5 sm:px-0">
+                                <div class="font-medium text-base">Questionnaire</div>                            </div>
+                          
+                        </div>
+
+                        foreach (var item in Model.UserQuestionAnswerResponse)
+                        {
+                            <div class="overflow-x-auto sm:overflow-x-visible">
+                                <div class="intro-y">
+                                    <div class="inbox__item inline-block sm:block text-gray-700 dark:text-gray-500 bg-gray-100 dark:bg-dark-1 border-b border-gray-200 dark:border-dark-1">
+                                        <div class="flex px-5 py-3">
+                                            <div class="w-72 flex-none flex items-center mr-5">
+                                                <div class="inbox__item--sender truncate ml-3"><b>Question:</b>&nbsp;@item.Question?</div>
+                                            </div>
+                                            <div class="w-64 sm:w-auto truncate"> <span class="inbox__item--highlight"><b>Answer:</b>&nbsp;@item.Answer</span> </div>
+                                            <div class="inbox__item--time whitespace-nowrap ml-auto pl-10"><b>Module:</b>&nbsp;@item.ModuleName</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                        <div class="p-5 flex flex-col sm:flex-row items-center text-center sm:text-left text-gray-600">
+                            <div class="dark:text-gray-300">Total Questions Answered: @Model.UserQuestionAnswerResponse.Count</div>
+                            <div class="sm:ml-auto mt-2 sm:mt-0 dark:text-gray-300">Last Update By User: @Model.UserQuestionAnswerResponse.Max(a => a.AnsweredOn)</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="intro-y inbox box mt-5">
+                            <div class="p-5 flex flex-col-reverse sm:flex-row text-gray-600 border-b border-gray-200 dark:border-dark-1">
+                                <div class="flex items-center mt-3 sm:mt-0 border-t sm:border-0 border-gray-200 pt-5 sm:pt-0 mt-5 sm:mt-0 -mx-5 sm:mx-0 px-5 sm:px-0">
+                                    <h2>User&nbsp;<b>(@Model.Email)</b>&nbsp; has not responded to any questions yet.</h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
 
 
             </div>
