@@ -85,7 +85,7 @@ namespace DeVeeraApp.Controllers
                 {
                     if (item.LevelId != null && item.LevelId != 0)
                     {
-                        item.Level = _levelService.GetLevelById(Convert.ToInt32(item.LevelId)).Title;
+                        item.Level = _levelService.GetLevelById(Convert.ToInt32(item.LevelId))?.Title;
                     }
                     model.Add(item.ToModel<DashboardQuoteModel>());
                 }
