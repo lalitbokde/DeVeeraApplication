@@ -24,7 +24,7 @@
                 </div>
                 <div class="ml-4 mr-auto">
                     <div class="font-medium text-base">@Model.Email</div>
-                    <div class="text-gray-600">@Model.UserRole.Name</div>
+                    <div class="text-gray-600">@Model.UserRoleName</div>
                 </div>
             </div>
             <div class="p-5 border-t border-gray-200 dark:border-dark-5">
@@ -34,6 +34,32 @@
                 <a asp-controller="Home" asp-action="Help" class="flex items-center mt-5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
             </div>
         </div>
+        @if (_workContext.CurrentUser.UserRole.Name == "Admin")
+        {
+            @if (Model.LevelTitle != null)
+            {
+                <div class="intro-y box p-5 bg-theme-31  text-theme-26 mt-5">
+                    <div class="flex items-center">
+                        <div class="font-medium text-lg">@Model.LevelTitle</div>
+                        <div class="text-xs bg-white dark:bg-theme-17 dark:text-white text-gray-800 px-1 rounded-md ml-auto">Last Level</div>
+                    </div>
+                 
+                </div>
+
+            }
+            @if (Model.ModuleTitle != null)
+            {
+                <div class="intro-y box p-5 bg-theme-17 text-white mt-5">
+                    <div class="flex items-center">
+                        <div class="font-medium text-lg">@Model.ActiveModuleLevelName: @Model.ModuleTitle</div>
+                        <div class="text-xs bg-white dark:bg-theme-17 dark:text-white text-gray-800 px-1 rounded-md ml-auto">Active Module</div>
+                    </div>
+                  
+                </div>
+
+            }
+
+        }
     </div>
     <div class="col-span-12 lg:col-span-8 xxl:col-span-9">
 

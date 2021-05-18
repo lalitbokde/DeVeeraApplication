@@ -48,6 +48,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Index(int id, int srno, int levelSrno)
         {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             AddBreadcrumbs("Module", "Index", "/Module/Index", "/Module/Index");
             ViewBag.SrNo = srno;
             ViewBag.LevelSrNo = levelSrno;
@@ -68,6 +69,12 @@ namespace DeVeeraApp.Controllers
             moduleData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             ViewBag.LevelName = _levelServices.GetLevelById(data.LevelId).Title;
             moduleData.QuestionsList = _QuestionAnswerService.GetQuestionsByModuleId(id).ToList();
+            if(currentUser.UserRole.Name != "Admin")
+            {
+                currentUser.ActiveModule = id;
+                _userService.UpdateUser(currentUser);
+
+            }
             return View(moduleData);
         }
 
