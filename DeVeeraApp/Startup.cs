@@ -104,6 +104,7 @@ namespace DeVeeraApp
             services.AddScoped<ILevelImageListServices, LevelImageListServices>();
             services.AddScoped<IS3BucketService, S3BucketService>();
             services.AddScoped<IQuestionAnswerService, QuestionAnswerService>();
+            services.AddScoped<IQuestionAnswerMappingService, QuestionAnswerMappingService>();
             var authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;

@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using DeVeeraApp.ViewModels.QuestionAnswer;
 
 namespace DeVeeraApp.ViewModels.User
 {
@@ -21,6 +22,7 @@ namespace DeVeeraApp.ViewModels.User
             this.AvailableCountries = new List<SelectListItem>();
             this.AvailableStates = new List<SelectListItem>();
             this.AvailableUsers = new List<SelectListItem>();
+            this.UserQuestionAnswerResponse = new List<UserQuestionAnswerResponse>();
         }
 
         public string Username { get; set; }
@@ -50,6 +52,7 @@ namespace DeVeeraApp.ViewModels.User
         public string ModuleTitle { get; set; }
         public string ActiveModuleLevelName { get; set; }
         public string UserRoleName { get; set; }
+        public List<UserQuestionAnswerResponse>  UserQuestionAnswerResponse { get; set; }
         /// <summary>
         /// Gets or sets the username
         /// </summary>
@@ -183,6 +186,17 @@ namespace DeVeeraApp.ViewModels.User
 
     }
 
+
+
+
+    public class UserQuestionAnswerResponse
+    {
+        public int ModuleId { get; set; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
+        public string ModuleName { get; set; }
+        public DateTime AnsweredOn { get; set; }
+    }
     public enum Gender
     {
         Male = 1,
