@@ -53,8 +53,6 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
-
-
         #region methods
         public IActionResult Index()
         {

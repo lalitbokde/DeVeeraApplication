@@ -69,9 +69,6 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
-
-
-
         #region Methods
         public IActionResult Index()
         {
@@ -170,9 +167,12 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No video found";
                 }
-                _feelGoodStoryServices.DeleteFeelGoodStory(storyData);
-
-                response.Success = true;
+                else
+                {
+                    storyData.Deleted = true;
+                    response.Success = true;
+                    _feelGoodStoryServices.UpdateFeelGoodStory(storyData);
+                }
             }
             else
             {

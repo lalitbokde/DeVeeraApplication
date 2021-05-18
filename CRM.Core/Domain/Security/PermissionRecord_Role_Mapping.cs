@@ -8,8 +8,7 @@ namespace CRM.Core.Domain.Security
         public virtual PermissionRecord PermissionRecord { get; set; }
         public int UserRoleId { get; set; }
         public virtual UserRole UserRole { get; set; }
-      
-
+        public bool Deleted { get; set; }
 
     }
 

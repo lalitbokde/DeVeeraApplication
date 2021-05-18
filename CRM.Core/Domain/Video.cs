@@ -10,5 +10,6 @@ namespace CRM.Core.Domain
         public string VideoUrl { get; set; }
         public string Key { get; set; }
         public bool IsNew { get; set; }
+        public bool Deleted { get; set; }
     }
 }

@@ -34,6 +34,7 @@ namespace CRM.Services.DashboardQuotes
         public IList<DashboardQuote> GetAllDashboardQuotes()
         {
             var query = from vdo in _dashboardQuoteRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Id
                         select vdo;
             var quote = query.ToList();
@@ -70,7 +71,7 @@ namespace CRM.Services.DashboardQuotes
 
         public void InActiveAllDashboardQuotes()
         {
-            var datalist = _dashboardQuoteRepository.Table.Where(val => val.IsDashboardQuote == true).ToList();
+            var datalist = _dashboardQuoteRepository.Table.Where(val => val.IsDashboardQuote == true && val.Deleted == false).ToList();
 
             if (datalist.Count() != 0)
             {
@@ -90,7 +91,7 @@ namespace CRM.Services.DashboardQuotes
             if (LevelId == 0)
                 return null;
             var query = from a in _dashboardQuoteRepository.Table
-                        where a.LevelId == LevelId
+                        where a.LevelId == LevelId && a.Deleted == false
                         select a;
 
             var data = query.ToList();

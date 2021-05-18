@@ -28,8 +28,6 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
-
-
         #region ctor
 
         public ImageController(IImageMasterService imageMasterService,
@@ -48,8 +46,6 @@ namespace DeVeeraApp.Controllers
             _s3BucketService = s3BucketService;
         }
         #endregion
-
-
 
         #region methods
 
@@ -199,10 +195,14 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No image found";
                 }
-                _s3BucketService.DeleteFile(imageData.Key);
-                _imageMasterService.DeleteImage(imageData);
+                else
+                {
+                    imageData.Deleted = true;
+                    response.Success = true;
+                    _s3BucketService.DeleteFile(imageData.Key);
+                    _imageMasterService.UpdateImage(imageData);
+                }
 
-                response.Success = true;
             }
             else
             {

@@ -48,7 +48,7 @@
                                                     <td class="border-b dark:border-dark-5">@item.Module?.Level?.Title</td>
                                                     <td class="border-b dark:border-dark-5">@item.Module?.Title</td>
                                                     <td class="border-b dark:border-dark-5 text-theme-10">@*<a asp-controller="FeelGoodStory" asp-action="Edit" asp-route-Id="@item.Id">*@<i data-feather="edit"></i>@*</a>*@</td>
-                                                    <td class="border-b dark:border-dark-5 text-theme-24">@*<a onclick="ShowDeleteConfirmation('PostDeleteFeelGoodStory(@item.Id)')">*@<i data-feather="trash-2"></i>@*</a>*@</td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteQuestion(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                 </tr>
                                                 i++;
                                             }

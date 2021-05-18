@@ -24,6 +24,7 @@ namespace CRM.Core.Domain.Security
         /// Gets or sets the permission category
         /// </summary>
         public string Category { get; set; }
+        public bool Deleted { get; set; }
 
         /// <summary>
         /// Gets or sets discount usage history

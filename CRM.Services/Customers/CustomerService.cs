@@ -81,6 +81,7 @@ namespace CRM.Services.Users
             if (!string.IsNullOrWhiteSpace(username))
                 query = query.Where(c => c.Username.Contains(username));
 
+            query = query.Where(c => c.Deleted==false);
             query = query.OrderByDescending(c => c.Id);
 
             var Users = query.ToList();
@@ -230,7 +231,7 @@ namespace CRM.Services.Users
 
             var query = from c in _UserRepository.Table
                         orderby c.Id
-                        where c.Email == email
+                        where c.Email == email && c.Deleted == false
                         select c;
             var User = query.FirstOrDefault();
             return User;
@@ -248,7 +249,7 @@ namespace CRM.Services.Users
 
             var query = from c in _UserRepository.Table
                         orderby c.Id
-                        where c.SystemName == systemName
+                        where c.SystemName == systemName && c.Deleted == false
                         select c;
             var User = query.FirstOrDefault();
             return User;
@@ -266,7 +267,7 @@ namespace CRM.Services.Users
 
             var query = from c in _UserRepository.Table
                         orderby c.Id
-                        where c.Username == username
+                        where c.Username == username && c.Deleted == false
                         select c;
             var User = query.FirstOrDefault();
             return User;
@@ -339,7 +340,7 @@ namespace CRM.Services.Users
             if (name == null)
                 return null;
 
-            return _UserRoleRepository.Table.Where(n => n.Name == name).SingleOrDefault();
+            return _UserRoleRepository.Table.Where(n => n.Name == name && n.Deleted == false).SingleOrDefault();
         }
 
         /// <summary>
@@ -354,7 +355,7 @@ namespace CRM.Services.Users
 
             var query = from cr in _UserRoleRepository.Table
                         orderby cr.Id
-                        where cr.SystemName == systemName
+                        where cr.SystemName == systemName && cr.Deleted == false
                         select cr;
             var UserRole = query.FirstOrDefault();
             return UserRole;
@@ -371,7 +372,7 @@ namespace CRM.Services.Users
 
             var query = from cr in _UserRoleRepository.Table
                         orderby cr.Name
-                        where showHidden || cr.Active
+                        where showHidden || cr.Active && cr.Deleted == false
                         select cr;
             var UserRoles = query.ToList();
             return UserRoles;

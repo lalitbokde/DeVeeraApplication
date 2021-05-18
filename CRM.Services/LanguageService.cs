@@ -36,6 +36,7 @@ namespace CRM.Services
         public IList<Language> GetAllLanguages()
         {
             var query = from vdo in _repository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Id
                         select vdo;
             var languages = query.ToList();
@@ -57,7 +58,7 @@ namespace CRM.Services
                 return new List<Language>();
 
             var query = from c in _repository.Table
-                        where languageIds.Contains(c.Id)
+                        where languageIds.Contains(c.Id) && c.Deleted==false
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers

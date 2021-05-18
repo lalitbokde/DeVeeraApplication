@@ -21,7 +21,6 @@ namespace CRM.Services.VideoModules
         }
         #endregion
 
-
         #region Methods
         public void DeleteModule(Modules Modules)
         {
@@ -34,6 +33,7 @@ namespace CRM.Services.VideoModules
         public IList<Modules> GetAllModules()
         {
             var query = from vdo in _modulesRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Id
                         select vdo;
             var modules = query.ToList();
@@ -55,7 +55,7 @@ namespace CRM.Services.VideoModules
             if (ModuleId == 0)
                 return null;
             var query = from a in _modulesRepository.Table
-                        where a.LevelId == ModuleId
+                        where a.LevelId == ModuleId && a.Deleted==false 
                         select a;
 
             var data = query.ToList();

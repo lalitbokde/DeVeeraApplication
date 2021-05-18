@@ -13,6 +13,7 @@ namespace CRM.Core.Domain
         public bool IsDashboardQuote { get; set; }
         public bool IsRandom { get; set; }
         public bool IsWeeklyInspiringQuotes { get; set; }
+        public bool Deleted { get; set; }
 
     }
 }

@@ -164,7 +164,7 @@ function PostDeleteLevel(Id) {
                         buttonsStyling: false
                     }).then(function () {
 
-                        window.location.href = "/Home/Index"
+                        window.location.href = "/Level/List"
 
                     })
                 }
@@ -592,4 +592,52 @@ function PostDeleteLanguage(Id) {
         });
 
 }
+function PostDeleteQuestion(Id) {
 
+    var jsonData = {
+
+        Id: Id
+
+    };
+    $.post("/QuestionAnswer/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "Question has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Quote is in use.",
+                    'error',
+
+                )
+        });
+
+}

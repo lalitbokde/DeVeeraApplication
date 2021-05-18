@@ -796,9 +796,13 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No user found";
                 }
-                _UserService.DeleteUser(userData);
+                else
+                {
+                    userData.Deleted = true;
+                    response.Success = true;
+                    _UserService.UpdateUser(userData);
+                }
 
-                response.Success = true;
             }
             else
             {

@@ -34,6 +34,7 @@ namespace CRM.Services.QuestionsAnswer
         public IList<Questions> GetAllQuestions()
         {
             var query = from vdo in _questionsRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Id
                         select vdo;
             var questions = query.ToList();
@@ -54,7 +55,7 @@ namespace CRM.Services.QuestionsAnswer
             if (ModuleId == 0)
                 return null;
             var query = from a in _questionsRepository.Table
-                        where a.ModuleId == ModuleId
+                        where a.ModuleId == ModuleId && a.Deleted == false
                         select a;
 
             var data = query.ToList();
@@ -74,8 +75,6 @@ namespace CRM.Services.QuestionsAnswer
         {
             if (question == null)
                 throw new ArgumentNullException(nameof(question));
-
-
 
             _questionsRepository.Update(question);
         }

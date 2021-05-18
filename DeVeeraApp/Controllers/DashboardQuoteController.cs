@@ -85,7 +85,8 @@ namespace DeVeeraApp.Controllers
                 {
                     if (item.LevelId != null && item.LevelId != 0)
                     {
-                        item.Level = _levelService.GetLevelById(Convert.ToInt32(item.LevelId)).Title;
+                       var Level = _levelService.GetLevelById(Convert.ToInt32(item.LevelId));
+                       item.Level = Level?.Title;
                     }
                     model.Add(item.ToModel<DashboardQuoteModel>());
                 }
@@ -192,9 +193,12 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No Data found";
                 }
-                _dashboardQuoteService.DeleteDashboardQuote(Data);
-
-                response.Success = true;
+                else
+                {
+                    Data.Deleted = true;
+                    response.Success = true;
+                    _dashboardQuoteService.UpdateDashboardQuote(Data);
+                }
             }
             else
             {

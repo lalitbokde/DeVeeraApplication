@@ -6,6 +6,7 @@ using CRM.Services.QuestionsAnswer;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
+using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.QuestionAnswer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -157,6 +158,36 @@ namespace DeVeeraApp.Controllers
 
             return RedirectToAction("Index", "Module", new { id = model.ModuleId });
 
+        }
+
+        public IActionResult Delete(int Id)
+        {
+
+            ResponseModel response = new ResponseModel();
+
+            if (Id != 0)
+            {
+                var question = _QuestionAnswerService.GetQuestionById(Id);
+                if (question == null)
+                {
+                    response.Success = false;
+                    response.Message = "No user found";
+                }
+                else
+                {
+                    question.Deleted = true;
+                    response.Success = true;
+                    _QuestionAnswerService.UpdateQuestion(question);
+                }
+     
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "videoId is 0";
+
+            }
+            return Json(response);
         }
 
         #endregion

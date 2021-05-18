@@ -86,6 +86,7 @@ namespace CRM.Services.Common
         public virtual IList<Address> GetAllAddresses()
         {
             var query = from wh in _addressRepository.Table
+                        where wh.Deleted == false
                         orderby wh.FirstName
                         select wh;
             var warehouses = query.ToList();
@@ -117,7 +118,7 @@ namespace CRM.Services.Common
                 return 0;
 
             var query = from a in _addressRepository.Table
-                        where a.CountryId == countryId
+                        where a.CountryId == countryId && a.Deleted == false
                         select a;
             return query.Count();
         }
@@ -133,7 +134,7 @@ namespace CRM.Services.Common
                 return 0;
 
             var query = from a in _addressRepository.Table
-                        where a.StateProvinceId == stateProvinceId
+                        where a.StateProvinceId == stateProvinceId && a.Deleted == false
                         select a;
             return query.Count();
         }
@@ -163,7 +164,7 @@ namespace CRM.Services.Common
                 return new List<Address>();
 
             var query = from c in _addressRepository.Table
-                        where addressIds.Contains(c.Id) 
+                        where addressIds.Contains(c.Id) && c.Deleted == false
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers

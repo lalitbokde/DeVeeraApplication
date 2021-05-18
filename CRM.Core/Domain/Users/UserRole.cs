@@ -36,8 +36,8 @@ namespace CRM.Core.Domain.Users
         public string SystemName { get; set; }
 
 
-       
-      
+        public bool Deleted { get; set; }
+
 
         /// <summary>
         /// Gets or sets the permission records

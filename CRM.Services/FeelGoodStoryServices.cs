@@ -36,6 +36,7 @@ namespace CRM.Services
         public IList<FeelGoodStory> GetAllFeelGoodStorys()
         {
             var query = from vdo in _repository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Title
                         select vdo;
             var stories = query.ToList();
@@ -57,7 +58,7 @@ namespace CRM.Services
                 return new List<FeelGoodStory>();
 
             var query = from c in _repository.Table
-                        where Ids.Contains(c.Id)
+                        where Ids.Contains(c.Id) && c.Deleted == false
                         select c;
             var images = query.ToList();
             //sort by passed identifiers

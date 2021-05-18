@@ -88,6 +88,8 @@ namespace CRM.Core.Domain.Common
         /// </summary>
         public DateTime CreatedOnUtc { get; set; }
 
+        public bool Deleted { get; set; }
+
         /// <summary>
         /// Gets or sets the country
         /// </summary>

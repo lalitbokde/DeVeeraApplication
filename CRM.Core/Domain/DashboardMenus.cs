@@ -9,5 +9,6 @@ namespace CRM.Core.Domain
         public string Menu_1 { get; set; }
         public string Menu_2 { get; set; }
         public string  Menu_3 { get; set; }
+        public bool Deleted { get; set; }
     }
 }

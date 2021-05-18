@@ -122,10 +122,12 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No user found";
                 }
-
-                _languageService.DeleteLanguage(module);
-
-                response.Success = true;
+                else
+                {
+                    module.Deleted = true;
+                    response.Success = true;
+                    _languageService.UpdateLanguage(module);
+                }
             }
             else
             {

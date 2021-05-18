@@ -9,6 +9,7 @@ namespace CRM.Core.Domain
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string Key { get; set; }
-       
+        public bool Deleted { get; set; }
+
     }
 }

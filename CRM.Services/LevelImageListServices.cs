@@ -36,7 +36,7 @@ namespace CRM.Services
             if (levelId == 0)
                 throw new ArgumentNullException(nameof(levelId));
 
-            var data = _repository.Table.Where(i => i.LevelId == levelId).ToList();
+            var data = _repository.Table.Where(i => i.LevelId == levelId &&  i.Deleted == false).ToList();
             
             foreach(var item in data)
             {
@@ -48,6 +48,7 @@ namespace CRM.Services
         public IList<LevelImageList> GetAllLevelImage()
         {
             var query = from vdo in _repository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Id
                         select vdo;
             var warehouses = query.ToList();
@@ -87,7 +88,7 @@ namespace CRM.Services
             if(id == null)
                 throw new ArgumentNullException(nameof(id));
 
-           var data = _repository.Table.Where(i => i.LevelId == id).ToList();
+           var data = _repository.Table.Where(i => i.LevelId == id && i.Deleted == false).ToList();
 
             return data;
         }

@@ -161,9 +161,12 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No user found";
                 }
-                _weeklyUpdateServices.DeleteWeeklyUpdate(Data);
-
-                response.Success = true;
+                else
+                {
+                    Data.Deleted = true;
+                    response.Success = true;
+                    _weeklyUpdateServices.UpdateWeeklyUpdate(Data);
+                }
             }
             else
             {

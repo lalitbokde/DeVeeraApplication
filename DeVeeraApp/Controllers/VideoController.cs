@@ -261,7 +261,7 @@ namespace DeVeeraApp.Controllers
 
                 data.Key = null;
                 data.VideoUrl = null;
-
+                data.Deleted = true;
                 _videoMasterService.UpdateVideo(data);
                 response.Success = true;
 
@@ -288,10 +288,15 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No video found";
                 }
-                _videoUploadService.DeleteFile(videoData.Key);
-                _videoMasterService.DeleteVideo(videoData);
+                else
+                {
+                    videoData.Deleted = true;
+                    response.Success = true;
+                    _videoUploadService.DeleteFile(videoData.Key);
+                    _videoMasterService.UpdateVideo(videoData);
+                   
+                }
 
-                response.Success = true;
             }
             else
             {

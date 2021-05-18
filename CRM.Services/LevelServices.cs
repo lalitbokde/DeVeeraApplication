@@ -34,7 +34,8 @@ namespace CRM.Services
         public IList<Level> GetAllLevels()
         {
             var query = from vdo in _levelRepository.Table
-                        orderby vdo.Id
+                        where vdo.Deleted == false
+                        orderby vdo.LevelNo
                         select vdo;
             var warehouses = query.ToList();
             return warehouses;
@@ -55,7 +56,7 @@ namespace CRM.Services
                 return new List<Level>();
 
             var query = from c in _levelRepository.Table
-                        where VideoIds.Contains(c.Id)
+                        where VideoIds.Contains(c.Id) && c.Deleted==false
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers

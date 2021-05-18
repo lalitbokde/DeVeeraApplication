@@ -13,6 +13,7 @@ namespace CRM.Core.Domain
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; }
         public virtual Video Video { get; set; }
+        public bool Deleted { get; set; }
 
     }
 

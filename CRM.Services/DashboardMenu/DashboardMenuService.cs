@@ -34,6 +34,7 @@ namespace CRM.Services.DashboardMenu
         public IList<DashboardMenus> GetAllDashboardMenus()
         {
             var query = from vdo in _dashboardMenuRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Id
                         select vdo;
             var quote = query.ToList();

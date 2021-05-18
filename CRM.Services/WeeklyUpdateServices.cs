@@ -35,6 +35,7 @@ namespace CRM.Services
         public IList<WeeklyUpdate> GetAllWeeklyUpdates()
         {
             var query = from vdo in _weeklyUpdateRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Title
                         select vdo;
             var warehouses = query.ToList();
@@ -55,7 +56,7 @@ namespace CRM.Services
                 return new List<WeeklyUpdate>();
 
             var query = from c in _weeklyUpdateRepository.Table
-                        where VideoIds.Contains(c.Id)
+                        where VideoIds.Contains(c.Id) && c.Deleted==false
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers
@@ -122,7 +123,7 @@ namespace CRM.Services
             if (typeId == 0)
                 throw new ArgumentNullException(nameof(typeId));
 
-            var data = _weeklyUpdateRepository.Table.Where(q => Convert.ToInt32(q.QuoteType) == typeId).ToList();
+            var data = _weeklyUpdateRepository.Table.Where(q => Convert.ToInt32(q.QuoteType) == typeId && q.Deleted== false).ToList();
 
             return data;
 

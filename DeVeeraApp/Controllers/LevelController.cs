@@ -306,9 +306,12 @@ namespace DeVeeraApp.Controllers
                     response.Success = false;
                     response.Message = "No user found";
                 }
-                _levelServices.DeleteLevel(videoData);
-
-                response.Success = true;
+                else
+                {
+                    videoData.Deleted = true;
+                    response.Success = true;
+                    _levelServices.UpdateLevel(videoData);
+                }
             }
             else
             {

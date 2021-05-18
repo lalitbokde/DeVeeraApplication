@@ -31,5 +31,7 @@
         /// Gets or sets the country
         /// </summary>
         public virtual Country Country { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

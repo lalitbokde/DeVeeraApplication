@@ -35,6 +35,7 @@ namespace CRM.Services
         public IList<Diary> GetAllDiarys()
         {
             var query = from vdo in _DiaryRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.CreatedOn descending
                         select vdo;
             var Diarys = query.ToList();
@@ -56,7 +57,7 @@ namespace CRM.Services
                 return new List<Diary>();
 
             var query = from c in _DiaryRepository.Table
-                        where DiaryIds.Contains(c.Id)
+                        where DiaryIds.Contains(c.Id) && c.Deleted == false
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers

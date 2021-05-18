@@ -10,5 +10,6 @@ namespace CRM.Core.Domain
         public virtual Level Level { get; set; }
         public int ImageId { get; set; }
         public virtual Image Image { get; set; }
+        public bool Deleted { get; set; }
     }
 }

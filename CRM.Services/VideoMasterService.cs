@@ -33,6 +33,7 @@ namespace CRM.Services
         public IList<Video> GetAllVideos()
         {
             var query = from vdo in _videoRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.VideoUrl
                         select vdo;
             var videos = query.ToList();
@@ -54,7 +55,7 @@ namespace CRM.Services
                 return new List<Video>();
 
             var query = from c in _videoRepository.Table
-                        where VideoIds.Contains(c.Id)
+                        where VideoIds.Contains(c.Id) && c.Deleted==false
                         select c;
             var Users = query.ToList();
             //sort by passed identifiers

@@ -59,5 +59,6 @@ namespace CRM.Core.Domain.Users
         /// Gets or sets the User
         /// </summary>
         public virtual User User { get; set; }
+        public bool Deleted { get; set; }
     }
 }

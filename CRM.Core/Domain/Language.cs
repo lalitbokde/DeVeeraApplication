@@ -8,5 +8,6 @@ namespace CRM.Core.Domain
     {
         public string LanguageName { get; set; }
         public string Abbreviations { get; set; }
+        public bool Deleted { get; set; }
     }
 }

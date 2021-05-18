@@ -36,6 +36,7 @@ namespace CRM.Services
         public IList<Image> GetAllImages()
         {
             var query = from vdo in _imageRepository.Table
+                        where vdo.Deleted == false
                         orderby vdo.Name
                         select vdo;
             var images = query.ToList();
@@ -57,7 +58,7 @@ namespace CRM.Services
                 return new List<Image>();
 
             var query = from c in _imageRepository.Table
-                        where VideoIds.Contains(c.Id)
+                        where VideoIds.Contains(c.Id) && c.Deleted==false
                         select c;
             var images = query.ToList();
             //sort by passed identifiers
