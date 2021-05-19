@@ -60,8 +60,9 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateAdminModel model)
+        public IActionResult Create(CreateAdminModel model,string email,string passwordd)
         {
+           
             AddBreadcrumbs("Admin", "Create", "/Admin/Create", "/Admin/Create");
             string userRoleName = "Admin";
             if (ModelState.IsValid)
@@ -102,17 +103,20 @@ namespace DeVeeraApp.Controllers
                     _UserService.UpdateUser(user);
 
                     _notificationService.SuccessNotification("New Admin has been added successfully.");
-                    return RedirectToAction("List", "Admin", new { roleName = userRoleName });
+                    response.Success = true;
+                    response.Message = userRoleName;
+                 return RedirectToAction("List", "Admin", new { roleName = userRoleName });
 
                 }
                 else
                 {
                     ModelState.AddModelError("Email", "Email Already Exists");
-
+                    return View(model);
                 }
             }
-
-            return View(model);
+           
+           return View(model);  
+          
 
         }
         public IActionResult List(string roleName)
