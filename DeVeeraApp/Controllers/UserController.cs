@@ -31,6 +31,7 @@ using Gender = CRM.Core.Domain.Users.Gender;
 using Income = CRM.Core.Domain.Users.Income;
 using CRM.Services;
 using CRM.Services.VideoModules;
+using CRM.Services.QuestionsAnswer;
 
 namespace DeVeeraApp.Controllers
 {
@@ -44,6 +45,8 @@ namespace DeVeeraApp.Controllers
         private readonly IUserModelFactory _UserModelFactory;
         private readonly IModuleService _moduleService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IQuestionAnswerService _questionAnswerService;
+        private readonly IQuestionAnswerMappingService _questionAnswerMappingService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAddressService _addressService;
         private readonly ICountryService _countryService;
@@ -61,6 +64,8 @@ namespace DeVeeraApp.Controllers
 
         #region CTOR
         public UserController(IHttpContextAccessor httpContextAccessor,
+                              IQuestionAnswerService questionAnswerService,
+                                  IQuestionAnswerMappingService questionAnswerMappingService,
                                   IWorkContext WorkContextService,
                                   IUserPasswordService Userpasswordservice,
                                   IUserService UserService,
@@ -83,6 +88,8 @@ namespace DeVeeraApp.Controllers
                                     authenticationService: authenticationService)
         {
             this._httpContextAccessor = httpContextAccessor;
+            this._questionAnswerService = questionAnswerService;
+            this._questionAnswerMappingService = questionAnswerMappingService;
             this._WorkContextService = WorkContextService;
             this._UserService = UserService;
             _levelServices = levelServices;
@@ -96,15 +103,15 @@ namespace DeVeeraApp.Controllers
             this._UserModelFactory = UserModelFactory;
             this._moduleService = moduleService;
             this._permissionService = permissionService;
-           // this._notificationService = notificationService;
+            // this._notificationService = notificationService;
             _encryptionService = encryptionService;
-           _notificationService = notificationService;
+            _notificationService = notificationService;
         }
 
         #endregion
 
         #region Utilities
-       
+
         protected virtual void PrepareUserDataModel(UserModel model)
         {
             model.AvailableUserRoles.Add(new SelectListItem { Text = "Select Roles", Value = "0" });
@@ -147,8 +154,8 @@ namespace DeVeeraApp.Controllers
             List<StateProvince> states = new List<StateProvince>();
             if (model.UserAddress != null)
             {
-                if(model.UserAddress.CountryId != null)
-                states = _stateProvinceService.GetStateProvincesByCountryId((int)model.UserAddress.CountryId).ToList();
+                if (model.UserAddress.CountryId != null)
+                    states = _stateProvinceService.GetStateProvincesByCountryId((int)model.UserAddress.CountryId).ToList();
             }
 
 
@@ -184,7 +191,7 @@ namespace DeVeeraApp.Controllers
 
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
-          
+
 
 
         }
@@ -288,7 +295,7 @@ namespace DeVeeraApp.Controllers
 
         #region User
 
-      
+
 
         //edit User
         public IActionResult CreateUser()
@@ -298,9 +305,9 @@ namespace DeVeeraApp.Controllers
             if (HttpContext.Session.GetInt32("isMaintenance") == null)
                 return Logout();
 
-         //   ViewBag.ActiveMenu = "Users";
+            //   ViewBag.ActiveMenu = "Users";
 
-         //   AddBreadcrumbs("User", "Create", "/User/UserList", "/User/CreateUser");
+            //   AddBreadcrumbs("User", "Create", "/User/UserList", "/User/CreateUser");
 
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageUser))
                 return AccessDeniedView();
@@ -312,12 +319,12 @@ namespace DeVeeraApp.Controllers
         }
 
 
-     
+
 
         [HttpPost]
         public IActionResult CreateUser(UserListModel model)
         {
-           
+
             if (HttpContext.Session.GetInt32("isMaintenance") == null)
                 return Logout();
             ViewBag.FormName = "User List";
@@ -343,7 +350,7 @@ namespace DeVeeraApp.Controllers
                         {
                             ModelState.AddModelError("UserData.UserAddress.Email", "Email Already Exists");
                             PrepareUserDataModel(model.UserData);
-                            return View(model);                         
+                            return View(model);
                         }
                     }
                 }
@@ -352,13 +359,13 @@ namespace DeVeeraApp.Controllers
                 {
                     ModelState.AddModelError("UserData.UserRoleId", "Please Select UserRole");
                 }
-               
+
 
                 if (ModelState.IsValid)
                 {
                     if (model.UserData.Id == 0)
                     {
-                      
+
                         string RoleName = _WorkContextService.CurrentUser.UserRole.Name;
 
                         var user = model.UserData.ToEntity<User>();
@@ -374,7 +381,7 @@ namespace DeVeeraApp.Controllers
                         user.Alias = model.UserData.Alias;
 
                         _UserService.InsertUser(user);
-                
+
                         // password
                         if (!string.IsNullOrWhiteSpace(model.UserData.UserPassword.Password))
                         {
@@ -393,7 +400,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                      
+
                         return Json(model);
                     }
 
@@ -406,11 +413,11 @@ namespace DeVeeraApp.Controllers
 
                 {
                     PrepareUserDataModel(model.UserData);
-                    
+
                     var ErrorMessage = string.Join("\n", ModelState.Values
                             .SelectMany(v => v.Errors)
                              .Select(e => e.ErrorMessage));
-                   
+
                     //AddNotification(NotificationMessage.TitleError, response.Message, NotificationMessage.TypeError);
                     return View(model);
                 }
@@ -428,7 +435,7 @@ namespace DeVeeraApp.Controllers
 
                 return View(model);
             }
-        
+
 
         }
 
@@ -473,7 +480,7 @@ namespace DeVeeraApp.Controllers
                                 }
                                 else
                                 {
-                                   
+
                                     return RedirectToAction("Index", "Home");
                                 }
 
@@ -626,13 +633,13 @@ namespace DeVeeraApp.Controllers
         public IActionResult UserProfile(int userId)
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
-           
+
             if (userId != 0)
             {
                 var model = new UserModel();
 
                 var userData = _UserService.GetUserById(userId);
-                if(userData != null)
+                if (userData != null)
                 {
                     model.Email = userData.Email;
                     model.MobileNumber = userData.MobileNumber;
@@ -643,7 +650,7 @@ namespace DeVeeraApp.Controllers
                     model.Occupation = userData.Occupation;
                     model.UserRoleName = userData.UserRole.Name;
 
-                    if(_WorkContextService.CurrentUser.UserRole.Name == "Admin")
+                    if (_WorkContextService.CurrentUser.UserRole.Name == "Admin")
                     {
                         if (userData.LastLevel != 0 && userData.LastLevel != null)
                         {
@@ -658,6 +665,30 @@ namespace DeVeeraApp.Controllers
                             model.ModuleTitle = activeModule.Title;
                             var level = _levelServices.GetLevelById(activeModule.LevelId);
                             model.ActiveModuleLevelName = level.Title;
+                        }
+                        var UserQueAnsMap = _questionAnswerMappingService.GetAllAnswerByUserId(userData.Id);
+
+                        if (UserQueAnsMap.Count > 0)
+                        {
+                            foreach (var item in UserQueAnsMap)
+                            {
+                                var questionDetails = _questionAnswerService.GetQuestionById(item.QuestionId);
+
+                                if (questionDetails != null && questionDetails.ModuleId != 0)
+                                {
+                                    var data = new UserQuestionAnswerResponse();
+                                    data.Question = questionDetails.Question;
+                                    data.ModuleId = questionDetails.ModuleId;
+                                    var moduleDetail = _moduleService.GetModuleById(questionDetails.ModuleId);
+                                    if (moduleDetail != null)
+                                    {
+                                        data.ModuleName = moduleDetail.Title;
+                                    }
+                                    data.Answer = item.Answer;
+                                    data.AnsweredOn = item.CreatedOn;
+                                    model.UserQuestionAnswerResponse.Add(data);
+                                }
+                            }
                         }
 
 
@@ -761,7 +792,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult TwoFactorAuthentication(int LevelId, int ModuleId, int UserId)
         {
-            var model = new TwoFactorAuthModel() 
+            var model = new TwoFactorAuthModel()
             {
                 LevelId = LevelId,
                 ModuleId = ModuleId,
@@ -777,7 +808,7 @@ namespace DeVeeraApp.Controllers
             {
                 string passcode = "1234";
 
-                if(model.OTP != passcode)
+                if (model.OTP != passcode)
                 {
                     ModelState.AddModelError("", "Invalid Code");
 
