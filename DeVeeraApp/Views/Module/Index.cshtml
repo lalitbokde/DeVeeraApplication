@@ -151,8 +151,8 @@
                                 <div class="flex flex-wrap lg:flex-nowrap items-center justify-center p-5">
                                     <div class="w-full  mb-4 lg:mb-0 mr-auto">
                                         <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
-                                            <div class="mt-1 text-xs text-gray-600"> @item.Question_Answer_Mapping.FirstOrDefault().User.Email </div>
-                                            <label for="input-wizard-1" class="form-label"> @item.Question_Answer_Mapping.FirstOrDefault().Answer</label>
+                                            <div class="mt-1 text-xs text-gray-600"> @item.Question_Answer_Mapping.Where(a => a.UserId == UserId).FirstOrDefault()?.User?.Email </div>
+                                            <label for="input-wizard-1" class="form-label"> @item.Question_Answer_Mapping.Where(a => a.UserId == UserId).FirstOrDefault()?.Answer</label>
                                            
                                         </div>
                                     </div>
