@@ -1,9 +1,5 @@
 ﻿
 
-function showloaderfn() {
-    $(".ovalicon").removeClass("hidden", true);
-    $("#loader").show();
-}
 function hideloaderfn() {
     debugger
     $("#loader").hide();
@@ -13,12 +9,24 @@ setTimeout(function () {
 }, 100);
 
 
-function LoadLoader() {
+function showloaderfn() {
 $('.ovalicon').css('display', 'block');
 $('.oval').css('display', 'block');
 $('.loader').removeAttr("hidden");
-setTimeout(function () {
-    $("#loader").hide();
-}, 1500);
-
+}
+function ShowLoader(formid) {
+    debugger
+    var isValid = $("#" + formid).valid(); 
+    debugger
+    if (isValid) {
+        showloaderfn();
+    }
+}
+function ShowLoaderUser(formid) {
+    var isValid = $("#" + formid).valid();
+    
+    if (isValid) {
+        showloaderfn();      
+    }
+    window.onload();
 }

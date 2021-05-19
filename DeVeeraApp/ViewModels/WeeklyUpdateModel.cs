@@ -17,9 +17,14 @@ namespace DeVeeraApp.ViewModels
             this.AvailableVideo = new List<SelectListItem>();
         }
 
+        [Required]
         public int VideoId { get; set; }
-        public string VideoUrl { get; set; }       
+        public string VideoUrl { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
+       
         public string Subtitle { get; set; }
 
         public string VideoName { get; set; }

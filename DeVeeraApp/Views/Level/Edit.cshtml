@@ -29,7 +29,7 @@
                 </div>
                 <div class="tab-content">
                     <div id="level" class="tab-pane @(ViewBag.ActiveTab=="Level" ? "active":"")" role="tabpanel" aria-labelledby="level-tab">
-                        <form asp-controller="Level" asp-action="Edit" method="post" id="levelForm">
+                        <form asp-controller="Level" asp-action="Edit" method="post" id="levelForm" onsubmit="ShowLoader('levelForm');">
                             <input type="hidden" asp-for="@Model.srno" />
                             @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                             {
@@ -134,7 +134,7 @@
                                         </span>
                                     </div>
                                         <div class="intro-y   col-span-3 pl-5">
-                                            <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                                            <button type="submit" class="btn btn-primary w-24" >Save</button>
                                         </div>
                                         <div class="intro-y  col-span-3 ml-auto">
 
@@ -145,7 +145,7 @@
                         </form>
                     </div>
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
-                        <form asp-controller="Level" asp-action="AddModule" method="post">
+                        <form asp-controller="Level" asp-action="AddModule" method="post"  id="levelForm2" onsubmit="ShowLoader('levelForm2');">
                             @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                             {
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">

@@ -5,7 +5,7 @@
 }
 
 
-<form asp-controller="Admin" asp-action="Edit" method="post">
+<form asp-controller="Admin" asp-action="Edit" method="post" id="Admineditform" onsubmit="ShowLoader('Admineditform');">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -46,7 +46,7 @@
                                 </span>
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
-                                <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                                <button type="submit" class="btn btn-primary w-24" >Save</button>
                             </div>
                         </div>
                     </div>
