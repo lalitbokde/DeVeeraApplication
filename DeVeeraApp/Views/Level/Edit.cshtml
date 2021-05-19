@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<style>
+    .pl-6px{
+        padding-left:7rem;
+    }
+</style>
 
 <div class="intro-y inbox py-10 sm:py-20 ">
     <div class="px-5 ">
@@ -118,16 +122,26 @@
                             </div>
                            
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                                <div class="grid grid-cols-12  gap-y-5 mt-5">
                                     <div class="intro-y   col-span-6">
-                                        <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                                        <span class="pl-6px">
+                                            <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                                Back to List
+                                                <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List">
+                                                    <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                                </a>
+                                            </span>
+                                        </span>
                                     </div>
-                                    <div class="intro-y  col-span-6 ml-auto">
+                                        <div class="intro-y   col-span-3 pl-5">
+                                            <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                                        </div>
+                                        <div class="intro-y  col-span-3 ml-auto">
 
-                                        <a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index/@Model.Id">Preview</a>
+                                            <a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index/@Model.Id">Preview</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
@@ -166,12 +180,20 @@
                             </div>
 
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                                <span class="mr-5">
+                                    <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                        Back to List
+                                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List">
+                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                        </a>
+                                    </span>
+                                </span>
 
                                 <button type="submit" class="btn btn-primary mr-2 w-24" onclick="LoadLoader()">Save</button>
-                              
+
                                 @if (Model.Modules.Id != 0)
-                                {                     
-                                  <a target="_blank" class="btn btn-primary w-24" href="/Module/Index/@Model.Modules.Id">Preview</a>                                    
+                                {
+                                    <a target="_blank" class="btn btn-primary w-24" href="/Module/Index/@Model.Modules.Id">Preview</a>
                                 }
 
                             </div>

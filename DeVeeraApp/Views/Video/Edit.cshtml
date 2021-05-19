@@ -101,9 +101,15 @@
                     </div>
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                        <div class="grid grid-cols-12  gap-y-5 mt-5">
                             <div class="intro-y   col-span-6">
-                                <a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>
+                                @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
+                                <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                    Back to List
+                                    <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding "  asp-controller="Video" asp-action="List">
+                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                    </a>
+                                </span>
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
 

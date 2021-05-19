@@ -5,6 +5,7 @@ function showloaderfn() {
     $("#loader").show();
 }
 function hideloaderfn() {
+    debugger
     $("#loader").hide();
 }
 setTimeout(function () {
@@ -18,5 +19,6 @@ $('.oval').css('display', 'block');
 $('.loader').removeAttr("hidden");
 setTimeout(function () {
     $("#loader").hide();
-}, 500);
+}, 1500);
+
 }

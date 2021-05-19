@@ -95,6 +95,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">Save</button>
                                 </div>
                             </div>
@@ -164,6 +165,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @*<span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                        Back to List
+                                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Admin" asp-action="List" asp-route-roleName="@(_workContext.CurrentUser.UserRole.Name == "Admin" ? "User" : "User")">
+                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                        </a>
+                                    </span>*@
                                     <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">Save</button>
                                 </div>
 
