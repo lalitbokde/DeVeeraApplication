@@ -2,151 +2,137 @@
 @{
     ViewData["Title"] = "Create";
 }
+<style>
 
-<form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm">
-    <div class="intro-y  py-10 sm:py-20 ">
+    body {
+        margin: 0;
+        padding: 0;
+        /*background: lightgoldenrodyellow*/
+    }
 
-        <div class="px-5 ">
-            <div class="font-medium text-center text-lg">Diary</div>
+    .paper-header {
+        position: absolute;
+        height: 40px;
+        left: 45px;
+    }
 
-            @*@if (!string.IsNullOrEmpty(Model.Module))
-                {
-                    <div class="font-medium text-center text-lg">
-                        @Model.Level ->   @Model.Module
-                    </div>
-                }
-                else
-                {
-                    <div class="font-medium text-center text-lg">
-                        @Model.Level
-                    </div>
-                }*@
+    .paper-header-title {
+        margin-left: 175px;
+    }
+    .paper-header-save {
+        margin-left: 150px;
+    }
+    .paper {
+        position: absolute;
+        height: 550px;
+        width: 450px;
+        background: rgba(255,255,255,0.9);
+        margin: -275px -225px;
+        left: 50%;
+        top: 55%;
+        box-shadow: 0px 0px 5px 0px #888;
+    }
 
+        .paper::before {
+            content: '';
+            position: absolute;
+            left: 45px;
+            height: 100%;
+            width: 2px;
+            background: rgba(255,0,0,0.4);
+        }
+
+    .lines {
+        margin-top: 40px;
+        height: calc(100% - 40px);
+        width: 100%;
+        background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+    }
+
+    .text {
+        position: absolute;
+        top: 65px;
+        left: 55px;
+        bottom: 10px;
+        right: 10px;
+        line-height: 25px;
+        font-family: 'Indie Flower';
+        overflow: hidden;
+        outline: none;
+    }
+
+    .holes {
+        position: absolute;
+        left: 10px;
+        height: 25px;
+        width: 25px;
+        background: lightgoldenrodyellow;
+        border-radius: 50%;
+        box-shadow: inset 0px 0px 2px 0px #888;
+    }
+
+    .hole-top {
+        top: 10%;
+    }
+
+    .hole-middle {
+        top: 50%;
+    }
+
+    .hole-bottom {
+        bottom: 10%;
+    }
+
+    [contenteditable] {
+        outline: 0px solid transparent;
+    }
+
+    .editable:empty:before {
+        content: attr(data-placeholder);
+        color: gainsboro;
+    }
+</style>
+<form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="getDiaryContent()">
+  
+    <div class="paper">
+        <div class="paper-header mt-2 flex">          
+                <div class="paper-header-title font-medium text-center text-lg">Diary</div>
+                <div class="paper-header-save">
+                    <button type="submit"><i class="text-theme-21" data-feather="save"></i></button>                   
+                </div>
+
+            @*<div class="relative w-56">
+            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar w-4 h-4"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> </div>
+            <input type="text" class="diarydate datepicker form-control pl-12 h-8" data-single-mode="true">
+        </div>*@
         </div>
-
-
-        <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
-
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                <div class="intro-y box p-5 col-span-12">
-                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
-                    {
-                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
-                        </div>
-                    }
-                    <input asp-for="LevelId" hidden />
-                    <input asp-for="ModuleId" hidden />
-
-
-                    <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
-                    </div>
-                    <div class="" id="standard-editor">
-                        <div class="preview">
-                            <input type="text" asp-for="Title" class="form-control" placeholder="title" />
-
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 ">Add New Diary Entry</label>
-                    </div>
-                    <div class="" id="standard-editor">
-                        <div class="preview">
-                            <textarea id="editor2" asp-for="Comment" class="editor2"> </textarea>
-
-                        </div>
-                    </div>
-                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                            <div class="intro-y justify-end">
-
-                                <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
-                            </div>
-                        </div>
+                <div class="lines">
+                    <div class="text">
+                        <input asp-for="LevelId" hidden />
+                        <input asp-for="ModuleId" hidden />
+                        <input asp-for="Title" hidden />
+                        <input asp-for="Comment" hidden />
+                        <br />
+                        <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ..."></div><br /><br />
+                        <label class="text-theme-21 star">Add New Diary Entry  </label><br />
+                        <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ..."></div>
                     </div>
 
                 </div>
-                @if (Model.diaryModels.Count() != 0)
-                {
-                    <div class="intro-y box p-5 col-span-12">
-                        <!-- BEGIN: Recent Activities -->
-                        <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">
+               
+                @*<div class="holes hole-top"></div>
 
-                            <div class="report-timeline mt-5 relative">
-                                @foreach (var item in Model.diaryModels)
-                                {
-                                    <div class="intro-x relative flex items-center mb-3">
-                                        <div class="report-timeline__image">
-                                            <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
-                                                <img alt="Icewall Tailwind HTML Admin Template" src="~/dist/images/profile-12.jpg">
-                                            </div>
-                                        </div>
-                                        <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
-                                            <div class="flex items-center">
-                                                <div class="font-medium">@item.Title</div>
-                                            </div>
-                                            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-1">
-                                                <div class="intro-y   col-span-6">
-                                                    <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
-                                                </div>
-                                                @if (item.LastUpdatedOn.ToShortDateString() != "01/01/0001")
-                                                {
-                                                    <div class="intro-y  col-span-6 ml-auto">
-                                                        <div class="text-xs text-gray-500 ">Last Updated On:- @item.LastUpdatedOn.ToShortDateString() @item.LastUpdatedOn.ToShortTimeString()</div>
-                                                    </div>
-                                                }
-                                            </div>
+            <div class="holes hole-middle"></div>
 
-
-                                            <div class="flex items-center">
-                                                <div class="text-gray-600 line-clamp-1 mt-1">@Html.Raw(@item.Comment)</div>
-
-                                            </div>
-                                            <div class="flex -ml-2 lg:ml-0 lg:justify-end mt-3 lg:mt-0">
-                                                <a href="javascript:;" data-toggle="modal" data-target="#diary-modal-preview_@item.Id" class="w-8 h-8 rounded-full flex items-center justify-center border dark:border-dark-5 ml-2 text-gray-500 zoom-in tooltip" title="View"> <i class="w-4 h-4 text-theme-21" data-feather="eye"></i> </a>
-                                                <a a asp-controller="Diary" asp-action="Edit" asp-route-Id="@item.Id" class="w-8 h-8 rounded-full flex items-center justify-center border dark:border-dark-5 ml-2 text-gray-500 zoom-in tooltip" title="Edit"> <i class="w-4 h-4 text-theme-21" data-feather="edit-2"></i> </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- BEGIN: Modal Content -->
-                                    <div id="diary-modal-preview_@item.Id" class="modal" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-body grid grid-cols-12">
-                                                    <div class="col-span-12">
-                                                        <div class="px-5 py-3 ml-4 flex-1">
-                                                            <div class="flex items-center">
-                                                                <div class="font-medium">@item.Title</div>
-                                                            </div>
-                                                            <div class="flex items-center">
-                                                                <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
-                                                            </div>
-                                                            <div class="flex items-center mt-2">
-                                                                <div class="text-gray-600 mt-1">@Html.Raw(@item.Comment)</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END: Modal Content -->
-                                }
-                            </div>
-
-                        </div>
-                        <!-- END: Recent Activities -->
-                    </div>
-                }
-
-
+            <div class="holes hole-bottom"></div>*@
             </div>
-
-        </div>
-
-    </div>
-
-
-
-
 </form>
+<script>
+    function getDiaryContent() {
+        debugger
+        var title = document.getElementById("title").innerText;
+        var comment = document.getElementById("comment").innerText;
+        document.getElementById("Title").value = title;
+        document.getElementById("Comment").value = comment;
+    }
+</script>
