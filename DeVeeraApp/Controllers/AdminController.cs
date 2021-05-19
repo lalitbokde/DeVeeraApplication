@@ -103,8 +103,7 @@ namespace DeVeeraApp.Controllers
                     _UserService.UpdateUser(user);
 
                     _notificationService.SuccessNotification("New Admin has been added successfully.");
-                    response.Success = true;
-                    response.Message = userRoleName;
+                    
                  return RedirectToAction("List", "Admin", new { roleName = userRoleName });
 
                 }
