@@ -226,6 +226,7 @@ namespace DeVeeraApp.Controllers
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
                 levelData.Active = model.Active;
+                levelData.Emotions = (CRM.Core.Domain.EmotionType)model.Emotions;
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
                 if (model.SelectedImg.Count() != 0)
