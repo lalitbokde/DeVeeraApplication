@@ -1,0 +1,22 @@
+﻿
+@inject IViewLocalizer localizer
+@inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locOptions
+@{ 
+    var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var cultureList = locOptions.Value.SupportedCultures.Select(x => new SelectListItem { Value = x.Name, Text = x.Name }).ToList();
+}
+<form asp-controller="LandingPage" asp-action="CultureManagement" method="post">
+    <div class="hero-copy">
+        <label class="mb-1">Choose Language</label><br />
+        <select name="culture" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="@cultureList" onchange="this.form.submit();">
+        </select>
+        <h1 class="hero-title mt-8">@Model.WeeklyUpdate?.Title</h1>
+
+
+
+        <p class="hero-paragraph">
+            @Html.Raw(Model.WeeklyUpdate?.Subtitle)
+        </p>
+
+    </div>
+</form>

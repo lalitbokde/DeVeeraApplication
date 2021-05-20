@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ErrorViewModel = DeVeeraApp.Models.ErrorViewModel;
 using DeVeeraApp.Utils;
 using CRM.Core.Domain;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace DeVeeraApp.Controllers
 {
@@ -66,6 +68,16 @@ namespace DeVeeraApp.Controllers
            
             PrepareLanguages(model.Language);
             return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult CultureManagement(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

@@ -1,5 +1,6 @@
 ﻿@model DeVeeraApp.ViewModels.LandingPageModel
 @inject CRM.Core.IWorkContext _workContext;
+@inject IViewLocalizer localizer
 @{ 
     Layout = null;
 }
@@ -51,39 +52,28 @@
             <section class="hero">
                 <div class="container">
                     <div class="hero-inner">
-                        <div class="hero-copy">
-                            <label class="mb-1">Choose Language</label><br/>
-                            <select asp-for="Language.LanguageId" asp-items="@Model.Language.AvailableLanguages">
-                               
-                            </select>
-                            <h1 class="hero-title mt-8">@Model.WeeklyUpdate?.Title</h1>
-
-                            
-
-                            <p class="hero-paragraph">
-                                @Html.Raw(Model.WeeklyUpdate?.Subtitle)
-                            </p>
-
-                        </div>
-                        <div class="hero-media">
-                            @*<div class="header-illustration">
-                                <img class="header-illustration-image asset-light" src="~/LandingPage/dist/images/header-illustration-light.svg" alt="Header illustration">
-                                <img class="header-illustration-image asset-dark" src="~/LandingPage/dist/images/header-illustration-dark.svg" alt="Header illustration">
-                            </div>
-                            <div class="hero-media-illustration">
-                                <img class="hero-media-illustration-image asset-light" src="~/LandingPage/dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
-                                <img class="hero-media-illustration-image asset-dark" src="~/LandingPage/dist/images/hero-media-illustration-dark.svg" alt="Hero media illustration">
-                            </div>*@
-                            <!--<div class="hero-media-container">-->
+                        <partial name="_changeCulture" />
+                            <label class="mb-1">@localizer["HelloWorld"]</label><br />
+                        
+                            <div class="hero-media">
+                                @*<div class="header-illustration">
+                <img class="header-illustration-image asset-light" src="~/LandingPage/dist/images/header-illustration-light.svg" alt="Header illustration">
+                <img class="header-illustration-image asset-dark" src="~/LandingPage/dist/images/header-illustration-dark.svg" alt="Header illustration">
+            </div>
+            <div class="hero-media-illustration">
+                <img class="hero-media-illustration-image asset-light" src="~/LandingPage/dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
+                <img class="hero-media-illustration-image asset-dark" src="~/LandingPage/dist/images/hero-media-illustration-dark.svg" alt="Hero media illustration">
+            </div>*@
+                                <!--<div class="hero-media-container">-->
                                 @*<img class="hero-media-image asset-light" src="~/LandingPage/dist/images/hero-media-light.svg" alt="Hero media">
-                                <img class="hero-media-image asset-dark" src="~/LandingPage/dist/images/hero-media-dark.svg" alt="Hero media">*@
-                            <!--</div>-->
-                            <div class="hero-video-container">
-                                @{string src = ViewBag.VideoUrl;}
-                                <video src="@Url.Content(src)" controls style="width:500px; height:400px" loop />
+            <img class="hero-media-image asset-dark" src="~/LandingPage/dist/images/hero-media-dark.svg" alt="Hero media">*@
+                                <!--</div>-->
+                                <div class="hero-video-container">
+                                    @{string src = ViewBag.VideoUrl;}
+                                    <video src="@Url.Content(src)" controls style="width:500px; height:400px" loop />
+                                </div>
                             </div>
-                        </div>
-                        </div>
+</div>
                 </div>
             </section>
 

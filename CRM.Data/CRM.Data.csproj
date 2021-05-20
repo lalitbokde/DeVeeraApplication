@@ -121,6 +121,8 @@
     <Compile Include="Migrations\20210514072807_DasboardMenu.Designer.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.Designer.cs" />
+    <Compile Include="Migrations\20210519094550_AddedLocaleStringResourceTable.cs" />
+    <Compile Include="Migrations\20210519094550_AddedLocaleStringResourceTable.Designer.cs" />
 
 
 
