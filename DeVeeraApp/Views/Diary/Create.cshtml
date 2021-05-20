@@ -128,9 +128,9 @@
                         <input asp-for="Title" hidden />
                         <input asp-for="Comment" hidden />
                         <div id="diaryContent">
-                            <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">@Model.Title</div><br /><br />
+                            <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">@Html.Raw(Model.Title)</div><br /><br />
                             <label class="text-theme-21 star">Add New Diary Entry  </label><br />
-                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">@Model.Comment</div>
+                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">@Html.Raw(Model.Comment)</div>
                         </div>
                     </div>
                 </div>

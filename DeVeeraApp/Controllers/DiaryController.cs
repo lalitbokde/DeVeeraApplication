@@ -104,12 +104,18 @@ namespace DeVeeraApp.Controllers
             {
                 if (model.Id == 0)
                 {
-
+                    var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+                    var todayDiary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
                     var data = model.ToEntity<Diary>();
                     data.UserId = _workContext.CurrentUser.Id;
                     data.CreatedOn = DateTime.UtcNow;
                     _DiaryMasterService.InsertDiary(data);
                     _notificationService.SuccessNotification("Diary added successfully.");
+                    if (todayDiary == null && currentUser.UserRole.Name != "Admin") 
+                    { 
+                        return RedirectToAction(nameof(AskUserEmotion)); 
+                    }
+                   
                 }
                 else
                 {
@@ -141,7 +147,7 @@ namespace DeVeeraApp.Controllers
 
         }
 
-
+    
         public IActionResult Edit(int Id)
         {
             AddBreadcrumbs("Diary", "Edit", $"/Diary/Edit/{Id}", $"/Diary/Edit/{Id}");
@@ -191,6 +197,25 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == Date.ToShortDateString()).FirstOrDefault();
             return Json(diary);
+        }
+
+        public IActionResult AskUserEmotion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AskUserEmotion(Emotion model)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = _levelServices.GetAllLevels().Where(l => l.Emotions == (CRM.Core.Domain.EmotionType)model.Emotions && l.Active == true).FirstOrDefault();
+                if (data != null)
+                {
+                    return RedirectToAction("Index", "Lesson", new { id = data.Id });
+                }
+            }
+            return View();
         }
         #endregion
 
