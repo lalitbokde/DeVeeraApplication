@@ -4,59 +4,49 @@
 }
 <style>
 
-    body {
-        margin: 0;
-        padding: 0;
-        /*background: lightgoldenrodyellow*/
-    }
 
     .paper-header {
-        position: absolute;
-        height: 40px;
-        left: 45px;
+        position: relative;
+        height: 75px;
+        margin-left: 75px;
     }
 
-    .paper-header-title {
-        margin-left: 175px;
-    }
-    .paper-header-save {
-        margin-left: 150px;
-    }
+
     .paper {
-        position: absolute;
-        height: 550px;
-        width: 450px;
+        position: relative;
+        height: 750px;
+        width: 750px;
         background: rgba(255,255,255,0.9);
-        margin: -275px -225px;
-        left: 50%;
-        top: 55%;
+        /*margin: -275px -225px;*/
+        left: 15%;
+        margin: 5%;
         box-shadow: 0px 0px 5px 0px #888;
     }
 
         .paper::before {
             content: '';
             position: absolute;
-            left: 45px;
-            height: 100%;
+            left: 75px;
+            height: 105%;
             width: 2px;
             background: rgba(255,0,0,0.4);
         }
 
     .lines {
-        margin-top: 40px;
-        height: calc(100% - 40px);
+        margin-top: 12px;
+        height: calc(100% - 50px);
         width: 100%;
         background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
     }
 
     .text {
         position: absolute;
-        top: 65px;
-        left: 55px;
+        top: 140px;
+        left: 85px;
         bottom: 10px;
         right: 10px;
         line-height: 25px;
-        font-family: 'Indie Flower';
+        /*   font-family: 'Indie Flower';*/
         overflow: hidden;
         outline: none;
     }
@@ -93,46 +83,59 @@
     }
 </style>
 <form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="getDiaryContent()">
-  
-    <div class="paper">
-        <div class="paper-header mt-2 flex">          
-                <div class="paper-header-title font-medium text-center text-lg">Diary</div>
-                <div class="paper-header-save">
-                    <button type="submit"><i class="text-theme-21" data-feather="save"></i></button>                   
-                </div>
 
-            @*<div class="relative w-56">
-            <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar w-4 h-4"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> </div>
-            <input type="text" class="diarydate datepicker form-control pl-12 h-8" data-single-mode="true">
-        </div>*@
+    <div class="paper">
+        <div class="paper-header">
+            <div class="grid grid-cols-12">
+                <div class="col-span-4 mt-4">
+                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40 ml-2">
+                        <a class="ml-9"> Back to Home </a>
+                        <a href="/Home/Index" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding">
+                            <i data-feather="arrow-left" class="w-4 h-4"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="col-span-4 mt-4">
+                    <div class="relative w-56 ">
+                        <div class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar w-4 h-4"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> </div>
+                        @{ var date = Model.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.DiaryDate.ToString("MMMM d, yyyy");}
+                        @*<input asp-for="DiaryDate" type="text" class="datepicker form-control pl-12" data-single-mode="true" onchange="GetDiaryByDate();">*@
+                        <input onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control pl-12 w-full border" required readonly>
+
+                    </div>
+                </div>
+           
+                <div id="savediary" class="col-span-4 text-right mt-4 mr-4">
+                    <button type="submit">
+                        <span class="btn btn-outline-secondary relative justify-end  h-10 w-36">
+                            <i data-feather="save" class=" text-theme-21 mr-4"></i>
+
+                            Save Diary
+                        </span>
+                    </button>
+
+                </div>
+            </div>
+            <div class="grid grid-cols-12">
+                <div class="col-span-12 text-center mt-4">
+                    <div class="font-medium text-xl">Diary</div>
+                </div>
+            </div>
         </div>
                 <div class="lines">
                     <div class="text">
-                        <input asp-for="LevelId" hidden />
-                        <input asp-for="ModuleId" hidden />
+                        <input asp-for="Id" hidden />
                         <input asp-for="Title" hidden />
                         <input asp-for="Comment" hidden />
-                        <br />
-                        <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ..."></div><br /><br />
-                        <label class="text-theme-21 star">Add New Diary Entry  </label><br />
-                        <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ..."></div>
+                        <div id="diaryContent">
+                            <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">@Model.Title</div><br /><br />
+                            <label class="text-theme-21 star">Add New Diary Entry  </label><br />
+                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">@Model.Comment</div>
+                        </div>
                     </div>
-
                 </div>
-               
-                @*<div class="holes hole-top"></div>
 
-            <div class="holes hole-middle"></div>
 
-            <div class="holes hole-bottom"></div>*@
             </div>
 </form>
-<script>
-    function getDiaryContent() {
-        debugger
-        var title = document.getElementById("title").innerText;
-        var comment = document.getElementById("comment").innerText;
-        document.getElementById("Title").value = title;
-        document.getElementById("Comment").value = comment;
-    }
-</script>
+<script src="~/dist/js/Diary.js"></script>

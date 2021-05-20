@@ -790,12 +790,10 @@ namespace DeVeeraApp.Controllers
 
         #region 2-FactorAuthentication
 
-        public IActionResult TwoFactorAuthentication(int LevelId, int ModuleId, int UserId)
+        public IActionResult TwoFactorAuthentication(int UserId)
         {
             var model = new TwoFactorAuthModel()
             {
-                LevelId = LevelId,
-                ModuleId = ModuleId,
                 UserId = UserId
             };
             return View(model);
@@ -822,7 +820,7 @@ namespace DeVeeraApp.Controllers
 
                     _UserService.UpdateUser(currentUser);
 
-                    return RedirectToAction("Create", "Diary", new { levelid = model.LevelId, moduleid = model.ModuleId });
+                    return RedirectToAction("Create", "Diary");
                 }
 
             }
