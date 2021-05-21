@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DeVeeraApp.ViewModels.Enum;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,6 +41,8 @@ namespace DeVeeraApp.ViewModels
         public bool Active { get; set; }
 
         public string FullDescription { get; set; }
+        public Enum.EmotionType Emotions { get; set; }
+
         public Modules Modules { get; set; }
         public Video Video { get; set; }
         public Image Image { get; set; }
@@ -61,6 +64,8 @@ namespace DeVeeraApp.ViewModels
         public string DiaryLatestUpdateDate { get; set; }
 
     }
+
+    
 
     public class SelectedImage
     {

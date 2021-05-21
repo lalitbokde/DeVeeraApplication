@@ -61,30 +61,36 @@ namespace DeVeeraApp.Controllers
 
         #region Method
 
-        public IActionResult Create(int levelid, int moduleid)
+        public IActionResult Create()
         {
-
             AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
             DiaryModel model = new DiaryModel();
-
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             if (currentUser.TwoFactorAuthentication == false && currentUser.UserRole.Name != "Admin")
             {
-                return RedirectToAction("TwoFactorAuthentication", "User", new { LevelId = levelid, ModuleId = moduleid, UserId = currentUser.Id });
+                return RedirectToAction("TwoFactorAuthentication", "User", new { UserId = currentUser.Id });
             }
             else
             {
-                #region Diary 
-                List<DiaryModel> DiaryList = new List<DiaryModel>();
-                
-                    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+                var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
+                model.DiaryDate = DateTime.UtcNow;
+                model.Title = diary?.Title;
+                model.Comment = diary?.Comment;
+                model.Id = diary==null ? 0:diary.Id;
 
-                    DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
-                
-                #endregion
+                //#region Diary 
+                //List<DiaryModel> DiaryList = new List<DiaryModel>();
 
-                model.diaryModels = DiaryList;
+                //    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id).ToList();
+
+                //    DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+
+                //#endregion
+
+                //model.diaryModels = DiaryList;
+                //model.DiaryDate = DateTime.UtcNow;
+
                 return View(model);
 
             }
@@ -96,32 +102,52 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = model.ToEntity<Diary>();
-                data.UserId = _workContext.CurrentUser.Id;
-                data.CreatedOn = DateTime.UtcNow;
-                _DiaryMasterService.InsertDiary(data);
-                _notificationService.SuccessNotification("Diary added successfully.");
+                if (model.Id == 0)
+                {
+                    var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+                    var todayDiary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
+                    var data = model.ToEntity<Diary>();
+                    data.UserId = _workContext.CurrentUser.Id;
+                    data.CreatedOn = DateTime.UtcNow;
+                    _DiaryMasterService.InsertDiary(data);
+                    _notificationService.SuccessNotification("Diary added successfully.");
+                    if (todayDiary == null && currentUser.UserRole.Name != "Admin") 
+                    { 
+                        return RedirectToAction(nameof(AskUserEmotion)); 
+                    }
+                   
+                }
+                else
+                {
+                    var diary = _DiaryMasterService.GetDiaryById(model.Id);
+                    diary.Title = model.Title;
+                    diary.Comment = model.Comment;
+                    diary.LastUpdatedOn = DateTime.UtcNow;
+                    _DiaryMasterService.UpdateDiary(diary);
+                    _notificationService.SuccessNotification("Diary updated successfully.");
 
-
-                #region Diary 
-                List<DiaryModel> DiaryList = new List<DiaryModel>();
+                }
+                //#region Diary 
+                //List<DiaryModel> DiaryList = new List<DiaryModel>();
                 
-                    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+                //    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
 
-                    DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+                //    DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
                 
-                #endregion
+                //#endregion
 
-                model.diaryModels = DiaryList;
-                return RedirectToAction("Create", "Diary", new { levelid = model.LevelId });
+                //model.diaryModels = DiaryList;
+
+                return RedirectToAction("Create", "Diary");
 
             }
 
+             model.DiaryDate = DateTime.UtcNow;          
             return View(model);
 
         }
 
-
+    
         public IActionResult Edit(int Id)
         {
             AddBreadcrumbs("Diary", "Edit", $"/Diary/Edit/{Id}", $"/Diary/Edit/{Id}");
@@ -163,6 +189,33 @@ namespace DeVeeraApp.Controllers
 
             return View(model);
 
+        }
+
+        [HttpPost]
+        public IActionResult GetDiaryByDate(DateTime Date)
+        {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == Date.ToShortDateString()).FirstOrDefault();
+            return Json(diary);
+        }
+
+        public IActionResult AskUserEmotion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AskUserEmotion(Emotion model)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = _levelServices.GetAllLevels().Where(l => l.Emotions == (CRM.Core.Domain.EmotionType)model.Emotions && l.Active == true).FirstOrDefault();
+                if (data != null)
+                {
+                    return RedirectToAction("Index", "Lesson", new { id = data.Id });
+                }
+            }
+            return View();
         }
         #endregion
 

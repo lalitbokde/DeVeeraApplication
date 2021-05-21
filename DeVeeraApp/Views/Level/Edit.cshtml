@@ -1,10 +1,12 @@
 ﻿@model DeVeeraApp.ViewModels.LevelModel
+@using DeVeeraApp.ViewModels.Enum
+
 @{
     ViewData["Title"] = "Edit";
 }
 <style>
-    .pl-6px{
-        padding-left:7rem;
+    .pl-6px {
+        padding-left: 7rem;
     }
 </style>
 
@@ -47,10 +49,10 @@
                                 <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                             </div>
                             @*<div class="mt-5">
-            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-            <input id="input-wizard-1" asp-for="@Model.Quote" type="text" class="form-control" placeholder="quote">
-            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-        </div>*@
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                    <input id="input-wizard-1" asp-for="@Model.Quote" type="text" class="form-control" placeholder="quote">
+                                    <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                                </div>*@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
                                 <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="title">
@@ -62,6 +64,14 @@
                                 <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
+                            <div class="mt-5">
+
+                                <label class="form-label text-theme-21 ">Emotion</label>
+                                <select asp-for="Emotions" asp-items="Html.GetEnumSelectList<EmotionType>()" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+
+
+                            </div>
+
                             <div class="mt-3">
                                 <label for="post-form-3" class="form-label text-theme-21">Images</label>
                                 @Html.ListBoxFor(m => m.SelectedImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
@@ -76,39 +86,39 @@
                             </div>
                             @*<div class="mt-5">
 
-            <label class="form-label text-theme-21 ">Images</label>
-            <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
-                @for (int j = 0; j < Model.ImageLists.Count(); j++)
-                {
+                                    <label class="form-label text-theme-21 ">Images</label>
+                                    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
+                                        @for (int j = 0; j < Model.ImageLists.Count(); j++)
+                                        {
 
-                    <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2">
-                        <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
-                            <div class="absolute left-0 top-0 mt-3 ml-3">
-                                <input class="form-check-input border border-gray-500" asp-for="@Model.SelectedImages[j].Selected" type="checkbox">
-                                <input type="hidden" value="@Model.ImageLists[j].Id" asp-for="@Model.SelectedImages[j].id" />
-                            </div>
-                            <a href="" class="w-3/5 file__icon file__icon--file mx-auto">
-                                <div class="file__icon__file-name">PHP</div>
-                            </a>
-                            <a href="" class="block font-medium mt-4 text-center truncate">@Html.DisplayFor(m => Model.ImageLists[j].Name)</a>
-                            <div class="text-gray-600 text-xs text-center mt-0.5">@Html.DisplayFor(m => Model.ImageLists[j].Key)</div>
-                            <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
-                                <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-vertical" class="w-5 h-5 text-gray-600"></i> </a>
-                                <div class="dropdown-menu w-40">
-                                    <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                                        <a onclick="ShowDeleteConfirmation('PostDeleteImage(@Model.ImageLists[j].Id)')" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-2"></i> Delete </a>
+                                            <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2">
+                                                <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
+                                                    <div class="absolute left-0 top-0 mt-3 ml-3">
+                                                        <input class="form-check-input border border-gray-500" asp-for="@Model.SelectedImages[j].Selected" type="checkbox">
+                                                        <input type="hidden" value="@Model.ImageLists[j].Id" asp-for="@Model.SelectedImages[j].id" />
+                                                    </div>
+                                                    <a href="" class="w-3/5 file__icon file__icon--file mx-auto">
+                                                        <div class="file__icon__file-name">PHP</div>
+                                                    </a>
+                                                    <a href="" class="block font-medium mt-4 text-center truncate">@Html.DisplayFor(m => Model.ImageLists[j].Name)</a>
+                                                    <div class="text-gray-600 text-xs text-center mt-0.5">@Html.DisplayFor(m => Model.ImageLists[j].Key)</div>
+                                                    <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
+                                                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-vertical" class="w-5 h-5 text-gray-600"></i> </a>
+                                                        <div class="dropdown-menu w-40">
+                                                            <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                                                                <a onclick="ShowDeleteConfirmation('PostDeleteImage(@Model.ImageLists[j].Id)')" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-2"></i> Delete </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        }
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
 
-                    </div>
-                }
-            </div>
-
-
-        </div>*@
+                                </div>*@
 
 
                             <div class="mt-5">
@@ -120,7 +130,7 @@
 
                                 </div>
                             </div>
-                           
+
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <div class="grid grid-cols-12  gap-y-5 mt-5">
                                     <div class="intro-y   col-span-6">
@@ -133,15 +143,17 @@
                                             </span>
                                         </span>
                                     </div>
+
                                         <div class="intro-y   col-span-3 pl-5">
                                             <button type="submit" class="btn btn-primary w-24" >Save</button>
                                         </div>
                                         <div class="intro-y  col-span-3 ml-auto">
 
-                                            <a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index/@Model.Id">Preview</a>
-                                        </div>
+
+                                        <a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index/@Model.Id">Preview</a>
                                     </div>
                                 </div>
+                            </div>
                         </form>
                     </div>
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
@@ -246,7 +258,7 @@
 
 </div>
 <script>
-   
+
 
     function sendRequest() {
 
