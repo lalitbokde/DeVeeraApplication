@@ -9,8 +9,9 @@ namespace DeVeeraApp.ViewModels
 {
     public class Emotion : BaseEntityModel
     {
-        [Required(ErrorMessage ="Please select emotion.")]
+        [Required(ErrorMessage = "Please select emotion.")]
         public EmotionType Emotions { get; set; }
+        public string QuoteType { get; set; }
     }
 
 }
