@@ -45,12 +45,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             @if (Model.LastLevel != 0)
                             {
                                 @*<a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>*@
-                                <a asp-controller="Diary" asp-action="AskUserEmotion" asp-route-QuoteType="@Quote.Login.ToString()" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>
+                                <a asp-controller="Diary" asp-action="AskUserEmotion" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>
                             }
                             else
                             {
                                 @*<a asp-controller="Home" asp-action="Index" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Dashboard</a>*@
-                                <a asp-controller="Diary" asp-action="AskUserEmotion" asp-route-QuoteType="@Quote.Login.ToString()" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>
+                                <a asp-controller="Diary" asp-action="AskUserEmotion" class="intro-x btn py-3 px-4 text-white border-white dark:border-dark-5 dark:text-gray-300 mt-10">Let's Start</a>
 
                             }
                         </div>
