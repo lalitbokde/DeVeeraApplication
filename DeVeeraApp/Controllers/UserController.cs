@@ -457,13 +457,14 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
+                var LastLoginDateUtc = _UserService.GetUserByEmail(model.Email)?.LastLoginDateUtc;
 
                 var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.Password);
                 switch (loginResult)
                 {
                     case UserLoginResults.Successful:
                         {
-                            var User = _UserService.GetUserByEmail(model.Email);
+                            var User = _UserService.GetUserByEmail(model.Email);                  
 
                             _authenticationService.SignIn(User, model.RememberMe);
 
@@ -475,7 +476,7 @@ namespace DeVeeraApp.Controllers
 
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login });
+                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login , LastLoginDateUtc=LastLoginDateUtc });
 
                                 }
                                 else
