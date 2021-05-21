@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="Level" asp-action="Create" method="post">
+<form asp-controller="Level" asp-action="Create" method="post"  id="levelform" onsubmit="ShowLoader('levelform');">
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                    <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()" >Save</button>
+                    <button type="submit" class="btn btn-primary w-24"  >Save</button>
                 </div>
             </div>
 

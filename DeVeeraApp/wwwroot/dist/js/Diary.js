@@ -63,3 +63,10 @@ function getDiaryContent() {
     document.getElementById("Title").value = title;
     document.getElementById("Comment").value = comment;
 }
+
+function getDiaryColor(ColorCode) {
+    debugger
+    document.getElementById("diaryPaper").style.backgroundColor = ColorCode
+    document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient(${ColorCode} 0px, ${ColorCode} 24px, steelblue 25px)`)
+    document.getElementById("DiaryColor").value = ColorCode;
+}

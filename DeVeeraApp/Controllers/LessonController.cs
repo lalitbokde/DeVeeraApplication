@@ -74,9 +74,37 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
+        #region Utilities     
+        public bool IsUserFirstLoginOnDay(DateTime lastLoginDateUtc)
+        {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+
+            var currentDate = DateTime.UtcNow.ToShortDateString();
+
+            var lastLoginDate = lastLoginDateUtc.ToShortDateString();
+
+            if (currentUser.UserRole.Name != "Admin")
+            {
+                if(currentDate != lastLoginDate && lastLoginDate != "01/01/0001")
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+        #endregion
 
         #region Method
-        public IActionResult Index(int id, int srno)
+        public IActionResult Index(int id, int srno, DateTime lastLoginDateUtc)
         {
             var random = new Random();
             ViewBag.SrNo = srno;
@@ -85,6 +113,11 @@ namespace DeVeeraApp.Controllers
             videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
+            var result= IsUserFirstLoginOnDay(lastLoginDateUtc);
+            if (result == true) 
+            {
+                return RedirectToAction("AskUserEmotion", "Diary", new { QuoteType = Quote.Registration.ToString() });
+            }
             var data = _levelServices.GetLevelById(id);
             var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
 

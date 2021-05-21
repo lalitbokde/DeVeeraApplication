@@ -67,7 +67,7 @@
         <div class="tab-content">
 
             <div id="changePassword" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-                <form asp-controller="User" asp-action="UserProfile" method="post">
+                <form asp-controller="User" asp-action="UserProfile" method="post" id="Userprofile1" onsubmit="ShowLoaderUser('Userprofile1');">
                     <input asp-for="Id" hidden />
                     <input asp-for="@Model.Email" id="hiddenEmail" hidden />
                     <div class="intro-y box lg:mt-5">
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                    
-                                    <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">Save</button>
+                                    <button type="submit" class="btn btn-primary w-20 mt-3" >Save</button>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                 </form>
             </div>
             <div id="accountInfo" class="tab-pane active" role="tabpanel" aria-labelledby="profile-tab">
-                <form asp-controller="User" asp-action="UserProfile" method="post">
+                <form asp-controller="User" asp-action="UserProfile" method="post" id="Userprofile2" onsubmit="ShowLoaderUser('Userprofile2');">
                     <!-- BEGIN: Display Information -->
                     <div class="intro-y box lg:mt-5">
                         <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
@@ -171,7 +171,7 @@
                                             <i data-feather="arrow-left" class="w-4 h-4"></i>
                                         </a>
                                     </span>*@
-                                    <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">Save</button>
+                                    <button type="submit" class="btn btn-primary w-20 mt-3" >Save</button>
                                 </div>
 
                             </div>
