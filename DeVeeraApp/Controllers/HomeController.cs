@@ -147,8 +147,10 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
-        public IActionResult ExistingUser(int QuoteType)
+        public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
         {
+            ViewBag.LastLoginDateUtc = LastLoginDateUtc;
+
             var level = new Level();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 

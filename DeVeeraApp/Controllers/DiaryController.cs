@@ -78,6 +78,7 @@ namespace DeVeeraApp.Controllers
                 model.Title = diary?.Title;
                 model.Comment = diary?.Comment;
                 model.Id = diary==null ? 0:diary.Id;
+                model.DiaryColor = diary?.DiaryColor;
 
                 //#region Diary 
                 //List<DiaryModel> DiaryList = new List<DiaryModel>();
@@ -123,6 +124,7 @@ namespace DeVeeraApp.Controllers
                     diary.Title = model.Title;
                     diary.Comment = model.Comment;
                     diary.LastUpdatedOn = DateTime.UtcNow;
+                    diary.DiaryColor = model.DiaryColor;
                     _DiaryMasterService.UpdateDiary(diary);
                     _notificationService.SuccessNotification("Diary updated successfully.");
 
@@ -199,9 +201,11 @@ namespace DeVeeraApp.Controllers
             return Json(diary);
         }
 
-        public IActionResult AskUserEmotion()
+        public IActionResult AskUserEmotion(string QuoteType)
         {
-            return View();
+            Emotion model = new Emotion();
+            model.QuoteType = QuoteType;
+            return View(model);
         }
 
         [HttpPost]
@@ -209,6 +213,10 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.QuoteType == ViewModels.Quote.Login.ToString() || model.QuoteType == ViewModels.Quote.Registration.ToString())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
                 var data = _levelServices.GetAllLevels().Where(l => l.Emotions == (CRM.Core.Domain.EmotionType)model.Emotions && l.Active == true).FirstOrDefault();
                 if (data != null)
                 {

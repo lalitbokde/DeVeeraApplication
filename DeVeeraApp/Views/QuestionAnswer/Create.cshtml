@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="QuestionAnswer" asp-action="Create" method="post">
+<form asp-controller="QuestionAnswer" asp-action="Create" method="post" id="questionanswer" onsubmit="ShowLoader('questionanswer');">
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -45,7 +45,7 @@
                             </span>
                         </div>
                         <div class="intro-y   col-span-6">
-                            <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                            <button type="submit" class="btn btn-primary w-24" >Save</button>
                         </div>
                         </div>
 

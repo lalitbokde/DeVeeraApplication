@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-<form asp-controller="Admin" asp-action="Create" method="post">
+<form asp-controller="Admin" asp-action="Create" method="post"  id="adminPage" onsubmit="ShowLoader('adminPage');">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -26,12 +26,12 @@
                     }
                     <div class="mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">User Name</label>
-                        <input id="input-wizard-1" asp-for="@Model.Email" type="email" class="form-control" placeholder="example@gmail.com">
+                        <input id="email" asp-for="@Model.Email" type="email" class="form-control" placeholder="example@gmail.com" autocomplete="new-username" >
                         <span asp-validation-for="Email" class="text-theme-6 mt-2"></span>
                     </div>
                     <div class="mt-5">
                         <label for="input-wizard-3" class="form-label text-theme-21 star">Password</label>
-                        <input id="input-wizard-3" asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="password">
+                        <input id="password" asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="password" autocomplete="new-password" >
                         <span asp-validation-for="UserPassword.Password" class="text-theme-6 mt-2"></span>
                     </div>
 
@@ -48,7 +48,7 @@
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
 
-                                <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                                <button type="submit" class="btn btn-primary w-24" >Save</button>
                             </div>
                         </div>
                     </div>
