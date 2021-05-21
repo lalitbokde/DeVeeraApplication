@@ -10,14 +10,14 @@
         <div class="intro-y  py-10 sm:py-20 ">
 
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">User Emotion</div>
+                <div class="font-medium text-center text-lg text-theme-21 star">  What emotions are you feeling now?</div>
                 <div class="text-gray-600 text-center mt-2">Please select your emotion to continue.</div>
             </div>
 
 
-            <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
-
-                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+            <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5" >
+               
+                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
                     <div class="intro-y col-span-3"></div>
                     <div class="intro-y box p-5 col-span-6">
                         @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
@@ -28,47 +28,59 @@
                             </div>
                         }
 
-                    <div class="mt-5">
-                        <div>
-                            <label for="input-wizard-2" class="form-label text-theme-21 star">
-                                What emotions are you feeling now?
-                            </label>
-                            <div class="form-check mt-2">
-                              
-                                <input id="radio-switch-1" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Fear">
-                                <label class="form-check-label" for="radio-switch-1">Fear</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input id="radio-switch-2" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Anger">
-                                <label class="form-check-label" for="radio-switch-2">Anger</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Lust">
-                                <label class="form-check-label" for="radio-switch-3">Lust</label>
-                            </div>
 
-                            <div class="form-check mt-2">
-                                <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Sadness">
-                                <label class="form-check-label" for="radio-switch-3">Sadness</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Ego">
-                                <label class="form-check-label" for="radio-switch-3">Ego</label>
-                            </div>
-                            <div class="form-check mt-2">
-                                <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Happy">
-                                <label class="form-check-label" for="radio-switch-3">Happy</label>
-                            </div>
-                        </div>
-                        <span asp-validation-for="Emotions" class="text-theme-6 mt-2"></span>
-                    </div>
 
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <button type="submit" class="btn btn-primary w-24">Submit</button>
+                        <div class="mt-5">
+                            <div>
+                                <div class="form-check mt-2">
+                                    <input id="radio-switch-1" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Fear">
+                                    <label class="form-check-label" for="radio-switch-1">Fear</label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input id="radio-switch-2" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Anger">
+                                    <label class="form-check-label" for="radio-switch-2">Anger</label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Lust">
+                                    <label class="form-check-label" for="radio-switch-3">Lust</label>
+                                </div>
+
+
+                                <div class="form-check mt-2">
+                                    <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Sadness">
+                                    <label class="form-check-label" for="radio-switch-3">Sadness</label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Ego">
+                                    <label class="form-check-label" for="radio-switch-3">Ego</label>
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input id="radio-switch-3" class="form-check-input" type="radio" asp-for="@Model.Emotions" value="@EmotionType.Happy">
+                                    <label class="form-check-label" for="radio-switch-3">Happy</label>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Emotions" class="text-theme-6 mt-2"></span>
                         </div>
+
+                       
                     </div>
                     <div class="intro-y col-span-3"></div>
 
+                </div>
+
+
+                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
+                    <div class="intro-y col-span-3"></div>
+                    <div class="intro-y  p-5 col-span-6">
+                        @*<div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">*@
+                        <div class="px-5 items-center text-xl ">
+                            <div class="intro-y col-span-12 flex items-center justify-center  mt-5">
+                                <button type="submit" class="btn btn-primary w-24">Submit</button>
+                            </div>
+                        </div>
+                        @*</div>*@
+                    </div>
+                    <div class="intro-y col-span-3"></div>
                 </div>
 
             </div>
