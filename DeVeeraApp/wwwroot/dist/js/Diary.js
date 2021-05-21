@@ -27,6 +27,8 @@
                     <label class="text-theme-21 star">Add New Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">${data.comment}</div>`
             diaryContent.insertAdjacentHTML('beforeend', html);
+            document.getElementById("diaryPaper").style.backgroundColor = data.diaryColor;
+            document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient(${data.diaryColor} 0px, ${data.diaryColor} 24px, steelblue 25px)`);
             document.getElementById("savediary").style.display = "block";
 
         }
@@ -35,6 +37,8 @@
                     <label class="text-theme-21 star">Add New Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ..."></div>`
             diaryContent.insertAdjacentHTML('beforeend', html);
+            document.getElementById("diaryPaper").setAttribute('style', `background-color : white`);
+            document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient( 0px, 24px, steelblue 25px)`);
             document.getElementById("savediary").style.display = "block";
         }
         else if (data != null && selectedDate == today) {
@@ -42,10 +46,14 @@
                     <label class="text-theme-21 star">Add New Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">${data.comment}</div>`
             diaryContent.insertAdjacentHTML('beforeend', html);
+            document.getElementById("diaryPaper").setAttribute('style', `background-color:${data.diaryColor}`);
+            document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient(${data.diaryColor} 0px, ${data.diaryColor} 24px, steelblue 25px)`);
             document.getElementById("savediary").style.display = "block";
         }
         else
         {
+            document.getElementById("diaryPaper").setAttribute('style', `background-color : white`);
+            document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient( 0px, 24px, steelblue 25px)`);
             document.getElementById("savediary").style.display = "none";
         }
 

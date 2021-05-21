@@ -204,7 +204,7 @@ namespace DeVeeraApp.Controllers
         public IActionResult AskUserEmotion(string QuoteType)
         {
             Emotion model = new Emotion();
-            model.QuoteType = QuoteType;
+   
             return View(model);
         }
 
@@ -213,15 +213,17 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.QuoteType == ViewModels.Quote.Login.ToString() || model.QuoteType == ViewModels.Quote.Registration.ToString())
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                
                 var data = _levelServices.GetAllLevels().Where(l => l.Emotions == (CRM.Core.Domain.EmotionType)model.Emotions && l.Active == true).FirstOrDefault();
                 if (data != null)
                 {
                     return RedirectToAction("Index", "Lesson", new { id = data.Id });
                 }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+               
             }
             return View();
         }

@@ -11,7 +11,7 @@ namespace DeVeeraApp.ViewModels
     {
         [Required(ErrorMessage = "Please select emotion.")]
         public EmotionType Emotions { get; set; }
-        public string QuoteType { get; set; }
+        
     }
 
 }
