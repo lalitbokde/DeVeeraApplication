@@ -25,3 +25,18 @@
     --tw-bg-opacity: 1 !important;
     color: rgba(20,46,113,var(--tw-bg-opacity)) !important;
 }
+.sticky-note-green {
+    background-color: #c9eebf;
+}
+.sticky-note-yellow {
+    background-color: #ffffe0;
+}
+.sticky-note-pink {
+    background-color: #f5dff0;
+}
+.sticky-note-fall-green {
+    background-color: #efe6c1;
+}
+.sticky-note-sky-blue {
+    background-color: #e2e9f6;
+}

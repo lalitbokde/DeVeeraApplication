@@ -84,16 +84,18 @@
 </style>
 <form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="getDiaryContent()">
 
-    <div class="paper">
-        <div class="paper-header">
+    <div class="paper" id="diaryPaper" style="background-color:@Model.DiaryColor">
+        <div class="paper-header" >
             <div class="grid grid-cols-12">
                 <div class="col-span-4 mt-4">
+
                     <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40 ml-2">
                         <a class="ml-9"> Back to Home </a>
                         <a href="/Home/Index" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding">
                             <i data-feather="arrow-left" class="w-4 h-4"></i>
                         </a>
                     </span>
+
                 </div>
                 <div class="col-span-4 mt-4">
                     <div class="relative w-56 ">
@@ -104,7 +106,7 @@
 
                     </div>
                 </div>
-           
+
                 <div id="savediary" class="col-span-4 text-right mt-4 mr-4">
                     <button type="submit">
                         <span class="btn btn-outline-secondary relative justify-end  h-10 w-36">
@@ -117,25 +119,42 @@
                 </div>
             </div>
             <div class="grid grid-cols-12">
-                <div class="col-span-12 text-center mt-4">
+                <div class="col-span-4 mt-4">
+                    <div class="grid grid-cols-12">
+                        <button type="button" class="col-span-2 " onclick="document.execCommand( 'bold',false,null);"> <i data-feather="bold" class="block mx-auto w-5 h-5"></i></a></button>
+                        <button type="button" class="col-span-2" onclick="document.execCommand('italic',false,null);"> <i data-feather="italic" class="block mx-auto w-5 h-5"></i></button>
+                        <button type="button" class="col-span-2" onclick="document.execCommand( 'underline',false,null);"> <i data-feather="underline" class="block mx-auto w-5 h-5"></i></button>
+                    </div>
+                </div>
+                <div class="col-span-4 mt-4 text-center mr-4">
                     <div class="font-medium text-xl">Diary</div>
+                </div>
+                <div class="col-span-4 mt-4 flex ml-9">
+                    <a><div class="w-5 h-5 sticky-note-yellow ml-6" id="#ffffe0" onclick="getDiaryColor(this.id)"></div></a>
+                    <a><div class="w-5 h-5 sticky-note-green ml-3" id="#c9eebf" onclick="getDiaryColor(this.id)"></div></a>
+                    <a><div class="w-5 h-5 sticky-note-sky-blue ml-3" id="#e2e9f6" onclick="getDiaryColor(this.id)"></div></a>
+                    <a><div class="w-5 h-5 sticky-note-pink ml-3" id="#f5dff0" onclick="getDiaryColor(this.id)"></div></a>
+                    <a><div class="w-5 h-5 sticky-note-fall-green ml-3" id="#efe6c1" onclick="getDiaryColor(this.id)"></div></a>
+
                 </div>
             </div>
         </div>
-                <div class="lines">
-                    <div class="text">
-                        <input asp-for="Id" hidden />
-                        <input asp-for="Title" hidden />
-                        <input asp-for="Comment" hidden />
-                        <div id="diaryContent">
-                            <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">@Html.Raw(Model.Title)</div><br /><br />
-                            <label class="text-theme-21 star">Add New Diary Entry  </label><br />
-                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">@Html.Raw(Model.Comment)</div>
-                        </div>
-                    </div>
+        <div class="lines" id="lines" style="background-image:repeating-linear-gradient(@Model.DiaryColor 0px, @Model.DiaryColor 24px, steelblue 25px)">
+            <div class="text">
+                <input asp-for="Id" hidden />
+                <input asp-for="Title" hidden />
+                <input asp-for="Comment" hidden />
+                <input asp-for="DiaryColor" hidden />
+                <div id="diaryContent">
+
+                    <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">@Html.Raw(Model.Title)</div><br /><br />
+                    <label class="text-theme-21 star"> Diary Entry  </label><br />
+                    <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">@Html.Raw(Model.Comment)</div>
                 </div>
-
-
             </div>
+        </div>
+
+       
+    </div>
 </form>
 <script src="~/dist/js/Diary.js"></script>
