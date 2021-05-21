@@ -5,7 +5,7 @@
 }
 
 
-<form asp-controller="DashboardQuote" asp-action="Create" method="post" id="formDashboardQuote">
+<form asp-controller="DashboardQuote" asp-action="Create" method="post" id="formDashboardQuote" onsubmit="ShowLoader('formDashboardQuote');">
     <div class="intro-y inbox  py-10 sm:py-20 items-center">
             <div class="px-5 ">
                 <div class="font-medium text-center text-lg">Dashboard Quote</div>
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24" id="Quoteid" onclick="LoadLoader()">Save</button>
+                                    <button type="submit" class="btn btn-primary w-24" id="Quoteid" >Save</button>
                                 </div>
                             </div>
                         </div>
