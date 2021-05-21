@@ -78,7 +78,7 @@ namespace DeVeeraApp.Controllers
                 model.Title = diary?.Title;
                 model.Comment = diary?.Comment;
                 model.Id = diary==null ? 0:diary.Id;
-                model.DiaryColor = diary.DiaryColor;
+                model.DiaryColor = diary?.DiaryColor;
 
                 //#region Diary 
                 //List<DiaryModel> DiaryList = new List<DiaryModel>();

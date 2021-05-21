@@ -85,7 +85,7 @@ namespace DeVeeraApp.Controllers
 
             if (currentUser.UserRole.Name != "Admin")
             {
-                if(currentDate != lastLoginDate && lastLoginDate != "01/01/0001")
+                if(currentDate != lastLoginDate && lastLoginDate != "01/01/0001" && lastLoginDate != "0001-01-01")
                 {
 
                     return true;
