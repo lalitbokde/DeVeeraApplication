@@ -78,6 +78,7 @@ namespace DeVeeraApp.Controllers
                 model.Title = diary?.Title;
                 model.Comment = diary?.Comment;
                 model.Id = diary==null ? 0:diary.Id;
+                model.DiaryColor = diary.DiaryColor;
 
                 //#region Diary 
                 //List<DiaryModel> DiaryList = new List<DiaryModel>();
@@ -123,6 +124,7 @@ namespace DeVeeraApp.Controllers
                     diary.Title = model.Title;
                     diary.Comment = model.Comment;
                     diary.LastUpdatedOn = DateTime.UtcNow;
+                    diary.DiaryColor = model.DiaryColor;
                     _DiaryMasterService.UpdateDiary(diary);
                     _notificationService.SuccessNotification("Diary updated successfully.");
 
