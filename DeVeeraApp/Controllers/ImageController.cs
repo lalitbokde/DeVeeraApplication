@@ -80,7 +80,7 @@ namespace DeVeeraApp.Controllers
                     return RedirectToAction("List");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _notificationService.ErrorNotification(ex.Message);
                 return RedirectToAction("List");
@@ -98,6 +98,7 @@ namespace DeVeeraApp.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<ImageModel>();
+                    model.ImageUrl = _s3BucketService.GetPreSignedURL(model.Key).Result;
                     return View(model);
                 }
             }
@@ -107,14 +108,27 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Edit(ImageModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var imageData = _imageMasterService.GetImageById(model.Id);
+                try
+                {
+                    if (model.FileName != null)
+                    {
+                        var url = UploadToAWS(model.FileName);
+                        imageData.ImageUrl = url.Result;
+                        imageData.Key = model.FileName;
+
+                    }
+                }
+                catch (Exception ex)
+                { }
+
                 imageData.Name = model.Name;
-                imageData.ImageUrl = model.ImageUrl;
-                imageData.Key = model.FileName;
+
                 _imageMasterService.UpdateImage(imageData);
-                _notificationService.SuccessNotification("Image url updated successfully");
+                _notificationService.SuccessNotification("Image url updated successfully.");
                 return RedirectToAction("List");
             }
             return View();
@@ -125,10 +139,18 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Image", "List", "/Image/List", "/Image/List");
             var imageList = _imageMasterService.GetAllImages();
             var model = new List<ImageModel>();
-            if (imageList.Count() != 0)
-            {
-                model = imageList.ToList().ToModelList<Image, ImageModel>(model);
 
+            if(imageList.Count > 0)
+            {
+                foreach(var item in imageList)
+                {
+                    var data = new ImageModel();
+                    data.ImageUrl = _s3BucketService.GetPreSignedURL(item?.Key).Result;
+                    data.Name = item.Name;
+                    data.Id = item.Id;
+                    model.Add(data);
+                }
+               
             }
             return View(model);
         }
@@ -174,7 +196,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult ImagePreview(int Id)
         {
-            if(Id != 0)
+            if (Id != 0)
             {
                 var data = _imageMasterService.GetImageById(Id);
 
@@ -186,6 +208,39 @@ namespace DeVeeraApp.Controllers
             }
             return RedirectToAction("List");
         }
+
+
+        public IActionResult DeleteImage(int imageId)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (imageId != 0)
+            {
+                var data = _imageMasterService.GetImageById(imageId);
+
+                if (data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No video found";
+                }
+                _s3BucketService.DeleteFile(data.Key);
+
+                data.Key = null;
+                data.ImageUrl = null;
+
+                _imageMasterService.UpdateImage(data);
+                response.Success = true;
+
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "imageId is 0";
+
+            }
+            return Json(response);
+        }
+
 
         public IActionResult Delete(int imageId)
         {
