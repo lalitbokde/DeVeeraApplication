@@ -614,12 +614,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="top-menu__title">Questionnaire<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                 </a>
                                 <ul>
-                                    <li>
-                                        <a asp-controller="QuestionAnswer" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
+                                    @{ string RedirectQuestion = "Questionarrie";
+                                             <li>
+
+                                            <a asp-controller="QuestionAnswer" asp-action="Create" asp-route-pagetype="@RedirectQuestion" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                                <div class="top-menu__title"> Create </div>
+                                            </a>
+                                        </li>
+                                    }
                                     <li>
                                         <a asp-controller="QuestionAnswer" asp-action="List" class="top-menu">
                                             <div class="top-menu__icon"> <i data-feather="list"></i> </div>
@@ -742,7 +745,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         $('#time').mdtimepicker();
     </script>
-    <script src="~/CustomJS/Common.js"></script>
+    <script src="~/dist/js/CustomJs/Common.js"></script>
 
 
 

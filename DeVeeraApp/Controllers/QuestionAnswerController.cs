@@ -90,17 +90,21 @@ namespace DeVeeraApp.Controllers
 
             return View(model);
         }
-        public IActionResult Create()
+        public IActionResult Create(string pagetype)
         {
             AddBreadcrumbs("Question Array", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
             QuestionModel model = new QuestionModel();
+            model.Questionarrie = pagetype;
+            ViewBag.pagetype = pagetype;
             PrepareDropdowns(model);
             return View(model);
+            
         }
 
         [HttpPost]
         public IActionResult Create(QuestionModel model)
         {
+            string pagetype = Request.Form["pagetype"];
             AddBreadcrumbs("Question Array", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
             if (ModelState.IsValid)
             {
@@ -108,8 +112,14 @@ namespace DeVeeraApp.Controllers
                 data.CreatedOn = DateTime.UtcNow;
 
                 _QuestionAnswerService.InsertQuestion(data);
-
+                if(pagetype!= "Questionarrie")
+                { 
                 return RedirectToAction("Index", "Module",new {id=model.ModuleId });
+                }
+                else
+                {
+                    return RedirectToAction("List", "QuestionAnswer");
+                }
             }
             PrepareDropdowns(model);
             return View(model);

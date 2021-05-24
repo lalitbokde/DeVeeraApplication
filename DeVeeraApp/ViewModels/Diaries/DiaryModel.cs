@@ -6,13 +6,13 @@ namespace DeVeeraApp.ViewModels.Diaries
 {
     public class DiaryModel : BaseEntityModel
     {
-        [Required]
+        [Required(ErrorMessage ="Please enter the Title")]
         public string Title { get; set; }
         public string Description { get; set; }
         public int? LevelId { get; set; }
         public int? ModuleId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the diary entry")]
         public string Comment { get; set; }
         public DateTime DiaryDate { get; set; }
         public DateTime CreatedOn { get; set; }

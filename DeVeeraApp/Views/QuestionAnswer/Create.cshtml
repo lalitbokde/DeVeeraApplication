@@ -10,7 +10,7 @@
             <div class="font-medium text-center text-lg">Create Question</div>
             <div class="text-gray-600 text-center mt-2">Please Add Questions For Modules</div>
         </div>
-
+       
 
         <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -34,6 +34,7 @@
                         <label class="form-label text-theme-21 ">Module</label>
                         <select id="moduleId" asp-for="ModuleId" asp-items="Model.AvailableModules" type="text" data-search="true" class="select form-control w-full" placeholder="Select Module"></select>
                     </div>
+                    <input id="questionarrie" value="@ViewBag.pagetype"  name="pagetype" hidden/>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         @*<a asp-controller="QuestionAnswer" asp-action="List" class="btn btn-primary mr-2 w-24">List</a>*@
                         <div class="intro-y   col-span-6 pr-5">
