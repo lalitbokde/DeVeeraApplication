@@ -82,7 +82,7 @@
         color: gainsboro;
     }
 </style>
-<form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="getDiaryContent()">
+<form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="return getDiaryContent()">
 
     <div class="paper" id="diaryPaper" style="background-color:@Model.DiaryColor">
         <div class="paper-header" >

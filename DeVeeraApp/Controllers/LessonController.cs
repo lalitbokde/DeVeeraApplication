@@ -139,7 +139,7 @@ namespace DeVeeraApp.Controllers
                 }
             }
 
-
+            if (data.VideoId != null) { 
             var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
 
             var videoUrl =  _s3BucketService.GetPreSignedURL(videoRecord.Key);
@@ -147,7 +147,7 @@ namespace DeVeeraApp.Controllers
             videoRecord.VideoUrl = videoUrl.Result;
 
             _videoMasterService.UpdateVideo(videoRecord);
-
+            }
             var updatedVideoData = _levelServices.GetLevelById(id);
             videoData.Id = updatedVideoData.Id;
             videoData.FullDescription = updatedVideoData.FullDescription;

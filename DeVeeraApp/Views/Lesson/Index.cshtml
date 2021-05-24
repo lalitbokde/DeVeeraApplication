@@ -116,9 +116,13 @@
     <!-- BEGIN: Blog Layout -->
     <div class="intro-y mt-10">
         <div class="news__preview image-fit">
-            @{string src = Model.Video.VideoUrl;}
-            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+            @{
+                string src = Model.Video?.VideoUrl ==null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
 
+                <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+
+
+            }
         </div>
 
         <div class="intro-y text-justify leading-relaxed mt-10">

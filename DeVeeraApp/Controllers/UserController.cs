@@ -657,7 +657,9 @@ namespace DeVeeraApp.Controllers
                         {
                             var lastLevel = _levelServices.GetLevelById((int)userData.LastLevel);
 
+                            if (lastLevel != null) { 
                             model.LevelTitle = lastLevel.Title;
+                            }
                         }
                         if (userData.ActiveModule != null && userData.ActiveModule != 0)
                         {

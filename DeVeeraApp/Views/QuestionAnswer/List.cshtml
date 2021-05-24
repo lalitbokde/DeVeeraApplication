@@ -15,7 +15,9 @@
     <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">       
             <div class="grid grid-cols-12 mt-6">
                 <div class="intro-y col-span-12 text-right">
-                    <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-28"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Create</a>
+                  @{  string RedirectQuestion = "Questionarrie";
+                    <a asp-controller="QuestionAnswer" asp-action="Create" asp-route-pagetype="@RedirectQuestion" class="btn btn-primary w-28"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Create</a>
+                      }
                 </div>
             </div>
        

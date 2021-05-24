@@ -15,11 +15,14 @@
 
 //automatic number generating formatter
 var autoNumFormatter = function () {
-    return $("#tabulator1 .tabulator-row").length ;
+   
+    return $("#tabulator1 .tabulator-row").length;
+   
 };
 
 var table = new Tabulator("#tabulator1",
     {
+     
         index: "id",
         layout: "fitColumns",
         responsiveLayout: "collapse",
@@ -29,7 +32,7 @@ var table = new Tabulator("#tabulator1",
             { title: "#", width: 90, headerSort: false, formatter: autoNumFormatter},
             { title: "Quote", field: "Title", sorter: "string", width: 290 },
             { title: "Author", field: "Author", sorter: "string", width: 170 },
-            { title: "Level", field: "Level", sorter: "string", width: 140 },
+            { title: "Level", field: "Level" , sorter: "string", width: 140 },
             { title: "Dashboard Quote", field: "IsDashboardQuote", sorter: "boolean", width: 170 },
             { title: "Random Quote", field: "IsRandom", sorter: "boolean", width: 150 },
             { title: "Edit", field: "", hozAlign: "center", width: 90, headerSort: false, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/DashboardQuote/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
@@ -41,3 +44,6 @@ var table = new Tabulator("#tabulator1",
 
 var tableData = $("#QuoteTable").val();
 table.setData(tableData);
+table.location.reload();
+
+

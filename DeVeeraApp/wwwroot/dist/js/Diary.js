@@ -68,6 +68,21 @@ function getDiaryContent() {
     title = title == null ? "" : title.innerHTML
     var comment = document.getElementById("comment");
     comment = comment == null ? "" : comment.innerHTML
+    if (title == "" || comment == "") {
+        swal({
+            type: 'info',
+            title: 'Empty diary can not be saved!',
+            text: 'Please fill your diary notes!',
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-lg btn-info'
+            
+        });
+        return false;
+    }
+    else {
+        return true;
+    }
+
     document.getElementById("Title").value = title;
     document.getElementById("Comment").value = comment;
 }
