@@ -23,7 +23,13 @@ var table = new Tabulator("#tabulator1",
         index: "id",
         layout: "fitColumns",
         responsiveLayout: "collapse",
+        pagination: "local",
+        paginationSize: 10,
+        paginationSizeSelector: [10, 20, 30, 40],
         columns: [
+            {
+                formatter: "responsiveCollapse",
+            },
             
             //{ title: "#", field: "", sorter: "number", width: 50, editor: true, headerSort: false},
             { title: "#", width: 90, headerSort: false, formatter: autoNumFormatter},
@@ -32,8 +38,8 @@ var table = new Tabulator("#tabulator1",
             { title: "Level", field: "Level", sorter: "string", width: 140 },
             { title: "Dashboard Quote", field: "IsDashboardQuote", sorter: "boolean", width: 170 },
             { title: "Random Quote", field: "IsRandom", sorter: "boolean", width: 150 },
-            { title: "Edit", field: "", hozAlign: "center", width: 90, headerSort: false, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/DashboardQuote/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
-            { title: "Delete", field: "", hozAlign: "center", width: 90, headerSort: false, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a onclick="ShowDeleteConfirmation('PostDeleteDashboardQuote(${e.getData().Id})')"" >\n <i data-feather="trash-2" class="text-theme-24"></i> \n</a>\n</div>   ` }, },],
+            { title: "Edit", field: "actions", hozAlign: "center", width: 90, headerSort: false, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center"><a href="/DashboardQuote/Edit/${e.getData().Id}"><i data-feather="edit" class="text-theme-10"></i></a></div>` }, },
+            { title: "Delete", field: "actions", hozAlign: "center", width: 90, headerSort: false, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center"><a onclick="ShowDeleteConfirmation('PostDeleteDashboardQuote(${e.getData().Id})')"" ><i data-feather="trash-2" class="text-theme-24"></i></a></div>` }, },],
 
     });
 
