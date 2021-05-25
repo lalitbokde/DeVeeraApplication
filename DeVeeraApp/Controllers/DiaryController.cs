@@ -80,16 +80,16 @@ namespace DeVeeraApp.Controllers
                 model.Id = diary==null ? 0:diary.Id;
                 model.DiaryColor = diary?.DiaryColor;
 
-                //#region Diary 
-                //List<DiaryModel> DiaryList = new List<DiaryModel>();
+                #region Diary 
+                List<DiaryModel> DiaryList = new List<DiaryModel>();
 
-                //    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id).ToList();
+                var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id).ToList();
 
-                //    DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+                DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
 
-                //#endregion
+                #endregion
 
-                //model.diaryModels = DiaryList;
+                model.diaryModels = DiaryList;
                 //model.DiaryDate = DateTime.UtcNow;
 
                 return View(model);
@@ -129,16 +129,16 @@ namespace DeVeeraApp.Controllers
                     _notificationService.SuccessNotification("Diary updated successfully.");
 
                 }
-                //#region Diary 
-                //List<DiaryModel> DiaryList = new List<DiaryModel>();
-                
-                //    var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+                #region Diary 
+                List<DiaryModel> DiaryList = new List<DiaryModel>();
 
-                //    DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
-                
-                //#endregion
+                var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
 
-                //model.diaryModels = DiaryList;
+                DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+
+                #endregion
+
+                model.diaryModels = DiaryList;
 
                 return RedirectToAction("Create", "Diary");
 

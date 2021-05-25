@@ -1,7 +1,10 @@
-﻿function GetDiaryByDate() {
+﻿function GetDiaryByDate(date) {
     debugger
-    var date = document.getElementById("date").value;
-
+    if (date == null){
+        var date = document.getElementById("date").value;
+    }else{
+        var date = date;
+    }
     var selectedDate = new Date(date);
     var sMonth = selectedDate.getMonth() + 1;
     var sDay = selectedDate.getDate();
@@ -31,6 +34,12 @@
             document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient(${data.diaryColor} 0px, ${data.diaryColor} 24px, steelblue 25px)`);
             document.getElementById("savediary").style.display = "block";
 
+            var createdDate = new Date(data.createdOn);
+            var cMonth = createdDate.toLocaleString('default', { month: 'long' });
+            var cDay = createdDate.getDate();
+            var cYear = createdDate.getFullYear();
+            createdDate = `${cMonth} ${cDay}, ${cYear}`;
+            document.getElementById("date").value = createdDate;
         }
         else if (data == null && selectedDate == today) {
             var html = `<label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ..."></div><br /><br />
@@ -49,6 +58,13 @@
             document.getElementById("diaryPaper").setAttribute('style', `background-color:${data.diaryColor}`);
             document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient(${data.diaryColor} 0px, ${data.diaryColor} 24px, steelblue 25px)`);
             document.getElementById("savediary").style.display = "block";
+
+            var createdDate = new Date(data.createdOn);
+            var cMonth = createdDate.toLocaleString('default', { month: 'long' });
+            var cDay = createdDate.getDate();
+            var cYear = createdDate.getFullYear();
+            createdDate = `${cMonth} ${cDay}, ${cYear}`;
+            document.getElementById("date").value = createdDate;
         }
         else
         {
@@ -60,6 +76,7 @@
         document.getElementById("Id").value = data==null ? 0 :data.id;
 
     })
+
 } 
 
 function getDiaryContent() {
