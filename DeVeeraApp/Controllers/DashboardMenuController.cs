@@ -41,8 +41,15 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("Dashboard Menu ", "Index", "/DashboardMenu/Index", "/DashboardMenu/Index");
             var dashboardMenu =_dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
+            if (dashboardMenu != null) { 
             var model = dashboardMenu.ToModel<DashboardMenuModel>();
-            return View(model);
+                return View(model);
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
 

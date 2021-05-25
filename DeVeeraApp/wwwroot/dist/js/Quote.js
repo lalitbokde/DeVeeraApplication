@@ -14,12 +14,15 @@
 
 
 //automatic number generating formatter
+
 //var autoNumFormatter = function () {
 //    return $("#tabulator1 .tabulator-row").length ;
 //};
 
+
 var table = new Tabulator("#tabulator1",
     {
+     
         index: "id",
         layout: "fitColumns",
         responsiveLayout: "collapse",
@@ -35,7 +38,7 @@ var table = new Tabulator("#tabulator1",
             { title: "#", width: 90, headerSort: false, formatter: "rownum"},
             { title: "Quote", field: "Title", sorter: "string", width: 290 },
             { title: "Author", field: "Author", sorter: "string", width: 170 },
-            { title: "Level", field: "Level", sorter: "string", width: 140 },
+            { title: "Level", field: "Level" , sorter: "string", width: 140 },
             { title: "Dashboard Quote", field: "IsDashboardQuote", sorter: "boolean", width: 170 },
             { title: "Random Quote", field: "IsRandom", sorter: "boolean", width: 150 },
             { title: "Edit", field: "actions", hozAlign: "center", width: 90, headerSort: false, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center"><a href="/DashboardQuote/Edit/${e.getData().Id}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit text-theme-10"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a></div>` }, },
@@ -47,3 +50,6 @@ var table = new Tabulator("#tabulator1",
 
 var tableData = $("#QuoteTable").val();
 table.setData(tableData);
+table.location.reload();
+
+
