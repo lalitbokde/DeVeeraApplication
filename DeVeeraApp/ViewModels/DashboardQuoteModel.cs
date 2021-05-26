@@ -18,7 +18,7 @@ namespace DeVeeraApp.ViewModels
 
         public int? LevelId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="The Quote field is Required")]
         public string Title { get; set; }     
         public string Author { get; set; }
         public string Level { get; set; }
