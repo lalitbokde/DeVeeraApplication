@@ -97,11 +97,12 @@ function getDiaryContent() {
         return false;
     }
     else {
+        document.getElementById("Title").value = title;
+        document.getElementById("Comment").value = comment;
         return true;
     }
 
-    document.getElementById("Title").value = title;
-    document.getElementById("Comment").value = comment;
+    
 }
 
 function getDiaryColor(ColorCode) {
