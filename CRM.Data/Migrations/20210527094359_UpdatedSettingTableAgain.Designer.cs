@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210527094359_UpdatedSettingTableAgain")]
+    partial class UpdatedSettingTableAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,8 +241,6 @@ namespace CRM.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<int>("Emotions");
-
                     b.Property<string>("FullDescription");
 
                     b.Property<int?>("LevelNo");
@@ -337,40 +337,25 @@ namespace CRM.Data.Migrations
                     b.ToTable("PermissionRecord_Role_Mapping");
                 });
 
-<<<<<<< HEAD
-=======
-
-            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
-
+            modelBuilder.Entity("CRM.Core.Domain.Setting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("LanguageId");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime?>("DiaryLoginDate");
-
-                    b.Property<DateTime>("LastUpdatedOn");
-
-                    b.Property<string>("Password");
+                    b.Property<int>("ProjectId");
 
                     b.Property<int>("UserId");
-
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-
-                    b.ToTable("DiaryPasscode");
-
+                    b.ToTable("Setting");
                 });
 
->>>>>>> 2e6c88f35b54df6b0420b68cdc19466326d4446d
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
                 {
                     b.Property<int>("Id")
@@ -532,8 +517,6 @@ namespace CRM.Data.Migrations
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("DiaryColor");
 
                     b.Property<DateTime>("LastUpdatedOn");
 
@@ -713,19 +696,14 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-<<<<<<< HEAD
-=======
-
-            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
+            modelBuilder.Entity("CRM.Core.Domain.Setting", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
                 });
 
->>>>>>> 2e6c88f35b54df6b0420b68cdc19466326d4446d
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Common.Address", "UserAddress")

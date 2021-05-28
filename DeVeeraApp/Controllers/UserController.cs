@@ -45,6 +45,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelServices _levelServices;
         private readonly IUserModelFactory _UserModelFactory;
         private readonly IModuleService _moduleService;
+        private readonly ILanguageService _languageService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IQuestionAnswerService _questionAnswerService;
         private readonly IQuestionAnswerMappingService _questionAnswerMappingService;
@@ -81,6 +82,7 @@ namespace DeVeeraApp.Controllers
                                   IAuthenticationService authenticationService,
                                   IUserModelFactory UserModelFactory,
                                   IModuleService moduleService,
+                                  ILanguageService languageService,
                                   // INotificationService notificationService,
                                   IEncryptionService encryptionService,
                                   INotificationService notificationService,
@@ -105,6 +107,7 @@ namespace DeVeeraApp.Controllers
             this._authenticationService = authenticationService;
             this._UserModelFactory = UserModelFactory;
             this._moduleService = moduleService;
+            this._languageService = languageService;
             this._permissionService = permissionService;
             // this._notificationService = notificationService;
             _encryptionService = encryptionService;
@@ -220,6 +223,24 @@ namespace DeVeeraApp.Controllers
 
         }
 
+        public virtual void PrepareLanguages(LanguageModel model)
+        {
+            
+            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
+            var AvailableLanguage = _languageService.GetAllLanguages();
+            foreach (var item in AvailableLanguage)
+            {
+                model.AvailableLanguages.Add(new SelectListItem
+                {
+                    Value = item.Id.ToString(),
+                    Text = item.Name
+                });
+            }
+        }
+
+
+        #endregion
+
 
         // POST: Order/GetUserById
         [HttpPost]
@@ -295,7 +316,7 @@ namespace DeVeeraApp.Controllers
 
 
 
-        #endregion
+        
 
         #region User
 
@@ -639,10 +660,10 @@ namespace DeVeeraApp.Controllers
         public IActionResult UserProfile(int userId)
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
+            var model = new UserModel();
 
             if (userId != 0)
             {
-                var model = new UserModel();
 
                 var userData = _UserService.GetUserById(userId);
                 if (userData != null)
@@ -703,9 +724,12 @@ namespace DeVeeraApp.Controllers
 
                     }
                 }
+                PrepareLanguages(model.LandingPageModel.Language);
+
                 return View(model);
 
             }
+            PrepareLanguages(model.LandingPageModel.Language);
             return RedirectToAction("Index", "Home");
         }
 
