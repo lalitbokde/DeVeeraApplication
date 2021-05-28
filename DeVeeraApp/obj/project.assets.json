@@ -27,6 +27,39 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "AWSSDK.Core/3.7.0.16": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {}
+        }
+      },
+      "AWSSDK.S3/3.7.0.17": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "[3.7.0.16, 3.8.0)"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AWSSDK.S3.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.S3.dll": {}
+        }
+      },
+      "AWSSDK.Transfer/3.7.0.14": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "[3.7.0.15, 3.8.0)"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/AWSSDK.Transfer.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Transfer.dll": {}
+        }
+      },
       "Castle.Core/4.2.1": {
         "type": "package",
         "dependencies": {
@@ -3629,6 +3662,18 @@
           "lib/netstandard2.0/Twilio.dll": {}
         }
       },
+      "Xabe.FFmpeg/3.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Xabe.FFmpeg.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xabe.FFmpeg.dll": {}
+        }
+      },
       "CRM.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -3668,6 +3713,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "AWSSDK.Core": "3.7.0.15",
+          "AWSSDK.S3": "3.7.0.16",
           "CRM.Core": "1.0.0",
           "CRM.Data": "1.0.0",
           "PagedList.Core.Mvc": "1.2.0",
@@ -3719,6 +3766,85 @@
         "automapper.extensions.microsoft.dependencyinjection.4.0.1.nupkg.sha512",
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "AWSSDK.Core/3.7.0.16": {
+      "sha512": "DFAoGy2fDrt9Il4hHEueoc/vm825RlXGTbsF7Cu2TnJ8apSVCs0+qnF8RJDouQYTC6QcOVU4pSltdCYoRGy5xw==",
+      "type": "package",
+      "path": "awssdk.core/3.7.0.16",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "awssdk.core.3.7.0.16.nupkg.sha512",
+        "awssdk.core.nuspec",
+        "lib/net35/AWSSDK.Core.dll",
+        "lib/net35/AWSSDK.Core.pdb",
+        "lib/net35/AWSSDK.Core.xml",
+        "lib/net45/AWSSDK.Core.dll",
+        "lib/net45/AWSSDK.Core.pdb",
+        "lib/net45/AWSSDK.Core.xml",
+        "lib/netcoreapp3.1/AWSSDK.Core.dll",
+        "lib/netcoreapp3.1/AWSSDK.Core.pdb",
+        "lib/netcoreapp3.1/AWSSDK.Core.xml",
+        "lib/netstandard2.0/AWSSDK.Core.dll",
+        "lib/netstandard2.0/AWSSDK.Core.pdb",
+        "lib/netstandard2.0/AWSSDK.Core.xml",
+        "tools/account-management.ps1"
+      ]
+    },
+    "AWSSDK.S3/3.7.0.17": {
+      "sha512": "pwaYCUbr2R2z7pB8OD+GFHYICYMJZcUHxnig0gbAYltuJqAasmf11Y/EeO/7OceIb+XCbhWuI0Tx//y5d/cezQ==",
+      "type": "package",
+      "path": "awssdk.s3/3.7.0.17",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/AWSSDK.S3.CodeAnalysis.dll",
+        "awssdk.s3.3.7.0.17.nupkg.sha512",
+        "awssdk.s3.nuspec",
+        "lib/net35/AWSSDK.S3.dll",
+        "lib/net35/AWSSDK.S3.pdb",
+        "lib/net35/AWSSDK.S3.xml",
+        "lib/net45/AWSSDK.S3.dll",
+        "lib/net45/AWSSDK.S3.pdb",
+        "lib/net45/AWSSDK.S3.xml",
+        "lib/netcoreapp3.1/AWSSDK.S3.dll",
+        "lib/netcoreapp3.1/AWSSDK.S3.pdb",
+        "lib/netcoreapp3.1/AWSSDK.S3.xml",
+        "lib/netstandard2.0/AWSSDK.S3.dll",
+        "lib/netstandard2.0/AWSSDK.S3.pdb",
+        "lib/netstandard2.0/AWSSDK.S3.xml",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "AWSSDK.Transfer/3.7.0.14": {
+      "sha512": "TIYQueFYeLQf6DoibguIsW0J8UktHF8DskkUWYBT80zGP91aQRbq71xYLVvsBVtTihJ5GZc3sZZA7Wkppr05eQ==",
+      "type": "package",
+      "path": "awssdk.transfer/3.7.0.14",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/AWSSDK.Transfer.CodeAnalysis.dll",
+        "awssdk.transfer.3.7.0.14.nupkg.sha512",
+        "awssdk.transfer.nuspec",
+        "lib/net35/AWSSDK.Transfer.dll",
+        "lib/net35/AWSSDK.Transfer.pdb",
+        "lib/net35/AWSSDK.Transfer.xml",
+        "lib/net45/AWSSDK.Transfer.dll",
+        "lib/net45/AWSSDK.Transfer.pdb",
+        "lib/net45/AWSSDK.Transfer.xml",
+        "lib/netcoreapp3.1/AWSSDK.Transfer.dll",
+        "lib/netcoreapp3.1/AWSSDK.Transfer.pdb",
+        "lib/netcoreapp3.1/AWSSDK.Transfer.xml",
+        "lib/netstandard2.0/AWSSDK.Transfer.dll",
+        "lib/netstandard2.0/AWSSDK.Transfer.pdb",
+        "lib/netstandard2.0/AWSSDK.Transfer.xml",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "Castle.Core/4.2.1": {
@@ -11024,6 +11150,19 @@
         "twilio.nuspec"
       ]
     },
+    "Xabe.FFmpeg/3.3.0": {
+      "sha512": "mQ5o6fH9cagVhwwJOMuxMhWUXgeJ4sZH+OUHn7aEXCKGUG0UNJUylrWN7xnIZhydRciiu4iCO0Gwm58ces0+Aw==",
+      "type": "package",
+      "path": "xabe.ffmpeg/3.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Xabe.FFmpeg.dll",
+        "lib/netstandard2.0/Xabe.FFmpeg.xml",
+        "xabe.ffmpeg.3.3.0.nupkg.sha512",
+        "xabe.ffmpeg.nuspec"
+      ]
+    },
     "CRM.Core/1.0.0": {
       "type": "project",
       "path": "../CRM.Core/CRM.Core.csproj",
@@ -11042,39 +11181,44 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "AWSSDK.S3 >= 3.7.0.17",
+      "AWSSDK.Transfer >= 3.7.0.14",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 4.0.1",
       "CRM.Data >= 1.0.0",
       "CRM.Services >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.11",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
+      "Xabe.FFmpeg >= 3.3.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Naresh\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages": {}
+    "C:\\Users\\lalit\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
+      "projectUniqueName": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
       "projectName": "DeVeeraApp",
-      "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
-      "packagesPath": "C:\\Users\\Naresh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\DeVeeraApp\\obj\\",
+      "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
+      "packagesPath": "C:\\Users\\lalit\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Naresh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\lalit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -11082,11 +11226,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
-              "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
+            "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
+              "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
             },
-            "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
-              "projectPath": "C:\\Users\\Naresh\\source\\repos\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj"
+            "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
+              "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj"
             }
           }
         }
@@ -11101,6 +11245,14 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "AWSSDK.S3": {
+            "target": "Package",
+            "version": "[3.7.0.17, )"
+          },
+          "AWSSDK.Transfer": {
+            "target": "Package",
+            "version": "[3.7.0.14, )"
+          },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[4.0.1, )"
@@ -11112,6 +11264,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[3.1.5, )"
+          },
+          "Xabe.FFmpeg": {
+            "target": "Package",
+            "version": "[3.3.0, )"
           }
         },
         "imports": [
@@ -11132,7 +11288,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   },
