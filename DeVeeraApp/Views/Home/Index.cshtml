@@ -70,7 +70,8 @@
             }
             <!-- END: General Report -->
 
-          
+                 @if (_workContext.CurrentUser.UserRole.Name=="Admin") 
+                 {
                 <div class="col-span-12 lg:col-span-12">
                     <!-- BEGIN: Vertical Bar Chart -->
                     <div class="intro-y box">
@@ -91,6 +92,7 @@
 
              
             </div>
+                 }
         </div>
             </div>
 

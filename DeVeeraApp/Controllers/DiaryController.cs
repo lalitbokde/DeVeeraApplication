@@ -114,7 +114,7 @@ namespace DeVeeraApp.Controllers
             else
             {
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
-                var result = IsUserFirstLoginOnDay(Convert.ToDateTime(passcode.DiaryLoginDate));
+                var result = IsUserFirstLoginOnDay(Convert.ToDateTime(passcode?.DiaryLoginDate));
                 if (result == true)
                 {
                     return RedirectToAction("EnterPasscode", "Diary");
