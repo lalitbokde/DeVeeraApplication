@@ -277,25 +277,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("LevelImageLists");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.LocaleStringResource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("LanguageId");
-
-                    b.Property<string>("ResourceName");
-
-                    b.Property<string>("ResourceValue");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("LocaleStringResources");
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.Security.PermissionRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -337,40 +318,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("PermissionRecord_Role_Mapping");
                 });
 
-<<<<<<< HEAD
-=======
-
-            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
-
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime?>("DiaryLoginDate");
-
-                    b.Property<DateTime>("LastUpdatedOn");
-
-                    b.Property<string>("Password");
-
-                    b.Property<int>("UserId");
-
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-
-                    b.ToTable("DiaryPasscode");
-
-                });
-
->>>>>>> 2e6c88f35b54df6b0420b68cdc19466326d4446d
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
                 {
                     b.Property<int>("Id")
@@ -692,14 +639,6 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.LocaleStringResource", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.Security.PermissionRecord_Role_Mapping", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Security.PermissionRecord", "PermissionRecord")
@@ -713,19 +652,6 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-<<<<<<< HEAD
-=======
-
-            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                });
-
->>>>>>> 2e6c88f35b54df6b0420b68cdc19466326d4446d
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Common.Address", "UserAddress")
