@@ -122,34 +122,17 @@
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.Designer.cs" />
 
-    <Compile Include="Migrations\20210519094550_AddedLocaleStringResourceTable.cs" />
-    <Compile Include="Migrations\20210519094550_AddedLocaleStringResourceTable.Designer.cs" />
-    <Compile Include="Migrations\20210526072142_AddedSettingTable.cs" />
-    <Compile Include="Migrations\20210526072142_AddedSettingTable.Designer.cs" />
-    <Compile Include="Migrations\20210526102157_UpdatedSettingTable.cs" />
-    <Compile Include="Migrations\20210526102157_UpdatedSettingTable.Designer.cs" />
-    <Compile Include="Migrations\20210526124820_UpdatedLanguageTable.cs" />
-    <Compile Include="Migrations\20210526124820_UpdatedLanguageTable.Designer.cs" />
-    <Compile Include="Migrations\20210527094359_UpdatedSettingTableAgain.cs" />
-    <Compile Include="Migrations\20210527094359_UpdatedSettingTableAgain.Designer.cs" />
-    <Compile Include="Migrations\20210527110106_UpdatedSettingTableOnceAgain.cs" />
-    <Compile Include="Migrations\20210527110106_UpdatedSettingTableOnceAgain.Designer.cs" />
-
     <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.cs" />
     <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.Designer.cs" />
     <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.cs" />
     <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.Designer.cs" />
-
-
-
-
-
-
-    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
     <Compile Include="Migrations\20210423110251_diaryTableUpdate.cs" />
     <Compile Include="Migrations\20210423110251_diaryTableUpdate.Designer.cs" />
     <Compile Include="Migrations\20210423121810_moduleIdAdded.Designer.cs" />
     <Compile Include="Migrations\20210423121810_moduleIdAdded.cs" />
+    <Compile Include="Migrations\20210528160635_LanguageMigration.cs" />
+    <Compile Include="Migrations\20210528160635_LanguageMigration.Designer.cs" />
+    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
