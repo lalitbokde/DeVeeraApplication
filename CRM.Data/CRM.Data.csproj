@@ -121,20 +121,18 @@
     <Compile Include="Migrations\20210514072807_DasboardMenu.Designer.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.Designer.cs" />
+
     <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.cs" />
     <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.Designer.cs" />
     <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.cs" />
     <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.Designer.cs" />
-
-
-
-
-
-    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
     <Compile Include="Migrations\20210423110251_diaryTableUpdate.cs" />
     <Compile Include="Migrations\20210423110251_diaryTableUpdate.Designer.cs" />
     <Compile Include="Migrations\20210423121810_moduleIdAdded.Designer.cs" />
     <Compile Include="Migrations\20210423121810_moduleIdAdded.cs" />
+    <Compile Include="Migrations\20210528160635_LanguageMigration.cs" />
+    <Compile Include="Migrations\20210528160635_LanguageMigration.Designer.cs" />
+    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>

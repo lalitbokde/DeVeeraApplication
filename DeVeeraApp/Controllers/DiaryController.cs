@@ -1,9 +1,11 @@
 using CRM.Core;
 using CRM.Core.Domain;
-
+using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Customers;
+using CRM.Services.Emotions;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -11,6 +13,7 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Diaries;
+using DeVeeraApp.ViewModels.Emotions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,6 +33,9 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelServices _levelServices;
         private readonly IModuleService _moduleService;
         private readonly IUserService _userService;
+        private readonly IEmotionService _emotionService;
+        private readonly IEmotionMappingService _emotionMappingService;
+        private readonly IDiaryPasscodeService _diaryPasscodeService;
 
         #endregion
 
@@ -42,6 +48,9 @@ namespace DeVeeraApp.Controllers
                        ILevelServices levelServices,
                        IModuleService moduleService,
                        IUserService userService,
+                       IEmotionService emotionService,
+                       IEmotionMappingService emotionMappingService,
+                       IDiaryPasscodeService diaryPasscodeService,
                         IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
@@ -54,10 +63,41 @@ namespace DeVeeraApp.Controllers
             _levelServices = levelServices;
             _moduleService = moduleService;
             _userService = userService;
+            _emotionService = emotionService;
+            _emotionMappingService = emotionMappingService;
+            _diaryPasscodeService = diaryPasscodeService;
         }
 
         #endregion
 
+        #region Utilities     
+        public bool IsUserFirstLoginOnDay(DateTime lastLoginDateUtc)
+        {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+
+            var currentDate = DateTime.UtcNow.ToShortDateString();
+
+            var lastLoginDate = lastLoginDateUtc.ToShortDateString();
+
+            if (currentUser.UserRole.Name != "Admin")
+            {
+                if (currentDate != lastLoginDate)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        #endregion
 
         #region Method
 
@@ -73,6 +113,13 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
+                var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
+                var result = IsUserFirstLoginOnDay(Convert.ToDateTime(passcode?.DiaryLoginDate));
+                if (result == true)
+                {
+                    return RedirectToAction("EnterPasscode", "Diary");
+                }
+
                 var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
                 model.DiaryDate = DateTime.UtcNow;
                 model.Title = diary?.Title;
@@ -83,7 +130,7 @@ namespace DeVeeraApp.Controllers
                 #region Diary 
                 List<DiaryModel> DiaryList = new List<DiaryModel>();
 
-                var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id).ToList();
+                var item = _DiaryMasterService.GetAllDiarys().ToList();
 
                 DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
 
@@ -132,7 +179,7 @@ namespace DeVeeraApp.Controllers
                 #region Diary 
                 List<DiaryModel> DiaryList = new List<DiaryModel>();
 
-                var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
+                var item = _DiaryMasterService.GetAllDiarys().ToList();
 
                 DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
 
@@ -201,20 +248,44 @@ namespace DeVeeraApp.Controllers
             return Json(diary);
         }
 
-        public IActionResult AskUserEmotion(string QuoteType)
+        public IActionResult AskUserEmotion()
         {
-            Emotion model = new Emotion();
-   
+            EmotionModel model = new EmotionModel();
+
+            var list = _emotionService.GetAllEmotions().ToList();
+
+            if (list.Count != 0)
+            {
+                model.EmotionList = list.ToModelList<Emotion, EmotionModel>(model.EmotionList);
+            }
+
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult AskUserEmotion(Emotion model)
+        public IActionResult AskUserEmotion(EmotionModel model)
         {
             if (ModelState.IsValid)
             {
-                
-                var data = _levelServices.GetAllLevels().Where(l => l.Emotions == (CRM.Core.Domain.EmotionType)model.Emotions && l.Active == true).FirstOrDefault();
+                int UserId = _workContext.CurrentUser.Id;
+
+                var user = _userService.GetUserById(UserId);
+
+                //var emotion = _emotionService.GetEmotionById(model.Id);
+
+               _emotionMappingService.InActiveUserEmotion(UserId);
+
+                user.User_Emotion_Mappings.Add(new User_Emotion_Mapping
+                {
+                    EmotionId = model.Id,
+                    UserId = UserId,
+                   CreatedOn = DateTime.UtcNow,
+                    CurrentEmotion = true
+                });
+
+                _userService.UpdateUser(user);
+
+                var data = _levelServices.GetAllLevels().Where(l => l.Level_Emotion_Mappings.Where(a=>a.EmotionId== model.Id).Count() > 0 && l.Active == true).FirstOrDefault();
                 if (data != null)
                 {
                     return RedirectToAction("Index", "Lesson", new { id = data.Id });
@@ -227,6 +298,78 @@ namespace DeVeeraApp.Controllers
             }
             return View();
         }
+
+        public IActionResult EnterPasscode()
+        {
+            AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EnterPasscode(EnterPasscodeModel model)
+        {
+            AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
+
+            if (ModelState.IsValid)
+            {
+                var currentUser = _workContext.CurrentUser;
+
+                var passcode =_diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
+
+                if (model.Passcode != passcode.Password)
+                {
+                    ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                }
+                else
+                {
+                    passcode.DiaryLoginDate = DateTime.UtcNow;
+                    _diaryPasscodeService.UpdateDiaryPasscode(passcode);
+
+                    return RedirectToAction("Create");
+
+                }
+            }
+            return View(model);
+        }
+        public IActionResult ChangePasscode()
+        {
+            AddBreadcrumbs("Diary", "Change Passcode", $"/Diary/ChangePasscode", $"/Diary/ChangePasscode");
+
+            PasscodeModel model = new PasscodeModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePasscode(PasscodeModel model)
+        {
+            AddBreadcrumbs("Diary", "Change Passcode", $"/Diary/ChangePasscode", $"/Diary/ChangePasscode");
+
+            if (ModelState.IsValid)
+            {
+                var currentUser = _workContext.CurrentUser;
+                var diaryPasscode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
+    
+                if (model.Password != model.ConfirmPassword)
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Passcode Doesn't match");
+                }
+                else
+                {
+                    diaryPasscode.Password = model.Password;
+                    diaryPasscode.LastUpdatedOn = DateTime.UtcNow;
+                    _diaryPasscodeService.UpdateDiaryPasscode(diaryPasscode);
+
+                    _notificationService.SuccessNotification("Passcode change successfully.");
+
+                    return RedirectToAction("Create");
+                }
+
+            }
+
+            return View(model);
+        }
+
+
         #endregion
 
 

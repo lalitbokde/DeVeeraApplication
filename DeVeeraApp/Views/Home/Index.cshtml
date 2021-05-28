@@ -70,7 +70,30 @@
             }
             <!-- END: General Report -->
 
-        </div>
-    </div>
+                 @if (_workContext.CurrentUser.UserRole.Name=="Admin") 
+                 {
+                <div class="col-span-12 lg:col-span-12">
+                    <!-- BEGIN: Vertical Bar Chart -->
+                    <div class="intro-y box">
+                        <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                            <h2 class="font-medium text-base mr-auto">
+                                User Emotions
+                            </h2>
+                          
+                        </div>
+                        <div id="vertical-bar-chart" class="p-5">
+                            <div class="preview">
+                                <canvas id="vertical-bar-chart-widget1" height="100"></canvas>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <!-- END: Vertical Bar Chart -->
 
-</div>
+             
+            </div>
+                 }
+        </div>
+            </div>
+
+        </div>

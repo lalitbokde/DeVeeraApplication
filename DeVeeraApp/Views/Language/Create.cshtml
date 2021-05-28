@@ -21,21 +21,51 @@
                         <div asp-validation-summary="All" class="text-theme-6 mt-4">
                         </div>
                     }
-
                     <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Language</label>
+                        <label class="form-label text-theme-21 star">Name</label>
 
-                        <input asp-for="LanguageName" type="text" class="form-control" placeholder="language" />
-                        <span asp-validation-for="LanguageName" class="text-theme-6 mt-2"></span>
+                        <input asp-for="Name" type="text" class="form-control"  />
+                        <span asp-validation-for="Name" class="text-theme-6 mt-2"></span>
 
                     </div>
                     <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Abbreviations</label>
+                        <label class="form-label text-theme-21 star">Language Culture</label>
 
-                        <input asp-for="Abbreviations" type="text" class="form-control" placeholder="abbreviations" />
-                        <span asp-validation-for="Abbreviations" class="text-theme-6 mt-2"></span>
+                        <input asp-for="LanguageCulture" type="text" class="form-control"  />
+                        <span asp-validation-for="LanguageCulture" class="text-theme-6 mt-2"></span>
 
                     </div>
+                    <div class="mt-5">
+                        <label class="form-label text-theme-21 ">Unique SeoCode</label>
+
+                        <input asp-for="UniqueSeoCode" type="text" class="form-control"  />
+                        <span asp-validation-for="UniqueSeoCode" class="text-theme-6 mt-2"></span>
+
+                    </div>
+                    <div class="mt-5">
+                        <input asp-for="Published" type="checkbox" />
+                        <label class="form-label text-theme-21 ">Published</label>
+
+
+                        <span asp-validation-for="Published" class="text-theme-6 mt-2"></span>
+
+                    </div>
+                    <div class="mt-5">
+                        <input asp-for="Rtl" type="checkbox" />
+                        <label class="form-label text-theme-21 ">Rtl</label>
+
+
+                        <span asp-validation-for="Rtl" class="text-theme-6 mt-2"></span>
+
+                    </div>
+                    <div class="mt-5">
+                        <label class="form-label text-theme-21 star">Display Order</label>
+
+                        <input asp-for="DisplayOrder" type="number" class="form-control"  />
+                        <span asp-validation-for="DisplayOrder" class="text-theme-6 mt-2"></span>
+
+                    </div>
+             
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12  gap-y-5 mt-5">
                             <div class="intro-y   col-span-6">

@@ -23,6 +23,8 @@ namespace DeVeeraApp.ViewModels.User
             this.AvailableStates = new List<SelectListItem>();
             this.AvailableUsers = new List<SelectListItem>();
             this.UserQuestionAnswerResponse = new List<UserQuestionAnswerResponse>();
+            this.LandingPageModel = new LandingPageModel();
+            
         }
 
         public string Username { get; set; }
@@ -40,11 +42,14 @@ namespace DeVeeraApp.ViewModels.User
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
         public string ImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
+        public LandingPageModel LandingPageModel { get; set; }
         [NotMapped]
         public string OldPassword { get; set; }
 
         [NotMapped]
         public string ConfirmPassword { get; set; }
+        [NotMapped]
+        public bool TwoFactorAuthentication { get; set; }
         public string CompanyName { get; set; }
         public int? LastLevel { get; set; }
         public int? ActiveModule { get; set; }

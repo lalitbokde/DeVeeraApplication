@@ -1,6 +1,6 @@
 ﻿
 using CRM.Core.Domain.Common;
-
+using CRM.Core.Domain.Emotions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +11,7 @@ namespace CRM.Core.Domain.Users
     {
 
         private ICollection<Address> _addresses;
+        private ICollection<User_Emotion_Mapping> _User_Emotion_Mappings;
 
         /// <summary>
         /// Ctor
@@ -140,8 +141,11 @@ namespace CRM.Core.Domain.Users
             get { return _addresses ?? (_addresses = new List<Address>()); }
             protected set { _addresses = value; }
         }
-
-
+        public virtual ICollection<User_Emotion_Mapping> User_Emotion_Mappings
+        {
+            get { return _User_Emotion_Mappings ?? (_User_Emotion_Mappings = new List<User_Emotion_Mapping>()); }
+            protected set { _User_Emotion_Mappings = value; }
+        }
 
         #endregion
     }

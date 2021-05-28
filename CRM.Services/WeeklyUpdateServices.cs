@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using System.Resources;
 
 namespace CRM.Services
 {
@@ -24,6 +24,7 @@ namespace CRM.Services
 
 
         #region Methods
+
         public void DeleteWeeklyUpdate(WeeklyUpdate model)
         {
             if (model == null)

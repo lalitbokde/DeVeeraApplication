@@ -404,7 +404,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="p-2">
                                 <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
                                 <a asp-controller="Home" asp-action="UnderDevelopment" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="flag" class="w-4 h-4 mr-2"></i> Language</a>
-                                <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
                                 <a asp-controller="Home" asp-action="Help" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
                             </div>
                             <div class="p-2 border-t border-theme-12 dark:border-dark-3">
@@ -423,7 +422,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <li>
                     <a asp-controller="Home" asp-action="Index" class="top-menu">
                         <div class="top-menu__icon"> <i data-feather="home"></i> </div>
-                        <div class="top-menu__title"> Dashboard  </div>
+                        <div class="top-menu__title"> @T("Dashboard")  </div>
                     </a>
 
                 </li>
@@ -560,6 +559,28 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li>
                                 <a href="javascript:;" class="top-menu">
+                                    <div class="top-menu__icon"> <i data-feather="smile" class="mx-auto"></i> </div>
+                                    <div class="top-menu__title"> Emotions <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Emotion" asp-action="Create" class="top-menu">
+                                            <div class="top-menu__icon"> <i data-feather="edit"></i>  </div>
+                                            <div class="top-menu__title"> Create </div>
+                                        </a>
+                                    </li>
+
+
+                                    <li>
+                                        <a asp-controller="Emotion" asp-action="List" class="top-menu">
+                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
+                                            <div class="top-menu__title"> List </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="top-menu">
                                     <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
                                     <div class="top-menu__title"> Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                 </a>
@@ -615,7 +636,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </a>
                                 <ul>
                                     @{ string RedirectQuestion = "Questionarrie";
-                                             <li>
+                                        <li>
 
                                             <a asp-controller="QuestionAnswer" asp-action="Create" asp-route-pagetype="@RedirectQuestion" class="top-menu">
                                                 <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
@@ -722,6 +743,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="../../lib/jquery/jquery.min.js"></script>
     <script src="../../lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
@@ -744,6 +766,35 @@ License: You must have a valid license purchased only from themeforest(the above
         }
 
         $('#time').mdtimepicker();
+
+        var ctx = $('#vertical-bar-chart-widget1');
+        var graph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Fear", "Anger", "Lust", "Sadness", "Ego", "Happy"],
+                datasets: [{
+                    label: "User Emotion",
+                    barPercentage: 0.5,
+                    barThickness: 80,
+                    maxBarThickness: 100,
+                    minBarLength: 2,
+                    data: [100, 200, 300, 400, 500, 600],
+                    backgroundColor: "#151B54", 
+                }]
+             
+                
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+          
+        });
     </script>
     <script src="~/dist/js/CustomJs/Common.js"></script>
 

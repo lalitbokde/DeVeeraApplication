@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="Views\LandingPage\" />
     <Folder Include="wwwroot\LandingPage\" />
-    <Folder Include="ViewModels\Diaries\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\FFmpeg\" />
