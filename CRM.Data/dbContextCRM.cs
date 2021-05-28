@@ -64,6 +64,12 @@ namespace CRM.Data
 
         public DbSet<Language> Languages { get; set; }
 
+        //setting
+        public DbSet<Setting> Setting { get; set; }
+
+        public DbSet<LocaleStringResource> LocaleStringResources { get; set; }
+
+
         //Emotion
 
         public DbSet<Emotion> Emotions { get; set; }
@@ -71,6 +77,7 @@ namespace CRM.Data
         //Diary Passcode
 
         public DbSet<DiaryPasscode> DiaryPasscode { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {

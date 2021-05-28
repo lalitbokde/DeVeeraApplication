@@ -14,11 +14,19 @@ namespace DeVeeraApp.ViewModels
         {
             AvailableLanguages = new List<SelectListItem>();
         }
+        public string Name { get; set; }
 
-        [Required]
-        public string LanguageName { get; set; }
-        [Required]
-        public string Abbreviations { get; set; }
+        public string LanguageCulture { get; set; }
+
+        public string UniqueSeoCode { get; set; }
+        public string FlagImageFileName { get; set; }
+
+        public bool Published { get; set; }
+
+        public string ReturnUrl { get; set; }
+        public bool Rtl { get; set; }
+
+        public int DisplayOrder { get; set; }
         public int LanguageId { get; set; }
         public IList<SelectListItem> AvailableLanguages { get; set; }
 

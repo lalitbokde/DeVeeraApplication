@@ -1,0 +1,5 @@
+﻿@model DeVeeraApp.ViewModels.User.UserModel
+
+
+    <select asp-for="@Model.LandingPageModel.Language.Id" asp-items="@Model.LandingPageModel.Language.AvailableLanguages" onchange="this.form.submit();">
+    </select>

@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210526072142_AddedSettingTable")]
+    partial class AddedSettingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,81 +170,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("StateProvince");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.Emotions.Emotion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("EmotionName");
-
-                    b.Property<int?>("EmotionNo");
-
-                    b.Property<DateTime>("LastUpdatedOn");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Emotions");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Emotions.Level_Emotion_Mapping", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("CurrentEmotion");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("EmotionId");
-
-                    b.Property<DateTime>("LastUpdatedOn");
-
-                    b.Property<int>("LevelId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmotionId");
-
-                    b.HasIndex("LevelId");
-
-                    b.ToTable("Level_Emotion_Mapping");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Emotions.User_Emotion_Mapping", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("CurrentEmotion");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("EmotionId");
-
-                    b.Property<DateTime>("LastUpdatedOn");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmotionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("User_Emotion_Mapping");
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.FeelGoodStory", b =>
                 {
                     b.Property<int>("Id")
@@ -287,19 +214,9 @@ namespace CRM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DisplayOrder");
+                    b.Property<string>("Abbreviations");
 
-                    b.Property<string>("FlagImageFileName");
-
-                    b.Property<string>("LanguageCulture");
-
-                    b.Property<string>("Name");
-
-                    b.Property<bool>("Published");
-
-                    b.Property<bool>("Rtl");
-
-                    b.Property<string>("UniqueSeoCode");
+                    b.Property<string>("LanguageName");
 
                     b.HasKey("Id");
 
@@ -313,8 +230,6 @@ namespace CRM.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Active");
-
-                    b.Property<int>("EmotionId");
 
                     b.Property<string>("FullDescription");
 
@@ -412,35 +327,23 @@ namespace CRM.Data.Migrations
                     b.ToTable("PermissionRecord_Role_Mapping");
                 });
 
-
-            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
-
+            modelBuilder.Entity("CRM.Core.Domain.Setting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("LanguageId");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime?>("DiaryLoginDate");
-
-                    b.Property<DateTime>("LastUpdatedOn");
-
-                    b.Property<string>("Password");
+                    b.Property<int>("ProjectId");
 
                     b.Property<int>("UserId");
-
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-
-                    b.ToTable("DiaryPasscode");
-
+                    b.ToTable("Setting");
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
@@ -605,8 +508,6 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("DiaryColor");
-
                     b.Property<DateTime>("LastUpdatedOn");
 
                     b.Property<int?>("LevelId");
@@ -737,32 +638,6 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.Emotions.Level_Emotion_Mapping", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Emotions.Emotion", "Emotion")
-                        .WithMany()
-                        .HasForeignKey("EmotionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CRM.Core.Domain.Level")
-                        .WithMany("Level_Emotion_Mappings")
-                        .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Emotions.User_Emotion_Mapping", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Emotions.Emotion", "Emotion")
-                        .WithMany()
-                        .HasForeignKey("EmotionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CRM.Core.Domain.Users.User")
-                        .WithMany("User_Emotion_Mappings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.FeelGoodStory", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Image", "Image")
@@ -811,14 +686,12 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-
-            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
+            modelBuilder.Entity("CRM.Core.Domain.Setting", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>

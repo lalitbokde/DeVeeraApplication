@@ -34,8 +34,8 @@
                                         <thead>
                                             <tr>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Language</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Abbreviations</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Name</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Language Culture</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
                                             </tr>
@@ -47,8 +47,8 @@
                                                 {
                                                     <tr>
                                                         <td class="border-b dark:border-dark-5">@i</td>
-                                                        <td class="border-b dark:border-dark-5">@item.LanguageName</td>
-                                                        <td class="border-b dark:border-dark-5">@item.Abbreviations</td>
+                                                        <td class="border-b dark:border-dark-5">@item.Name</td>
+                                                        <td class="border-b dark:border-dark-5">@item.LanguageCulture</td>
                                                         <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Language" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
                                                         <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteLanguage(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                     </tr>
