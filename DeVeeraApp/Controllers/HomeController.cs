@@ -78,6 +78,7 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
+
             AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Home/Index");
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);

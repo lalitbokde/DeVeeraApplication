@@ -45,6 +45,8 @@ namespace DeVeeraApp.ViewModels.User
 
         [NotMapped]
         public string ConfirmPassword { get; set; }
+        [NotMapped]
+        public bool TwoFactorAuthentication { get; set; }
         public string CompanyName { get; set; }
         public int? LastLevel { get; set; }
         public int? ActiveModule { get; set; }

@@ -54,8 +54,8 @@
                     <div class="mt-5">
 
                         <label class="form-label text-theme-21 ">Emotion</label>
-                        <select asp-for="Emotions" asp-items="Html.GetEnumSelectList<EmotionType>()" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-
+                        @*<select asp-for="EmotionId" asp-items="Model.AvailableEmotions" type="text" data-search="true" class="tail-select w-full" placeholder="Emotion"></select>*@
+                        @Html.ListBoxFor(m => m.SelectedEmotions, @Model.AvailableEmotions, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Emotions" })
 
                     </div>
                     <div class="mt-3">

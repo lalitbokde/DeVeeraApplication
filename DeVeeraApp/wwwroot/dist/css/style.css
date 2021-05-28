@@ -25,6 +25,10 @@
     --tw-bg-opacity: 1 !important;
     color: rgba(20,46,113,var(--tw-bg-opacity)) !important;
 }
+.dudp__wrapper[data-theme='blue'] .dudp__calendar .dudp__cal-week .dudp__date.selected:before {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgba(20,46,113,var(--tw-bg-opacity)) !important;
+}
 .sticky-note-green {
     background-color: #c9eebf;
 }

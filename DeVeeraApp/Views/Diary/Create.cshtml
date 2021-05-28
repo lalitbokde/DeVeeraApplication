@@ -82,9 +82,13 @@
         color: gainsboro;
     }
 </style>
+
+@{var user = _workContext.CurrentUser.UserRole.Name;}
+
 <form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="return getDiaryContent()">
     <div class="grid grid-cols-12">
-        <div class="col-span-8 lg:col-span-8 xl:col-span-8 md:col-span-8">
+
+        <div id="creatediaryForm" class="col-span-8 lg:col-span-8 xl:col-span-8 md:col-span-8 " style="display:none">
             <div class="paper" id="diaryPaper" style="background-color:@Model.DiaryColor">
                 <div class="paper-header">
                     <div class="grid grid-cols-12">
@@ -104,7 +108,7 @@
                                 @{ var date = Model.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.DiaryDate.ToString("MMMM d, yyyy");}
                                 @*<input asp-for="DiaryDate" type="text" class="datepicker form-control pl-12" data-single-mode="true" onchange="GetDiaryByDate();">*@
                                 <input onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control pl-12 w-full border" required readonly>
-
+                                <input id="userRole" value="@user" hidden />
                             </div>
                         </div>
 
@@ -159,7 +163,13 @@
 
             </div>
         </div>
-        <div class="col-span-4 lg:col-span-4 xl:col-span-4 md:col-span-4">
+
+        @if (user == "Admin")
+        {
+   
+        <div class="col-span-2 lg:col-span-2 xl:col-span-2 md:col-span-2">
+        </div>
+        <div class="col-span-8 lg:col-span-8 xl:col-span-8 md:col-span-8 intro-y box p-5 mt-10">
             <div class="intro-y flex items-center h-10">
                 <h2 class="text-lg font-medium truncate ml-4">
                     Recent Diaries
@@ -168,6 +178,7 @@
             <div class="intro-y col-span-12">
                 <!-- BEGIN: Recent Activities -->
                 <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">
+
                     @foreach (var item in Model.diaryModels)
                     {
                         <div class="intro-x relative flex items-center mb-3">
@@ -184,18 +195,71 @@
                                         <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
                                     </div>
                                 </div>
-                                <div class="flex -ml-2 lg:ml-0 lg:justify-end mt-3 lg:mt-0">
-                                    <a onclick="GetDiaryByDate('@item.CreatedOn');" class="w-8 h-8 rounded-full flex items-center justify-center border dark:border-dark-5 ml-2 text-gray-500 zoom-in tooltip" title="View"> <i class="w-4 h-4 text-theme-21" data-feather="eye"></i> </a>
-                                </div>
                             </div>
                         </div>
-
-                    
                     }
+
                 </div>
                 <!-- END: Recent Activities -->
             </div>
         </div>
+        <div class="col-span-2 lg:col-span-2 xl:col-span-2 md:col-span-2">
+        </div>
+    
+        }
+        else
+        {
+            <div class="col-span-4 lg:col-span-4 xl:col-span-4 md:col-span-4">
+                <div class="intro-y flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate ml-4">
+                        Recent Diaries
+                    </h2>
+                </div>
+                <div class="intro-y col-span-12">
+                    <!-- BEGIN: Recent Activities -->
+                    <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">
+
+                        @foreach (var item in Model.diaryModels.Where(a => a.UserId == _workContext.CurrentUser.Id))
+                        {
+                            <div class="intro-x relative flex items-center mb-3">
+
+                                <div class="box px-5 py-3 ml-4 flex-1 zoom-in" style="background-color:@item.DiaryColor">
+                                    <div class="flex items-center">
+                                        <div class="font-medium line-clamp-1">@Html.Raw(item.Title)</div>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="text-gray-600 line-clamp-1 mt-1">@Html.Raw(@item.Comment)</div>
+                                    </div>
+                                    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-1">
+                                        <div class="intro-y  col-span-6">
+                                            <div class="text-xs text-gray-500 ">@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex -ml-2 lg:ml-0 lg:justify-end mt-3 lg:mt-0">
+                                        <a onclick="GetDiaryByDate('@item.CreatedOn');" class="w-8 h-8 rounded-full flex items-center justify-center border dark:border-dark-5 ml-2 text-gray-500 zoom-in tooltip" title="View"> <i class="w-4 h-4 text-theme-21" data-feather="eye"></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                    <!-- END: Recent Activities -->
+                </div>
+            </div>
+        }
     </div>
 </form>
+
 <script src="~/dist/js/Diary.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        debugger
+
+        var user = document.getElementById("userRole").value;
+        if (user != "Admin") {
+            document.getElementById("creatediaryForm").style.display = "block";
+        }
+
+    });
+</script>                                 
+

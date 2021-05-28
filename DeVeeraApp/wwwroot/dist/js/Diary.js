@@ -102,7 +102,7 @@ function getDiaryContent() {
         return true;
     }
 
-    
+
 }
 
 function getDiaryColor(ColorCode) {
