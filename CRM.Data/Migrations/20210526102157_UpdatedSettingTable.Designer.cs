@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210526102157_UpdatedSettingTable")]
+    partial class UpdatedSettingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,19 +214,9 @@ namespace CRM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DisplayOrder");
+                    b.Property<string>("Abbreviations");
 
-                    b.Property<string>("FlagImageFileName");
-
-                    b.Property<string>("LanguageCulture");
-
-                    b.Property<string>("Name");
-
-                    b.Property<bool>("Published");
-
-                    b.Property<bool>("Rtl");
-
-                    b.Property<string>("UniqueSeoCode");
+                    b.Property<string>("LanguageName");
 
                     b.HasKey("Id");
 
@@ -343,7 +335,7 @@ namespace CRM.Data.Migrations
 
                     b.Property<int>("LanguageId");
 
-                    b.Property<int?>("ProjectId");
+                    b.Property<int>("ProjectId");
 
                     b.Property<int?>("UserId");
 

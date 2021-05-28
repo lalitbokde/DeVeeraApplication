@@ -18,9 +18,11 @@ using CRM.Services.DashboardMenu;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Directory;
 using CRM.Services.Helpers;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Security;
+using CRM.Services.Settings;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Factories;
@@ -124,6 +126,8 @@ namespace DeVeeraApp
             services.AddScoped<IS3BucketService, S3BucketService>();
             services.AddScoped<IQuestionAnswerService, QuestionAnswerService>();
             services.AddScoped<IQuestionAnswerMappingService, QuestionAnswerMappingService>();
+            services.AddScoped<ILocalizationService, LocalizationService>();
+            services.AddScoped<ISettingService, SettingService>();
             var authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;

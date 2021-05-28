@@ -1,7 +1,6 @@
-﻿@model DeVeeraApp.ViewModels.LandingPageModel
+﻿@model DeVeeraApp.ViewModels.User.UserModel
 @inject CRM.Core.IWorkContext _workContext;
-@inject IViewLocalizer localizer
-@{ 
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -24,11 +23,11 @@
                         <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                             @if (_workContext.CurrentUser != null)
                             {
-                            <div class="intro-y box p-5 col-span-6">
+                                <div class="intro-y box p-5 col-span-6">
 
-                                <span>Welcom @_workContext.CurrentUser.Email</span>  <a asp-controller="User" asp-action="Logout">Logout</a>
-                            </div>
-                              
+                                    <span>Welcom @_workContext.CurrentUser.Email</span>  <a asp-controller="User" asp-action="Logout">Logout</a>
+                                </div>
+
                             }
                             else
                             {
@@ -43,37 +42,37 @@
 
                         </div>
 
-                        </div>
                     </div>
+                </div>
             </div>
         </header>
 
-        <main>          
+        <main>
             <section class="hero">
                 <div class="container">
                     <div class="hero-inner">
-                        <partial name="_changeCulture" />
-                            <label class="mb-1">@localizer["HelloWorld"]</label><br />
-                        
-                            <div class="hero-media">
-                                @*<div class="header-illustration">
-                <img class="header-illustration-image asset-light" src="~/LandingPage/dist/images/header-illustration-light.svg" alt="Header illustration">
-                <img class="header-illustration-image asset-dark" src="~/LandingPage/dist/images/header-illustration-dark.svg" alt="Header illustration">
-            </div>
-            <div class="hero-media-illustration">
-                <img class="hero-media-illustration-image asset-light" src="~/LandingPage/dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
-                <img class="hero-media-illustration-image asset-dark" src="~/LandingPage/dist/images/hero-media-illustration-dark.svg" alt="Hero media illustration">
-            </div>*@
-                                <!--<div class="hero-media-container">-->
-                                @*<img class="hero-media-image asset-light" src="~/LandingPage/dist/images/hero-media-light.svg" alt="Hero media">
-            <img class="hero-media-image asset-dark" src="~/LandingPage/dist/images/hero-media-dark.svg" alt="Hero media">*@
-                                <!--</div>-->
-                                <div class="hero-video-container">
-                                    @{string src = ViewBag.VideoUrl;}
-                                    <video src="@Url.Content(src)" controls style="width:500px; height:400px" loop />
-                                </div>
+                        <div class="hero-copy">
+
+                            <label class="mb-1">@T("Choose Language")</label><br />
+                            <form asp-controller="GeneralSetting" asp-action="Create" method="post">
+                                <input type="hidden" asp-for="@Model.LandingPageModel.Language.ReturnUrl" value=@($"{Context.Request.Path}") />
+                                <partial name="_changeCulture" />
+                            </form>
+
+                            <h1 class="hero-title mt-8">@Model.LandingPageModel.WeeklyUpdate?.Title</h1>
+                            <p class="hero-paragraph">
+                                @Html.Raw(Model.LandingPageModel.WeeklyUpdate?.Subtitle)
+                            </p>
+                        </div>
+
+                        <div class="hero-media">
+
+                            <div class="hero-video-container">
+                                @{string src = ViewBag.VideoUrl;}
+                                <video src="@Url.Content(src)" controls style="width:500px; height:400px" loop />
                             </div>
-</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -81,11 +80,11 @@
                 <div class="container-sm">
                     <div class="cta-inner section-inner">
                         <div class="cta-header text-center">
-                            <h2 class="section-title mt-0">Interested?</h2>
+                            <h2 class="section-title mt-0">@T("Interested?")</h2>
                             <div class="cta-cta">
-                                <a class="button button-primary" asp-controller="User" asp-action="Register" style="background-color: darkmagenta; margin-right: 10px">Sign Up</a>
-                                OR
-                                <a class="button button-primary ml-2" asp-controller="User" asp-action="Login" style=" margin-left: 10px">Sign In</a>
+                                <a class="button button-primary" asp-controller="User" asp-action="Register" style="background-color: darkmagenta; margin-right: 10px">@T("Sign Up")</a>
+                                <label>@T("or")</label>
+                                <a class="button button-primary ml-2" asp-controller="User" asp-action="Login" style=" margin-left: 10px">@T("Sign In")</a>
                             </div>
 
                         </div>

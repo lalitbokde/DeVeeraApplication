@@ -66,6 +66,8 @@ namespace CRM.Data
         //Language
 
         public DbSet<Language> Languages { get; set; }
+        //setting
+        public DbSet<Setting> Setting { get; set; }
 
         public DbSet<LocaleStringResource> LocaleStringResources { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
