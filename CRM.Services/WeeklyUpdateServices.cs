@@ -109,9 +109,9 @@ namespace CRM.Services
             if (typeId == 0)
                 throw new ArgumentNullException(nameof(typeId));
 
-            var data = _weeklyUpdateRepository.Table.Where(q => q.IsActive == true && Convert.ToInt32(q.QuoteType) == typeId).FirstOrDefault();
+           // var data = _weeklyUpdateRepository.Table.Where(q => q.IsActive == true && Convert.ToInt32(q.QuoteType) == typeId).FirstOrDefault();
 
-            return data;
+            return new WeeklyUpdate();
 
         }
 

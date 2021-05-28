@@ -69,7 +69,7 @@ namespace CRM.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {
-            // base.OnModelCreating(modelBuilder);
+             base.OnModelCreating(modelBuilder);
          
 
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
