@@ -573,8 +573,10 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Register(UserModel model)
         {
+            ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
             if (ModelState.IsValid)
             {
+         
                 //validate unique user
                 if (_UserService.GetUserByEmail(model.Email) == null)
                 {

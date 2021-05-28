@@ -11,3 +11,13 @@
 /DeVeeraApp/bin/Debug/netcoreapp3.1
 /CRM.Core/bin/Debug/netcoreapp3.1
 /CRM.Services/bin/Debug/netcoreapp3.1
+.vs/DeVeeraApp/xs/project-cache/CRM.Core-Debug.json
+*.json
+*.xml
+*.dll
+*.pdb
+*.cache
+*.cache
+*.cache
+DeVeeraApp/obj/Debug/netcoreapp3.1/Razor/Views/User/Login.cshtml.g.cs
+DeVeeraApp/obj/Debug/netcoreapp3.1/Razor/Views/User/ForgetPassword.cshtml.g.cs

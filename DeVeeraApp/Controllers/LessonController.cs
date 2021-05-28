@@ -75,19 +75,18 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Utilities     
-        public bool IsUserFirstLoginOnDay(DateTime lastLoginDateUtc)
+        public bool IsUserFirstLoginOnDay(DateTime? lastLoginDateUtc)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             var currentDate = DateTime.UtcNow.ToShortDateString();
 
-            var lastLoginDate = lastLoginDateUtc.ToShortDateString();
+          //  var lastLoginDate = lastLoginDateUtc.Value.ToShortDateString();
 
             if (currentUser.UserRole.Name != "Admin")
             {
-                if(currentDate != lastLoginDate && lastLoginDate != "01/01/0001" && lastLoginDate != "0001-01-01")
+                if( lastLoginDateUtc != null  && currentDate != lastLoginDateUtc.Value.ToShortDateString() )
                 {
-
                     return true;
                 }
                 else
@@ -104,7 +103,7 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(int id, int srno, DateTime lastLoginDateUtc)
+        public IActionResult Index(int id, int srno, DateTime? lastLoginDateUtc)
         {
             var random = new Random();
             ViewBag.SrNo = srno;
