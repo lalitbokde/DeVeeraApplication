@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using DeVeeraApp.ViewModels.Enum;
 using System.Linq;
 using System.Threading.Tasks;
+using CRM.Core.Domain.Emotions;
 
 namespace DeVeeraApp.ViewModels
 {
@@ -19,6 +20,7 @@ namespace DeVeeraApp.ViewModels
             ImageLists = new List<Image>();
             this.AvailableVideo = new List<SelectListItem>();
             AvailableImages = new List<SelectListItem>();
+            this.AvailableEmotions = new List<SelectListItem>();
             SelectedImg = new List<string>();
         }
 
@@ -28,6 +30,8 @@ namespace DeVeeraApp.ViewModels
         public IList<SelectedImage> SelectedImages { get; set; }
 
         public IList<string> SelectedImg { get; set; }
+
+        public IList<string> SelectedEmotions { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -41,18 +45,17 @@ namespace DeVeeraApp.ViewModels
         public bool Active { get; set; }
 
         public string FullDescription { get; set; }
-        public Enum.EmotionType Emotions { get; set; }
+        public int EmotionId { get; set; }
 
         public Modules Modules { get; set; }
         public Video Video { get; set; }
         public Image Image { get; set; }
-
+        public Emotion Emotion { get; set; }
         public IList<Modules>ModuleList { get; set; }
         public List<Image> ImageLists { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
-
-
+        public IList<SelectListItem> AvailableEmotions { get; set; }
         [NotMapped]
         public int srno { get; set; }
 

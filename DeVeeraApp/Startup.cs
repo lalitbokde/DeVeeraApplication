@@ -13,9 +13,11 @@ using CRM.Data.Interfaces;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Common;
+using CRM.Services.Customers;
 using CRM.Services.DashboardMenu;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Directory;
+using CRM.Services.Emotions;
 using CRM.Services.Helpers;
 using CRM.Services.Message;
 using CRM.Services.QuestionsAnswer;
@@ -105,6 +107,10 @@ namespace DeVeeraApp
             services.AddScoped<IS3BucketService, S3BucketService>();
             services.AddScoped<IQuestionAnswerService, QuestionAnswerService>();
             services.AddScoped<IQuestionAnswerMappingService, QuestionAnswerMappingService>();
+            services.AddScoped<IEmotionService, EmotionService>();
+            services.AddScoped<IEmotionMappingService, EmotionMappingService>();
+            services.AddScoped<IDiaryPasscodeService, DiaryPasscodeService>();
+
             var authenticationBuilder = services.AddAuthentication(options =>
             {
                 options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;

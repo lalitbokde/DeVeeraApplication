@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using CRM.Core.Domain;
 using CRM.Core.Domain.VideoModules;
+using CRM.Core.Domain.Emotions;
 
 namespace CRM.Data
 {
@@ -22,13 +23,9 @@ namespace CRM.Data
             Database.SetCommandTimeout(1500000);
         }
 
-
-
-
         public DbSet<Country> Country { get; set; }
         public DbSet<StateProvince> StateProvince { get; set; }
         public DbSet<Address> Address { get; set; }
-
 
         //User
         public DbSet<User> User { get; set; }
@@ -66,6 +63,14 @@ namespace CRM.Data
         //Language
 
         public DbSet<Language> Languages { get; set; }
+
+        //Emotion
+
+        public DbSet<Emotion> Emotions { get; set; }
+
+        //Diary Passcode
+
+        public DbSet<DiaryPasscode> DiaryPasscode { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {

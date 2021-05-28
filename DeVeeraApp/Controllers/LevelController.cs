@@ -1,8 +1,10 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain;
+using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Emotions;
 using CRM.Services.Message;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -29,6 +31,7 @@ namespace DeVeeraApp.Controllers
         private readonly IVideoMasterService _videoServices;
         private readonly IImageMasterService _imageMasterService;
         private readonly ILevelImageListServices _levelImageListServices;
+        private readonly IEmotionService _emotionService;
         private readonly INotificationService _notificationService;
 
 
@@ -45,6 +48,7 @@ namespace DeVeeraApp.Controllers
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
                                      ILevelImageListServices levelImageListServices,
+                                     IEmotionService emotionService,
                                      INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -55,12 +59,13 @@ namespace DeVeeraApp.Controllers
             _videoServices = videoService;
             _imageMasterService = imageMasterService;
             _levelImageListServices = levelImageListServices;
+            _emotionService = emotionService;
             _notificationService = notificationService;
         }
         #endregion
 
         #region Utilities
-        public virtual void PrepareVideoUrl(LevelModel model)
+        public virtual void PrepareLevelModel(LevelModel model)
         {
             //prepare available url
             model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
@@ -74,10 +79,8 @@ namespace DeVeeraApp.Controllers
                     Selected = url.Id == model.VideoId
                 });
             }
-        }
 
-        public virtual void PrepareImageList(LevelModel model)
-        {
+            //prepare available images
             var AvailableImages = _imageMasterService.GetAllImages();
             foreach (var item in AvailableImages)
             {
@@ -87,7 +90,21 @@ namespace DeVeeraApp.Controllers
                     Text = item.Name,
                 });
             }
+
+            //prepare available Emotions
+            model.AvailableEmotions.Add(new SelectListItem { Text = "Select Emotion", Value = "0" });
+            var AvailableEmotions = _emotionService.GetAllEmotions();
+            foreach (var item in AvailableEmotions)
+            {
+                model.AvailableEmotions.Add(new SelectListItem
+                {
+                    Value = item.Id.ToString(),
+                    Text = item.EmotionName,
+                });
+            }
         }
+
+       
         #endregion
 
         #region Methods
@@ -101,8 +118,7 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
             LevelModel model = new LevelModel();
-            PrepareVideoUrl(model);
-            PrepareImageList(model);
+            PrepareLevelModel(model);          
             return View(model);
         }
 
@@ -118,6 +134,19 @@ namespace DeVeeraApp.Controllers
                 var data = model.ToEntity<Level>();
 
                 data.Title = model.Title;
+
+                if (model.SelectedEmotions.Count() != 0)
+                {
+                    foreach (var item in model.SelectedEmotions) 
+                    {
+                        data.Level_Emotion_Mappings.Add(new Level_Emotion_Mapping
+                        {
+                            EmotionId = Convert.ToInt32(item),
+                            LevelId = data.Id,
+                            CreatedOn = DateTime.UtcNow,
+                        });
+                    }
+                }
 
                 _levelServices.InsertLevel(data);
 
@@ -139,8 +168,9 @@ namespace DeVeeraApp.Controllers
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("Index", "Home");
             }
-            PrepareVideoUrl(model);
-            PrepareImageList(model);
+
+            PrepareLevelModel(model);
+
 
             return View(model);
         }
@@ -168,17 +198,24 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id,int ModuleId, int srno)
         {
-            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{id}");
-
-           
+            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{id}");        
             ViewBag.ActiveTab = "Level";
+            List<string> Emotions = new List<string>(); 
 
             if (id != 0)
             {
                 var data = _levelServices.GetLevelById(id);
-                
+
+                if (data.Level_Emotion_Mappings.Count != 0)
+                {
+                    foreach (var item in data.Level_Emotion_Mappings)
+                    {
+                        Emotions.Add(item.EmotionId.ToString());
+                    }
+                }
+
                 var model = data.ToModel<LevelModel>();
-                
+                model.SelectedEmotions = Emotions;
                 model.srno = srno;
 
                 var imagedata = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
@@ -190,6 +227,8 @@ namespace DeVeeraApp.Controllers
                         model.SelectedImg.Add(item.ImageId.ToString());
                     }
                 }
+
+             
                 model.ModuleList = _moduleServices.GetModulesByLevelId(id);
                 if( ModuleId > 0 && ModuleId != 0)
                 {
@@ -201,8 +240,7 @@ namespace DeVeeraApp.Controllers
                     ViewBag.ActiveTab = "Add Module";
                 }
 
-                PrepareVideoUrl(model);
-                PrepareImageList(model);
+                PrepareLevelModel(model);
 
                 return View(model);
             }
@@ -226,7 +264,7 @@ namespace DeVeeraApp.Controllers
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
                 levelData.Active = model.Active;
-                levelData.Emotions = (CRM.Core.Domain.EmotionType)model.Emotions;
+                levelData.EmotionId = model.EmotionId;
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
                 if (model.SelectedImg.Count() != 0)
@@ -242,6 +280,25 @@ namespace DeVeeraApp.Controllers
                         _levelImageListServices.InsertLevelImage(record);
                     }
                 }
+
+                if (levelData.Level_Emotion_Mappings.Count() != 0)
+                {                  
+                       levelData.Level_Emotion_Mappings.Clear();
+                }
+
+                if (model.SelectedEmotions.Count() != 0)
+                {
+                    foreach (var item in model.SelectedEmotions)
+                    {
+                        levelData.Level_Emotion_Mappings.Add(new Level_Emotion_Mapping
+                        {
+                            EmotionId = Convert.ToInt32(item),
+                            LevelId = levelData.Id,
+                            CreatedOn = DateTime.UtcNow,
+                        });
+                    }
+                }
+
                 _levelServices.UpdateLevel(levelData);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 

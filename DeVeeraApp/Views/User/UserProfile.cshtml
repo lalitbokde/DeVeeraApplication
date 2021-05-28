@@ -28,12 +28,15 @@
                 </div>
             </div>
             <div class="p-5 border-t border-gray-200 dark:border-dark-5">
-                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium"  data-toggle="tab" data-target="#accountInfo"> <i data-feather="activity" class="w-4 h-4 mr-2"></i> Personal Information </a>
-                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#changePassword"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Change Password </a>
-                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#questionAnswerResponse"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> User Question Answer </a>
-                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5" > <i data-feather="settings" class="w-4 h-4 mr-2"></i> User Settings </a>
-                <a asp-controller="Home" asp-action="Help" class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
-            </div>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium" data-toggle="tab" data-target="#accountInfo"> <i data-feather="activity" class="w-4 h-4 mr-2"></i> Personal Information </a>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5" data-toggle="tab" data-target="#changePassword"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Change Password </a>
+                <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5" data-toggle="tab" data-target="#questionAnswerResponse"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> User Question Answer </a>
+                @if (Model.TwoFactorAuthentication==true && _workContext.CurrentUser.UserRole.Name !="Admin")
+                {
+                    <a asp-controller="User" asp-action="ChangePasscode" class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"> <i data-feather="settings" class="w-4 h-4 mr-2"></i> Change Passcode </a>
+                }
+                    <a asp-controller="Home" asp-action="Help" class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
+                </div>
         </div>
         @if (_workContext.CurrentUser.UserRole.Name == "Admin")
         {

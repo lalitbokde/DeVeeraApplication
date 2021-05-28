@@ -11,7 +11,7 @@ namespace DeVeeraApp.ViewModels.Diaries
         public string Description { get; set; }
         public int? LevelId { get; set; }
         public int? ModuleId { get; set; }
-
+        public int UserId { get; set; }
         [Required(ErrorMessage = "Please enter the diary entry")]
         public string Comment { get; set; }
         public DateTime DiaryDate { get; set; }
