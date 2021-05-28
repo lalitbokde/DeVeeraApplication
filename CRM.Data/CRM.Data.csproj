@@ -121,6 +121,7 @@
     <Compile Include="Migrations\20210514072807_DasboardMenu.Designer.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.cs" />
     <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.Designer.cs" />
+
     <Compile Include="Migrations\20210519094550_AddedLocaleStringResourceTable.cs" />
     <Compile Include="Migrations\20210519094550_AddedLocaleStringResourceTable.Designer.cs" />
     <Compile Include="Migrations\20210526072142_AddedSettingTable.cs" />
@@ -133,6 +134,36 @@
     <Compile Include="Migrations\20210527094359_UpdatedSettingTableAgain.Designer.cs" />
     <Compile Include="Migrations\20210527110106_UpdatedSettingTableOnceAgain.cs" />
     <Compile Include="Migrations\20210527110106_UpdatedSettingTableOnceAgain.Designer.cs" />
+
+    <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.cs" />
+    <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.Designer.cs" />
+    <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.cs" />
+    <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.Designer.cs" />
+    <Compile Include="Migrations\20210526064103_EmotionTable.cs" />
+    <Compile Include="Migrations\20210526064103_EmotionTable.Designer.cs" />
+    <Compile Include="Migrations\20210526094826_Level-EmotionId.cs" />
+    <Compile Include="Migrations\20210526094826_Level-EmotionId.Designer.cs" />
+    <Compile Include="Migrations\20210526112613_Remember-Emotion.cs" />
+    <Compile Include="Migrations\20210526112613_Remember-Emotion.Designer.cs" />
+    <Compile Include="Migrations\20210526121834_EmotionMapping.cs" />
+    <Compile Include="Migrations\20210526121834_EmotionMapping.Designer.cs" />
+    <Compile Include="Migrations\20210527060626_CurrentEmotion.cs" />
+    <Compile Include="Migrations\20210527060626_CurrentEmotion.Designer.cs" />
+    <Compile Include="Migrations\20210527094845_diary passcode.cs" />
+    <Compile Include="Migrations\20210527094845_diary passcode.Designer.cs" />
+    <Compile Include="Migrations\20210528060431_UserEmotionMapping.cs" />
+    <Compile Include="Migrations\20210528060431_UserEmotionMapping.Designer.cs" />
+    <Compile Include="Migrations\20210528062554_LevelMapping.cs" />
+    <Compile Include="Migrations\20210528062554_LevelMapping.Designer.cs" />
+    <Compile Include="Migrations\20210528081438_EmotionNumber.cs" />
+    <Compile Include="Migrations\20210528081438_EmotionNumber.Designer.cs" />
+    <Compile Include="Migrations\20210528121448_DiaryLoginDate.cs" />
+    <Compile Include="Migrations\20210528121448_DiaryLoginDate.Designer.cs" />
+    <Compile Include="Migrations\20210528121731_DiaryLoginDateNull.cs" />
+    <Compile Include="Migrations\20210528121731_DiaryLoginDateNull.Designer.cs" />
+    <Compile Include="Migrations\20210528122418_DiaryPasscode-DiaryLoginDate.cs" />
+    <Compile Include="Migrations\20210528122418_DiaryPasscode-DiaryLoginDate.Designer.cs" />
+
 
 
 

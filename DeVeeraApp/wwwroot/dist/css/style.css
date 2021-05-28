@@ -15,3 +15,36 @@
     color: white;
     background-color: rgba(7,26,80,var(--tw-bg-opacity));
 }
+
+.dudp__wrapper[data-theme='blue'] .dudp__calendar-header {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgba(20,46,113,var(--tw-bg-opacity)) !important;
+}
+
+.dudp__wrapper[data-theme='blue'] .dudp__calendar .dudp__cal-week .dudp__date.current {
+    --tw-bg-opacity: 1 !important;
+    color: rgba(20,46,113,var(--tw-bg-opacity)) !important;
+}
+.dudp__wrapper[data-theme='blue'] .dudp__calendar .dudp__cal-week .dudp__date.selected:before {
+    --tw-bg-opacity: 1 !important;
+    background-color: rgba(20,46,113,var(--tw-bg-opacity)) !important;
+}
+.sticky-note-green {
+    background-color: #c9eebf;
+}
+.sticky-note-yellow {
+    background-color: #ffffe0;
+}
+.sticky-note-pink {
+    background-color: #f5dff0;
+}
+.sticky-note-fall-green {
+    background-color: #efe6c1;
+}
+.sticky-note-sky-blue {
+    background-color: #e2e9f6;
+}
+
+.sticky-note-white {
+    background-color: #FFFFFF;
+}

@@ -74,9 +74,37 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
+        #region Utilities     
+        public bool IsUserFirstLoginOnDay(DateTime lastLoginDateUtc)
+        {
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+
+            var currentDate = DateTime.UtcNow.ToShortDateString();
+
+            var lastLoginDate = lastLoginDateUtc.ToShortDateString();
+
+            if (currentUser.UserRole.Name != "Admin")
+            {
+                if(currentDate != lastLoginDate && lastLoginDate != "01/01/0001" && lastLoginDate != "0001-01-01")
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+        #endregion
 
         #region Method
-        public IActionResult Index(int id, int srno)
+        public IActionResult Index(int id, int srno, DateTime lastLoginDateUtc)
         {
             var random = new Random();
             ViewBag.SrNo = srno;
@@ -85,6 +113,11 @@ namespace DeVeeraApp.Controllers
             videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
+            var result= IsUserFirstLoginOnDay(lastLoginDateUtc);
+            if (result == true) 
+            {
+                return RedirectToAction("AskUserEmotion", "Diary");
+            }
             var data = _levelServices.GetLevelById(id);
             var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
 
@@ -106,7 +139,7 @@ namespace DeVeeraApp.Controllers
                 }
             }
 
-
+            if (data.VideoId != null) { 
             var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
 
             var videoUrl =  _s3BucketService.GetPreSignedURL(videoRecord.Key);
@@ -114,7 +147,7 @@ namespace DeVeeraApp.Controllers
             videoRecord.VideoUrl = videoUrl.Result;
 
             _videoMasterService.UpdateVideo(videoRecord);
-
+            }
             var updatedVideoData = _levelServices.GetLevelById(id);
             videoData.Id = updatedVideoData.Id;
             videoData.FullDescription = updatedVideoData.FullDescription;

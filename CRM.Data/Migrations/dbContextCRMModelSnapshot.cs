@@ -168,6 +168,81 @@ namespace CRM.Data.Migrations
                     b.ToTable("StateProvince");
                 });
 
+            modelBuilder.Entity("CRM.Core.Domain.Emotions.Emotion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<string>("EmotionName");
+
+                    b.Property<int?>("EmotionNo");
+
+                    b.Property<DateTime>("LastUpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Emotions");
+                });
+
+            modelBuilder.Entity("CRM.Core.Domain.Emotions.Level_Emotion_Mapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("CurrentEmotion");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<int>("EmotionId");
+
+                    b.Property<DateTime>("LastUpdatedOn");
+
+                    b.Property<int>("LevelId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmotionId");
+
+                    b.HasIndex("LevelId");
+
+                    b.ToTable("Level_Emotion_Mapping");
+                });
+
+            modelBuilder.Entity("CRM.Core.Domain.Emotions.User_Emotion_Mapping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<bool>("CurrentEmotion");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<int>("EmotionId");
+
+                    b.Property<DateTime>("LastUpdatedOn");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmotionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Emotion_Mapping");
+                });
+
             modelBuilder.Entity("CRM.Core.Domain.FeelGoodStory", b =>
                 {
                     b.Property<int>("Id")
@@ -238,6 +313,8 @@ namespace CRM.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Active");
+
+                    b.Property<int>("EmotionId");
 
                     b.Property<string>("FullDescription");
 
@@ -335,23 +412,35 @@ namespace CRM.Data.Migrations
                     b.ToTable("PermissionRecord_Role_Mapping");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.Setting", b =>
+
+            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
+
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("LanguageId");
 
-                    b.Property<int?>("ProjectId");
+                    b.Property<DateTime>("CreatedOn");
 
-                    b.Property<int?>("UserId");
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("DiaryLoginDate");
+
+                    b.Property<DateTime>("LastUpdatedOn");
+
+                    b.Property<string>("Password");
+
+                    b.Property<int>("UserId");
+
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Setting");
+
+                    b.ToTable("DiaryPasscode");
+
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
@@ -516,6 +605,8 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("DiaryColor");
+
                     b.Property<DateTime>("LastUpdatedOn");
 
                     b.Property<int?>("LevelId");
@@ -646,6 +737,32 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("CRM.Core.Domain.Emotions.Level_Emotion_Mapping", b =>
+                {
+                    b.HasOne("CRM.Core.Domain.Emotions.Emotion", "Emotion")
+                        .WithMany()
+                        .HasForeignKey("EmotionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CRM.Core.Domain.Level")
+                        .WithMany("Level_Emotion_Mappings")
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CRM.Core.Domain.Emotions.User_Emotion_Mapping", b =>
+                {
+                    b.HasOne("CRM.Core.Domain.Emotions.Emotion", "Emotion")
+                        .WithMany()
+                        .HasForeignKey("EmotionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CRM.Core.Domain.Users.User")
+                        .WithMany("User_Emotion_Mappings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("CRM.Core.Domain.FeelGoodStory", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Image", "Image")
@@ -694,11 +811,14 @@ namespace CRM.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.Setting", b =>
+
+            modelBuilder.Entity("CRM.Core.Domain.Users.DiaryPasscode", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>

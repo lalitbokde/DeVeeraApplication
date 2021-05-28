@@ -28,12 +28,18 @@
                 </div>
             </div>
             <div class="p-5 border-t border-gray-200 dark:border-dark-5">
+
                 <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium"  data-toggle="tab" data-target="#accountInfo"> <i data-feather="activity" class="w-4 h-4 mr-2"></i> @T("Personal Information") </a>
                 <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#changePassword"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> @T("Change Password") </a>
                 <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#questionAnswerResponse"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> @T("User Question Answer") </a>
                 <a class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"  data-toggle="tab" data-target="#changeLanguage"> <i data-feather="settings" class="w-4 h-4 mr-2"></i> @T("Choose Language") </a>
                 <a asp-controller="Home" asp-action="Help" class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> @T("Help") </a>
+           @if (Model.TwoFactorAuthentication==true && _workContext.CurrentUser.UserRole.Name !="Admin")
+                {
+                    <a asp-controller="User" asp-action="ChangePasscode" class="flex items-center text-theme-17 dark:text-gray-300 font-medium mt-5"> <i data-feather="settings" class="w-4 h-4 mr-2"></i> Change Passcode </a>
+                }
             </div>
+
         </div>
         @if (_workContext.CurrentUser.UserRole.Name == "Admin")
         {
@@ -67,7 +73,7 @@
         <div class="tab-content">
 
             <div id="changePassword" class="tab-pane" role="tabpanel" aria-labelledby="profile-tab">
-                <form asp-controller="User" asp-action="UserProfile" method="post">
+                <form asp-controller="User" asp-action="UserProfile" method="post" id="Userprofile1" onsubmit="ShowLoaderUser('Userprofile1');">
                     <input asp-for="Id" hidden />
                     <input asp-for="@Model.Email" id="hiddenEmail" hidden />
                     <div class="intro-y box lg:mt-5">
@@ -96,7 +102,9 @@
                                         </div>
                                     </div>
                                    
+
                                     <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">@T("Save")</button>
+
                                 </div>
                             </div>
                         </div>
@@ -105,7 +113,7 @@
                 </form>
             </div>
             <div id="accountInfo" class="tab-pane active" role="tabpanel" aria-labelledby="profile-tab">
-                <form asp-controller="User" asp-action="UserProfile" method="post">
+                <form asp-controller="User" asp-action="UserProfile" method="post" id="Userprofile2" onsubmit="ShowLoaderUser('Userprofile2');">
                     <!-- BEGIN: Display Information -->
                     <div class="intro-y box lg:mt-5">
                         <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
@@ -171,7 +179,9 @@
                                             <i data-feather="arrow-left" class="w-4 h-4"></i>
                                         </a>
                                     </span>*@
+
                                     <button type="submit" class="btn btn-primary w-20 mt-3" onclick="LoadLoader()">@T("Save")</button>
+
                                 </div>
 
                             </div>

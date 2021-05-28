@@ -69,7 +69,9 @@ namespace DeVeeraApp.Controllers
             var model = new UserModel();
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
+
             model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
+
             ViewBag.VideoUrl = data?.Video?.VideoUrl;
            
             PrepareLanguages(model.LandingPageModel.Language);

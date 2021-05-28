@@ -3,7 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<form asp-controller="Image" asp-action="Create" method="post" enctype="multipart/form-data" onsubmit="return GetFileName();">
+<form asp-controller="Image" asp-action="Create" method="post" enctype="multipart/form-data" id="imageform" onsubmit="return GetFileName();">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
 
-                                <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
+                                <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('imageform');">Save</button>
                             </div>
                         </div>
                     </div>

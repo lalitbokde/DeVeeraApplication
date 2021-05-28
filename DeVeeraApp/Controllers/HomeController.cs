@@ -78,6 +78,7 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
+
             AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Home/Index");
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
@@ -93,8 +94,9 @@ namespace DeVeeraApp.Controllers
 
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
 
-            int lastlevel = data.LastOrDefault().Id;
-
+            //int lastlevel = data.LastOrDefault().Id;
+            var lastLevelData = data.LastOrDefault();
+            int lastlevel = lastLevelData != null ? lastLevelData.Id : 0;
             if (data.Count() != 0)
             {
                 if (!(_workContext.CurrentUser.UserRole.Name == "Admin"))
@@ -147,34 +149,40 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
-        public IActionResult ExistingUser(int QuoteType)
+        public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
         {
+            ViewBag.LastLoginDateUtc = LastLoginDateUtc;
+
             var level = new Level();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
-            var model = data.ToModel<WeeklyUpdateModel>();
+            var model = data?.ToModel<WeeklyUpdateModel>();
 
-            model.VideoUrl = data?.Video?.VideoUrl;
-
-            if (currentUser.LastLevel != null)
-                level = _levelServices.GetLevelById((int)currentUser.LastLevel);
-
-            var firstlevel = _levelServices.GetAllLevels().FirstOrDefault().Id;
-
-            model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? firstlevel : (level != null ? (int)currentUser.LastLevel : firstlevel);
-
-
-            var lastLevel = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel && a.Active == true).ToList();
-
-            if (lastLevel.Count() != 0)
+            if(model != null)
             {
-                ViewBag.SrNo = lastLevel.Count();
-            }
-            else
-            {
-                ViewBag.SrNo = 0;
+                model.VideoUrl = data?.Video?.VideoUrl;
+
+                if (currentUser.LastLevel != null)
+                    level = _levelServices.GetLevelById((int)currentUser.LastLevel);
+
+                var firstlevel = _levelServices.GetAllLevels().FirstOrDefault().Id;
+
+                model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? firstlevel : (level != null ? (int)currentUser.LastLevel : firstlevel);
+
+
+                var lastLevel = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel && a.Active == true).ToList();
+
+                if (lastLevel.Count() != 0)
+                {
+                    ViewBag.SrNo = lastLevel.Count();
+                }
+                else
+                {
+                    ViewBag.SrNo = 0;
+                }
+
             }
 
             return View(model);
@@ -186,19 +194,23 @@ namespace DeVeeraApp.Controllers
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
 
-            var model = data.ToModel<WeeklyUpdateModel>();
-            model.VideoUrl = data?.Video?.VideoUrl;
-            var firstLevel = _levelServices.GetAllLevels().Where(a=>a.Active==true).FirstOrDefault();
-            if (firstLevel != null)
+            var model = data?.ToModel<WeeklyUpdateModel>();
+            if(model != null)
             {
-                model.LastLevel = firstLevel.Id;
-                ViewBag.SrNo = 1;
+                model.VideoUrl = data?.Video?.VideoUrl;
+                var firstLevel = _levelServices.GetAllLevels().Where(a => a.Active == true).FirstOrDefault();
+                if (firstLevel != null)
+                {
+                    model.LastLevel = firstLevel.Id;
+                    ViewBag.SrNo = 1;
+
+                }
+                currentUser.LastLevel = model.LastLevel;
+                _UserService.UpdateUser(currentUser);
 
             }
-            currentUser.LastLevel = model.LastLevel;
-            _UserService.UpdateUser(currentUser);
 
-            return View(model);
+             return View(model);
 
 
 

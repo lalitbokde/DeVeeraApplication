@@ -9477,6 +9477,13 @@ img, video {
     margin-right: .25rem
 }
 
+.mr-24 {
+    margin-right: 6rem
+}
+.mr-23 {
+    margin-right: 5.75rem
+}
+
 .mb-1 {
     margin-bottom: .25rem
 }
@@ -9584,7 +9591,9 @@ img, video {
 .mb-10 {
     margin-bottom: 2.5rem
 }
-
+.ml-9 {
+    margin-left: 2.3rem
+}
 .mt-12 {
     margin-top: 3rem
 }
@@ -10329,7 +10338,9 @@ img, video {
 .w-40 {
     width: 10rem
 }
-
+.w-36 {
+    width: 9rem
+}
 .w-48 {
     width: 12rem
 }

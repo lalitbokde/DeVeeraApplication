@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<form asp-controller="Language" asp-action="Edit" method="post">
+<form asp-controller="Language" asp-action="Edit" method="post" id="languageeditform" onsubmit="ShowLoader('languageeditform');">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -56,6 +56,7 @@
                         <label class="form-label text-theme-21 ">Rtl</label>
 
 
+
                         <span asp-validation-for="Rtl" class="text-theme-6 mt-2"></span>
 
                     </div>
@@ -83,6 +84,7 @@
 
                                     <button type="submit" class="btn btn-primary w-24" onclick="LoadLoader()">Save</button>
                                 </div>
+
                             </div>
                         </div>
 

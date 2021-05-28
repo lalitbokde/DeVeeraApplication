@@ -32,7 +32,7 @@ namespace DeVeeraApp.ViewModels.User
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
-        [Required]
+        
         public string MobileNumber { get; set; }
         public Gender? GenderType { get; set; }
         public int Age { get; set; }
@@ -48,6 +48,8 @@ namespace DeVeeraApp.ViewModels.User
 
         [NotMapped]
         public string ConfirmPassword { get; set; }
+        [NotMapped]
+        public bool TwoFactorAuthentication { get; set; }
         public string CompanyName { get; set; }
         public int? LastLevel { get; set; }
         public int? ActiveModule { get; set; }

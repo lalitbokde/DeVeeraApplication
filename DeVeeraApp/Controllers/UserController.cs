@@ -32,6 +32,7 @@ using Income = CRM.Core.Domain.Users.Income;
 using CRM.Services;
 using CRM.Services.VideoModules;
 using CRM.Services.QuestionsAnswer;
+using CRM.Services.Customers;
 
 namespace DeVeeraApp.Controllers
 {
@@ -60,6 +61,7 @@ namespace DeVeeraApp.Controllers
         //private readonly INotificationService _notificationService;
         private readonly IEncryptionService _encryptionService;
         private readonly INotificationService _notificationService;
+        private readonly IDiaryPasscodeService _diaryPasscodeService;
 
         #endregion
 
@@ -83,7 +85,8 @@ namespace DeVeeraApp.Controllers
                                   ILanguageService languageService,
                                   // INotificationService notificationService,
                                   IEncryptionService encryptionService,
-                                  INotificationService notificationService
+                                  INotificationService notificationService,
+                                  IDiaryPasscodeService diaryPasscodeService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -109,6 +112,7 @@ namespace DeVeeraApp.Controllers
             // this._notificationService = notificationService;
             _encryptionService = encryptionService;
             _notificationService = notificationService;
+            _diaryPasscodeService = diaryPasscodeService;
         }
 
         #endregion
@@ -478,13 +482,15 @@ namespace DeVeeraApp.Controllers
 
             if (ModelState.IsValid)
             {
+                var LastLoginDateUtc = _UserService.GetUserByEmail(model.Email)?.LastLoginDateUtc;
+                ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
                 var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.Password);
                 switch (loginResult)
                 {
                     case UserLoginResults.Successful:
                         {
-                            var User = _UserService.GetUserByEmail(model.Email);
+                            var User = _UserService.GetUserByEmail(model.Email);                  
 
                             _authenticationService.SignIn(User, model.RememberMe);
 
@@ -496,7 +502,7 @@ namespace DeVeeraApp.Controllers
 
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login });
+                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login , LastLoginDateUtc=LastLoginDateUtc });
 
                                 }
                                 else
@@ -670,6 +676,7 @@ namespace DeVeeraApp.Controllers
                     model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
                     model.Occupation = userData.Occupation;
                     model.UserRoleName = userData.UserRole.Name;
+                    model.TwoFactorAuthentication = userData.TwoFactorAuthentication;
 
                     if (_WorkContextService.CurrentUser.UserRole.Name == "Admin")
                     {
@@ -677,7 +684,9 @@ namespace DeVeeraApp.Controllers
                         {
                             var lastLevel = _levelServices.GetLevelById((int)userData.LastLevel);
 
+                            if (lastLevel != null) { 
                             model.LevelTitle = lastLevel.Title;
+                            }
                         }
                         if (userData.ActiveModule != null && userData.ActiveModule != 0)
                         {
@@ -814,12 +823,10 @@ namespace DeVeeraApp.Controllers
 
         #region 2-FactorAuthentication
 
-        public IActionResult TwoFactorAuthentication(int LevelId, int ModuleId, int UserId)
+        public IActionResult TwoFactorAuthentication(int UserId)
         {
             var model = new TwoFactorAuthModel()
             {
-                LevelId = LevelId,
-                ModuleId = ModuleId,
                 UserId = UserId
             };
             return View(model);
@@ -841,17 +848,67 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                     var currentUser = _UserService.GetUserById(model.UserId);
-
                     currentUser.TwoFactorAuthentication = true;
-
                     _UserService.UpdateUser(currentUser);
 
-                    return RedirectToAction("Create", "Diary", new { levelid = model.LevelId, moduleid = model.ModuleId });
+                    var diaryPasscode = new DiaryPasscode();
+                    diaryPasscode.Password = model.OTP;
+                    diaryPasscode.CreatedOn = DateTime.UtcNow;
+                    diaryPasscode.DiaryLoginDate = DateTime.UtcNow;
+                    diaryPasscode.UserId = currentUser.Id;
+                    _diaryPasscodeService.InsertDiaryPasscode(diaryPasscode);
+
+                    return RedirectToAction("ChangePasscode","Diary");
                 }
 
             }
             return View();
         }
+
+        public IActionResult ChangePasscode()
+        {
+            AddBreadcrumbs("User", "Change Passcode", $"/User/ChangePasscode", $"/User/ChangePasscode");
+
+            DiaryPasscodeModel model = new DiaryPasscodeModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePasscode(DiaryPasscodeModel model)
+        {
+            AddBreadcrumbs("User", "Change Passcode", $"/User/ChangePasscode", $"/User/ChangePasscode");
+
+            if (ModelState.IsValid)
+            {
+                var currentUser = _WorkContextService.CurrentUser;
+                var diaryPasscode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
+                if (model.OldPassword != diaryPasscode.Password)
+                {
+                    ModelState.AddModelError("OldPassword", "Old Password Doesn't match");
+                    return View(model);
+                }
+
+                if (model.Password != model.ConfirmPassword)
+                {
+                    ModelState.AddModelError("ConfirmPassword", "Passcode Doesn't match");
+                }
+                else
+                {
+                    diaryPasscode.Password = model.Password;
+                    diaryPasscode.LastUpdatedOn = DateTime.UtcNow;
+                    _diaryPasscodeService.UpdateDiaryPasscode(diaryPasscode);
+
+                    _notificationService.SuccessNotification("Passcode change successfully.");
+
+                    return RedirectToAction("UserProfile", "User",new { userId= currentUser.Id });
+                }
+            
+            }
+            
+            return View(model);
+        }
+
+
 
         #endregion
         //[HttpPost]

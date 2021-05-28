@@ -27,8 +27,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" href="~/dist/css/app.css" />
     <link href="~/dist/css/style.css" rel="stylesheet" />
     <link href="~/dist/css/sweetalert2.min.css" rel="stylesheet" />
-
-
+    <link href="~/dist/js/datetimepicker/css/duDatepicker.css" rel="stylesheet" />
+    <link href="~/dist/js/datetimepicker/css/mdtimepicker.css" rel="stylesheet" />
     @*<link rel="stylesheet" href="~/ckeditor 3/samples/css/samples.css">*@
 
     <!-- END: CSS Assets-->
@@ -404,7 +404,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="p-2">
                                 <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
                                 <a asp-controller="Home" asp-action="UnderDevelopment" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="flag" class="w-4 h-4 mr-2"></i> Language</a>
-                                <a href="" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
                                 <a asp-controller="Home" asp-action="Help" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
                             </div>
                             <div class="p-2 border-t border-theme-12 dark:border-dark-3">
@@ -560,6 +559,28 @@ License: You must have a valid license purchased only from themeforest(the above
                             </li>
                             <li>
                                 <a href="javascript:;" class="top-menu">
+                                    <div class="top-menu__icon"> <i data-feather="smile" class="mx-auto"></i> </div>
+                                    <div class="top-menu__title"> Emotions <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Emotion" asp-action="Create" class="top-menu">
+                                            <div class="top-menu__icon"> <i data-feather="edit"></i>  </div>
+                                            <div class="top-menu__title"> Create </div>
+                                        </a>
+                                    </li>
+
+
+                                    <li>
+                                        <a asp-controller="Emotion" asp-action="List" class="top-menu">
+                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
+                                            <div class="top-menu__title"> List </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="top-menu">
                                     <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
                                     <div class="top-menu__title"> Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                 </a>
@@ -614,12 +635,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="top-menu__title">Questionnaire<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
                                 </a>
                                 <ul>
-                                    <li>
-                                        <a asp-controller="QuestionAnswer" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
+                                    @{ string RedirectQuestion = "Questionarrie";
+                                        <li>
+
+                                            <a asp-controller="QuestionAnswer" asp-action="Create" asp-route-pagetype="@RedirectQuestion" class="top-menu">
+                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
+                                                <div class="top-menu__title"> Create </div>
+                                            </a>
+                                        </li>
+                                    }
                                     <li>
                                         <a asp-controller="QuestionAnswer" asp-action="List" class="top-menu">
                                             <div class="top-menu__icon"> <i data-feather="list"></i> </div>
@@ -688,18 +712,18 @@ License: You must have a valid license purchased only from themeforest(the above
         </nav>
         <!-- END: Top Menu -->
         <!-- BEGIN: Content -->
-        <div class="wrapper wrapper--top-nav " >
+        <div class="wrapper wrapper--top-nav ">
             <div class="wrapper-box">
                 <!-- BEGIN: Content -->
 
 
-                <div class="content "  id="maincontentid">
+                <div class="content " id="maincontentid">
 
 
                     @RenderBody()
                     <div class="ovalicon">
                         <div class="loader oval hidden" id="loader">
-                            <i data-loading-icon="oval" class="w-12 h-12 " ></i>
+                            <i data-loading-icon="oval" class="w-12 h-12 "></i>
                         </div>
                     </div>
 
@@ -719,6 +743,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="../../lib/jquery/jquery.min.js"></script>
     <script src="../../lib/jquery/jquery.js"></script>
     <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
@@ -726,29 +751,54 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/dist/js/sweetalert2.min.js"></script>
     <script src="../../dist/js/app.js"></script>
     <script src="../../ckeditor 3/ckeditor.js"></script>
-
     <script src="../../ckeditor 3/samples/js/sample.js"></script>
+    <script src="../../dist/js/datetimepicker/js/duDatepicker.js"></script>
+    <script src="../../dist/js/datetimepicker/js/mdtimepicker.js"></script>
     <script>
         initSample();
         initSample1();
-    </script>
-    <script src="~/CustomJS/Common.js"></script>
 
-    <script>
-        //$(document).ready(function () {
-        //    $(document.querySelectorAll("button[type=submit]")).click(function () {
-        //        $('.ovalicon').css('display', 'block');
-        //        $('.oval').css('display', 'block');
-        //       $('.loader').removeAttr("hidden");
-        //        setTimeout(function () {
-        //            $("#loader").hide();
-        //        }, 500);
-        //    });            
-        //});
+        window.onload = function () {
+
+            duDatepicker('#date', {
+                format: 'mmmm d, yyyy', range: false, clearBtn: true,
+            })
+        }
+
+        $('#time').mdtimepicker();
+
+        var ctx = $('#vertical-bar-chart-widget1');
+        var graph = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Fear", "Anger", "Lust", "Sadness", "Ego", "Happy"],
+                datasets: [{
+                    label: "User Emotion",
+                    barPercentage: 0.5,
+                    barThickness: 80,
+                    maxBarThickness: 100,
+                    minBarLength: 2,
+                    data: [100, 200, 300, 400, 500, 600],
+                    backgroundColor: "#151B54", 
+                }]
+             
+                
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+          
+        });
     </script>
-    <script>
-       
-    </script>
+    <script src="~/dist/js/CustomJs/Common.js"></script>
+
+
 
     <!-- END: JS Assets-->
 </body>
