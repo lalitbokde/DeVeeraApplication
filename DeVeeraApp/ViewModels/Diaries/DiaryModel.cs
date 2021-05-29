@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeVeeraApp.ViewModels.User;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,5 +26,6 @@ namespace DeVeeraApp.ViewModels.Diaries
         public string Module { get; set; }
 
         public List<DiaryModel> diaryModels { get; set; }
+        public UserModel User { get; set; }
     }
 }

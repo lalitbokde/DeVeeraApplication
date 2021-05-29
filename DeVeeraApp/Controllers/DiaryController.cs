@@ -137,7 +137,8 @@ namespace DeVeeraApp.Controllers
                 #endregion
 
                 model.diaryModels = DiaryList;
-                //model.DiaryDate = DateTime.UtcNow;
+                
+                
 
                 return View(model);
 
