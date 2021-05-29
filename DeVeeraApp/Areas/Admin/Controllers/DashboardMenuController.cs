@@ -3,6 +3,7 @@ using CRM.Core.Domain;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 using CRM.Services.Message;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class DashboardMenuController : BaseController
     {
         #region fields

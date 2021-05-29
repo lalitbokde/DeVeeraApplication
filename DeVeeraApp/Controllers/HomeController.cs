@@ -21,6 +21,7 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static DeVeeraApp.ViewModels.HappynessLevelModel;
 
 namespace DeVeeraApp.Controllers
 {
@@ -112,6 +113,42 @@ namespace DeVeeraApp.Controllers
             return View(model);
         }
 
+        
+        public IActionResult AskHappynessLevel()
+        {
+            return View();
+        }
+       
+        [HttpPost]
+        public IActionResult AskHappynessLevel(HappynessLevelModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (model.HappynessLevelTypeId > (int)HappynessLevelType.LevelSix)
+                {
+                    var data = _levelServices.GetAllLevels().Where(l => l.Level_Emotion_Mappings.Where(a => a.Emotion?.EmotionName == "Happy").Count() > 0 && l.Active == true).FirstOrDefault();
+                    if (data != null)
+                    {
+                        return RedirectToAction("Index", "Lesson", new { id = data.Id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Diary");
+                }
+            }
+            else
+            {
+                return View(model);
+            }
+
+        }
+
 
         [HttpPost]
         public IActionResult CultureManagement(string culture)
@@ -122,6 +159,7 @@ namespace DeVeeraApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+      
         public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
         {
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
@@ -198,6 +236,7 @@ namespace DeVeeraApp.Controllers
         {
             return View();
         }
+       
         public IActionResult WeeklyInspiringQuotes()
         {
             AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes");
@@ -213,6 +252,7 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
+      
         public IActionResult NewVideos()
         {
             AddBreadcrumbs("Home", "NewVideos", "/Home/NewVideos", "/Home/NewVideos");
@@ -229,6 +269,7 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
+      
         public IActionResult FeelGoodStories()
         {
             AddBreadcrumbs("Home", "FeelGoodStories", "/Home/FeelGoodStories", "/Home/FeelGoodStories");

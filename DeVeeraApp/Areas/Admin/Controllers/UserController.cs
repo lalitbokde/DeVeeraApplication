@@ -33,10 +33,12 @@ using CRM.Services;
 using CRM.Services.VideoModules;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Customers;
+using DeVeeraApp.Filters;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+   
     public class UserController : BaseController
     {
         #region fields

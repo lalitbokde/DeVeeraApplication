@@ -4,6 +4,7 @@ using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.VideoModules;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.QuestionAnswer;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class QuestionAnswerController : BaseController
     {
         #region fields

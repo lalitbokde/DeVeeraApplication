@@ -5,6 +5,7 @@ using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;

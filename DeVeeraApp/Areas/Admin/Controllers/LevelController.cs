@@ -7,6 +7,7 @@ using CRM.Services.Authentication;
 using CRM.Services.Emotions;
 using CRM.Services.Message;
 using CRM.Services.VideoModules;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -22,6 +23,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class LevelController : BaseController
     {
         #region fields

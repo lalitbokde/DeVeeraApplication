@@ -3,6 +3,7 @@ using CRM.Core.Domain.Emotions;
 using CRM.Services.Authentication;
 using CRM.Services.Emotions;
 using CRM.Services.Message;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Emotions;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class EmotionController : BaseController
     {
         #region fields

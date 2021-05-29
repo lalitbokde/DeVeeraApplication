@@ -12,10 +12,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using CRM.Services.Authentication;
+using DeVeeraApp.Filters;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public partial class SecurityController : BaseController
     {
         #region Fields

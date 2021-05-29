@@ -1,5 +1,6 @@
 ﻿using CRM.Core.Domain;
 using CRM.Services.Settings;
+using DeVeeraApp.Filters;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class GeneralSettingController : Controller
     {
         private readonly ISettingService _settingService;

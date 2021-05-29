@@ -3,13 +3,14 @@ using CRM.Core;
 using CRM.Core.Domain.Users;
 
 using CRM.Services.Authentication;
-
+using DeVeeraApp.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class BaseController : Controller
     {
         #region fields

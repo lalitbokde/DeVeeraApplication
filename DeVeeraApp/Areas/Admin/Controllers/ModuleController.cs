@@ -5,6 +5,7 @@ using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class ModuleController : BaseController
     {
         private readonly IModuleService _moduleService;

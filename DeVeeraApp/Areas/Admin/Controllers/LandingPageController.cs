@@ -17,10 +17,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using DeVeeraApp.ViewModels.User;
+using DeVeeraApp.Filters;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class LandingPage : Controller
     {
         private readonly ILogger<HomeController> _logger;

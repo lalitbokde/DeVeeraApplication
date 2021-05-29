@@ -3,6 +3,7 @@ using CRM.Core.Domain.Users;
 using CRM.Services.Authentication;
 using CRM.Services.Message;
 using CRM.Services.Users;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.Admin;
 using DeVeeraApp.ViewModels.Common;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class AdminController : BaseController
     {
         #region fields

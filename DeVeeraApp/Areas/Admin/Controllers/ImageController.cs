@@ -3,6 +3,7 @@ using CRM.Core.Domain;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Message;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class ImageController : BaseController
     {
         #region fields

@@ -20,10 +20,12 @@ using OfficeOpenXml;
 using Microsoft.AspNetCore.Hosting;
 using DeVeeraApp.ViewModels.Response;
 using Newtonsoft.Json;
+using DeVeeraApp.Filters;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AuthorizeAdmin]
     public class DashboardQuoteController : BaseController
     {
         #region fields
