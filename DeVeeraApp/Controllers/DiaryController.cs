@@ -283,13 +283,14 @@ namespace DeVeeraApp.Controllers
                    CreatedOn = DateTime.UtcNow,
                     CurrentEmotion = true
                 });
+                var emotionname=_emotionService.GetEmotionById(model.Id).EmotionName;
 
                 _userService.UpdateUser(user);
 
                 var data = _levelServices.GetAllLevels().Where(l => l.Level_Emotion_Mappings.Where(a=>a.EmotionId== model.Id).Count() > 0 && l.Active == true).FirstOrDefault();
                 if (data != null)
                 {
-                    return RedirectToAction("Index", "Lesson", new { id = data.Id });
+                    return RedirectToAction("GotEmotionPage", "diary", new { Emotion=emotionname });
                 }
                 else
                 {
@@ -299,7 +300,12 @@ namespace DeVeeraApp.Controllers
             }
             return View();
         }
-
+        [HttpGet]
+        public IActionResult GotEmotionPage(string Emotion)
+        {
+           @ViewBag.emotion = Emotion;
+            return View();
+        }
         public IActionResult EnterPasscode()
         {
             AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
