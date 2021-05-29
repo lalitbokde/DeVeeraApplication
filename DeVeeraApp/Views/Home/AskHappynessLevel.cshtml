@@ -1,0 +1,83 @@
+﻿@model DeVeeraApp.ViewModels.HappynessLevel.HappynessLevelModel
+@using DeVeeraApp.ViewModels.Enum
+@{
+    ViewData["Title"] = "AskHappynessLevel";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8">
+    <link href="dist/images/logo.svg" rel="shortcut icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="LEFT4CODE">
+    <title>Ask Happyness Level</title>
+    <link rel="stylesheet" href="~/dist/css/app.css" />
+    <link href="~/dist/css/Rating.css" rel="stylesheet" />
+    <link href="~/dist/css/style.css" rel="stylesheet" />
+</head>
+
+<body class="main">
+    <div class="container">
+        <form asp-controller="Home" asp-action="AskHappynessLevel" method="post">
+
+            <div class="content">
+                <div class="grid grid-cols-12 gap-6 mt-5">
+                    <div class="intro-y col-span-12 lg:col-span-12">
+                        <div class="mt-10">
+                            <div class="font-medium text-center text-lg text-theme-21 star">  What happyness level are you feeling now?</div>
+                            <div class="text-gray-600 text-center mt-2">Please select your happyness level to continue.</div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-6 mt-5">
+                            <div class="intro-y col-span-2"></div>
+                            <div class="intro-y box mt-10 p-5 lg:col-span-8 xl:col-span-8 col-span-12">
+                                <input asp-for="HappynessLevelTypeId" hidden />
+                                <div class="rating">
+                                    <input type="radio" name="rating" id="rata10" value="@Convert.ToInt32(HappynessLevelType.LevelTen)" onclick="getHappynessLevel(this.value)"><label for="rata10">10</label>
+                                    <input type="radio" name="rating" id="rata9" value="@Convert.ToInt32(HappynessLevelType.LevelNine)" onclick="getHappynessLevel(this.value)"><label for="rata9">9</label>
+                                    <input type="radio" name="rating" id="rata8" value="@Convert.ToInt32(HappynessLevelType.LevelEight)" onclick="getHappynessLevel(this.value)"><label for="rata8">8</label>
+                                    <input type="radio" name="rating" id="rata7" value="@Convert.ToInt32(HappynessLevelType.LevelSeven)" onclick="getHappynessLevel(this.value)"><label for="rata7">7</label>
+                                    <input type="radio" name="rating" id="rata6" value="@Convert.ToInt32(HappynessLevelType.LevelSix)" onclick="getHappynessLevel(this.value)"><label for="rata6">6</label>
+                                    <input type="radio" name="rating" id="rata5" value="@Convert.ToInt32(HappynessLevelType.LevelFive)" onclick="getHappynessLevel(this.value)"><label for="rata5">5</label>
+                                    <input type="radio" name="rating" id="rata4" value="@Convert.ToInt32(HappynessLevelType.LevelFour)" onclick="getHappynessLevel(this.value)"><label for="rata4">4</label>
+                                    <input type="radio" name="rating" id="rata3" value="@Convert.ToInt32(HappynessLevelType.LevelThree)" onclick="getHappynessLevel(this.value)"><label for="rata3">3</label>
+                                    <input type="radio" name="rating" id="rata2" value="@Convert.ToInt32(HappynessLevelType.LevelTwo)" onclick="getHappynessLevel(this.value)"><label for="rata2">2</label>
+                                    <input type="radio" name="rating" id="rata1" value="@Convert.ToInt32(HappynessLevelType.LevelOne)" onclick="getHappynessLevel(this.value)"><label for="rata1">1</label>
+                                </div>
+                                <div class="mt-2">
+                                    <span asp-validation-for="HappynessLevelTypeId" class="text-theme-6 mt-2"></span>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
+                                    <div class="intro-y  p-5 col-span-12">
+                                        <div class="px-5 items-center text-xl ">
+                                            <div class="intro-y col-span-12 flex items-center justify-center  mt-5">
+                                                <button type="submit" class="btn btn-primary w-24">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="intro-y col-span-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
+
+    <script>
+        function getHappynessLevel(HappynessLevel) {
+            debugger
+            document.getElementById("HappynessLevelTypeId").value = parseInt(HappynessLevel);
+        }
+    </script>
+</body>
+</html>

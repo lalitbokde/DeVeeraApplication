@@ -115,7 +115,7 @@ namespace DeVeeraApp.Controllers
             var result= IsUserFirstLoginOnDay(lastLoginDateUtc);
             if (result == true) 
             {
-                return RedirectToAction("AskUserEmotion", "Diary");
+                return RedirectToAction("AskHappynessLevel", "Home");
             }
             var data = _levelServices.GetLevelById(id);
             var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
