@@ -1,0 +1,37 @@
+﻿.rating {
+    margin-top: 5%;
+    border: 1px #999 solid;
+    display: flex;
+    font-size: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    background: linear-gradient(to right, #f00, #ff0, #0f0)
+}
+
+    .rating input {
+        display: none
+    }
+
+    .rating label {
+        display: flex;
+        width: 100px;
+        height: 100px;
+        font-size: 24px;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+        color: #000;
+        cursor: pointer;
+    }
+
+    .rating label {
+        border-left: 1px #999 solid;
+        transition: .3s;
+    }
+
+    .rating input[type='radio']:hover ~ label,
+    input[type='radio']:checked ~ label {
+        background: none;
+        color: #fff;
+    }
