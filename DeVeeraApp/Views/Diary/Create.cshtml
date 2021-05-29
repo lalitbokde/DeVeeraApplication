@@ -185,6 +185,9 @@
 
                             <div class="box px-5 py-3 ml-4 flex-1 zoom-in" style="background-color:@item.DiaryColor">
                                 <div class="flex items-center">
+                                    <div class="font-medium line-clamp-1">@item.User.Email</div>
+                                </div>
+                                <div class="flex items-center">
                                     <div class="font-medium line-clamp-1">@Html.Raw(item.Title)</div>
                                 </div>
                                 <div class="flex items-center">

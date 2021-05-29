@@ -135,6 +135,7 @@ namespace DeVeeraApp
             services.AddScoped<IEmotionService, EmotionService>();
             services.AddScoped<IEmotionMappingService, EmotionMappingService>();
             services.AddScoped<IDiaryPasscodeService, DiaryPasscodeService>();
+            services.AddScoped<ILocalStringResourcesServices, LocalStringResourcesServices>();
 
 
             var authenticationBuilder = services.AddAuthentication(options =>
