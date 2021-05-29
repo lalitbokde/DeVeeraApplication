@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,17 +30,17 @@ namespace CRM.Services.Authentication
         /// <summary>
         /// The default value for the login path
         /// </summary>
-        public static readonly PathString LoginPath = new PathString("/LandingPage/Index/");
+        public static readonly string LoginPath = "/User/Login/";
 
         /// <summary>
         /// The default value used for the logout path
         /// </summary>
-        public static readonly PathString LogoutPath = new PathString("/logout");
+        public static readonly string LogoutPath = "/logout";
 
         /// <summary>
         /// The default value for the access denied path
         /// </summary>
-        public static readonly PathString AccessDeniedPath = new PathString("/page-not-found");
+        public static readonly string AccessDeniedPath = "/page-not-found";
 
         /// <summary>
         /// The default value of the return URL parameter

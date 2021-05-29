@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>0bccd899-960a-4d2d-83ed-e2b30214bde4</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
@@ -14,12 +14,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\LandingPage\" />
     <Folder Include="wwwroot\LandingPage\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\FFmpeg\" />
     <Folder Include="wwwroot\ImportExcel\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Areas\Admin\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Views\User\" />
+    <Folder Include="Views\Diary\" />
+    <Folder Include="Views\EmotionBlog\" />
+    <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Lesson\" />
+    <Folder Include="Views\Module\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />

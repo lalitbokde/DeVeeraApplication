@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DeVeeraApp.Controllers
 {
+   
     public class BaseController : Controller
     {
         #region fields

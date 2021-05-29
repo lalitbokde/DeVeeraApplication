@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
+  
     public class DiaryController :BaseController
     {
         #region field

@@ -1,194 +1,201 @@
 ﻿@model DeVeeraApp.ViewModels.ModulesModel
+@inject CRM.Core.IWorkContext _workContext
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<style>
-    .imgbackModule {
-        background-image: url('/Images/beauty.jpg');
-        width: 100%;
-        height: auto;
-        background-size: cover;
-    }
-
-    .gridclass {
-        grid-column: span 11/span 11;
-    }
-</style>
-
-<div class=" grid grid-cols-12  gap-6 intro-y col-span-12 flex  mt-5">
-    <div class="intro-y  xxl:col-span-6 xxl\:col-span-6  xl\:col-span-6 col-span-12 lg\:col-span-6 mr-auto">
-        <div class=" mt-10 lg:mt-0">
-            <div class="intro-x mt-10 text-4xl font-medium ml-2">@ViewBag.LevelName : @Model.Title</div>
-
+<!-- Start Page Banner Area -->
+<div class="page-banner-with-full-image">
+    <div class="container">
+        <div class="page-banner-content-two">
+            <h2>@Model.Title</h2>
+            <ul>
+                <li>
+                    <a asp-controller="Dashboard" asp-action="Index">Home</a>
+                </li>
+                <li>@Model.Title</li>
+            </ul>
         </div>
     </div>
-
-    <div class="intro-y xxl:col-span-6 xxl\:col-span-6  xl\:col-span-6 col-span-12 lg\:col-span-6 flex items-center  ">
-        <div class="alert alert-warning show mb-2 mt-10" role="alert">
-            <div class="flex items-center">
-                <div class="font-medium text-lg mr-4">Latest Diary</div>
-                <div class="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">@Model.DiaryLatestUpdateDate</div>
-            </div>
-            <div class="line-clamp-3 mt-3">@Html.Raw(Model.DiaryText)</div>
-        </div>
-
-    </div>
-
 </div>
+<!-- End Page Banner Area -->
+<!-- Start Courses Details Area -->
+<section class="courses-details-area ptb-100">
+    <div class="container">
+        <div class="courses-details-image">
+            <img src="~/UserAssets/images/courses/courses-details.jpg" alt="image">
+            @{
+                var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
 
+                @*<video src="@Url.Content(src)" controls style="width:100%;" loop />*@
 
-
-<div class="intro-y news p-5 box mt-8">
-
-    <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
-        <div class="intro-y col-span-12 lg:col-span-6 xxl:col-span-6">
-            <h2 class="intro-y font-medium text-xl sm:text-2xl">
-            </h2>
-
-        </div>
-        <div class="col-span-12 lg:col-span-6 xxl:col-span-6 ml-auto">
-
-            @if (_workContext?.CurrentUser.UserRole.Name == "Admin")
-            {
-                <a asp-controller="Level" asp-action="Edit" asp-route-id="@Model.LevelId" asp-route-ModuleId="@Model.Id" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5"> Edit </a>
-                <a onclick="ShowDeleteConfirmation('PostDeleteModule(@Model.Id)')" class="btn-danger intro-x btn py-3 px-4 border-white dark:border-dark-5"> Delete </a>
-
+                <a href="@src" class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
+                </a>
             }
 
-            <a asp-controller="Diary" asp-action="Create"  class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="courses-details-desc">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">Overview</a></li>
+                        @*<li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Curriculum</a></li>
+                            <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
+                            <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                            <div class="courses-overview">
+                                @Html.Raw(Model.FullDescription)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="courses-details-info">
+                    <div class="image">
+                        <img src="~/UserAssets/images/courses/courses-1.jpg" alt="image">
+
+                        <a class="video-btn popup-youtube">
+                            <i class="flaticon-play-button"></i>
+                        </a>
+                    </div>
+
+                    @*<ul class="info">
+                            <li class="price">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Price</span>
+                                    $49
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Instructor</span>
+                                    Sarah Taylor
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Duration</span>
+                                    7 weeks
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Lessons</span>
+                                    25
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Enrolled</span>
+                                    255 Students
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>Access</span>
+                                    Lifetime
+                                </div>
+                            </li>
+                        </ul>*@
+
+
+
+                    <div class="courses-share">
+                        <div class="share-info">
+                            <span>Share This Course</span>
+
+                            <ul class="social-link">
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="psylo-post-navigation">
+
 
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
+                <div class="prev-link-wrapper">
+                    <div class="info-prev-link-wrapper">
+                        <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
+                            <span class="image-prev">
+                                <img src="~/UserAssets/images/blog/blog-1.jpg" alt="image">
+                                <span class="post-nav-title">Prev</span>
+                            </span>
 
-
-                <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Previous</a>
-
-            }
-            @if (ViewBag.TotalModules > ViewBag.SrNo)
-            {
-
-
-                <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next</a>
-            }
-            else
-            {
-                <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" class="btn-primary intro-x btn py-3 px-4 border-white dark:border-dark-5">Next Level</a>
-
-            }
-
-        </div>
-
-    </div>
-
-    <!-- BEGIN: Blog Layout -->
-    <div class="intro-y mt-6">
-        <div class="news__preview image-fit">
-            @{string src = Model.Video.VideoUrl; }
-            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
-        </div>
-    </div>
-
-    <div class="intro-y text-justify leading-relaxed mt-10">
-        @Html.Raw(Model.FullDescription)
-    </div>
-    <div class="border-t border-theme-25 mt-5"></div>
-    <div class="grid grid-cols-12 gap-6 mt-10">
-        <div class="col-span-12 lg:col-span-8 xl:col-span-6">
-            <div class="intro-x text-2xl font-medium">Questionnaire</div>
-        </div>
-        @if (_workContext.CurrentUser.UserRole.Name == "Admin")
-        {
-            <div class="col-span-12 lg:col-span-8 xl:col-span-6 text-right">
-                <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-primary w-36"><i data-feather="plus" class="mr-2 w-5 h-5"></i>Add Question</a>
-            </div>
-        }
-    </div>
-    @{
-
-        int UserId = _workContext.CurrentUser.Id;
-        string UserRole = _workContext.CurrentUser.UserRole.Name;
-
-        foreach (var item in Model.QuestionsList)
-        {
-            <form asp-controller="QuestionAnswer" asp-action="Answer" method="post">
-                @*<div class="mt-5">
-                        <label for="input-wizard-1" class="form-label">Q.  @item.Question</label>
-                    </div>*@
-
-                <div class="intro-y col-span-12 mt-5">
-                    <div class="box shadow-lg">
-                        <div class="flex flex-col lg:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                            <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
-                                <a class="font-medium"> @item.Question</a>
-                            </div>
-                        </div>
-                        @if (item.Question_Answer_Mapping.Where(a => a.UserId == UserId).ToList().Count == 0)
-                        {
-
-                            <div class=" grid grid-cols-12  col-span-12 mb-4 lg:mb-0 mr-auto p-5">
-                                <div class="bg-gray-200 grid grid-cols-12   col-span-12 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md ">
-
-                                    <div class="grid-cols-12 gridclass">
-                                        <input id="Id" name="Id" value="@item.Id" hidden />
-                                        <input asp-for="Id" name="ModuleId" hidden />
-                                        <textarea id="Answer" name="Answer" class="chat__box__input form-control dark:bg-dark-3 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:ring-0" rows="1" placeholder="Type your answer..."></textarea>
-
-                                    </div>
-                                    <div class="grid-cols-12  ml-auto">
-                                        <button type="submit" class="w-8 h-8 sm:w-10 mt-4 sm:h-10 block bg-theme-17 text-white rounded-full flex-none flex items-center justify-center mr-5">
-                                            <i data-feather="send" class="w-4 h-4"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        }
-                        else
-                        {
-                            @if (UserRole != "Admin")
-                            {
-                                <div class="flex flex-wrap lg:flex-nowrap items-center justify-center p-5">
-                                    <div class="w-full  mb-4 lg:mb-0 mr-auto">
-                                        <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
-                                            <div class="mt-1 text-xs text-gray-600"> @item.Question_Answer_Mapping.Where(a => a.UserId == UserId).FirstOrDefault()?.User?.Email </div>
-                                            <label for="input-wizard-1" class="form-label"> @item.Question_Answer_Mapping.Where(a => a.UserId == UserId).FirstOrDefault()?.Answer</label>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="flex flex-wrap lg:flex-nowrap items-center justify-center p-5">
-                                    <div class="w-full  mb-4 lg:mb-0 mr-auto">
-                                        <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
-                                            @foreach (var data in item.Question_Answer_Mapping)
-                                            {
-                                                <div class="mt-1 text-xs text-gray-600"> @data.User.Email </div>
-                                                <label for="input-wizard-1" class="form-label"> @data.Answer </label>                                    
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
+                            <span class="prev-link-info-wrapper">
+                                <span class="prev-title">
+                                    How Does A Psychologist Help To Maintain A Good Mental Health
+                                </span>
+                            </span>
+                        </a>
+                        <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">Previous <i class="flaticon-left-arrow"></i></a>
                     </div>
                 </div>
 
 
-            </form>
+            }
+            @if (ViewBag.TotalModules > ViewBag.SrNo)
+            {
+                <div class="next-link-wrapper">
+                    <div class="info-next-link-wrapper">
+                        <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
+                            <span class="next-link-info-wrapper">
+                                <span class="next-title">
+                                    How Does Consulting A Psychologist Help To Solve Your Problem?
+                                </span>
+                            </span>
 
-        }
-    }
-</div>
+                            <span class="image-next">
+                                <img src="~/UserAssets/images/blog/blog-2.jpg" alt="image">
+                                <span class="post-nav-title">Next</span>
+                            </span>
+                        </a>
+                        <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">Next <i class="flaticon-right-arrow"></i></a>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="next-link-wrapper">
+                    <div class="info-next-link-wrapper">
+                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
+                            <span class="next-link-info-wrapper">
+                                <span class="next-title">
+                                    How Does Consulting A Psychologist Help To Solve Your Problem?
+                                </span>
+                            </span>
+
+                            <span class="image-next">
+                                <img src="~/UserAssets/images/blog/blog-2.jpg" alt="image">
+                                <span class="post-nav-title">Next</span>
+                            </span>
+                        </a>
+                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">Next <i class="flaticon-right-arrow"></i></a>
+                    </div>
+                </div>
+
+            }
+
+           
+        </div>
+
+    </div>
+</section>
+<!-- End Courses Details Area -->
 
 
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="~/dist/js/CustomJs/Delete.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#maincontentid').addClass("imgbackModule");
-    });
-</script>

@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<!-- Start Main Slides Area -->
+<div class="main-slides-area">
+    <div class="home-slides owl-carousel owl-theme">
+        <div class="main-slides-item">
+            <div class="container">
+                <div class="main-slides-content">
+                    <h1>Become The <span>Happiest</span> Person That You Want</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+
+                    <div class="slides-btn">
+                        <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                        <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-slides-item item-two">
+            <div class="container">
+                <div class="main-slides-content">
+                    <h1>We Are Here To <span>Transform</span> Your Life</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+
+                    <div class="slides-btn">
+                        <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                        <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-slides-item item-three">
+            <div class="container">
+                <div class="main-slides-content">
+                    <h1>Take Life Changing <span>Life Coaching</span> With Us</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+
+                    <div class="slides-btn">
+                        <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                        <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Main Slides Area -->
+<!-- Start Blog Area -->
+<section class="blog-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <h2>Dive Into Our Sessions</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="blog-slides owl-carousel owl-theme">
+
+            @{
+
+                int i = 1;
+                @foreach (var item in Model.VideoModelList)
+                {
+
+                    <div class="single-blog-item">
+                        <div class="blog-image">
+                            <a href="blog-details.html"><img src="~/UserAssets/images/blog/blog-1.jpg" alt="image"></a>
+
+                            <div class="tag">13th <span>Jan</span></div>
+                        </div>
+
+                        <div class="blog-content">
+                            <div class="meta">
+                                <p>
+                                    <i class="flaticon-user"></i>
+                                    By <a href="#">Andrew Smith</a>
+                                </p>
+                            </div>
+
+                            <h3>
+                                <a href="blog-details.html">@item.Title</a>
+                            </h3>
+                            <div class="blog-btn">
+                                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" class="default-btn">Read More <i class="flaticon-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                
+                    i++;
+
+                }
+            }
+
+
+
+
+        </div>
+    </div>
+</section>
+<!-- End Blog Area -->

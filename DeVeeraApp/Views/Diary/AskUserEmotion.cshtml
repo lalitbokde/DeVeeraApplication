@@ -2,75 +2,118 @@
 @using DeVeeraApp.ViewModels.Enum
 @{
     ViewData["Title"] = "AskUserEmotion";
+    Layout = null;
 }
+<!doctype html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/odometer.min.css">
+    <!-- Slick Min CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/slick.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/nice-select.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/magnific-popup.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/fancybox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/responsive.css">
 
-<form asp-controller="Diary" asp-action="AskUserEmotion" method="post">
-    <div class="content">
-        <!-- BEGIN: Wizard Layout -->
-        <div class="intro-y  py-10 sm:py-20 ">
+    <title>Psylo - Life Coach & Psychologist HTML Template</title>
 
-            <div class="px-5 ">
-                <div class="font-medium text-center text-lg text-theme-21 star">  What emotions are you feeling now?</div>
-                <div class="text-gray-600 text-center mt-2">Please select your emotion to continue.</div>
-            </div>
+    <link rel="icon" type="image/png" href="~/UserAssets/images/favicon.png">
+</head>
 
+<body>
 
-            <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5" >
-               
-                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
-                    <div class="intro-y col-span-3"></div>
-                    <div class="intro-y box p-5 col-span-6">
-                        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
-                        {
-                            // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
-                            <div asp-validation-summary="All" class="text-theme-6 mt-4">
-                                @*<a class="close" data-dismiss="alert">&times;</a>*@
-                            </div>
-                        }
-
-
-
-                        <div class="mt-5">
-                            <div>
-                                @foreach (var item in Model.EmotionList)
-                                {
-                                    <div class="form-check mt-2">
-                                        <input id="radio-switch-1" class="form-check-input" type="radio" asp-for="Id" value="@item.Id">
-                                        <label class="form-check-label" for="radio-switch-1">@item.EmotionName</label>
-                                    </div>
-                                }
-                            </div>
-                            <span asp-validation-for="@Model.Id" class="text-theme-6 mt-2"></span>
-
-                        </div>
-                        @*<div class="mt-5">
-                            <input asp-for="Remember" type="checkbox" class="form-check-input" placeholder="Remember" />
-                            <label class="form-label text-theme-21 ml-2">Remember</label>
-                        </div>*@
-
-                    </div>
-                    <div class="intro-y col-span-3"></div>
-
-                </div>
-
-
-                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
-                    <div class="intro-y col-span-3"></div>
-                    <div class="intro-y  p-5 col-span-6">
-                        @*<div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">*@
-                        <div class="px-5 items-center text-xl ">
-                            <div class="intro-y col-span-12 flex items-center justify-center  mt-5">
-                                <button type="submit" class="btn btn-primary w-24">Submit</button>
-                            </div>
-                        </div>
-                        @*</div>*@
-                    </div>
-                    <div class="intro-y col-span-3"></div>
-                </div>
-
+    <!-- Start Preloader Area -->
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
             </div>
         </div>
     </div>
+    <!-- End Preloader Area -->
+    <!-- Start Services Area -->
+    <div class="services-area bg-ffffff ptb-100">
+        <div class="container">
+            <div class="section-title">
+                <h2>What <span>Emotion</span> are you feeling now?</h2>
+                @*<p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>*@
+            </div>
 
-</form>
+            <div class="col-lg-12 col-md-12">
+                <div class="services-details-info">
+                    <ul class="services-list">
+                        @foreach (var item in Model.EmotionList.OrderBy(a => a.EmotionNo))
+                        {
+                            <li><a asp-controller="EmotionBlog" asp-action="Index" asp-route-emotionname="@item.EmotionName"> @item.EmotionName <i class="flaticon-imagination"></i></a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- End Services Area -->
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class='flaticon-up-arrow'></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery Slim JS -->
+    <script src="~/UserAssets/js/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/UserAssets/js/bootstrap.bundle.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/UserAssets/js/jquery.meanmenu.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/UserAssets/js/owl.carousel.min.js"></script>
+    <!-- Jquery Appear JS -->
+    <script src="~/UserAssets/js/jquery.appear.js"></script>
+    <!-- Odometer JS -->
+    <script src="~/UserAssets/js/odometer.min.js"></script>
+    <!-- Slick Min JS -->
+    <script src="~/UserAssets/js/slick.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/UserAssets/js/nice-select.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/UserAssets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="~/UserAssets/js/fancybox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="~/UserAssets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="~/UserAssets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="~/UserAssets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="~/UserAssets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/UserAssets/js/main.js"></script>
+</body>
+</html>
 

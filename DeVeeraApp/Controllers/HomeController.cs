@@ -19,10 +19,12 @@ using CRM.Core;
 using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DeVeeraApp.Controllers
 {
-    [AuthorizeAdmin]
+   
     public class HomeController : BaseController
     {
         #region fields
@@ -75,78 +77,49 @@ namespace DeVeeraApp.Controllers
 
         #endregion
 
+        #region Utilities
+
+        public virtual void PrepareLanguages(LanguageModel model)
+        {
+
+            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
+            //var AvailableLanguage = _languageService.GetAllLanguages();
+            //foreach (var item in AvailableLanguage)
+            //{
+            //    model.AvailableLanguages.Add(new SelectListItem
+            //    {
+            //        Value = item.Id.ToString(),
+            //        Text = item.Name
+            //    });
+            //}
+        }
+
+
+        #endregion
+
         #region Method
         public IActionResult Index()
         {
+            var model = new UserModel();
 
-            AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Home/Index");
+            var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
 
-            var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
+            model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
 
-            var model = new DashboardQuoteModel();
+            ViewBag.VideoUrl = data?.Video?.VideoUrl;
 
-            var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
-
-            model.Title = quote?.Title;
-            model.Author = quote?.Author;
-
-            model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
-
-            var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
-
-            //int lastlevel = data.LastOrDefault().Id;
-            var lastLevelData = data.LastOrDefault();
-            int lastlevel = lastLevelData != null ? lastLevelData.Id : 0;
-            if (data.Count() != 0)
-            {
-                if (!(_workContext.CurrentUser.UserRole.Name == "Admin"))
-                {
-                    var activeLevel = data.Where(l => l.Active == true).ToList();
-
-                    if (activeLevel.Count() != 0)
-                    {
-                        var LevelOne = data.FirstOrDefault();
-
-                        var lastLevelForNewUser = data.Where(a => a.Id == LevelOne.Id).FirstOrDefault();
-
-                        var lastLevelForOldUser = data.Where(a => a.Id == currentUser.LastLevel).FirstOrDefault();
+            PrepareLanguages(model.LandingPageModel.Language);
+            return View(model);
+        }
 
 
-                        lastlevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? lastlevel = lastLevelForNewUser.Id : lastlevel = lastLevelForOldUser.Id;
+        [HttpPost]
+        public IActionResult CultureManagement(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
 
-                        foreach (var item in data)
-                        {
-                            if (item.Active == true && item.Id <= lastlevel)
-                            {
-                                model.VideoModelList.Add(item.ToModel<LevelModel>());
-
-                                if (item.Id == lastlevel)
-                                {
-                                    break;
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-
-
-                }
-                else
-                {
-                    foreach (var item in data)
-                    {
-                        model.VideoModelList.Add(item.ToModel<LevelModel>());
-
-                    }
-                }
-
-
-                return View(model);
-            }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)

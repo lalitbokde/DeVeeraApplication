@@ -1,99 +1,117 @@
-﻿@model DeVeeraApp.ViewModels.DashboardQuoteModel
-<div class="grid grid-cols-12 gap-6">
-    <div class="col-span-12 xxl:col-span-9">
-        <div class="grid grid-cols-12 gap-6">
-            <!-- BEGIN: General Report -->
-            @if (Model != null)
-            {
-                <div class="col-span-12 mt-8">
+﻿@model DeVeeraApp.ViewModels.User.UserModel
+    <!-- Start Main Slides Area -->
+<div class="main-slides-area">
+    <div class="home-slides owl-carousel owl-theme">
+        <div class="main-slides-item-box">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <div class="main-slides-content">
+                            <h1>Become The <span>Happiest</span> Person That You Want</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
 
-                    <div class="intro-y flex items-center h-10">
-                        <h2 class="text-lg font-medium truncate mr-5"> @Model.Title <a class="text-theme-21 dark:text-theme-10" href="">– @Model.Author</a></h2>
-
-                        <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="ml-auto flex btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
-
-                    </div>
-                    <div class="grid grid-cols-12 gap-6 mt-5">
-                        @{
-
-                            int i = 1;
-                            @foreach (var item in Model.VideoModelList)
-                            {
-                                <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                                    <div class="report-box zoom-in">
-                                        <div class="box p-5">
-
-                                            <div class="text-3xl font-bold leading-8 mt-6"><a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i">@item.Title</a></div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                i++;
-
-                            }
-                        }
-                    </div>
-
-                    <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
-                        <div class="intro-y col-span-12 lg:col-span-12">
-
-                            <div class="grid grid-cols-12 gap-5 mt-5">
-
-                                <a asp-controller="Home" asp-action="WeeklyInspiringQuotes" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
-
-                                    <div class="font-medium text-base text-white"> @Model.Menus?.Menu_1 </div>
-                                </a>
-                                <a asp-controller="Home" asp-action="NewVideos" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
-                                    <div class="font-medium text-base text-white"> @Model.Menus?.Menu_2 </div>
-                                </a>
-                                <a asp-controller="Home" asp-action="FeelGoodStories" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in">
-                                    <div class="font-medium text-base text-white"> @Model.Menus?.Menu_3 </div>
-
-                                </a>
-
-
+                            <div class="slides-btn">
+                                <a href="online-booking.html" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                                <a href="services.html" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            }
-            else
-            { <div class="col-span-12 mt-8">
-                    <div class="intro-y flex items-center h-10">
-                        <h2 class="text-lg font-medium  mr-5">There is no data.</h2>
-
-
+                    <div class="col-lg-5">
+                        <div class="main-slides-image">
+                            <img src="~/UserAssets/images/main-slides/slides-1.jpg" alt="image">
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-            }
-            <!-- END: General Report -->
+        <div class="main-slides-item-box">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <div class="main-slides-content">
+                            <h1>We Are Here To <span>Transform</span> Your Life</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
 
-                 @if (_workContext.CurrentUser.UserRole.Name=="Admin") 
-                 {
-                <div class="col-span-12 lg:col-span-12">
-                    <!-- BEGIN: Vertical Bar Chart -->
-                    <div class="intro-y box">
-                        <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                            <h2 class="font-medium text-base mr-auto">
-                                User Emotions
-                            </h2>
-                          
-                        </div>
-                        <div id="vertical-bar-chart" class="p-5">
-                            <div class="preview">
-                                <canvas id="vertical-bar-chart-widget1" height="100"></canvas>
+                            <div class="slides-btn">
+                                <a href="online-booking.html" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                                <a href="services.html" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
                             </div>
-                           
                         </div>
                     </div>
-                    <!-- END: Vertical Bar Chart -->
 
-             
+                    <div class="col-lg-5">
+                        <div class="main-slides-image">
+                            <img src="~/UserAssets/images/main-slides/slides-2.jpg" alt="image">
+                        </div>
+                    </div>
+                </div>
             </div>
-                 }
         </div>
-            </div>
 
+        <div class="main-slides-item-box">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <div class="main-slides-content">
+                            <h1>Take Life Changing <span>Life Coaching</span> With Us</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+
+                            <div class="slides-btn">
+                                <a href="online-booking.html" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                                <a href="services.html" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="main-slides-image">
+                            <img src="~/UserAssets/images/main-slides/slides-3.jpg" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+<!-- End Main Slides Area -->
+<!-- Start Philosophy Area -->
+<section class="philosophy-area ptb-100">
+    <div class="container">
+        <div class="philosophy-slides owl-carousel owl-theme">
+   
+
+
+
+            <div class="philosophy-item">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="philosophy-content">
+                            <h3>@Model.LandingPageModel.WeeklyUpdate.Title</h3>
+                            @Html.Raw(@Model.LandingPageModel.WeeklyUpdate.Subtitle)
+                            <div class="philosophy-quote">
+                                <i class="flaticon-close"></i>
+                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div class="philosophy-btn">
+                                <a href="@Model.LandingPageModel.WeeklyUpdate.VideoUrl" class="default-btn popup-youtube">Watch Video <i class="flaticon-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="philosophy-image">
+                            <img src="~/UserAssets/images/philosophy/philosophy-3.png" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="philosophy-main-shape">
+        <img src="~/UserAssets/images/philosophy/line-shape.png" alt="image">
+    </div>
+</section>
+<!-- End Philosophy Area -->

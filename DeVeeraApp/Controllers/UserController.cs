@@ -36,7 +36,7 @@ using CRM.Services.Customers;
 
 namespace DeVeeraApp.Controllers
 {
-
+   
     public class UserController : BaseController
     {
         #region fields
@@ -508,7 +508,7 @@ namespace DeVeeraApp.Controllers
                                 else
                                 {
 
-                                    return RedirectToAction("Index", "Home");
+                                    return RedirectToAction("Index", "Home",new { area= "Admin" });
                                 }
 
 
