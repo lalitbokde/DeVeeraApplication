@@ -3978,12 +3978,12 @@ Page Banner Area CSS
 }
 
 .page-banner-with-full-image.item-bg3 {
-  background-image: url(../../assets/images/page-banner/page-banner-bg-4.jpg);
+  background-image: url(../../assest/images/page-banner/login.jpg);
 }
 
-.page-banner-with-full-image.item-bg4 {
-  background-image: url(../../assets/images/page-banner/page-banner-bg-5.jpg);
-}
+    .page-banner-with-full-image.item-bg4 {
+        background-image: url(../../assest/images/page-banner/register.jpg);
+    }
 
 .page-banner-content-two {
   text-align: center;

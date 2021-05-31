@@ -19,8 +19,6 @@
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\FFmpeg\" />
     <Folder Include="wwwroot\ImportExcel\" />
-    <Folder Include="Areas\" />
-    <Folder Include="Areas\Admin\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Views\User\" />
     <Folder Include="Views\Diary\" />

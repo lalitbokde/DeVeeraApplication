@@ -1,6 +1,7 @@
 ﻿using CRM.Core.Domain;
 using CRM.Services;
 using CRM.Services.Message;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -15,7 +16,8 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-
+    [Area("Admin")]
+    [AuthorizeAdmin]
     public class LocalStringResourcesController : Controller
     {
         #region fields

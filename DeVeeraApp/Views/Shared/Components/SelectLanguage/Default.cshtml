@@ -1,0 +1,6 @@
+﻿@model DeVeeraApp.ViewModels.User.UserModel
+
+<form asp-controller="GeneralSetting" asp-action="Create" method="post">
+    <select asp-for="@Model.LandingPageModel.Language.Id" asp-items="@Model.LandingPageModel.Language.AvailableLanguages" onchange="this.form.submit();">
+    </select>
+</form>
