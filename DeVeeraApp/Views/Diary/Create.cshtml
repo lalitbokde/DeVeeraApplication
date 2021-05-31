@@ -1,10 +1,10 @@
-@model DeVeeraApp.ViewModels.Diaries.DiaryModel
+﻿@model DeVeeraApp.ViewModels.Diaries.DiaryModel
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<link href="~/UserAssets/css/StyleSheet.css" rel="stylesheet" />
+<link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
 @{var user = _workContext.CurrentUser.UserRole.Name;}
 
 
@@ -14,10 +14,10 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
                 <div class="page-banner-image">
-                    <img src="~/UserAssets/images/howtowriteadiary.jpg" alt="image">
+                    <img src="~/assets/images/howtowriteadiary.jpg" alt="image">
 
                     <div class="image-shape">
-                        <img src="~/UserAssets/images/page-banner/shape.png" alt="image">
+                        <img src="~/assets/images/page-banner/shape.png" alt="image">
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="page-banner-shape">
-        <img src="~/UserAssets/images/page-banner/banner-shape-1.png" alt="image">
+        <img src="~/assets/images/page-banner/banner-shape-1.png" alt="image">
     </div>
 </div>
 <!-- End Page Banner Area -->
@@ -48,7 +48,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="services-details-desc">
                     <div class="content-image">
-                        <img src="~/UserAssets/images/services-details/shape.jpg" alt="image">
+                        <img src="~/assets/images/services-details/shape.jpg" alt="image">
 
                         <h4 class="sub-title">Dear Diary</h4>
                     </div>
