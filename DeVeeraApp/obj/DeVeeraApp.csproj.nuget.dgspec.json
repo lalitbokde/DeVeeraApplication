@@ -1,38 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj": {}
+    "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/DeVeeraApp/DeVeeraApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
+    "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj",
+        "projectUniqueName": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj",
         "projectName": "CRM.Core",
-        "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj",
-        "packagesPath": "C:\\Users\\lalit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\obj\\",
+        "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj",
+        "packagesPath": "/Users/apurvaraut/.nuget/packages/",
+        "outputPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/apurvaraut/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {}
           }
         },
@@ -43,8 +38,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
@@ -86,42 +81,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
+    "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj",
+        "projectUniqueName": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj",
         "projectName": "CRM.Data",
-        "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj",
-        "packagesPath": "C:\\Users\\lalit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\obj\\",
+        "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj",
+        "packagesPath": "/Users/apurvaraut/.nuget/packages/",
+        "outputPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/apurvaraut/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
-                "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj"
+              "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj": {
+                "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj"
               }
             }
           }
@@ -133,8 +123,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -168,45 +158,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
+    "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Services/CRM.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj",
+        "projectUniqueName": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Services/CRM.Services.csproj",
         "projectName": "CRM.Services",
-        "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj",
-        "packagesPath": "C:\\Users\\lalit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\obj\\",
+        "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Services/CRM.Services.csproj",
+        "packagesPath": "/Users/apurvaraut/.nuget/packages/",
+        "outputPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Services/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/apurvaraut/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj": {
-                "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Core\\CRM.Core.csproj"
+              "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj": {
+                "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Core/CRM.Core.csproj"
               },
-              "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
-                "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
+              "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj": {
+                "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj"
               }
             }
           }
@@ -218,8 +203,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "AWSSDK.Core": {
               "target": "Package",
@@ -265,45 +250,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj": {
+    "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/DeVeeraApp/DeVeeraApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
+        "projectUniqueName": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/DeVeeraApp/DeVeeraApp.csproj",
         "projectName": "DeVeeraApp",
-        "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\DeVeeraApp.csproj",
-        "packagesPath": "C:\\Users\\lalit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\DeVeeraApp\\obj\\",
+        "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/DeVeeraApp/DeVeeraApp.csproj",
+        "packagesPath": "/Users/apurvaraut/.nuget/packages/",
+        "outputPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/DeVeeraApp/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\lalit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/apurvaraut/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj": {
-                "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Data\\CRM.Data.csproj"
+              "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj": {
+                "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Data/CRM.Data.csproj"
               },
-              "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj": {
-                "projectPath": "C:\\Users\\lalit\\OneDrive\\Documents\\github\\DeVeeraApplication\\CRM.Services\\CRM.Services.csproj"
+              "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Services/CRM.Services.csproj": {
+                "projectPath": "/Users/apurvaraut/Documents/GitHub/DeVeeraApplication/CRM.Services/CRM.Services.csproj"
               }
             }
           }
@@ -315,8 +295,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "AWSSDK.S3": {
               "target": "Package",
@@ -361,7 +341,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.203/RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,828 +1,381 @@
 ﻿@inject CRM.Core.IWorkContext _workContext
 @using DeVeeraApp.ViewModels
-<!DOCTYPE html>
-<!--
-Template Name: Icewall - HTML Admin Dashboard Template
-Author: Left4code
-Website: http://www.left4code.com/
-Contact: muhammadrizki@left4code.com
-Purchase: https://themeforest.net/user/left4code/portfolio
-Renew Support: https://themeforest.net/user/left4code/portfolio
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 
-
-<html lang="en" class="light">
-
-<!-- BEGIN: Head -->
+<!doctype html>
+<html lang="zxx">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <link href="~/dist/images/logo.svg" rel="shortcut icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="LEFT4CODE">
-    <title>Dashboard - app-e - Tailwind HTML Admin Template</title>
-    <!-- BEGIN: CSS Assets-->
-    <link rel="stylesheet" href="~/dist/css/app.css" />
-    <link href="~/dist/css/style.css" rel="stylesheet" />
-    <link href="~/dist/css/sweetalert2.min.css" rel="stylesheet" />
-    <link href="~/dist/js/datetimepicker/css/duDatepicker.css" rel="stylesheet" />
-    <link href="~/dist/js/datetimepicker/css/mdtimepicker.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="~/ckeditor 3/samples/css/samples.css">*@
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/odometer.min.css">
+    <!-- Slick Min CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/slick.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/nice-select.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/magnific-popup.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/fancybox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/responsive.css">
 
-    <!-- END: CSS Assets-->
-<style>
+    <title>Happ-e</title>
 
-    .ovalicon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        margin: -50px 0px 0px -50px;
-        z-index: 998;
-        color: #0071BC;
-    }
-
-    .mr-padding {
-        margin-right: 76px;
-    }
-</style>
-    
+    <link rel="icon" type="image/png" href="~/UserAssets/images/favicon.png">
 </head>
-<!-- END: Head -->
 
-<body class="main">
-    <div class="pt-5">
+<body>
 
-        @await Html.PartialAsync("ToastNotification")
-    </div>
-    <div class="loader">
-        <!-- BEGIN: Mobile Menu -->
-        <div class="mobile-menu md:hidden">
-            <div class="mobile-menu-bar">
-                <a href="" class="-intro-x hidden md:flex">
-                    <img alt="Icewall Tailwind HTML Admin Template" class="w-20" src="/dist/images/Asset 1.png">
-
-                </a>
-                <a href="javascript:;" id="mobile-menu-toggler"> <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+    <!-- Start Preloader Area -->
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
             </div>
-            <ul class="border-t border-theme-2 py-5 hidden">
-                <li>
-                    <a asp-controller="home" asp-action="index" class="menu">
-                        <div class="menu__icon"> <i data-feather="home"></i> </div>
-                        <div class="menu__title"> Dashboard  </div>
-                    </a>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+    <!-- Start Top Header Area -->
+    <div class="header-information">Header Information</div>
 
+    <div class="top-header-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9 col-md-12">
+                    @*<ul class="top-header-information">
+                        <li>
+                            <i class="flaticon-phone-call"></i>
+                            <a href="tel:9885394203">+988 5394 203</a>
+                        </li>
 
-                </li>
-                <li>
-                    <a class="menu">
-                        <div class="menu__icon"> <i data-feather="box"></i> </div>
-                        <div class="menu__title">  Training Videos And Other Materials <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
-                    </a>
-                    <ul class="">
                         <li>
-                            <a asp-controller="Home" asp-action="UnderDevelopment" class="menu">
-                                <div class="menu__icon"> <i data-feather="message-circle"></i> </div>
-                                <div class="menu__title"> Weekly Inspiring Quotes </div>
-                            </a>
+                            <i class="flaticon-mail"></i>
+                            <a href="mailto:happ-e@gmail.com">happe@gmail.com</a>
                         </li>
+
                         <li>
-                            <a asp-controller="Home" asp-action="UnderDevelopment" class="menu">
-                                <div class="menu__icon"> <i data-feather="play-circle" class="mx-auto"></i> </div>
-                                <div class="menu__title"> Weekly Videos </div>
-                            </a>
+                            <i class="flaticon-placeholder"></i>
+                            3 Edgar Buildings, George Street, England, BA1 2FJ.
                         </li>
+                    </ul>*@
+                </div>
+
+                <div class="col-lg-3 col-md-12">
+                    <ul class="top-header-optional">
                         <li>
-                            <a asp-controller="Home" asp-action="UnderDevelopment" class="menu">
-                                <div class="menu__icon"> <i data-feather="map"></i> </div>
-                                <div class="menu__title"> Weekly Positive News </div>
+                            <a asp-controller="User" asp-action="Register" target="_blank" style="color:white">
+                                 Register
                             </a>
+                            <a asp-controller="User" asp-action="Login" target="_blank" style="color:white">
+                                Login
+                            </a>
+                            @*<a href="#" target="_blank">
+                                <i class='bx bxl-pinterest-alt'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-instagram'></i>
+                            </a>*@
                         </li>
                     </ul>
-                </li>
-
-                @if (_workContext.CurrentUser.UserRole.Name == "Admin")
-                {
-                    <li>
-                        <a class="menu">
-                            <div class="menu__icon"> <i data-feather="lock"></i> </div>
-                            <div class="menu__title"> Administration <i data-feather="chevron-down" class="menu__sub-icon"></i> </div>
-                        </a>
-                        <ul>
-                            <li>
-                                <a class="menu">
-                                    <div class="menu__icon"> <i data-feather="folder"></i> </div>
-                                    <div class="menu__title"> Admin <i data-feather="chevron-down" class="menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Admin" asp-action="Create">
-                                            <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                            <div class="menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Admin" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name" class="menu">
-                                            <div class="menu__icon"> <i data-feather="users"></i> </div>
-                                            <div class="menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="menu">
-                                    <div class="menu__icon"> <i data-feather="folder"></i> </div>
-                                    <div class="menu__title"> Quote <i data-feather="chevron-down" class="menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a class="menu">
-                                            <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                            <div class="menu__title"> Registration Quote <i data-feather="chevron-down" class="menu__sub-icon"></i></div>
-                                        </a>
-                                        <ul>
-                                            <li>
-                                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Registration" class="menu">
-                                                    <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                                    <div class="menu__title"> Create </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Registration" class="menu">
-                                                    <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                                    <div class="menu__title"> List </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="menu">
-                                            <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                            <div class="menu__title"> Login Quote <i data-feather="chevron-down" class="menu__sub-icon"></i></div>
-                                        </a>
-                                        <ul>
-                                            <li>
-                                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Login" class="menu">
-                                                    <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                                    <div class="menu__title"> Create </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Quote.Login" class="menu">
-                                                    <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                                    <div class="menu__title"> List </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="menu">
-                                    <div class="menu__icon"> <i data-feather="folder"></i> </div>
-                                    <div class="menu__title"> Level <i data-feather="chevron-down" class="menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Level" asp-action="Create" class="menu">
-                                            <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                            <div class="menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Level" asp-action="List" class="menu">
-                                            <div class="menu__icon"> <i data-feather="user"></i> </div>
-                                            <div class="menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a asp-controller="Admin" asp-action="List" asp-route-roleName="@(_workContext.CurrentUser.UserRole.Name == "Admin" ? "User" : "User")" class="menu">
-                                    <div class="menu__icon"> <i data-feather="users"></i> </div>
-                                    <div class="menu__title"> Registered Users <i data-feather="chevron-down" class="menu__sub-icon"></i></div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                }
-
-            </ul>
-        </div>
-        <!-- END: Mobile Menu -->
-        <!-- BEGIN: Top Bar -->
-        <div class="top-bar-boxed border-b border-theme-2 -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-12">
-            <div class="h-full flex items-center">
-                <!-- BEGIN: Logo -->
-                <a href="" class="-intro-x hidden md:flex">
-                    <img alt="Icewall Tailwind HTML Admin Template" class="w-20" src="/dist/images/Asset 1.png">
-
-                </a>            <!-- END: Logo -->
-                <!-- BEGIN: Breadcrumb -->
-                <div class="-intro-x breadcrumb mr-auto">
-                    <a href="@ViewBag.PageUrl">@ViewBag.Page</a>
-                    <i data-feather="chevron-right" class="breadcrumb__icon"></i>
-                    <a href="@ViewBag.ActionUrl" class="breadcrumb--active">@ViewBag.Action</a>
                 </div>
-                <!-- END: Breadcrumb -->
-                <!-- BEGIN: Search -->
-                <div class="intro-x relative mr-3 sm:mr-6">
-                    <div class="search hidden sm:block">
-                        <input type="text" class="search__input form-control dark:bg-dark-1 border-transparent placeholder-theme-8" placeholder="Search...">
-                        <i data-feather="search" class="search__icon dark:text-gray-300"></i>
-                    </div>
-                    <a class="notification sm:hidden" href=""> <i data-feather="search" class="notification__icon dark:text-gray-300"></i> </a>
-                    <div class="search-result">
-                        <div class="search-result__content">
-                            <div class="search-result__content__title">Pages</div>
-                            <div class="mb-5">
-                                <a href="" class="flex items-center">
-                                    <div class="w-8 h-8 bg-theme-29 text-theme-10 flex items-center justify-center rounded-full"> <i class="w-4 h-4" data-feather="inbox"></i> </div>
-                                    <div class="ml-3">Mail Settings</div>
-                                </a>
-                                <a href="" class="flex items-center mt-2">
-                                    <div class="w-8 h-8 bg-theme-30 text-theme-24 flex items-center justify-center rounded-full"> <i class="w-4 h-4" data-feather="users"></i> </div>
-                                    <div class="ml-3">Users & Permissions</div>
-                                </a>
-                                <a href="" class="flex items-center mt-2">
-                                    <div class="w-8 h-8 bg-theme-31 text-theme-26 flex items-center justify-center rounded-full"> <i class="w-4 h-4" data-feather="credit-card"></i> </div>
-                                    <div class="ml-3">Transactions Report</div>
-                                </a>
-                            </div>
-                            <div class="search-result__content__title">Users</div>
-                            <div class="mb-5">
-                                <a href="" class="flex items-center mt-2">
-                                    <div class="w-8 h-8 image-fit">
-                                        <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-7.jpg">
-                                    </div>
-                                    <div class="ml-3">John Travolta</div>
-                                    <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">johntravolta@left4code.com</div>
-                                </a>
-                                <a href="" class="flex items-center mt-2">
-                                    <div class="w-8 h-8 image-fit">
-                                        <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-6.jpg">
-                                    </div>
-                                    <div class="ml-3">Russell Crowe</div>
-                                    <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">russellcrowe@left4code.com</div>
-                                </a>
-                                <a href="" class="flex items-center mt-2">
-                                    <div class="w-8 h-8 image-fit">
-                                        <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-7.jpg">
-                                    </div>
-                                    <div class="ml-3">Tom Cruise</div>
-                                    <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">tomcruise@left4code.com</div>
-                                </a>
-                                <a href="" class="flex items-center mt-2">
-                                    <div class="w-8 h-8 image-fit">
-                                        <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-12.jpg">
-                                    </div>
-                                    <div class="ml-3">Keanu Reeves</div>
-                                    <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">keanureeves@left4code.com</div>
-                                </a>
-                            </div>
-                            <div class="search-result__content__title">Products</div>
-                            <a href="" class="flex items-center mt-2">
-                                <div class="w-8 h-8 image-fit">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/preview-11.jpg">
-                                </div>
-                                <div class="ml-3">Sony A7 III</div>
-                                <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">Photography</div>
-                            </a>
-                            <a href="" class="flex items-center mt-2">
-                                <div class="w-8 h-8 image-fit">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/preview-14.jpg">
-                                </div>
-                                <div class="ml-3">Nike Tanjun</div>
-                                <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">Sport &amp; Outdoor</div>
-                            </a>
-                            <a href="" class="flex items-center mt-2">
-                                <div class="w-8 h-8 image-fit">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/preview-4.jpg">
-                                </div>
-                                <div class="ml-3">Sony Master Series A9G</div>
-                                <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">Electronic</div>
-                            </a>
-                            <a href="" class="flex items-center mt-2">
-                                <div class="w-8 h-8 image-fit">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/preview-13.jpg">
-                                </div>
-                                <div class="ml-3">Sony A7 III</div>
-                                <div class="ml-auto w-48 truncate text-gray-600 text-xs text-right">Photography</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Search -->
-                <!-- BEGIN: Notifications -->
-                <div class="intro-x dropdown mr-4 sm:mr-6">
-                    <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button" aria-expanded="false"> <i data-feather="bell" class="notification__icon dark:text-gray-300"></i> </div>
-                    <div class="notification-content pt-2 dropdown-menu">
-                        <div class="notification-content__box dropdown-menu__content box dark:bg-dark-6">
-                            <div class="notification-content__title">Notifications</div>
-                            <div class="cursor-pointer relative flex items-center ">
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-7.jpg">
-                                    <div class="w-3 h-3 bg-theme-10 absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
-                                </div>
-                                <div class="ml-2 overflow-hidden">
-                                    <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium truncate mr-5">John Travolta</a>
-                                        <div class="text-xs text-gray-500 ml-auto whitespace-nowrap">06:05 AM</div>
-                                    </div>
-                                    <div class="w-full truncate text-gray-600 mt-0.5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem </div>
-                                </div>
-                            </div>
-                            <div class="cursor-pointer relative flex items-center mt-5">
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-6.jpg">
-                                    <div class="w-3 h-3 bg-theme-10 absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
-                                </div>
-                                <div class="ml-2 overflow-hidden">
-                                    <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium truncate mr-5">Russell Crowe</a>
-                                        <div class="text-xs text-gray-500 ml-auto whitespace-nowrap">06:05 AM</div>
-                                    </div>
-                                    <div class="w-full truncate text-gray-600 mt-0.5">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomi</div>
-                                </div>
-                            </div>
-                            <div class="cursor-pointer relative flex items-center mt-5">
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-7.jpg">
-                                    <div class="w-3 h-3 bg-theme-10 absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
-                                </div>
-                                <div class="ml-2 overflow-hidden">
-                                    <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium truncate mr-5">Tom Cruise</a>
-                                        <div class="text-xs text-gray-500 ml-auto whitespace-nowrap">01:10 PM</div>
-                                    </div>
-                                    <div class="w-full truncate text-gray-600 mt-0.5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#039;s standard dummy text ever since the 1500</div>
-                                </div>
-                            </div>
-                            <div class="cursor-pointer relative flex items-center mt-5">
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-12.jpg">
-                                    <div class="w-3 h-3 bg-theme-10 absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
-                                </div>
-                                <div class="ml-2 overflow-hidden">
-                                    <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium truncate mr-5">Keanu Reeves</a>
-                                        <div class="text-xs text-gray-500 ml-auto whitespace-nowrap">05:09 AM</div>
-                                    </div>
-                                    <div class="w-full truncate text-gray-600 mt-0.5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem </div>
-                                </div>
-                            </div>
-                            <div class="cursor-pointer relative flex items-center mt-5">
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="Icewall Tailwind HTML Admin Template" class="rounded-full" src="~/dist/images/profile-13.jpg">
-                                    <div class="w-3 h-3 bg-theme-10 absolute right-0 bottom-0 rounded-full border-2 border-white"></div>
-                                </div>
-                                <div class="ml-2 overflow-hidden">
-                                    <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium truncate mr-5">Johnny Depp</a>
-                                        <div class="text-xs text-gray-500 ml-auto whitespace-nowrap">01:10 PM</div>
-                                    </div>
-                                    <div class="w-full truncate text-gray-600 mt-0.5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Notifications -->
-                <!-- BEGIN: Account Menu -->
-                <div class="intro-x dropdown w-8 h-8">
-                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false">
-                        <img alt="Icewall Tailwind HTML Admin Template" src="~/dist/images/profile-10.jpg">
-                    </div>
-                    <div class="dropdown-menu w-56">
-                        <div class="dropdown-menu__content box bg-theme-11 dark:bg-dark-6 text-white">
-                            <div class="p-4 border-b border-theme-12 dark:border-dark-3">
-                                <div class="font-medium">@_workContext.CurrentUser.Email</div>
-                                <div class="text-xs text-theme-13 mt-0.5 dark:text-gray-600">@_workContext.CurrentUser.UserRole.Name</div>
-                            </div>
-                            <div class="p-2">
-                                <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
-                                <a asp-controller="Home" asp-action="UnderDevelopment" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="flag" class="w-4 h-4 mr-2"></i> Language</a>
-                                <a asp-controller="Home" asp-action="Help" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
-                            </div>
-                            <div class="p-2 border-t border-theme-12 dark:border-dark-3">
-                                <a asp-controller="User" asp-action="Logout" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END: Account Menu -->
             </div>
         </div>
-        <!-- END: Top Bar -->
-        <!-- BEGIN: Top Menu -->
-        <nav class="top-nav">
-            <ul>
-                <li>
-                    <a asp-controller="Home" asp-action="Index" class="top-menu">
-                        <div class="top-menu__icon"> <i data-feather="home"></i> </div>
-                        <div class="top-menu__title"> @T("Dashboard")  </div>
+    </div>
+    <!-- End Top Header Area -->
+    <!-- Start Navbar Area -->
+    <div class="navbar-area">
+        <div class="main-responsive-nav">
+            <div class="container">
+                <div class="main-responsive-menu">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="~/UserAssets/images/logo.png" alt="logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-navbar">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="~/UserAssets/images/logo.png" alt="logo">
                     </a>
 
-                </li>
-                @if (_workContext.CurrentUser.UserRole.Name == "Admin")
-                {
-
-                    <li>
-                        <a href="javascript:;" class="top-menu">
-                            <div class="top-menu__icon"> <i data-feather="lock" class="mx-auto"></i> </div>
-                            <div class="top-menu__title"> @T("Administration") <i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
-                        </a>
-                        <ul class="">
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="user" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Admin <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Admin" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="user-plus"></i>  </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-
-
-                                    <li>
-                                        <a asp-controller="Admin" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="image" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Image <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Image" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Image" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="play-circle" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Video <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Video" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Video" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="play-circle"></i> </div>
-                                    <div class="top-menu__title"> Registration Page<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Registration)" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Registration)" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="play-circle" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Login Page <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Login)" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Login)" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="play-circle" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title">Landing Page <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Landing)" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="smile" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Emotions <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Emotion" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i>  </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-
-
-                                    <li>
-                                        <a asp-controller="Emotion" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="edit-3" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Quote <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="DashboardQuote" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="DashboardQuote" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-
-
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a asp-controller="DashboardMenu" asp-action="Index" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="menu" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Dashboard Menu</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="film" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Feel-Good-Stories <i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="FeelGoodStory" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="FeelGoodStory" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-
-
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="help-circle" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title">Questionnaire<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    @{ string RedirectQuestion = "Questionarrie";
-                                        <li>
-
-                                            <a asp-controller="QuestionAnswer" asp-action="Create" asp-route-pagetype="@RedirectQuestion" class="top-menu">
-                                                <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                                <div class="top-menu__title"> Create </div>
-                                            </a>
-                                        </li>
-                                    }
-                                    <li>
-                                        <a asp-controller="QuestionAnswer" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-
-
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="film" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title">Language<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Language" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Language" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-
-
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="globe" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title">Locale String Resource<i data-feather="chevron-down" class="top-menu__sub-icon"></i></div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="LocalStringResources" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="LocalStringResources" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-
-
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:;" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="folder" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Level<i data-feather="chevron-down" class="top-menu__sub-icon"></i> </div>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Level" asp-action="Create" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="edit"></i> </div>
-                                            <div class="top-menu__title"> Create </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Level" asp-action="List" class="top-menu">
-                                            <div class="top-menu__icon"> <i data-feather="list"></i> </div>
-                                            <div class="top-menu__title"> List </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a asp-controller="Admin" asp-action="List" asp-route-roleName="@(_workContext.CurrentUser.UserRole.Name == "Admin" ? "User" : "User")" class="top-menu">
-                                    <div class="top-menu__icon"> <i data-feather="users" class="mx-auto"></i> </div>
-                                    <div class="top-menu__title"> Registered Users </div>
-                                </a>
-                            </li>
-
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav m-auto">
+              
                         </ul>
-                    </li>
 
-                }
+                        <div class="others-options d-flex align-items-center">
+                        
 
-            </ul>
-        </nav>
-        <!-- END: Top Menu -->
-        <!-- BEGIN: Content -->
-        <div class="wrapper wrapper--top-nav ">
-            <div class="wrapper-box">
-                <!-- BEGIN: Content -->
+                            <div class="option-item">
+                                <div class="navbar-btn">
+                                    <a asp-controller="User" asp-action="Register" class="default-btn">Register <i class="flaticon-pointer"></i></a>
+                                    <a asp-controller="User" asp-action="Login" class="default-btn">Login <i class="flaticon-pointer"></i></a>
 
-
-                <div class="content " id="maincontentid">
-
-
-                    @RenderBody()
-                    <div class="ovalicon">
-                        <div class="loader oval hidden" id="loader">
-                            <i data-loading-icon="oval" class="w-12 h-12 "></i>
+                                </div>
+                              
+                            </div>
                         </div>
                     </div>
-
-                </div>
-
-
-
-
-                <!-- END: Content -->
+                </nav>
             </div>
         </div>
-        <!-- END: Content -->
-        <!-- BEGIN: JS Assets-->
 
+        <div class="others-option-for-responsive">
+            <div class="container">
+                <div class="dot-menu">
+                    <div class="inner">
+                        <div class="circle circle-one"></div>
+                        <div class="circle circle-two"></div>
+                        <div class="circle circle-three"></div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="option-inner">
+                        <div class="others-options d-flex align-items-center">
+                            <div class="option-item">
+                                <div class="cart-btn">
+                                    <a href="#">
+                                        <i class='flaticon-shopping-cart'></i>
+                                        <span>2</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="option-item">
+                                <div class="search-box">
+                                    <i class='flaticon-search'></i>
+                                </div>
+                            </div>
+
+                            <div class="option-item">
+                                <div class="navbar-btn">
+                                    <a href="#" class="default-btn">Book Online <i class="flaticon-pointer"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="cover-spin" style="display:none;"></div>
+    <!-- End Navbar Area -->
+    <!-- Start Search Layout -->
+    <div class="search-overlay">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
 
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=[" your-google-map-api"]&libraries=places"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="../../lib/jquery/jquery.min.js"></script>
-    <script src="../../lib/jquery/jquery.js"></script>
-    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/dist/js/sweetalert2.min.js"></script>
-    <script src="../../dist/js/app.js"></script>
-    <script src="../../ckeditor 3/ckeditor.js"></script>
-    <script src="../../ckeditor 3/samples/js/sample.js"></script>
-    <script src="../../dist/js/datetimepicker/js/duDatepicker.js"></script>
-    <script src="../../dist/js/datetimepicker/js/mdtimepicker.js"></script>
-    <script>
-        initSample();
-        initSample1();
+                <div class="search-overlay-close">
+                    <span class="search-overlay-close-line"></span>
+                    <span class="search-overlay-close-line"></span>
+                </div>
 
-        window.onload = function () {
+                <div class="search-overlay-form">
+                    <form>
+                        <input type="text" class="input-search" placeholder="Search here...">
+                        <button type="submit"><i class='flaticon-search'></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Search Layout -->
 
-            duDatepicker('#date', {
-                format: 'mmmm d, yyyy', range: false, clearBtn: true,
-            })
-        }
 
-        $('#time').mdtimepicker();
 
-        var ctx = $('#vertical-bar-chart-widget1');
-        var graph = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Fear", "Anger", "Lust", "Sadness", "Ego", "Happy"],
-                datasets: [{
-                    label: "User Emotion",
-                    barPercentage: 0.5,
-                    barThickness: 80,
-                    maxBarThickness: 100,
-                    minBarLength: 2,
-                    data: [100, 200, 300, 400, 500, 600],
-                    backgroundColor: "#151B54", 
-                }]
-             
-                
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
+            @RenderBody()
           
-        });
-    </script>
-    <script src="~/dist/js/CustomJs/Common.js"></script>
+      
+    <!-- End Services Area -->
+ 
+  
+    <!-- Start Footer Area -->
+    <footer class="footer-area bg-top pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="widget-logo">
+                            <a href="index.html"><img src="~/UserAssets/images/logo-2.png" alt="image"></a>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eir mod tempor invidunt ut labore et.</p>
 
 
+                        <div class="widget-share">
+                            <a >
+                                <i class='bx bxl-facebook'></i> 
+                            </a>
+                            <a  >
+                                <i class='bx bxl-facebook'></i> 
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-instagram'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-linkedin'></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- END: JS Assets-->
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Quick Links</h3>
+
+                        <ul class="quick-links">
+                            <li>
+                                <a href="index.html"><i class='bx bxs-right-arrow'></i> Home</a>
+                            </li>
+                            <li>
+                                <a href="about.html"><i class='bx bxs-right-arrow'></i> About</a>
+                            </li>
+                            <li>
+
+                                <a href="#"><i class='bx bxs-right-arrow'></i> Programs</a>
+                            </li>
+                            <li>
+                                <a href="services.html"><i class='bx bxs-right-arrow'></i> Services</a>
+                            </li>
+                            <li>
+                                <a href="blog-3.html"><i class='bx bxs-right-arrow'></i> Blog</a>
+
+                            </li>
+                            <li>
+                                <a href="contact.html"><i class='bx bxs-right-arrow'></i> Contacts</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Explore</h3>
+
+                        <ul class="quick-links">
+                            <li>
+                                <a href="about.html"><i class='bx bxs-right-arrow'></i> About Us</a>
+                            </li>
+                            <li>
+                                <a href="success-story.html"><i class='bx bxs-right-arrow'></i> Success Story</a>
+                            </li>
+                            <li>
+                                <a href="membership-levels.html"><i class='bx bxs-right-arrow'></i> Membership</a>
+                            </li>
+                            <li>
+                                <a href="purchase-guide.html"><i class='bx bxs-right-arrow'></i> Purchase Guide</a>
+                            </li>
+                            <li>
+                                <a href="privacy-policy.html"><i class='bx bxs-right-arrow'></i> Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="terms-of-service.html"><i class='bx bxs-right-arrow'></i> Terms Of Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Contact Us</h3>
+
+                        <ul class="footer-contact-info">
+                            <li>
+                                <i class='flaticon-phone-call'></i>
+                                <span>Phone No:</span>
+                                <a href="tel:9885394203">+111 1111 1111</a>
+                            </li>
+                            <li>
+
+                                <i class='flaticon-mail'></i>
+                                <span>Email Address:</span>
+                                <a href="mailto:Happe@gmail.com">Happ-e@gmail.com</a>
+
+                            </li>
+                            <li>
+                                <i class='flaticon-placeholder'></i>
+                                <span>Location:</span>
+                                3 Edgar Buildings, George Street, England, BA1 2FJ.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+    <!-- Start Copy Right Area -->
+    <div class="copyright-area">
+        <div class="container">
+            <div class="copyright-area-content">
+                <p>
+                    Copyright © 2021 Happ-e. All rights reserved By
+                    <a href="https://envytheme.com/" target="_blank">EnvyTheme</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End Copy Right Area -->
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class='flaticon-up-arrow'></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery Slim JS -->
+    <script src="~/UserAssets/js/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/UserAssets/js/bootstrap.bundle.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/UserAssets/js/jquery.meanmenu.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/UserAssets/js/owl.carousel.min.js"></script>
+    <!-- Jquery Appear JS -->
+    <script src="~/UserAssets/js/jquery.appear.js"></script>
+    <!-- Odometer JS -->
+    <script src="~/UserAssets/js/odometer.min.js"></script>
+    <!-- Slick Min JS -->
+    <script src="~/UserAssets/js/slick.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/UserAssets/js/nice-select.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/UserAssets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="~/UserAssets/js/fancybox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="~/UserAssets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="~/UserAssets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="~/UserAssets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="~/UserAssets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/UserAssets/js/main.js"></script>
 </body>
 </html>

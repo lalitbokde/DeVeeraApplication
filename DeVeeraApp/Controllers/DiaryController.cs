@@ -9,6 +9,7 @@ using CRM.Services.Emotions;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
+using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
@@ -23,6 +24,7 @@ using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
+  
     public class DiaryController :BaseController
     {
         #region field

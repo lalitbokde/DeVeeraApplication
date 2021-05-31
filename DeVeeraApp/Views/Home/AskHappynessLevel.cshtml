@@ -1,83 +1,153 @@
-﻿@model DeVeeraApp.ViewModels.HappynessLevel.HappynessLevelModel
-@using DeVeeraApp.ViewModels.Enum
+
+﻿@model DeVeeraApp.ViewModels.HappynessLevelModel
+@using DeVeeraApp.ViewModels
+
+
 @{
     ViewData["Title"] = "AskHappynessLevel";
     Layout = null;
 }
-<!DOCTYPE html>
-<html lang="en" class="light">
+
+<!doctype html>
+<html lang="zxx">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <link href="dist/images/logo.svg" rel="shortcut icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="LEFT4CODE">
-    <title>Ask Happyness Level</title>
-    <link rel="stylesheet" href="~/dist/css/app.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/odometer.min.css">
+    <!-- Slick Min CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/slick.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/nice-select.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/magnific-popup.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/fancybox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/responsive.css">
+
     <link href="~/dist/css/Rating.css" rel="stylesheet" />
-    <link href="~/dist/css/style.css" rel="stylesheet" />
+  
+
+    <title>Psylo - Life Coach & Psychologist HTML Template</title>
+
+    <link rel="icon" type="image/png" href="~/UserAssets/images/favicon.png">
 </head>
 
-<body class="main">
-    <div class="container">
-        <form asp-controller="Home" asp-action="AskHappynessLevel" method="post">
+<body>
 
-            <div class="content">
-                <div class="grid grid-cols-12 gap-6 mt-5">
-                    <div class="intro-y col-span-12 lg:col-span-12">
-                        <div class="mt-10">
-                            <div class="font-medium text-center text-lg text-theme-21 star">  What happyness level are you feeling now?</div>
-                            <div class="text-gray-600 text-center mt-2">Please select your happyness level to continue.</div>
+    <!-- Start Preloader Area -->
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+    <!-- Start Coming Soon Area -->
+
+    <div class="coming-soon-area" style="background-color:lightgray">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="coming-soon-content">
+                    <h1>
+                        <a href="index.html">Happe</a>
+                    </h1>
+
+                    <h2>What is your Happiness Level Today?</h2>
+
+                  
+
+
+                
+
+                    <form asp-controller="Home" asp-action="AskHappynessLevel" method="post">
+                        <input asp-for="HappynessLevelTypeId" hidden />
+                        <div class="rating">
+                            <input type="radio" name="rating" id="rata10" value="@Convert.ToInt32(HappynessLevelType.LevelTen)" onclick="getHappynessLevel(this.value)"><label for="rata10">10</label>
+                            <input type="radio" name="rating" id="rata9" value="@Convert.ToInt32(HappynessLevelType.LevelNine)" onclick="getHappynessLevel(this.value)"><label for="rata9">9</label>
+                            <input type="radio" name="rating" id="rata8" value="@Convert.ToInt32(HappynessLevelType.LevelEight)" onclick="getHappynessLevel(this.value)"><label for="rata8">8</label>
+                            <input type="radio" name="rating" id="rata7" value="@Convert.ToInt32(HappynessLevelType.LevelSeven)" onclick="getHappynessLevel(this.value)"><label for="rata7">7</label>
+                            <input type="radio" name="rating" id="rata6" value="@Convert.ToInt32(HappynessLevelType.LevelSix)" onclick="getHappynessLevel(this.value)"><label for="rata6">6</label>
+                            <input type="radio" name="rating" id="rata5" value="@Convert.ToInt32(HappynessLevelType.LevelFive)" onclick="getHappynessLevel(this.value)"><label for="rata5">5</label>
+                            <input type="radio" name="rating" id="rata4" value="@Convert.ToInt32(HappynessLevelType.LevelFour)" onclick="getHappynessLevel(this.value)"><label for="rata4">4</label>
+                            <input type="radio" name="rating" id="rata3" value="@Convert.ToInt32(HappynessLevelType.LevelThree)" onclick="getHappynessLevel(this.value)"><label for="rata3">3</label>
+                            <input type="radio" name="rating" id="rata2" value="@Convert.ToInt32(HappynessLevelType.LevelTwo)" onclick="getHappynessLevel(this.value)"><label for="rata2">2</label>
+                            <input type="radio" name="rating" id="rata1" value="@Convert.ToInt32(HappynessLevelType.LevelOne)" onclick="getHappynessLevel(this.value)"><label for="rata1">1</label>
+                        </div>
+                        <div class="mt-2">
+                            <span asp-validation-for="HappynessLevelTypeId" class="text-theme-6 mt-2"></span>
                         </div>
 
-                        <div class="grid grid-cols-12 gap-6 mt-5">
-                            <div class="intro-y col-span-2"></div>
-                            <div class="intro-y box mt-10 p-5 lg:col-span-8 xl:col-span-8 col-span-12">
-                                <input asp-for="HappynessLevelTypeId" hidden />
-                                <div class="rating">
-                                    <input type="radio" name="rating" id="rata10" value="@Convert.ToInt32(HappynessLevelType.LevelTen)" onclick="getHappynessLevel(this.value)"><label for="rata10">10</label>
-                                    <input type="radio" name="rating" id="rata9" value="@Convert.ToInt32(HappynessLevelType.LevelNine)" onclick="getHappynessLevel(this.value)"><label for="rata9">9</label>
-                                    <input type="radio" name="rating" id="rata8" value="@Convert.ToInt32(HappynessLevelType.LevelEight)" onclick="getHappynessLevel(this.value)"><label for="rata8">8</label>
-                                    <input type="radio" name="rating" id="rata7" value="@Convert.ToInt32(HappynessLevelType.LevelSeven)" onclick="getHappynessLevel(this.value)"><label for="rata7">7</label>
-                                    <input type="radio" name="rating" id="rata6" value="@Convert.ToInt32(HappynessLevelType.LevelSix)" onclick="getHappynessLevel(this.value)"><label for="rata6">6</label>
-                                    <input type="radio" name="rating" id="rata5" value="@Convert.ToInt32(HappynessLevelType.LevelFive)" onclick="getHappynessLevel(this.value)"><label for="rata5">5</label>
-                                    <input type="radio" name="rating" id="rata4" value="@Convert.ToInt32(HappynessLevelType.LevelFour)" onclick="getHappynessLevel(this.value)"><label for="rata4">4</label>
-                                    <input type="radio" name="rating" id="rata3" value="@Convert.ToInt32(HappynessLevelType.LevelThree)" onclick="getHappynessLevel(this.value)"><label for="rata3">3</label>
-                                    <input type="radio" name="rating" id="rata2" value="@Convert.ToInt32(HappynessLevelType.LevelTwo)" onclick="getHappynessLevel(this.value)"><label for="rata2">2</label>
-                                    <input type="radio" name="rating" id="rata1" value="@Convert.ToInt32(HappynessLevelType.LevelOne)" onclick="getHappynessLevel(this.value)"><label for="rata1">1</label>
-                                </div>
-                                <div class="mt-2">
-                                    <span asp-validation-for="HappynessLevelTypeId" class="text-theme-6 mt-2"></span>
-                                </div>
 
-                                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
-                                    <div class="intro-y  p-5 col-span-12">
-                                        <div class="px-5 items-center text-xl ">
-                                            <div class="intro-y col-span-12 flex items-center justify-center  mt-5">
-                                                <button type="submit" class="btn btn-primary w-24">Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="intro-y col-span-2"></div>
-                        </div>
-                    </div>
+                        <button type="submit" class="default-btn">Proceed</button>
+                        <div id="validator-newsletter" class="form-result"></div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+
+    <!-- End Coming Soon Area -->
+    <!-- Jquery Slim JS -->
+    <script src="~/UserAssets/js/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/UserAssets/js/bootstrap.bundle.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/UserAssets/js/jquery.meanmenu.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/UserAssets/js/owl.carousel.min.js"></script>
+    <!-- Jquery Appear JS -->
+    <script src="~/UserAssets/js/jquery.appear.js"></script>
+    <!-- Odometer JS -->
+    <script src="~/UserAssets/js/odometer.min.js"></script>
+    <!-- Slick Min JS -->
+    <script src="~/UserAssets/js/slick.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/UserAssets/js/nice-select.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/UserAssets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="~/UserAssets/js/fancybox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="~/UserAssets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="~/UserAssets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="~/UserAssets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="~/UserAssets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/UserAssets/js/main.js"></script>
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
 
-    <script>
-        function getHappynessLevel(HappynessLevel) {
+    <script>function getHappynessLevel(HappynessLevel) {
             debugger
-            document.getElementById("HappynessLevelTypeId").value = parseInt(HappynessLevel);
-        }
-    </script>
+    document.getElementById("HappynessLevelTypeId").value = parseInt(HappynessLevel);
+        }</script>
+
+
 </body>
 </html>

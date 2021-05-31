@@ -1,0 +1,59 @@
+﻿@model IList<DeVeeraApp.ViewModels.FeelGoodStoryModel>
+
+@{
+    ViewData["Title"] = "Feel Good Stories";
+
+}
+
+<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <h2 class="text-lg font-medium mr-auto">
+        Feel Good Stories
+    </h2>
+</div>
+<div class="border-t border-theme-25">
+
+    <div class="intro-y grid grid-cols-12 gap-6 mt-5">
+
+        @if (Model.Count != 0)
+        {
+
+            @foreach (var item in Model)
+            {
+                <!-- BEGIN: Blog Layout -->
+                <div class="intro-y blog col-span-12 md:col-span-6 box">
+                    <div class="blog__preview image-fit">
+                        @{var smallImg = (item.Image?.ImageUrl == null) ? "/dist/images/profile-14.jpg" : item.Image.ImageUrl;}
+                        <img class="rounded-t-md" src="@smallImg">
+                        <div class="absolute w-full flex items-center px-5 pt-6 z-10">
+                            <div class="w-10 h-10 flex-none image-fit">
+                                @{var largeImg = (item.Image?.ImageUrl == null) ? "/dist/images/preview-4.jpg" : item.Image.ImageUrl;}
+                                <img class="rounded-full" src="@largeImg">
+                            </div>
+                            <div class="ml-3 text-white mr-auto">
+                                <a href="" class="font-medium">@item.Author</a>
+                                <div class="text-xs mt-0.5">29 minutes ago</div>
+                            </div>
+
+                        </div>
+                        <div class="absolute bottom-0 text-white px-5 pb-6 z-10">
+
+                            <a href="" class="block font-medium text-xl mt-3">@item.Title</a>
+                        </div>
+                    </div>
+                    <div class="p-5 text-gray-700 dark:text-gray-600">@Html.Raw(item.Story)</div>
+
+                </div>
+            }
+
+
+        }
+        else
+        {
+            <h2 class="text-lg font-medium mr-auto">
+                There are no stories yet.
+            </h2>
+        }
+    </div>
+</div>
+
+

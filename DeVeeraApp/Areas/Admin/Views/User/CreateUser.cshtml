@@ -1,0 +1,110 @@
+﻿@model DeVeeraApp.ViewModels.User.UserListModel
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+@if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+{
+    // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
+    <div id="toast" class="toastify on  toastify-left toastify-bottom" style="background:#D32929; transform: translate(0px, 0px); bottom: 15px;">
+        <span class="toast-close" onclick="CloseToast();">✖</span>
+        Failed, please check the Input field.
+    </div>
+}
+<form class="validate-form" id="formid" asp-controller="User" asp-action="CreateUser" method="post" >
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <!-- BEGIN: Form Layout -->
+
+
+        <div class="intro-y col-span-12 lg:col-span-6">
+
+            <div class="intro-y box p-5">
+                <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                    <h2 class="font-medium text-base mr-auto">
+                        Create User
+                    </h2>
+                </div>
+
+                <div class="p-5">
+                    <div class="input-form">
+                        <label class="star">First Name</label>
+                        <input asp-for="UserData.UserAddress.FirstName" type="text" class="input w-full border  mt-2" placeholder="Input text" onkeypress="return IsOnlyText(event)" required>
+                    </div>
+                    <div class="input-form mt-3">
+                        <label class="star">Last Name</label>
+                        <input asp-for="UserData.UserAddress.LastName" type="text" class="input w-full border mt-2" placeholder="Input text" onkeypress="return IsOnlyText(event)" required>
+                    </div>
+
+                    <div class="input-form mt-3">
+                        <label class="star">Email</label>
+                        <input asp-for="UserData.UserAddress.Email" type="email" class="input w-full border mt-2" placeholder="Input text" required>
+                        <span asp-validation-for="UserData.UserAddress.Email" class="text-danger"></span>
+                    </div>
+                    <div class="input-form mt-3">
+                        <label class="star">Password</label>
+                        <input asp-for="UserData.UserPassword.Password" type="password" class="input w-full border mt-2" placeholder="Input text" minlength="8"  required>
+                        <span asp-validation-for="UserData.UserPassword.Password" class="text-danger"></span>
+                    </div>
+                    <div class="input-form mt-3">
+                        <label class="star">Contact No</label>
+                        <input asp-for="UserData.UserAddress.PhoneNumber" type="text" class="input w-full border mt-2" placeholder="Input text" onpaste="return pasteOnlyNumber(event)" onkeypress="return isOnlyNumber(event)" minlength="10" maxlength="10" required>
+                        <span asp-validation-for="UserData.UserAddress.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class=" mt-3">
+                        <label class="star">Role</label>
+
+                        <select asp-for="UserData.UserRoleId " asp-items="Model.UserData.AvailableUserRoles" placeholder="Select Role" class="input w-full border mt-2 flex-1" required>
+                        </select>
+                        <span asp-validation-for="UserData.UserRoleId" class="text-danger"></span>
+
+                    </div>
+
+
+                    <div class="mt-10">
+                        <button type="submit" class="button w-24 bg-theme-1 text-white">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- END: Form Layout -->
+
+
+    </div>
+</form>
+
+
+<script type="text/javascript">
+
+    //onload start
+
+    //$(".alert").fadeOut(10000);//fade out error messages
+
+
+    //Fill state details by Country Id
+    function GetStateByCountryId(stateId) {
+        $.post("/User/GetStateByCountryId",
+            {
+                Id: $("#UserAddress_CountryId").val(),
+                SelectedId: $("#UserAddress_StateProvinceId").val()
+            },
+            function (data, status) {
+                //clear previous filled states
+                $("#UserAddress_StateProvinceId").html("");
+                0
+                //append the states from selected country id
+                $.each(data, function (i, item) {
+                    $("#UserAddress_StateProvinceId").append(
+                        $('<option></option>').val(item.value).html(item.text));
+                });
+
+                $("#UserAddress_StateProvinceId").val(stateId).trigger('change');
+            });
+    }
+
+
+
+</script>
+

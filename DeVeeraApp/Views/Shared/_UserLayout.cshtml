@@ -1,0 +1,352 @@
+﻿<!doctype html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/odometer.min.css">
+    <!-- Slick Min CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/slick.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/nice-select.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/magnific-popup.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/fancybox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/responsive.css">
+
+    <title>Happ-e</title>
+
+    <link rel="icon" type="image/png" href="~/UserAssets/images/favicon.png">
+</head>
+
+<body>
+
+    <!-- Start Preloader Area -->
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+    <!-- Start Top Header Area -->
+    <div class="header-information">Header Information</div>
+
+    <div class="top-header-area bg-color">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9 col-md-12">
+                    <ul class="top-header-information">
+                        <li>
+                            <i class="flaticon-phone-call"></i>
+                            <a>@_workContext.CurrentUser.Email</a>
+                        </li>
+
+                        <li>
+                            <i class="flaticon-mail"></i>
+                            <a asp-controller="User" asp-action="Logout">Logout</a>
+                        </li>
+
+                     
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-12">
+                    <ul class="top-header-optional">
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-facebook'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-twitter'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-instagram'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-linkedin'></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Header Area -->
+    <!-- Start Navbar Area -->
+    <div class="navbar-area navbar-two">
+        <div class="main-responsive-nav">
+            <div class="container">
+                <div class="main-responsive-menu">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="~/UserAssets/images/logo.png" alt="logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-navbar">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-light">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="~/UserAssets/images/logo.png" alt="logo">
+                    </a>
+
+                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                                    Home
+                                </a>
+
+                               
+                            </li>
+
+                        </ul>
+
+                        <div class="others-options d-flex align-items-center">
+                           
+
+                            <div class="option-item">
+                                <div class="navbar-btn">
+                                    <a asp-controller="Diary" asp-action="Create" class="default-btn">Diary <i class="flaticon-pointer"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="others-option-for-responsive">
+            <div class="container">
+                <div class="dot-menu">
+                    <div class="inner">
+                        <div class="circle circle-one"></div>
+                        <div class="circle circle-two"></div>
+                        <div class="circle circle-three"></div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="option-inner">
+                        <div class="others-options d-flex align-items-center">
+                            <div class="option-item">
+                                <div class="cart-btn">
+                                    <a href="cart.html">
+                                        <i class='flaticon-shopping-cart'></i>
+                                        <span>2</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="option-item">
+                                <div class="search-box">
+                                    <i class='flaticon-search'></i>
+                                </div>
+                            </div>
+
+                            <div class="option-item">
+                                <div class="navbar-btn">
+                                    <a asp-controller="Diary" asp-action="Create" class="default-btn">Diary <i class="flaticon-pointer"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Navbar Area -->
+    <!-- Start Search Layout -->
+    <div class="search-overlay">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+                <div class="search-overlay-layer"></div>
+
+                <div class="search-overlay-close">
+                    <span class="search-overlay-close-line"></span>
+                    <span class="search-overlay-close-line"></span>
+                </div>
+
+                <div class="search-overlay-form">
+                    <form>
+                        <input type="text" class="input-search" placeholder="Search here...">
+                        <button type="submit"><i class='flaticon-search'></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Search Layout -->
+    @RenderBody();
+    <!-- Start Footer Area -->
+    <footer class="footer-area bg-top pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="widget-logo">
+                            <a href="index.html"><img src="~/UserAssets/images/logo-2.png" alt="image"></a>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eir mod tempor invidunt ut labore et.</p>
+
+                        <div class="widget-share">
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-facebook'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-twitter'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-instagram'></i>
+                            </a>
+                            <a href="#" target="_blank">
+                                <i class='bx bxl-linkedin'></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Quick Links</h3>
+
+                        <ul class="quick-links">
+                            <li>
+                                <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> Home</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Explore</h3>
+
+                        <ul class="quick-links">
+                            <li>
+                                <a href="about.html"><i class='bx bxs-right-arrow'></i> About Us</a>
+                            </li>
+                            <li>
+                                <a href="success-story.html"><i class='bx bxs-right-arrow'></i> Success Story</a>
+                            </li>
+                            <li>
+                                <a href="membership-levels.html"><i class='bx bxs-right-arrow'></i> Membership</a>
+                            </li>
+                            <li>
+                                <a href="purchase-guide.html"><i class='bx bxs-right-arrow'></i> Purchase Guide</a>
+                            </li>
+                            <li>
+                                <a href="privacy-policy.html"><i class='bx bxs-right-arrow'></i> Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="terms-of-service.html"><i class='bx bxs-right-arrow'></i> Terms Of Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h3>Contact Us</h3>
+
+                        <ul class="footer-contact-info">
+                            <li>
+                                <i class='flaticon-phone-call'></i>
+                                <span>Phone No:</span>
+                                <a href="tel:9885394203">+988 5394 203</a>
+                            </li>
+                            <li>
+                                <i class='flaticon-mail'></i>
+                                <span>Email Address:</span>
+                                <a href="mailto:happe@gmail.com">Happe@gmail.com</a>
+                            </li>
+                            <li>
+                                <i class='flaticon-placeholder'></i>
+                                <span>Location:</span>
+                                3 Edgar Buildings, George Street, England, BA1 2FJ.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer Area -->
+    <!-- Start Copy Right Area -->
+    <div class="copyright-area">
+        <div class="container">
+            <div class="copyright-area-content">
+                <p>
+                    Copyright © 2021 Happe. All rights reserved By
+                    <a >Happe Team</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End Copy Right Area -->
+    <!-- Start Go Top Area -->
+    <div class="go-top">
+        <i class='flaticon-up-arrow'></i>
+    </div>
+    <!-- End Go Top Area -->
+    <!-- Jquery Slim JS -->
+    <script src="~/UserAssets/js/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/UserAssets/js/bootstrap.bundle.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/UserAssets/js/jquery.meanmenu.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/UserAssets/js/owl.carousel.min.js"></script>
+    <!-- Jquery Appear JS -->
+    <script src="~/UserAssets/js/jquery.appear.js"></script>
+    <!-- Odometer JS -->
+    <script src="~/UserAssets/js/odometer.min.js"></script>
+    <!-- Slick Min JS -->
+    <script src="~/UserAssets/js/slick.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/UserAssets/js/nice-select.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/UserAssets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="~/UserAssets/js/fancybox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="~/UserAssets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="~/UserAssets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="~/UserAssets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="~/UserAssets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/UserAssets/js/main.js"></script>
+</body>
+</html>
