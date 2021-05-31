@@ -5,7 +5,7 @@
 }
 
 <!-- Start Page Banner Area -->
-<div class="page-banner-with-full-image" style="background-image:url('@(Model.SelectedImages.Count() >= 1 ? Model.SelectedImages[0].ImageUrl: "../../UserAssets/images/page-banner/page-banner-bg-1.jpg")')">
+<div class="page-banner-with-full-image" style="background-image:url('@(Model.SelectedImages.Count() >= 1 ? Model.SelectedImages[0].ImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
             <h2>@Model.Title</h2>
@@ -24,7 +24,7 @@
     <div class="container">
         <div class="courses-details-image">
             @{
-                var imageUrl2 = Model.SelectedImages.Count() >= 2 ? Model.SelectedImages[1].ImageUrl : "../../UserAssets/images/courses/courses-details.jpg" ;
+                var imageUrl2 = Model.SelectedImages.Count() >= 2 ? Model.SelectedImages[1].ImageUrl : "../../assets/images/courses/courses-details.jpg" ;
             }
 
             <img src="@imageUrl2" alt="image" width="100%">
@@ -67,7 +67,7 @@
                 <div class="courses-details-info">
                     <div class="image">
                         @{
-                            var imageUrl3 = Model.SelectedImages.Count() >= 3 ? Model.SelectedImages[2].ImageUrl : "../../UserAssets/images/courses/courses-1.jpg" ;
+                            var imageUrl3 = Model.SelectedImages.Count() >= 3 ? Model.SelectedImages[2].ImageUrl : "../../assets/images/courses/courses-1.jpg" ;
                         }
                         <img src="@imageUrl3" alt="image" style="height:225px;">
 
@@ -144,7 +144,7 @@
                     <div class="info-prev-link-wrapper">
                         <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
                             <span class="image-prev">
-                                <img src="~/UserAssets/images/blog/blog-1.jpg" alt="image">
+                                <img src="~/assets/images/blog/blog-1.jpg" alt="image">
                                 <span class="post-nav-title">Prev</span>
                             </span>
 
@@ -170,7 +170,7 @@
                             </span>
 
                             <span class="image-next">
-                                <img src="~/UserAssets/images/blog/blog-2.jpg" alt="image">
+                                <img src="~/assets/images/blog/blog-2.jpg" alt="image">
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
@@ -198,7 +198,7 @@
                 {
                     <div class="products-item">
                         <div class="products-image">
-                            <a href="products-details.html"><img src="~/UserAssets/images/products/products-1.jpg" alt="image"></a>
+                            <a href="products-details.html"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
 
                             @*<div class="action-btn">
                                     <a href="cart.html" class="default-btn">Add To Cart<i class="flaticon-shopping-cart"></i></a>
@@ -222,7 +222,7 @@
     </div>
 
     <div class="products-main-shape">
-        <img src="~/UserAssets/images/products/shape-1.png" alt="image">
+        <img src="~/assets/images/products/shape-1.png" alt="image">
     </div>
 </section>
 <!-- End Products Area -->

@@ -27,3 +27,7 @@ CRM.Data/bin/Debug
 *.cache
 *.resources
 DeVeeraApp/obj
+DeVeeraApp/.DS_Store
+.DS_Store
+DeVeeraApp/wwwroot/.DS_Store
+DeVeeraApp/wwwroot/assest/images/.DS_Store
