@@ -1,0 +1,137 @@
+﻿@model IList<DeVeeraApp.ViewModels.LocalStringResourceModel>
+@{
+    ViewData["Title"] = "List";
+}
+
+@*@if (Model.Count != 0)
+    {
+        <div class="intro-y  py-5 sm:py-5">
+
+            <div class="px-5 ">
+                <div class="font-medium text-center text-lg">Local String Resource List</div>
+                <div class="text-gray-600 text-center mt-2">Below are the list of local string resource.</div>
+
+            </div>
+            <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">
+                <div class="intro-y col-span-12 mt-6">
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
+                        <div class="grid grid-cols-12 gap-4 gap-y-5 ">
+                            <div class="intro-y col-span-12 pr-5 text-right">
+                                <a asp-controller="LocalStringResources" asp-action="Create" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Add Resources</a>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
+                    <div class="intro-y box p-5 col-span-12">
+                        <div class="intro-y ">
+
+                            <div class="p-5" id="basic-table">
+                                <div class="preview">
+                                    <div class="overflow-x-auto">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Language</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Resource Name</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Resource Value</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    int i = 1;
+                                                    foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td class="border-b dark:border-dark-5">@i</td>
+                                                            <td class="border-b dark:border-dark-5">@item.Language.Name</td>
+                                                            <td class="border-b dark:border-dark-5">@item.ResourceName</td>
+                                                            <td class="border-b dark:border-dark-5">@item.ResourceValue</td>
+                                                            <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="LocalStringResources" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                            <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteLocaleStringResource(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                        </tr>
+                                                        i++;
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg"> There is no data to show.</div>
+
+        </div>
+    }*@
+
+@if (@ViewBag.ResourcesTable != null)
+{
+
+    <div class="intro-y  py-5 sm:py-5 ">
+
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg">Local String Resource List</div>
+            <div class="text-gray-600 text-center mt-2">Below are the list of local string resource.</div>
+
+        </div>
+
+        <div class=" border-t border-gray-200 dark:border-dark-5">
+            <div class="intro-y col-span-12 mt-6">
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
+                    <div class="grid grid-cols-12 gap-4 gap-y-5 ">
+                        <div class="intro-y col-span-12 sm:col-span-12  text-right">
+                            <a asp-controller="LocalStringResources" asp-action="Create" class="btn btn-primary w-40">Create Resources</a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="intro-y box p-5 mt-6">
+                <div class="overflow-x-auto scrollbar-hidden">
+                    <input id="ResourcesTable" value="@ViewBag.ResourcesTable" hidden />
+                    <div id="tabulator1"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="intro-y  py-10 sm:py-20 ">
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg"> There is no data to show</div>
+
+        </div>
+    </div>
+}
+
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+<script src="~/dist/js/LocalStringResource.js"></script>
+<script src="~/dist/js/CustomJs/Delete.js"></script>
+

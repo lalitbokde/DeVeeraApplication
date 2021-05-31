@@ -6,7 +6,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: row-reverse;
+
     background: linear-gradient(to right, #fae9e7, #f2c4be, #ea9e95)
+
 }
 
     .rating input {
