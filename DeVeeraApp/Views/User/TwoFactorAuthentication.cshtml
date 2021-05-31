@@ -1,53 +1,135 @@
 ﻿@model DeVeeraApp.ViewModels.User.TwoFactorAuthModel
 @{
     ViewData["Title"] = "TwoFactorAuthentication";
+    Layout = null;
 }
 
-<form asp-controller="User" asp-action="TwoFactorAuthentication" method="post">
-    <div class="content">
-       <input type="hidden" asp-for="@Model.LevelId" />
-       <input type="hidden" asp-for="@Model.ModuleId" />
-       <input type="hidden" asp-for="@Model.UserId" />
-        <!-- BEGIN: Wizard Layout -->
-        <div class="intro-y  py-10 sm:py-20 ">
 
-            <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Two Factor Authentication</div>
-                <div class="text-gray-600 text-center mt-2">Please enter one time password sent to your registered mobile number to continue.</div>
+
+<!doctype html>
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/odometer.min.css">
+    <!-- Slick Min CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/slick.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/nice-select.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/magnific-popup.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/fancybox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/UserAssets/css/responsive.css">
+
+    <link href="~/dist/css/Rating.css" rel="stylesheet" />
+
+
+    <title>Psylo - Life Coach & Psychologist HTML Template</title>
+
+    <link rel="icon" type="image/png" href="~/UserAssets/images/favicon.png">
+</head>
+
+<body>
+
+    <!-- Start Preloader Area -->
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
             </div>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+    <!-- Start Coming Soon Area -->
+
+    <div class="coming-soon-area" style="background-color:lightgray">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="coming-soon-content">
+                    <h1>
+                        <a href="#">Two Factor Authentication</a>
+                    </h1>
+
+                    <h2>Please enter one time password (OTP).</h2>
 
 
-            <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
-                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                    <div class="intro-y col-span-3"></div>
-                    <div class="intro-y box p-5 col-span-6">
-                        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
-                        {
-                            // Bootstrap 2 = "alert-error", Bootstrap 3 and 4 = "alert-danger"
-                            <div asp-validation-summary="All" class="text-theme-6 mt-4">
-                                @*<a class="close" data-dismiss="alert">&times;</a>*@
+                    <section class="login-area mt-5">
+                        <div class="container">
+                            <div class="login-form">
+                                <form asp-controller="User" asp-action="TwoFactorAuthentication" method="post">
+                                    <input type="hidden" asp-for="@Model.LevelId" />
+                                    <input type="hidden" asp-for="@Model.ModuleId" />
+                                    <input type="hidden" asp-for="@Model.UserId" />
+                                    <div class="form-group">
+                                        <input type="text" asp-for="@Model.OTP" class="form-control" placeholder="passcode">
+                                        <span asp-validation-for="OTP" class="text-theme-6 mt-2"></span>
+                                    </div>
+                                    <button type="submit">Submit</button>
+                                </form>
                             </div>
-                        }
-
-                        <div class="mt-5">
-                            <label for="input-wizard-2" class="form-label text-theme-21 star">
-                            Enter OTP </label>
-                            <input id="input-wizard-2" asp-for="@Model.OTP" type="number" class="form-control" min="0" placeholder="your otp">
-                            <span asp-validation-for="OTP" class="text-theme-6 mt-2"></span>
                         </div>
-
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <button type="submit" class="btn btn-primary w-24">Check</button>
-                        </div>
-                    </div>
-                    <div class="intro-y col-span-3"></div>
-
+                    </section>
                 </div>
-
             </div>
         </div>
     </div>
 
-</form>
+    <!-- End Coming Soon Area -->
+    <!-- Jquery Slim JS -->
+    <script src="~/UserAssets/js/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/UserAssets/js/bootstrap.bundle.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/UserAssets/js/jquery.meanmenu.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/UserAssets/js/owl.carousel.min.js"></script>
+    <!-- Jquery Appear JS -->
+    <script src="~/UserAssets/js/jquery.appear.js"></script>
+    <!-- Odometer JS -->
+    <script src="~/UserAssets/js/odometer.min.js"></script>
+    <!-- Slick Min JS -->
+    <script src="~/UserAssets/js/slick.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/UserAssets/js/nice-select.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/UserAssets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="~/UserAssets/js/fancybox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="~/UserAssets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="~/UserAssets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="~/UserAssets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="~/UserAssets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/UserAssets/js/main.js"></script>
 
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
+</body>
+</html>

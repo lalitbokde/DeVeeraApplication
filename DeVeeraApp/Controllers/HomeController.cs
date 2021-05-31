@@ -43,6 +43,7 @@ namespace DeVeeraApp.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoMasterService;
         private readonly IS3BucketService _s3BucketService;
+        private readonly ILanguageService _languageService;
 
         #endregion
 
@@ -60,6 +61,7 @@ namespace DeVeeraApp.Controllers
                               IImageMasterService imageMasterService,
                               IVideoMasterService videoMasterService,
                               IS3BucketService s3BucketService,
+                              ILanguageService languageService,
                               IUserService userService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -76,26 +78,13 @@ namespace DeVeeraApp.Controllers
             _imageMasterService = imageMasterService;
             _videoMasterService = videoMasterService;
             _s3BucketService = s3BucketService;
+            _languageService = languageService;
         }
 
         #endregion
 
         #region Utilities
 
-        public virtual void PrepareLanguages(LanguageModel model)
-        {
-
-            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
-            //var AvailableLanguage = _languageService.GetAllLanguages();
-            //foreach (var item in AvailableLanguage)
-            //{
-            //    model.AvailableLanguages.Add(new SelectListItem
-            //    {
-            //        Value = item.Id.ToString(),
-            //        Text = item.Name
-            //    });
-            //}
-        }
 
 
         #endregion
@@ -111,7 +100,6 @@ namespace DeVeeraApp.Controllers
 
             ViewBag.VideoUrl = data?.Video?.VideoUrl;
 
-            PrepareLanguages(model.LandingPageModel.Language);
             return View(model);
         }
 

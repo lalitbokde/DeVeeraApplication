@@ -59,6 +59,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-9 col-md-12">
                     <ul class="top-header-information">
+                       
                         <li>
                             <i class="flaticon-phone-call"></i>
                             <a>@_workContext.CurrentUser.Email</a>
@@ -69,7 +70,7 @@
                             <a asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
 
-                     
+
                     </ul>
                 </div>
 
@@ -120,7 +121,7 @@
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
                                 <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
-                                    Home
+                                    @T("Home")
                                 </a>
 
                                
