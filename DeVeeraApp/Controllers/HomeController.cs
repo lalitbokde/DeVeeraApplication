@@ -303,41 +303,7 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
-
-        public IActionResult AskHappynessLevel()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AskHappynessLevel(HappynessLevelModel model)
-        {
-            if (ModelState.IsValid)
-            {
-
-                if (model.HappynessLevelTypeId >(int)HappynessLevelType.LevelSix) 
-                {
-                    var data = _levelServices.GetAllLevels().Where(l => l.Level_Emotion_Mappings.Where(a => a.Emotion?.EmotionName == "Happy").Count() > 0 && l.Active == true).FirstOrDefault();
-                    if (data != null)
-                    {
-                        return RedirectToAction("Index", "Lesson", new { id = data.Id });
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    return RedirectToAction("Create", "Diary");
-                }
-            }
-            else
-            {
-                return View(model);
-            }
-            
-        }
+   
 
         #endregion
     }
