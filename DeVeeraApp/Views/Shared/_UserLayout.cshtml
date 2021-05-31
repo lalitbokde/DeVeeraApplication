@@ -32,7 +32,8 @@
     <link rel="stylesheet" href="~/UserAssets/css/style.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/UserAssets/css/responsive.css">
-
+    <!-- Date Picker -->
+    <link href="~/dist/js/datetimepicker/css/duDatepicker.css" rel="stylesheet" />
     <title>Happ-e</title>
 
     <link rel="icon" type="image/png" href="~/UserAssets/images/favicon.png">
@@ -69,7 +70,7 @@
                             <a asp-controller="User" asp-action="Logout">Logout</a>
                         </li>
 
-                     
+
                     </ul>
                 </div>
 
@@ -123,13 +124,13 @@
                                     Home
                                 </a>
 
-                               
+
                             </li>
 
                         </ul>
 
                         <div class="others-options d-flex align-items-center">
-                           
+
 
                             <div class="option-item">
                                 <div class="navbar-btn">
@@ -307,7 +308,7 @@
             <div class="copyright-area-content">
                 <p>
                     Copyright © 2021 Happe. All rights reserved By
-                    <a >Happe Team</a>
+                    <a>Happe Team</a>
                 </p>
             </div>
         </div>
@@ -346,7 +347,22 @@
     <script src="~/UserAssets/js/contact-form-script.js"></script>
     <!-- Wow JS -->
     <script src="~/UserAssets/js/wow.min.js"></script>
+    <!-- Date Picker -->
+    <script src="~/dist/js/datetimepicker/js/duDatepicker.js"></script>
     <!-- Custom JS -->
     <script src="~/UserAssets/js/main.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            duDatepicker('#date', {
+                format: 'mmmm d, yyyy', range: false, clearBtn: true,
+
+            })
+        }
+
+            //$.material.init()
+    </script>
+
 </body>
 </html>
