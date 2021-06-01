@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DeVeeraApp.ViewModels.Diaries
 {
@@ -24,8 +25,9 @@ namespace DeVeeraApp.ViewModels.Diaries
         public string Level { get; set; }
 
         public string Module { get; set; }
-
         public List<DiaryModel> diaryModels { get; set; }
+
+        [JsonIgnore]
         public UserModel User { get; set; }
     }
 }

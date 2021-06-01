@@ -27,7 +27,7 @@
         var diaryContent = document.getElementById("diaryContent");
         if (data != null && selectedDate != today) {
             var html = `<label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">${data.title}</div><br /><br />
-                    <label class="text-theme-21 star">Add New Diary Entry  </label><br />
+                    <label class="text-theme-21 star"> Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">${data.comment}</div>`
             diaryContent.insertAdjacentHTML('beforeend', html);
             document.getElementById("diaryPaper").style.backgroundColor = data.diaryColor;
@@ -43,7 +43,7 @@
         }
         else if (data == null && selectedDate == today) {
             var html = `<label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ..."></div><br /><br />
-                    <label class="text-theme-21 star">Add New Diary Entry  </label><br />
+                    <label class="text-theme-21 star"> Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ..."></div>`
             diaryContent.insertAdjacentHTML('beforeend', html);
             document.getElementById("diaryPaper").setAttribute('style', `background-color : white`);
@@ -52,7 +52,7 @@
         }
         else if (data != null && selectedDate == today) {
             var html = `<label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">${data.title}</div><br /><br />
-                    <label class="text-theme-21 star">Add New Diary Entry  </label><br />
+                    <label class="text-theme-21 star"> Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">${data.comment}</div>`
             diaryContent.insertAdjacentHTML('beforeend', html);
             document.getElementById("diaryPaper").setAttribute('style', `background-color:${data.diaryColor}`);
