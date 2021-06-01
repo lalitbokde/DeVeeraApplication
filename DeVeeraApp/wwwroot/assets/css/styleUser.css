@@ -1620,7 +1620,7 @@ Main Slides Area CSS
 }
 
 .main-slides-item {
-  background-image: url(../../assets/images/main-slides/slides-bg-1.jpg);
+  background-image: url(../../assets/images/SLIDER-BG-1.jpg);
   background-position: center bottom;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1628,13 +1628,13 @@ Main Slides Area CSS
   padding-bottom: 350px;
 }
 
-.main-slides-item.item-two {
-  background-image: url(../../assets/images/main-slides/slides-bg-2.jpg);
-}
+    .main-slides-item.item-two {
+        background-image: url(../../assets/images/SLIDER-BG-3.jpg);
+    }
 
-.main-slides-item.item-three {
-  background-image: url(../../assets/images/main-slides/slides-bg-3.jpg);
-}
+    .main-slides-item.item-three {
+        background-image: url(../../assets/images/SLIDER-BG-4.jpg);
+    }
 
 .main-slides-item-box {
   position: relative;
