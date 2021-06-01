@@ -10,7 +10,7 @@ var table = new Tabulator("#tabulator1",
             { title: "Title", field: "Title", sorter: "string", width: 250 },
             { title: "Subtitle", field: "Subtitle", sorter: "string", width: 250 },
             { title: "VideoName", field: "VideoName", sorter: "string", width: 250 },
-            { title: "Edit", field: "", hozAlign: "center", width: 150, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/Level/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
+            { title: "Edit", field: "", hozAlign: "center", width: 150, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/Admin/Level/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
             { title: "Delete", field: "", hozAlign: "center", width: 150, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a onclick="ShowDeleteConfirmation('PostDeleteLevel(${e.getData().Id})')"" >\n <i data-feather="trash-2" class="text-theme-24"></i> \n</a>\n</div>   ` }, },],
 
     });

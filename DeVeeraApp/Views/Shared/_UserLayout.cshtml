@@ -61,9 +61,13 @@
                 <div class="col-lg-9 col-md-12">
                     <ul class="top-header-information">
                        
-                        <li>
+                        @*<li>
                             <i class="flaticon-phone-call"></i>
                             <a>@_workContext.CurrentUser.Email</a>
+                        </li>*@
+                         <li>
+                            <i class="flaticon-phone-call"></i>
+                            <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id">My Account</a>
                         </li>
 
                         <li>

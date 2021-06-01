@@ -67,14 +67,14 @@
                             <div class="mt-5">
 
                                 <label class="form-label text-theme-21 ">Emotion</label>
-                                @*<select asp-for="EmotionId" asp-items="Model.AvailableEmotions" type="text" data-search="true" class="tail-select w-full" placeholder="Emotion"></select>*@
-                                @Html.ListBoxFor(m => m.SelectedEmotions, @Model.AvailableEmotions, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Emotions" })
-
+                                <select asp-for="EmotionId" asp-items="Model.AvailableEmotions" data-placeholder="Emotion" class="tail-select w-full" id="post-form-3" multiple>
+                                </select>
                             </div>
 
                             <div class="mt-3">
                                 <label for="post-form-3" class="form-label text-theme-21">Images</label>
-                                @Html.ListBoxFor(m => m.SelectedImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
+                                <select asp-for="SelectedImg" asp-items="Model.AvailableImages" data-placeholder="Emotion" class="tail-select w-full" id="post-form-3" multiple>
+                                </select>
 
                             </div>
                             <div class="mt-5">

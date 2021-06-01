@@ -670,6 +670,7 @@ namespace DeVeeraApp.Controllers
                 var userData = _UserService.GetUserById(userId);
                 if (userData != null)
                 {
+                    model.Id = userData.Id;
                     model.Email = userData.Email;
                     model.MobileNumber = userData.MobileNumber;
                     model.Age = (int)userData.Age;
