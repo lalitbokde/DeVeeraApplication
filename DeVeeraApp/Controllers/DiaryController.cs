@@ -248,7 +248,8 @@ namespace DeVeeraApp.Controllers
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == Date.ToShortDateString()).FirstOrDefault();
-            return Json(diary);
+            var result = diary?.ToModel<DiaryModel>();
+            return Json(result);
         }
 
         public IActionResult AskUserEmotion()
