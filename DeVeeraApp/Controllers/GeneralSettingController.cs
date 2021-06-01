@@ -57,7 +57,7 @@ namespace DeVeeraApp.Controllers
                     {
                         guestLanguage.LanguageId = model.LandingPageModel.Language.Id;
                         _settingService.UpdateSetting(guestLanguage);
-                        model.LandingPageModel.Language.ReturnUrl = "/Home/Index";
+                        model.LandingPageModel.Language.ReturnUrl = model.LandingPageModel.Language.ReturnUrl ?? "/Home/Index";
                     }
                 }
                
