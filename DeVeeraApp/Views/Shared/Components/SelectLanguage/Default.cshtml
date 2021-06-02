@@ -1,7 +1,7 @@
 ﻿@model DeVeeraApp.ViewModels.User.UserModel
 <form asp-controller="GeneralSetting" asp-action="Create" method="post">
     <input type="hidden" asp-for="@Model.Id" value="@_workContext?.CurrentUser?.Id" />
-    <input type="hidden" asp-for="@Model.LandingPageModel.Language.ReturnUrl"  value=@($"{Context.Request.Path}{(Context.Request.QueryString.Value != null ? Context.Request.QueryString : "")}")/>
+    <input type="hidden" asp-for="@Model.LandingPageModel.Language.ReturnUrl"  value=@($"{Context.Request.Path}{(Context.Request.QueryString.Value != null ? Context.Request.QueryString.Value : "")}")/>
     <select asp-for="@Model.LandingPageModel.Language.Id" asp-items="@Model.LandingPageModel.Language.AvailableLanguages" onchange="this.form.submit();">
     </select>
 </form>
