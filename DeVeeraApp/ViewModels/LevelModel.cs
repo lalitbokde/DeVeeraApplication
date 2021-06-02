@@ -66,6 +66,12 @@ namespace DeVeeraApp.ViewModels
         [NotMapped]
         public string DiaryLatestUpdateDate { get; set; }
 
+        public string NextImageUrl { get; set; }
+        public string PrevImageUrl { get; set; }
+        public string NextTitle { get; set; }
+        public string PrevTitle { get; set; }
+
+
     }
 
     

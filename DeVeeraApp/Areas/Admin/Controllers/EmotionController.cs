@@ -1,5 +1,6 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain.Emotions;
+using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Emotions;
 using CRM.Services.Message;
@@ -9,6 +10,7 @@ using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Emotions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         private readonly INotificationService _notificationService;
         private readonly IEmotionService _emotionService;
+        private readonly IImageMasterService _imageMasterService;
+        private readonly IVideoMasterService _videoServices;
 
         #endregion
 
@@ -31,6 +35,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public EmotionController(IEmotionService emotionService,
                                  INotificationService notificationService,
+                                 IImageMasterService imageMasterService,
+                                 IVideoMasterService videoMasterService,
                                  IWorkContext workContext,
                                  IHttpContextAccessor httpContextAccessor,
                                  IAuthenticationService authenticationService) : base(workContext: workContext,
@@ -40,9 +46,39 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             _emotionService = emotionService;
             _notificationService = notificationService;
+            _imageMasterService = imageMasterService;
+            _videoServices = videoMasterService;
         }
         #endregion
+        #region Utilities
+        public virtual void PrepareEmotionModel(EmotionModel model)
+        {
+            //prepare available url
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideo.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
+                    Selected = url.Id == model.VideoId
+                });
+            }
+            //prepare available images
+            var AvailableImages = _imageMasterService.GetAllImages();
+            foreach (var item in AvailableImages)
+            {
+                model.AvailableImages.Add(new SelectListItem
+                {
+                    Value = item.Id.ToString(),
+                    Text = item.Name,
+                });
+            }
 
+        }
+
+        #endregion
         #region Methods
         public IActionResult List()
         {
@@ -61,6 +97,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             AddBreadcrumbs("Emotion", "Create", "/Emotion/List", "/Emotion/Create");
             EmotionModel model = new EmotionModel();
+            PrepareEmotionModel(model);
             return View(model);
         }
 
@@ -76,6 +113,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _notificationService.SuccessNotification("Emotion added successfully.");
                 return RedirectToAction("List");
             }
+            PrepareEmotionModel(model);
             return View(model);
         }
 
@@ -85,6 +123,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Emotion", "Edit", "/Emotion/List", $"/Emotion/Edit/{id}");
             var emotion = _emotionService.GetEmotionById(id);
             var model = emotion.ToModel<EmotionModel>();
+            PrepareEmotionModel(model);
             return View(model);
         }
 
@@ -97,6 +136,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var emotion = _emotionService.GetEmotionById(model.Id);
                 emotion.EmotionName = model.EmotionName;
                 emotion.EmotionNo = model.EmotionNo;
+                emotion.Title = model.Title;
+                emotion.Subtitle = model.Subtitle;
+                emotion.Quote = model.Quote;
+                emotion.Description = model.Description;
+                emotion.VideoId = model.VideoId;
+                emotion.BannerImageId = model.BannerImageId;
+                emotion.ContentImageId = model.ContentImageId;
                 emotion.LastUpdatedOn = DateTime.UtcNow;
 
                 _emotionService.UpdateEmotion(emotion);
@@ -105,7 +151,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 return RedirectToAction("List");
 
             }
-
+            PrepareEmotionModel(model);
             return View(model);
         }
 

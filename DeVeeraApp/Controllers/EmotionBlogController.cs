@@ -38,6 +38,7 @@ namespace DeVeeraApp.Controllers
         private readonly IEmotionService _emotionService;
         private readonly IEmotionMappingService _emotionMappingService;
         private readonly IDiaryPasscodeService _diaryPasscodeService;
+        private readonly IImageMasterService _imageMasterService;
 
         #endregion
 
@@ -51,6 +52,7 @@ namespace DeVeeraApp.Controllers
                        IModuleService moduleService,
                        IUserService userService,
                        IEmotionService emotionService,
+                       IImageMasterService imageMasterService,
                        IEmotionMappingService emotionMappingService,
                        IDiaryPasscodeService diaryPasscodeService,
                         IHttpContextAccessor httpContextAccessor,
@@ -68,6 +70,7 @@ namespace DeVeeraApp.Controllers
             _emotionService = emotionService;
             _emotionMappingService = emotionMappingService;
             _diaryPasscodeService = diaryPasscodeService;
+            _imageMasterService = imageMasterService;
         }
 
         #endregion
@@ -76,10 +79,18 @@ namespace DeVeeraApp.Controllers
 
         #region Method
 
-        public IActionResult Index(string emotionname)
+        public IActionResult Index(int emotionid)
         {
-            ViewBag.EmotionName = emotionname;
-            return View();
+
+            var emotion = _emotionService.GetEmotionById(emotionid);
+            var model = new EmotionModel();
+            if (emotion != null)
+            {
+                 model = emotion.ToModel<EmotionModel>();
+                 ViewBag.ContentImage = _imageMasterService.GetImageById(emotion.ContentImageId)?.ImageUrl;
+                 ViewBag.BannerImage = _imageMasterService.GetImageById(emotion.BannerImageId)?.ImageUrl;
+            }
+            return View(model);
         }
 
         #endregion

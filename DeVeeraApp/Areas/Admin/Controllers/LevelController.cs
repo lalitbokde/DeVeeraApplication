@@ -208,6 +208,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (id != 0)
             {
                 var data = _levelServices.GetLevelById(id);
+                var model = data.ToModel<LevelModel>();
 
                 if (data.Level_Emotion_Mappings.Count != 0)
                 {
@@ -215,10 +216,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     {
                         Emotions.Add(item.EmotionId.ToString());
                     }
+
+                    model.SelectedEmotions = Emotions;
                 }
 
-                var model = data.ToModel<LevelModel>();
-                model.SelectedEmotions = Emotions;
                 model.srno = srno;
 
                 var imagedata = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
