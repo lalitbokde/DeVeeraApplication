@@ -36,6 +36,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ILevelImageListServices _levelImageListServices;
         private readonly IEmotionService _emotionService;
         private readonly INotificationService _notificationService;
+        private readonly IModuleImageListService _moduleImageListService;
 
 
         #endregion
@@ -52,7 +53,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      IAuthenticationService authenticationService,
                                      ILevelImageListServices levelImageListServices,
                                      IEmotionService emotionService,
-                                     INotificationService notificationService) : base(workContext: workContext,
+                                     INotificationService notificationService,
+                                     IModuleImageListService moduleImageListService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -64,6 +66,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _levelImageListServices = levelImageListServices;
             _emotionService = emotionService;
             _notificationService = notificationService;
+            this._moduleImageListService = moduleImageListService;
         }
         #endregion
 
@@ -241,7 +244,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.FullDescription = module.FullDescription;
                     model.Modules.Id = module.Id;
                     ViewBag.ActiveTab = "Add Module";
+
+                    var moduleIMageList = _moduleImageListService.GetModuleImageListByModuleId(ModuleId);
+
+                    if (moduleIMageList.Count > 0)
+                    {
+                        foreach (var item in moduleIMageList)
+                        {
+                            model.SelectedModuleImg.Add(item.ImageId.ToString());
+                        }
+                    }
                 }
+
+                
 
                 PrepareLevelModel(model);
 
@@ -283,6 +298,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         _levelImageListServices.InsertLevelImage(record);
                     }
                 }
+
+                
 
                 if (levelData.Level_Emotion_Mappings.Count() != 0)
                 {                  
@@ -329,6 +346,20 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     _moduleServices.InsertModule(modules);
                     _notificationService.SuccessNotification("Module has been added successfully");
 
+                    if (model.SelectedModuleImg.Count() != 0)
+                    {
+                        for (int i = 0; i < model.SelectedModuleImg.Count(); i++)
+                        {
+                            var record = new ModuleImageList
+                            {
+                                ModuleId = modules.Id,
+                                ImageId = Convert.ToInt32(model.SelectedModuleImg[i])
+                            };
+
+                            _moduleImageListService.InsertModuleImageList(record);
+                        }
+                    }
+
                 }
                 else
                 {
@@ -341,6 +372,23 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.UpdateModule(modules);
                     _notificationService.SuccessNotification("Module has been updated successfully");
+
+                    _moduleImageListService.DeleteModuleImageListByModuleId(modules.Id);
+
+                    if (model.SelectedModuleImg.Count() != 0)
+                    {
+                        for (int i = 0; i < model.SelectedModuleImg.Count(); i++)
+                        {
+                            var record = new ModuleImageList
+                            {
+                                ModuleId = modules.Id,
+                                ImageId = Convert.ToInt32(model.SelectedModuleImg[i])
+                            };
+
+                            _moduleImageListService.InsertModuleImageList(record);
+                        }
+                    }
+
 
                     return RedirectToAction("Edit", "Level", new { id = model.Id , ModuleId = model.Modules.Id });
                 }

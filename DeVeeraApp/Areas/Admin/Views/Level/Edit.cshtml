@@ -157,7 +157,7 @@
                         </form>
                     </div>
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
-                        <form asp-controller="Level" asp-action="AddModule" method="post"  id="levelForm2" onsubmit="ShowLoader('levelForm2');">
+                        <form asp-controller="Level" asp-action="AddModule" method="post" id="levelForm2" onsubmit="ShowLoader('levelForm2');">
                             @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                             {
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">
@@ -179,7 +179,11 @@
                                 <select asp-for="@Model.Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
+                            <div class="mt-3">
+                                <label for="post-form-3" class="form-label text-theme-21">Images</label>
+                                @Html.ListBoxFor(m => m.SelectedModuleImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
 
+                            </div>
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
                             </div>
@@ -201,7 +205,7 @@
                                     </span>
                                 </span>
 
-                                <button type="submit" class="btn btn-primary mr-2 w-24" >Save</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-24">Save</button>
 
                                 @if (Model.Modules.Id != 0)
                                 {

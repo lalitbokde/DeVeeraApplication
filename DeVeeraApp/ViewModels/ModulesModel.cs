@@ -13,10 +13,12 @@ namespace DeVeeraApp.ViewModels
         public ModulesModel()
         {
             QuestionsList = new List<Questions>();
+            SelectedModuleImages = new List<SelectedImage>();
         }
         public string Title { get; set; }
         public int LevelId { get; set; }
         public string VideoURL { get; set; }
+        public IList<SelectedImage> SelectedModuleImages { get; set; }
         public string FullDescription { get; set; }
         public virtual Level Level { get; set; }
 

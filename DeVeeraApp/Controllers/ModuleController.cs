@@ -25,6 +25,9 @@ namespace DeVeeraApp.Controllers
         private readonly IWorkContext _workContext;
         private readonly IUserService _userService;
         private readonly IDiaryMasterService _diaryMasterService;
+        private readonly IModuleImageListService _moduleImageListService;
+        private readonly IImageMasterService _imageMasterService;
+        private readonly IS3BucketService _s3BucketService;
         private readonly IQuestionAnswerService _QuestionAnswerService;
 
         public ModuleController(IModuleService moduleService,
@@ -34,6 +37,9 @@ namespace DeVeeraApp.Controllers
                                 IUserService userService,
                                 IDiaryMasterService diaryMasterService,
                                 IHttpContextAccessor httpContextAccessor,
+                                IModuleImageListService moduleImageListService,
+                                IImageMasterService imageMasterService,
+                                IS3BucketService s3BucketService,
                                IAuthenticationService authenticationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -43,6 +49,9 @@ namespace DeVeeraApp.Controllers
             _workContext = workContext;
             _userService = userService;
             _diaryMasterService = diaryMasterService;
+            _moduleImageListService = moduleImageListService;
+            _imageMasterService = imageMasterService;
+            _s3BucketService = s3BucketService;
             _QuestionAnswerService = questionAnswerService;
         }
 
@@ -77,6 +86,27 @@ namespace DeVeeraApp.Controllers
                 _userService.UpdateUser(currentUser);
 
             }
+            var moduleImages = _moduleImageListService.GetModuleImageListByModuleId(data.Id);
+
+            if (moduleImages.Count > 0)
+            {
+                foreach (var val in moduleImages)
+                {
+                    var imgData = _imageMasterService.GetImageById(val.Id);
+                    if (imgData != null)
+                    {
+                        var seletedImages = new SelectedImage();
+
+                        seletedImages.ImageUrl = _s3BucketService.GetPreSignedURL(imgData.Key).Result;
+                        seletedImages.ImageId = imgData.Id;
+                        seletedImages.Key = imgData.Key;
+                        seletedImages.Name = imgData.Name;
+                        moduleData.SelectedModuleImages.Add(seletedImages);
+                        
+                    }
+                }
+            }
+
             return View(moduleData);
         }
 

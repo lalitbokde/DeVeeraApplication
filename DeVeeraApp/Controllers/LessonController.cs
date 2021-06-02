@@ -36,6 +36,7 @@ namespace DeVeeraApp.Controllers
         private readonly IUserService _userService;
         private readonly IWorkContext _workContext;
         private readonly ILevelImageListServices _levelImageListServices;
+        private readonly IModuleImageListService _moduleImageListService;
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
 
@@ -55,6 +56,7 @@ namespace DeVeeraApp.Controllers
                                 IHttpContextAccessor httpContextAccessor,
                                 IAuthenticationService authenticationService,
                                 ILevelImageListServices levelImageListServices,
+                                IModuleImageListService moduleImageListService,
                                 IDiaryMasterService diaryMasterService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -68,6 +70,7 @@ namespace DeVeeraApp.Controllers
             _userService = userService;
             _workContext = workContext;
             _levelImageListServices = levelImageListServices;
+            _moduleImageListService = moduleImageListService;
             _diaryMasterService = diaryMasterService;
             _dashboardQuoteService = dashboardQuoteService;
 
@@ -133,10 +136,11 @@ namespace DeVeeraApp.Controllers
                     seletedImages.ImageUrl = imagesRecord.ImageUrl;
                     seletedImages.Key = imagesRecord.Key;
                     seletedImages.Name = imagesRecord.Name;
-                    seletedImages.id = imagesRecord.Id;
+                    seletedImages.ImageId = imagesRecord.Id;
                     videoData.SelectedImages.Add(seletedImages);
 
                 }
+
             }
 
             if (data.VideoId != null) { 
@@ -180,6 +184,7 @@ namespace DeVeeraApp.Controllers
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
+
             return View(videoData);
         }
 

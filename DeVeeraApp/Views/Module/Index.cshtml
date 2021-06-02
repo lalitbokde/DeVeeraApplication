@@ -5,7 +5,7 @@
 }
 
 <!-- Start Page Banner Area -->
-<div class="page-banner-with-full-image">
+<div class="page-banner-with-full-image"style="background-image:url('@(Model.SelectedModuleImages.Count() >= 1 ? Model.SelectedModuleImages[0].ImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
             <h2>@Model.Title</h2>
@@ -23,7 +23,7 @@
 <section class="courses-details-area ptb-100">
     <div class="container">
         <div class="courses-details-image">
-            <img src="~/assets/images/courses/courses-details.jpg" alt="image">
+            <img src=@(Model.SelectedModuleImages.Count() >= 2 ? Model.SelectedModuleImages[1].ImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
 
@@ -59,7 +59,7 @@
             <div class="col-lg-4 col-md-12">
                 <div class="courses-details-info">
                     <div class="image">
-                        <img src="~/assets/images/courses/courses-1.jpg" alt="image">
+                        <img src=@(Model.SelectedModuleImages.Count() >= 3 ? Model.SelectedModuleImages[2].ImageUrl : "../../assets/images/courses/courses-1.jpg") alt="image">
 
                         <a class="video-btn popup-youtube">
                             <i class="flaticon-play-button"></i>

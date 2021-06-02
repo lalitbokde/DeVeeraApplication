@@ -21,15 +21,19 @@ namespace DeVeeraApp.ViewModels
             this.AvailableVideo = new List<SelectListItem>();
             AvailableImages = new List<SelectListItem>();
             this.AvailableEmotions = new List<SelectListItem>();
+            SelectedModuleImg = new List<string>();
             SelectedImg = new List<string>();
+            SelectedModuleImages = new List<SelectedImage>();
         }
 
         [Required]
         public int? LevelNo { get; set; }
         public int? VideoId { get; set; }
         public IList<SelectedImage> SelectedImages { get; set; }
+        public IList<SelectedImage> SelectedModuleImages { get; set; }
 
         public IList<string> SelectedImg { get; set; }
+        public IList<string> SelectedModuleImg { get; set; }
 
         public IList<string> SelectedEmotions { get; set; }
         [Required]
@@ -68,14 +72,5 @@ namespace DeVeeraApp.ViewModels
 
     }
 
-    
-
-    public class SelectedImage
-    {
-        public bool Selected { get; set; }
-        public int id { get; set; }
-        public string Name { get; set; }
-        public string Key { get; set; }
-        public string ImageUrl { get; set; }
-    }
+   
 }
