@@ -31,13 +31,13 @@ function ShowDeleteConfirmation(url) {
 
 
 function PostDeleteAdminUser(Id) {
-
+    debugger
     var jsonData = {
 
         userId: Id
 
     };
-    $.post("/Admin/Delete",
+    $.post("/Admin/Admin/Delete",
         jsonData
         ,
         function (data, status) {
@@ -88,7 +88,7 @@ function PostDeleteRegisteredUser(Id) {
         userId: Id
 
     };
-    $.post("/User/Delete",
+    $.post("/Admin/User/Delete",
         jsonData
         ,
         function (data, status) {
@@ -138,7 +138,7 @@ function PostDeleteLevel(Id) {
         videoId: Id
 
     };
-    $.post("/Level/Delete",
+    $.post("/Admin/Level/Delete",
         jsonData
         ,
         function (data, status) {
@@ -189,7 +189,7 @@ function PostDeleteQuote(Id) {
         id: Id
 
     };
-    $.post("/WeeklyUpdate/Delete",
+    $.post("/Admin/WeeklyUpdate/Delete",
         jsonData
         ,
         function (data, status) {
@@ -238,7 +238,7 @@ function PostDeleteDashboardQuote(Id) {
         id: Id
 
     };
-    $.post("/DashboardQuote/Delete",
+    $.post("/Admin/DashboardQuote/Delete",
         jsonData
         ,
         function (data, status) {
@@ -288,7 +288,7 @@ function PostDeleteModule(Id) {
         id: Id
 
     };
-    $.post("/Level/DeleteModule",
+    $.post("/Admin/Level/DeleteModule",
         jsonData
         ,
         function (data, status) {
@@ -338,7 +338,7 @@ function PostDeleteVideo(Id) {
         videoId: Id
 
     };
-    $.post("/Video/Delete",
+    $.post("/Admin/Video/Delete",
         jsonData
         ,
         function (data, status) {
@@ -388,7 +388,7 @@ function DeleteEditPageVideo(Id) {
         videoId: Id
 
     };
-    $.post("/Video/DeleteVideo",
+    $.post("/Admin/Video/DeleteVideo",
         jsonData
         ,
         function (data, status) {
@@ -440,7 +440,7 @@ function DeleteEditPageImage(Id) {
         imageId: Id
 
     };
-    $.post("/Image/DeleteImage",
+    $.post("/Admin/Image/DeleteImage",
         jsonData
         ,
         function (data, status) {
@@ -492,7 +492,7 @@ function PostDeleteImage(Id) {
         imageId: Id
 
     };
-    $.post("/Image/Delete",
+    $.post("/Admin/Image/Delete",
         jsonData
         ,
         function (data, status) {
@@ -547,7 +547,7 @@ function PostDeleteFeelGoodStory(Id) {
         storyId: Id
 
     };
-    $.post("/FeelGoodStory/Delete",
+    $.post("/Admin/FeelGoodStory/Delete",
         jsonData
         ,
         function (data, status) {
@@ -603,7 +603,7 @@ function PostDeleteLanguage(Id) {
         languageId: Id
 
     };
-    $.post("/Language/Delete",
+    $.post("/Admin/Language/Delete",
         jsonData
         ,
         function (data, status) {
@@ -655,7 +655,7 @@ function PostDeleteEmotion(Id) {
         emotionId: Id
 
     };
-    $.post("/Emotion/Delete",
+    $.post("/Admin/Emotion/Delete",
         jsonData
         ,
         function (data, status) {
@@ -709,7 +709,7 @@ function PostDeleteLocaleStringResource(Id) {
         id: Id
 
     };
-    $.post("/LocalStringResources/Delete",
+    $.post("/Admin/LocalStringResources/Delete",
         jsonData
         ,
         function (data, status) {

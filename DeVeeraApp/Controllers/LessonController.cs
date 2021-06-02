@@ -111,7 +111,8 @@ namespace DeVeeraApp.Controllers
         {
             var random = new Random();
             ViewBag.SrNo = srno;
-            ViewBag.TotalLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList().Count;
+            var AllLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList();
+            ViewBag.TotalLevels = AllLevels.Count;
             var videoData = new LevelModel();
             videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
@@ -184,6 +185,27 @@ namespace DeVeeraApp.Controllers
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
+
+
+            var userNextLevel = AllLevels.Where(a => a.Id > id).FirstOrDefault();
+
+            if (userNextLevel != null)
+            {
+                videoData.NextTitle = userNextLevel?.Title;
+                var level = _levelImageListServices.GetLevelImageListByLevelId(userNextLevel.Id);
+                videoData.NextImageUrl = level.Count() > 0 ? level.FirstOrDefault().Image?.ImageUrl:null;
+
+            }
+
+            var userPreviousLevel = AllLevels.OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
+
+            if (userPreviousLevel != null)
+            {
+                videoData.PrevTitle = userPreviousLevel?.Title;
+                var level = _levelImageListServices.GetLevelImageListByLevelId(userPreviousLevel.Id);
+                videoData.PrevImageUrl = level.Count() > 0 ? level.FirstOrDefault().Image?.ImageUrl : null;
+            }
+
 
             return View(videoData);
         }

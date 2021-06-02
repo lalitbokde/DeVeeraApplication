@@ -144,13 +144,15 @@
                     <div class="info-prev-link-wrapper">
                         <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
                             <span class="image-prev">
-                                <img src="~/assets/images/blog/blog-1.jpg" alt="image">
+
+                                @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl ; }
+                                <img src="@prevImageUrl" alt="image">
                                 <span class="post-nav-title">Prev</span>
                             </span>
 
                             <span class="prev-link-info-wrapper">
                                 <span class="prev-title">
-                                    How Does A Psychologist Help To Maintain A Good Mental Health
+                                    @Model.PrevTitle
                                 </span>
                             </span>
                         </a>
@@ -165,12 +167,13 @@
                         <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
-                                    How Does Consulting A Psychologist Help To Solve Your Problem?
+                                  @Model.NextTitle
                                 </span>
                             </span>
 
                             <span class="image-next">
-                                <img src="~/assets/images/blog/blog-2.jpg" alt="image">
+                                @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
+                                <img src="@nextImageUrl" alt="image">
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
