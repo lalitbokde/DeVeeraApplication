@@ -133,7 +133,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     seletedImages.ImageUrl = imagesRecord.ImageUrl;
                     seletedImages.Key = imagesRecord.Key;
                     seletedImages.Name = imagesRecord.Name;
-                    seletedImages.id = imagesRecord.Id;
+                    seletedImages.ImageId = imagesRecord.Id;
                     videoData.SelectedImages.Add(seletedImages);
 
                 }

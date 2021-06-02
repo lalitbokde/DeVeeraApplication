@@ -37,11 +37,15 @@ namespace CRM.Services
                 throw new ArgumentNullException(nameof(levelId));
 
             var data = _repository.Table.Where(i => i.LevelId == levelId).ToList();
-            
-            foreach(var item in data)
+
+            if (data.Count() > 0)
             {
-                _repository.Delete(item);
+                foreach (var item in data)
+                {
+                    _repository.Delete(item);
+                }
             }
+        
             
         }
 
@@ -84,7 +88,7 @@ namespace CRM.Services
 
         public List<LevelImageList> GetLevelImageListByLevelId(int id)
         {
-            if(id == null)
+            if(id == 0)
                 throw new ArgumentNullException(nameof(id));
 
            var data = _repository.Table.Where(i => i.LevelId == id).ToList();

@@ -45,6 +45,7 @@ namespace CRM.Data
         public DbSet<Level> Levels { get; set; }
         public DbSet<Modules> Levelmodules { get; set; }
         public DbSet<Diary> Diaries { get; set; }
+        public DbSet<ModuleImageList> ModuleImageLists { get; set; }
 
         //Quote
         public DbSet<WeeklyUpdate> WeeklyUpdates { get; set; }
