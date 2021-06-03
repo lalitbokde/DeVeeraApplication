@@ -92,7 +92,7 @@ namespace DeVeeraApp.Controllers
             {
                 foreach (var val in moduleImages)
                 {
-                    var imgData = _imageMasterService.GetImageById(val.Id);
+                    var imgData = _imageMasterService.GetImageById(val.ImageId);
                     if (imgData != null)
                     {
                         var seletedImages = new SelectedImage();
