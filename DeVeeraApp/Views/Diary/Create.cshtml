@@ -126,9 +126,12 @@
             <div class="col-lg-4 col-md-12">
                 <div class="services-details-info">
                     <ul class="services-list">
-                        @foreach (var item in Model.diaryModels.Where(a => a.UserId == _workContext.CurrentUser.Id))
-                        {
-                            <li><a href="#">@item.Title <i class="flaticon-imagination"></i></a></li>
+                        @{if (Model.diaryModels != null) { 
+                            @foreach (var item in Model.diaryModels.Where(a => a.UserId == _workContext.CurrentUser.Id))
+                            {
+                                <li><a href="#">@item.Title <i class="flaticon-imagination"></i></a></li>
+                            }
+                            }
                         }
                     </ul>
 
