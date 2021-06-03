@@ -132,6 +132,8 @@
     <Compile Include="Migrations\20210423121810_moduleIdAdded.cs" />
     <Compile Include="Migrations\20210528160635_LanguageMigration.cs" />
     <Compile Include="Migrations\20210528160635_LanguageMigration.Designer.cs" />
+    <Compile Include="Migrations\20210602153717_EmotionUpdateMigration.cs" />
+    <Compile Include="Migrations\20210602153717_EmotionUpdateMigration.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
