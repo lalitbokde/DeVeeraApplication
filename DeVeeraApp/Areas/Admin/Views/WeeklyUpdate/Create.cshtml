@@ -3,8 +3,16 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-<form asp-controller="WeeklyUpdate" asp-action="Create" method="post" id="RegistartionForm" onsubmit="ShowLoader('RegistartionForm');">
+<style>
+    .slider1{}
+    .slider2-img2 {
+    }
+    .slide3-img3 {
+    }
+    .slide4-img4 {
+    }
+</style>
+<form asp-controller="WeeklyUpdate" asp-action="Create" method="post" id="RegistartionForm" onsubmit="return GetFileName();">
     <div class="intro-y inbox py-10 sm:py-20 ">
 
         @if (ViewBag.QuoteType == "Login")
@@ -64,7 +72,7 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24" >Save</button>
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +137,7 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24"  >Save</button>
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +152,7 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Landing" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Create Landing Page Video</div>
+                <div class="font-medium text-center text-lg">Create Landing Page </div>
                 <div class="text-gray-600 text-center mt-2">Please add video to show on the landing page</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -158,15 +166,178 @@
                         }
 
                         <div class="mt-5">
+                            <div class="px-5 ">
+                                <div class="font-medium text-center  text-theme-21">Sliders</div>
+                            </div>
+                            <div class="mt-1">
+                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
+                            </div>
+                            <div class="mt-5 ">
+                                <div class="row">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="SliderOneImage" hidden />
+                                    <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title" id="Slider1Title" />
+                                    @*<span asp-validation-for="Title" class="text-theme-6 mt-2"></span>*@
+                                </div>
+                                <div class="row ">
+                                    <div class="col-span-12 ">
+                                        <div class="mt-5">
+                                            @*<div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                                <label class="font-label  mr-auto text-theme-21">
+                                                    Upload Image
+                                                </label>
+                                            </div>*@
+                                            @*<div class="mt-3">
+                                                <label for="post-form-3" class="form-label text-theme-21">Images</label>
+                                                <select asp-for="SliderOneImage" asp-items="Model.AvailableImages" data-placeholder="Emotion" class="tail-select w-full" id="post-form-3" multiple>
+                                                </select>
+
+                                            </div>*@
+                                            <!--<div id="single-file-upload" class="p-5">
+                                            <div class="preview">
+                                                <div data-single="true" fallback="true" action="/Image/Uploadlocal" class="dropzone">
+                                                    <div class="fallback">
+                                                    </div>
+                                                    <div class="" >-->
+                                                                                @*<div  id="slider1img" class="text-lg font-medium">Drop files here or click to upload.</div>*@
+                                                                                <!--</div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        </div>
+
+                                        <div class="mt-5 ">
+                                            <div class="mt-5">
+                                                <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                                    <label class="font-label  mr-auto text-theme-21">
+                                                        Description
+                                                    </label>
+                                                </div>
+                                                <div class="p-3 w-full">
+                                                    <textarea id="slider1Description" asp-for="SliderOneDescription" class="form-control w-full"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
+                            </div>
+                            <div class="mt-5 ">
+                                <div class="row">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title" id="Slider2Title" />
+                                    <input asp-for="SliderTwoImage" hidden />
+                                    @*<span asp-validation-for="Title" class="text-theme-6 mt-2"></span>*@
+                                </div>
+                                <div class="row ">
+                                    <div class="col-span-12 ">
+                                        <div class="mt-5">
+                                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                                <label class="font-label  mr-auto text-theme-21">
+                                                    Upload Image
+                                                </label>
+                                            </div>
+                                           
+                                        </div>
+
+                                        <div class="mt-5 ">
+                                            <div class="mt-5">
+                                                <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                                    <label class="font-label  mr-auto text-theme-21">
+                                                        Description
+                                                    </label>
+                                                </div>
+                                                <div class="p-3 w-full">
+                                                    <textarea id="slider2Description" asp-for="SliderTwoDescription" class="form-control w-full"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
+                            </div>
+                            <div class="mt-5 ">
+                                <div class="row">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title" id="Slider3Title" />
+                                    <input asp-for="SliderThreeTitle" hidden />
+                                    @*<span asp-validation-for="Title" class="text-theme-6 mt-2"></span>*@
+                                </div>
+                                <div class="row ">
+                                    <div class="col-span-12 ">
+                                       
+
+                                        <div class="mt-5 border-b-2 w-full">
+                                            <div class="mt-5">
+                                                <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                                    <label class="font-label  mr-auto text-theme-21">
+                                                        Description
+                                                    </label>
+                                                </div>
+                                                <div class="p-3 w-full">
+                                                    <textarea id="slider3Description" asp-for="SliderThreeDescription" class="form-control w-full"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle"/>
+                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle" />
                             <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                            <input asp-for="DescriptionImage" hidden />
+                        </div>
+
+
+                        <div class="mt-5">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                    Description   Image
+                                </label>
+                            </div>
+                            <div id="single-file-upload" class="p-5">
+                                <div class="preview">
+                                    <div data-single="true" fallback="true" action="/Image/Uploadlocal" class="dropzone">
+                                        <div class="fallback">
+                                        </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div  class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 border-b-2 w-full">
+                            <div class="mt-5">
+                                <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                    <label class="font-label  mr-auto text-theme-21">
+                                        Quote
+                                    </label>
+                                </div>
+                                <div class="p-3 w-full">
+                                    <textarea id="Landingquote" asp-for="LandingQuote" class="form-control w-full"></textarea>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
 
-                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name" ></select>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
@@ -198,7 +369,7 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24" >Save</button>
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -213,4 +384,11 @@
     </div>
 
 </form>
+<script>
+    function GetFileName() {
+        var filename = $(".dz-filename").text();
+        document.getElementById("DescriptionImage").value = filename;
+       
+    }
+</script>
 

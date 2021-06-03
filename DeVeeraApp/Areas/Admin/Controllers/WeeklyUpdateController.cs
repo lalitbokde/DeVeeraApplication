@@ -8,11 +8,13 @@ using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +29,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IWeeklyUpdateServices _weeklyUpdateServices;
         private readonly INotificationService _notificationService;
         private readonly IVideoMasterService _videoServices;
-
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IS3BucketService _s3BucketService;
+        private readonly IImageMasterService _imageMasterService;
         #endregion
 
         #region ctor
@@ -36,13 +40,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                       IWorkContext workContext,
                                       IHttpContextAccessor httpContextAccessor,
                                       IAuthenticationService authenticationService,
-                                      INotificationService notificationService) : base(workContext: workContext,
+                                      INotificationService notificationService,
+                                      IHostingEnvironment hostingEnvironment,
+                                      IS3BucketService s3BucketService,
+                                      IImageMasterService imageMasterService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             _weeklyUpdateServices = weeklyUpdateServices;
             _notificationService = notificationService;
             _videoServices = videoService;
+            _hostingEnvironment = hostingEnvironment;
+            _s3BucketService = s3BucketService;
+            _imageMasterService = imageMasterService;
         }
         #endregion
         #region Utilities
@@ -81,14 +91,53 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
-
+                var imageUrl = UploadToAWS(model.DescriptionImage);
+                
                 var data = model.ToEntity<WeeklyUpdate>();
+                //data.DescriptionImage = imageUrl.Result.ToString();
+                data.DescriptionImage = imageUrl.Result.ToString();
+
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
                 _notificationService.SuccessNotification("Video created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
             PrepareVideo(model);
             return View(model);
+        }
+
+        public async Task<string> UploadToAWS(string fileName)
+        {
+            string val;
+
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files//Images", fileName);
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                val = await _s3BucketService.UploadFileAsync(stream, path, fileName);
+
+
+            }
+            System.IO.File.Delete(path);
+            return val;
+        }
+
+        public virtual void PrepareLevelModel(WeeklyUpdateModel model)
+        {
+            //prepare available url
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+           
+            //prepare available images
+            var AvailableImages = _imageMasterService.GetAllImages();
+            foreach (var item in AvailableImages)
+            {
+                model.AvailableImages.Add(new SelectListItem
+                {
+                    Value = item.Id.ToString(),
+                    Text = item.Name,
+                });
+            }
+
+           
         }
 
 

@@ -15,6 +15,7 @@ namespace DeVeeraApp.ViewModels
         public WeeklyUpdateModel()
         {
             this.AvailableVideo = new List<SelectListItem>();
+            AvailableImages = new List<SelectListItem>();
         }
 
         [Required]
@@ -33,9 +34,25 @@ namespace DeVeeraApp.ViewModels
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
         public IList<SelectListItem> AvailableVideo { get; set; }
+        public List<SelectListItem> AvailableImages { get; }
+
+        public string FileName { get; set; }
 
         [NotMapped]
         public int LastLevel { get; set; }
+
+        public string SliderOneTitle { get; set; }
+        public string SliderOneDescription { get; set; }
+        public string SliderOneImage { get; set; }
+        public string SliderTwoTitle { get; set; }
+        public string SliderTwoDescription { get; set; }
+        public string SliderTwoImage { get; set; }
+        public string SliderThreeTitle { get; set; }
+        public string SliderThreeDescription { get; set; }
+        public string SliderThreeImage { get; set; }
+
+        public string DescriptionImage { get; set; }
+        public string LandingQuote { get; set; }
 
     }
 
