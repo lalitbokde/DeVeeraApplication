@@ -95,11 +95,18 @@ namespace DeVeeraApp.Controllers
             var model = new UserModel();
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
+            if (data != null) 
+            {
+                model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
 
-            model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
+                ViewBag.VideoUrl = data?.Video?.VideoUrl;
 
-            ViewBag.VideoUrl = data?.Video?.VideoUrl;
+                model.LandingPageModel.SliderOneImageUrl = data.SliderOneImageId > 0 ? _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl : null;
+                model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
+                model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : null;
+                model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
 
+            }
             return View(model);
         }
 

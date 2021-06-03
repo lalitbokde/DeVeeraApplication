@@ -11,6 +11,17 @@ namespace CRM.Core.Domain
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public Quote QuoteType { get; set; }
+        public string SliderOneTitle { get; set; }
+        public string SliderOneDescription { get; set; }
+        public int SliderOneImageId { get; set; }
+        public string SliderTwoTitle { get; set; }
+        public string SliderTwoDescription { get; set; }
+        public int SliderTwoImageId { get; set; }
+        public string SliderThreeTitle { get; set; }
+        public string SliderThreeDescription { get; set; }
+        public int SliderThreeImageId { get; set; }
+        public int DescriptionImageId { get; set; }
+        public string LandingQuote { get; set; }
         public bool IsActive { get; set; }
         public virtual Video Video { get; set; }
 
