@@ -3,7 +3,7 @@
     var filename = $(".dz-filename").text();
     var jsondata = { filename: filename };
 
-    $.post("/DashboardQuote/ImportExcel", jsondata, function (data) {
+    $.post("/Admin/DashboardQuote/ImportExcel", jsondata, function (data) {
         debugger
         if (data) {
             location.reload()

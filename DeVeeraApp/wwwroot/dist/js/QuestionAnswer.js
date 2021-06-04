@@ -1,6 +1,6 @@
 ﻿function GetModuleByLevelId(levelId) {
     debugger
-    $.get("/QuestionAnswer/GetModuleByLevelId",
+    $.get("/Admin/QuestionAnswer/GetModuleByLevelId",
         {
             Id: $("#levelId").val(),
             SelectedId: $("#moduleId").val()
