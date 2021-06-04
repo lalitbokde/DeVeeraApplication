@@ -13,7 +13,7 @@
     <!-- Animate CSS -->
     <link rel="stylesheet" href="~/assets/css/animate.min.css">
     <!-- Meanmenu CSS -->
-    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <!--<link rel="stylesheet" href="~/assets/css/meanmenu.css">-->
     <!-- Boxicons CSS -->
     <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
     <!-- Flaticon CSS -->
@@ -56,7 +56,7 @@
     </div>
     <!-- End Preloader Area -->
     <!-- Start Top Header Area -->
-    <div class="header-information">Header Information</div>
+    <div class="header-information"> @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel());</div>
 
     <div class="top-header-area">
         <div class="container">
@@ -163,24 +163,15 @@
                 <div class="container">
                     <div class="option-inner">
                         <div class="others-options d-flex align-items-center">
-                            <div class="option-item">
-                                <div class="cart-btn">
-                                    <a href="#">
-                                        <i class='flaticon-shopping-cart'></i>
-                                        <span>2</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="option-item">
-                                <div class="search-box">
-                                    <i class='flaticon-search'></i>
-                                </div>
-                            </div>
 
                             <div class="option-item">
                                 <div class="navbar-btn">
-                                    <a href="#" class="default-btn">Book Online <i class="flaticon-pointer"></i></a>
+                                    <a asp-controller="User" asp-action="Register" class="default-btn">Register <i class="flaticon-pointer"></i></a>
+                                </div>
+                            </div>
+                            <div class="option-item">
+                                <div class="navbar-btn">
+                                    <a asp-controller="User" asp-action="Login" class="default-btn">Login <i class="flaticon-pointer"></i></a>
                                 </div>
                             </div>
                         </div>
