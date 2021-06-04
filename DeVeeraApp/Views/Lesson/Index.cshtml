@@ -198,10 +198,10 @@
             @{
                 int i = 1;
                 foreach (var item in Model.ModuleList)
-                {
-                    <div class="products-item">
+                { 
+                    <div class="products-item" >
                         <div class="products-image">
-                            <a href="products-details.html"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
+                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
 
                         </div>
 
