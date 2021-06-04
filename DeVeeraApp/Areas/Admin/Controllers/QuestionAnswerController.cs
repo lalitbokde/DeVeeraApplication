@@ -2,11 +2,13 @@
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Message;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
+using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.QuestionAnswer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ILevelServices _levelService;
         private readonly IModuleService _moduleService;
         private readonly IQuestionAnswerService _QuestionAnswerService;
+        private readonly INotificationService _notificationService;
         private readonly IWorkContext _workContext;
         #endregion
 
@@ -33,6 +36,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public QuestionAnswerController(ILevelServices levelServices,
                                         IModuleService moduleService,
                                         IQuestionAnswerService questionAnswerService,
+                                        INotificationService notificationService,
                                         IWorkContext WorkContextService,
                                         IHttpContextAccessor httpContextAccessor,
                                         IAuthenticationService authenticationService) : base(workContext: WorkContextService,
@@ -43,6 +47,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _moduleService = moduleService;
             _QuestionAnswerService = questionAnswerService;
             this._workContext = WorkContextService;
+            _notificationService = notificationService;
         }
         #endregion
 
@@ -81,7 +86,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region Methods
         public IActionResult List()
         {
-            AddBreadcrumbs("Question Array", "List", "/QuestionAnswer/List", "/QuestionAnswer/List");
+            AddBreadcrumbs("Questionnaire", "List", "/QuestionAnswer/List", "/QuestionAnswer/List");
             var model = new QuestionModel();
             List<QuestionModel> QuestionsList = new List<QuestionModel>();
             var data = _QuestionAnswerService.GetAllQuestions().ToList();
@@ -95,7 +100,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult Create(string pagetype)
         {
-            AddBreadcrumbs("Question Array", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
+            AddBreadcrumbs("Questionnaire", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
             QuestionModel model = new QuestionModel();
             model.Questionarrie = pagetype;
             ViewBag.pagetype = pagetype;
@@ -108,7 +113,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Create(QuestionModel model)
         {
             string pagetype = Request.Form["pagetype"];
-            AddBreadcrumbs("Question Array", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
+            AddBreadcrumbs("Questionnaire", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Questions>();
@@ -128,21 +133,78 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View(model);
         }
 
+        public IActionResult Edit(int id)
+        {
+            AddBreadcrumbs("Questionnaire", "Edit", "/QuestionAnswer/List", $"/QuestionAnswer/Edit/{id}");
+
+            if (id != 0)
+            {
+                QuestionModel model = new QuestionModel();
+                var data = _QuestionAnswerService.GetQuestionById(id);
+
+                if (data != null)
+                {
+                    model = data.ToModel<QuestionModel>();
+                    model.LevelId = data.Module.LevelId;
+                    PrepareDropdowns(model);
+                    return View(model);
+                }
+
+                return View();
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(QuestionModel model)
+        {
+            AddBreadcrumbs("Questionnaire", "Edit", "/QuestionAnswer/List", $"/QuestionAnswer/Edit/{model.Id}");
+
+            if (ModelState.IsValid)
+            {
+                var question = _QuestionAnswerService.GetQuestionById(model.Id);
+
+                question.Question = model.Question;
+                question.ModuleId = model.ModuleId;
+                _QuestionAnswerService.UpdateQuestion(question);
+
+                _notificationService.SuccessNotification("Question edited successfully.");
+
+                return RedirectToAction("List");
+            }
+           
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult GetModuleByLevelId(int Id, int SelectedId)
         {
             List<SelectListItem> Modules = new List<SelectListItem>();
             //modules
-            var modules = _moduleService.GetModulesByLevelId(Id).ToList();
-            Modules.Add(new SelectListItem { Text = "Select Module", Value = null });
-            if (modules.Any())
-            {              
-                foreach (var s in modules)
+            if (Id > 0) {
+                var modules = _moduleService.GetModulesByLevelId(Id).ToList();
+                Modules.Add(new SelectListItem { Text = "Select Module", Value = null });
+                if (modules.Any())
                 {
-                    Modules.Add(new SelectListItem { Text = s.Title, Value = s.Id.ToString(), Selected = (s.Id == SelectedId) });
+                    foreach (var s in modules)
+                    {
+                        Modules.Add(new SelectListItem { Text = s.Title, Value = s.Id.ToString(), Selected = (s.Id == SelectedId) });
+                    }
                 }
             }
-
+            else
+            {
+                var modules = _moduleService.GetAllModules().ToList();
+                Modules.Add(new SelectListItem { Text = "Select Module", Value = null });
+                if (modules.Any())
+                {
+                    foreach (var s in modules)
+                    {
+                        Modules.Add(new SelectListItem { Text = s.Title, Value = s.Id.ToString(), Selected = (s.Id == SelectedId) });
+                    }
+                }
+            }
             return Json(Modules);
         }
 
@@ -170,6 +232,31 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             return RedirectToAction("Index", "Module", new { id = model.ModuleId });
 
+        }
+
+        public IActionResult Delete(int id)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (id != 0)
+            {
+                var Data = _QuestionAnswerService.GetQuestionById(id);
+                if (Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No Data found";
+                }
+                _QuestionAnswerService.DeleteQuestion(Data);
+
+                response.Success = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "No Data found";
+
+            }
+            return Json(response);
         }
 
         #endregion
