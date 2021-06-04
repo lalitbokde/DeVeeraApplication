@@ -179,7 +179,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
-            videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
+            var moduleList = _moduleServices.GetModulesByLevelId(id);
+            videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
             return View(videoData);
         }
 

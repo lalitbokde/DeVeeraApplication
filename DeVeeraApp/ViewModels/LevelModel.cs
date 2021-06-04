@@ -24,6 +24,7 @@ namespace DeVeeraApp.ViewModels
             SelectedModuleImg = new List<string>();
             SelectedImg = new List<string>();
             SelectedModuleImages = new List<SelectedImage>();
+            ModuleList = new List<ModulesModel>();
         }
 
         [Required]
@@ -55,7 +56,7 @@ namespace DeVeeraApp.ViewModels
         public Video Video { get; set; }
         public Image Image { get; set; }
         public Emotion Emotion { get; set; }
-        public IList<Modules>ModuleList { get; set; }
+        public IList<ModulesModel> ModuleList { get; set; }
         public List<Image> ImageLists { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }

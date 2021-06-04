@@ -235,9 +235,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     }
                 }
 
-             
-                model.ModuleList = _moduleServices.GetModulesByLevelId(id);
-                if( ModuleId > 0 && ModuleId != 0)
+
+                var moduleList = _moduleServices.GetModulesByLevelId(id);
+                model.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(model.ModuleList.ToList());
+                if ( ModuleId > 0 && ModuleId != 0)
                 {
                     var module = _moduleServices.GetModuleById(ModuleId);
                     model.Modules.Title = module.Title;
