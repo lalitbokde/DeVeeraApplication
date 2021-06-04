@@ -1,5 +1,7 @@
-﻿using CRM.Core.Domain;
+﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Services;
+using CRM.Services.Authentication;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
@@ -18,7 +20,7 @@ namespace DeVeeraApp.Controllers
 {
     [Area("Admin")]
     [AuthorizeAdmin]
-    public class LocalStringResourcesController : Controller
+    public class LocalStringResourcesController : BaseController
     {
         #region fields
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
@@ -29,7 +31,12 @@ namespace DeVeeraApp.Controllers
         #region ctor
         public LocalStringResourcesController(ILocalStringResourcesServices localStringResourcesServices,
                                               INotificationService notificationService,
-                                              ILanguageService languageService)
+                                              ILanguageService languageService,
+                                              IWorkContext workContext,
+                               IHttpContextAccessor httpContextAccessor,
+                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                                                                                  httpContextAccessor: httpContextAccessor,
+                                                                                  authenticationService: authenticationService)
         {
             _localStringResourcesServices = localStringResourcesServices;
             _notificationService = notificationService;
@@ -77,6 +84,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Create()
         {
+            AddBreadcrumbs("LocalStringResources", "Create", "LocalStringResources/Create", "/LocalStringResources/Create");
             var model = new LocalStringResourceModel();
             PrepareLanguages(model.Language);
             return View(model);
