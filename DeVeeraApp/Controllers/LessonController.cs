@@ -184,8 +184,30 @@ namespace DeVeeraApp.Controllers
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
-            videoData.ModuleList = _moduleServices.GetModulesByLevelId(id);
+            var moduleList = _moduleServices.GetModulesByLevelId(id);
+            videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
+            foreach (var module in videoData.ModuleList)
+            {
+                var moduleImageList = _moduleImageListService.GetModuleImageListByModuleId(module.Id);
 
+                if (moduleImageList.Count() > 0)
+                {
+                    foreach (var item in moduleImageList)
+                    {
+                        var imageData = _imageMasterService.GetImageById(item.Id);
+                        if (imageData != null)
+                        {
+                            var moduleImage = new SelectedImage();
+                            moduleImage.ImageId = imageData.Id;
+                            moduleImage.ImageUrl = _s3BucketService.GetPreSignedURL(imageData.Key).Result;
+                            moduleImage.Key = imageData.Key;
+                            moduleImage.Name = imageData.Name;
+                            module.SelectedModuleImages.Add(moduleImage);
+                        }
+                    }
+                }
+
+            }
 
             var userNextLevel = AllLevels.Where(a => a.Id > id).FirstOrDefault();
 

@@ -24,7 +24,7 @@
     <div class="container">
         <div class="courses-details-image">
             @{
-                var imageUrl2 = Model.SelectedImages.Count() >= 2 ? Model.SelectedImages[1].ImageUrl : "../../assets/images/courses/courses-details.jpg" ;
+                var imageUrl2 = Model.SelectedImages.Count() >= 2 ? Model.SelectedImages[1].ImageUrl : "../../assets/images/courses/courses-details.jpg";
             }
 
             <img src="@imageUrl2" alt="image" width="100%">
@@ -67,13 +67,13 @@
                 <div class="courses-details-info">
                     <div class="image">
                         @{
-                            var imageUrl3 = Model.SelectedImages.Count() >= 3 ? Model.SelectedImages[2].ImageUrl : "../../assets/images/courses/courses-1.jpg" ;
+                            var imageUrl3 = Model.SelectedImages.Count() >= 3 ? Model.SelectedImages[2].ImageUrl : "../../assets/images/courses/courses-1.jpg";
                         }
                         <img src="@imageUrl3" alt="image" style="height:225px;">
 
                         @*<a href="@Model.VideoUrl" class="video-btn popup-youtube">
-                            <i class="flaticon-play-button"></i>
-                        </a>*@
+                                <i class="flaticon-play-button"></i>
+                            </a>*@
                     </div>
 
                     @*<ul class="info">
@@ -136,7 +136,7 @@
         <div class="psylo-post-navigation">
 
 
-         
+
 
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
@@ -145,7 +145,7 @@
                         <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
                             <span class="image-prev">
 
-                                @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl ; }
+                                @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; }
                                 <img src="@prevImageUrl" alt="image">
                                 <span class="post-nav-title">Prev</span>
                             </span>
@@ -167,7 +167,7 @@
                         <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
-                                  @Model.NextTitle
+                                    @Model.NextTitle
                                 </span>
                             </span>
 
@@ -198,18 +198,38 @@
             @{
                 int i = 1;
                 foreach (var item in Model.ModuleList)
-                { 
-                    <div class="products-item" >
-                        <div class="products-image">
-                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
+                {
 
-                        </div>
+
+
+                    <div class="products-item">
+                                    <div class="products-image">
+                                        @{
+                                            if (item.SelectedModuleImages.Count > 0)
+                                            {
+                                                string imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                                if (imageUrl != null)
+                                                {
+                                                    <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo"><img src=@imageUrl alt="image"></a>
+
+                                                }
+
+
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
+
+                                            }
+
+                                        }
+                                    </div>
 
                         <div class="products-content">
                             <h3>
                                 <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo">@item.Title</a>
                             </h3>
-                         
+
                         </div>
                     </div>
 

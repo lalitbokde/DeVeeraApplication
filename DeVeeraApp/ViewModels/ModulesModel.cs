@@ -18,6 +18,8 @@ namespace DeVeeraApp.ViewModels
         public string Title { get; set; }
         public int LevelId { get; set; }
         public string VideoURL { get; set; }
+        public int? VideoId { get; set; }
+
         public IList<SelectedImage> SelectedModuleImages { get; set; }
         public string FullDescription { get; set; }
         public virtual Level Level { get; set; }
