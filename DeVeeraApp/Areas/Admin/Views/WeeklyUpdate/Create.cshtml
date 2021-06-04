@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24" >Save</button>
+                                    <button type="submit" class="btn btn-primary w-24">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24"  >Save</button>
+                                    <button type="submit" class="btn btn-primary w-24">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -142,9 +142,9 @@
         }
         else
         {
-            <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Landing" />
+           
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Create Landing Page Video</div>
+                <div class="font-medium text-center text-lg">Create Landing Page </div>
                 <div class="text-gray-600 text-center mt-2">Please add video to show on the landing page</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -157,16 +157,99 @@
                             </div>
                         }
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle"/>
-                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                        <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Landing" />
+                        <div class="px-5 ">
+                            <div class="font-medium text-center  text-theme-21">Sliders</div>
+                        </div>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-4 mt-5">
+                                <div class="mt-5">
+                                    <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" required />
+                                    <span asp-validation-for="SliderOneTitle" class="text-theme-6 mt-2"></span>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Image</label>
+                                    <select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                    <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
+                                    <span asp-validation-for="SliderOneDescription" class="text-theme-6 mt-2"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-span-4 mt-5">
+                                <div class="mt-5">
+                                    <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
+                                    <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
+                                    <span asp-validation-for="SliderTwoTitle" class="text-theme-6 mt-2"></span>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Image</label>
+                                    <select asp-for="SliderTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                                </div>
+
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                                    <textarea asp-for="SliderTwoDescription"  rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
+                                    <span asp-validation-for="SliderTwoDescription" class="text-theme-6 mt-2"></span>
+                                </div>
+                            </div>
+                            <div class="col-span-4 mt-5">
+                                <div class="mt-5">
+                                    <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Title</label>
+                                    <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
+                                    <span asp-validation-for="SliderThreeTitle" class="text-theme-6 mt-2"></span>
+                                </div>
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Image</label>
+                                    <select asp-for="SliderThreeImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                                </div>
+
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Description</label>
+                                    <textarea asp-for="SliderThreeDescription"  rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
+                                    <span asp-validation-for="SliderThreeDescription" class="text-theme-6 mt-2"></span>
+
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
+                            <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                        </div>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle" required />
+                                <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                            </div>
 
-                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name" ></select>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="Landingquote" asp-for="LandingQuote" class="form-control w-full" required />
+                                <span asp-validation-for="LandingQuote" class="text-theme-6 mt-2"></span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
+                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Description Image</label>
+                                <select asp-for="DescriptionImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
@@ -174,15 +257,13 @@
                         <div class="" id="standard-editor">
                             <div class="preview">
                                 <textarea id="editor2" asp-for="Subtitle" class="editor2"> </textarea>
-
                             </div>
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
 
                         </div>
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
-                            <span asp-validation-for="IsActive" class="text-theme-6 mt-2"></span>
-
                         </div>
 
                         <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
@@ -198,15 +279,16 @@
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24" >Save</button>
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
+                        </div>
 
-                </div>
-
-            </div>
+                    </div>
 
         }
 

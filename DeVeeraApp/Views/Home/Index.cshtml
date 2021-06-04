@@ -6,46 +6,24 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="main-slides-content">
-                            <h1>@T("Become The Happiest Person That You Want")</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+                            <h1>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.SliderOneTitle)</h1>
+                            <p>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.SliderOneDescription)</p>
 
-                            <div class="slides-btn">
-                                <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
-                                <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
-                            </div>
-                        </div>
 
-                    </div>
-
-                    <div class="col-lg-5">
-                        <div class="main-slides-image">
-                            <img src="/assets/images/main-slides/slides-1.jpg" alt="image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-slides-item-box">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-lg-7">
-                        <div class="main-slides-content">
-                            <h1>@T("We Are Here To Transform Your Life")</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
-
-                            <div class="slides-btn">
+                            @*<div class="slides-btn">
                                 <a href="online-booking.html" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
                                 <a href="services.html" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
-                            </div>
+                            </div>*@
+
                         </div>
+
                     </div>
 
-
-
                     <div class="col-lg-5">
+
+                        @{var SliderOneImageUrl = Model.LandingPageModel?.SliderOneImageUrl == null ? "/assets/images/main-slides/slides-1.jpg" : Model.LandingPageModel.SliderOneImageUrl;}
                         <div class="main-slides-image">
-                            <img src="/assets/images/main-slides/slides-2.jpg" alt="image">
+                            <img src="@SliderOneImageUrl" alt="image" width="100%" style="height:400px;">
                         </div>
                     </div>
                 </div>
@@ -57,20 +35,50 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7">
                         <div class="main-slides-content">
-                            <h1>@T("Take Life Changing Life Coaching With Us")</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
+                            <h1>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.SliderTwoTitle)</h1>
+                            <p>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.SliderTwoDescription)</p>
 
-                            <div class="slides-btn">
-                                <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
-                                <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
-                            </div>
+                            @*<div class="slides-btn">
+                                <a href="online-booking.html" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                                <a href="services.html" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
+                            </div>*@
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-5">
+                        @{var SliderTwoImageUrl = Model.LandingPageModel?.SliderTwoImageUrl == null ? "/assets/images/main-slides/slides-2.jpg" : Model.LandingPageModel.SliderTwoImageUrl;}
+                        <div class="main-slides-image">
+                            <img src="@SliderTwoImageUrl" alt="image" width="100%" style="height:400px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-slides-item-box">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <div class="main-slides-content">
+                            <h1>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.SliderThreeTitle)</h1>
+                            <p>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.SliderThreeDescription)</p>
+
+
+                            @*<div class="slides-btn">
+                                <a href="online-booking.html" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
+                                <a href="services.html" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
+                            </div>*@
+
                         </div>
                     </div>
 
 
                     <div class="col-lg-5">
+                        @{var SliderThreeImageUrl = Model.LandingPageModel?.SliderThreeImageUrl == null ? "/assets/images/main-slides/slides-3.jpg" : Model.LandingPageModel.SliderThreeImageUrl;}
                         <div class="main-slides-image">
-                            <img src="/assets/images/main-slides/slides-3.jpg" alt="image">
+                            <img src="@SliderThreeImageUrl" alt="image" width="100%" style="height:400px;">
 
                         </div>
                     </div>
@@ -93,20 +101,21 @@
                     <div class="col-lg-6">
                         <div class="philosophy-content">
                             <h3>@Model.LandingPageModel.WeeklyUpdate.Title</h3>
-                            @Html.Raw(@Model.LandingPageModel.WeeklyUpdate.Subtitle)
+                            @Html.Raw(Model.LandingPageModel.WeeklyUpdate.Subtitle)
                             <div class="philosophy-quote">
                                 <i class="flaticon-close"></i>
-                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.LandingQuote)</p>
                             </div>
                             <div class="philosophy-btn">
-                                <a href="@Model.LandingPageModel.WeeklyUpdate.VideoUrl" class="default-btn popup-youtube">Watch Video <i class="flaticon-play"></i></a>
+                                <a href="@ViewBag.VideoUrl" class="default-btn popup-youtube">Watch Video <i class="flaticon-play"></i></a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-6">
+                        @{var DescriptionImageUrl = Model.LandingPageModel?.DescriptionImageUrl == null ? "/assets/images/philosophy/philosophy-1.png" : Model.LandingPageModel.DescriptionImageUrl;}
                         <div class="philosophy-image">
-                            <img src="~/assets/images/philosophy/philosophy-1.png" alt="image">
+                            <img src="@DescriptionImageUrl" width="100%" style="height:400px;">
                         </div>
                     </div>
                 </div>
