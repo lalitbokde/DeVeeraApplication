@@ -69,10 +69,10 @@
             <div class="d-table-cell">
                 <div class="coming-soon-content">
                     <h1>
-                        <a href="#">Two Factor Authentication</a>
+                        <a href="#">@T("Two Factor Authentication")</a>
                     </h1>
 
-                    <h2>Please enter one time password (OTP).</h2>
+                    <h2>@T("Please enter one time password (OTP).")</h2>
 
 
 
@@ -84,10 +84,10 @@
                                     <input type="hidden" asp-for="@Model.ModuleId" />
                                     <input type="hidden" asp-for="@Model.UserId" />
                                     <div class="form-group">
-                                        <input type="text" asp-for="@Model.OTP" class="form-control" placeholder="passcode">
+                                        <input type="text" asp-for="@Model.OTP" class="form-control" placeholder="@T("passcode")">
                                         <span asp-validation-for="OTP" class="text-theme-6 mt-2"></span>
                                     </div>
-                                    <button type="submit">Submit</button>
+                                    <button type="submit">@T("Submit")</button>
                                 </form>
                             </div>
                         </div>

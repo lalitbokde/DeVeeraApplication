@@ -24,7 +24,7 @@
 <section class="login-area ptb-100">
     <div class="container">
         <div class="login-form">
-            <h2>Login</h2>
+            <h2>@T("Login")</h2>
 
             <form asp-controller="User" asp-action="Login" method="post">
                 <div class="form-group">
@@ -43,12 +43,12 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="checkme">
-                            <label class="form-check-label" for="checkme">Remember me</label>
+                            <label class="form-check-label" for="checkme">@T("Remember me")</label>
                         </div>
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-6 lost-your-password">
-                        <a href="#" class="lost-your-password">Forgot your password?</a>
+                        <a href="#" class="lost-your-password">@T("Forgot your password?")</a>
                     </div>
                 </div>
 

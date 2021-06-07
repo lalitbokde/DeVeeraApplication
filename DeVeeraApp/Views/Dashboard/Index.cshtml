@@ -52,7 +52,7 @@
 <section class="blog-area pt-100 pb-70">
     <div class="container">
         <div class="section-title">
-            <h2>Dive Into Our Sessions</h2>
+            <h2>@T("Dive Into Our Sessions")</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
 
@@ -64,7 +64,7 @@
                 @foreach (var item in Model.VideoModelList)
                 {
 
-                    <div class="single-blog-item">
+                    <div class="single-blog-item" >
                         <div class="blog-image">
                             <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
 
@@ -83,7 +83,7 @@
                                 <a href="blog-details.html">@item.Title</a>
                             </h3>
                             <div class="blog-btn">
-                                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" class="default-btn">Read More <i class="flaticon-plus"></i></a>
+                                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" class="default-btn">@T("Read More") <i class="flaticon-plus"></i></a>
                             </div>
                         </div>
                     </div>

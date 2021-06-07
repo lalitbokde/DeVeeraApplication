@@ -67,10 +67,10 @@
             <div class="d-table-cell">
                 <div class="coming-soon-content">
                     <h1>
-                        <a href="#">Change Diary Passcode</a>
+                        <a href="#">@T("Change Diary Passcode")</a>
                     </h1>
 
-                    <h2>Change your passcode.</h2>
+                    <h2>@T("Change your passcode.")</h2>
 
 
 
@@ -79,15 +79,15 @@
                             <div class="login-form">
                                 <form asp-controller="Diary" asp-action="ChangePasscode" method="post">
                                     <div class="form-group">
-                                        <input asp-for="Password" type="number" class="form-control" placeholder="passcode">
+                                        <input asp-for="Password" type="number" class="form-control" placeholder="@T("Password")">
                                         <span asp-validation-for="Password" class="text-theme-6 mt-2"></span>
                                     </div>
                                     <div class="form-group">
-                                        <input asp-for="ConfirmPassword" type="number"  class="form-control" placeholder="confirm passcode">
+                                        <input asp-for="ConfirmPassword" type="number"  class="form-control" placeholder="@T("confirm Password")">
                                         <span asp-validation-for="Password" class="text-theme-6 mt-2"></span>
                                     </div>
-                                    <button type="submit">Submit</button>
-                                    <a asp-controller="Diary" asp-action="Create" class="mt-3"> Continue to Diary</a>
+                                    <button type="submit">@T("Submit")</button>
+                                    <a asp-controller="Diary" asp-action="Create" class="mt-3"> @T("Continue to Diary")</a>
                                 </form>
                             </div>
                         </div>
