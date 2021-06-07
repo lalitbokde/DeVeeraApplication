@@ -136,6 +136,8 @@
     <Compile Include="Migrations\20210602153717_EmotionUpdateMigration.Designer.cs" />
     <Compile Include="Migrations\20210603164643_SliderChanges.cs" />
     <Compile Include="Migrations\20210603164643_SliderChanges.Designer.cs" />
+    <Compile Include="Migrations\20210607160823_Layoutsetup-table.cs" />
+    <Compile Include="Migrations\20210607160823_Layoutsetup-table.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
