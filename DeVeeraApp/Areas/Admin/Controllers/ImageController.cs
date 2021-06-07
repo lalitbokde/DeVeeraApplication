@@ -148,7 +148,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 foreach(var item in imageList)
                 {
                     var data = new ImageModel();
-                    data.ImageUrl = _s3BucketService.GetPreSignedURL(item?.Key).Result;
+                    data.ImageUrl = item.ImageUrl;
                     data.Name = item.Name;
                     data.Id = item.Id;
                     model.Add(data);

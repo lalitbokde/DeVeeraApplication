@@ -12,14 +12,17 @@ namespace CRM.Services
         #region fields
 
         private readonly IRepository<Image> _imageRepository;
+        private readonly IS3BucketService _s3BucketService;
 
         #endregion
 
         #region ctor
 
-        public ImageMasterService(IRepository<Image> imageRepository)
+        public ImageMasterService(IRepository<Image> imageRepository,
+                                  IS3BucketService s3BucketService)
         {
             _imageRepository = imageRepository;
+            _s3BucketService = s3BucketService;
         }
 
         #endregion
@@ -39,6 +42,14 @@ namespace CRM.Services
                         orderby vdo.Name
                         select vdo;
             var images = query.ToList();
+            if(images.Count > 0)
+            {
+                foreach(var item in images)
+                {
+                    item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key).Result;
+                    UpdateImage(item);
+                }
+            }
             return images;
         }
 
@@ -47,8 +58,13 @@ namespace CRM.Services
             if (videoId == 0)
                 return null;
 
-
-            return _imageRepository.GetById(videoId);
+            var data = _imageRepository.GetById(videoId); 
+            if(data != null)
+            {
+                data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                UpdateImage(data);
+            }
+            return data;
         }
 
         public IList<Image> GetImageByIds(int[] VideoIds)

@@ -1,4 +1,5 @@
 ﻿using CRM.Core.Domain;
+using DeVeeraApp.ViewModels.LayoutSetups;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace DeVeeraApp.ViewModels
         {
             VideoModelList = new List<LevelModel>();
             this.AvailableLevels = new List<SelectListItem>();
+            layoutSetup = new LayoutSetupModel();
         }
 
         public int? LevelId { get; set; }
@@ -28,6 +30,8 @@ namespace DeVeeraApp.ViewModels
         public bool IsRandom { get; set; }
         public bool IsWeeklyInspiringQuotes { get; set; }
         public int AutoIncrement { get; set; }
+
+        public LayoutSetupModel layoutSetup { get; set; }
         public DashboardMenus Menus { get; set; }
         public IList<LevelModel> VideoModelList { get; set; }
         public IList<SelectListItem> AvailableLevels { get; set; }

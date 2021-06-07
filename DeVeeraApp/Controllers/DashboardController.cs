@@ -19,6 +19,8 @@ using CRM.Core;
 using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
+using CRM.Services.Layoutsetup;
+using DeVeeraApp.ViewModels.LayoutSetups;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,7 +42,9 @@ namespace DeVeeraApp.Controllers
         private readonly IFeelGoodStoryServices _feelGoodStoryServices;
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoMasterService;
+        private readonly ILevelImageListServices _levelImageListServices;
         private readonly IS3BucketService _s3BucketService;
+        private readonly ILayoutSetupService _LayoutSetupService;
 
         #endregion
 
@@ -57,8 +61,10 @@ namespace DeVeeraApp.Controllers
                               IFeelGoodStoryServices feelGoodStoryServices,
                               IImageMasterService imageMasterService,
                               IVideoMasterService videoMasterService,
+                              ILevelImageListServices levelImageListServices,
                               IS3BucketService s3BucketService,
-                              IUserService userService
+                              IUserService userService,
+                              ILayoutSetupService layoutSetupService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -73,7 +79,9 @@ namespace DeVeeraApp.Controllers
             _feelGoodStoryServices = feelGoodStoryServices;
             _imageMasterService = imageMasterService;
             _videoMasterService = videoMasterService;
+            _levelImageListServices = levelImageListServices;
             _s3BucketService = s3BucketService;
+            _LayoutSetupService = layoutSetupService;
         }
 
         #endregion
@@ -85,6 +93,16 @@ namespace DeVeeraApp.Controllers
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var model = new DashboardQuoteModel();
+
+            var result = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+
+            if (result != null)
+            {
+                model.layoutSetup = result.ToModel<LayoutSetupModel>();
+                model.layoutSetup.SliderOneImageUrl= result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
+                model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
+                model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
+            }
 
             var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
 
@@ -119,8 +137,38 @@ namespace DeVeeraApp.Controllers
                         {
                             if (item.Active == true && item.Id <= lastlevel)
                             {
+                                
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
 
+                                if(model.VideoModelList.Count() > 0)
+                                {
+                                    foreach(var level in model.VideoModelList)
+                                    {
+                                        var leveldata = _levelServices.GetLevelById(level.Id);
+                                        if(leveldata != null)
+                                        {
+                                            var Images = _levelImageListServices.GetLevelImageListByLevelId(leveldata.Id);
+
+                                            if(Images.Count > 0)
+                                            {
+                                                foreach(var imgdata in Images)
+                                                {
+                                                    var img = _imageMasterService.GetImageById(imgdata.ImageId);
+                                                    var levelImage = new SelectedImage();
+                                                    levelImage.ImageId = img.Id;
+                                                    levelImage.ImageUrl = img.ImageUrl;
+                                                    levelImage.Key = img.Key;
+                                                    levelImage.Name = img.Name;
+                                                    level.SelectedImages.Add(levelImage);
+                                                }
+
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                                
                                 if (item.Id == lastlevel)
                                 {
                                     break;

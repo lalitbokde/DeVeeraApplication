@@ -21,58 +21,65 @@
                         <div asp-validation-summary="All" class="text-theme-6 mt-4">
                         </div>
                     }
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Emotion No</label>
-                        <input asp-for="Id" hidden />
-                        <input asp-for="EmotionNo" type="number" min="0" class="form-control" placeholder="" />
-                        <span asp-validation-for="EmotionNo" class="text-theme-6 mt-2"></span>
-
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Emotion No</label>
+                            <input asp-for="EmotionNo" type="number" min="0" class="form-control" placeholder="Emotion Number" />
+                            <span asp-validation-for="EmotionNo" class="text-theme-6 mt-2"></span>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Emotion Name</label>
+                            <input asp-for="EmotionName" type="text" class="form-control" placeholder="Emotion" />
+                            <span asp-validation-for="EmotionName" class="text-theme-6 mt-2"></span>
+                        </div>
                     </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Emotion</label>
-                        <input asp-for="EmotionName" type="text" class="form-control" placeholder="Emotion" />
-                        <span asp-validation-for="EmotionName" class="text-theme-6 mt-2"></span>
 
-                    </div>
                     <div class="flex items-center pt-5 border-b border-gray-200 dark:border-dark-5">
                         <h2 class="font-medium text-theme-21 mr-auto">
                             Emotion Page
                         </h2>
                     </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Title</label>
-                        <input asp-for="Title" type="text" class="form-control" placeholder="Title" />
-                        <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Title</label>
+                            <input asp-for="Title" type="text" class="form-control" placeholder="Title" />
+                            <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
 
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Sub Title</label>
+                            <input asp-for="Subtitle" type="text" class="form-control" placeholder="Subtitle" />
+                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                        </div>
                     </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Sub Title</label>
-                        <input asp-for="Subtitle" type="text" class="form-control" placeholder="Subtitle" />
-                        <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
-
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Video</label>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Video Thumbnail Image</label>
+                            <select asp-for="ThumbnailImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            <span asp-validation-for="ThumbnailImageId" class="text-theme-6 mt-2"></span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Banner Image</label>
+                            <select asp-for="BannerImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Content Image</label>
+                            <select asp-for="ContentImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            <span asp-validation-for="ContentImageId" class="text-theme-6 mt-2"></span>
+                        </div>
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">Quote</label>
-                        <input asp-for="Quote" type="text" class="form-control" placeholder="Quote" />
+                        <textarea asp-for="Quote" type="text" class="form-control" placeholder="Quote"></textarea>
                         <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-
-                    </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Video</label>
-                        <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                        <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
-
-                    </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Content Image</label>
-                        <select asp-for="ContentImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                        <span asp-validation-for="ContentImageId" class="text-theme-6 mt-2"></span>
-
-                    </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Banner Image</label>
-                        <select asp-for="BannerImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                        <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
                     </div>
                     <div class="mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>

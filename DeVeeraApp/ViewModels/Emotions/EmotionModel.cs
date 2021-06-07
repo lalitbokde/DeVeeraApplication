@@ -30,6 +30,9 @@ namespace DeVeeraApp.ViewModels.Emotions
         public int BannerImageId { get; set; }
 
         [Required]
+        public int ThumbnailImageId { get; set; }
+
+        [Required]
         public string EmotionName { get; set; }
 
         [Required]
@@ -43,6 +46,10 @@ namespace DeVeeraApp.ViewModels.Emotions
 
         [Required]
         public string Description { get; set; }
+
+        public string ContentImageUrl { get; set; }
+        public string BannerImageUrl { get; set; }
+        public string ThumbnailImageUrl { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }

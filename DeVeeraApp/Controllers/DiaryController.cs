@@ -6,6 +6,7 @@ using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Customers;
 using CRM.Services.Emotions;
+using CRM.Services.Layoutsetup;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -38,6 +39,8 @@ namespace DeVeeraApp.Controllers
         private readonly IEmotionService _emotionService;
         private readonly IEmotionMappingService _emotionMappingService;
         private readonly IDiaryPasscodeService _diaryPasscodeService;
+        private readonly ILayoutSetupService _LayoutSetupService;
+        private readonly IImageMasterService _imageMasterService;
 
         #endregion
 
@@ -53,6 +56,8 @@ namespace DeVeeraApp.Controllers
                        IEmotionService emotionService,
                        IEmotionMappingService emotionMappingService,
                        IDiaryPasscodeService diaryPasscodeService,
+                       ILayoutSetupService layoutSetupService,
+                       IImageMasterService imageMasterService,
                         IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
@@ -68,6 +73,8 @@ namespace DeVeeraApp.Controllers
             _emotionService = emotionService;
             _emotionMappingService = emotionMappingService;
             _diaryPasscodeService = diaryPasscodeService;
+            _LayoutSetupService = layoutSetupService;
+            _imageMasterService = imageMasterService;
         }
 
         #endregion
@@ -122,6 +129,9 @@ namespace DeVeeraApp.Controllers
                     return RedirectToAction("EnterPasscode", "Diary");
                 }
 
+                var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+                model.DiaryHeaderImageUrl = data?.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.ImageUrl : null;
+           
                 var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
                 model.DiaryDate = DateTime.UtcNow;
                 model.Title = diary?.Title;

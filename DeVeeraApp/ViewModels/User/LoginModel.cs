@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeVeeraApp.ViewModels.LayoutSetups;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace DeVeeraApp.ViewModels.User
 {
     public partial class LoginModel : BaseEntityModel
-    {
+    {    
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
@@ -25,5 +26,8 @@ namespace DeVeeraApp.ViewModels.User
         public bool RememberMe { get; set; }
 
         public bool DisplayCaptcha { get; set; }
+
+        public string BannerImageUrl { get; set; }
+
     }
 }

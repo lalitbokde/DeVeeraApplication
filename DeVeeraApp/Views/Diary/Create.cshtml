@@ -5,7 +5,9 @@
 }
 
 <link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
-@{var user = _workContext.CurrentUser.UserRole.Name;}
+@{var user = _workContext.CurrentUser.UserRole.Name;
+  var DiaryHeaderImage = Model.DiaryHeaderImageUrl != null ? Model.DiaryHeaderImageUrl : "../../assets/images/howtowriteadiary.jpg";
+}
 
 
 <!-- Start Page Banner Area -->
@@ -14,7 +16,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
                 <div class="page-banner-image">
-                    <img src="~/assets/images/howtowriteadiary.jpg" alt="image">
+                    <img src="@DiaryHeaderImage" alt="image">
 
                     <div class="image-shape">
                         <img src="~/assets/images/page-banner/shape.png" alt="image">
