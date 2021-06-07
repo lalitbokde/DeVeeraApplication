@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DeVeeraApp.ViewModels.DashboardQuoteModel
+@{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 <!-- Start Main Slides Area -->
@@ -66,18 +67,29 @@
 
                     <div class="single-blog-item">
                         <div class="blog-image">
-                            <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
+
+                            @{
+                                if (item.SelectedImages.Count > 0)
+                                {
+                                    string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                    if (imageUrl != null)
+                                    {
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src=@imageUrl></a>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
+
+                                }
+                            }
 
                             <div class="tag">13th <span>Jan</span></div>
                         </div>
 
                         <div class="blog-content">
-                            <div class="meta">
-                                <p>
-                                    <i class="flaticon-user"></i>
-                                    By <a href="#">Andrew Smith</a>
-                                </p>
-                            </div>
+                           
 
                             <h3>
                                 <a href="blog-details.html">@item.Title</a>

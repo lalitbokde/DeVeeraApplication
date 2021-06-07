@@ -131,9 +131,6 @@ namespace DeVeeraApp.Controllers
                 {
                     var seletedImages = new SelectedImage();
                     var imagesRecord = _imageMasterService.GetImageById(item.Image.Id);
-                    var imageUrl = _s3BucketService.GetPreSignedURL(imagesRecord.Key);
-                    imagesRecord.ImageUrl = imageUrl.Result;
-                    _imageMasterService.UpdateImage(imagesRecord);
                     seletedImages.ImageUrl = imagesRecord.ImageUrl;
                     seletedImages.Key = imagesRecord.Key;
                     seletedImages.Name = imagesRecord.Name;
@@ -194,12 +191,12 @@ namespace DeVeeraApp.Controllers
                 {
                     foreach (var item in moduleImageList)
                     {
-                        var imageData = _imageMasterService.GetImageById(item.Id);
+                        var imageData = _imageMasterService.GetImageById(item.ImageId);
                         if (imageData != null)
                         {
                             var moduleImage = new SelectedImage();
                             moduleImage.ImageId = imageData.Id;
-                            moduleImage.ImageUrl = _s3BucketService.GetPreSignedURL(imageData.Key).Result;
+                            moduleImage.ImageUrl = imageData.ImageUrl;
                             moduleImage.Key = imageData.Key;
                             moduleImage.Name = imageData.Name;
                             module.SelectedModuleImages.Add(moduleImage);
@@ -215,7 +212,7 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.NextTitle = userNextLevel?.Title;
                 var level = _levelImageListServices.GetLevelImageListByLevelId(userNextLevel.Id);
-                videoData.NextImageUrl = level.Count() > 0 ? level.FirstOrDefault().Image?.ImageUrl:null;
+                videoData.NextImageUrl = level.Count > 0 ? _imageMasterService.GetImageById(level.FirstOrDefault().Image.Id).ImageUrl : null;
 
             }
 
@@ -225,7 +222,7 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.PrevTitle = userPreviousLevel?.Title;
                 var level = _levelImageListServices.GetLevelImageListByLevelId(userPreviousLevel.Id);
-                videoData.PrevImageUrl = level.Count() > 0 ? level.FirstOrDefault().Image?.ImageUrl : null;
+                videoData.PrevImageUrl = level.Count() > 0 ? _imageMasterService.GetImageById(level.FirstOrDefault().Image.Id).ImageUrl : null;
             }
 
 
