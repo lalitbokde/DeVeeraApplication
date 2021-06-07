@@ -12,6 +12,7 @@ using System.Reflection;
 using CRM.Core.Domain;
 using CRM.Core.Domain.VideoModules;
 using CRM.Core.Domain.Emotions;
+using CRM.Core.Domain.LayoutSetups;
 
 namespace CRM.Data
 {
@@ -78,7 +79,9 @@ namespace CRM.Data
         //Diary Passcode
 
         public DbSet<DiaryPasscode> DiaryPasscode { get; set; }
+        //Diary Layout Setup
 
+        public DbSet<LayoutSetup> LayoutSetup { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {

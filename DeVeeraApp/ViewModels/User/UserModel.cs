@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using DeVeeraApp.ViewModels.QuestionAnswer;
+using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.ViewModels.User
 {
@@ -41,6 +42,7 @@ namespace DeVeeraApp.ViewModels.User
         public Income IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
         public string ImageUrl { get; set; }
+        public string BannerImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
         public LandingPageModel LandingPageModel { get; set; }
         [NotMapped]
@@ -65,8 +67,6 @@ namespace DeVeeraApp.ViewModels.User
 
         //billing info
         public AddressModel UserAddress { get; set; }
-       
-
 
         public string ActiveTab { get; set; }
 

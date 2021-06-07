@@ -33,6 +33,8 @@ using CRM.Services;
 using CRM.Services.VideoModules;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Customers;
+using CRM.Services.Layoutsetup;
+using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.Controllers
 {
@@ -62,6 +64,8 @@ namespace DeVeeraApp.Controllers
         private readonly IEncryptionService _encryptionService;
         private readonly INotificationService _notificationService;
         private readonly IDiaryPasscodeService _diaryPasscodeService;
+        private readonly ILayoutSetupService _LayoutSetupService;
+        private readonly IImageMasterService _imageMasterService;
 
         #endregion
 
@@ -86,7 +90,9 @@ namespace DeVeeraApp.Controllers
                                   // INotificationService notificationService,
                                   IEncryptionService encryptionService,
                                   INotificationService notificationService,
-                                  IDiaryPasscodeService diaryPasscodeService
+                                  IDiaryPasscodeService diaryPasscodeService,
+                                  ILayoutSetupService layoutSetupService,
+                                  IImageMasterService imageMasterService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -113,6 +119,8 @@ namespace DeVeeraApp.Controllers
             _encryptionService = encryptionService;
             _notificationService = notificationService;
             _diaryPasscodeService = diaryPasscodeService;
+            _LayoutSetupService = layoutSetupService;
+            _imageMasterService = imageMasterService;
         }
 
         #endregion
@@ -471,8 +479,9 @@ namespace DeVeeraApp.Controllers
 
         public virtual IActionResult Login()
         {
-
             var model = _UserModelFactory.PrepareLoginModel();
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl:null;
             return View(model);
         }
 
@@ -567,7 +576,10 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Register()
         {
-            return View();
+            var model = new UserModel();
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
+            return View(model);
         }
 
         [HttpPost]

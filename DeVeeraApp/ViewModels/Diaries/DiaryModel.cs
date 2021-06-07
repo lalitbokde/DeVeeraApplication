@@ -20,7 +20,7 @@ namespace DeVeeraApp.ViewModels.Diaries
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
         public string DiaryColor { get; set; }
-
+        public string DiaryHeaderImageUrl { get; set; }
         public bool Deleted { get; set; }
         public string Level { get; set; }
 

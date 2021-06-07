@@ -141,6 +141,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 emotion.Quote = model.Quote;
                 emotion.Description = model.Description;
                 emotion.VideoId = model.VideoId;
+                emotion.ThumbnailImageId = model.ThumbnailImageId;
                 emotion.BannerImageId = model.BannerImageId;
                 emotion.ContentImageId = model.ContentImageId;
                 emotion.LastUpdatedOn = DateTime.UtcNow;
