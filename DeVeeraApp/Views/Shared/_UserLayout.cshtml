@@ -67,12 +67,12 @@
                         </li>*@
                          <li>
                             <i class="flaticon-phone-call"></i>
-                            <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id">My Account</a>
+                            <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id">@T("My Account")</a>
                         </li>
 
                         <li>
                             <i class="flaticon-mail"></i>
-                            <a asp-controller="User" asp-action="Logout">Logout</a>
+                            <a asp-controller="User" asp-action="Logout">@T("Logout")</a>
                         </li>
 
 
@@ -139,7 +139,7 @@
 
                             <div class="option-item">
                                 <div class="navbar-btn">
-                                    <a asp-controller="Diary" asp-action="Create" class="default-btn">Diary <i class="flaticon-pointer"></i></a>
+                                    <a asp-controller="Diary" asp-action="Create" class="default-btn">@T("Diary") <i class="flaticon-pointer"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -242,11 +242,11 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
-                        <h3>Quick Links</h3>
+                        <h3>@T("Quick Links")</h3>
 
                         <ul class="quick-links">
                             <li>
-                                <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> Home</a>
+                                <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> @T("Home")</a>
                             </li>
 
                         </ul>
@@ -255,26 +255,26 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
-                        <h3>Explore</h3>
+                        <h3>@T("Explore")</h3>
 
                         <ul class="quick-links">
                             <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> About Us</a>
+                                <a href="#"><i class='bx bxs-right-arrow'></i>@T("About Us")</a>
                             </li>
                             <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> Success Story</a>
+                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Success Story")</a>
                             </li>
                             <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> Membership</a>
+                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Membership")</a>
                             </li>
                             <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> Purchase Guide</a>
+                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Purchase Guide")</a>
                             </li>
                             <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> Privacy Policy</a>
+                                <a href="#"><i class='bx bxs-right-arrow'></i>  @T("Privacy Policy")</a>
                             </li>
                             <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> Terms Of Services</a>
+                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Terms Of Services")</a>
                             </li>
                         </ul>
                     </div>
@@ -282,22 +282,22 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
-                        <h3>Contact Us</h3>
+                        <h3>@T("Contact Us")</h3>
 
                         <ul class="footer-contact-info">
                             <li>
                                 <i class='flaticon-phone-call'></i>
-                                <span>Phone No:</span>
+                                <span>@T("Phone No:")</span>
                                 <a href="tel:9885394203">+988 5394 203</a>
                             </li>
                             <li>
                                 <i class='flaticon-mail'></i>
-                                <span>Email Address:</span>
+                                <span>@T("Email Address:")</span>
                                 <a href="mailto:happe@gmail.com">Happe@gmail.com</a>
                             </li>
                             <li>
                                 <i class='flaticon-placeholder'></i>
-                                <span>Location:</span>
+                                <span>@T("Location:")</span>
                                 3 Edgar Buildings, George Street, England, BA1 2FJ.
                             </li>
                         </ul>
@@ -312,7 +312,7 @@
         <div class="container">
             <div class="copyright-area-content">
                 <p>
-                    Copyright © 2021 Happe. All rights reserved By
+                    @T("Copyright © 2021 Happ-e. All rights reserved By")
                     <a>Happe Team</a>
                 </p>
             </div>

@@ -140,13 +140,13 @@
 
                             <div class="col-lg-6">
                                 <div class="main-banner-content">
-                                    <h1> @Model.Title <span>Psychologist</span></h1>
+                                    <h1> @Model.Title <span>@T("Psychologist")</span></h1>
                                     @Html.Raw(@Model.Subtitle)
                                 <div class="banner-btn">
 
                                     @if (ViewBag.SrNo != 0)
                                     {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn" >Let's Continue <i class="flaticon-pointer"></i></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn" >@T("Let's Continue ")<i class="flaticon-pointer"></i></a>
 
                                     }
                                     else
@@ -178,7 +178,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="about-main-content">
-                        <h3>Know About Us</h3>
+                        <h3>@T("Know About Us")</h3>
 
                         <div class="about-content-image">
                             <img src="~/assets/images/about/about-2.jpg" alt="image">

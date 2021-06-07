@@ -40,7 +40,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="courses-details-desc">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">Overview</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("Overview")</a></li>
                         @*<li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Curriculum</a></li>
                             <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
                             <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
@@ -109,7 +109,7 @@
 
                     <div class="courses-share">
                         <div class="share-info">
-                            <span>Share This Course</span>
+                            <span>@T("Share This Course")</span>
 
                             <ul class="social-link">
                                 <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
@@ -138,11 +138,11 @@
 
                             <span class="prev-link-info-wrapper">
                                 <span class="prev-title">
-                                    How Does A Psychologist Help To Maintain A Good Mental Health
+                                    @T("How Does A Psychologist Help To Maintain A Good Mental Health")
                                 </span>
                             </span>
                         </a>
-                        <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">Previous <i class="flaticon-left-arrow"></i></a>
+                        <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Previous") <i class="flaticon-left-arrow"></i></a>
                     </div>
                 </div>
 
@@ -155,7 +155,7 @@
                         <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
-                                    How Does Consulting A Psychologist Help To Solve Your Problem?
+                                    @T("How Does Consulting A Psychologist Help To Solve Your Problem?")
                                 </span>
                             </span>
 
@@ -164,7 +164,7 @@
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
-                        <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">Next <i class="flaticon-right-arrow"></i></a>
+                        <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Next") <i class="flaticon-right-arrow"></i></a>
                     </div>
                 </div>
 
@@ -176,7 +176,7 @@
                         <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
-                                    How Does Consulting A Psychologist Help To Solve Your Problem?
+                                    @T("How Does Consulting A Psychologist Help To Solve Your Problem?")
                                 </span>
                             </span>
 
@@ -185,7 +185,7 @@
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
-                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">Next <i class="flaticon-right-arrow"></i></a>
+                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Next") <i class="flaticon-right-arrow"></i></a>
                     </div>
                 </div>
 

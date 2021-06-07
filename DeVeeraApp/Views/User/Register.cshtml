@@ -24,7 +24,7 @@
     <section class="register-area ptb-100">
         <div class="container">
             <div class="register-form">
-                <h2>Register</h2>
+                <h2>@T("Register")</h2>
 
                 <form asp-controller="User" asp-action="Register" method="post">
                     <input type="hidden" asp-for="UserRoleId" value="1" />
@@ -37,12 +37,12 @@
 
                     <div class="form-group">
                         <label>@T("Mobile Number")</label>
-                        <input asp-for="@Model.MobileNumber" type="number" class="form-control" placeholder="Phone">
+                        <input asp-for="@Model.MobileNumber" type="number" class="form-control" placeholder="@T("Mobile Number")">
                     </div>
 
                     <div class="form-group">
-                        <label>Password</label>
-                        <input asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="Password">
+                        <label>@T("Password")</label>
+                        <input asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="@T("Password")">
                         <span asp-validation-for="UserPassword.Password" class="text-theme-6 mt-2"></span>
                     </div>
 

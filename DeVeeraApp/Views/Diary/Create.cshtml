@@ -26,12 +26,12 @@
 
             <div class="col-lg-6 col-md-6">
                 <div class="page-banner-content">
-                    <h2>My Diary</h2>
+                    <h2>@T("My Diary")</h2>
                     <ul>
                         <li>
-                            <a asp-controller="Dashboard" asp-action="Index">Home</a>
+                            <a asp-controller="Dashboard" asp-action="Index">@T("Home")</a>
                         </li>
-                        <li>My Diary Entry</li>
+                        <li>@T("My Diary Entry")</li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <div class="content-image">
                         <img src="~/assets/images/services-details/shape.jpg" alt="image">
 
-                        <h4 class="sub-title">Dear Diary</h4>
+                        <h4 class="sub-title">@T("Dear Diary")</h4>
                     </div>
                     <form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="return getDiaryContent()">
                         <div id="creatediaryForm">
@@ -71,7 +71,7 @@
                                          </div>
                                             <div id="savediary" class="col-lg-4 text-end mt-3">
                                                 <button type="submit" class="btn default-btn me-4">
-                                                    Save Diary
+                                                    @T("Save Diary")
                                                     <i class="flaticon-pointer"></i>
                                                 </button>
 
@@ -86,7 +86,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 text-center mr-4">
-                                                <div class="font-medium text-xl">Diary</div>
+                                                <div class="font-medium text-xl">@T("Diary")</div>
                                             </div>
                                             <div class="col-lg-4 mt-2 text-center">
                                                 <a><div class="sticky-note-white" id="#FFFFFF" onclick="getDiaryColor(this.id)"></div></a>
@@ -109,9 +109,9 @@
                                         <input asp-for="DiaryColor" hidden />
                                         <div id="diaryContent">
 
-                                            <label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ...">@Html.Raw(Model.Title)</div><br /><br />
-                                            <label class="text-theme-21 star"> Diary Entry  </label><br />
-                                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ...">@Html.Raw(Model.Comment)</div>
+                                            <label class="text-theme-21 star">@T("Title") </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="@T("Enter Title Here ...")">@Html.Raw(Model.Title)</div><br /><br />
+                                            <label class="text-theme-21 star"> @T("Diary Entry")  </label><br />
+                                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="@T("Enter Description Here ...")">@Html.Raw(Model.Comment)</div>
                                         </div>
                                     </div>
                                 </div>

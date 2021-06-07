@@ -27,10 +27,10 @@
             <div class="col-lg-12 col-md-12">
                 <div class="courses-details-desc">
                     <ul class="nav nav-tabs"  role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">My Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Change Password</a></li>
-                        <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Change Language</a></li>
-                        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("My Profile")</a></li>
+                        <li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">@T("Change Password")</a></li>
+                        <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">@T("Change Language")</a></li>
+                        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">@T("Reviews")</a></li>
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
@@ -43,11 +43,11 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="book-online-form">
-                                                    <h3>My Profile</h3>
+                                                    <h3>@T("My Profile")</h3>
 
                                                     <form asp-controller="User" asp-action="UserProfile"  method="post">
                                                         <div class="form-group">
-                                                            <input type="text" asp-for="@Model.Email" class="form-control" placeholder="user name">
+                                                            <input type="text" asp-for="@Model.Email" class="form-control" placeholder="@T("Username")">
                                                         </div>
 
                                                         <div class="form-group">
@@ -55,19 +55,19 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <input type="text" asp-for="@Model.Age" class="form-control" placeholder="age">
+                                                            <input type="text" asp-for="@Model.Age" class="form-control" placeholder="@T("age")">
                                                         </div>
                                                         <div class="form-group">
                                                             <select type="text" asp-for="@Model.EducationType" asp-items="@Html.GetEnumSelectList<Education>()" class="form-control"></select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="text" asp-for="@Model.Occupation" class="form-control" placeholder="Phone Number">
+                                                            <input type="text" asp-for="@Model.Occupation" class="form-control" placeholder="@T("Phone Number")">
                                                         </div>
                                                         <div class="form-group">
                                                             <select type="text" asp-for="@Model.FamilyOrRelationshipType" asp-items="@Html.GetEnumSelectList<FamilyOrRelationship>()" class="form-control"></select>
                                                         </div>
                                                         <div class="book-online-btn">
-                                                            <button type="submit" class="default-btn">Save <i class="flaticon-pointer"></i></button>
+                                                            <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -92,21 +92,21 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="book-online-form">
-                                                <h3>Change Password</h3>
+                                                <h3>@T("Change Password")</h3>
 
                                                 <form asp-controller="User" asp-action="UserProfile" method="post">
                                                     <input asp-for="Id" hidden />
                                                     <input asp-for="@Model.Email" id="hiddenEmail" hidden />
 
                                                     <div class="form-group">
-                                                        <input type="text" asp-for="@Model.UserPassword.Password" class="form-control" placeholder="password">
+                                                        <input type="text" asp-for="@Model.UserPassword.Password" class="form-control" placeholder="@T("password")">
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <input type="text" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="confirm password">
+                                                        <input type="text" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="@T("Confirm Password")">
                                                     </div>
                                                     <div class="book-online-btn">
-                                                        <button type="submit" class="default-btn">Save <i class="flaticon-pointer"></i></button>
+                                                        <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -127,7 +127,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="book-online-form">
-                                                <h3>Change Language</h3>
+                                                <h3>@T("Change Language")</h3>
                                                 <div class="form-group">
                                                     @await Component.InvokeAsync("SelectLanguage", Model)
                                                 </div>
@@ -144,7 +144,7 @@
 
                         <div class="tab-pane fade" id="reviews" role="tabpanel">
                             <div class="courses-reviews">
-                                <h3>Course Rating</h3>
+                                <h3>@T("Course Rating")</h3>
                                 <div class="rating">
                                     <span class="bx bxs-star checked"></span>
                                     <span class="bx bxs-star checked"></span>
@@ -153,11 +153,11 @@
                                     <span class="bx bxs-star"></span>
                                 </div>
                                 <div class="rating-count">
-                                    <span>4.1 average based on 4 reviews.</span>
+                                    <span>4.1 @T("average based on") 4 @T("reviews").</span>
                                 </div>
                                 <div class="row">
                                     <div class="side">
-                                        <div>5 star</div>
+                                        <div>5 @T("star")</div>
                                     </div>
                                     <div class="middle">
                                         <div class="bar-container">
@@ -168,7 +168,7 @@
                                         <div>02</div>
                                     </div>
                                     <div class="side">
-                                        <div>4 star</div>
+                                        <div>4  @T("star")</div>
                                     </div>
                                     <div class="middle">
                                         <div class="bar-container">
@@ -179,7 +179,7 @@
                                         <div>03</div>
                                     </div>
                                     <div class="side">
-                                        <div>3 star</div>
+                                        <div>3  @T("star")</div>
                                     </div>
                                     <div class="middle">
                                         <div class="bar-container">
@@ -190,7 +190,7 @@
                                         <div>04</div>
                                     </div>
                                     <div class="side">
-                                        <div>2 star</div>
+                                        <div>2  @T("star")</div>
                                     </div>
                                     <div class="middle">
                                         <div class="bar-container">
@@ -201,7 +201,7 @@
                                         <div>05</div>
                                     </div>
                                     <div class="side">
-                                        <div>1 star</div>
+                                        <div>1  @T("star")</div>
                                     </div>
                                     <div class="middle">
                                         <div class="bar-container">
@@ -215,7 +215,7 @@
                             </div>
 
                             <div class="courses-review-comments">
-                                <h3>3 Reviews</h3>
+                                <h3>3 @T("Reviews")</h3>
                                 <div class="user-review">
                                     <img src="assets/images/courses/images-1.jpg" alt="image">
 
