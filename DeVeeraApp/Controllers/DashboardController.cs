@@ -19,6 +19,8 @@ using CRM.Core;
 using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
+using CRM.Services.Layoutsetup;
+using DeVeeraApp.ViewModels.LayoutSetups;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,6 +43,7 @@ namespace DeVeeraApp.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoMasterService;
         private readonly IS3BucketService _s3BucketService;
+        private readonly ILayoutSetupService _LayoutSetupService;
 
         #endregion
 
@@ -58,7 +61,8 @@ namespace DeVeeraApp.Controllers
                               IImageMasterService imageMasterService,
                               IVideoMasterService videoMasterService,
                               IS3BucketService s3BucketService,
-                              IUserService userService
+                              IUserService userService,
+                              ILayoutSetupService layoutSetupService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -74,6 +78,7 @@ namespace DeVeeraApp.Controllers
             _imageMasterService = imageMasterService;
             _videoMasterService = videoMasterService;
             _s3BucketService = s3BucketService;
+            _LayoutSetupService = layoutSetupService;
         }
 
         #endregion
@@ -85,6 +90,16 @@ namespace DeVeeraApp.Controllers
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var model = new DashboardQuoteModel();
+
+            var result = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+
+            if (result != null)
+            {
+                model.layoutSetup = result.ToModel<LayoutSetupModel>();
+                model.layoutSetup.SliderOneImageUrl= result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
+                model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
+                model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
+            }
 
             var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
 

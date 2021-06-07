@@ -87,8 +87,9 @@ namespace DeVeeraApp.Controllers
             if (emotion != null)
             {
                  model = emotion.ToModel<EmotionModel>();
-                 ViewBag.ContentImage = _imageMasterService.GetImageById(emotion.ContentImageId)?.ImageUrl;
-                 ViewBag.BannerImage = _imageMasterService.GetImageById(emotion.BannerImageId)?.ImageUrl;
+                 model.ContentImageUrl = emotion.ContentImageId > 0 ?_imageMasterService.GetImageById(emotion.ContentImageId)?.ImageUrl:null;
+                 model.BannerImageUrl = emotion.BannerImageId > 0 ?_imageMasterService.GetImageById(emotion.BannerImageId)?.ImageUrl:null;
+                 model.ThumbnailImageUrl = emotion.ThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.ThumbnailImageId)?.ImageUrl:null;
             }
             return View(model);
         }

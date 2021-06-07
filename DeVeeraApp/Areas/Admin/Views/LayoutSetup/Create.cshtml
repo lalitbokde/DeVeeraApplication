@@ -1,0 +1,146 @@
+﻿@model DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-controller="LayoutSetup" asp-action="Create" method="post" id="LayoutSetupForm" onsubmit="ShowLoader('LayoutSetupForm');">
+    <div class="intro-y inbox py-10 sm:py-20 ">
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg">Create Layout Setup </div>
+            <div class="text-gray-600 text-center mt-2">Please layout setup to show on the dashboad page</div>
+        </div>
+        <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                <div class="intro-y box p-5 col-span-12">
+                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                    {
+                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                        </div>
+                    }
+
+                    <div class="px-5 ">
+                        <div class="font-medium text-center  text-theme-21">User Dashboard</div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-4 mb-4">
+                            <div class="mt-5">
+                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" required />
+                                <span asp-validation-for="SliderOneTitle" class="text-theme-6 mt-2"></span>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image</label>
+                                <select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
+                                <span asp-validation-for="SliderOneDescription" class="text-theme-6 mt-2"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-span-4 mb-4">
+                            <div class="mt-5">
+                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
+                                <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
+                                <span asp-validation-for="SliderTwoTitle" class="text-theme-6 mt-2"></span>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Image</label>
+                                <select asp-for="SliderTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                                <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
+                                <span asp-validation-for="SliderTwoDescription" class="text-theme-6 mt-2"></span>
+                            </div>
+                        </div>
+                        <div class="col-span-4 mb-4">
+                            <div class="mt-5">
+                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Title</label>
+                                <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
+                                <span asp-validation-for="SliderThreeTitle" class="text-theme-6 mt-2"></span>
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Image</label>
+                                <select asp-for="SliderThreeImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Description</label>
+                                <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
+                                <span asp-validation-for="SliderThreeDescription" class="text-theme-6 mt-2"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Registration Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
+                                <select asp-for="BannerOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Login Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
+                                <select asp-for="BannerTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Diary Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
+                                <select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <div class="grid grid-cols-12  gap-y-5 mt-5">
+                            <div class="intro-y   col-span-6">
+                                @*<a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="btn btn-primary w-24"> List</a>*@
+                                <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                    Back to List
+                                    <a asp-controller="LayoutSetup" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " >
+                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="intro-y  col-span-6 ml-auto">
+
+                                <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+    </div>
+</form>
+
