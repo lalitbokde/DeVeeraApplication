@@ -97,7 +97,7 @@ namespace DeVeeraApp.Controllers
                     {
                         var seletedImages = new SelectedImage();
 
-                        seletedImages.ImageUrl = _s3BucketService.GetPreSignedURL(imgData.Key).Result;
+                        seletedImages.ImageUrl = imgData.ImageUrl;
                         seletedImages.ImageId = imgData.Id;
                         seletedImages.Key = imgData.Key;
                         seletedImages.Name = imgData.Name;

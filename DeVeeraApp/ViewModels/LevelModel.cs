@@ -25,6 +25,7 @@ namespace DeVeeraApp.ViewModels
             SelectedImg = new List<string>();
             SelectedModuleImages = new List<SelectedImage>();
             ModuleList = new List<ModulesModel>();
+            SelectedImages = new List<SelectedImage>();
         }
 
         [Required]

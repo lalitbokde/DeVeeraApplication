@@ -40,6 +40,7 @@ namespace DeVeeraApp.Controllers
         private readonly IFeelGoodStoryServices _feelGoodStoryServices;
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoMasterService;
+        private readonly ILevelImageListServices _levelImageListServices;
         private readonly IS3BucketService _s3BucketService;
 
         #endregion
@@ -57,6 +58,7 @@ namespace DeVeeraApp.Controllers
                               IFeelGoodStoryServices feelGoodStoryServices,
                               IImageMasterService imageMasterService,
                               IVideoMasterService videoMasterService,
+                              ILevelImageListServices levelImageListServices,
                               IS3BucketService s3BucketService,
                               IUserService userService
                               ) : base(workContext: workContext,
@@ -73,6 +75,7 @@ namespace DeVeeraApp.Controllers
             _feelGoodStoryServices = feelGoodStoryServices;
             _imageMasterService = imageMasterService;
             _videoMasterService = videoMasterService;
+            _levelImageListServices = levelImageListServices;
             _s3BucketService = s3BucketService;
         }
 
@@ -119,8 +122,38 @@ namespace DeVeeraApp.Controllers
                         {
                             if (item.Active == true && item.Id <= lastlevel)
                             {
+                                
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
 
+                                if(model.VideoModelList.Count() > 0)
+                                {
+                                    foreach(var level in model.VideoModelList)
+                                    {
+                                        var leveldata = _levelServices.GetLevelById(level.Id);
+                                        if(leveldata != null)
+                                        {
+                                            var Images = _levelImageListServices.GetLevelImageListByLevelId(leveldata.Id);
+
+                                            if(Images.Count > 0)
+                                            {
+                                                foreach(var imgdata in Images)
+                                                {
+                                                    var img = _imageMasterService.GetImageById(imgdata.ImageId);
+                                                    var levelImage = new SelectedImage();
+                                                    levelImage.ImageId = img.Id;
+                                                    levelImage.ImageUrl = img.ImageUrl;
+                                                    levelImage.Key = img.Key;
+                                                    levelImage.Name = img.Name;
+                                                    level.SelectedImages.Add(levelImage);
+                                                }
+
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                                
                                 if (item.Id == lastlevel)
                                 {
                                     break;

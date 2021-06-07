@@ -10,13 +10,16 @@ namespace CRM.Services
     {
         #region fields
         private readonly IRepository<Video> _videoRepository;
+        private readonly IS3BucketService _s3BucketService;
         #endregion
 
 
         #region ctor
-        public VideoMasterService(IRepository<Video> videoRepository)
+        public VideoMasterService(IRepository<Video> videoRepository,
+                                  IS3BucketService s3BucketService)
         {
             _videoRepository = videoRepository;
+            _s3BucketService = s3BucketService;
         }
 
         #endregion
@@ -44,8 +47,13 @@ namespace CRM.Services
             if (videoId == 0)
                 return null;
 
-
-            return _videoRepository.GetById(videoId);
+            var data = _videoRepository.GetById(videoId);
+            if(data != null)
+            {
+                data.VideoUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                UpdateVideo(data);
+            }
+            return data;
         }
 
         public IList<Video> GetVideoByIds(int[] VideoIds)

@@ -170,7 +170,7 @@ namespace DeVeeraApp.Controllers
 
             if(model != null)
             {
-                model.VideoUrl = data?.Video?.VideoUrl;
+                model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
 
                 if (currentUser.LastLevel != null)
                     level = _levelServices.GetLevelById((int)currentUser.LastLevel);
