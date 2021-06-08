@@ -77,7 +77,7 @@
                     <h2>@T("What is your Happiness Level Today?")</h2>
 
                   
-                    <form asp-controller="Home" asp-action="AskHappynessLevel" method="post">
+                    <form id="happynessLevel_form" asp-controller="Home" asp-action="AskHappynessLevel" method="post">
                         <input asp-for="HappynessLevelTypeId" hidden />
                         <div class="rating">
                             <input type="radio" name="rating" id="rata10" value="@Convert.ToInt32(HappynessLevelType.LevelTen)" onclick="getHappynessLevel(this.value)"><label for="rata10">10</label>
@@ -95,8 +95,11 @@
                             <span asp-validation-for="HappynessLevelTypeId" class="text-theme-6 mt-2"></span>
                         </div>
 
-
-                        <button type="submit" class="default-btn">@T("Proceed")</button>
+                        <div class="about-btn mt-2">
+                            @*<button type="submit" class="default-btn">@T("Proceed")</button>*@
+                            <a a href="#" onclick="document.getElementById('happynessLevel_form').submit();" class="default-btn">@T("Proceed")<i class="flaticon-right-arrow"></i></a>
+                        </div>
+                       
                         <div id="validator-newsletter" class="form-result"></div>
                     </form>
                 </div>
