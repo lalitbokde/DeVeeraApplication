@@ -1,4 +1,4 @@
-﻿using CRM.Core;
+﻿ using CRM.Core;
 using CRM.Core.Domain;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
@@ -138,7 +138,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 model.VideoId =  (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
 
                 var data = model.ToEntity<Level>();
-
+                data.CreatedOn = DateTime.Now;
                 data.Title = model.Title;
 
                 if (model.SelectedEmotions.Count() != 0)
@@ -285,6 +285,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 levelData.VideoId = model.VideoId;
                 levelData.Active = model.Active;
                 levelData.EmotionId = model.EmotionId;
+                levelData.UpdatedOn = DateTime.Now;
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
                 if (model.SelectedImg.Count() != 0)

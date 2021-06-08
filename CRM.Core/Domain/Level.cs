@@ -14,6 +14,8 @@ namespace CRM.Core.Domain
         public int EmotionId { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
         //public string Quote { get; set; }
         public string FullDescription { get; set; }
         public bool Active { get; set; }

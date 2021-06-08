@@ -42,7 +42,9 @@ namespace DeVeeraApp.ViewModels
         public string Title { get; set; }
         [Required]
         public string Subtitle { get; set; }
-     
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
+
         public string Quote { get; set; }
         public string Author { get; set; }
 
