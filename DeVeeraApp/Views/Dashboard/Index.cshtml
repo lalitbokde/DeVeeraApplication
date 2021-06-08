@@ -2,6 +2,12 @@
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<style>
+    .img-htwtLevels {
+        height: 500px;
+        width: 750px;
+    }
+</style>
 <!-- Start Main Slides Area -->
 <div class="main-slides-area">
     <div class="home-slides owl-carousel owl-theme">
@@ -58,57 +64,62 @@
         </div>
 
         <div class="blog-slides owl-carousel owl-theme">
+            <div class="row">
 
-            @{
+                @{
 
-                int i = 1;
-                @foreach (var item in Model.VideoModelList)
-                {
+                    int i = 1;
+                    @foreach (var item in Model.VideoModelList)
+                    {
+                        <div class="col-span-6">
+                            <div class="single-blog-item">
+                                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i">
+                                    <div class="blog-image">
 
-                    <div class="single-blog-item" >
-                        <div class="blog-image">
+                                        @{
+                                            if (item.SelectedImages.Count > 0)
+                                            {
+                                                string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                                if (imageUrl != null)
+                                                {
+                                                    <span><img class="img-htwtLevels" src=@imageUrl ></span>
 
-                            @{
-                                if (item.SelectedImages.Count > 0)
-                                {
-                                    string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
-                                    if (imageUrl != null)
-                                    {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src=@imageUrl></a>
 
-                                    }
-                                }
-                                else
-                                {
-                                    <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span><img src="~/assets/images/blog/blog-1.jpg" alt="image"></span>
 
-                                }
-                            }
+                                            }
+                                        }
 
-                            <div class="tag">13th <span>Jan</span></div>
-                        </div>
+                                        <div class="tag">13th <span>Jan</span></div>
+                                    </div>
 
-                        <div class="blog-content">
-                           
+                                    <div class="blog-content">
 
-                            <h3>
-                                <a href="blog-details.html">@item.Title</a>
-                            </h3>
-                            <div class="blog-btn">
-                                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" class="default-btn">@T("Read More") <i class="flaticon-plus"></i></a>
+
+                                        <h3>
+                                            <span>@item.Title</span>
+                                        </h3>
+                                        <div class="blog-btn">
+                                            <span class="default-btn">@T("Read More") <i class="flaticon-plus"></i></span>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                    </div>
-                
-                    i++;
+                        i++;
+
+                    }
 
                 }
-            }
+
+            </div>
 
 
-
-
-        </div>
-    </div>
+                    </div>
+                </div>
 </section>
 <!-- End Blog Area -->
