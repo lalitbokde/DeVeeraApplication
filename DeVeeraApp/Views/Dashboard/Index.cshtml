@@ -2,6 +2,13 @@
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+<style>
+    .img-htwtLevels {
+        height: 500px;
+        width: 750px;
+    }
+</style>
+
 <!-- Start Main Slides Area -->
 <div class="main-slides-area">
     <div class="home-slides owl-carousel owl-theme">
@@ -74,7 +81,7 @@
                                     string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
                                     if (imageUrl != null)
                                     {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src=@imageUrl></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img  class="img-htwtLevels" src=@imageUrl></a>
 
                                     }
                                 }
@@ -92,7 +99,7 @@
                            
 
                             <h3>
-                                <a href="blog-details.html">@item.Title</a>
+                                <a >@item.Title</a>
                             </h3>
                             <div class="blog-btn">
                                 <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" class="default-btn">@T("Read More") <i class="flaticon-plus"></i></a>
