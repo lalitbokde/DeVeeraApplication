@@ -78,6 +78,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     var imageUrl = UploadToAWS(model.FileName);
                     data.ImageUrl = imageUrl.Result.ToString();
                     data.Key = model.FileName;
+                    data.CreatedOn = DateTime.Now;
+                    data.UpdatedOn = DateTime.Now;
                     _imageMasterService.InsertImage(data);
                     _notificationService.SuccessNotification("Image url added successfully");
                     return RedirectToAction("List");
@@ -101,7 +103,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<ImageModel>();
-                    model.ImageUrl = _s3BucketService.GetPreSignedURL(model.Key).Result;
                     return View(model);
                 }
             }
@@ -122,6 +123,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         var url = UploadToAWS(model.FileName);
                         imageData.ImageUrl = url.Result;
                         imageData.Key = model.FileName;
+                        imageData.UpdatedOn = DateTime.Now;
 
                     }
                 }

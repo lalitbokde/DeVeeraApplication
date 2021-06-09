@@ -60,7 +60,16 @@
 
                                                         <td class="border-b dark:border-dark-5">@item.Name</td>
                                                         <td class="border-b dark:border-dark-5">@item.IsNew</td>
-                                                        <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Video" asp-action="Play" asp-route-Id="@item.Id"><i data-feather="play"></i></a></td>
+                                                        @if (string.IsNullOrWhiteSpace(item.VideoUrl))
+                                                        {
+                                                           <td class="border-b dark:border-dark-5">No Video</td>
+
+                                                        }
+                                                        else
+                                                        {
+                                                             <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Video" asp-action="Play" asp-route-Id="@item.Id"><i data-feather="play"></i></a></td>
+
+                                                        }
 
                                                         <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Video" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
                                                         <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteVideo(@item.Id)')"><i data-feather="trash-2"></i></a></td>

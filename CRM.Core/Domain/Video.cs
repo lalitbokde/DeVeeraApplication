@@ -10,5 +10,8 @@ namespace CRM.Core.Domain
         public string VideoUrl { get; set; }
         public string Key { get; set; }
         public bool IsNew { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
+
     }
 }

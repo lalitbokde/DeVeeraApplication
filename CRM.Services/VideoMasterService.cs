@@ -50,8 +50,17 @@ namespace CRM.Services
             var data = _videoRepository.GetById(videoId);
             if(data != null)
             {
-                data.VideoUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
-                UpdateVideo(data);
+                if (data.UpdatedOn.ToShortDateString() != DateTime.Now.ToShortDateString())
+                {
+                    if(data.Key != null)
+                    {
+                        data.VideoUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                        data.UpdatedOn = DateTime.Now;
+                        UpdateVideo(data);
+
+                    }
+
+                }
             }
             return data;
         }
