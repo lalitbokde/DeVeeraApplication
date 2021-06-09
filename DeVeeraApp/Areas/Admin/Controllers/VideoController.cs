@@ -90,6 +90,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     data.VideoUrl = url.Result.ToString();
                     data.Name = model.Name;
                     data.IsNew = model.IsNew;
+                    data.CreatedOn = DateTime.Now;
+                    data.UpdatedOn = DateTime.Now;
                     _videoMasterService.InsertVideo(data);
                     _notificationService.SuccessNotification("Video url added successfully.");
                     return RedirectToAction("List");
@@ -166,6 +168,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         var url = UploadVideo(model.FileName);
                         videoData.VideoUrl = url.Result;
                         videoData.Key = model.FileName;
+                        videoData.UpdatedOn = DateTime.Now;
 
                     }
                 }
@@ -175,7 +178,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
                
                 videoData.Name = model.Name;
-                videoData.IsNew = model.IsNew;
                 videoData.IsNew = model.IsNew;
 
                 _videoMasterService.UpdateVideo(videoData);

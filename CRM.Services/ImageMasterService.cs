@@ -46,23 +46,37 @@ namespace CRM.Services
             {
                 foreach(var item in images)
                 {
-                    item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key).Result;
-                    UpdateImage(item);
+                    if(item.UpdatedOn.ToShortDateString() != DateTime.Now.ToShortDateString())
+                    {
+                        item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key).Result;
+                        item.UpdatedOn = DateTime.Now;
+                        UpdateImage(item);
+
+                    }
                 }
             }
             return images;
         }
 
-        public virtual Image GetImageById(int videoId)
+        public virtual Image GetImageById(int imageId)
         {
-            if (videoId == 0)
+            if (imageId == 0)
                 return null;
 
-            var data = _imageRepository.GetById(videoId); 
+            var data = _imageRepository.GetById(imageId); 
             if(data != null)
             {
-                data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
-                UpdateImage(data);
+                if (data.UpdatedOn.ToShortDateString() != DateTime.Now.ToShortDateString())
+                {
+                    if(data.Key != null)
+                    {
+                        data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                        data.UpdatedOn = DateTime.Now;
+                        UpdateImage(data);
+
+                    }
+
+                }
             }
             return data;
         }
