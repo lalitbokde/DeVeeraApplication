@@ -63,7 +63,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            AddBreadcrumbs("Image", "Create", "/Image/Create", "/Image/Create");
+            AddBreadcrumbs("Image", "Create", "/Admin/Image/List", "/Admin/Image/Create");
             return View();
         }
 
@@ -94,7 +94,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("Image", "Edit", $"/Image/Edit/{id}", $"/Image/Edit/{id}");
+            AddBreadcrumbs("Image", "Edit", $"/Admin/Image/List", $"/Admin/Image/Edit/{id}");
             if (id != 0)
             {
                 var data = _imageMasterService.GetImageById(id);
@@ -139,7 +139,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("Image", "List", "/Image/List", "/Image/List");
+            AddBreadcrumbs("Image", "List", "/Admin/Image/List", "/Admin/Image/List");
             var imageList = _imageMasterService.GetAllImages();
             var model = new List<ImageModel>();
 

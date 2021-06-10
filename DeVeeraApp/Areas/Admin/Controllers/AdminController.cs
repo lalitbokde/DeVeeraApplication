@@ -24,6 +24,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IUserService _UserService;
         private readonly IUserPasswordService _userPasswordService;
         private readonly INotificationService _notificationService;
+        private readonly IWorkContext _workContext;
         #endregion
 
         #region ctor
@@ -56,8 +57,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-
-            AddBreadcrumbs("Admin", "Create", "/Admin/Create", "/Admin/Create");
+            string roleName = "Admin";
+            AddBreadcrumbs("Admin", "Create", $"/Admin/Admin/List/?{roleName}", "/Admin/Admin/Create");
 
             return View();
         }
@@ -65,9 +66,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(CreateAdminModel model,string email,string passwordd)
         {
-           
-            AddBreadcrumbs("Admin", "Create", "/Admin/Create", "/Admin/Create");
             string userRoleName = "Admin";
+            AddBreadcrumbs("Admin", "Create", $"/Admin/Admin/List/?{userRoleName}", "/Admin/Admin/Create");
+
             if (ModelState.IsValid)
             {
                 if (_UserService.GetUserByEmail(model.Email) == null)
@@ -124,9 +125,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult List(string roleName)
         {
 
+            if (roleName == null)
+            {
+                roleName = "Admin";
+            }
             var UserRole = _UserService.GetUserRoleByRoleName(roleName);
 
-            AddBreadcrumbs($"{UserRole.Name}", "List", $"/Admin/List?roleName={roleName}", $"/Admin/List?roleName={roleName}");
+            AddBreadcrumbs($"{UserRole.Name}", "List", $"/Admin/Admin/List?roleName={roleName}", $"/Admin/Admin/List?roleName={roleName}");
 
             var model = new List<UserModel>();
             var data = _UserService.GetUserByUserRoleId(UserRole.Id);
@@ -144,8 +149,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("Admin", "Edit", $"/Admin/Edit/{id}", $"/Admin/Edit/{id}");
-
+            string roleName = "Admin";
+            //AddBreadcrumbs("Admin", "Edit", $"/Admin/Edit/{id}", $"/Admin/Edit/{id}");
+            AddBreadcrumbs("Admin", "Edit", $"/Admin/Admin/List/?{roleName}", $"/Admin/Admin/Edit/{id}");
             if (id != 0)
             {
                 var data = _UserService.GetUserById(id);

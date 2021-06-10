@@ -86,7 +86,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region Methods
         public IActionResult List()
         {
-            AddBreadcrumbs("Questionnaire", "List", "/QuestionAnswer/List", "/QuestionAnswer/List");
+            AddBreadcrumbs("Questionnaire", "List", "/Admin/QuestionAnswer/List", "/Admin/QuestionAnswer/List");
             var model = new QuestionModel();
             List<QuestionModel> QuestionsList = new List<QuestionModel>();
             var data = _QuestionAnswerService.GetAllQuestions().ToList();
@@ -100,7 +100,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult Create(string pagetype)
         {
-            AddBreadcrumbs("Questionnaire", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
+            AddBreadcrumbs("Questionnaire", "Create", "/Admin/QuestionAnswer/List", "/Admin/QuestionAnswer/Create");
             QuestionModel model = new QuestionModel();
             model.Questionarrie = pagetype;
             ViewBag.pagetype = pagetype;
@@ -113,7 +113,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Create(QuestionModel model)
         {
             string pagetype = Request.Form["pagetype"];
-            AddBreadcrumbs("Questionnaire", "Create", "/QuestionAnswer/List", "/QuestionAnswer/Create");
+            AddBreadcrumbs("Questionnaire", "Create", "/Admin/QuestionAnswer/List", "/Admin/QuestionAnswer/Create");
             if (ModelState.IsValid)
             {
                 var data = model.ToEntity<Questions>();
@@ -135,7 +135,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("Questionnaire", "Edit", "/QuestionAnswer/List", $"/QuestionAnswer/Edit/{id}");
+            AddBreadcrumbs("Questionnaire", "Edit", "/Admin/QuestionAnswer/List", $"/Admin/QuestionAnswer/Edit/{id}");
 
             if (id != 0)
             {
@@ -159,7 +159,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(QuestionModel model)
         {
-            AddBreadcrumbs("Questionnaire", "Edit", "/QuestionAnswer/List", $"/QuestionAnswer/Edit/{model.Id}");
+            AddBreadcrumbs("Questionnaire", "Edit", "/Admin/QuestionAnswer/List", $"/Admin/QuestionAnswer/Edit/{model.Id}");
 
             if (ModelState.IsValid)
             {

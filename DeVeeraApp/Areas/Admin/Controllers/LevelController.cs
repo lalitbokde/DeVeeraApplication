@@ -122,7 +122,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
+            AddBreadcrumbs("Level", "Create", "/Admin/Level/List", "/Admin/Level/Create");
             LevelModel model = new LevelModel();
             PrepareLevelModel(model);          
             return View(model);
@@ -131,7 +131,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(LevelModel model)
         {
-            AddBreadcrumbs("Level", "Create", "/Level/List", "/Level/Create");
+            AddBreadcrumbs("Level", "Create", "/Admin/Level/List", "/Admin/Level/Create");
 
             if (ModelState.IsValid)
             {
@@ -183,7 +183,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("Level", "List", "/Level/List", "/Level/List");
+            AddBreadcrumbs("Level", "List", "/Admin/Level/List", "/Admin/Level/List");
 
             var model = new List<LevelModel>();
             var data = _levelServices.GetAllLevels();
@@ -204,7 +204,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id,int ModuleId, int srno)
         {
-            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{id}");        
+            AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{id}");        
             ViewBag.ActiveTab = "Level";
             List<string> Emotions = new List<string>(); 
 
@@ -271,7 +271,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(LevelModel model)
         {
-            AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{model.Id}");
+            AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
 
             if (ModelState.IsValid)
             {
@@ -333,7 +333,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddModule(LevelModel model)
         {
-           AddBreadcrumbs("Level", "Edit", "/Level/List", $"/Level/Edit/{model.Id}");
+           AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
 
             if (model.Modules.FullDescription != null)
             {

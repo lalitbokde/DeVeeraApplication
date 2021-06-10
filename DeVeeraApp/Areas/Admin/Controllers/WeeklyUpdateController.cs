@@ -81,7 +81,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create(CRM.Core.Domain.Quote type)
         {
-            AddBreadcrumbs( $"{type} Page", "Create", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Create?type={type}");
+            AddBreadcrumbs( $"{type} Page", "Create", $"/Admin/WeeklyUpdate/List?typeId={(int)type}", $"/Admin/WeeklyUpdate/Create?type={type}");
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             ViewBag.QuoteType = type.ToString();
             PrepareVideo(model);
@@ -109,7 +109,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id, CRM.Core.Domain.Quote type)
         {
-            AddBreadcrumbs($"{type} Page", "Edit", $"/WeeklyUpdate/List?typeId={(int)type}", $"/WeeklyUpdate/Edit/{id}?type={type}");
+            AddBreadcrumbs($"{type} Page", "Edit", $"/Admin/WeeklyUpdate/List?typeId={(int)type}", $"/Admin/WeeklyUpdate/Edit/{id}?type={type}");
 
             if (id != 0)
             {
@@ -130,7 +130,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(WeeklyUpdateModel model)
         {
-            AddBreadcrumbs($"{model.QuoteType} Page", "Edit", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
+            AddBreadcrumbs($"{model.QuoteType} Page", "Edit", $"/Admin/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/Admin/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
 
             if (ModelState.IsValid)
             {
@@ -166,7 +166,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List(int typeId)
         {
-            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Page", "List", $"/WeeklyUpdate/List?typeId={typeId}", $"/WeeklyUpdate/List?typeId={typeId}");
+            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
 
             ViewBag.QuoteType = EnumDescription.GetDescription((CRM.Core.Domain.Quote)typeId);
             ViewBag.Quote = (CRM.Core.Domain.Quote)typeId;

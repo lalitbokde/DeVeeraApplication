@@ -83,7 +83,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            AddBreadcrumbs("FeelGoodStory", "Create", "/FeelGoodStory/Create", "/FeelGoodStory/Create");
+            AddBreadcrumbs("FeelGoodStory", "Create", "/Admin/FeelGoodStory/List", "/Admin/FeelGoodStory/Create");
             FeelGoodStoryModel model = new FeelGoodStoryModel();
             PrepareImages(model);
             return View(model);
@@ -114,7 +114,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(int Id)
         {
 
-            AddBreadcrumbs("FeelGoodStory", "Edit", $"/FeelGoodStory/Edit/{Id}", $"/FeelGoodStory/Edit/{Id}");
+            AddBreadcrumbs("FeelGoodStory", "Edit", $"/Admin/FeelGoodStory/List", $"/Admin/FeelGoodStory/Edit/{Id}");
             var data = _feelGoodStoryServices.GetFeelGoodStoryById(Id);
             var model = data.ToModel<FeelGoodStoryModel>();
             PrepareImages(model);
@@ -147,7 +147,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("FeelGoodStory", "List", "/FeelGoodStory/List", "/FeelGoodStory/List");
+            AddBreadcrumbs("FeelGoodStory", "List", "/Admin/FeelGoodStory/List", "/Admin/FeelGoodStory/List");
             var model = new List<FeelGoodStoryModel>();
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
