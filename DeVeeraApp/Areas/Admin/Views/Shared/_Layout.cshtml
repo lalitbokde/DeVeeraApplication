@@ -26,7 +26,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/dist/js/datetimepicker/css/duDatepicker.css" rel="stylesheet" />
     <link href="~/dist/js/datetimepicker/css/mdtimepicker.css" rel="stylesheet" />
     <!-- END: CSS Assets-->
-    <style>
+    @*<style>
 
         .ovalicon {
             position: absolute;
@@ -41,31 +41,30 @@ License: You must have a valid license purchased only from themeforest(the above
         .mr-padding {
             margin-right: 76px;
         }
-    </style>
+    </style>*@
     <!-- END: CSS Assets-->
 </head>
 <!-- END: Head -->
 <body class="main">
-    <div class="pt-5">
-        @await Html.PartialAsync("ToastNotification")
-    </div>
 
+    @await Html.PartialAsync("ToastNotification")
+
+    @*<vc:mobile-menu> </vc:mobile-menu>*@
+    @await Component.InvokeAsync("MobileMenu")
     <div class="flex overflow-hidden">
-        <vc:admin-menu>
-        </vc:admin-menu>
 
+        @await Component.InvokeAsync("AdminMenu")
         <!-- BEGIN: Content -->
-        <div class="content ">
-            <vc:top-bar>
-            </vc:top-bar>
+        <div class="content">
+            @*<vc:top-bar></vc:top-bar>*@
+            @await Component.InvokeAsync("TopBar")
 
-            @RenderBody();
+            @RenderBody()
         </div>
         <!-- END: Content -->
     </div>
-    <vc:scripts-section>
-    </vc:scripts-section>
-
+    @await Component.InvokeAsync("ScriptsSection")
+   
 </body>
 </html>
 

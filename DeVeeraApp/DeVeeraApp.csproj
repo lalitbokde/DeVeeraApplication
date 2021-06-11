@@ -29,10 +29,11 @@
     <Folder Include="wwwroot\assets\fonts\" />
     <Folder Include="wwwroot\AdminAssets\" />
     <Folder Include="Areas\Admin\ViewComponents\" />
-    <Folder Include="Areas\Admin\Views\Shared\AdminMenu\" />
-    <Folder Include="Areas\Admin\Views\Shared\TopBar\" />
-    <Folder Include="Areas\Admin\Views\Shared\MobileMenu\" />
-    <Folder Include="Areas\Admin\Views\Shared\ScriptsSection\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\AdminMenu\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\MobileMenu\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\ScriptsSection\" />
+    <Folder Include="Areas\Admin\Views\Shared\Components\TopBar\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
