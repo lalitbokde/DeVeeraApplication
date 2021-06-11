@@ -67,9 +67,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             //prepare available images
             var AvailableImages = _imageMasterService.GetAllImages();
+            model.AvailableBannerImage.Add(new SelectListItem { Text = "Select BannerImage", Value = "0" });
+            model.AvailableImages.Add(new SelectListItem { Text = "Select BodyImages", Value = "0" });
+
             foreach (var item in AvailableImages)
             {
                 model.AvailableImages.Add(new SelectListItem
+                {
+                    Value = item.Id.ToString(),
+                    Text = item.Name,
+                });
+                model.AvailableBannerImage.Add(new SelectListItem
                 {
                     Value = item.Id.ToString(),
                     Text = item.Name,
@@ -104,7 +112,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             PrepareVideo(model);
             return View(model);
-        }
+         }
 
 
         public IActionResult Edit(int id, CRM.Core.Domain.Quote type)
@@ -154,7 +162,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.SliderThreeTitle = model.SliderThreeTitle;
                 val.SliderThreeDescription = model.SliderThreeDescription;
                 val.SliderThreeImageId = model.SliderThreeImageId;
-
+                val.BannerImageId = model.BannerImageId;
+                val.BodyImageId = model.BodyImageId;
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 _notificationService.SuccessNotification("Video edited successfully.");
 
