@@ -4,6 +4,13 @@
 }
 
 <form asp-controller="Emotion" asp-action="Create" method="post">
+
+    <!--Image List modal-->
+    <div id="addEmotionImages">
+
+    </div>
+    <!--Image List modal end-->
+
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -60,9 +67,10 @@
                             <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
                         </div>
                         <div class="col-span-6 mt-5">
-                            <label class="form-label text-theme-21 star">Video Thumbnail Image</label>
-                            <select asp-for="ThumbnailImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                            <span asp-validation-for="ThumbnailImageId" class="text-theme-6 mt-2"></span>
+                            <label class="form-label text-theme-21 star">Video Thumbnail Image</label> <br>
+                            @*<select asp-for="ThumbnailImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                              <span asp-validation-for="ThumbnailImageId" class="text-theme-6 mt-2"></span>*@
+                            <a id="select-image-modal-id" data-toggle="modal" onclick="LoadImageList(@Model.ThumbnailImageId);" data-target="#select-image-modal-preview" class="btn btn-primary mr-1 mb-2">Select Images</a>
                         </div>
                     </div>
                     <div class="grid grid-cols-12 gap-4">
@@ -77,48 +85,48 @@
                             <span asp-validation-for="ContentImageId" class="text-theme-6 mt-2"></span>
                         </div>
                     </div>
-                        <div class="mt-5">
-                            <label class="form-label text-theme-21 star">Quote</label>
-                            <textarea asp-for="Quote" type="text" class="form-control" placeholder="Quote" ></textarea>
-                            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                        </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
-                        </div>
-                        <div class="" id="standard-editor">
-                            <div class="preview">
-                                <textarea id="editor2" asp-for="Description" class="editor2"> </textarea>
+                    <div class="mt-5">
+                        <label class="form-label text-theme-21 star">Quote</label>
+                        <textarea asp-for="Quote" type="text" class="form-control" placeholder="Quote"></textarea>
+                        <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                    </div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                    </div>
+                    <div class="" id="standard-editor">
+                        <div class="preview">
+                            <textarea id="editor2" asp-for="Description" class="editor2"> </textarea>
 
-                            </div>
-
-                        </div>
-
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <div class="grid grid-cols-12  gap-y-5 mt-5">
-                                <div class="intro-y   col-span-6">
-                                    @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
-                                    <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
-                                        Back to List
-                                        <a asp-controller="Emotion" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
-                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="intro-y  col-span-6 ml-auto">
-
-                                    <button type="submit" class="btn btn-primary w-24">Save</button>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
 
-                </div>
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <div class="grid grid-cols-12  gap-y-5 mt-5">
+                            <div class="intro-y   col-span-6">
+                                @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
+                                <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
+                                    Back to List
+                                    <a asp-controller="Emotion" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
+                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="intro-y  col-span-6 ml-auto">
+
+                                <button type="submit" class="btn btn-primary w-24">Save</button>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 
 </form>
-
+<script src="~/dist/js/CustomJs/Emotion.js"></script>

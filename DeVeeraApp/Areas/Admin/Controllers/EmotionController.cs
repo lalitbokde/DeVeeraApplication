@@ -156,6 +156,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View(model);
         }
 
+        public IActionResult GetImageList()
+        {
+            ViewBag.ImagesList = _imageMasterService.GetAllImages();
+            return PartialView();
+
+
+        }
+
         public IActionResult Delete(int emotionId)
         {
             ResponseModel response = new ResponseModel();

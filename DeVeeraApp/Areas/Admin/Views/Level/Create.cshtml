@@ -15,7 +15,7 @@
         </div>
 
         <!-- BEGIN: Super Large Modal Content -->
-        <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+        <div id="select-image-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <!-- BEGIN: Modal Header -->
@@ -23,7 +23,7 @@
                         <h2 class="font-medium text-base mr-auto">
                             Image Gallery
                         </h2>
-                        <a data-dismiss="modal" onclick="DisplaySelectedImages();" href="javascript:;"> <i data-feather="x" class="w-8 h-8 text-gray-500"></i> </a>
+                        <a data-dismiss="modal" href="javascript:;" onclick="GetSelectedImages();"> <i data-feather="x" class="w-8 h-8 text-gray-500"></i> </a>
                     </div>
                     <!-- END: Modal Header -->
                     <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
@@ -56,7 +56,7 @@
                     </div>
                     <!-- BEGIN: Modal Footer -->
                     <div class="modal-footer text-right">
-                        <button type="button" data-dismiss="modal" onclick="DisplaySelectedImages();" class="btn btn-primary w-20">Ok</button>
+                        <button type="button" data-dismiss="modal" onclick="GetSelectedImages();" class="btn btn-primary w-20">Ok</button>
                     </div>
                     <!-- END: Modal Footer -->
                 </div>
@@ -107,7 +107,7 @@
                     <div class="mt-5">
 
                         <!-- BEGIN: Super Large Image Modal Toggle -->
-                        <a href="javascript:;" data-toggle="modal" data-target="#superlarge-modal-size-preview" data-backdrop="static" data-keyboard="false" class="btn btn-primary mr-1 mb-2">Select Images</a>
+                        <a href="javascript:;" data-toggle="modal" data-target="#select-image-modal-preview" data-backdrop="static" data-keyboard="false" class="btn btn-primary mr-1 mb-2">Select Images</a>
                         <!-- END: Super Large Image Modal Toggle -->
                         <div id="selected_images" class="flex">
                             

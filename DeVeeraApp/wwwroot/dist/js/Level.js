@@ -18,7 +18,7 @@ var table = new Tabulator("#tabulator1",
 var tableData = $("#tabledata").val();
 table.setData(tableData);
 
-function DisplaySelectedImages() {
+function GetSelectedImages() {
     var count = $("#count").val();
     var imageList = [];
     var i;

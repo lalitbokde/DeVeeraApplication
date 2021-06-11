@@ -15,6 +15,7 @@ namespace DeVeeraApp.ViewModels.Emotions
             EmotionList = new List<EmotionModel>();
             AvailableImages = new List<SelectListItem>();
             AvailableVideo = new List<SelectListItem>();
+            ImagesList = new List<Image>();
         }
 
         [Required]
@@ -58,5 +59,6 @@ namespace DeVeeraApp.ViewModels.Emotions
         public IList<SelectListItem> AvailableVideo { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
         public List<EmotionModel> EmotionList { get; set; }
+        public List<Image> ImagesList { get; set; }
     }
 }
