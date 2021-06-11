@@ -87,8 +87,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
 
             //prepare available images
-            var AvailableImages = _imageMasterService.GetAllImages();
-            foreach (var item in AvailableImages)
+             model.ImageLists = _imageMasterService.GetAllImages().ToList();
+            foreach (var item in model.ImageLists)
             {
                 model.AvailableImages.Add(new SelectListItem
                 {
@@ -156,19 +156,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 _levelServices.InsertLevel(data);
 
-                if (model.SelectedImg.Count() != 0)
+                foreach (var result in model.ImageLists.Where(a => a.Selected == true))
                 {
-                   for(int i= 0; i< model.SelectedImg.Count(); i++)
+                    var record = new LevelImageList
                     {
-                        var record = new LevelImageList
-                        {
-                            LevelId = data.Id,
-                            ImageId = Convert.ToInt32(model.SelectedImg[i])
-                        };
+                        LevelId = data.Id,
+                        ImageId = result.Id
+                    };
 
-                        _levelImageListServices.InsertLevelImage(record);
-                    }
-
+                    _levelImageListServices.InsertLevelImage(record);
                 }
 
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
@@ -262,6 +258,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 PrepareLevelModel(model);
 
+                foreach (var result in imagedata)
+                {
+                    model.ImageLists.Where(a => a.Id == result.ImageId).ToList().ForEach(c => c.Selected = true);
+                }
+
                 return View(model);
             }
             return RedirectToAction("List");
@@ -272,6 +273,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(LevelModel model)
         {
             AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
+
+            var data = Request.Form["selectedImages"];
 
             if (ModelState.IsValid)
             {
@@ -288,19 +291,18 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 levelData.UpdatedOn = DateTime.Now;
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
-                if (model.SelectedImg.Count() != 0)
-                {
-                    for (int i = 0; i < model.SelectedImg.Count(); i++)
+
+                foreach (var result in model.ImageLists.Where(a=>a.Selected==true))
                     {
                         var record = new LevelImageList
                         {
                             LevelId = levelData.Id,
-                            ImageId = Convert.ToInt32(model.SelectedImg[i])
+                            ImageId = result.Id
                         };
 
                         _levelImageListServices.InsertLevelImage(record);
                     }
-                }
+                
 
                 
 
@@ -405,7 +407,27 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
 
-        public IActionResult Delete(int videoId)
+     
+        [HttpPost]
+        public IActionResult SaveLevelImages(LevelModel model)
+        {
+            model.ImageLists = model.ImageLists.Where(a=>a.Selected==true).ToList();
+
+            if (model.ImageLists.Count() > 0)
+            {
+                foreach (var item in model.ImageLists)
+                {
+                    model.SelectedImg.Add(item.Id.ToString());
+                }
+
+                return Json(new { Success = true, Images = model.ImageLists, SelectedImages = model.SelectedImg });
+            }
+            
+            return Json("Ok");
+        }
+
+
+            public IActionResult Delete(int videoId)
         {
            
             ResponseModel response = new ResponseModel();

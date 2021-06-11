@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace CRM.Core.Domain
@@ -12,6 +13,9 @@ namespace CRM.Core.Domain
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 
+
+        [NotMapped]
+        public bool Selected { get; set; }
 
     }
 }
