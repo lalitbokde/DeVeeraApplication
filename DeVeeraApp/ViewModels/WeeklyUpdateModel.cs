@@ -16,6 +16,7 @@ namespace DeVeeraApp.ViewModels
         {
             this.AvailableVideo = new List<SelectListItem>();
             AvailableImages = new List<SelectListItem>();
+            AvailableBannerImage = new List<SelectListItem>();
         }
 
         [Required]
@@ -33,8 +34,14 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
+
+        public int BannerImageId { get; set; }
+        public int BodyImageId { get; set; }
+        public string BannerImageURL { get; set; }
+        public string BodyImageURL { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
         public List<SelectListItem> AvailableImages { get; }
+        public List<SelectListItem> AvailableBannerImage { get; set; }
 
         public string FileName { get; set; }
 

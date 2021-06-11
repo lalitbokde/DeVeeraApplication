@@ -168,6 +168,20 @@ namespace DeVeeraApp.Controllers
 
             var model = data?.ToModel<WeeklyUpdateModel>();
 
+            if(model.BodyImageId != 0 && model.BannerImageId != 0)
+            {
+                var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
+                var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
+
+                if(bannerImageData != null)
+                {
+                    model.BannerImageURL = bannerImageData.ImageUrl;
+                }
+                if(bodyImageData != null)
+                {
+                    model.BodyImageURL = bodyImageData.ImageUrl;
+                }
+            }
             if(model != null)
             {
                 model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
@@ -203,7 +217,22 @@ namespace DeVeeraApp.Controllers
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
 
             var model = data?.ToModel<WeeklyUpdateModel>();
-            if(model != null)
+
+            if (model.BodyImageId != 0 && model.BannerImageId != 0)
+            {
+                var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
+                var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
+
+                if (bannerImageData != null)
+                {
+                    model.BannerImageURL = bannerImageData.ImageUrl;
+                }
+                if (bodyImageData != null)
+                {
+                    model.BodyImageURL = bodyImageData.ImageUrl;
+                }
+            }
+            if (model != null)
             {
                 model.VideoUrl = data?.Video?.VideoUrl;
                 var firstLevel = _levelServices.GetAllLevels().Where(a => a.Active == true).FirstOrDefault();

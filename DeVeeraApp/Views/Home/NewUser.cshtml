@@ -67,7 +67,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6">
                                 <div class="main-banner-image">
-                                    <img src="/assets/images/main-banner/banner-1.jpg" alt="image">
+                                    <img src=@((string.IsNullOrWhiteSpace(Model.BannerImageURL))?"/assets/images/main-banner/banner-1.jpg":Model.BannerImageURL) alt="image">
 
                                     <div class="image-shape">
                                         <img src="~/assets/images/main-banner/shape.png" alt="image">
@@ -128,7 +128,7 @@
 
                 <div class="col-lg-6">
                     <div class="about-main-image">
-                        <img src="~/assets/images/about/about-1.jpg" alt="image">
+                        <img src=@((string.IsNullOrWhiteSpace(Model.BodyImageURL))? "/assets/images/about/about-1.jpg" : Model.BodyImageURL) alt="image">
 
                         <div class="about-shape about-wrap">
                             <div class="shape-1">
