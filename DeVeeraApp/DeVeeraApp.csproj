@@ -27,6 +27,12 @@
     <Folder Include="Views\Lesson\" />
     <Folder Include="Views\Module\" />
     <Folder Include="wwwroot\assets\fonts\" />
+    <Folder Include="wwwroot\AdminAssets\" />
+    <Folder Include="Areas\Admin\ViewComponents\" />
+    <Folder Include="Areas\Admin\Views\Shared\AdminMenu\" />
+    <Folder Include="Areas\Admin\Views\Shared\TopBar\" />
+    <Folder Include="Areas\Admin\Views\Shared\MobileMenu\" />
+    <Folder Include="Areas\Admin\Views\Shared\ScriptsSection\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />

@@ -1,0 +1,408 @@
+﻿    <!-- BEGIN: Side Menu -->
+    <nav class="side-nav">
+        <a href="" class="intro-x flex items-center pl-5 pt-4 mt-3">
+            <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="dist/images/logo.svg">
+            <span class="hidden xl:block text-white text-lg ml-3"> Tink<span class="font-medium">er</span> </span>
+        </a>
+        <div class="side-nav__devider my-6"></div>
+        <ul>
+            @*dashboard*@
+            <li>
+                <a asp-controller="Home" asp-action="Index" class="side-menu">
+                    <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="side-menu__title">
+                        Dashboard
+                    </div>
+                </a>
+            </li>
+
+            @*user management*@
+            <li>
+                <a href="javascript:;.html" class="side-menu side-menu--active">
+                    <div class="side-menu__icon"> <i data-feather="layout"></i> </div>
+                    <div class="side-menu__title">
+                        User Management
+                        <div class="side-menu__sub-icon transform rotate-180"> <i data-feather="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="side-menu__sub-open">
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Admin
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Admin" asp-action="List" asp-route-roleName="User" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Registered Users
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+
+                    </li>
+
+                </ul>
+            </li>
+            <li class="side-nav__devider my-6"></li>
+
+            @*masters*@
+            <li>
+                <a href="javascript:;.html" class="side-menu side-menu--active">
+                    <div class="side-menu__icon"> <i data-feather="layout"></i> </div>
+                    <div class="side-menu__title">
+                        Masters
+                        <div class="side-menu__sub-icon transform rotate-180"> <i data-feather="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="side-menu__sub-open">
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Images
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Image" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Image" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Videos
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Video" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Video" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Emotions
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Emotion" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Emotion" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Quotes
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="DashboardQuote" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="DashboardQuote" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="side-nav__devider my-6"></li>
+
+            @*screens*@
+            <li>
+                <a href="javascript:;.html" class="side-menu side-menu--active">
+                    <div class="side-menu__icon"> <i data-feather="layout"></i> </div>
+                    <div class="side-menu__title">
+                        Screens
+                        <div class="side-menu__sub-icon transform rotate-180"> <i data-feather="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="side-menu__sub-open">
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Landing Page Screen
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Welcome Screen
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Welcome Back Screen
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Other Screen Setup
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="LayoutSetup" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="LayoutSetup" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="side-nav__devider my-6"></li>
+
+            @*Language*@
+            <li>
+                <a href="javascript:;.html" class="side-menu side-menu--active">
+                    <div class="side-menu__icon"> <i data-feather="layout"></i> </div>
+                    <div class="side-menu__title">
+                        Language Setup
+                        <div class="side-menu__sub-icon transform rotate-180"> <i data-feather="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="side-menu__sub-open">
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Languages
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title">
+                                Language String Resources
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="side-nav__devider my-6"></li>
+
+            @*level and modules*@
+            <li>
+                <a href="javascript:;" class="side-menu">
+                    <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="side-menu__title">
+                        Level
+                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="">
+                    <li>
+                        <a asp-controller="Level" asp-action="Create" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title"> Create </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Level" asp-action="List" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title"> List </div>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+            @*Questionarrie*@
+            <li>
+                <a href="javascript:;" class="side-menu">
+                    <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="side-menu__title">
+                        Questionarrie
+                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="">
+                    <li>
+                        <a asp-controller="QuestionAnswer" asp-action="Create" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title"> Create </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="QuestionAnswer" asp-action="List" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                            <div class="side-menu__title"> List </div>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+    <!-- END: Side Menu -->
