@@ -127,14 +127,12 @@
 
             <div class="col-lg-4 col-md-12">
                 <div class="services-details-info">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12">
                                 <ul class="services-list">
                                     @if (Model.diaryModels != null)
                                     {
                                         @foreach (var item in Model.diaryModels.Where(a => a.UserId == _workContext.CurrentUser.Id))
                                         {
-                                            <li><a href="#" class="line-clamp-1" onclick="GetDiaryByDate('@item.CreatedOn');">@item.Title @*<i class="flaticon-imagination"></i>*@</a></li>
+                                            <li><a href="#" onclick="GetDiaryByDate('@item.CreatedOn');"><p>@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString() </p>@item.Title </a></li>
                                         }
                                     }
                                 </ul>
@@ -142,8 +140,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 </section>
 <!-- End Services Details Area -->
 <script src="~/dist/js/Diary.js"></script>
