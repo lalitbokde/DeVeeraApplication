@@ -138,6 +138,10 @@
     <Compile Include="Migrations\20210603164643_SliderChanges.Designer.cs" />
     <Compile Include="Migrations\20210607160823_Layoutsetup-table.cs" />
     <Compile Include="Migrations\20210607160823_Layoutsetup-table.Designer.cs" />
+    <Compile Include="Migrations\20210611122350_CreatedOn-level.cs" />
+    <Compile Include="Migrations\20210611122350_CreatedOn-level.Designer.cs" />
+    <Compile Include="Migrations\20210611123329_VideoImage-changes.cs" />
+    <Compile Include="Migrations\20210611123329_VideoImage-changes.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 

@@ -38,6 +38,7 @@ namespace DeVeeraApp.Controllers
         private readonly IEmotionService _emotionService;
         private readonly IEmotionMappingService _emotionMappingService;
         private readonly IDiaryPasscodeService _diaryPasscodeService;
+        private readonly IVideoMasterService _videoMasterService;
         private readonly IImageMasterService _imageMasterService;
 
         #endregion
@@ -56,6 +57,7 @@ namespace DeVeeraApp.Controllers
                        IEmotionMappingService emotionMappingService,
                        IDiaryPasscodeService diaryPasscodeService,
                         IHttpContextAccessor httpContextAccessor,
+                        IVideoMasterService videoMasterService,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
@@ -70,6 +72,7 @@ namespace DeVeeraApp.Controllers
             _emotionService = emotionService;
             _emotionMappingService = emotionMappingService;
             _diaryPasscodeService = diaryPasscodeService;
+            _videoMasterService = videoMasterService;
             _imageMasterService = imageMasterService;
         }
 
@@ -90,6 +93,8 @@ namespace DeVeeraApp.Controllers
                  model.ContentImageUrl = emotion.ContentImageId > 0 ?_imageMasterService.GetImageById(emotion.ContentImageId)?.ImageUrl:null;
                  model.BannerImageUrl = emotion.BannerImageId > 0 ?_imageMasterService.GetImageById(emotion.BannerImageId)?.ImageUrl:null;
                  model.ThumbnailImageUrl = emotion.ThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.ThumbnailImageId)?.ImageUrl:null;
+                 model.Video = _videoMasterService.GetVideoById(emotion.VideoId);
+
             }
             return View(model);
         }
