@@ -80,7 +80,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
 
-            AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Home/Index");
+            AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Admin");
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
@@ -228,7 +228,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult WeeklyInspiringQuotes()
         {
-            AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes");
+            AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Admin", "/Admin/Home/WeeklyInspiringQuotes");
             var model = new List<DashboardQuoteModel>();
 
             var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
@@ -243,7 +243,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult NewVideos()
         {
-            AddBreadcrumbs("Home", "NewVideos", "/Home/NewVideos", "/Home/NewVideos");
+            AddBreadcrumbs("Home", "NewVideos", "/Admin", "/Admin/Home/NewVideos");
             var model = new List<VideoModel>();
 
             var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
@@ -259,7 +259,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult FeelGoodStories()
         {
-            AddBreadcrumbs("Home", "FeelGoodStories", "/Home/FeelGoodStories", "/Home/FeelGoodStories");
+            AddBreadcrumbs("Home", "FeelGoodStories", "/Admin", "/Admin/Home/FeelGoodStories");
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
             var model = new List<FeelGoodStoryModel>();

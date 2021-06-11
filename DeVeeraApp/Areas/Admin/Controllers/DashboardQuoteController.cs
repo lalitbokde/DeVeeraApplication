@@ -78,7 +78,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("Dashboard Quote", "List", "/DashboardQuote/List", "/DashboardQuote/List");
+            AddBreadcrumbs("Dashboard Quote", "List", "/Admin/DashboardQuote/List", "/Admin/DashboardQuote/List");
 
             var model = new List<DashboardQuoteModel>();
             var data = _dashboardQuoteService.GetAllDashboardQuotes();
@@ -100,7 +100,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult Create()
         {
-            AddBreadcrumbs("Dashboard Quote", "Create", "/DashboardQuote/List", "/DashboardQuote/Create");
+            AddBreadcrumbs("Dashboard Quote", "Create", "/Admin/DashboardQuote/List", "/Admin/DashboardQuote/Create");
             DashboardQuoteModel model = new DashboardQuoteModel();
             PrepareLevelDropdown(model);
             return View(model);
@@ -108,7 +108,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(DashboardQuoteModel model)
         {
-            AddBreadcrumbs("Dashboard Quote", "Create", "/DashboardQuote/List", "/DashboardQuote/Create");
+            
 
             if (ModelState.IsValid)
             {
@@ -137,7 +137,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("Dashboard Quote", "Edit", "/DashboardQuote/List", $"/DashboardQuote/Edit/{id}");
+            AddBreadcrumbs("Dashboard Quote", "Edit", "/Admin/DashboardQuote/List", $"/Admin/DashboardQuote/Edit/{id}");
 
             if (id != 0)
             {
@@ -159,7 +159,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(DashboardQuoteModel model)
         {
-            AddBreadcrumbs("Dashboard Quote", "Edit", "/DashboardQuote/List", $"/DashboardQuote/Edit/{model.Id}");
+            AddBreadcrumbs("Dashboard Quote", "Edit", "/Admin/DashboardQuote/List", $"/Admin/DashboardQuote/Edit/{model.Id}");
 
             if (ModelState.IsValid)
             {

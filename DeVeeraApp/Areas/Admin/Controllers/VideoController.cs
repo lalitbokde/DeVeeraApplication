@@ -72,7 +72,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            AddBreadcrumbs("Video", "Create", "/Video/Create", "/Video/Create");
+            AddBreadcrumbs("Video", "Create", "/Admin/Video/List", "/Admin/Video/Create");
             return View();
 
         }
@@ -115,10 +115,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
             var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
             //linux
-            FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
+            //FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
             //windows
-            // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
-
+             FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+           
             var info = await MediaInfo.Get(originalFile);
 
             var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
@@ -137,8 +137,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-
-            AddBreadcrumbs("Video", "Edit", $"/Video/Edit/{id}", $"/Video/Edit/{id}");
+            AddBreadcrumbs("Video", "Edit", "/Admin/Video/List", $"/Admin/Video/Edit/{id}");
+           
 
             if (id != 0)
             {
@@ -190,7 +190,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("Video", "List", "/Video/List", "/Video/List");
+            AddBreadcrumbs("Video", "List", "/Admin/Video/List", "/Admin/Video/List");
            
             var videoList = _videoMasterService.GetAllVideos();
             var model = new List<VideoModel>();

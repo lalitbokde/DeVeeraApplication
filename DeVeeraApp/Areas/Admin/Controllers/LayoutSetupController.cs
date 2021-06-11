@@ -70,7 +70,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult List()
         {
-            AddBreadcrumbs("Layout Setup", "List", "/LayoutSetup/List", "/LayoutSetup/List");
+            AddBreadcrumbs("Layout Setup", "List", "/Admin/LayoutSetup/List", "/Admin/LayoutSetup/List");
             var model = new List<LayoutSetupModel>();
             var data = _layoutSetupService.GetAllLayoutSetups();
             if (data.Count() != 0)
@@ -82,7 +82,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public IActionResult Create()
         {
-            AddBreadcrumbs("Layout Setup", "Create", "/LayoutSetup/Create", "/LayoutSetup/Create");
+            AddBreadcrumbs("Layout Setup", "Create", "/Admin/LayoutSetup/List", "/Admin/LayoutSetup/Create");
 
             LayoutSetupModel model = new LayoutSetupModel();
             PrepareImages(model);
@@ -110,7 +110,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int Id)
         {
-            AddBreadcrumbs("Layout Setup", "Edit", $"/LayoutSetup/Edit/{Id}", $"/LayoutSetup/Edit/{Id}");
+            AddBreadcrumbs("Layout Setup", "Edit", $"/Admin/LayoutSetup/List", $"/Admin/LayoutSetup/Edit/{Id}");
 
             if (Id != 0)
             {
@@ -129,7 +129,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(LayoutSetupModel model)
         {
-            AddBreadcrumbs("Layout Setup", "Edit", $"/LayoutSetup/Edit/{model.Id}", $"/LayoutSetup/Edit/{model.Id}");
+            AddBreadcrumbs("Layout Setup", "Edit", $"/Admin/LayoutSetup/List", $"/LayoutSetup/Edit/{model.Id}");
 
             if (ModelState.IsValid)
             {

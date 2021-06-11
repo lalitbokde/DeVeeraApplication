@@ -42,7 +42,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #endregion
         public IActionResult Index()
         {
-            AddBreadcrumbs("Dashboard Menu ", "Index", "/DashboardMenu/Index", "/DashboardMenu/Index");
+            AddBreadcrumbs("Dashboard Menu ", "Create", "/Admin", "/Admin/DashboardMenu");
             var dashboardMenu =_dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
             if (dashboardMenu != null) { 
             var model = dashboardMenu.ToModel<DashboardMenuModel>();
@@ -59,7 +59,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(DashboardMenuModel model)
         {
-            AddBreadcrumbs("Dashboard Menu", "Index", "/DashboardMenu/Index", "/DashboardMenu/Index");
+            AddBreadcrumbs("Dashboard Menu", "Edit", "/Admin", "/Admin/DashboardMenu");
 
             if (ModelState.IsValid)
             {

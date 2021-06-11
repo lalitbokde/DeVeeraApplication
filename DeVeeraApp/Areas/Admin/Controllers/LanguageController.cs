@@ -56,7 +56,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            AddBreadcrumbs("Language", "Create", "/Language/Create", "/Language/Create");
+            AddBreadcrumbs("Language", "Create", "/Admin/Language/List", "/Admin/Language/Create");
             return View();
         }
 
@@ -89,7 +89,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            if(id != 0)
+            AddBreadcrumbs("Language", "Edit", "/Admin/Language/List", $"/Admin/Language/Edit/{id}");
+            if (id != 0)
             {
                 var data = _languageService.GetLanguageById(id);
                 var model = data.ToModel<LanguageModel>();
@@ -122,7 +123,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("Language", "List", "/Language/List", "/Language/List");
+            AddBreadcrumbs("Language", "List", "/Admin/Language/List", "/Admin/Language/List");
             var model = new List<LanguageModel>();
             var data = _languageService.GetAllLanguages();
             if(data.Count != 0)

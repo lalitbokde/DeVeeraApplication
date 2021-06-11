@@ -355,7 +355,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (HttpContext.Session.GetInt32("isMaintenance") == null)
                 return Logout();
             ViewBag.FormName = "User List";
-            AddBreadcrumbs("User", "Create", "/User/UserList", "/User/CreateUser");
+            AddBreadcrumbs("User", "Create", "/Admin/User/UserList", "/Admin/User/CreateUser");
             //permissions
 
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageUser))
@@ -663,7 +663,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult UserProfile(int userId)
         {
-            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
+            AddBreadcrumbs("User", "Profile", $"/Admin/Admin/List", $"/Admin/User/UserProfile?userId={userId}");
             var model = new UserModel();
 
             if (userId != 0)

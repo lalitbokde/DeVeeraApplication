@@ -82,7 +82,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region Methods
         public IActionResult List()
         {
-            AddBreadcrumbs("Emotion", "List", "/Emotion/List", "/Emotion/List");
+            AddBreadcrumbs("Emotion", "List", "/Admin/Emotion/List", "/Admin/Emotion/List");
             var List = _emotionService.GetAllEmotions();
             var model = new List<EmotionModel>();
             if (List.Count != 0)
@@ -95,7 +95,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            AddBreadcrumbs("Emotion", "Create", "/Emotion/List", "/Emotion/Create");
+            AddBreadcrumbs("Emotion", "Create", "/Admin/Emotion/List", "/Admin/Emotion/Create");
             EmotionModel model = new EmotionModel();
             PrepareEmotionModel(model);
             return View(model);
@@ -120,7 +120,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("Emotion", "Edit", "/Emotion/List", $"/Emotion/Edit/{id}");
+            AddBreadcrumbs("Emotion", "Edit", "/Admin/Emotion/List", $"/Admin/Emotion/Edit/{id}");
             var emotion = _emotionService.GetEmotionById(id);
             var model = emotion.ToModel<EmotionModel>();
             PrepareEmotionModel(model);
@@ -130,7 +130,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(EmotionModel model)
         {
-            AddBreadcrumbs("Emotion", "Edit", "/Emotion/List", $"/Emotion/Edit/{model.Id}");
+            AddBreadcrumbs("Emotion", "Edit", "/Admin/Emotion/List", $"/Admin/Emotion/Edit/{model.Id}");
             if (ModelState.IsValid)
             {
                 var emotion = _emotionService.GetEmotionById(model.Id);
