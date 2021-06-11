@@ -113,9 +113,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
             var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
             //linux
-            //FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
+            FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
             //windows
-             FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+            // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
            
             var info = await MediaInfo.Get(originalFile);
 
