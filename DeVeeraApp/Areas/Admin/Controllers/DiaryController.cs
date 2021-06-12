@@ -39,7 +39,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IEmotionService _emotionService;
         private readonly IEmotionMappingService _emotionMappingService;
         private readonly IDiaryPasscodeService _diaryPasscodeService;
-
+        
         #endregion
 
 
@@ -56,6 +56,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                        IDiaryPasscodeService diaryPasscodeService,
                         IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService
+                              
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
                                     authenticationService: authenticationService)
@@ -104,7 +105,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         #region Method
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int pagenumber)
         {
             AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
             DiaryModel model = new DiaryModel();
@@ -136,10 +137,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var item = _DiaryMasterService.GetAllDiarys().ToList();
 
                 DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+                //await PaginatedList<Diary>.CreateAsync(item.AsQueryable(), 1, 10)
 
                 #endregion
 
                 model.diaryModels = DiaryList;
+               
+                model.pagination = await PaginatedList<DiaryModel>.CreateAsync(DiaryList, pagenumber, 10);
                 //model.DiaryDate = DateTime.UtcNow;
 
                 return View(model);
@@ -189,7 +193,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 #endregion
 
                 model.diaryModels = DiaryList;
-
+              
                 return RedirectToAction("Create", "Diary");
 
             }

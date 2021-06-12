@@ -29,5 +29,7 @@ namespace DeVeeraApp.ViewModels.Diaries
 
         [JsonIgnore]
         public UserModel User { get; set; }
+
+        public PaginatedList<DiaryModel> pagination { get; set; }
     }
 }

@@ -179,7 +179,9 @@
                 <!-- BEGIN: Recent Activities -->
                 <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">
 
-                    @foreach (var item in Model.diaryModels)
+                    @*@foreach (var item in Model.diaryModels)
+        {*@
+                    @foreach (var item in Model.pagination)
                     {
                         <div class="intro-x relative flex items-center mb-3">
 
@@ -198,17 +200,41 @@
                             </div>
                         </div>
                     }
+                    @*}*@
+                    @{
+                        var prevDisabled = !Model.pagination.PreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.pagination.NextPage ? "disabled" : "";
+                        var partion = (Model.diaryModels.Count() / 10);
 
+                        <div class="col-span-12 flex">
+                            <div class="col-span-4 ml-auto pr-5">
+                                <a asp-action="Create" asp-route-pageNumber="@(Model.pagination.PageIndex-1)" class="breadcrumb">
+                                    Previous
+                                </a>
+                            </div>
+                            <div class="col-span-4 flex">
+                                @for(int i=1;i<=partion;i++)
+                                {
+                                <a asp-action="Create" asp-route-pageNumber="@i"  class="breadcrumb flex pl-1">@i</a>
+                                }
+                            </div>
+                            <div class="col-span-4 mr-auto pl-5">
+                                <a asp-action="Create" asp-route-pageNumber="@(Model.pagination.PageIndex+1)" class=" breadcrumb ">
+                                    Next
+                                </a>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <!-- END: Recent Activities -->
             </div>
         </div>
         <div class="col-span-2 lg:col-span-2 xl:col-span-2 md:col-span-2">
         </div>
-    
-        }
-        else
-        {
+
+                        }
+                        else
+                        {
             <div class="col-span-4 lg:col-span-4 xl:col-span-4 md:col-span-4">
                 <div class="intro-y flex items-center h-10">
                     <h2 class="text-lg font-medium truncate ml-4">

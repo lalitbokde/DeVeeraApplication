@@ -1,7 +1,7 @@
 ﻿    <!-- BEGIN: Side Menu -->
     <nav class="side-nav">
         <a href="" class="intro-x flex items-center pl-5 pt-4 mt-3">
-            <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="dist/images/logo.svg">
+            <img alt="" class="w-6" src="/dist/images/logo.svg">
             <span class="hidden xl:block text-white text-lg ml-3"> Happ<span class="font-medium">e</span> </span>
         </a>
         <div class="side-nav__devider my-6"></div>
@@ -63,7 +63,7 @@
 
                 </ul>
             </li>
-            
+
 
             @*masters*@
             <li>
@@ -173,7 +173,7 @@
                     </li>
                 </ul>
             </li>
-         
+
 
             @*screens*@
             <li>
@@ -249,7 +249,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@(Quote.Login)"  class="side-menu">
+                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@(Quote.Login)" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="zap"></i> </div>
                                     <div class="side-menu__title">List</div>
                                 </a>
@@ -284,7 +284,7 @@
                     </li>
                 </ul>
             </li>
-       
+
 
             @*Language*@
             <li>
@@ -347,7 +347,7 @@
 
                 </ul>
             </li>
-            
+
 
             @*level and modules*@
             <li>
@@ -375,6 +375,18 @@
 
                 </ul>
             </li>
+
+            @*Diary*@
+            <li>
+                <a  class="side-menu" asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo">
+                    <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="side-menu__title">
+                        Diary
+                        @*<div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>*@
+                    </div>
+                </a>
+            </li>
+
 
             @*Questionarrie*@
             <li>
