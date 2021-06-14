@@ -1,16 +1,21 @@
 
 var table = new Tabulator("#tabulator1",
     {
+        index: "id",
         layout: "fitColumns",
         responsiveLayout: "collapse",
+        paginationSize: 10,
+        paginationSizeSelector: [10, 20, 30, 40],
         columns: [
-
-            { title: "Level No", field: "LevelNo", sorter: "number", width: 150, editor: true },
+            {
+                formatter: "responsiveCollapse",
+            },
+            { title: "Level No", field: "LevelNo", headerSort: false, width: 50, formatter: "rownum" },
             { title: "Title", field: "Title", sorter: "string", width: 250 },
             { title: "Subtitle", field: "Subtitle", sorter: "string", width: 250 },
-            { title: "VideoName", field: "VideoName", sorter: "string", width: 250 },
-            { title: "Edit", field: "", hozAlign: "center", width: 150, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/Admin/Level/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
-            { title: "Delete", field: "", hozAlign: "center", width: 150, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a onclick="ShowDeleteConfirmation('PostDeleteLevel(${e.getData().Id})')"" >\n <i data-feather="trash-2" class="text-theme-24"></i> \n</a>\n</div>   ` }, },],
+            { title: "VideoName", field: "VideoName", sorter: "string", width: 240 },
+            { title: "Edit", field: "", hozAlign: "center", width: 85, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/Admin/Level/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
+            { title: "Delete", field: "", hozAlign: "center", width: 95, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a onclick="ShowDeleteConfirmation('PostDeleteLevel(${e.getData().Id})')"" >\n <i data-feather="trash-2" class="text-theme-24"></i> \n</a>\n</div>   ` }, },],
 
     });
 
