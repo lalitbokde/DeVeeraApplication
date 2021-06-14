@@ -27,6 +27,15 @@ namespace DeVeeraApp.ViewModels
         [NotMapped]
         public virtual Video Video { get; set; }
 
+        public int BannerImageId { get; set; }
+        public string BannerImageUrl { get; set; }
+
+        public int VideoThumbImageId { get; set; }
+        public string VideoThumbImageUrl { get; set; }
+
+        public int ShareBackgroundImageId { get; set; }
+        public string ShareBackgroundImageUrl { get; set; }
+
 
         [NotMapped]
         public string DiaryText { get; set; }

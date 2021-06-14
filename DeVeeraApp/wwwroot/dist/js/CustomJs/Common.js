@@ -32,8 +32,9 @@ function ShowLoaderUser(formid) {
 }
 function onImageSelectionSuccess(data) {
     debugger
-    $("#" + data.imageFieldId).val(data.id);
-    $("#" + data.ImageFieldUrl).attr("src", data.imageUrl);
+    $("#" + data.imageFieldId).val(data.selectedImage.id);
+    $("#" + data.imageFieldUrl).attr("src", data.selectedImage.imageUrl);
+    $("#superlarge-modal-size-preview").modal('hide');
 }
 
 function onFailed() {
@@ -45,8 +46,7 @@ function OpenImageSelectionModal(ImageFieldId, ImageFieldUrl) {
     debugger
     $("#ImageFieldId").val(ImageFieldId);
     $("#ImageFieldUrl").val(ImageFieldUrl);
-    var modal = document.getElementById("superlarge-modal-size-preview");
-    modal.style.display = 'block';
+  
     //$("#superlarge-modal-size-preview").modal('show');
 }
 

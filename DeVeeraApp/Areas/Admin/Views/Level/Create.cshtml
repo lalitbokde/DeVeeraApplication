@@ -54,13 +54,42 @@
 
                     </div>
                     <div class="mt-5">
-                        <input asp-for="BannerImageId" hidden>
-                        <!-- BEGIN: Super Large Image Modal Toggle -->
-                        <a onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">Select Images</a>
-                        <!-- END: Super Large Image Modal Toggle -->
-                        <div class="file box rounded-md px-5 pt-8 pb-2 px-3 sm:px-5 relative zoom-in">                      
-                            <img id="BannerImageUrl" class="w-64 h-40" src="" data-action="zoom" />
+                        <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
+                            <div onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview image-fit">
+                                            <input asp-for="BannerImageId" hidden>
+                                            <img id="BannerImageUrl" alt="Tinker Tailwind HTML Admin Template" src="~/dist/images/food-beverage-9.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Banner</div>
+                                </div>
+                            </div>
+                            <a onclick="OpenImageSelectionModal('VideoThumbImageId','VideoThumbImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview image-fit">
+                                            <input asp-for="VideoThumbImageId" hidden>
+                                            <img alt="Tinker Tailwind HTML Admin Template" src="~/dist/images/food-beverage-19.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
+                                </div>
+                            </a>
+                            <a onclick="OpenImageSelectionModal('ShareBackgroundImageId','ShareBackgroundImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview image-fit">
+                                            <input asp-for="ShareBackgroundImageId" hidden>
+                                            <img alt="Tinker Tailwind HTML Admin Template" src="~/dist/images/food-beverage-5.jpg">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Share Panel Background</div>
+                                </div>
+                            </a>
                         </div>
+
                     </div>
 
                     @*<div class="mt-3">

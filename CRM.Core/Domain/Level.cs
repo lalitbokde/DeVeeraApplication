@@ -19,6 +19,13 @@ namespace CRM.Core.Domain
         //public string Quote { get; set; }
         public string FullDescription { get; set; }
         public bool Active { get; set; }
+
+        public int BannerImageId { get; set; }
+
+        public int VideoThumbImageId { get; set; }
+
+        public int ShareBackgroundImageId { get; set; }
+     
         //public virtual Emotion Emotion { get; set; }
         public virtual Video Video { get; set; }
 

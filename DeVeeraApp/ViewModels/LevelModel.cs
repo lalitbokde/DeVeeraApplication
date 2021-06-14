@@ -31,8 +31,16 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public int? LevelNo { get; set; }
         public int? VideoId { get; set; }
+
         public int BannerImageId { get; set; }
         public string BannerImageUrl { get; set; }
+
+        public int VideoThumbImageId { get; set; }
+        public string VideoThumbImageUrl { get; set; }
+
+        public int ShareBackgroundImageId { get; set; }
+        public string ShareBackgroundImageUrl { get; set; }
+
         public IList<SelectedImage> SelectedImages { get; set; }
         public IList<SelectedImage> SelectedModuleImages { get; set; }
 
