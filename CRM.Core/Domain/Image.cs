@@ -14,8 +14,5 @@ namespace CRM.Core.Domain
         public DateTime UpdatedOn { get; set; }
 
 
-        [NotMapped]
-        public bool Selected { get; set; }
-
     }
 }

@@ -28,8 +28,6 @@
     <Folder Include="Views\Module\" />
     <Folder Include="wwwroot\assets\fonts\" />
     <Folder Include="wwwroot\AdminAssets\" />
-    <Folder Include="Areas\Admin\ViewComponents\" />
-    <Folder Include="Areas\Admin\Views\Shared\Components\" />
     <Folder Include="Areas\Admin\Views\Shared\Components\AdminMenu\" />
     <Folder Include="Areas\Admin\Views\Shared\Components\MobileMenu\" />
     <Folder Include="Areas\Admin\Views\Shared\Components\ScriptsSection\" />

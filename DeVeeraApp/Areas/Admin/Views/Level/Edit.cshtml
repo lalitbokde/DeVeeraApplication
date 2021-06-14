@@ -62,7 +62,7 @@
                                                                         <input asp-for="ImageLists[j].Key" hidden />
                                                                         <input asp-for="ImageLists[j].Name" hidden />
                                                                         <input asp-for="ImageLists[j].ImageUrl" hidden />
-                                                                        <input asp-for="ImageLists[j].Selected" class="form-check-input border border-gray-500" type="checkbox">
+                                                                        <input  class="form-check-input border border-gray-500" type="checkbox">
                                                                         <a class="ml-2 font-medium text-center truncate">@item.Key</a>
                                                                     </div>
 
@@ -126,12 +126,7 @@
 
                                 <a href="javascript:;" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">Select Images</a>
 
-                                <div id="selected_images" class="flex">
-                                    @foreach (var c in Model.ImageLists.Where(a => a.Selected == true))
-                                    {
-                                        <label class="form-label mr-2">@c.Key</label>
-                                    }
-                                </div>
+                               
 
                                 <!-- END: Super Large Image Modal Toggle -->
 

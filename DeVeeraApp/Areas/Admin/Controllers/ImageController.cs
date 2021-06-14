@@ -7,6 +7,7 @@ using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
+using DeVeeraApp.ViewModels.Images;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -214,6 +215,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return RedirectToAction("List");
         }
 
+        [HttpPost]
+        public IActionResult SelectImage(ImageSelectionModel model)
+        {
+            var selectedImage = model.ImageSelectionListModel.Where(a => a.Selected == true).FirstOrDefault();
+
+            return Json(selectedImage);
+        }
 
         public IActionResult DeleteImage(int imageId)
         {

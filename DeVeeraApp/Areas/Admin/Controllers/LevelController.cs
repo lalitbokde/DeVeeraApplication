@@ -156,16 +156,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 _levelServices.InsertLevel(data);
 
-                foreach (var result in model.ImageLists.Where(a => a.Selected == true))
-                {
-                    var record = new LevelImageList
-                    {
-                        LevelId = data.Id,
-                        ImageId = result.Id
-                    };
+                //foreach (var result in model.ImageLists.Where(a => a.Selected == true))
+                //{
+                //    var record = new LevelImageList
+                //    {
+                //        LevelId = data.Id,
+                //        ImageId = result.Id
+                //    };
 
-                    _levelImageListServices.InsertLevelImage(record);
-                }
+                //    _levelImageListServices.InsertLevelImage(record);
+                //}
 
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("Index", "Home");
@@ -258,10 +258,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 PrepareLevelModel(model);
 
-                foreach (var result in imagedata)
-                {
-                    model.ImageLists.Where(a => a.Id == result.ImageId).ToList().ForEach(c => c.Selected = true);
-                }
+                //foreach (var result in imagedata)
+                //{
+                //    model.ImageLists.Where(a => a.Id == result.ImageId).ToList().ForEach(c => c.Selected = true);
+                //}
 
                 return View(model);
             }
@@ -292,16 +292,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
 
-                foreach (var result in model.ImageLists.Where(a=>a.Selected==true))
-                    {
-                        var record = new LevelImageList
-                        {
-                            LevelId = levelData.Id,
-                            ImageId = result.Id
-                        };
+                //foreach (var result in model.ImageLists.Where(a=>a.Selected==true))
+                //    {
+                //        var record = new LevelImageList
+                //        {
+                //            LevelId = levelData.Id,
+                //            ImageId = result.Id
+                //        };
 
-                        _levelImageListServices.InsertLevelImage(record);
-                    }
+                //        _levelImageListServices.InsertLevelImage(record);
+                //    }
                 
 
                 
@@ -411,7 +411,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult SaveLevelImages(LevelModel model)
         {
-            model.ImageLists = model.ImageLists.Where(a=>a.Selected==true).ToList();
+            //model.ImageLists = model.ImageLists.Where(a=>a.Selected==true).ToList();
 
             if (model.ImageLists.Count() > 0)
             {
