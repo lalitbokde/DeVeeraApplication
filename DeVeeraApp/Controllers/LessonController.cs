@@ -125,21 +125,42 @@ namespace DeVeeraApp.Controllers
             var data = _levelServices.GetLevelById(id);
             var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
 
-            if(levelImages.Count != 0)
-            {
-                foreach(var item in levelImages)
-                {
+            
+                
                     var seletedImages = new SelectedImage();
-                    var imagesRecord = _imageMasterService.GetImageById(item.Image.Id);
-                    seletedImages.ImageUrl = imagesRecord.ImageUrl;
-                    seletedImages.Key = imagesRecord.Key;
-                    seletedImages.Name = imagesRecord.Name;
-                    seletedImages.ImageId = imagesRecord.Id;
-                    videoData.SelectedImages.Add(seletedImages);
-
-                }
-
+                    var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
+            if (imagesRecord != null)
+            {
+                seletedImages.ImageUrl = imagesRecord.ImageUrl;
+                seletedImages.Key = imagesRecord.Key;
+                seletedImages.Name = imagesRecord.Name;
+                seletedImages.ImageId = imagesRecord.Id;
+                videoData.SelectedImages.Add(seletedImages);
             }
+            var seletedImages1 = new SelectedImage();
+            var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
+            if (imagesRecord1 != null)
+            {
+                seletedImages1.ImageUrl = imagesRecord1.ImageUrl;
+                seletedImages1.Key = imagesRecord1.Key;
+                seletedImages1.Name = imagesRecord1.Name;
+                seletedImages1.ImageId = imagesRecord1.Id;
+                videoData.SelectedImages.Add(seletedImages1);
+            }
+            var seletedImages2 = new SelectedImage();
+
+            var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
+            if (imagesRecord2 != null)
+            {
+                seletedImages2.ImageUrl = imagesRecord2.ImageUrl;
+                seletedImages2.Key = imagesRecord2.Key;
+                seletedImages2.Name = imagesRecord2.Name;
+                seletedImages2.ImageId = imagesRecord2.Id;
+                videoData.SelectedImages.Add(seletedImages2);
+            }
+
+
+
 
             if (data.VideoId != null) { 
             var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
@@ -185,23 +206,15 @@ namespace DeVeeraApp.Controllers
             videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
             foreach (var module in videoData.ModuleList)
             {
-                var moduleImageList = _moduleImageListService.GetModuleImageListByModuleId(module.Id);
-
-                if (moduleImageList.Count() > 0)
+               var seletedImages5 = new SelectedImage();
+            var imagesRecord5 = _imageMasterService.GetImageById(data.BannerImageId);
+                if (imagesRecord5 != null)
                 {
-                    foreach (var item in moduleImageList)
-                    {
-                        var imageData = _imageMasterService.GetImageById(item.ImageId);
-                        if (imageData != null)
-                        {
-                            var moduleImage = new SelectedImage();
-                            moduleImage.ImageId = imageData.Id;
-                            moduleImage.ImageUrl = imageData.ImageUrl;
-                            moduleImage.Key = imageData.Key;
-                            moduleImage.Name = imageData.Name;
-                            module.SelectedModuleImages.Add(moduleImage);
-                        }
-                    }
+                    seletedImages5.ImageUrl = imagesRecord5.ImageUrl;
+                    seletedImages5.Key = imagesRecord5.Key;
+                    seletedImages5.Name = imagesRecord5.Name;
+                    seletedImages5.ImageId = imagesRecord5.Id;
+                    module.SelectedModuleImages.Add(seletedImages5);
                 }
 
             }
@@ -211,8 +224,8 @@ namespace DeVeeraApp.Controllers
             if (userNextLevel != null)
             {
                 videoData.NextTitle = userNextLevel?.Title;
-                var level = _levelImageListServices.GetLevelImageListByLevelId(userNextLevel.Id);
-                videoData.NextImageUrl = level.Count > 0 ? _imageMasterService.GetImageById(level.FirstOrDefault().Image.Id).ImageUrl : null;
+                var level = _imageMasterService.GetImageById(userNextLevel.BannerImageId);
+                videoData.NextImageUrl = level?.ImageUrl ;
 
             }
 
@@ -221,8 +234,8 @@ namespace DeVeeraApp.Controllers
             if (userPreviousLevel != null)
             {
                 videoData.PrevTitle = userPreviousLevel?.Title;
-                var level = _levelImageListServices.GetLevelImageListByLevelId(userPreviousLevel.Id);
-                videoData.PrevImageUrl = level.Count() > 0 ? _imageMasterService.GetImageById(level.FirstOrDefault().Image.Id).ImageUrl : null;
+                var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
+                videoData.PrevImageUrl = level?.ImageUrl ;
             }
 
 

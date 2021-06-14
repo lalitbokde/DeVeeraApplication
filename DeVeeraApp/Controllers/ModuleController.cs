@@ -88,25 +88,38 @@ namespace DeVeeraApp.Controllers
             }
             var moduleImages = _moduleImageListService.GetModuleImageListByModuleId(data.Id);
 
-            if (moduleImages.Count > 0)
+          var seletedImages = new SelectedImage();
+                    var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
+            if (imagesRecord != null)
             {
-                foreach (var val in moduleImages)
-                {
-                    var imgData = _imageMasterService.GetImageById(val.ImageId);
-                    if (imgData != null)
-                    {
-                        var seletedImages = new SelectedImage();
-
-                        seletedImages.ImageUrl = imgData.ImageUrl;
-                        seletedImages.ImageId = imgData.Id;
-                        seletedImages.Key = imgData.Key;
-                        seletedImages.Name = imgData.Name;
-                        moduleData.SelectedModuleImages.Add(seletedImages);
-                        
-                    }
-                }
+                seletedImages.ImageUrl = imagesRecord.ImageUrl;
+                seletedImages.Key = imagesRecord.Key;
+                seletedImages.Name = imagesRecord.Name;
+                seletedImages.ImageId = imagesRecord.Id;
+                moduleData.SelectedModuleImages.Add(seletedImages);
             }
 
+            var seletedImages1 = new SelectedImage();
+            var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
+            if (imagesRecord1!=null)
+            {
+                seletedImages1.ImageUrl = imagesRecord1.ImageUrl;
+                seletedImages1.Key = imagesRecord1.Key;
+                seletedImages1.Name = imagesRecord1.Name;
+                seletedImages1.ImageId = imagesRecord1.Id;
+                moduleData.SelectedModuleImages.Add(seletedImages1);
+            }
+            var seletedImages2 = new SelectedImage();
+            
+                var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
+            if (imagesRecord2 != null)
+            {
+                seletedImages2.ImageUrl = imagesRecord2.ImageUrl;
+                seletedImages2.Key = imagesRecord2.Key;
+                seletedImages2.Name = imagesRecord2.Name;
+                seletedImages2.ImageId = imagesRecord2.Id;
+                moduleData.SelectedModuleImages.Add(seletedImages2);
+            }
             return View(moduleData);
         }
 
