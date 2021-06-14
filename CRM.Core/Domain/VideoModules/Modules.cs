@@ -13,5 +13,13 @@ namespace CRM.Core.Domain.VideoModules
         public string FullDescription { get; set; }
         public virtual Level Level { get; set; }
         public virtual Video Video { get; set; }
+
+
+        public int BannerImageId { get; set; }
+
+        public int VideoThumbImageId { get; set; }
+
+        public int ShareBackgroundImageId { get; set; }
+
     }
 }

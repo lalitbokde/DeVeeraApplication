@@ -220,7 +220,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             var selectedImage = model.ImageSelectionListModel.Where(a => a.Selected == true).FirstOrDefault();
 
-            return Json(selectedImage);
+           
+            return Json(new { selectedImage = selectedImage, ImageFieldId = model.ImageFieldId, ImageFieldUrl = model.ImageFieldUrl });
         }
 
         public IActionResult DeleteImage(int imageId)

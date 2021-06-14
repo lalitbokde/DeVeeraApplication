@@ -23,6 +23,8 @@
                         <!-- BEGIN: Directory & Files -->
                         <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 mb-5">
                             <input asp-for="ImageFieldId" hidden />
+                            <input asp-for="ImageFieldUrl" hidden />
+
                             @{ var j = 0;
                                 @foreach (var item in Model.ImageSelectionListModel)
                                 {
@@ -32,9 +34,9 @@
                                                 <img class="w-64 h-40" src="@(item.ImageUrl = string.IsNullOrWhiteSpace(item.ImageUrl)? "/Images/No_Image_Available.jpg" : item.ImageUrl )" data-action="zoom" />
                                             </div>
                                             <div class="mt-4 flex">
-                                                <input asp-for="ImageSelectionListModel[j].Id"  hidden />
-                                                <input asp-for="ImageSelectionListModel[j].Key"  hidden />
-                                                <input asp-for="ImageSelectionListModel[j].Name"  hidden />
+                                                <input asp-for="ImageSelectionListModel[j].Id" hidden />
+                                                <input asp-for="ImageSelectionListModel[j].Key" hidden />
+                                                <input asp-for="ImageSelectionListModel[j].Name" hidden />
                                                 <input asp-for="ImageSelectionListModel[j].ImageUrl" hidden />
                                                 <input asp-for="ImageSelectionListModel[j].Selected" class="form-check-input border border-gray-500" type="checkbox" onclick="InActiveAllImage()">
                                                 <a class="ml-2 font-medium text-center truncate">@item.Key</a>
