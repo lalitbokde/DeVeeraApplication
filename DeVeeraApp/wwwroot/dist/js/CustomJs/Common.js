@@ -30,3 +30,29 @@ function ShowLoaderUser(formid) {
     }
     window.onload();
 }
+function onImageSelectionSuccess(data) {
+    debugger
+    $("#" + data.imageFieldId).val(data.id);
+    $("#" + data.ImageFieldUrl).attr("src", data.imageUrl);
+}
+
+function onFailed() {
+
+}
+
+
+function OpenImageSelectionModal(ImageFieldId, ImageFieldUrl) {
+    debugger
+    $("#ImageFieldId").val(ImageFieldId);
+    $("#ImageFieldUrl").val(ImageFieldUrl);
+    var modal = document.getElementById("superlarge-modal-size-preview");
+    modal.style.display = 'block';
+    //$("#superlarge-modal-size-preview").modal('show');
+}
+
+function InActiveAllImage() {
+    debugger
+    $('.form-check-input').click(function () {
+        $('.form-check-input').not(this).prop('checked', false);
+    });  
+}
