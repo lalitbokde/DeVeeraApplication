@@ -22,70 +22,16 @@
                 <div class="intro-y pr-1">
                     <div class="p-2">
                         <div class="pos__tabs nav nav-tabs justify-center" role="tablist">
-                            <a id="level-tab" data-toggle="tab" data-target="#level" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab=="Level" ? "active":"")" role="tab" aria-controls="level" aria-selected="true">Level</a>
-                            <a id="modules-tab" data-toggle="tab" data-target="#modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tab" aria-controls="modules" aria-selected="false">Add / Edit Module</a>
-                            <a id="view-modules-tab" data-toggle="tab" data-target="#view-modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab=="View-Module" ?"active":"")" role="tab" aria-controls="view-modules" aria-selected="false">View Modules</a>
+                            <a id="level-tab" data-toggle="tab" data-target="#level" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab == "Level" ? "active" : "")" role="tab" aria-controls="level" aria-selected="true">Level</a>
+                            <a id="modules-tab" data-toggle="tab" data-target="#modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab == "Add Module" ? "active" : "")" role="tab" aria-controls="modules" aria-selected="false">Add / Edit Module</a>
+                            <a id="view-modules-tab" data-toggle="tab" data-target="#view-modules" href="javascript:;" class="flex-1 py-2 rounded-md text-center @(ViewBag.ActiveTab == "View-Module" ? "active" : "")" role="tab" aria-controls="view-modules" aria-selected="false">View Modules</a>
 
                         </div>
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div id="level" class="tab-pane @(ViewBag.ActiveTab=="Level" ? "active":"")" role="tabpanel" aria-labelledby="level-tab">
+                    <div id="level" class="tab-pane @(ViewBag.ActiveTab == "Level" ? "active" : "")" role="tabpanel" aria-labelledby="level-tab">
                         <form asp-controller="Level" asp-action="Edit" method="post" id="levelForm" onsubmit="ShowLoader('levelForm');">
-
-                            <!-- BEGIN: Super Large Modal Content -->
-                            <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                        <!-- BEGIN: Modal Header -->
-                                        <div class="modal-header">
-                                            <h2 class="font-medium text-base mr-auto">
-                                                Image Gallery
-                                            </h2>
-                                            <a data-dismiss="modal" onclick="DisplaySelectedImages();" href="javascript:;"> <i data-feather="x" class="w-8 h-8 text-gray-500"></i> </a>
-                                        </div>
-                                        <!-- END: Modal Header -->
-                                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                            <div class="col-span-12 sm:col-span-12">
-                                                <!-- BEGIN: Directory & Files -->
-                                                <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 mb-5">
-                                                    @{ var j = 0;
-                                                        @foreach (var item in Model.ImageLists)
-                                                        {
-                                                            <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2">
-                                                                <div class="file box rounded-md px-5 pt-8 pb-2 px-3 sm:px-5 relative zoom-in">
-                                                                    <div>
-                                                                        <img class="w-64 h-40" src="@(item.ImageUrl = string.IsNullOrWhiteSpace(item.ImageUrl)? "/Images/No_Image_Available.jpg" : item.ImageUrl )" data-action="zoom" />
-                                                                    </div>
-                                                                    <div class="mt-4 flex">
-                                                                        <input asp-for="ImageLists[j].Id" hidden />
-                                                                        <input asp-for="ImageLists[j].Key" hidden />
-                                                                        <input asp-for="ImageLists[j].Name" hidden />
-                                                                        <input asp-for="ImageLists[j].ImageUrl" hidden />
-                                                                        <input  class="form-check-input border border-gray-500" type="checkbox">
-                                                                        <a class="ml-2 font-medium text-center truncate">@item.Key</a>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            j++;
-                                                        }
-                                                    }
-                                                </div>
-                                                <!-- END: Directory & Files -->
-                                            </div>
-                                        </div>
-                                        <!-- BEGIN: Modal Footer -->
-                                        <div class="modal-footer text-right">
-                                            <button type="button" data-dismiss="modal" onclick="DisplaySelectedImages();" class="btn btn-primary w-20">Ok</button>
-                                        </div>
-                                        <!-- END: Modal Footer -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- END: Super Large Modal Content -->
-                            <input type="hidden" id="count" value="@Model.ImageLists.Count()" />
                             <input type="hidden" asp-for="@Model.srno" />
                             @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                             {
@@ -121,16 +67,48 @@
                             </div>
 
                             <div class="mt-5">
+                                @{  
+                                    var BannerImageUrl =Model.BannerImageUrl!=null? Model.BannerImageUrl : "/dist/images/food-beverage-9.jpg";
+                                    var VideoThumbImageUrl = Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "/dist/images/food-beverage-9.jpg";
+                                    var ShareBackgroundImageUrl = Model.ShareBackgroundImageUrl != null ? Model.ShareBackgroundImageUrl : "/dist/images/food-beverage-9.jpg";
 
-                                <!-- BEGIN: Super Large Image Modal Toggle -->
+                                <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
+                                    <a onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                        <div class="box rounded-md p-3 relative zoom-in">
+                                            <div class="flex-none pos-image relative block">
+                                                <div class="pos-image__preview">
+                                                    <input asp-for="BannerImageId" hidden>
+                                                    <img id="BannerImageUrl" alt="" src="@BannerImageUrl" style="Width:100%;height:100%">
+                                                </div>
+                                            </div>
+                                            <div class="block font-medium text-center truncate mt-3">Banner</div>
+                                        </div>
+                                    </a>
+                                    <a onclick="OpenImageSelectionModal('VideoThumbImageId','VideoThumbImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                        <div class="box rounded-md p-3 relative zoom-in">
+                                            <div class="flex-none pos-image relative block">
+                                                <div class="pos-image__preview">
+                                                    <input asp-for="VideoThumbImageId" hidden>
+                                                    <img id="VideoThumbImageUrl" alt="" src="@VideoThumbImageUrl" style="Width:100%;height:100%">
+                                                </div>
+                                                <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
+                                            </div>
 
-                                <a href="javascript:;" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">Select Images</a>
-
-                               
-
-                                <!-- END: Super Large Image Modal Toggle -->
-
-
+                                        </div>
+                                    </a>
+                                    <a onclick="OpenImageSelectionModal('ShareBackgroundImageId','ShareBackgroundImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                        <div class="box rounded-md p-3 relative zoom-in">
+                                            <div class="flex-none pos-image relative block">
+                                                <div class="pos-image__preview">
+                                                    <input asp-for="ShareBackgroundImageId" hidden>
+                                                    <img id="ShareBackgroundImageUrl" alt="" src="@ShareBackgroundImageUrl" style="Width:100%;height:100%">
+                                                </div>
+                                            </div>
+                                            <div class="block font-medium text-center truncate mt-3">Share Panel Background</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                }
                             </div>
                             <div class="mt-5">
                                 <input asp-for="Active" type="checkbox" class="form-check-input" placeholder="IsActive" />
@@ -193,10 +171,49 @@
                                 <select asp-for="@Model.Modules.VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
 
                             </div>
-                            <div class="mt-3">
-                                <label for="post-form-3" class="form-label text-theme-21">Images</label>
-                                @Html.ListBoxFor(m => m.SelectedModuleImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
+                            <div class="mt-5">
+                                @{
+                                    var ModuleBannerImageUrl = Model.Modules.BannerImageUrl != null ? Model.Modules.BannerImageUrl : "/dist/images/food-beverage-9.jpg";
+                                    var ModuleVideoThumbImageUrl = Model.Modules.VideoThumbImageUrl != null ? Model.Modules.VideoThumbImageUrl : "/dist/images/food-beverage-9.jpg";
+                                    var ModuleShareBackgroundImageUrl = Model.Modules.ShareBackgroundImageUrl != null ? Model.Modules.ShareBackgroundImageUrl : "/dist/images/food-beverage-9.jpg";
 
+                                    <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
+                                        <a onclick="OpenImageSelectionModal('Modules_BannerImageId','ModuleBannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                <div class="flex-none pos-image relative block">
+                                                    <div class="pos-image__preview">
+                                                        <input asp-for="Modules.BannerImageId" hidden>
+                                                        <img id="ModuleBannerImageUrl" alt="" src="@ModuleBannerImageUrl" style="Width:100%;height:100%">
+                                                    </div>
+                                                </div>
+                                                <div class="block font-medium text-center truncate mt-3">Banner</div>
+                                            </div>
+                                        </a>
+                                        <a onclick="OpenImageSelectionModal('Modules_VideoThumbImageId','ModuleVideoThumbImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                <div class="flex-none pos-image relative block">
+                                                    <div class="pos-image__preview">
+                                                        <input asp-for="Modules.VideoThumbImageId"  hidden>
+                                                        <img id="ModuleVideoThumbImageUrl" alt="" src="@ModuleVideoThumbImageUrl" style="Width:100%;height:100%">
+                                                    </div>
+                                                    <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
+                                                </div>
+
+                                            </div>
+                                        </a>
+                                        <a onclick="OpenImageSelectionModal('Modules_ShareBackgroundImageId','ModuleShareBackgroundImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                <div class="flex-none pos-image relative block">
+                                                    <div class="pos-image__preview">
+                                                        <input asp-for="Modules.ShareBackgroundImageId" hidden>
+                                                        <img id="ModuleShareBackgroundImageUrl" alt="" src="@ModuleShareBackgroundImageUrl" style="Width:100%;height:100%">
+                                                    </div>
+                                                </div>
+                                                <div class="block font-medium text-center truncate mt-3">Share Panel Background</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
                             </div>
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
@@ -276,13 +293,5 @@
 
 </div>
 
-
-
-@*<script>
-
-        function sendRequest() {
-
-
-        }
-    </script>*@
+@await Component.InvokeAsync("ImageSelection")
 <script src="~/dist/js/Level.js"></script>

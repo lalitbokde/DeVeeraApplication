@@ -147,22 +147,38 @@ namespace DeVeeraApp.Controllers
                                         var leveldata = _levelServices.GetLevelById(level.Id);
                                         if(leveldata != null)
                                         {
-                                            var Images = _levelImageListServices.GetLevelImageListByLevelId(leveldata.Id);
 
-                                            if(Images.Count > 0)
-                                            {
-                                                foreach(var imgdata in Images)
-                                                {
-                                                    var img = _imageMasterService.GetImageById(imgdata.ImageId);
-                                                    var levelImage = new SelectedImage();
-                                                    levelImage.ImageId = img.Id;
-                                                    levelImage.ImageUrl = img.ImageUrl;
-                                                    levelImage.Key = img.Key;
-                                                    levelImage.Name = img.Name;
-                                                    level.SelectedImages.Add(levelImage);
-                                                }
-
+                                                    var img = _imageMasterService.GetImageById(leveldata.BannerImageId);
+                                            if (img != null) {
+                                                var levelImage = new SelectedImage();
+                                                levelImage.ImageId = img.Id;
+                                                levelImage.ImageUrl = img.ImageUrl;
+                                                levelImage.Key = img.Key;
+                                                levelImage.Name = img.Name;
+                                                level.SelectedImages.Add(levelImage);
                                             }
+                                            var img1 = _imageMasterService.GetImageById(leveldata.VideoThumbImageId);
+                                            if (img1 != null)
+                                            {
+                                                var levelImage1 = new SelectedImage();
+                                                levelImage1.ImageId = img1.Id;
+                                                levelImage1.ImageUrl = img1.ImageUrl;
+                                                levelImage1.Key = img1.Key;
+                                                levelImage1.Name = img1.Name;
+                                                level.SelectedImages.Add(levelImage1);
+                                            }
+
+                                            var img2 = _imageMasterService.GetImageById(leveldata.ShareBackgroundImageId);
+                                            if (img2 != null)
+                                            {
+                                                var levelImage2 = new SelectedImage();
+                                                levelImage2.ImageId = img2.Id;
+                                                levelImage2.ImageUrl = img2.ImageUrl;
+                                                levelImage2.Key = img2.Key;
+                                                levelImage2.Name = img2.Name;
+                                                level.SelectedImages.Add(levelImage2);
+                                            }
+
 
                                         }
 

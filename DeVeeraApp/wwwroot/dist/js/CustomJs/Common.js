@@ -34,7 +34,7 @@ function onImageSelectionSuccess(data) {
     debugger
     $("#" + data.imageFieldId).val(data.selectedImage.id);
     $("#" + data.imageFieldUrl).attr("src", data.selectedImage.imageUrl);
-    $("#superlarge-modal-size-preview").modal('hide');
+    //$("#superlarge-modal-size-preview").modal('hide');
 }
 
 function onFailed() {

@@ -221,15 +221,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 model.srno = srno;
 
-                var imagedata = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
-
-                if(imagedata.Count != 0)
-                {
-                    foreach(var item in imagedata)
-                    {
-                        model.SelectedImg.Add(item.ImageId.ToString());
-                    }
-                }
+                model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
+                model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
+                model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
 
 
                 var moduleList = _moduleServices.GetModulesByLevelId(id);
@@ -239,19 +233,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     var module = _moduleServices.GetModuleById(ModuleId);
                     model.Modules.Title = module.Title;
                     model.Modules.VideoId = module.VideoId;
+                    model.Modules.BannerImageId = module.BannerImageId;
+                    model.Modules.VideoThumbImageId = module.VideoThumbImageId;
+                    model.Modules.ShareBackgroundImageId = module.ShareBackgroundImageId;
+
                     model.Modules.FullDescription = module.FullDescription;
                     model.Modules.Id = module.Id;
                     ViewBag.ActiveTab = "Add Module";
 
-                    var moduleIMageList = _moduleImageListService.GetModuleImageListByModuleId(ModuleId);
-
-                    if (moduleIMageList.Count > 0)
-                    {
-                        foreach (var item in moduleIMageList)
-                        {
-                            model.SelectedModuleImg.Add(item.ImageId.ToString());
-                        }
-                    }
+                    model.Modules.BannerImageUrl = _imageMasterService.GetImageById(module.BannerImageId)?.ImageUrl;
+                    model.Modules.VideoThumbImageUrl = _imageMasterService.GetImageById(module.VideoThumbImageId)?.ImageUrl;
+                    model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
                 }
 
                 
@@ -347,6 +339,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.LevelId = model.Id;
                     modules.Title = model.Modules.Title;
                     modules.VideoId = model.Modules.VideoId;
+                    modules.BannerImageId = model.Modules.BannerImageId;
+                    modules.VideoThumbImageId = model.Modules.VideoThumbImageId;
+                    modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.InsertModule(modules);
                     _notificationService.SuccessNotification("Module has been added successfully");
@@ -374,6 +369,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.LevelId = model.Id;
                     modules.Title = model.Modules.Title;
                     modules.VideoId = model.Modules.VideoId;
+                    modules.BannerImageId = model.Modules.BannerImageId;
+                    modules.VideoThumbImageId = model.Modules.VideoThumbImageId;
+                    modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.UpdateModule(modules);
                     _notificationService.SuccessNotification("Module has been updated successfully");
