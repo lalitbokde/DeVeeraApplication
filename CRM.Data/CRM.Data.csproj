@@ -142,6 +142,8 @@
     <Compile Include="Migrations\20210611122350_CreatedOn-level.Designer.cs" />
     <Compile Include="Migrations\20210611123329_VideoImage-changes.cs" />
     <Compile Include="Migrations\20210611123329_VideoImage-changes.Designer.cs" />
+    <Compile Include="Migrations\20210614133744_ImageChangesInLevel.cs" />
+    <Compile Include="Migrations\20210614133744_ImageChangesInLevel.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
