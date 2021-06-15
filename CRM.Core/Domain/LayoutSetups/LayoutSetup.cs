@@ -27,5 +27,9 @@ namespace CRM.Core.Domain.LayoutSetups
 
         //User Diary
         public int DiaryHeaderImageId { get; set; }
+
+        //Complete Registration from
+        public string ReasonToSubmit { get; set; }
+
     }
 }

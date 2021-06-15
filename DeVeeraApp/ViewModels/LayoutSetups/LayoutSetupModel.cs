@@ -43,6 +43,9 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         //User Diary
         public int DiaryHeaderImageId { get; set; }
         public string DiaryHeaderImageUrl { get; set; }
+
+        //Complete Registration from
+        public string ReasonToSubmit { get; set; }
         public List<SelectListItem> AvailableImages { get; }
     }
 }

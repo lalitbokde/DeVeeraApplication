@@ -41,6 +41,7 @@ namespace DeVeeraApp.ViewModels.User
         public Education EducationType { get; set; }
         public Income IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
+        public string Reason { get; set; }
         public string ImageUrl { get; set; }
         public string BannerImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }

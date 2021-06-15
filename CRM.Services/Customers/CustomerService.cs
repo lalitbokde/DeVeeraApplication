@@ -151,8 +151,8 @@ namespace CRM.Services.Users
         {
             if (UserId == 0)
                 return null;
-
-            return _UserRepository.GetById(UserId);
+            var data = _UserRepository.GetById(UserId);
+            return data;
         }
 
         /// <summary>

@@ -31,59 +31,68 @@
             <input type="hidden" asp-for="@Model.SrNo" />
             <div class="row">
 
-                <div class="col-lg-6 col-md-12">
-                    <div class="register-form">
-                        <h2>Family/relationship status</h2>
-                        <div class="form-check">
-                            <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Single">
-                            <label class="form-check-label" for="checkme">Single</label>
+                <div class="col-md-12 col-lg-12">
+                    <div class="billing-details">
+                        <div class="form-group">
+                            <label>Reason to Submit Form</label>
+                            <select asp-for="ReasonID" asp-items="@Model.AvailableReason" class="form-control"></select>
                         </div>
-                        <div class="form-check">
-                            <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Married">
-                            <label class="form-check-label" for="checkme">Married</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Divorced">
-                            <label class="form-check-label" for="checkme">Divorced</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Separated">
-                            <label class="form-check-label" for="checkme">Separated</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Other">
-                            <label class="form-check-label" for="checkme">Other</label>
-                        </div>
+                    </div>
+                    
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="register-form">
+                            <h2>Family/relationship status</h2>
+                            <div class="form-check">
+                                <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Single">
+                                <label class="form-check-label" for="checkme">Single</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Married">
+                                <label class="form-check-label" for="checkme">Married</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Divorced">
+                                <label class="form-check-label" for="checkme">Divorced</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Separated">
+                                <label class="form-check-label" for="checkme">Separated</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Other">
+                                <label class="form-check-label" for="checkme">Other</label>
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="register-form">
+                            <h2>Education</h2>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.HighSchool">
+                                <label class="form-check-label">High school</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.AssociateDegree">
+                                <label class="form-check-label">Associate degree</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Bachelor">
+                                <label class="form-check-label">Bachelor</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Master">
+                                <label class="form-check-label">Master</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
+                                <label class="form-check-label">Doctorate</label>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="register-form">
-                        <h2>Education</h2>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input"asp-for="@Model.EducationType" value="@Education.HighSchool">
-                            <label class="form-check-label" >High school</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.AssociateDegree">
-                            <label class="form-check-label" >Associate degree</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input"asp-for="@Model.EducationType" value="@Education.Bachelor">
-                            <label class="form-check-label" >Bachelor</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Master">
-                            <label class="form-check-label" >Master</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
-                            <label class="form-check-label" >Doctorate</label>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <div class="row mt-5">
                 <div class="col-lg-6 col-md-12">
                     <div class="login-form mb-30">
