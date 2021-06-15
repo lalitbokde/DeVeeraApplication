@@ -278,6 +278,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 levelData.LevelNo = model.LevelNo;
                 levelData.FullDescription = model.FullDescription;
                 levelData.VideoId = model.VideoId;
+                levelData.BannerImageId = model.BannerImageId;
+                levelData.VideoThumbImageId = model.VideoThumbImageId;
+                levelData.ShareBackgroundImageId = model.ShareBackgroundImageId;
                 levelData.Active = model.Active;
                 levelData.EmotionId = model.EmotionId;
                 levelData.UpdatedOn = DateTime.Now;
