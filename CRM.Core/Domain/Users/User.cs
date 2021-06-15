@@ -37,6 +37,7 @@ namespace CRM.Core.Domain.Users
         public Education? EducationType { get; set; }
         public Income? IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship? FamilyOrRelationshipType { get; set; }
+        public string Reason { get; set; }
 
         /// <summary>
         /// Gets or sets the username

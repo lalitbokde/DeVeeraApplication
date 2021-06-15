@@ -9,7 +9,7 @@
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.SelectedImages.Count() >= 1 ? Model.SelectedImages[0].ImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
-            <h2>@Model.Title</h2>
+             <h2>@Model.Title</h2>
             <ul>
                 <li>
                     <a asp-controller="Dashboard" asp-action="Index">Home</a>
@@ -163,24 +163,53 @@
             }
             @if (ViewBag.TotalLevels > ViewBag.SrNo)
             {
-                <div class="next-link-wrapper">
-                    <div class="info-next-link-wrapper">
-                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
-                            <span class="next-link-info-wrapper">
-                                <span class="next-title">
-                                    @Model.NextTitle
+                if (Model.ModuleList.Count() > 0)
+                {
+                    <div class="next-link-wrapper">
+                        <div class="info-next-link-wrapper">
+                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@ViewBag.SrNo">
+                                <span class="next-link-info-wrapper">
+                                    <span class="next-title">
+                                        @Model.ModuleList.FirstOrDefault().Title
+                                    </span>
                                 </span>
-                            </span>
 
-                            <span class="image-next">
-                                @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
-                                <img src="@nextImageUrl" alt="image">
-                                <span class="post-nav-title">Next</span>
-                            </span>
-                        </a>
-                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
+                                <span class="image-next">
+                                    @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
+                                    <img src="@nextImageUrl" alt="image">
+                                    <span class="post-nav-title">Next</span>
+                                </span>
+                            </a>
+                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@ViewBag.SrNo" class="default-btn">@T("Next Module") <i class="flaticon-right-arrow"></i></a>
+                        </div>
                     </div>
-                </div>
+
+                }
+                else
+                {
+                    <div class="next-link-wrapper">
+                        <div class="info-next-link-wrapper">
+                            <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
+                                <span class="next-link-info-wrapper">
+                                    <span class="next-title">
+                                        @Model.NextTitle
+                                    </span>
+                                </span>
+
+                                <span class="image-next">
+                                    @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
+                                    <img src="@nextImageUrl" alt="image">
+                                    <span class="post-nav-title">Next</span>
+                                </span>
+                            </a>
+                            <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
+                        </div>
+                    </div>
+
+                }
+            }
+
+
             }
         </div>
 

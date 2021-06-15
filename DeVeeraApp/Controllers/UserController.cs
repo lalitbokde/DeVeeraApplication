@@ -127,6 +127,25 @@ namespace DeVeeraApp.Controllers
 
         #region Utilities
 
+
+        protected virtual void PrepareReason(CompleteRegistrationModel model)
+        {
+            model.AvailableReason.Add(new SelectListItem { Text = "Select Reason", Value = "0" });
+
+            var reasons = _LayoutSetupService.GetAllLayoutSetups().Where(l => l.ReasonToSubmit != null).ToList();
+
+            if(reasons.Count > 0)
+            {
+                foreach(var item in reasons)
+                {
+                    model.AvailableReason.Add(new SelectListItem
+                    {
+                        Text  = item.ReasonToSubmit,
+                        Value = item.Id.ToString(),
+                    });
+                }
+            }
+        }
         protected virtual void PrepareUserDataModel(UserModel model)
         {
             model.AvailableUserRoles.Add(new SelectListItem { Text = "Select Roles", Value = "0" });
@@ -152,6 +171,7 @@ namespace DeVeeraApp.Controllers
 
                 });
             }
+
             //countries
             model.AvailableCountries.Add(new SelectListItem { Text = "Select Country", Value = "0" });
 
@@ -805,7 +825,7 @@ namespace DeVeeraApp.Controllers
                 SrNo = SrNo,
                 UserId = userId
             };
-
+            PrepareReason(model);
             return View(model);
         }
 
@@ -827,12 +847,16 @@ namespace DeVeeraApp.Controllers
                 currentUser.Occupation = model.Occupation;
                 currentUser.RegistrationComplete = true;
                 currentUser.LastLevel = model.LevelId;
+                currentUser.Reason = _LayoutSetupService.GetLayoutSetupById(model.ReasonID).ReasonToSubmit;
+
 
                 _UserService.UpdateUser(currentUser);
                 _notificationService.SuccessNotification("User info updated successfull.");
                 return RedirectToAction("Next", "Lesson", new { id = model.LevelId, srno = model.SrNo });
             }
-            return View();
+            PrepareReason(model);
+
+            return View(model);
         }
 
 
