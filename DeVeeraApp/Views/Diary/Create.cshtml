@@ -1,4 +1,6 @@
-﻿@model DeVeeraApp.ViewModels.Diaries.DiaryModel
+﻿@model DeVeeraApp.ViewModels.Diaries.DiaryListModel
+@using DeVeeraApp.ViewComponents
+@using  DeVeeraApp.ViewModels.Enum
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -6,7 +8,7 @@
 
 <link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
 @{var user = _workContext.CurrentUser.UserRole.Name;
-    var DiaryHeaderImage = Model.DiaryHeaderImageUrl != null ? Model.DiaryHeaderImageUrl : "../../assets/images/howtowriteadiary.jpg";
+    var DiaryHeaderImage = Model.Diary?.DiaryHeaderImageUrl != null ? Model.Diary?.DiaryHeaderImageUrl : "../../assets/images/howtowriteadiary.jpg";
 }
 
 
@@ -56,12 +58,12 @@
                     </div>
                     <form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="return getDiaryContent()">
                         <div id="creatediaryForm">
-                            <div class="paper" id="diaryPaper" style="background-color:@Model.DiaryColor">
+                            <div class="paper" id="diaryPaper" style="background-color:@Model.Diary.DiaryColor">
                                 <div class="paper-header">
                                     <div class="row">
                                         <div class="col-lg-4 mt-3">
                                             <div class="form-group ms-4">
-                                                @{ var date = Model.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.DiaryDate.ToString("MMMM d, yyyy");}
+                                                @{ var date = Model.Diary.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.Diary.DiaryDate.ToString("MMMM d, yyyy");}
                                                 <input onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control" required>
                                                 <input id="userRole" value="@user" hidden />
                                             </div>
@@ -70,7 +72,7 @@
                                         <div class="col-lg-4 mt-3 ">
                                         </div>
                                         <div id="savediary" class="col-lg-4 text-end mt-3">
-                                            <button type="submit" class="btn default-btn me-4">
+                                            <button name="SubmitButton" value="SaveDiary" type="submit" class="btn default-btn me-4">
                                                 @T("Save Diary")
                                                 <i class="flaticon-pointer"></i>
                                             </button>
@@ -101,17 +103,17 @@
                                     </div>
 
                                 </div>
-                                <div class="lines" id="lines">
+                                <div class="lines" id="lines" style="background-image:repeating-linear-gradient(@Model.Diary.DiaryColor 0px, @Model.Diary.DiaryColor 24px, steelblue 25px)">
                                     <div class="text">
-                                        <input asp-for="Id" hidden />
-                                        <input asp-for="Title" hidden />
-                                        <input asp-for="Comment" hidden />
-                                        <input asp-for="DiaryColor" hidden />
+                                        <input asp-for="Diary.Id" hidden />
+                                        <input asp-for="Diary.Title" hidden />
+                                        <input asp-for="Diary.Comment" hidden />
+                                        <input asp-for="Diary.DiaryColor" hidden />
                                         <div id="diaryContent">
 
-                                            <label class="text-theme-21 star">@T("Title") </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="@T("Enter Title Here ...")">@Html.Raw(Model.Title)</div><br /><br />
+                                            <label class="text-theme-21 star">@T("Title") </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="@T("Enter Title Here ...")">@Html.Raw(Model.Diary.Title)</div><br /><br />
                                             <label class="text-theme-21 star"> @T("Diary Entry")  </label><br />
-                                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="@T("Enter Description Here ...")">@Html.Raw(Model.Comment)</div>
+                                            <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="@T("Enter Description Here ...")">@Html.Raw(Model.Diary.Comment)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -126,22 +128,50 @@
             </div>
 
             <div class="col-lg-4 col-md-12">
-                <div class="services-details-info">
-                                <ul class="services-list">
-                                    @if (Model.diaryModels != null)
-                                    {
-                                        @foreach (var item in Model.diaryModels.Where(a => a.UserId == _workContext.CurrentUser.Id))
-                                        {
-                                            <li><a href="#" onclick="GetDiaryByDate('@item.CreatedOn');"><p>@item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString() </p>@item.Title </a></li>
-                                        }
-                                    }
-                                </ul>
+                <div class="psylo-grid-sorting row">
+                    <form asp-controller="Diary" asp-action="Create" method="Post" class="search-form">
+                        <div class="col-lg-12 col-md-6 ms-3">
+                            <input asp-for="SortTypeId" hidden />
+                            <input asp-for="SearchByDate" oninput="this.value = MMDDYYYY(this.value, event)" type="tel" class="search-field" maxlength="10" placeholder="Search...">
+                            <button name="SubmitButton" value="Search" type="submit"><i class='bx bx-search-alt'></i></button>
+                        </div>
+                    </form>
+                    <form asp-controller="Diary" asp-action="Create" method="Post" class="search-form">
+                        <div class="col-lg-12 col-md-6 mt-2 ordering">
+                            <div class="select-box">
+                                <label>Sort By:</label>
+                                <input asp-for="SearchByDate"hidden />
+                                <select asp-for="SortTypeId" asp-items="Html.GetEnumSelectList<SortType>()" onchange="this.form.submit()"></select>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+                <div class="services-details-info">
+                    <ul class="services-list">
+                        @if (Model.DiaryList != null)
+                        {
+                            @foreach (var item in Model.DiaryList.Results)
+                            {
+                                <li>
+                                    <a href="#" onclick="GetDiaryByDate('@item.CreatedOn');">
+                                        <label>@item.Title</label>
+                                        <p>Created On : @item.CreatedOn.ToShortDateString() </p>
+                                        <p>Updated On : @item.LastUpdatedOn.ToShortDateString() </p>
+
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                @(await Component.InvokeAsync<PagerViewComponent>(Model.DiaryList))
+
+            </div>
+        </div>
+    </div>
 </section>
 <!-- End Services Details Area -->
 <script src="~/dist/js/Diary.js"></script>
+
 
 

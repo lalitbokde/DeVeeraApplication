@@ -1,4 +1,4 @@
-﻿ using CRM.Core;
+﻿using CRM.Core;
 using CRM.Core.Domain;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
@@ -87,7 +87,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
 
             //prepare available images
-             model.ImageLists = _imageMasterService.GetAllImages().ToList();
+            model.ImageLists = _imageMasterService.GetAllImages().ToList();
             foreach (var item in model.ImageLists)
             {
                 model.AvailableImages.Add(new SelectListItem
@@ -110,7 +110,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
         }
 
-       
+
         #endregion
 
         #region Methods
@@ -124,7 +124,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             AddBreadcrumbs("Level", "Create", "/Admin/Level/List", "/Admin/Level/Create");
             LevelModel model = new LevelModel();
-            PrepareLevelModel(model);          
+            PrepareLevelModel(model);
             return View(model);
         }
 
@@ -135,7 +135,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                model.VideoId =  (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
+                model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
 
                 var data = model.ToEntity<Level>();
                 data.CreatedOn = DateTime.Now;
@@ -143,7 +143,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 if (model.SelectedEmotions.Count() != 0)
                 {
-                    foreach (var item in model.SelectedEmotions) 
+                    foreach (var item in model.SelectedEmotions)
                     {
                         data.Level_Emotion_Mappings.Add(new Level_Emotion_Mapping
                         {
@@ -183,7 +183,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             var model = new List<LevelModel>();
             var data = _levelServices.GetAllLevels();
-            if(data.Count() != 0)
+            if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<Level, LevelModel>(model);
 
@@ -196,13 +196,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
 
-       
 
-        public IActionResult Edit(int id,int ModuleId, int srno)
+
+        public IActionResult Edit(int id, int ModuleId, int srno)
         {
-            AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{id}");        
+            AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{id}");
             ViewBag.ActiveTab = "Level";
-            List<string> Emotions = new List<string>(); 
+            List<string> Emotions = new List<string>();
 
             if (id != 0)
             {
@@ -228,7 +228,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 var moduleList = _moduleServices.GetModulesByLevelId(id);
                 model.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(model.ModuleList.ToList());
-                if ( ModuleId > 0 && ModuleId != 0)
+                if (ModuleId > 0 && ModuleId != 0)
                 {
                     var module = _moduleServices.GetModuleById(ModuleId);
                     model.Modules.Title = module.Title;
@@ -246,7 +246,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
                 }
 
-                
+
 
                 PrepareLevelModel(model);
 
@@ -297,13 +297,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 //        _levelImageListServices.InsertLevelImage(record);
                 //    }
-                
 
-                
+
+
 
                 if (levelData.Level_Emotion_Mappings.Count() != 0)
-                {                  
-                       levelData.Level_Emotion_Mappings.Clear();
+                {
+                    levelData.Level_Emotion_Mappings.Clear();
                 }
 
                 if (model.SelectedEmotions.Count() != 0)
@@ -330,7 +330,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddModule(LevelModel model)
         {
-           AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
+            AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
 
             if (model.Modules.FullDescription != null)
             {
@@ -396,7 +396,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     }
 
 
-                    return RedirectToAction("Edit", "Level", new { id = model.Id , ModuleId = model.Modules.Id });
+                    return RedirectToAction("Edit", "Level", new { id = model.Id, ModuleId = model.Modules.Id });
                 }
 
                 return RedirectToAction("Edit", "Level", new { id = model.Id });
@@ -408,7 +408,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
 
-     
+
         [HttpPost]
         public IActionResult SaveLevelImages(LevelModel model)
         {
@@ -423,14 +423,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 return Json(new { Success = true, Images = model.ImageLists, SelectedImages = model.SelectedImg });
             }
-            
+
             return Json("Ok");
         }
 
 
-            public IActionResult Delete(int videoId)
+        public IActionResult Delete(int videoId)
         {
-           
+
             ResponseModel response = new ResponseModel();
 
             if (videoId != 0)

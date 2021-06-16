@@ -123,6 +123,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Emotion", "Edit", "/Admin/Emotion/List", $"/Admin/Emotion/Edit/{id}");
             var emotion = _emotionService.GetEmotionById(id);
             var model = emotion.ToModel<EmotionModel>();
+            model.EmotionHeaderImageUrl = emotion.EmotionHeaderImageId > 0 ? _imageMasterService.GetImageById(emotion.EmotionHeaderImageId)?.ImageUrl : null;
+            model.EmotionBannerImageUrl = emotion.EmotionBannerImageId > 0 ? _imageMasterService.GetImageById(emotion.EmotionBannerImageId)?.ImageUrl : null;
+            model.EmotionThumbnailImageUrl = emotion.EmotionThumbnailImageId > 0 ? _imageMasterService.GetImageById(emotion.EmotionThumbnailImageId)?.ImageUrl : null;
             PrepareEmotionModel(model);
             return View(model);
         }
@@ -141,9 +144,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 emotion.Quote = model.Quote;
                 emotion.Description = model.Description;
                 emotion.VideoId = model.VideoId;
-                emotion.ThumbnailImageId = model.ThumbnailImageId;
-                emotion.BannerImageId = model.BannerImageId;
-                emotion.ContentImageId = model.ContentImageId;
+                emotion.EmotionHeaderImageId = model.EmotionHeaderImageId;
+                emotion.EmotionBannerImageId = model.EmotionBannerImageId;
+                emotion.EmotionThumbnailImageId = model.EmotionThumbnailImageId;
                 emotion.LastUpdatedOn = DateTime.UtcNow;
 
                 _emotionService.UpdateEmotion(emotion);

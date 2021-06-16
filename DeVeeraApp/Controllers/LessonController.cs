@@ -23,7 +23,7 @@ using CRM.Services.DashboardQuotes;
 namespace DeVeeraApp.Controllers
 {
 
-   
+
     public class LessonController : BaseController
     {
         #region fields
@@ -85,11 +85,11 @@ namespace DeVeeraApp.Controllers
 
             var currentDate = DateTime.UtcNow.ToShortDateString();
 
-          //  var lastLoginDate = lastLoginDateUtc.Value.ToShortDateString();
+            //  var lastLoginDate = lastLoginDateUtc.Value.ToShortDateString();
 
             if (currentUser.UserRole.Name != "Admin")
             {
-                if( lastLoginDateUtc != null  && currentDate != lastLoginDateUtc.Value.ToShortDateString() )
+                if (lastLoginDateUtc != null && currentDate != lastLoginDateUtc.Value.ToShortDateString())
                 {
                     return true;
                 }
@@ -102,7 +102,7 @@ namespace DeVeeraApp.Controllers
             {
                 return false;
             }
-            
+
         }
         #endregion
 
@@ -117,18 +117,16 @@ namespace DeVeeraApp.Controllers
             videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
 
-            var result= IsUserFirstLoginOnDay(lastLoginDateUtc);
-            if (result == true) 
+            var result = IsUserFirstLoginOnDay(lastLoginDateUtc);
+            if (result == true)
             {
                 return RedirectToAction("AskHappynessLevel", "Home");
             }
             var data = _levelServices.GetLevelById(id);
             var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
 
-            
-                
-                    var seletedImages = new SelectedImage();
-                    var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
+            var seletedImages = new SelectedImage();
+            var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
             if (imagesRecord != null)
             {
                 seletedImages.ImageUrl = imagesRecord.ImageUrl;
@@ -148,7 +146,6 @@ namespace DeVeeraApp.Controllers
                 videoData.SelectedImages.Add(seletedImages1);
             }
             var seletedImages2 = new SelectedImage();
-
             var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
             if (imagesRecord2 != null)
             {
@@ -162,14 +159,15 @@ namespace DeVeeraApp.Controllers
 
 
 
-            if (data.VideoId != null) { 
-            var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
+            if (data.VideoId != null)
+            {
+                var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
 
-            var videoUrl =  _s3BucketService.GetPreSignedURL(videoRecord.Key);
+                var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
 
-            videoRecord.VideoUrl = videoUrl.Result;
+                videoRecord.VideoUrl = videoUrl.Result;
 
-            _videoMasterService.UpdateVideo(videoRecord);
+                _videoMasterService.UpdateVideo(videoRecord);
             }
             var updatedVideoData = _levelServices.GetLevelById(id);
             videoData.Id = updatedVideoData.Id;
@@ -197,7 +195,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                diary = _diaryMasterService.GetAllDiarys().Where(a=>a.UserId == _workContext.CurrentUser.Id).OrderByDescending(a => a.Id).FirstOrDefault();
+                diary = _diaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).OrderByDescending(a => a.Id).FirstOrDefault();
 
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
@@ -206,8 +204,8 @@ namespace DeVeeraApp.Controllers
             videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
             foreach (var module in videoData.ModuleList)
             {
-               var seletedImages5 = new SelectedImage();
-            var imagesRecord5 = _imageMasterService.GetImageById(data.BannerImageId);
+                var seletedImages5 = new SelectedImage();
+                var imagesRecord5 = _imageMasterService.GetImageById(data.BannerImageId);
                 if (imagesRecord5 != null)
                 {
                     seletedImages5.ImageUrl = imagesRecord5.ImageUrl;
@@ -225,7 +223,7 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.NextTitle = userNextLevel?.Title;
                 var level = _imageMasterService.GetImageById(userNextLevel.BannerImageId);
-                videoData.NextImageUrl = level?.ImageUrl ;
+                videoData.NextImageUrl = level?.ImageUrl;
 
             }
 
@@ -235,7 +233,7 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.PrevTitle = userPreviousLevel?.Title;
                 var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
-                videoData.PrevImageUrl = level?.ImageUrl ;
+                videoData.PrevImageUrl = level?.ImageUrl;
             }
 
 
@@ -252,7 +250,7 @@ namespace DeVeeraApp.Controllers
 
             var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.Id < id).FirstOrDefault() : data.Where(a => a.Id < id && a.Active == true).FirstOrDefault();
 
-            if(level != null)
+            if (level != null)
             {
                 return RedirectToAction("Index", new { id = level.Id, srno = srno - 1 });
             }
@@ -290,7 +288,7 @@ namespace DeVeeraApp.Controllers
 
             var data = _levelServices.GetAllLevels();
 
-            if(!(currentUser.UserRole.Name == "Admin"))
+            if (!(currentUser.UserRole.Name == "Admin"))
             {
                 if (currentUser.RegistrationComplete == false)
                 {
@@ -322,7 +320,7 @@ namespace DeVeeraApp.Controllers
 
                 var adminNextLevel = data.Where(a => a.Id > id).FirstOrDefault();
 
-                if(adminNextLevel != null)
+                if (adminNextLevel != null)
                 {
                     return RedirectToAction("Index", new { id = adminNextLevel.Id, srno = srno + 1 });
 

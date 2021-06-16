@@ -24,13 +24,13 @@ namespace DeVeeraApp.ViewModels.Emotions
         public int VideoId { get; set; }
 
         [Required]
-        public int ContentImageId { get; set; }
+        public int EmotionHeaderImageId { get; set; }
 
         [Required]
-        public int BannerImageId { get; set; }
+        public int EmotionBannerImageId { get; set; }
 
         [Required]
-        public int ThumbnailImageId { get; set; }
+        public int EmotionThumbnailImageId { get; set; }
 
         [Required]
         public string EmotionName { get; set; }
@@ -47,9 +47,9 @@ namespace DeVeeraApp.ViewModels.Emotions
         [Required]
         public string Description { get; set; }
 
-        public string ContentImageUrl { get; set; }
-        public string BannerImageUrl { get; set; }
-        public string ThumbnailImageUrl { get; set; }
+        public string EmotionHeaderImageUrl{ get; set; }
+        public string EmotionBannerImageUrl { get; set; }
+        public string EmotionThumbnailImageUrl { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }

@@ -9,14 +9,14 @@
     <div class="container-fluid">
         <div class="row align-items-center">
             @{
-                var ContentImage = Model.ContentImageUrl == null ? "../../assets/images/page-banner/page-banner-3.jpg" : Model.ContentImageUrl;
-                var BannerImage = Model.BannerImageUrl == null ? "../../assets/images/blog/blog-details.jpg" : Model.BannerImageUrl;
-                var ThumbnailImage = Model.ThumbnailImageUrl == null ? "../../assets/images/courses/courses-details-1.jpg" : Model.ThumbnailImageUrl;
+                var HeaderImage = Model.EmotionHeaderImageUrl == null ? "../../assets/images/page-banner/page-banner-3.jpg" : Model.EmotionHeaderImageUrl;
+                var BannerImage = Model.EmotionBannerImageUrl == null ? "../../assets/images/blog/blog-details.jpg" : Model.EmotionBannerImageUrl;
+                var ThumbnailImage = Model.EmotionThumbnailImageUrl == null ? "../../assets/images/courses/courses-details-1.jpg" : Model.EmotionThumbnailImageUrl;
                 var videoUrl = Model.Video?.VideoUrl;
 
                 <div class="col-lg-6 col-md-6">
                     <div class="page-banner-image">
-                        <img src="@ContentImage" alt="image" width="100%">
+                        <img src="@HeaderImage" alt="image" width="100%">
                         <div class="image-shape">
                             <img src="~/assets/images/page-banner/shape.png" alt="image">
                         </div>
