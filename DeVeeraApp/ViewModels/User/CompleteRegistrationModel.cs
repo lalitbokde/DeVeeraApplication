@@ -11,11 +11,6 @@ namespace DeVeeraApp.ViewModels.User
     public class CompleteRegistrationModel
     {
 
-        public CompleteRegistrationModel()
-        {
-            AvailableReason = new List<SelectListItem>();
-        }
-
 
         [Required]
         public Gender GenderType { get; set; }
@@ -29,12 +24,12 @@ namespace DeVeeraApp.ViewModels.User
         public Income IncomeAboveOrBelow80K { get; set; }
         [Required]
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
-        public int ReasonID { get; set; }
+        public string Reason { get; set; }
 
+        public string HeaderImageUrl { get; set; }
         public int UserId { get; set; }
         public int LevelId { get; set; }
         public int SrNo { get; set; }
 
-        public List<SelectListItem> AvailableReason { get; set; }
     }
 }

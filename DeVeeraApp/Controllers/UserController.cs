@@ -128,24 +128,6 @@ namespace DeVeeraApp.Controllers
         #region Utilities
 
 
-        protected virtual void PrepareReason(CompleteRegistrationModel model)
-        {
-            model.AvailableReason.Add(new SelectListItem { Text = "Select Reason", Value = "0" });
-
-            var reasons = _LayoutSetupService.GetAllLayoutSetups().Where(l => l.ReasonToSubmit != null).ToList();
-
-            if(reasons.Count > 0)
-            {
-                foreach(var item in reasons)
-                {
-                    model.AvailableReason.Add(new SelectListItem
-                    {
-                        Text  = item.ReasonToSubmit,
-                        Value = item.Id.ToString(),
-                    });
-                }
-            }
-        }
         protected virtual void PrepareUserDataModel(UserModel model)
         {
             model.AvailableUserRoles.Add(new SelectListItem { Text = "Select Roles", Value = "0" });
@@ -819,13 +801,17 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{Id}?SrNo={SrNo}&userId={userId}", $"/User/CompleteRegistration/{Id}?SrNo={SrNo}&userId={userId}");
 
+            var result = _LayoutSetupService.GetAllLayoutSetups().Where(l => l.CompleteRegistrationHeaderImgId != 0).LastOrDefault();
+
             var model = new CompleteRegistrationModel()
             {
                 LevelId = Id,
                 SrNo = SrNo,
-                UserId = userId
+                UserId = userId,
+                HeaderImageUrl = _imageMasterService.GetImageById(result.CompleteRegistrationHeaderImgId).ImageUrl,
+                Reason = result.ReasonToSubmit
+                
             };
-            PrepareReason(model);
             return View(model);
         }
 
@@ -847,14 +833,12 @@ namespace DeVeeraApp.Controllers
                 currentUser.Occupation = model.Occupation;
                 currentUser.RegistrationComplete = true;
                 currentUser.LastLevel = model.LevelId;
-                currentUser.Reason = _LayoutSetupService.GetLayoutSetupById(model.ReasonID).ReasonToSubmit;
 
 
                 _UserService.UpdateUser(currentUser);
                 _notificationService.SuccessNotification("User info updated successfull.");
                 return RedirectToAction("Next", "Lesson", new { id = model.LevelId, srno = model.SrNo });
             }
-            PrepareReason(model);
 
             return View(model);
         }
