@@ -97,8 +97,8 @@ function getDiaryContent() {
         return false;
     }
     else {
-        document.getElementById("Title").value = title;
-        document.getElementById("Comment").value = comment;
+        document.getElementById("Diary_Title").value = title;
+        document.getElementById("Diary_Comment").value = comment;
         return true;
     }
 
@@ -109,5 +109,20 @@ function getDiaryColor(ColorCode) {
     debugger
     document.getElementById("diaryPaper").style.backgroundColor = ColorCode
     document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient(${ColorCode} 0px, ${ColorCode} 24px, steelblue 25px)`)
-    document.getElementById("DiaryColor").value = ColorCode;
+    document.getElementById("Diary_DiaryColor").value = ColorCode;
 }
+
+
+function MMDDYYYY(value, event) {
+        debugger
+        let newValue = value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+
+        const dayOrMonth = (index) => index % 2 === 1 && index < 4;
+
+        // on delete key.
+        if (!event.data) {
+            return value;
+        }
+
+        return newValue.split('').map((v, i) => dayOrMonth(i) ? v + '/' : v).join('');;
+    }

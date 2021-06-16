@@ -13,6 +13,7 @@ using CRM.Core.Domain;
 using CRM.Core.Domain.VideoModules;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.LayoutSetups;
+using CRM.Core.ViewModels;
 
 namespace CRM.Data
 {
@@ -82,6 +83,9 @@ namespace CRM.Data
         //Diary Layout Setup
 
         public DbSet<LayoutSetup> LayoutSetup { get; set; }
+
+        public virtual DbQuery<DiaryViewModel> DiaryViewModel { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {

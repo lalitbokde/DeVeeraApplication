@@ -26,11 +26,11 @@ namespace DeVeeraApp.Utils
         public static List<SelectListItem> GetPageSizeDropdown(string SelectedValue = null)
         {
             List<SelectListItem> selectListItems = new List<SelectListItem>();
-            selectListItems.Add(new SelectListItem { Text = "12", Value = "12", Selected = (SelectedValue == "12") });
-            selectListItems.Add(new SelectListItem { Text = "24", Value = "24", Selected = (SelectedValue == "24") });
-            selectListItems.Add(new SelectListItem { Text = "36", Value = "36", Selected = (SelectedValue == "36") });
-            selectListItems.Add(new SelectListItem { Text = "48", Value = "48", Selected = (SelectedValue == "48") });
-            selectListItems.Add(new SelectListItem { Text = "60", Value = "60", Selected = (SelectedValue == "60") });
+            selectListItems.Add(new SelectListItem { Text = "10", Value = "10", Selected = (SelectedValue == "10") });
+            selectListItems.Add(new SelectListItem { Text = "20", Value = "20", Selected = (SelectedValue == "20") });
+            selectListItems.Add(new SelectListItem { Text = "30", Value = "30", Selected = (SelectedValue == "30") });
+            selectListItems.Add(new SelectListItem { Text = "40", Value = "40", Selected = (SelectedValue == "40") });
+            selectListItems.Add(new SelectListItem { Text = "50", Value = "50", Selected = (SelectedValue == "50") });
             selectListItems.Add(new SelectListItem { Text = "All", Value = "0", Selected = (SelectedValue == "0") });
             return selectListItems;
         }

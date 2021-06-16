@@ -90,9 +90,9 @@ namespace DeVeeraApp.Controllers
             if (emotion != null)
             {
                  model = emotion.ToModel<EmotionModel>();
-                 model.ContentImageUrl = emotion.ContentImageId > 0 ?_imageMasterService.GetImageById(emotion.ContentImageId)?.ImageUrl:null;
-                 model.BannerImageUrl = emotion.BannerImageId > 0 ?_imageMasterService.GetImageById(emotion.BannerImageId)?.ImageUrl:null;
-                 model.ThumbnailImageUrl = emotion.ThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.ThumbnailImageId)?.ImageUrl:null;
+                 model.EmotionHeaderImageUrl = emotion.EmotionHeaderImageId > 0 ?_imageMasterService.GetImageById(emotion.EmotionHeaderImageId)?.ImageUrl:null;
+                 model.EmotionBannerImageUrl = emotion.EmotionBannerImageId > 0 ?_imageMasterService.GetImageById(emotion.EmotionBannerImageId)?.ImageUrl:null;
+                 model.EmotionThumbnailImageUrl = emotion.EmotionThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.EmotionThumbnailImageId)?.ImageUrl:null;
                  model.Video = _videoMasterService.GetVideoById(emotion.VideoId);
 
             }

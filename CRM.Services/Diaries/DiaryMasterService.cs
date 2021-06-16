@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using CRM.Core.Domain.VideoModules;
+using CRM.Core.ViewModels;
+using CRM.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRM.Services
 {
@@ -12,12 +15,14 @@ namespace CRM.Services
     {
         #region fields
         private readonly IRepository<Diary> _DiaryRepository;
+        protected readonly dbContextCRM _dbContext;
         #endregion
 
 
         #region ctor
-        public DiaryMasterService(IRepository<Diary> DiaryRepository)
+        public DiaryMasterService(dbContextCRM dbContext, IRepository<Diary> DiaryRepository)
         {
+            this._dbContext = dbContext;
             _DiaryRepository = DiaryRepository;
         }
 
@@ -90,5 +95,37 @@ namespace CRM.Services
 
         #endregion
 
+        #region Stored procedures
+      public List<DiaryViewModel> GetAllDiaries(
+      int page_size = 0,
+      int page_num = 0,
+      bool GetAll = false,
+      string SortBy = "",
+      string SearchByDate = "",
+      int UserId = 0
+    )
+        {
+
+            try
+            {
+
+                string query = @"exec [sp_GetAllDiaries] @page_size = '" + ((page_size == 0) ? 12 : page_size) + "', " +
+                                "@page_num  = '" + ((page_num == 0) ? 1 : page_num) + "', " +
+                                "@sortBy ='" + SortBy + "' , " +
+                                "@searchBy ='" + SearchByDate + "' , " +
+                                "@UserId ='" + UserId + "' , " +
+                                "@GetAll ='" + GetAll + "'";
+                var data = _dbContext.DiaryViewModel.FromSql(query).ToList();
+                return (data.FirstOrDefault() != null) ? data : new List<DiaryViewModel>();
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        #endregion
     }
 }
