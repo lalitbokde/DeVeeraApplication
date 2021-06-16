@@ -1,9 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/Users/apurvaraut/.dotnet/store/|arch|/|tfm|",
-      "/Users/apurvaraut/.nuget/packages",
-      "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+      "C:\\Users\\Thinkersteps Graphic\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Thinkersteps Graphic\\.nuget\\packages"
     ]
   }
 }
