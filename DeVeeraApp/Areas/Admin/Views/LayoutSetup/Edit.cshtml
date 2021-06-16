@@ -121,8 +121,25 @@
                             </div>
                         </div>
                     </div>
+                 
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Complete Registration Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
+                                <select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
+                                <input asp-for="ReasonToSubmit" type="text" class="form-control w-full" placeholder="reason" required />
+                            </div>
+                        </div>
+                    </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                        <div class="grid grid-cols-12  gap-y-5 mt-5">                         
+                        <div class="grid grid-cols-12  gap-y-5 mt-5">
                             <div class="col-span-12 text-right">
                                 <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                             </div>

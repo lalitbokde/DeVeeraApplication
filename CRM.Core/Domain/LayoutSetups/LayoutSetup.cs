@@ -29,6 +29,7 @@ namespace CRM.Core.Domain.LayoutSetups
         public int DiaryHeaderImageId { get; set; }
 
         //Complete Registration from
+        public int CompleteRegistrationHeaderImgId { get; set; }
         public string ReasonToSubmit { get; set; }
 
     }

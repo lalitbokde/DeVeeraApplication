@@ -129,6 +129,10 @@
                                 <div class="form-label text-theme-21  border-b-2 w-full"></div>
                             </div>
                             <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Complete Registration Header Image</label>
+                                <select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                            <div class="mt-2">
                                 <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
                                 <input asp-for="ReasonToSubmit" type="text" class="form-control w-full" placeholder="reason" required />
                             </div>
