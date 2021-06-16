@@ -104,21 +104,21 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(int id, int srno, DateTime? lastLoginDateUtc)
+        public IActionResult Index(int levelno, DateTime? lastLoginDateUtc)
         {
             var random = new Random();
-            ViewBag.SrNo = srno;
+           
             ViewBag.TotalLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList().Count;
             var videoData = new LevelModel();
             videoData.SelectedImages = new List<SelectedImage>();
-            AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
+            AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{levelno}", $"/Lesson/Index/{levelno}");
 
             var result= IsUserFirstLoginOnDay(lastLoginDateUtc);
             if (result == true) 
             {
                 return RedirectToAction("AskUserEmotion", "Diary");
             }
-            var data = _levelServices.GetLevelById(id);
+            var data = _levelServices.GetLevelByLevelNo(levelno);
             var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
 
             if(levelImages.Count != 0)
@@ -148,18 +148,18 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             _videoMasterService.UpdateVideo(videoRecord);
             }
-            var updatedVideoData = _levelServices.GetLevelById(id);
+            var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
             videoData.FullDescription = updatedVideoData.FullDescription;
             videoData.Video = updatedVideoData.Video;
-            videoData.srno = srno;
+          
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
             videoData.LevelNo = updatedVideoData.LevelNo;
 
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
-            quoteList = quoteList.Where(a => a.LevelId == id || a.Level == "All Level").ToList();
+            quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
 
             if (quoteList != null && quoteList.Count > 0)
             {
@@ -179,7 +179,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
-            var moduleList = _moduleServices.GetModulesByLevelId(id);
+            var moduleList = _moduleServices.GetModulesByLevelId(data.Id);
             videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
             return View(videoData);
         }

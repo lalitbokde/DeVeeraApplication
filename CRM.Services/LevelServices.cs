@@ -49,6 +49,15 @@ namespace CRM.Services
             return _levelRepository.GetById(videoId);
         }
 
+        public virtual Level GetLevelByLevelNo(int LevelNo)
+        {
+            if (LevelNo == 0)
+                return null;
+
+
+            return _levelRepository.Table.Where(a=>a.LevelNo==LevelNo).FirstOrDefault();
+        }
+
         public IList<Level> GetLevelByIds(int[] VideoIds)
         {
             if (VideoIds == null || VideoIds.Length == 0)

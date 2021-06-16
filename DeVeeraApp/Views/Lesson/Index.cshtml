@@ -139,11 +139,11 @@
 
 
 
-            @if (Convert.ToInt32(ViewBag.SrNo) != 1)
+            @if (Convert.ToInt32(Model.LevelNo) != 1)
             {
                 <div class="prev-link-wrapper">
                     <div class="info-prev-link-wrapper">
-                        <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
+                        <a asp-controller="Lesson" asp-action="Previous" asp-route-levelno="@Model.LevelNo" >
                             <span class="image-prev">
 
                                 @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; }
@@ -157,17 +157,17 @@
                                 </span>
                             </span>
                         </a>
-                        <a asp-controller="Lesson" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="default-btn">@T("Previous Level") <i class="flaticon-left-arrow"></i></a>
+                        <a asp-controller="Lesson" asp-action="Previous" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Previous Level") <i class="flaticon-left-arrow"></i></a>
                     </div>
                 </div>
             }
-            @if (ViewBag.TotalLevels > ViewBag.SrNo)
+            @if (ViewBag.TotalLevels > Convert.ToInt32(Model.LevelNo))
             {
                 if (Model.ModuleList.Count() > 0)
                 {
                     <div class="next-link-wrapper">
                         <div class="info-next-link-wrapper">
-                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@ViewBag.SrNo">
+                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo">
                                 <span class="next-link-info-wrapper">
                                     <span class="next-title">
                                         @Model.ModuleList.FirstOrDefault().Title
@@ -180,7 +180,7 @@
                                     <span class="post-nav-title">Next</span>
                                 </span>
                             </a>
-                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@ViewBag.SrNo" class="default-btn">@T("Next Module") <i class="flaticon-right-arrow"></i></a>
+                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo" class="default-btn">@T("Next Module") <i class="flaticon-right-arrow"></i></a>
                         </div>
                     </div>
 
@@ -189,7 +189,7 @@
                 {
                     <div class="next-link-wrapper">
                         <div class="info-next-link-wrapper">
-                            <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo">
+                            <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo" >
                                 <span class="next-link-info-wrapper">
                                     <span class="next-title">
                                         @Model.NextTitle
@@ -202,7 +202,7 @@
                                     <span class="post-nav-title">Next</span>
                                 </span>
                             </a>
-                            <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
+                            <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo"  class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
                         </div>
                     </div>
 
@@ -210,7 +210,7 @@
             }
 
 
-            }
+            
         </div>
 
     </div>
@@ -240,7 +240,7 @@
                                                 string imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
                                                 if (imageUrl != null)
                                                 {
-                                                    <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo"><img src=@imageUrl alt="image"></a>
+                                                    <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src=@imageUrl alt="image"></a>
 
                                                 }
 
@@ -248,7 +248,7 @@
                                             }
                                             else
                                             {
-                                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
+                                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
 
                                             }
 
@@ -257,7 +257,7 @@
 
                         <div class="products-content">
                             <h3>
-                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@ViewBag.SrNo">@item.Title</a>
+                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo">@item.Title</a>
                             </h3>
 
                         </div>

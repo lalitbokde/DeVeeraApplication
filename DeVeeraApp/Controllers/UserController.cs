@@ -514,7 +514,6 @@ namespace DeVeeraApp.Controllers
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
                                     return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login , LastLoginDateUtc=LastLoginDateUtc });
-
                                 }
                                 else
                                 {

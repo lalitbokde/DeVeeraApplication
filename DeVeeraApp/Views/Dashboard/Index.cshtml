@@ -69,7 +69,7 @@
             @{
 
                 int i = 1;
-                @foreach (var item in Model.VideoModelList)
+                @foreach (var item in Model.VideoModelList.OrderBy(a=>a.LevelNo))
                 {
 
                     <div class="single-blog-item" >
@@ -81,13 +81,13 @@
                                     string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
                                     if (imageUrl != null)
                                     {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img  class="img-htwtLevels" src=@imageUrl></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" ><img  class="img-htwtLevels" src=@imageUrl></a>
 
                                     }
                                 }
                                 else
                                 {
-                                    <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i"><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
+                                    <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" ><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
 
                                 }
                             }
@@ -102,7 +102,7 @@
                                 <a >@item.Title</a>
                             </h3>
                             <div class="blog-btn">
-                                <a asp-controller="Lesson" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" class="default-btn">@T("Read More") <i class="flaticon-plus"></i></a>
+                                <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" class="default-btn">@T("Read More") <i class="flaticon-plus"></i></a>
                             </div>
                         </div>
                     </div>

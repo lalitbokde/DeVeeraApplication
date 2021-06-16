@@ -144,7 +144,7 @@ namespace DeVeeraApp.Controllers
                                 {
                                     foreach(var level in model.VideoModelList)
                                     {
-                                        var leveldata = _levelServices.GetLevelById(level.Id);
+                                        var leveldata = _levelServices.GetLevelByLevelNo(level.LevelNo??1);
                                         if(leveldata != null)
                                         {
 

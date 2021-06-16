@@ -61,62 +61,7 @@
             </div>
         </div>
     </div>
-    <!-- End Preloader Area -->
-    <!-- Start Coming Soon Area -->
-    @*<div class="ptb-100">
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="">
-                    <div class="container">
-                        @if (Model != null)
-                        {
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12 ">
-                                    <div class="courses-details-image">
-
-                                        <img src="../../assets/images/courses/courses-details-1.jpg" alt="image" width="100%" style="height:425px;">
-
-                                        @{string src = Model.VideoUrl;}
-
-                                        <a href="@src" class="video-btn popup-youtube">
-                                            <i class="flaticon-play"></i>
-                                        </a>
-
-
-                                    </div>
-
-
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="mt-4">
-                                        <h3> @Model.Title </h3>
-                                    </div>
-                                    <div class="mt-4">
-                                        <h3>Let's continue </h3>
-                                    </div>
-                                    <div class="mt-4"><h6>@Model.Subtitle</h6></div>
-                                    <div class="mt-4">
-                                        @if (ViewBag.SrNo != 0)
-                                        {
-                                            <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="btn default-btn text-white" style="background-color: #221d48 !important">Let's Start<i class="flaticon-right-arrow text-black-50" style="background-color: white !important"></i></a>
-
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="home" asp-action="Index" class="btn default-btn text-white" style="background-color: #221d48 !important">Dashboard<i class="flaticon-right-arrow text-black-50" style="background-color: white !important"></i></a>
-
-                                        }
-                                    </div>
-
-                                </div>
-                            </div>
-                                            }
-                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
-
+   
 
 
 
@@ -144,16 +89,9 @@
                                     @Html.Raw(@Model.Subtitle)
                                 <div class="banner-btn">
 
-                                    @if (ViewBag.SrNo != 0)
-                                    {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-srno="@ViewBag.SrNo" asp-route-id="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn" >@T("Let's Continue ")<i class="flaticon-pointer"></i></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn" >@T("Let's Continue ")<i class="flaticon-pointer"></i></a>
 
-                                    }
-                                    else
-                                    {
-                                        <a asp-controller="home" asp-action="Index" class="default-btn" >Dashboard<i class="flaticon-pointer"></i></a>
-
-                                    }
+                                   
                                 </div>
                                 </div>
                             </div>
@@ -193,7 +131,7 @@
 
 
                         <div class="about-btn">
-                            <a asp-controller="Diary" asp-action="AskUserEmotion" class="default-btn">@T("Lets Start") <i class="flaticon-user"></i></a>
+                                <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn">@T("Let's Continue ")<i class="flaticon-pointer"></i></a>
                         </div>
                     </div>
                 </div>

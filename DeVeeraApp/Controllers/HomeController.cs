@@ -161,7 +161,6 @@ namespace DeVeeraApp.Controllers
         {
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
-            var level = new Level();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
@@ -185,26 +184,9 @@ namespace DeVeeraApp.Controllers
             if(model != null)
             {
                 model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
-
-                if (currentUser.LastLevel != null)
-                    level = _levelServices.GetLevelById((int)currentUser.LastLevel);
-
-                var firstlevel = _levelServices.GetAllLevels().FirstOrDefault().Id;
-
-                model.LastLevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? firstlevel : (level != null ? (int)currentUser.LastLevel : firstlevel);
-
-
-                var lastLevel = _levelServices.GetAllLevels().Where(a => a.Id <= model.LastLevel && a.Active == true).ToList();
-
-                if (lastLevel.Count() != 0)
-                {
-                    ViewBag.SrNo = lastLevel.Count();
-                }
-                else
-                {
-                    ViewBag.SrNo = 0;
-                }
-
+              
+                model.LastLevel = (currentUser.LastLevel > _levelServices.GetAllLevels().Max(a=>a.LevelNo))?(int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentUser.LastLevel ?? (int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
+              
             }
 
             return View(model);
@@ -235,14 +217,12 @@ namespace DeVeeraApp.Controllers
             if (model != null)
             {
                 model.VideoUrl = data?.Video?.VideoUrl;
-                var firstLevel = _levelServices.GetAllLevels().Where(a => a.Active == true).FirstOrDefault();
+                var firstLevel = _levelServices.GetAllLevels().Where(a => a.Active == true).OrderBy(a=>a.LevelNo).FirstOrDefault();
                 if (firstLevel != null)
                 {
-                    model.LastLevel = firstLevel.Id;
-                    ViewBag.SrNo = 1;
-
+                    model.LastLevel = (int)firstLevel.LevelNo;
                 }
-                currentUser.LastLevel = model.LastLevel;
+                currentUser.LastLevel = firstLevel.Id;
                 _UserService.UpdateUser(currentUser);
 
             }

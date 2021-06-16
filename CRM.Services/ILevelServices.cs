@@ -17,7 +17,10 @@ namespace CRM.Services
        
         Level GetLevelById(int videoId);
 
-       
+        Level GetLevelByLevelNo(int LevelNo);
+
+
+
         IList<Level> GetLevelByIds(int[] VideoIds);
 
        

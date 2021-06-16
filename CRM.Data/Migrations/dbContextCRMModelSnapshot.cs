@@ -174,27 +174,27 @@ namespace CRM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BannerImageId");
-
-                    b.Property<int>("ContentImageId");
-
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("EmotionBannerImageId");
+
+                    b.Property<int>("EmotionHeaderImageId");
+
                     b.Property<string>("EmotionName");
 
                     b.Property<int?>("EmotionNo");
+
+                    b.Property<int>("EmotionThumbnailImageId");
 
                     b.Property<DateTime>("LastUpdatedOn");
 
                     b.Property<string>("Quote");
 
                     b.Property<string>("Subtitle");
-
-                    b.Property<int>("ThumbnailImageId");
 
                     b.Property<string>("Title");
 

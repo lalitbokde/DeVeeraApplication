@@ -107,23 +107,23 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(int id, int srno, DateTime? lastLoginDateUtc)
+        public IActionResult Index(int levelno,DateTime? lastLoginDateUtc)
         {
             var random = new Random();
-            ViewBag.SrNo = srno;
+           
             var AllLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList();
             ViewBag.TotalLevels = AllLevels.Count;
             var videoData = new LevelModel();
             videoData.SelectedImages = new List<SelectedImage>();
-            AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{id}", $"/Lesson/Index/{id}");
+            AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{levelno}", $"/Lesson/Index/{levelno}");
 
             var result = IsUserFirstLoginOnDay(lastLoginDateUtc);
             if (result == true)
             {
                 return RedirectToAction("AskHappynessLevel", "Home");
             }
-            var data = _levelServices.GetLevelById(id);
-            var levelImages = _levelImageListServices.GetLevelImageListByLevelId(data.Id);
+            var data = _levelServices.GetLevelByLevelNo(levelno);
+            
 
             var seletedImages = new SelectedImage();
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
@@ -169,18 +169,18 @@ namespace DeVeeraApp.Controllers
 
                 _videoMasterService.UpdateVideo(videoRecord);
             }
-            var updatedVideoData = _levelServices.GetLevelById(id);
+            var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
             videoData.FullDescription = updatedVideoData.FullDescription;
             videoData.Video = updatedVideoData.Video;
-            videoData.srno = srno;
+           
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
             videoData.LevelNo = updatedVideoData.LevelNo;
 
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
-            quoteList = quoteList.Where(a => a.LevelId == id || a.Level == "All Level").ToList();
+            quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
 
             if (quoteList != null && quoteList.Count > 0)
             {
@@ -200,7 +200,7 @@ namespace DeVeeraApp.Controllers
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
-            var moduleList = _moduleServices.GetModulesByLevelId(id);
+            var moduleList = _moduleServices.GetModulesByLevelId(data.Id);
             videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
             foreach (var module in videoData.ModuleList)
             {
@@ -217,7 +217,7 @@ namespace DeVeeraApp.Controllers
 
             }
 
-            var userNextLevel = AllLevels.Where(a => a.Id > id).FirstOrDefault();
+            var userNextLevel = AllLevels.Where(a => a.LevelNo > levelno).FirstOrDefault();
 
             if (userNextLevel != null)
             {
@@ -227,7 +227,7 @@ namespace DeVeeraApp.Controllers
 
             }
 
-            var userPreviousLevel = AllLevels.OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
+            var userPreviousLevel = AllLevels.OrderByDescending(a => a.LevelNo).Where(a => a.LevelNo < levelno).FirstOrDefault();
 
             if (userPreviousLevel != null)
             {
@@ -242,19 +242,19 @@ namespace DeVeeraApp.Controllers
 
 
 
-        public IActionResult Previous(int id, int srno)
+        public IActionResult Previous(int levelno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id);
 
-            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.Id < id).FirstOrDefault() : data.Where(a => a.Id < id && a.Active == true).FirstOrDefault();
+            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.LevelNo < levelno).FirstOrDefault() : data.Where(a => a.LevelNo < levelno && a.Active == true).FirstOrDefault();
 
             if (level != null)
             {
-                return RedirectToAction("Index", new { id = level.Id, srno = srno - 1 });
+                return RedirectToAction("Index", new { id = level.Id });
             }
-            return RedirectToAction("Index", new { id = id, srno = srno - 1 });
+            return RedirectToAction("Index", new { levelno = levelno });
 
 
             //if (!(currentUser.UserRole.Name == "Admin"))
@@ -282,7 +282,7 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult Next(int id, int srno)
+        public IActionResult Next(int levelno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
@@ -292,12 +292,12 @@ namespace DeVeeraApp.Controllers
             {
                 if (currentUser.RegistrationComplete == false)
                 {
-                    return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno, userId = currentUser.Id });
+                    return RedirectToAction("CompleteRegistration", "User", new { levelno = levelno, userId = currentUser.Id });
                 }
                 else
                 {
-                    ViewBag.SrNo = srno;
-                    var userNextLevel = data.Where(a => a.Id > id && a.Active == true).FirstOrDefault();
+                 
+                    var userNextLevel = data.Where(a => a.LevelNo > levelno && a.Active == true).FirstOrDefault();
 
                     if (userNextLevel != null)
                     {
@@ -307,25 +307,25 @@ namespace DeVeeraApp.Controllers
 
                             _userService.UpdateUser(currentUser);
                         }
-                        return RedirectToAction("Index", new { id = userNextLevel.Id, srno = srno + 1 });
+                        return RedirectToAction("Index", new { levelno = userNextLevel.LevelNo });
                     }
-                    return RedirectToAction("Index", new { id = id, srno = srno + 1 });
+                    return RedirectToAction("Index", new { levelno = levelno });
 
                 }
 
             }
             else
             {
-                ViewBag.SrNo = srno;
+              
 
-                var adminNextLevel = data.Where(a => a.Id > id).FirstOrDefault();
+                var adminNextLevel = data.Where(a => a.LevelNo > levelno).FirstOrDefault();
 
                 if (adminNextLevel != null)
                 {
-                    return RedirectToAction("Index", new { id = adminNextLevel.Id, srno = srno + 1 });
+                    return RedirectToAction("Index", new { levelno = adminNextLevel.LevelNo });
 
                 }
-                return RedirectToAction("Index", new { id = id, srno = srno + 1 });
+                return RedirectToAction("Index", new { levelno = levelno});
 
             }
 
