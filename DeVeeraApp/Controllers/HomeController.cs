@@ -162,6 +162,7 @@ namespace DeVeeraApp.Controllers
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
+            var currentLevel = _levelServices.GetLevelById((int)currentUser.LastLevel).LevelNo;
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
@@ -184,9 +185,11 @@ namespace DeVeeraApp.Controllers
             if(model != null)
             {
                 model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
-              
-                model.LastLevel = (currentUser.LastLevel > _levelServices.GetAllLevels().Max(a=>a.LevelNo))?(int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentUser.LastLevel ?? (int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
-              
+                      
+                model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a=>a.LevelNo))?(int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
+
+                model.FirstLevel = (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
+
             }
 
             return View(model);

@@ -88,10 +88,8 @@
                                     <h1> @Model.Title <span>@T("Psychologist")</span></h1>
                                     @Html.Raw(@Model.Subtitle)
                                 <div class="banner-btn">
-
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn" >@T("Let's Continue ")<i class="flaticon-pointer"></i></a>
-
-                                   
+                                    <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.FirstLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn">@T("Start From Begining")<i class="flaticon-pointer"></i></a><br>
+                                    <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel"  class="default-btn mt-2">@T("Start From Where You Left Off")<i class="flaticon-right-arrow"></i></a>
                                 </div>
                                 </div>
                             </div>
@@ -131,7 +129,8 @@
 
 
                         <div class="about-btn">
-                                <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn">@T("Let's Continue ")<i class="flaticon-pointer"></i></a>
+                            <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.FirstLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn">@T("Start From Begining")<i class="flaticon-pointer"></i></a> <br>
+                            <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel"  class="default-btn mt-2">@T("Start From Where You Left Off")<i class="flaticon-right-arrow"></i></a>
                         </div>
                     </div>
                 </div>
