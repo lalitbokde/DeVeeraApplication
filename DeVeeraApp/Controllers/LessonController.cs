@@ -116,14 +116,12 @@ namespace DeVeeraApp.Controllers
             var videoData = new LevelModel();
             videoData.SelectedImages = new List<SelectedImage>();
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{levelno}", $"/Lesson/Index/{levelno}");
-
             var result = IsUserFirstLoginOnDay(lastLoginDateUtc);
             if (result == true)
             {
                 return RedirectToAction("AskHappynessLevel", "Home");
             }
             var data = _levelServices.GetLevelByLevelNo(levelno);
-            
 
             var seletedImages = new SelectedImage();
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
@@ -155,10 +153,6 @@ namespace DeVeeraApp.Controllers
                 seletedImages2.ImageId = imagesRecord2.Id;
                 videoData.SelectedImages.Add(seletedImages2);
             }
-
-
-
-
             if (data.VideoId != null)
             {
                 var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
@@ -177,7 +171,6 @@ namespace DeVeeraApp.Controllers
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
             videoData.LevelNo = updatedVideoData.LevelNo;
-
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
@@ -246,13 +239,13 @@ namespace DeVeeraApp.Controllers
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
-            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id);
+            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.LevelNo);
 
             var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.LevelNo < levelno).FirstOrDefault() : data.Where(a => a.LevelNo < levelno && a.Active == true).FirstOrDefault();
 
             if (level != null)
             {
-                return RedirectToAction("Index", new { id = level.Id });
+                return RedirectToAction("Index", new { levelno = level.LevelNo });
             }
             return RedirectToAction("Index", new { levelno = levelno });
 

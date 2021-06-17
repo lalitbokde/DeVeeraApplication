@@ -48,6 +48,10 @@ namespace DeVeeraApp.ViewModels
         [NotMapped]
         public int LastLevel { get; set; }
 
+
+        [NotMapped]
+        public int FirstLevel { get; set; }
+
         public string SliderOneTitle { get; set; }
         public string SliderOneDescription { get; set; }
         public int SliderOneImageId { get; set; }

@@ -1,11 +1,13 @@
 ﻿@model DeVeeraApp.ViewModels.ModulesModel
 @inject CRM.Core.IWorkContext _workContext
+@inject CRM.Services.ILevelServices _levelService
+
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var levelNo = _levelService.GetLevelById(Model.LevelId).LevelNo;
 }
-
 <!-- Start Page Banner Area -->
-<div class="page-banner-with-full-image"style="background-image:url('@(Model.SelectedModuleImages.Count() >= 1 ? Model.SelectedModuleImages[0].ImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
+<div class="page-banner-with-full-image" style="background-image:url('@(Model.SelectedModuleImages.Count() >= 1 ? Model.SelectedModuleImages[0].ImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
             <h2>@Model.Title</h2>
@@ -173,7 +175,8 @@
             {
                 <div class="next-link-wrapper">
                     <div class="info-next-link-wrapper">
-                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
+
+                        <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@levelNo" >
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
                                     @T("How Does Consulting A Psychologist Help To Solve Your Problem?")
@@ -185,17 +188,15 @@
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
-                        <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
+                        <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@levelNo"  class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
                     </div>
                 </div>
 
             }
 
-           
+
         </div>
 
     </div>
 </section>
 <!-- End Courses Details Area -->
-
-

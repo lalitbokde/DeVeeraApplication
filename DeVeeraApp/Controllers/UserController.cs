@@ -807,8 +807,8 @@ namespace DeVeeraApp.Controllers
                 LevelId = Id,
                 SrNo = SrNo,
                 UserId = userId,
-                HeaderImageUrl = _imageMasterService.GetImageById(result.CompleteRegistrationHeaderImgId).ImageUrl,
-                Reason = result.ReasonToSubmit
+                HeaderImageUrl = result!= null ? _imageMasterService.GetImageById(result.CompleteRegistrationHeaderImgId).ImageUrl : null,
+                Reason = result?.ReasonToSubmit
                 
             };
             return View(model);

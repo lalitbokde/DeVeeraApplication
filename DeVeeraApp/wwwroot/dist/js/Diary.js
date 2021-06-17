@@ -41,7 +41,7 @@
             createdDate = `${cMonth} ${cDay}, ${cYear}`;
             document.getElementById("date").value = createdDate;
         }
-        else if (data == null && selectedDate == today) {
+        else if (data == null ) {
             var html = `<label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ..."></div><br /><br />
                     <label class="text-theme-21 star"> Diary Entry  </label><br />
                     <div div class="editable" id="comment" name="description" contenteditable spellcheck="false" data-placeholder="Enter Description Here ..."></div>`
@@ -66,12 +66,12 @@
             createdDate = `${cMonth} ${cDay}, ${cYear}`;
             document.getElementById("date").value = createdDate;
         }
-        else
-        {
-            document.getElementById("diaryPaper").setAttribute('style', `background-color : white`);
-            document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient( 0px, 24px, steelblue 25px)`);
-            document.getElementById("savediary").style.display = "none";
-        }
+        //else
+        //{
+        //    document.getElementById("diaryPaper").setAttribute('style', `background-color : white`);
+        //    document.getElementById("lines").setAttribute('style', `background-image:repeating-linear-gradient( 0px, 24px, steelblue 25px)`);
+        //    document.getElementById("savediary").style.display = "block";
+        //}
 
         document.getElementById("Id").value = data==null ? 0 :data.id;
 
