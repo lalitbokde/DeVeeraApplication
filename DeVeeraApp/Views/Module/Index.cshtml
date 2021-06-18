@@ -128,17 +128,19 @@
 
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
+                var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; 
                 <div class="prev-link-wrapper">
                     <div class="info-prev-link-wrapper">
                         <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="image-prev">
-                                <img src="~/assets/images/blog/blog-1.jpg" alt="image">
+                                <img src="@prevImageUrl" alt="image">
                                 <span class="post-nav-title">Prev</span>
                             </span>
 
                             <span class="prev-link-info-wrapper">
                                 <span class="prev-title">
-                                    @T("How Does A Psychologist Help To Maintain A Good Mental Health")
+                                    @*@T("How Does A Psychologist Help To Maintain A Good Mental Health")*@
+                                    @Model.PrevTitle
                                 </span>
                             </span>
                         </a>
@@ -150,17 +152,21 @@
             }
             @if (ViewBag.TotalModules > ViewBag.SrNo)
             {
+                
+                    var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl;
+                   
                 <div class="next-link-wrapper">
                     <div class="info-next-link-wrapper">
                         <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
-                                    @T("How Does Consulting A Psychologist Help To Solve Your Problem?")
+                                    @*@T("How Does Consulting A Psychologist Help To Solve Your Problem?")*@
+                                    @Model.NextTitle
                                 </span>
                             </span>
 
                             <span class="image-next">
-                                <img src="~/assets/images/blog/blog-2.jpg" alt="image">
+                                <img src="@nextImageUrl" alt="image">
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
@@ -171,17 +177,19 @@
             }
             else
             {
+                var nextImageUrl = Model.NextLevelUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextLevelUrl;
                 <div class="next-link-wrapper">
                     <div class="info-next-link-wrapper">
                         <a asp-controller="Lesson" asp-action="Next" asp-route-id="@Model.LevelId" asp-route-srno="@ViewBag.LevelSrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
-                                    @T("How Does Consulting A Psychologist Help To Solve Your Problem?")
+                                    @*@T("How Does Consulting A Psychologist Help To Solve Your Problem?")*@
+                                    @Model.NextLeveltitle
                                 </span>
                             </span>
 
                             <span class="image-next">
-                                <img src="~/assets/images/blog/blog-2.jpg" alt="image">
+                                <img src="@nextImageUrl" alt="image">
                                 <span class="post-nav-title">Next</span>
                             </span>
                         </a>
@@ -191,7 +199,7 @@
 
             }
 
-           
+
         </div>
 
     </div>
