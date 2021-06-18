@@ -120,6 +120,56 @@ namespace DeVeeraApp.Controllers
                 seletedImages2.ImageId = imagesRecord2.Id;
                 moduleData.SelectedModuleImages.Add(seletedImages2);
             }
+
+            var leveldata = _levelServices.GetLevelByLevelNo(levelSrno);
+            var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
+            var alllevel = _levelServices.GetAllLevels();
+
+            var usernextmodule = AllmoduleList.Where(a => a.Id > id).FirstOrDefault();           
+            var userprevmodule = AllmoduleList.OrderByDescending(a=>a.Id).Where(a => a.Id < id).FirstOrDefault();
+
+            if (usernextmodule != null)
+            {
+                moduleData.NextTitle = usernextmodule?.Title;
+                var module = _imageMasterService.GetImageById(usernextmodule.BannerImageId);
+                moduleData.NextImageUrl = module?.ImageUrl;
+
+            }
+            if (userprevmodule != null)
+            {
+                moduleData.PrevTitle = userprevmodule?.Title;
+                var module = _imageMasterService.GetImageById(userprevmodule.BannerImageId);
+                moduleData.PrevImageUrl = module?.ImageUrl;
+
+            }
+            var nextlevel = alllevel.Where(a => a.LevelNo > levelSrno).FirstOrDefault();
+            if (nextlevel != null)
+            {
+                moduleData.NextLeveltitle = nextlevel?.Title;
+                var level = _imageMasterService.GetImageById(nextlevel.BannerImageId);
+                moduleData.NextLevelUrl = level?.ImageUrl;
+
+            }
+
+            //var userNextLevel = AllLevels.Where(a => a.LevelNo > levelno).FirstOrDefault();
+
+            //if (userNextLevel != null)
+            //{
+            //    videoData.NextTitle = userNextLevel?.Title;
+            //    var level = _imageMasterService.GetImageById(userNextLevel.BannerImageId);
+            //    videoData.NextImageUrl = level?.ImageUrl;
+
+            //}
+
+            //var userPreviousLevel = AllLevels.OrderByDescending(a => a.LevelNo).Where(a => a.LevelNo < levelno).FirstOrDefault();
+
+            //if (userPreviousLevel != null)
+            //{
+            //    videoData.PrevTitle = userPreviousLevel?.Title;
+            //    var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
+            //    videoData.PrevImageUrl = level?.ImageUrl;
+            //}
+
             return View(moduleData);
         }
 

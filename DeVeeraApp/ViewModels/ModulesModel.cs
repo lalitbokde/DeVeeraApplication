@@ -45,5 +45,14 @@ namespace DeVeeraApp.ViewModels
 
         [NotMapped]
         public List<Questions> QuestionsList { get; set; }
+        public string NextImageUrl { get; set; }
+        public string PrevImageUrl { get; set; }
+        public string NextTitle { get; set; }
+        public string PrevTitle { get; set; }
+
+        public string NextLevelUrl { get; set; }
+        public string NextLeveltitle { get; set; }
+
+
     }
 }
