@@ -2,6 +2,8 @@ using CRM.Core;
 using CRM.Core.Domain;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
+using CRM.Core.Infrastructure;
+using CRM.Core.ViewModels;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Customers;
@@ -15,6 +17,7 @@ using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Diaries;
 using DeVeeraApp.ViewModels.Emotions;
+using DeVeeraApp.ViewModels.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -104,97 +107,35 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         #region Method
 
-        public IActionResult Create()
+        public IActionResult Create(DataSourceRequest command)
         {
             AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
-            DiaryModel model = new DiaryModel();
+            DiaryListModel model = new DiaryListModel();
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
-            if (currentUser.TwoFactorAuthentication == false && currentUser.UserRole.Name != "Admin")
-            {
-                return RedirectToAction("TwoFactorAuthentication", "User", new { UserId = currentUser.Id });
-            }
-            else
-            {
-                var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
-                var result = IsUserFirstLoginOnDay(Convert.ToDateTime(passcode?.DiaryLoginDate));
-                if (result == true)
-                {
-                    return RedirectToAction("EnterPasscode", "Diary");
-                }
+            #region DiaryList
 
-                var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
-                model.DiaryDate = DateTime.UtcNow;
-                model.Title = diary?.Title;
-                model.Comment = diary?.Comment;
-                model.Id = diary==null ? 0:diary.Id;
-                model.DiaryColor = diary?.DiaryColor;
+            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
+            var list = _DiaryMasterService.GetAllDiaries(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "", SearchByDate: "", UserId: 0);
+            model.DiaryList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DiaryViewModel>();
+            #endregion
 
-                #region Diary 
-                List<DiaryModel> DiaryList = new List<DiaryModel>();
-
-                var item = _DiaryMasterService.GetAllDiarys().ToList();
-
-                DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
-
-                #endregion
-
-                model.diaryModels = DiaryList;
-                //model.DiaryDate = DateTime.UtcNow;
-
-                return View(model);
-
-            }
+            return View(model);
 
         }
 
         [HttpPost]
-        public IActionResult Create(DiaryModel model)
+        public IActionResult Create(DiaryListModel model , DataSourceRequest command)
         {
-            if (ModelState.IsValid)
-            {
-                if (model.Id == 0)
-                {
-                    var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-                    var todayDiary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
-                    var data = model.ToEntity<Diary>();
-                    data.UserId = _workContext.CurrentUser.Id;
-                    data.CreatedOn = DateTime.UtcNow;
-                    _DiaryMasterService.InsertDiary(data);
-                    _notificationService.SuccessNotification("Diary added successfully.");
-                    if (todayDiary == null && currentUser.UserRole.Name != "Admin") 
-                    { 
-                        return RedirectToAction(nameof(AskUserEmotion)); 
-                    }
-                   
-                }
-                else
-                {
-                    var diary = _DiaryMasterService.GetDiaryById(model.Id);
-                    diary.Title = model.Title;
-                    diary.Comment = model.Comment;
-                    diary.LastUpdatedOn = DateTime.UtcNow;
-                    diary.DiaryColor = model.DiaryColor;
-                    _DiaryMasterService.UpdateDiary(diary);
-                    _notificationService.SuccessNotification("Diary updated successfully.");
+            AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
 
-                }
-                #region Diary 
-                List<DiaryModel> DiaryList = new List<DiaryModel>();
-
-                var item = _DiaryMasterService.GetAllDiarys().ToList();
-
-                DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
-
-                #endregion
-
-                model.diaryModels = DiaryList;
-
-                return RedirectToAction("Create", "Diary");
-
-            }
-
-             model.DiaryDate = DateTime.UtcNow;          
+            #region DiaryList
+            command.SortBy = model.SortTypeId == 0 ? "" : EnumDescription.GetDisplayName((SortType)model.SortTypeId).ToString();
+            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
+            var list = _DiaryMasterService.GetAllDiaries( page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, command.SortBy, SearchByDate: "", UserId: 0);
+            model.DiaryList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DiaryViewModel>();
+            #endregion
+            
             return View(model);
 
         }

@@ -28,7 +28,7 @@
                 <ul class="">
                     <li>
                         <a href="javascript:;" class="side-menu">
-                            <div class="side-menu__icon"> <i data-feather="user" ></i> </div>
+                            <div class="side-menu__icon"> <i data-feather="user"></i> </div>
                             <div class="side-menu__title">
                                 Admin
                                 <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
@@ -195,7 +195,7 @@
                         </a>
                         <ul class="">
                             <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Landing)" class="side-menu">
+                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-typeId="@((int)Quote.Landing)" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
                                     <div class="side-menu__title">Create</div>
                                 </a>
@@ -219,13 +219,13 @@
                         </a>
                         <ul class="">
                             <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Registration)" class="side-menu">
+                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Registration)" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
                                     <div class="side-menu__title">Create</div>
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Registration)" class="side-menu">
+                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Registration)" class="side-menu">
                                     <div class="side-menu__icon"><i data-feather="list"></i> </div>
                                     <div class="side-menu__title">List</div>
                                 </a>
@@ -243,13 +243,13 @@
                         </a>
                         <ul class="">
                             <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@(Quote.Login)" class="side-menu">
+                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Login)" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="edit"></i></div>
                                     <div class="side-menu__title">Create</div>
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-type="@(Quote.Login)" class="side-menu">
+                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Login)" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="list"></i> </div>
                                     <div class="side-menu__title">List</div>
                                 </a>
@@ -288,30 +288,30 @@
 
             @*Template*@
             @*<li>
-                <a href="javascript:;" class="side-menu">
-                    <div class="side-menu__icon"> <i data-feather="home"></i> </div>
-                    <div class="side-menu__title">
-                        Template
-                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
-                    </div>
-                </a>
-                <ul class="">
-                    <li>
-                        <a asp-controller="Template" asp-action="Create" class="side-menu">
-                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
-                            <div class="side-menu__title"> Create </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Template" asp-action="List" class="side-menu">
-                            <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
-                            <div class="side-menu__title"> List </div>
-                        </a>
-                    </li>
+            <a href="javascript:;" class="side-menu">
+                <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                <div class="side-menu__title">
+                    Template
+                    <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                </div>
+            </a>
+            <ul class="">
+                <li>
+                    <a asp-controller="Template" asp-action="Create" class="side-menu">
+                        <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                        <div class="side-menu__title"> Create </div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Template" asp-action="List" class="side-menu">
+                        <div class="side-menu__icon"> <i data-feather="activity"></i> </div>
+                        <div class="side-menu__title"> List </div>
+                    </a>
+                </li>
 
 
-                </ul>
-            </li>*@
+            </ul>
+        </li>*@
 
             @*Language*@
             <li>
@@ -430,6 +430,15 @@
                 </ul>
             </li>
 
+            @*dashboard*@
+            <li>
+                <a asp-controller="Diary" asp-action="Create" class="side-menu">
+                    <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                    <div class="side-menu__title">
+                        Diary
+                    </div>
+                </a>
+            </li>
         </ul>
     </nav>
     <!-- END: Side Menu -->

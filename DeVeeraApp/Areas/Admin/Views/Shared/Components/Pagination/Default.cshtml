@@ -1,0 +1,104 @@
+﻿@model PagedResultBase
+@{
+   
+
+    var startIndex = Math.Max(Model.CurrentPage - 5, 1);
+    var finishIndex = Math.Min(Model.CurrentPage + 5, Model.PageCount);
+}
+
+@if (Model.PageCount > 1)
+{
+    <ul class="pagination">
+        <li>
+            <button type="submit" name="Page" value="1" class="pagination__link">
+                <i class="w-4 h-4" data-feather="chevrons-left"></i>
+            </button>
+        </li>
+
+        @if (Model.CurrentPage != 1)
+        {
+            <li>
+                <button type="submit" name="Page" value="@((Model.CurrentPage-1).ToString())" class="pagination__link">
+                    <i class="w-4 h-4" data-feather="chevron-left"></i>
+                </button>
+            </li>
+        }
+        else
+        {
+            <li>
+                <button class="pagination__link">
+                    <i class="w-4 h-4" data-feather="chevron-left"></i>
+                </button>
+            </li>
+        }
+
+
+        @for (var i = startIndex; i <= finishIndex; i++)
+        {
+            @if (i == Model.CurrentPage)
+            {
+
+                <li><button type="submit" name="Page" class="pagination__link pagination__link--active">@i</button></li>
+            }
+            else
+            {
+
+                <li><button type="submit" name="Page" value="@i.ToString()" class="pagination__link">@i</button></li>
+            }
+        }
+
+        @if (Model.CurrentPage < Model.PageCount)
+        {
+            <li>
+                <button type="submit" name="Page" value="@((Model.CurrentPage+1).ToString())" class="pagination__link">
+                    <i class="w-4 h-4" data-feather="chevron-right"></i>
+                </button>
+            </li>
+        }
+        else
+        {
+            <li>
+                <button type="submit" name="Page" class="pagination__link" value="@((Model.CurrentPage).ToString())">
+                    <i class="w-4 h-4" data-feather="chevron-right"></i>
+                </button>
+            </li>
+        }
+
+        <li>
+            <button type="submit" name="Page" value="@((Model.PageCount).ToString())" class="pagination__link">
+                <i class="w-4 h-4" data-feather="chevrons-right"></i>
+            </button>
+        </li>
+
+    </ul>
+}
+else
+{
+    <ul class="pagination">
+        <li>
+            <button class="pagination__link">
+                <i class="w-4 h-4" data-feather="chevrons-left"></i>
+            </button>
+        </li>
+        <li>
+            <button class="pagination__link">
+                <i class="w-4 h-4" data-feather="chevron-left"></i>
+            </button>
+        </li>
+
+
+        <li><button class="pagination__link pagination__link--active" href="#">1</button></li>
+
+        <li>
+            <button class="pagination__link">
+                <i class="w-4 h-4" data-feather="chevron-right"></i>
+            </button>
+        </li>
+
+        <li>
+            <button class="pagination__link">
+                <i class="w-4 h-4" data-feather="chevrons-right"></i>
+            </button>
+        </li>
+    </ul>
+}
