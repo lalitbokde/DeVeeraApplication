@@ -162,7 +162,7 @@ namespace DeVeeraApp.Controllers
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
-            var currentLevel = _levelServices.GetLevelById((int)currentUser.LastLevel).LevelNo;
+            var currentLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 

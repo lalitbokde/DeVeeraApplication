@@ -127,7 +127,8 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Previous(int id, int srno, int levelSrno)
         {
-            var data = _moduleService.GetAllModules().OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
+            var level = _levelServices.GetLevelByLevelNo(levelSrno);
+            var data = _moduleService.GetAllModules().OrderByDescending(a => a.Id).Where(a => a.Id < id && a.LevelId == level.Id).FirstOrDefault();
             if (data != null)
             {
                 return RedirectToAction("Index", new { id = data.Id, srno = srno - 1, levelsrno = levelSrno });
@@ -137,9 +138,12 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Next(int id, int srno, int levelSrno)
         {
+            ViewBag.SrNo = srno;
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-                ViewBag.SrNo = srno;
-                var data = _moduleService.GetAllModules().Where(a => a.Id > id).FirstOrDefault();
+
+            var level = _levelServices.GetLevelByLevelNo(levelSrno);
+               
+                var data = _moduleService.GetAllModules().Where(a => a.Id > id && a.LevelId == level.Id).FirstOrDefault();
                 if (data != null)
                 {
                     return RedirectToAction("Index", new { id = data.Id, srno = srno + 1, levelsrno = levelSrno });

@@ -1,5 +1,7 @@
 ﻿@inject CRM.Services.Users.IUserService UserService
 @inject CRM.Services.ILevelServices levelServices
+@{ var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
+   var userLevel = levelServices.GetLevelById((int)_workContext.CurrentUser.LastLevel)?.LevelNo;}
 <!doctype html>
 <html lang="zxx">
 <head>
@@ -139,7 +141,7 @@
                         <div class="others-options d-flex align-items-center">
 
 
-                            @if (UserService.GetUserById(_workContext.CurrentUser.Id).LastLevel > levelServices.GetAllLevels().Where(l => l.Active == true).FirstOrDefault().Id)
+                            @if (userLevel > firstLevel)
                             {
                                 <div class="option-item">
                                     <div class="navbar-btn">

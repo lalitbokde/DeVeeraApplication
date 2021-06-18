@@ -784,13 +784,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
 
-        public IActionResult CompleteRegistration(int Id, int SrNo, int userId)
+        public IActionResult CompleteRegistration(int LevelNo, int SrNo, int userId)
         {
-            AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{Id}?SrNo={SrNo}&userId={userId}", $"/User/CompleteRegistration/{Id}?SrNo={SrNo}&userId={userId}");
+            AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{LevelNo}?SrNo={SrNo}&userId={userId}", $"/User/CompleteRegistration/{LevelNo}?SrNo={SrNo}&userId={userId}");
 
             var model = new CompleteRegistrationModel()
             {
-                LevelId = Id,
+                LevelNo = LevelNo,
                 SrNo = SrNo,
                 UserId = userId
             };
@@ -802,7 +802,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
-            AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelId}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelId}?SrNo={model.SrNo}&userId={model.UserId}");
+            AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
 
             if (ModelState.IsValid)
             {
@@ -815,11 +815,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 currentUser.IncomeAboveOrBelow80K = (Income)model.IncomeAboveOrBelow80K;
                 currentUser.Occupation = model.Occupation;
                 currentUser.RegistrationComplete = true;
-                currentUser.LastLevel = model.LevelId;
+                currentUser.LastLevel = model.LevelNo;
 
                 _UserService.UpdateUser(currentUser);
                 _notificationService.SuccessNotification("User info updated successfull.");
-                return RedirectToAction("Next", "Lesson", new { id = model.LevelId, srno = model.SrNo });
+                return RedirectToAction("Next", "Lesson", new { id = model.LevelNo, srno = model.SrNo });
             }
             return View();
         }
