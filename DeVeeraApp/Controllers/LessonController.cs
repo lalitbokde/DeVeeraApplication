@@ -290,7 +290,7 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                  
-                    var userNextLevel = data.Where(a => a.LevelNo > levelno && a.Active == true).FirstOrDefault();
+                    var userNextLevel = data.OrderBy(a=>a.LevelNo).Where(a => a.LevelNo > levelno && a.Active == true).FirstOrDefault();
 
                     if (userNextLevel != null)
                     {

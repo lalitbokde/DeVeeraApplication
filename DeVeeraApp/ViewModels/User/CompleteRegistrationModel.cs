@@ -28,7 +28,7 @@ namespace DeVeeraApp.ViewModels.User
 
         public string HeaderImageUrl { get; set; }
         public int UserId { get; set; }
-        public int LevelId { get; set; }
+        public int LevelNo { get; set; }
         public int SrNo { get; set; }
 
     }
