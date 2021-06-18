@@ -26,6 +26,12 @@ namespace DeVeeraApp.ViewModels
         //[Required]
         public string Title { get; set; }
 
+        public string landingImageOneUrl { get; set; }
+        public string landingImageTwoUrl { get; set; }
+        public string landingImageThreeUrl { get; set; }
+
+        public string DescriptionImageUrl { get; set; }
+
 
         public string Subtitle { get; set; }
 

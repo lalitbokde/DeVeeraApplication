@@ -70,19 +70,31 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             model.AvailableBannerImage.Add(new SelectListItem { Text = "Select BannerImage", Value = "0" });
             model.AvailableImages.Add(new SelectListItem { Text = "Select BodyImages", Value = "0" });
 
+            
             foreach (var item in AvailableImages)
             {
                 model.AvailableImages.Add(new SelectListItem
                 {
                     Value = item.Id.ToString(),
-                    Text = item.Name,
+                    Text = item.Name,                     
+                    
                 });
                 model.AvailableBannerImage.Add(new SelectListItem
                 {
                     Value = item.Id.ToString(),
                     Text = item.Name,
                 });
+
+                if (item.Id == model.SliderOneImageId)
+                {
+                    model.landingImageOneUrl=item.ImageUrl;
+                }else if (item.Id == model.SliderTwoImageId) { model.landingImageTwoUrl = item.ImageUrl;}
+                else if (item.Id == model.SliderThreeImageId) { model.landingImageThreeUrl = item.ImageUrl; }
+                else if(item.Id==model.DescriptionImageId) { model.DescriptionImageUrl = item.ImageUrl; }
+                else if (item.Id == model.BannerImageId) { model.BannerImageURL = item.ImageUrl; }
+                else if (item.Id == model.BodyImageId) { model.BodyImageURL = item.ImageUrl; }
             }
+          
         }
         #endregion
         #region methods
