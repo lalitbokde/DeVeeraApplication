@@ -1,8 +1,9 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Thinkersteps Graphic\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Thinkersteps Graphic\\.nuget\\packages"
+      "C:\\Users\\RG\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\RG\\.nuget\\packages",
+      "C:\\Microsoft\\Xamarin\\NuGet"
     ]
   }
 }

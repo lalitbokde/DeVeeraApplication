@@ -59,7 +59,9 @@
                                                         <td class="border-b dark:border-dark-5">@i</td>
 
                                                         <td class="border-b dark:border-dark-5">@item.Name</td>
-                                                        <td class="border-b dark:border-dark-5">@item.IsNew</td>
+                                                        <td class="border-b dark:border-dark-5">
+                                                            <input class="checkbox-custom" type="checkbox" @(item.IsNew == true ? "checked" : "")>
+                                                        </td>
                                                         @if (string.IsNullOrWhiteSpace(item.VideoUrl))
                                                         {
                                                            <td class="border-b dark:border-dark-5">No Video</td>
