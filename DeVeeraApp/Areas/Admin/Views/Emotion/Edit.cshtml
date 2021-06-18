@@ -67,9 +67,9 @@
                     <div class="mt-5">
                         <label class="form-label text-theme-21">Images</label>
                         @{
-                            var HeaderImage = Model.EmotionHeaderImageUrl == null ? "/assets/images/page-banner/page-banner-3.jpg" : Model.EmotionHeaderImageUrl;
-                            var BannerImage = Model.EmotionBannerImageUrl == null ? "/assets/images/blog/blog-details.jpg" : Model.EmotionBannerImageUrl;
-                            var ThumbnailImage = Model.EmotionThumbnailImageUrl == null ? "/assets/images/courses/courses-details-1.jpg" : Model.EmotionThumbnailImageUrl;
+                            var HeaderImage = Model.EmotionHeaderImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionHeaderImageUrl;
+                            var BannerImage = Model.EmotionBannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionBannerImageUrl;
+                            var ThumbnailImage = Model.EmotionThumbnailImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionThumbnailImageUrl;
                             <div class="grid grid-cols-12 gap-4 mt-5 pt-5 border-t border-theme-31">
                                 <a onclick="OpenImageSelectionModal('EmotionHeaderImageId','EmotionHeaderImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
