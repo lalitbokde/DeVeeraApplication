@@ -33,7 +33,7 @@
                                 <span asp-validation-for="SliderOneTitle" class="text-theme-6 mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image 1</label>
                                 @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
                                 <a onclick="OpenImageSelectionModal('SliderOneImageId','SliderOneImageIdnUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
@@ -65,7 +65,7 @@
                                 <span asp-validation-for="SliderTwoTitle" class="text-theme-6 mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Image</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21">Image 2</label>
                                 @*<select asp-for="SliderTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
                                 <a onclick="OpenImageSelectionModal('SliderTwoImageId','SliderTwoImageIdnUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
@@ -97,7 +97,7 @@
                                 <span asp-validation-for="SliderThreeTitle" class="text-theme-6 mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Image</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21">Image 3</label>
                                 @*<select asp-for="SliderThreeImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
                                 <a onclick="OpenImageSelectionModal('SliderThreeImageId','SliderThreeImageIdnUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
@@ -219,17 +219,17 @@
         </div>*@
 
                 <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Complete Registration Page</div>
+                    <div class="font-medium text-center text-theme-21 mt-5 pt-5">Complete Registration Page</div>
                     <div class="form-label text-theme-21  border-b-2 w-full"></div>
 
-                    <div class="grid grid-cols-12 gap-4 mt-5">
 
 
+                    <div class="grid grid-cols-12 gap-4 ">
                         <div class="col-span-4 mb-4">
                             <div class="mt-2">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Complete Registration Header Image</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
                                 @*<select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                                <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
+                                <div class="grid grid-cols-4 gap-4   border-theme-31">
                                     <a onclick="OpenImageSelectionModal('CompleteRegistrationHeaderImgId','CompleteRegistrationHdrImgIdurl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
                                         <div class="box rounded-md p-3 relative zoom-in">
                                             <div class="flex-none pos-image relative block">
@@ -245,16 +245,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-span-6 mb-4">
+                        <div class="col-span-8 mb-4"></div>
+
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-4 mt-5">
+                        <div class="col-span-12 mb-4">
                             <div class="mt-2">
                                 <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
-                                <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
-                                    <textarea asp-for="ReasonToSubmit" type="text" class="form-control w-full mt-2" placeholder="Reason" required ></textarea>
-                                   
-                                </div>
-                                </div>
+                                <textarea asp-for="ReasonToSubmit" type="text" class="form-control w-full " placeholder="Reason" required></textarea>
                             </div>
-
+                        </div>
                     </div>
                 </div>
 

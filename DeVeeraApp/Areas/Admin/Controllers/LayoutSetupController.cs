@@ -60,6 +60,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     Value = item.Id.ToString(),
                     Text = item.Name,
                 });
+                if (item.Id == model.SliderOneImageId)
+                {
+                    model.SliderOneImageUrl = item.ImageUrl;
+                }else if (item.Id == model.SliderTwoImageId) { model.SliderTwoImageUrl = item.ImageUrl; }
+                else if (item.Id == model.SliderThreeImageId) { model.SliderThreeImageUrl = item.ImageUrl; }
+                else if (item.Id == model.BannerOneImageId) { model.BannerOneImageUrl = item.ImageUrl; }
+                else if (item.Id == model.BannerTwoImageId) { model.BannerTwoImageUrl = item.ImageUrl; }
+                else if (item.Id == model.DiaryHeaderImageId) { model.DiaryHeaderImageUrl = item.ImageUrl; }
+                else if (item.Id == model.CompleteRegistrationHeaderImgId) { model.CompleteRegistrationHeaderImgUrl = item.ImageUrl; }
             }
         }
         #endregion
