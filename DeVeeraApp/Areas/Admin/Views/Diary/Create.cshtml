@@ -1,6 +1,7 @@
 @model DeVeeraApp.ViewModels.Diaries.DiaryListModel
 @using DeVeeraApp.Areas.Admin.ViewComponents
 @using DeVeeraApp.ViewModels.Enum
+@inject CRM.Services.Users.IUserService _userService 
 @{
     ViewData["Title"] = "Create";
 }
@@ -34,14 +35,14 @@
                                 <div class="flex items-center">
                                     <div class="font-medium line-clamp1">@Html.Raw(item.Title)</div>
                                 </div>
-                                <div class="flex items-center">
-                                    <div class="text-gray-600 line-clamp2 mt-1">@Html.Raw(@item.Comment)</div>
-                                </div>
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-1">
                                     <div class="intro-y  col-span-6">
                                         <div class="text-xs text-gray-500 ">Created On : @item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
                                         <div class="text-xs text-gray-500 mt-1">Updated On : @item.LastUpdatedOn.ToShortDateString() @item.LastUpdatedOn.ToShortTimeString()</div>
-                                    </div>                                 
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="font-medium text-theme-24 line-clamp2 mt-1">~ @(_userService.GetUserById(item.UserId).Email)</div>
                                 </div>
                             </div>
                         </div>
