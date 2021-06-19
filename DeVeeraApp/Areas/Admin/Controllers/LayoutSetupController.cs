@@ -50,7 +50,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region Utilities
         public virtual void PrepareImages(LayoutSetupModel model)
         {
-
             //prepare available images
             var AvailableImages = _imageMasterService.GetAllImages();
             foreach (var item in AvailableImages)
@@ -59,21 +58,24 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 {
                     Value = item.Id.ToString(),
                     Text = item.Name,
-                });
-                if (item.Id == model.SliderOneImageId)
-                {
-                    model.SliderOneImageUrl = item.ImageUrl;
-                }else if (item.Id == model.SliderTwoImageId) { model.SliderTwoImageUrl = item.ImageUrl; }
-                else if (item.Id == model.SliderThreeImageId) { model.SliderThreeImageUrl = item.ImageUrl; }
-                else if (item.Id == model.BannerOneImageId) { model.BannerOneImageUrl = item.ImageUrl; }
-                else if (item.Id == model.BannerTwoImageId) { model.BannerTwoImageUrl = item.ImageUrl; }
-                else if (item.Id == model.DiaryHeaderImageId) { model.DiaryHeaderImageUrl = item.ImageUrl; }
-                else if (item.Id == model.CompleteRegistrationHeaderImgId) { model.CompleteRegistrationHeaderImgUrl = item.ImageUrl; }
+                });               
             }
         }
+        public virtual void PrepareImageUrls(LayoutSetupModel model)
+        {
+
+            model.SliderOneImageUrl = model.SliderOneImageId>0 ? _imageMasterService.GetImageById(model.SliderOneImageId)?.ImageUrl:null;
+            model.SliderTwoImageUrl = model.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(model.SliderTwoImageId)?.ImageUrl : null;
+            model.SliderThreeImageUrl = model.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(model.SliderThreeImageId)?.ImageUrl : null;
+            model.BannerOneImageUrl = model.BannerOneImageId > 0 ? _imageMasterService.GetImageById(model.BannerOneImageId)?.ImageUrl : null;
+            model.BannerTwoImageUrl = model.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(model.BannerTwoImageId)?.ImageUrl : null;
+            model.DiaryHeaderImageUrl = model.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(model.DiaryHeaderImageId)?.ImageUrl : null;
+            model.CompleteRegistrationHeaderImgUrl = model.CompleteRegistrationHeaderImgId > 0 ? _imageMasterService.GetImageById(model.CompleteRegistrationHeaderImgId)?.ImageUrl : null;
+        }
+
         #endregion
 
-        public IActionResult Index()
+            public IActionResult Index()
         {
             return View();
         }
@@ -127,7 +129,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<LayoutSetupModel>();
-                    PrepareImages(model);
+                    PrepareImageUrls(model);
                     return View(model);
                 }
 
@@ -157,13 +159,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.BannerOneImageId = model.BannerOneImageId;
                 data.BannerTwoImageId = model.BannerTwoImageId;
                 data.DiaryHeaderImageId = model.DiaryHeaderImageId;
+                data.ReasonToSubmit = model.ReasonToSubmit;
+                data.CompleteRegistrationHeaderImgId = model.CompleteRegistrationHeaderImgId;
 
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _notificationService.SuccessNotification("Layout Setup Updated Successfully.");
                 return RedirectToAction("List");
             }
 
-            PrepareImages(model);
+            PrepareImageUrls(model);
             return View(model);
         }
 

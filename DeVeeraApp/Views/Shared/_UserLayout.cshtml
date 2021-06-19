@@ -1,7 +1,8 @@
 ﻿@inject CRM.Services.Users.IUserService UserService
 @inject CRM.Services.ILevelServices levelServices
-@{ var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
-   var userLevel = levelServices.GetLevelById((int)_workContext.CurrentUser.LastLevel)?.LevelNo;}
+@{  var currentLevel = _workContext.CurrentUser.LastLevel;
+    var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
+    var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo: null;}
 <!doctype html>
 <html lang="zxx">
 <head>

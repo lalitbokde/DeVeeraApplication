@@ -801,13 +801,14 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{LevelNo}?SrNo={SrNo}&userId={userId}", $"/User/CompleteRegistration/{LevelNo}?SrNo={SrNo}&userId={userId}");
 
             var result = _LayoutSetupService.GetAllLayoutSetups().Where(l => l.CompleteRegistrationHeaderImgId != 0).LastOrDefault();
+            var HeaderImageUrl = result != null ? _imageMasterService.GetImageById(result.CompleteRegistrationHeaderImgId)?.ImageUrl : null;
 
             var model = new CompleteRegistrationModel()
             {
                 LevelNo = LevelNo,
                 SrNo = SrNo,
                 UserId = userId,
-                HeaderImageUrl = result!= null ? _imageMasterService.GetImageById(result.CompleteRegistrationHeaderImgId).ImageUrl : null,
+                HeaderImageUrl = HeaderImageUrl,
                 Reason = result?.ReasonToSubmit
                 
             };

@@ -259,15 +259,15 @@
                                     <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
                                     @*<select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
                                     <div class="grid grid-cols-4 gap-4   border-theme-31">
-                                        <a onclick="OpenImageSelectionModal('DiaryHeaderImageId','DiaryHeaderImageeditIdurl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                                        <a onclick="OpenImageSelectionModal('CompleteRegistrationHeaderImgId','CompleteRegistrationHeaderImgUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
                                             <div class="box rounded-md p-3 relative zoom-in">
                                                 <div class="flex-none pos-image relative block">
                                                     <div class="pos-image__preview">
-                                                        <input asp-for="DiaryHeaderImageId" hidden>
-                                                        <img id="DiaryHeaderImageeditIdurl" alt="" src="@CompleteRegistrationHeaderImgUrl" style="Width:100%;height:100%">
+                                                        <input asp-for="CompleteRegistrationHeaderImgId" hidden>
+                                                        <img id="CompleteRegistrationHeaderImgUrl" alt="" src="@CompleteRegistrationHeaderImgUrl" style="Width:100%;height:100%">
                                                     </div>
                                                 </div>
-                                                <div class="block font-medium text-center truncate mt-3">Banner Image</div>
+                                                <div class="block font-medium text-center truncate mt-3">Header Image</div>
                                             </div>
                                             <span asp-validation-for="DiaryHeaderImageId" class="text-theme-6 mt-2"></span>
                                         </a>
