@@ -79,27 +79,26 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     Text = item.Name,                     
                     
                 });
-                model.AvailableBannerImage.Add(new SelectListItem
-                {
-                    Value = item.Id.ToString(),
-                    Text = item.Name,
-                });
-
-                if (item.Id == model.SliderOneImageId)
-                {
-                    model.landingImageOneUrl=item.ImageUrl;
-                }else if (item.Id == model.SliderTwoImageId) { model.landingImageTwoUrl = item.ImageUrl;}
-                else if (item.Id == model.SliderThreeImageId) { model.landingImageThreeUrl = item.ImageUrl; }
-                else if(item.Id==model.DescriptionImageId) { model.DescriptionImageUrl = item.ImageUrl; }
-                else if (item.Id == model.BannerImageId) { model.BannerImageURL = item.ImageUrl; }
-                else if (item.Id == model.BodyImageId) { model.BodyImageURL = item.ImageUrl; }
+              
             }
           
         }
-        #endregion
-        #region methods
 
-        public IActionResult Create(CRM.Core.Domain.Quote type)
+        public virtual void PrepareImageUrls(WeeklyUpdateModel model)
+        {
+            model.landingImageOneUrl = model.SliderOneImageId > 0 ? _imageMasterService.GetImageById(model.SliderOneImageId)?.ImageUrl : null;
+            model.landingImageTwoUrl = model.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(model.SliderTwoImageId)?.ImageUrl : null;
+            model.landingImageThreeUrl = model.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(model.SliderThreeImageId)?.ImageUrl : null;
+            model.DescriptionImageUrl = model.DescriptionImageId > 0 ? _imageMasterService.GetImageById(model.DescriptionImageId)?.ImageUrl : null;
+            model.BannerImageURL = model.BannerImageId > 0 ? _imageMasterService.GetImageById(model.BannerImageId)?.ImageUrl : null;
+            model.BodyImageURL = model.BodyImageId > 0 ? _imageMasterService.GetImageById(model.BodyImageId)?.ImageUrl : null;
+
+        }
+
+            #endregion
+            #region methods
+
+            public IActionResult Create(CRM.Core.Domain.Quote type)
         {
             AddBreadcrumbs( $"{type} Page", "Create", $"/Admin/WeeklyUpdate/List?typeId={(int)type}", $"/Admin/WeeklyUpdate/Create?type={type}");
             WeeklyUpdateModel model = new WeeklyUpdateModel();
@@ -139,6 +138,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 {
                     var model = data.ToModel<WeeklyUpdateModel>();
                     PrepareVideo(model);
+                    PrepareImageUrls(model);
                     return View(model);
                 }
 
@@ -154,8 +154,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.IsActive==true) 
+                { 
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
-                
+                }
                 var val = _weeklyUpdateServices.GetWeeklyUpdateById(model.Id);
                 val.IsActive = model.IsActive;
                 val.VideoId = model.VideoId;
@@ -164,7 +166,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.QuoteType = (CRM.Core.Domain.Quote)model.QuoteType;
                 val.LandingQuote = model.LandingQuote;
                 val.DescriptionImageId = model.DescriptionImageId;
-
                 val.SliderOneTitle = model.SliderOneTitle;
                 val.SliderOneDescription = model.SliderOneDescription;
                 val.SliderOneImageId = model.SliderOneImageId;

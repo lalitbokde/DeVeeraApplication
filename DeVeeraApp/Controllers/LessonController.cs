@@ -111,7 +111,7 @@ namespace DeVeeraApp.Controllers
         {
             var random = new Random();
            
-            var AllLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList();
+            var AllLevels = _levelServices.GetAllLevels().ToList();
             ViewBag.TotalLevels = AllLevels.Count;
             var videoData = new LevelModel();
             videoData.SelectedImages = new List<SelectedImage>();
@@ -241,7 +241,7 @@ namespace DeVeeraApp.Controllers
 
             var data = _levelServices.GetAllLevels().OrderByDescending(a => a.LevelNo);
 
-            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.LevelNo < levelno).FirstOrDefault() : data.Where(a => a.LevelNo < levelno && a.Active == true).FirstOrDefault();
+            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.LevelNo < levelno).FirstOrDefault() : data.Where(a => a.LevelNo < levelno).FirstOrDefault();
 
             if (level != null)
             {
@@ -278,7 +278,6 @@ namespace DeVeeraApp.Controllers
         public IActionResult Next(int levelno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-
             var data = _levelServices.GetAllLevels();
 
             if (!(currentUser.UserRole.Name == "Admin"))
@@ -290,11 +289,11 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                  
-                    var userNextLevel = data.OrderBy(a=>a.LevelNo).Where(a => a.LevelNo > levelno && a.Active == true).FirstOrDefault();
+                    var userNextLevel = data.OrderBy(a=>a.LevelNo).Where(a => a.LevelNo > levelno).FirstOrDefault();
 
                     if (userNextLevel != null)
                     {
-                        if (userNextLevel.Id > currentUser.LastLevel)
+                        if (userNextLevel.LevelNo > levelno)
                         {
                             currentUser.LastLevel = userNextLevel.Id;
 

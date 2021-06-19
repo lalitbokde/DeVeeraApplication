@@ -120,7 +120,7 @@ namespace DeVeeraApp.Controllers
             {
                 if (!(_workContext.CurrentUser.UserRole.Name == "Admin"))
                 {
-                    var activeLevel = data.Where(l => l.Active == true).ToList();
+                    var activeLevel = data.ToList();
 
                     if (activeLevel.Count() != 0)
                     {
@@ -135,7 +135,7 @@ namespace DeVeeraApp.Controllers
 
                         foreach (var item in data)
                         {
-                            if (item.Active == true && item.Id <= lastlevel)
+                            if (item.Id <= lastlevel)
                             {
                                 
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
