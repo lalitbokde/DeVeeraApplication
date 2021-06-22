@@ -85,6 +85,9 @@
                                                 <button type="button" class="btn col-lg-2 " onclick="document.execCommand( 'bold',false,null);"> <i data-feather="bold" class="block mx-auto w-5 h-5"></i><b>B</b></button>
                                                 <button type="button" class="btn col-lg-2" onclick="document.execCommand('italic',false,null);"> <i data-feather="italic" class="block mx-auto w-5 h-5"></i><em>I</em></button>
                                                 <button type="button" class="btn col-lg-2" onclick="document.execCommand( 'underline',false,null);"> <i data-feather="underline" class="block mx-auto w-5 h-5"><u>U</u></i></button>
+                                                <input id="select-colour" type="color" onchange="ChangeColor(this.value)" hidden>
+                                                <button type="button" class="btn col-lg-2"> <i id="text-colour" data-feather="underline" class="block mx-auto w-5 h-5">A</i></button>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-4 text-center mr-4">
@@ -172,6 +175,30 @@
 </section>
 <!-- End Services Details Area -->
 <script src="~/dist/js/Diary.js"></script>
+<script>
+    document.getElementById("text-colour").onclick = function fun() {
+    document.getElementById("select-colour").click(); 
+        //validation code to see State field is mandatory.  
+    } 
 
+    function ChangeColor(value) {
+        debugger
+        // Get Selection
+        sel = window.getSelection();
+        if (sel.rangeCount && sel.getRangeAt) {
+            range = sel.getRangeAt(0);
+        }
+        // Set design mode to on
+        document.designMode = "on";
+        if (range) {
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+        // Colorize text
+        document.execCommand("ForeColor", false, value);
+        // Set design mode to off
+        document.designMode = "off";
+    }
+</script>
 
 
