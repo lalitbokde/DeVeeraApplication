@@ -13,7 +13,8 @@ namespace DeVeeraApp.ViewModels
     public class WeeklyUpdateModel : BaseEntityModel
     {
         public WeeklyUpdateModel()
-        {
+        {  
+           
             this.AvailableVideo = new List<SelectListItem>();
             AvailableImages = new List<SelectListItem>();
             AvailableBannerImage = new List<SelectListItem>();
@@ -23,7 +24,7 @@ namespace DeVeeraApp.ViewModels
         public int VideoId { get; set; }
         public string VideoUrl { get; set; }
 
-        //[Required]
+        [Required]
         public string Title { get; set; }
 
         public string landingImageOneUrl { get; set; }
@@ -32,7 +33,7 @@ namespace DeVeeraApp.ViewModels
 
         public string DescriptionImageUrl { get; set; }
 
-
+        [Required(ErrorMessage ="Quote field is Required")]
         public string Subtitle { get; set; }
 
         public string VideoName { get; set; }
@@ -45,6 +46,7 @@ namespace DeVeeraApp.ViewModels
         public int BodyImageId { get; set; }
         public string BannerImageURL { get; set; }
         public string BodyImageURL { get; set; }
+        [Required]
         public IList<SelectListItem> AvailableVideo { get; set; }
         public List<SelectListItem> AvailableImages { get; }
         public List<SelectListItem> AvailableBannerImage { get; set; }
@@ -58,16 +60,20 @@ namespace DeVeeraApp.ViewModels
         [NotMapped]
         public int FirstLevel { get; set; }
 
+        [Required(ErrorMessage ="Slider 1 Title Required")]
         public string SliderOneTitle { get; set; }
         public string SliderOneDescription { get; set; }
         public int SliderOneImageId { get; set; }
+        [Required(ErrorMessage = "Slider 2 Title Required")]
         public string SliderTwoTitle { get; set; }
         public string SliderTwoDescription { get; set; }
         public int SliderTwoImageId { get; set; }
+        [Required(ErrorMessage = "Slider 3 Title Required")]
         public string SliderThreeTitle { get; set; }
         public string SliderThreeDescription { get; set; }
         public int SliderThreeImageId { get; set; }
         public int DescriptionImageId { get; set; }
+        [Required]
         public string LandingQuote { get; set; }
 
     }

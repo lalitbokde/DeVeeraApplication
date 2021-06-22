@@ -27,12 +27,14 @@
                         <span asp-validation-for="Question" class="text-theme-6 mt-2"></span>
                     </div>
                     <div class="mt-5">
-                        <label class="form-label text-theme-21 ">Level</label>
-                        <select id="levelId" asp-for="LevelId" asp-items="Model.AvailableLevels" onchange="GetModuleByLevelId(0)" type="text" data-search="true" class="select form-control w-full " placeholder="Select Level"></select>
+                        <label class="form-label text-theme-21 star">Level</label>
+                        <select id="levelId" asp-for="LevelId" asp-items="Model.AvailableLevels" onchange="GetModuleByLevelId(0)" type="text" data-search="true" class="select form-control w-full " placeholder="Select Level" required></select>
+                        <span asp-validation-for="LevelId" class="text-theme-6 mt-2"></span>
                     </div>
                     <div class="mt-5">
-                        <label class="form-label text-theme-21 ">Module</label>
+                        <label class="form-label text-theme-21 star">Module</label>
                         <select id="moduleId" asp-for="ModuleId" asp-items="Model.AvailableModules" type="text" data-search="true" class="select form-control w-full" placeholder="Select Module"></select>
+                        <span asp-validation-for="ModuleId" class="text-theme-6 mt-2"></span>
                     </div>
                     <input id="questionarrie" value="@ViewBag.pagetype"  name="pagetype" hidden/>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">

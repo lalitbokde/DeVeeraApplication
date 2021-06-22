@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,16 +20,21 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
 
         //User Dashboard
 
+        
         public int SliderOneImageId { get; set; }
         public int SliderTwoImageId { get; set; }
         public int SliderThreeImageId { get; set; }
         public string SliderOneImageUrl { get; set; }
         public string SliderTwoImageUrl { get; set; }
         public string SliderThreeImageUrl { get; set; }
+       
+        [Required(ErrorMessage ="Slider 1 Title Required")]
         public string SliderOneTitle { get; set; }
         public string SliderOneDescription { get; set; }
+        [Required(ErrorMessage = "Slider 2 Title Required")]
         public string SliderTwoTitle { get; set; }
         public string SliderTwoDescription { get; set; }
+        [Required(ErrorMessage = "Slider 3 Title Required")]
         public string SliderThreeTitle { get; set; }
         public string SliderThreeDescription { get; set; }
 

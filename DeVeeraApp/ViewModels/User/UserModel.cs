@@ -25,7 +25,7 @@ namespace DeVeeraApp.ViewModels.User
             this.AvailableUsers = new List<SelectListItem>();
             this.UserQuestionAnswerResponse = new List<UserQuestionAnswerResponse>();
             this.LandingPageModel = new LandingPageModel();
-            
+
         }
 
         public string Username { get; set; }
@@ -33,8 +33,10 @@ namespace DeVeeraApp.ViewModels.User
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
-        
+
+        [Required]
         public string MobileNumber { get; set; }
+        
         public Gender? GenderType { get; set; }
         public int Age { get; set; }
         public string Occupation { get; set; }
@@ -43,12 +45,15 @@ namespace DeVeeraApp.ViewModels.User
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
         public string ImageUrl { get; set; }
         public string BannerImageUrl { get; set; }
+
+        [Required]
         public UserPassword UserPassword { get; set; }
         public LandingPageModel LandingPageModel { get; set; }
         [NotMapped]
         public string OldPassword { get; set; }
 
         [NotMapped]
+        [Required]
         public string ConfirmPassword { get; set; }
         [NotMapped]
         public bool TwoFactorAuthentication { get; set; }

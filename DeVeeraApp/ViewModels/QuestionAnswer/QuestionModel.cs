@@ -16,7 +16,9 @@ namespace DeVeeraApp.ViewModels.QuestionAnswer
             AvailableModules = new List<SelectListItem>();
             QuestionsList = new List<QuestionModel>();
         }
+        [Required]
         public int LevelId { get; set; }
+        [Required]
         public int ModuleId { get; set; }
         [Required]
         public string Question { get; set; }

@@ -15,9 +15,9 @@
 
             <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                 <div class="intro-y box p-5 col-span-12">
-                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                    @if (ViewData.ModelState.GetFieldValidationState("ResourceName") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid && ViewData.ModelState.GetFieldValidationState("ResourceValue") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid && ViewData.ModelState.GetFieldValidationState("LanguageId") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid)
                     {
-                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                        <div asp-validation-summary="ModelOnly" class="text-theme-6 mt-4">
                         </div>
                     }
                     <div class="mt-5">
@@ -37,6 +37,7 @@
 
                         <select asp-for="@Model.LanguageId" asp-items="@Model.Language.AvailableLanguages" class="tail-select w-full">
                         </select>
+                        <span asp-validation-for="LanguageId" class="text-theme-6 mt-2"></span>
                     </div>
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">

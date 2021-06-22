@@ -96,7 +96,7 @@ namespace DeVeeraApp.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.GetFieldValidationState("ResourceName") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid && ModelState.GetFieldValidationState("ResourceValue") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid && ModelState.GetFieldValidationState("LanguageId") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid)
                 {
                     if(_localStringResourcesServices.GetAllLocalStringResources().Where(r => r.LanguageId == model.LanguageId && r.ResourceName == model.ResourceName).FirstOrDefault() == null)
                     {
@@ -151,7 +151,7 @@ namespace DeVeeraApp.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.GetFieldValidationState("ResourceName") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid && ModelState.GetFieldValidationState("ResourceValue") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid && ModelState.GetFieldValidationState("LanguageId") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid)
                 {
                     if (_localStringResourcesServices.GetAllLocalStringResources().Where(r => r.LanguageId == model.LanguageId && r.ResourceName == model.ResourceName).FirstOrDefault() == null)
                     {

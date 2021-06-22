@@ -36,7 +36,7 @@
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
-                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name" required></select>
                             <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
                         </div>
 
@@ -46,7 +46,7 @@
                                 var BodyImageURL = Model.BodyImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BodyImageURL;
 
                             }
-                            <label for="input-wizard-1" class="form-label text-theme-21 star"> Image</label>
+                            <label for="input-wizard-1" class="form-label text-theme-21 "> Image</label>
                             @*<select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>*@
                             <div class="grid grid-cols-12 gap-4 mt-5 pt-5 border-t border-theme-31">
 
@@ -276,7 +276,7 @@
                                         var imagesliderthree = Model.landingImageThreeUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.landingImageThreeUrl;
                                         var descriptionimageurl = Model.DescriptionImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.DescriptionImageUrl;
                                     }
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Image</label>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Image</label>
                                     @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
                                     <a onclick="OpenImageSelectionModal('SliderOneImageId','SliderOneImageIdEditUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                         <div class="box rounded-md p-3 relative zoom-in">
@@ -291,7 +291,7 @@
                                     </a>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                                     <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
                                     <span asp-validation-for="SliderOneDescription" class="text-theme-6 mt-2"></span>
 
@@ -302,7 +302,7 @@
                                     <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                     <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
                                     <span asp-validation-for="SliderTwoTitle" class="text-theme-6 mt-2"></span>
                                 </div>
@@ -333,7 +333,7 @@
                                     <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21">Title</label>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                     <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
                                     <span asp-validation-for="SliderThreeTitle" class="text-theme-6 mt-2"></span>
                                 </div>
@@ -381,7 +381,8 @@
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
-                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name" required></select>
+                                <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
                             </div>
                             <!--<div class="col-span-6 mt-5">
         <label for="input-wizard-1" class="form-label text-theme-21 star">Description Image</label>-->
@@ -401,7 +402,7 @@
 
                         </div>
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Description Image</label>
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description Image</label>
                             <div class="grid grid-cols-12 gap-4 mt-5 pt-5 border-t border-theme-31">
 
                                 @*<select asp-for="DescriptionImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
