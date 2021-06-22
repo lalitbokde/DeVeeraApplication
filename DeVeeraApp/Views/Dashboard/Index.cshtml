@@ -2,12 +2,6 @@
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<style>
-    .img-htwtLevels {
-        height: 500px;
-        width: 750px;
-    }
-</style>
 
 <!-- Start Main Slides Area -->
 <div class="main-slides-area">
@@ -81,7 +75,7 @@
                                     string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
                                     if (imageUrl != null)
                                     {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" ><img  class="img-htwtLevels" src=@imageUrl></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" ><img class="img-levels-dashboard" src=@imageUrl></a>
 
                                     }
                                 }
