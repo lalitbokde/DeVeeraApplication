@@ -145,6 +145,10 @@
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
     <Compile Include="Migrations\20210616154341_updateImagesAndOther.Designer.cs" />
     <Compile Include="Migrations\20210616154341_updateImagesAndOther.cs" />
+    <Compile Include="Migrations\20210623134958__quotesRandomChanges.Designer.cs" />
+    <Compile Include="Migrations\20210623134958__quotesRandomChanges.cs" />
+    <Compile Include="Migrations\20210616155143_newXhanges.Designer.cs" />
+    <Compile Include="Migrations\20210616155143_newXhanges.cs" />
   </ItemGroup>
 
   <ItemGroup>
