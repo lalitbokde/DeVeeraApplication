@@ -92,12 +92,20 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
+            var random = new Random();
             var model = new UserModel();
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
             if (data != null) 
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
+
+                var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+                if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
+                {
+                    int index = random.Next(quoteList.Count);
+                    model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
+                }
 
                 ViewBag.VideoUrl = data?.Video?.VideoUrl;
 
@@ -159,6 +167,7 @@ namespace DeVeeraApp.Controllers
       
         public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
         {
+            var random = new Random();
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
@@ -168,7 +177,14 @@ namespace DeVeeraApp.Controllers
 
             var model = data?.ToModel<WeeklyUpdateModel>();
 
-            if(model.BodyImageId != 0 && model.BannerImageId != 0)
+            //var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+            //if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
+            //{
+            //    int index = random.Next(quoteList.Count);
+            //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
+            //}
+
+            if (model.BodyImageId != 0 && model.BannerImageId != 0)
             {
                 var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
                 var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
@@ -197,11 +213,19 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult NewUser(int QuoteType)
         {
+            var random = new Random();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
 
             var model = data?.ToModel<WeeklyUpdateModel>();
+            var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+
+            //if (quoteList != null && quoteList.Count > 0 && data.IsRandom==true)
+            //{
+            //    int index = random.Next(quoteList.Count);
+            //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
+            //}
 
             if (model.BodyImageId != 0 && model.BannerImageId != 0)
             {

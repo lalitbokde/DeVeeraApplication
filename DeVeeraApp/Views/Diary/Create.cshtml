@@ -64,8 +64,9 @@
                                         <div class="col-lg-4 mt-3">
                                             <div class="form-group ms-4">
                                                 @{ var date = Model.Diary.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.Diary.DiaryDate.ToString("MMMM d, yyyy");}
-                                                <input asp-for="Diary.DiaryDate" onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control" required>
-                                                <input id="userRole" value="@user" hidden />
+                                                @*<input asp-for="Diary.DiaryDate" onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control" required>*@
+                                                <label>Created On :</label><label id="diarydate">@Model.Diary.CreatedOn.ToShortDateString()</label><br>
+                                                @*<label>Updated On : @Model.Diary.LastUpdatedOn.ToShortDateString()</label>*@
                                             </div>
 
                                         </div>

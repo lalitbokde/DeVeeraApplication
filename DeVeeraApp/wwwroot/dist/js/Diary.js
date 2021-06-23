@@ -1,7 +1,7 @@
 ﻿function GetDiaryByDate(date) {
     debugger
     if (date == null){
-        var date = document.getElementById("date").value;
+        var date = document.getElementById("diarydate").innerHTML;
     }else{
         var date = date;
     }
@@ -39,7 +39,7 @@
             var cDay = createdDate.getDate();
             var cYear = createdDate.getFullYear();
             createdDate = `${cMonth} ${cDay}, ${cYear}`;
-            document.getElementById("date").value = createdDate;
+            document.getElementById("diarydate").innerHTML = createdDate;
         }
         else if (data == null ) {
             var html = `<label class="text-theme-21 star">Title </label> <br /><div class="editable" id="title" name="title" contenteditable spellcheck="false" data-placeholder="Enter Title Here ..."></div><br /><br />
@@ -64,7 +64,7 @@
             var cDay = createdDate.getDate();
             var cYear = createdDate.getFullYear();
             createdDate = `${cMonth} ${cDay}, ${cYear}`;
-            document.getElementById("date").value = createdDate;
+            document.getElementById("diarydate").innerHTML = createdDate;
         }
         //else
         //{
@@ -73,7 +73,7 @@
         //    document.getElementById("savediary").style.display = "block";
         //}
 
-        document.getElementById("Id").value = data==null ? 0 :data.id;
+        //document.getElementById("Id").value = data==null ? 0 :data.id;
 
     })
 
