@@ -182,7 +182,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Level", "List", "/Admin/Level/List", "/Admin/Level/List");
 
             var model = new List<LevelModel>();
-            var data = _levelServices.GetAllLevels();
+            var data = _levelServices.GetAllLevels().OrderBy(a=>a.LevelNo);
             if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<Level, LevelModel>(model);

@@ -46,7 +46,7 @@ namespace DeVeeraApp.ViewModels.Emotions
 
         [Required]
         public string Description { get; set; }
-
+        public bool IsRandom { get; set; }
         public string EmotionHeaderImageUrl{ get; set; }
         public string EmotionBannerImageUrl { get; set; }
         public string EmotionThumbnailImageUrl { get; set; }

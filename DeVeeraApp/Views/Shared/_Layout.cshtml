@@ -56,57 +56,20 @@
     </div>
     <!-- End Preloader Area -->
     <!-- Start Top Header Area -->
-    <div class="header-information"> @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel())</div>
+    <div class="header-information">
+        3HappyPals
+    </div>
 
     <div class="top-header-area">
-        <div class="container">
-            <div class="row ">
-                <div class="col-lg-9 col-md-12">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
                            @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel())
                         </div>
                     </div>
-
-                    @*<ul class="top-header-information">
-                            <li>
-                                <i class="flaticon-phone-call"></i>
-                                <a href="tel:9885394203">+988 5394 203</a>
-                            </li>
-
-                            <li>
-                                <i class="flaticon-mail"></i>
-                                <a href="mailto:happ-e@gmail.com">happe@gmail.com</a>
-                            </li>
-
-                            <li>
-                                <i class="flaticon-placeholder"></i>
-                                3 Edgar Buildings, George Street, England, BA1 2FJ.
-                            </li>
-                        </ul>*@
-                </div>
-
-                <div class="col-lg-3 col-md-12" hidden>
-                    <ul class="top-header-optional">
-                        <li>
-                            <a asp-controller="User" asp-action="Register" target="_blank" style="color:white">
-                                @T("Register")
-                            </a>
-                            <a asp-controller="User" asp-action="Login" target="_blank" style="color:white">
-                                @T("Login")
-                            </a>
-                            @*<a href="#" target="_blank">
-                                    <i class='bx bxl-pinterest-alt'></i>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <i class='bx bxl-instagram'></i>
-                                </a>*@
-                        </li>
-                    </ul>
+          
                 </div>
             </div>
-        </div>
-    </div>
     <!-- End Top Header Area -->
     <!-- Start Navbar Area -->
     <div class="navbar-area">

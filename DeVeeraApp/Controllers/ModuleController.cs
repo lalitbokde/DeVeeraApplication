@@ -121,7 +121,7 @@ namespace DeVeeraApp.Controllers
                 moduleData.SelectedModuleImages.Add(seletedImages2);
             }
 
-            var leveldata = _levelServices.GetLevelByLevelNo(levelSrno);
+            var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
             var alllevel = _levelServices.GetAllLevels();
 
@@ -142,7 +142,8 @@ namespace DeVeeraApp.Controllers
                 moduleData.PrevImageUrl = module?.ImageUrl;
 
             }
-            var nextlevel = alllevel.Where(a => a.LevelNo > levelSrno).FirstOrDefault();
+       
+            var nextlevel = alllevel.Where(a => a.LevelNo > leveldata?.LevelNo).FirstOrDefault();
             if (nextlevel != null)
             {
                 moduleData.NextLeveltitle = nextlevel?.Title;

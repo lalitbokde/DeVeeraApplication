@@ -144,6 +144,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 emotion.Quote = model.Quote;
                 emotion.Description = model.Description;
                 emotion.VideoId = model.VideoId;
+                emotion.IsRandom = model.IsRandom;
                 emotion.EmotionHeaderImageId = model.EmotionHeaderImageId;
                 emotion.EmotionBannerImageId = model.EmotionBannerImageId;
                 emotion.EmotionThumbnailImageId = model.EmotionThumbnailImageId;

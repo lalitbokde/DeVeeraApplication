@@ -29,9 +29,7 @@ namespace DeVeeraApp.ViewModels
         public string landingImageOneUrl { get; set; }
         public string landingImageTwoUrl { get; set; }
         public string landingImageThreeUrl { get; set; }
-
         public string DescriptionImageUrl { get; set; }
-
 
         public string Subtitle { get; set; }
 
@@ -40,7 +38,7 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
-
+        public bool IsRandom { get; set; }
         public int BannerImageId { get; set; }
         public int BodyImageId { get; set; }
         public string BannerImageURL { get; set; }
