@@ -31,9 +31,11 @@ namespace DeVeeraApp.ViewModels.User
         public string Username { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Required]
+        [Required(ErrorMessage = "Please enter username")]
         public string Email { get; set; }
         
+        [DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage ="Please enter contact number")]
         public string MobileNumber { get; set; }
         public Gender? GenderType { get; set; }
         public int Age { get; set; }
@@ -49,6 +51,9 @@ namespace DeVeeraApp.ViewModels.User
         public string OldPassword { get; set; }
 
         [NotMapped]
+        [Required]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
+        ErrorMessage = "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
         public string ConfirmPassword { get; set; }
         [NotMapped]
         public bool TwoFactorAuthentication { get; set; }

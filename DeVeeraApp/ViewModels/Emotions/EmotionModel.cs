@@ -17,9 +17,11 @@ namespace DeVeeraApp.ViewModels.Emotions
             AvailableVideo = new List<SelectListItem>();
         }
 
-        [Required]
+       
+        [Required(ErrorMessage ="Please enter Emotion No")]
         public int? EmotionNo { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
         [Required]
         public int VideoId { get; set; }
 
@@ -32,19 +34,23 @@ namespace DeVeeraApp.ViewModels.Emotions
         [Required]
         public int EmotionThumbnailImageId { get; set; }
 
-        [Required]
+        [StringLength(150)]
+        [Required(ErrorMessage = "Please enter Emotion name")]
         public string EmotionName { get; set; }
 
-        [Required]
+        [StringLength(150)]
+        [Required(ErrorMessage = "Please enter title")]
         public string Title { get; set; }
 
-        [Required]
+        [StringLength(150)]
+        [Required(ErrorMessage = "Please enter sub title")]
         public string Subtitle { get; set; }
 
-        [Required]
+     
+        [Required(ErrorMessage = "Please enter Quote")]
         public string Quote { get; set; }
 
-        [Required]
+        
         public string Description { get; set; }
 
         public string EmotionHeaderImageUrl{ get; set; }

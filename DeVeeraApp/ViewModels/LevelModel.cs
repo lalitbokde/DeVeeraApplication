@@ -28,8 +28,10 @@ namespace DeVeeraApp.ViewModels
             SelectedImages = new List<SelectedImage>();
         }
 
-        [Required]
+        [Required(ErrorMessage ="Enter the level")]
         public int? LevelNo { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
+        [Required]
         public int? VideoId { get; set; }
 
         public int BannerImageId { get; set; }
@@ -48,9 +50,9 @@ namespace DeVeeraApp.ViewModels
         public IList<string> SelectedModuleImg { get; set; }
 
         public IList<string> SelectedEmotions { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Enter the title")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Enter the sub title")]
         public string Subtitle { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
@@ -63,6 +65,9 @@ namespace DeVeeraApp.ViewModels
         public bool Active { get; set; }
 
         public string FullDescription { get; set; }
+
+       
+        [Required]
         public int EmotionId { get; set; }
 
         public Modules Modules { get; set; }

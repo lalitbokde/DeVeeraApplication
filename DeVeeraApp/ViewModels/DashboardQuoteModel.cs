@@ -18,10 +18,15 @@ namespace DeVeeraApp.ViewModels
             layoutSetup = new LayoutSetupModel();
         }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Please select the level")]
+        [Required]
         public int? LevelId { get; set; }
 
+        
         [Required(ErrorMessage ="The Quote field is Required")]
-        public string Title { get; set; }     
+        public string Title { get; set; }
+        
+        [Required(ErrorMessage ="Please enter the author ")]
         public string Author { get; set; }
         public string Level { get; set; }
 

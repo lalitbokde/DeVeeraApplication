@@ -37,6 +37,7 @@
 
                         <select asp-for="@Model.LanguageId" asp-items="@Model.Language.AvailableLanguages" class="tail-select w-full">
                         </select>
+                        <span asp-validation-for="LanguageId" class="text-theme-6 mt-2"></span>
                     </div>
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">

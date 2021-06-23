@@ -41,17 +41,17 @@
 
                     <div class="mt-5">
 
-                        <label class="form-label text-theme-21 ">Video</label>
+                        <label class="form-label text-theme-21 star">Video</label>
                         <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-
+                        <span asp-validation-for="VideoId" class="text-theme-6 mt-2"></span>
 
                     </div>
                     <div class="mt-5">
 
-                        <label class="form-label text-theme-21 ">Emotion</label>
+                        <label class="form-label text-theme-21 star">Emotion</label>
                         @*<select asp-for="EmotionId" asp-items="Model.AvailableEmotions" type="text" data-search="true" class="tail-select w-full" placeholder="Emotion"></select>*@
                         @Html.ListBoxFor(m => m.SelectedEmotions, @Model.AvailableEmotions, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Emotions" })
-
+                     
                     </div>
                     <div class="mt-5">
                         <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">

@@ -19,11 +19,13 @@ namespace DeVeeraApp.ViewModels
             AvailableBannerImage = new List<SelectListItem>();
         }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
         [Required]
         public int VideoId { get; set; }
         public string VideoUrl { get; set; }
 
-        //[Required]
+        
+        [Required(ErrorMessage ="Enter the title ")]
         public string Title { get; set; }
 
         public string landingImageOneUrl { get; set; }
@@ -32,7 +34,7 @@ namespace DeVeeraApp.ViewModels
 
         public string DescriptionImageUrl { get; set; }
 
-
+        [Required(ErrorMessage = "Enter the Quote ")]
         public string Subtitle { get; set; }
 
         public string VideoName { get; set; }
@@ -58,16 +60,21 @@ namespace DeVeeraApp.ViewModels
         [NotMapped]
         public int FirstLevel { get; set; }
 
+        [Required(ErrorMessage ="Please enter slider 1 title")]
         public string SliderOneTitle { get; set; }
         public string SliderOneDescription { get; set; }
         public int SliderOneImageId { get; set; }
+        [Required(ErrorMessage = "Please enter slider 2 title")]
         public string SliderTwoTitle { get; set; }
         public string SliderTwoDescription { get; set; }
         public int SliderTwoImageId { get; set; }
+        [Required(ErrorMessage = "Please enter slider 3 title")]
         public string SliderThreeTitle { get; set; }
         public string SliderThreeDescription { get; set; }
         public int SliderThreeImageId { get; set; }
         public int DescriptionImageId { get; set; }
+        
+        [Required(ErrorMessage = "Enter the Quote ")]
         public string LandingQuote { get; set; }
 
     }
