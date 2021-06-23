@@ -132,7 +132,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             #region DiaryList
             command.SortBy = model.SortTypeId == 0 ? "" : EnumDescription.GetDisplayName((SortType)model.SortTypeId).ToString();
             command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
-            var list = _DiaryMasterService.GetAllDiaries( page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, command.SortBy, SearchByDate: "", UserId: 0);
+            var list = _DiaryMasterService.GetAllDiaries( page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, command.SortBy, SearchByDate: model.SearchByDate, UserId: 0);
             model.DiaryList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DiaryViewModel>();
             #endregion
             
