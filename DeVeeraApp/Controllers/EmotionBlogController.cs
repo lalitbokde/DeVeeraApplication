@@ -5,6 +5,7 @@ using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Customers;
+using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
 using CRM.Services.Message;
 using CRM.Services.Users;
@@ -40,6 +41,7 @@ namespace DeVeeraApp.Controllers
         private readonly IDiaryPasscodeService _diaryPasscodeService;
         private readonly IVideoMasterService _videoMasterService;
         private readonly IImageMasterService _imageMasterService;
+        private readonly IDashboardQuoteService _dashboardQuoteService;
 
         #endregion
 
@@ -58,6 +60,7 @@ namespace DeVeeraApp.Controllers
                        IDiaryPasscodeService diaryPasscodeService,
                         IHttpContextAccessor httpContextAccessor,
                         IVideoMasterService videoMasterService,
+                        IDashboardQuoteService dashboardQuoteService,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
@@ -74,6 +77,7 @@ namespace DeVeeraApp.Controllers
             _diaryPasscodeService = diaryPasscodeService;
             _videoMasterService = videoMasterService;
             _imageMasterService = imageMasterService;
+            _dashboardQuoteService = dashboardQuoteService;
         }
 
         #endregion
@@ -84,7 +88,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Index(int emotionid)
         {
-
+            var random = new Random();
             var emotion = _emotionService.GetEmotionById(emotionid);
             var model = new EmotionModel();
             if (emotion != null)
@@ -94,7 +98,12 @@ namespace DeVeeraApp.Controllers
                  model.EmotionBannerImageUrl = emotion.EmotionBannerImageId > 0 ?_imageMasterService.GetImageById(emotion.EmotionBannerImageId)?.ImageUrl:null;
                  model.EmotionThumbnailImageUrl = emotion.EmotionThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.EmotionThumbnailImageId)?.ImageUrl:null;
                  model.Video = _videoMasterService.GetVideoById(emotion.VideoId);
-
+                var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+                if (quoteList != null && quoteList.Count > 0 && emotion.IsRandom == true)
+                {
+                    int index = random.Next(quoteList.Count);
+                    model.Quote = quoteList[index].Title + " -- " + quoteList[index].Author;
+                }
             }
             return View(model);
         }

@@ -136,12 +136,15 @@ namespace DeVeeraApp.Controllers
                 model.Diary.DiaryHeaderImageUrl = data?.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.ImageUrl : null;
 
                 var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
-                model.Diary.DiaryDate = DateTime.UtcNow;
-                model.Diary.Title = diary?.Title;
-                model.Diary.Comment = diary?.Comment;
-                model.Diary.Id = diary == null ? 0 : diary.Id;
-                model.Diary.DiaryColor = diary?.DiaryColor;
-
+                if (diary != null) {
+                    model.Diary.DiaryDate = DateTime.UtcNow;
+                    model.Diary.Title = diary.Title;
+                    model.Diary.Comment = diary.Comment;
+                    model.Diary.Id = diary == null ? 0 : diary.Id;
+                    model.Diary.DiaryColor = diary.DiaryColor;
+                    model.Diary.CreatedOn = diary.CreatedOn;
+                    model.Diary.LastUpdatedOn = diary.LastUpdatedOn;
+                }
                 #region DiaryList
 
                 command.PageSize = (command.PageSize == 0) ? 5 : command.PageSize;
@@ -188,8 +191,8 @@ namespace DeVeeraApp.Controllers
                 if (ModelState.IsValid)
                 {
                     
-                    var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == model.DiaryDate.ToShortDateString()).FirstOrDefault();
-
+                    var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
+                
                     if (diary == null)
                     {
                         var newdiary = new Diary();
@@ -197,14 +200,11 @@ namespace DeVeeraApp.Controllers
                         newdiary.Comment = model.Comment;
                         newdiary.DiaryColor = model.DiaryColor;
                         newdiary.UserId = _workContext.CurrentUser.Id;
-                        newdiary.CreatedOn =model.DiaryDate;
+                        newdiary.CreatedOn =DateTime.UtcNow;
                         _DiaryMasterService.InsertDiary(newdiary);
-                        _notificationService.SuccessNotification("Diary added successfully.");
+                        _notificationService.SuccessNotification("Diary added successfully.");                
 
-                        var todayDiary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
-                        model = todayDiary?.ToModel<DiaryModel>();
-
-                        if (todayDiary == null && currentUser.UserRole.Name != "Admin")
+                        if (diary == null )
                         {
                             return RedirectToAction(nameof(AskUserEmotion));
                         }
