@@ -117,7 +117,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             //linux
             FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
             //windows
-            // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+             // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
            
             var info = await MediaInfo.Get(originalFile);
 
@@ -228,7 +228,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             var OriginalFileName = Path.Combine(FilePath, fileName);
 
-            var CompressedFileName = fileName;
+            var CompressedFileName = file.FileName;
             if (file.Length >= 104857600)
             {
                 await ConvertVideo(OriginalFileName, CompressedFileName);
