@@ -108,7 +108,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(DashboardQuoteModel model)
         {
-            
+
+            ModelState.Remove("layoutSetup.SliderOneTitle"); ModelState.Remove("layoutSetup.SliderTwoTitle"); 
+            ModelState.Remove("layoutSetup.SliderThreeTitle"); ModelState.Remove("layoutSetup.ReasonToSubmit");
 
             if (ModelState.IsValid)
             {
@@ -160,7 +162,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(DashboardQuoteModel model)
         {
             AddBreadcrumbs("Dashboard Quote", "Edit", "/Admin/DashboardQuote/List", $"/Admin/DashboardQuote/Edit/{model.Id}");
-
+            ModelState.Remove("layoutSetup.SliderOneTitle"); ModelState.Remove("layoutSetup.SliderTwoTitle");
+            ModelState.Remove("layoutSetup.SliderThreeTitle"); ModelState.Remove("layoutSetup.ReasonToSubmit");
             if (ModelState.IsValid)
             {
                 var quote = _dashboardQuoteService.GetDashboardQuoteById(model.Id);

@@ -118,8 +118,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 ModelState.Remove("SliderTwoDescription"); ModelState.Remove("SliderThreeTitle"); ModelState.Remove("SliderThreeDescription");
                 ModelState.Remove("LandingQuote"); 
             }
-
-            if (ModelState.IsValid)
+            if (model.QuoteType.ToString() == "Landing")
+            {
+                ModelState.Remove("Subtitle");
+            }
+                if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
 
@@ -158,6 +161,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(WeeklyUpdateModel model)
         {
             AddBreadcrumbs($"{model.QuoteType} Page", "Edit", $"/Admin/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/Admin/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
+            if (model.QuoteType.ToString() == "Registration" || model.QuoteType.ToString() == "Login")
+            {
+                ModelState.Remove("SliderOneTitle"); ModelState.Remove("SliderOneDescription"); ModelState.Remove("SliderTwoTitle");
+                ModelState.Remove("SliderTwoDescription"); ModelState.Remove("SliderThreeTitle"); ModelState.Remove("SliderThreeDescription");
+                ModelState.Remove("LandingQuote");
+            }
+            if (model.QuoteType.ToString() == "Landing")
+            {
+                ModelState.Remove("Subtitle");
+            }
 
             if (ModelState.IsValid)
             {
