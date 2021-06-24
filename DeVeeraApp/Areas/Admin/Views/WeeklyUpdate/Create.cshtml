@@ -293,7 +293,7 @@
                                 <div class="mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                                     <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
-                                    
+                                    <span asp-validation-for="SliderOneDescription" class="text-theme-6 mt-2"></span>
                                 </div>
                             </div>
                             <div class="col-span-4 mt-5">
@@ -324,7 +324,7 @@
                                 <div class="mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                                     <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
-                                   
+                                    <span asp-validation-for="SliderTwoDescription" class="text-theme-6 mt-2"></span>
                                 </div>
                             </div>
                             <div class="col-span-4 mt-5">
@@ -355,7 +355,7 @@
                                 <div class="mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21">Description</label>
                                     <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
-                                    <span asp-validation-for="SliderThreeDescription" class="text-theme-6 mt-2"></span>
+                                    <span asp-validation-for="SliderTwoDescription" class="text-theme-6 mt-2"></span>
 
                                 </div>
                             </div>
@@ -410,7 +410,7 @@
                                 <div class="preview">
                                     <textarea id="editor2" asp-for="Subtitle" class="editor2"> </textarea>
                                 </div>
-                                <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                                @*<span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>*@
 
                             </div>
                             <div class="mt-5">

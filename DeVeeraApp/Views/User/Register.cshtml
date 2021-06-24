@@ -32,12 +32,14 @@
 
                     <div class="form-group">
                         <label>@T("User Name")</label>
-                        <input asp-for="@Model.Email" type="email"  class="form-control" placeholder="@T("User Name")">
+                        <input asp-for="@Model.Email" type="email" class="form-control" placeholder="@T("User Name")">
+                        <span asp-validation-for="Email" class="text-theme-6 mt-2"></span>
                     </div>
 
                     <div class="form-group">
                         <label>@T("Mobile Number")</label>
                         <input asp-for="@Model.MobileNumber" type="number" class="form-control" placeholder="@T("Mobile Number")">
+                        <span asp-validation-for="MobileNumber" class="text-theme-6 mt-2"></span>
                     </div>
 
                     <div class="form-group">

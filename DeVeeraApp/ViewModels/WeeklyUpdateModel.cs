@@ -62,14 +62,18 @@ namespace DeVeeraApp.ViewModels
 
         [Required(ErrorMessage ="Please enter slider 1 title")]
         public string SliderOneTitle { get; set; }
+
+        [Required(ErrorMessage = "Please enter slider 1 Description")]
         public string SliderOneDescription { get; set; }
         public int SliderOneImageId { get; set; }
         [Required(ErrorMessage = "Please enter slider 2 title")]
         public string SliderTwoTitle { get; set; }
+        [Required(ErrorMessage = "Please enter slider 2 Description")]
         public string SliderTwoDescription { get; set; }
         public int SliderTwoImageId { get; set; }
         [Required(ErrorMessage = "Please enter slider 3 title")]
         public string SliderThreeTitle { get; set; }
+        [Required(ErrorMessage = "Please enter slider 3 Description")]
         public string SliderThreeDescription { get; set; }
         public int SliderThreeImageId { get; set; }
         public int DescriptionImageId { get; set; }

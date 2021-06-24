@@ -12,9 +12,10 @@ namespace DeVeeraApp.ViewModels
 
         public LocalStringResourceModel()
         {
-            Language = new LanguageModel();
+            this.Language = new LanguageModel();
         }
 
+       
         [Range(1, int.MaxValue, ErrorMessage = "Please select the language")]
         [Required]
         public int LanguageId { get; set; }

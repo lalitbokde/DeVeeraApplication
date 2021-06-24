@@ -112,6 +112,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             AddBreadcrumbs($"{model.QuoteType} Page", "Create", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Create?type={model.QuoteType}");
 
+            if (model.QuoteType.ToString() == "Registration" || model.QuoteType.ToString() == "Login")
+            {
+                ModelState.Remove("SliderOneTitle"); ModelState.Remove("SliderOneDescription"); ModelState.Remove("SliderTwoTitle");
+                ModelState.Remove("SliderTwoDescription"); ModelState.Remove("SliderThreeTitle"); ModelState.Remove("SliderThreeDescription");
+                ModelState.Remove("LandingQuote"); 
+            }
+
             if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
