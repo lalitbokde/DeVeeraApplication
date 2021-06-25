@@ -6,6 +6,7 @@ namespace CRM.Core.Domain.Emotions
     {
         public int? EmotionNo { get; set; }
         public int VideoId { get; set; }
+        public int? QuoteId { get; set; }
         public int EmotionHeaderImageId { get; set; }
         public int EmotionBannerImageId { get; set; }
         public int EmotionThumbnailImageId { get; set; }

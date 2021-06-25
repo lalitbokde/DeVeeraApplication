@@ -13,6 +13,7 @@ namespace DeVeeraApp.ViewModels.Emotions
             EmotionList = new List<EmotionModel>();
             AvailableImages = new List<SelectListItem>();
             AvailableVideo = new List<SelectListItem>();
+            AvilableQuote = new List<SelectListItem>();
         }
 
         [Required]
@@ -20,6 +21,8 @@ namespace DeVeeraApp.ViewModels.Emotions
 
         [Required]
         public int VideoId { get; set; }
+        [Required]
+        public int? QuoteId { get; set; }
 
         [Required]
         public int EmotionHeaderImageId { get; set; }
@@ -39,7 +42,7 @@ namespace DeVeeraApp.ViewModels.Emotions
         [Required]
         public string Subtitle { get; set; }
 
-        [Required]
+      //  [Required]
         public string Quote { get; set; }
 
         [Required]
@@ -54,7 +57,9 @@ namespace DeVeeraApp.ViewModels.Emotions
         public bool Deleted { get; set; }
         public virtual Video Video { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
+        public IList<SelectListItem> AvilableQuote { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
         public List<EmotionModel> EmotionList { get; set; }
+        
     }
 }
