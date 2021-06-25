@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using CRM.Core.Domain.Users;
 using CRM.Data.Interfaces;
 
 namespace CRM.Services.Users
 {
-   public class UserPasswordService :IUserPasswordService
+    public class UserPasswordService :IUserPasswordService
     {
         #region Field
         private readonly IRepository<UserPassword> _UserPasswordRepository;

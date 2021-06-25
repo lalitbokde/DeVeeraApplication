@@ -1,5 +1,4 @@
 using CRM.Core;
-using CRM.Core.Domain;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
 using CRM.Core.Infrastructure;
@@ -12,10 +11,7 @@ using CRM.Services.Layoutsetup;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
-using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
-using DeVeeraApp.ViewModels;
-using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Diaries;
 using DeVeeraApp.ViewModels.Emotions;
 using DeVeeraApp.ViewModels.Enum;
@@ -24,7 +20,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {

@@ -1,8 +1,6 @@
-﻿using CRM.Core.Domain;
-using CRM.Data.Interfaces;
+﻿using CRM.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using CRM.Core.Domain.VideoModules;
 using CRM.Core.ViewModels;
@@ -119,9 +117,9 @@ namespace CRM.Services
                 return (data.FirstOrDefault() != null) ? data : new List<DiaryViewModel>();
 
             }
-            catch (Exception ex)
+            catch
             {
-                return null;
+                return new List<DiaryViewModel>();
             }
 
         }

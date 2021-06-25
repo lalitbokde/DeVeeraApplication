@@ -102,45 +102,7 @@ namespace CRM.Services.Users
 
         }
 
-        /// <summary>
-        /// Search a User 
-        /// </summary>
-        /// <param name="User">The first name identifier</param>
-        /// <returns>Vendor note</returns>
-        public IList<User> SearchUser(string FirstName, int? ParentUserId=null)
-        {
-
-            if (false)
-            {
-                //stored procedures are enabled and supported by the database. 
-                //It's much faster than the LINQ implementation below 
-                //     products = SearchProductsUseStoredProcedure(ref filterableSpecificationAttributeOptionIds, loadFilterableSpecificationAttributeOptionIds, pageIndex, pageSize, categoryIds, manufacturerId, storeId, vendorId, warehouseId, productType, visibleIndividuallyOnly, markedAsNewOnly, featuredProducts, priceMin, priceMax, productTagId, keywords, searchDescriptions, searchManufacturerPartNumber, searchSku, allowedUserRolesIds, searchProductTags, searchLocalizedValue, languageId, filteredSpecs, orderBy, showHidden, overridePublished);
-            }
-            else
-            {
-                //stored procedures aren't supported. Use LINQ
-                return SearchUserUseLinq(FirstName, ParentUserId);
-
-            }
-        }
-
-        protected virtual IList<User> SearchUserUseLinq(string FirstName,int? ParentUserId)
-        {
-            var query = _UserRepository.Table;
-            query = query.Where(p => !p.Deleted);
-
-            if (FirstName != null)
-            {
-                query = from v in _UserRepository.Table
-                        where v.UserAddress.FirstName == FirstName && ((ParentUserId==null) || (v.ParentUserId==ParentUserId))
-                        select v;
-            }
-
-            var User = query.ToList();
-
-            //return products
-            return User;
-        }
+       
 
         /// <summary>
         /// Gets a User

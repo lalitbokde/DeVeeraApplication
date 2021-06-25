@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
-using DeVeeraApp.Filters;
-using CRM.Core.Domain.Users;
-using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using CRM.Services.Users;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
-using CRM.Core.Domain;
 using CRM.Services.DashboardQuotes;
 using CRM.Core;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +17,7 @@ using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class DashboardController : BaseController
     {
 

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using CRM.Core;
-using CRM.Core.Domain.Users;
 
 
 namespace CRM.Services.Helpers

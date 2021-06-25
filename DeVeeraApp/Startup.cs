@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,11 +10,11 @@ using CRM.Data;
 using CRM.Data.Interfaces;
 using CRM.Services;
 using CRM.Services.Authentication;
-using CRM.Services.Common;
+
 using CRM.Services.Customers;
 using CRM.Services.DashboardMenu;
 using CRM.Services.DashboardQuotes;
-using CRM.Services.Directory;
+
 using CRM.Services.Emotions;
 using CRM.Services.Helpers;
 using CRM.Services.Layoutsetup;
@@ -89,8 +89,7 @@ namespace DeVeeraApp
           
             services.AddSession();
             services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddTransient(typeof(IAsyncRepository<>), typeof(EfRepository<>));
-
+          
             services.AddScoped<IWorkContext, WebWorkContext>();
             services.AddScoped<IAuthenticationService, CookieAuthenticationService>();
 
@@ -98,9 +97,6 @@ namespace DeVeeraApp
             services.TryAddSingleton<HttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IUserAgentHelper, UserAgentHelper>();
             services.AddScoped<IUserPasswordService, UserPasswordService>();
-            services.AddScoped<IAddressService, AddressService>();
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<IStateProvinceService, StateProvinceService>();
             services.AddScoped<DateTimeSettings>();
             services.AddScoped<IDateTimeHelper, DateTimeHelper>();
             services.AddScoped<IPermissionService, PermissionService>();
@@ -140,20 +136,20 @@ namespace DeVeeraApp
 
             var authenticationBuilder = services.AddAuthentication(options =>
             {
-                options.DefaultChallengeScheme = AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = AutoDataImportCookieAuthenticationDefaults.ExternalAuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+              //  options.DefaultSignInScheme = CookieAuthenticationDefaults.ExternalAuthenticationScheme;
             });
 
             //add main cookie authentication
-            authenticationBuilder.AddCookie(AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme, options =>
+            authenticationBuilder.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
             {
-                options.Cookie.Name = AutoDataImportCookieAuthenticationDefaults.CookiePrefix + AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme;
+                options.Cookie.Name = CookieAuthenticationDefaults.CookiePrefix + CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromSeconds(180);
                 //options.Cookie.Expiration = TimeSpan.FromMinutes(3);
                 options.SlidingExpiration = true;
-                options.LoginPath = AutoDataImportCookieAuthenticationDefaults.LoginPath;
-                options.AccessDeniedPath = AutoDataImportCookieAuthenticationDefaults.AccessDeniedPath;
+                options.LoginPath = CookieAuthenticationDefaults.LoginPath;
+                options.AccessDeniedPath = CookieAuthenticationDefaults.AccessDeniedPath;
             });
 
             services.Configure<FormOptions>(x =>

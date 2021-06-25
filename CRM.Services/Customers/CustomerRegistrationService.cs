@@ -2,9 +2,6 @@
 using CRM.Core.Domain.Users;
 using CRM.Services.Security;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace CRM.Services.Users
 {
@@ -19,7 +16,7 @@ namespace CRM.Services.Users
 
         private readonly IUserService _UserService;
         private readonly IEncryptionService _encryptionService;
-        private readonly IWorkContext _workContext;
+      
        
         #endregion
 
@@ -41,15 +38,15 @@ namespace CRM.Services.Users
         /// <param name="rewardPointsSettings">Reward points settings</param>
         /// <param name="UserSettings">User settings</param>
         public UserRegistrationService(IUserService UserService,
-            IEncryptionService encryptionService,
+            IEncryptionService encryptionService
           
-            IWorkContext workContext
+           
          )
         {
-            this._UserService = UserService;
-            this._encryptionService = encryptionService;
+            _UserService = UserService;
+            _encryptionService = encryptionService;
          
-            this._workContext = workContext;
+           
         
         }
 
@@ -68,7 +65,7 @@ namespace CRM.Services.Users
             if (UserPassword == null || string.IsNullOrEmpty(enteredPassword))
                 return false;
 
-            var savedPassword = string.Empty;
+            string savedPassword = string.Empty;
             switch (UserPassword.PasswordFormat)
             {
                 case PasswordFormat.Clear:
@@ -80,12 +77,11 @@ namespace CRM.Services.Users
                 case PasswordFormat.Hashed:
                     savedPassword = _encryptionService.CreatePasswordHash(enteredPassword, UserPassword.PasswordSalt, "");
                     break;
+                default:
+                    break;
             }
 
-            if (UserPassword.Password == null)
-                return false;
-
-            return UserPassword.Password.Equals(savedPassword);
+            return UserPassword.Password == null ? false : UserPassword.Password.Equals(savedPassword);
         }
 
         #endregion
@@ -100,7 +96,7 @@ namespace CRM.Services.Users
         /// <returns>Result</returns>
         public virtual User ValidateUser(string usernameOrEmail, string password)
         {
-            var User = /*_UserSettings.UsernamesEnabled*/ true ?
+            User User = /*_UserSettings.UsernamesEnabled*/ true ?
                 _UserService.GetUserByUsername(usernameOrEmail) :
                 _UserService.GetUserByEmail(usernameOrEmail);
 
@@ -288,6 +284,8 @@ namespace CRM.Services.Users
                         UserPassword.Password = _encryptionService.CreatePasswordHash(request.Password, saltKey, "");
                     }
                     break;
+                default:
+                    break;
             }
             _UserService.InsertUserPassword(UserPassword);
 
@@ -295,9 +293,7 @@ namespace CRM.Services.Users
 
             //add to 'Registered' role
             var registeredRole = _UserService.GetUserRoleBySystemName(SystemUserRoleNames.Registered);
-            if (registeredRole == null)
-                throw new Exception("'Registered' role could not be loaded");
-            request.User.UserRole = registeredRole;
+            request.User.UserRole = registeredRole ?? throw new Exception("'Registered' role could not be loaded");
             ////remove from 'Guests' role
             //var guestRole = (request.User.UserRole.SystemName == SystemUserRoleNames.Guests) ? request.User.UserRole;
             //if (guestRole != null)
@@ -371,6 +367,8 @@ namespace CRM.Services.Users
                         UserPassword.PasswordSalt = saltKey;
                         UserPassword.Password = _encryptionService.CreatePasswordHash(request.NewPassword, saltKey,"");
                     }
+                    break;
+                default:
                     break;
             }
             _UserService.InsertUserPassword(UserPassword);
@@ -454,7 +452,7 @@ namespace CRM.Services.Users
             //if (newUsername.Length > 100)
             //    throw new NopException(_localizationService.GetResource("Account.EmailUsernameErrors.UsernameTooLong"));
 
-            var user2 = _UserService.GetUserByUsername(newUsername);
+         
             //if (user2 != null && User.Id != user2.Id)
             //    throw new NopException(_localizationService.GetResource("Account.EmailUsernameErrors.UsernameAlreadyExists"));
 

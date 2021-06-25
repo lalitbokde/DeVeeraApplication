@@ -1,21 +1,15 @@
 ﻿using CRM.Core;
 
-using CRM.Core.Domain.Common;
-using CRM.Core.ViewModels;
-
 using CRM.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CRM.Data
 {
-    public class EfRepository<T> : IRepository<T>, IAsyncRepository<T> where T : BaseEntity
+    public class EfRepository<T> : IRepository<T> where T : BaseEntity
     {
         protected readonly dbContextCRM _dbContext;
         private DbSet<T> _entities;
@@ -164,49 +158,7 @@ namespace CRM.Data
             }
         }
 
-        public Task<T> GetByIdAsync(int id)
-        {
-            return Entities.FindAsync(id);
-        }
-
-        public Task<List<T>> ListAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<T>> ListAsync(ISpecification<T> spec)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        //store procedure
-        public List<T> ExecuteSP(string query, params object[] parameters)
-        {
-            var DatasetList = _dbContext.Set<T>().FromSql(query, parameters).ToList<T>();
-            return DatasetList;
-        }
-     
-
-        //store procedure
-        public void ExecuteCammandSP(string query, params object[] parameters)
-        {
-            var type = _dbContext.Database.ExecuteSqlCommand(query, parameters);
-        }
+   
 
         /// <summary>
         /// Entities

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CRM.Core.Domain
+﻿namespace CRM.Core.Domain
 {
-   public class DashboardQuote : BaseEntity
+    public class DashboardQuote : BaseEntity
     {
         public int? LevelId { get; set; }
         public string Title { get; set; }

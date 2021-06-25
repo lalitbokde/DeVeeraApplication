@@ -5,8 +5,6 @@ using CRM.Services.Users;
 
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Services.Helpers
 {
@@ -14,7 +12,7 @@ namespace CRM.Services.Helpers
     {
         #region Const
        
-        private const string User_COOKIE_NAME = ".MarketPlaceCRM.User";
+        private const string User_COOKIE_NAME = ".3HappyPals.User";
 
         #endregion
 
@@ -34,8 +32,7 @@ namespace CRM.Services.Helpers
 
 
         private User _cachedUser;
-        private User _originalUserIfImpersonated;
-
+        
 
         #endregion
 
@@ -210,15 +207,6 @@ namespace CRM.Services.Helpers
                 _cachedUser = value;
             }
         }
-
-        /// <summary>
-        /// Gets the original User (in case the current one is impersonated)
-        /// </summary>
-        public virtual User OriginalUserIfImpersonated
-        {
-            get { return _originalUserIfImpersonated; }
-        }
-
 
         /// <summary>
         /// Gets or sets value indicating whether we're in admin area

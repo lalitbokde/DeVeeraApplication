@@ -149,6 +149,8 @@
     <Compile Include="Migrations\20210623134958__quotesRandomChanges.cs" />
     <Compile Include="Migrations\20210616155143_newXhanges.Designer.cs" />
     <Compile Include="Migrations\20210616155143_newXhanges.cs" />
+    <Compile Include="Migrations\20210625091730_removedUnnecessaryTables.cs" />
+    <Compile Include="Migrations\20210625091730_removedUnnecessaryTables.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

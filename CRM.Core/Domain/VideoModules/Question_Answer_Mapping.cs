@@ -1,11 +1,9 @@
 ﻿using CRM.Core.Domain.Users;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Core.Domain.VideoModules
 {
-   public class Question_Answer_Mapping : BaseEntity
+    public class Question_Answer_Mapping : BaseEntity
     {
         public int UserId { get; set; }
         public int QuestionId { get; set; }     
