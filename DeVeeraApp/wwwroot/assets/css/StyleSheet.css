@@ -114,3 +114,27 @@
     width: 1.25rem;
     height: 1.25rem
 }
+
+.dudp__wrapper[data-theme='blue'] .dudp__calendar-header {
+    background-color: #F0B9B2 !important ;
+}
+
+.dcalendarpicker .dudp__cal-container .dudp__calendar .dudp__cal-week .dudp__date.selected, .dcalendarpicker .dudp__cal-container .dudp__calendar .dudp__cal-week .dudp__date.range-from, .dcalendarpicker .dudp__cal-container .dudp__calendar .dudp__cal-week .dudp__date.range-to {
+    font-weight: normal;
+    color: #fff !important;
+    background-color: #F0B9B2 !important;
+}
+
+.dudp__wrapper[data-theme='blue'] .dudp__calendar .dudp__cal-week .dudp__date.current {
+    color: black !important;
+}
+
+.dudp__wrapper[data-theme='blue'] .dudp__buttons .dudp__button, .dudp__wrapper[data-theme='blue'] .dudp__months-view .dudp__month.selected, .dudp__wrapper[data-theme='blue'] .dudp__years-view .dudp__year.selected {
+    color: black;
+}
+/*.dudp__date.current {
+    background-color: #F0B9B2 !important;
+}
+.dudp__date.selected {
+    background-color: #F0B9B2 !important;
+}*/

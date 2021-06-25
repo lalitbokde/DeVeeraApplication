@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Linq;
 using CRM.Core;
 using CRM.Core.Domain.Users;
 using CRM.Core.Domain.Security;
-using CRM.Services.Common;
-using CRM.Services.Directory;
+
+
 using CRM.Services.Helpers;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using DeVeeraApp.ViewModels.UserLogin;
 using CRM.Services.Security;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 
 
@@ -27,12 +24,12 @@ namespace DeVeeraApp.Factories
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly DateTimeSettings _dateTimeSettings;
         private readonly IWorkContext _workContext;
-        private readonly ICountryService _countryService;
-        private readonly IStateProvinceService _stateProvinceService;
+        
+        
         private readonly IEncryptionService _encryptionService;
         private readonly IConfiguration _configuration;
         private readonly SecuritySettings _securitySettings;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
       
         #endregion
 
@@ -43,11 +40,11 @@ namespace DeVeeraApp.Factories
             DateTimeSettings dateTimeSettings,
             IEncryptionService encryptionService,
             IWorkContext workContext,
-            ICountryService countryService,
-            IStateProvinceService stateProvinceService,          
+            
+                      
             SecuritySettings securitySettings,
             IConfiguration configuration,
-            IHostingEnvironment hostingEnvironment
+            IWebHostEnvironment hostingEnvironment
         
            )
         {
@@ -56,8 +53,8 @@ namespace DeVeeraApp.Factories
             this._dateTimeSettings = dateTimeSettings;
             this._encryptionService = encryptionService;
             this._workContext = workContext;
-            this._countryService = countryService;
-            this._stateProvinceService = stateProvinceService;
+            
+            
             this._securitySettings = securitySettings;
             this._configuration = configuration;
             this._hostingEnvironment = hostingEnvironment;
@@ -68,137 +65,7 @@ namespace DeVeeraApp.Factories
 
         #region Methods
 
-       
-
-        /// <summary>
-        /// Prepare the User info model
-        /// </summary>
-        /// <param name="model">User info model</param>
-        /// <param name="User">User</param>
-        /// <param name="excludeProperties">Whether to exclude populating of model properties from the entity</param>
-        /// <param name="overrideCustomUserAttributesXml">Overridden User attributes in XML format; pass null to use CustomUserAttributes of User</param>
-        /// <returns>User info model</returns>
-        public virtual UserInfoModel PrepareUserInfoModel(UserInfoModel model, User User,
-            bool excludeProperties, string overrideCustomUserAttributesXml = "")
-        {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-
-            if (User == null)
-                throw new ArgumentNullException(nameof(User));
-
       
-            foreach (var tzi in _dateTimeHelper.GetSystemTimeZones())
-                model.AvailableTimeZones.Add(new SelectListItem { Text = tzi.DisplayName, Value = tzi.Id, Selected = (excludeProperties ? tzi.Id == model.TimeZoneId : tzi.Id == _dateTimeHelper.CurrentTimeZone.Id) });
-
-      
-            //countries
-            model.AvailableCountries.Add(new SelectListItem { Text = "Select Country", Value = "0" });
-
-            foreach (var c in _countryService.GetAllCountries(showHidden: true))
-            {
-                model.AvailableCountries.Add(new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString(),
-                    Selected = c.Id == model.CountryId
-                });
-            }
-
-            //states
-            var states = _stateProvinceService.GetStateProvincesByCountryId(model.CountryId).ToList();
-            if (states.Any())
-            {
-                model.AvailableStates.Add(new SelectListItem { Text = "Select State", Value = null });
-
-                foreach (var s in states)
-                {
-                    model.AvailableStates.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = (s.Id == model.StateProvinceId) });
-                }
-            }
-            else
-            {
-                var anyCountrySelected = model.AvailableCountries.Any(x => x.Selected);
-
-                model.AvailableStates.Add(new SelectListItem
-                {
-                    Text = "Select State",
-                    Value = null
-                });
-            }
-          
-
-           
-
-           
-            
-           
-
-           
-
-            return model;
-        }
-
-        /// <summary>
-        /// Prepare the User register model
-        /// </summary>
-        /// <param name="model">User register model</param>
-        /// <param name="excludeProperties">Whether to exclude populating of model properties from the entity</param>
-        /// <param name="overrideCustomUserAttributesXml">Overridden User attributes in XML format; pass null to use CustomUserAttributes of User</param>
-        /// <param name="setDefaultValues">Whether to populate model properties by default values</param>
-        /// <returns>User register model</returns>
-        public virtual RegistrationModel PrepareRegisterModel(RegistrationModel model, bool excludeProperties,
-            string overrideCustomUserAttributesXml = "", bool setDefaultValues = false)
-        {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-
-            foreach (var tzi in _dateTimeHelper.GetSystemTimeZones())
-                model.AvailableTimeZones.Add(new SelectListItem { Text = tzi.DisplayName, Value = tzi.Id, Selected = (excludeProperties ? tzi.Id == model.TimeZoneId : tzi.Id == _dateTimeHelper.CurrentTimeZone.Id) });
-
-          
-
-
-            //countries
-            model.AvailableCountries.Add(new SelectListItem { Text = "Select Country", Value = "0" });
-
-            foreach (var c in _countryService.GetAllCountries(showHidden: true))
-            {
-                model.AvailableCountries.Add(new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString(),
-                    Selected = c.Id == model.CountryId
-                });
-            }
-
-            //states
-            var states = _stateProvinceService.GetStateProvincesByCountryId(model.CountryId).ToList();
-            if (states.Any())
-            {
-                model.AvailableStates.Add(new SelectListItem { Text = "Select State", Value = null });
-
-                foreach (var s in states)
-                {
-                    model.AvailableStates.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = (s.Id == model.StateProvinceId) });
-                }
-            }
-            else
-            {
-                var anyCountrySelected = model.AvailableCountries.Any(x => x.Selected);
-
-                model.AvailableStates.Add(new SelectListItem
-                {
-                    Text = "Select State",
-                    Value = null
-                });
-            }
-
-
-           
-
-            return model;
-        }
 
         /// <summary>
         /// Prepare the login model

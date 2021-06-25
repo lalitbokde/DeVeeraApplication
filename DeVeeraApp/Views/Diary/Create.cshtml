@@ -64,8 +64,9 @@
                                         <div class="col-lg-4 mt-3">
                                             <div class="form-group ms-4">
                                                 @{ var date = Model.Diary.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.Diary.DiaryDate.ToString("MMMM d, yyyy");}
-                                                <input asp-for="Diary.DiaryDate" onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control" required>
-                                                <input id="userRole" value="@user" hidden />
+                                                @*<input asp-for="Diary.DiaryDate" onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control" required>*@
+                                                <label>Created On :</label><label id="diarydate">@Model.Diary.CreatedOn.ToShortDateString()</label><br>
+                                                @*<label>Updated On : @Model.Diary.LastUpdatedOn.ToShortDateString()</label>*@
                                             </div>
 
                                         </div>
@@ -135,7 +136,7 @@
                     <form asp-controller="Diary" asp-action="Create" method="Post" class="search-form">
                         <div class="col-lg-12 col-md-6 ms-3">
                             <input asp-for="SortTypeId" hidden />
-                            <input asp-for="SearchByDate" oninput="this.value = MMDDYYYY(this.value, event)" type="tel" class="search-field" maxlength="10" placeholder="Search...">
+                            <input id="date" asp-for="SearchByDate"  type="text" class="search-field"  placeholder="Search...">
                             <button name="SubmitButton" value="Search" type="submit"><i class='bx bx-search-alt'></i></button>
                         </div>
                     </form>

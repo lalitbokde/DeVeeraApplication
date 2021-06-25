@@ -5,19 +5,15 @@ using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
-using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class ModuleController : BaseController
     {
         private readonly IModuleService _moduleService;
@@ -121,7 +117,7 @@ namespace DeVeeraApp.Controllers
                 moduleData.SelectedModuleImages.Add(seletedImages2);
             }
 
-            var leveldata = _levelServices.GetLevelByLevelNo(levelSrno);
+            var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
             var alllevel = _levelServices.GetAllLevels();
 
@@ -142,7 +138,8 @@ namespace DeVeeraApp.Controllers
                 moduleData.PrevImageUrl = module?.ImageUrl;
 
             }
-            var nextlevel = alllevel.Where(a => a.LevelNo > levelSrno).FirstOrDefault();
+       
+            var nextlevel = alllevel.Where(a => a.LevelNo > leveldata?.LevelNo).FirstOrDefault();
             if (nextlevel != null)
             {
                 moduleData.NextLeveltitle = nextlevel?.Title;

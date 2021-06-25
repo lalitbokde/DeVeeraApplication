@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels.Emotions
 {
@@ -49,7 +47,7 @@ namespace DeVeeraApp.ViewModels.Emotions
 
         [Required]
         public string Description { get; set; }
-
+        public bool IsRandom { get; set; }
         public string EmotionHeaderImageUrl{ get; set; }
         public string EmotionBannerImageUrl { get; set; }
         public string EmotionThumbnailImageUrl { get; set; }

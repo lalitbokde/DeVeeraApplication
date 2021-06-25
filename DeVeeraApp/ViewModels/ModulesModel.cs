@@ -1,10 +1,7 @@
 ﻿using CRM.Core.Domain;
 using CRM.Core.Domain.VideoModules;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels
 {

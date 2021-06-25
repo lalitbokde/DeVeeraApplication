@@ -1,11 +1,9 @@
 ﻿using CRM.Core.Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Services
 {
-   public interface IWeeklyUpdateServices
+    public interface IWeeklyUpdateServices
     {
         void DeleteWeeklyUpdate(WeeklyUpdate model);
 

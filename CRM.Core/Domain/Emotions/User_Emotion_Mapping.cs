@@ -1,7 +1,4 @@
-﻿using CRM.Core.Domain.Users;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace CRM.Core.Domain.Emotions
 {

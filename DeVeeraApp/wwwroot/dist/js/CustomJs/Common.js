@@ -56,3 +56,13 @@ function InActiveAllImage() {
         $('.form-check-input').not(this).prop('checked', false);
     });  
 }
+
+function hideshowqoute() {
+    debugger
+    var val = $('#randomquote').is(':checked'); 
+    if (val == true) {
+        $('#quotes').addClass('hidden', true)
+    } else {
+        $('#quotes').removeClass('hidden', true)
+    }
+}

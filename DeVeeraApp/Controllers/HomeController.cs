@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
-using DeVeeraApp.Filters;
-using CRM.Core.Domain.Users;
 using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using CRM.Services.Users;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
-using CRM.Core.Domain;
 using CRM.Services.DashboardQuotes;
 using CRM.Core;
 using Microsoft.AspNetCore.Http;
@@ -21,13 +15,11 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using static DeVeeraApp.ViewModels.HappynessLevelModel;
 
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class HomeController : BaseController
     {
         #region fields
@@ -92,12 +84,20 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index()
         {
+            var random = new Random();
             var model = new UserModel();
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
             if (data != null) 
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
+
+                var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+                if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
+                {
+                    int index = random.Next(quoteList.Count);
+                    model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
+                }
 
                 ViewBag.VideoUrl = data?.Video?.VideoUrl;
 
@@ -159,6 +159,7 @@ namespace DeVeeraApp.Controllers
       
         public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
         {
+            var random = new Random();
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
@@ -168,7 +169,14 @@ namespace DeVeeraApp.Controllers
 
             var model = data?.ToModel<WeeklyUpdateModel>();
 
-            if(model.BodyImageId != 0 && model.BannerImageId != 0)
+            //var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+            //if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
+            //{
+            //    int index = random.Next(quoteList.Count);
+            //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
+            //}
+
+            if (model.BodyImageId != 0 && model.BannerImageId != 0)
             {
                 var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
                 var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
@@ -197,11 +205,19 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult NewUser(int QuoteType)
         {
+            var random = new Random();
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
 
             var model = data?.ToModel<WeeklyUpdateModel>();
+            var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+
+            //if (quoteList != null && quoteList.Count > 0 && data.IsRandom==true)
+            //{
+            //    int index = random.Next(quoteList.Count);
+            //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
+            //}
 
             if (model.BodyImageId != 0 && model.BannerImageId != 0)
             {
@@ -296,7 +312,7 @@ namespace DeVeeraApp.Controllers
 
                         if (imagedata != null)
                         {
-                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key).Result;
+                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key);
 
                             _imageMasterService.UpdateImage(imagedata);
 

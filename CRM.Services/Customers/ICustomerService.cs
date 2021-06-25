@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Services.Users
 {
@@ -55,12 +54,7 @@ namespace CRM.Services.Users
         /// <param name="User">User</param>
         void DeleteUser(User User);
 
-        /// <summary>
-        /// Search a User
-        /// </summary>
-        /// <param name="User">User</param>
-        IList<User> SearchUser(string FirstName, int? ParentUserId=null);
-
+       
 
         /// <summary>
         /// Gets a User

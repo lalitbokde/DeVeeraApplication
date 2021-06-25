@@ -1,5 +1,4 @@
 using CRM.Core;
-using CRM.Core.Domain;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
 using CRM.Core.Infrastructure;
@@ -13,8 +12,6 @@ using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
-using DeVeeraApp.ViewModels;
-using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.Diaries;
 using DeVeeraApp.ViewModels.Emotions;
 using DeVeeraApp.ViewModels.Enum;
@@ -23,7 +20,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -132,7 +128,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             #region DiaryList
             command.SortBy = model.SortTypeId == 0 ? "" : EnumDescription.GetDisplayName((SortType)model.SortTypeId).ToString();
             command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
-            var list = _DiaryMasterService.GetAllDiaries( page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, command.SortBy, SearchByDate: "", UserId: 0);
+            var list = _DiaryMasterService.GetAllDiaries( page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, command.SortBy, SearchByDate: model.SearchByDate, UserId: 0);
             model.DiaryList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DiaryViewModel>();
             #endregion
             

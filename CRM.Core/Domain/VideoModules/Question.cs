@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Core.Domain.VideoModules
 {
-   public class Questions : BaseEntity
+    public class Questions : BaseEntity
     {
         private ICollection<Question_Answer_Mapping> _Question_Answer_Mapping;
         public int ModuleId { get; set; }

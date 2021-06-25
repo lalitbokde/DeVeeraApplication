@@ -62,9 +62,16 @@
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">Quote</label>
+
                         @*<textarea asp-for="Quote" type="text" class="form-control" placeholder="Quote"></textarea>*@
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
                         @*<span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>*@
+
+                        <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                        <label class="form-label text-theme-21 star">Random Quote</label>
+                        <textarea id="quotes" asp-for="Quote" type="text" class="form-control" placeholder="Quote"></textarea>
+                        <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21">Images</label>
@@ -120,11 +127,11 @@
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12  gap-y-5 mt-5">
-                            <div class="intro-y   col-span-6">
+                            <div class="intro-y  col-span-6">
                                 @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
-                                <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
-                                    Back to List
-                                    <a asp-controller="Emotion" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
+                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                    <label class="pl-10">Back to List</label>
+                                    <a asp-controller="Emotion" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-25 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
                                         <i data-feather="arrow-left" class="w-4 h-4"></i>
                                     </a>
                                 </span>

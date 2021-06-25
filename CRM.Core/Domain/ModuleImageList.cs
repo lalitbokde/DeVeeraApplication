@@ -1,7 +1,4 @@
 ﻿using CRM.Core.Domain.VideoModules;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Core.Domain
 {
