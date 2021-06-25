@@ -1,11 +1,9 @@
 ﻿using CRM.Core.Domain.VideoModules;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Services.VideoModules
 {
-   public interface IModuleService
+    public interface IModuleService
     {
         void DeleteModule(Modules modules);
         IList<Modules> GetAllModules();

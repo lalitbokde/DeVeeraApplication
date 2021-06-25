@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 using CRM.Core.Domain.Users;
-using CRM.Services.Common;
 using CRM.Services.Users;
-using CRM.Services.Directory;
+
 using CRM.Services.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CRM.Core.Domain.Common;
 using CRM.Services.Authentication;
 using DeVeeraApp.Factories;
 using CRM.Services.Security;
-using DeVeeraApp.Model.Common;
-using Microsoft.AspNetCore.Mvc.Filters;
 using CRM.Core;
 
-using CRM.Core.Domain.Directory;
+
 using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.UserLogin;
@@ -34,11 +29,10 @@ using CRM.Services.VideoModules;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Customers;
 using CRM.Services.Layoutsetup;
-using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class UserController : BaseController
     {
         #region fields
@@ -52,9 +46,9 @@ namespace DeVeeraApp.Controllers
         private readonly IQuestionAnswerService _questionAnswerService;
         private readonly IQuestionAnswerMappingService _questionAnswerMappingService;
         private readonly IAuthenticationService _authenticationService;
-        private readonly IAddressService _addressService;
-        private readonly ICountryService _countryService;
-        private readonly IStateProvinceService _stateProvinceService;
+       
+        
+        
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IUserPasswordService _Userpasswordservice;
         private readonly IUserRegistrationService _UserRegistrationService;
@@ -77,9 +71,9 @@ namespace DeVeeraApp.Controllers
                                   IUserPasswordService Userpasswordservice,
                                   IUserService UserService,
                                   ILevelServices levelServices,
-                                  IAddressService addressService,
-                                  ICountryService countryService,
-                                  IStateProvinceService stateProvinceService,
+                              
+                                  
+                                  
                                   IDateTimeHelper dateTimeHelper,
                                   IPermissionService permissionService,
                                   IUserRegistrationService UserRegistrationService,
@@ -104,9 +98,9 @@ namespace DeVeeraApp.Controllers
             this._WorkContextService = WorkContextService;
             this._UserService = UserService;
             _levelServices = levelServices;
-            this._addressService = addressService;
-            this._countryService = countryService;
-            this._stateProvinceService = stateProvinceService;
+           
+            
+            
             this._dateTimeHelper = dateTimeHelper;
             this._Userpasswordservice = Userpasswordservice;
             this._UserRegistrationService = UserRegistrationService;
@@ -128,111 +122,6 @@ namespace DeVeeraApp.Controllers
         #region Utilities
 
 
-        protected virtual void PrepareUserDataModel(UserModel model)
-        {
-            model.AvailableUserRoles.Add(new SelectListItem { Text = "Select Roles", Value = "0" });
-
-            foreach (var c in _UserService.GetAllUserRoles(showHidden: true).Where(a => a.Name != "Technician"))
-            {
-                model.AvailableUserRoles.Add(new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString(),
-                    Selected = c.Id == model.UserRoleId
-                });
-            }
-
-            model.AvailableUsers.Add(new SelectListItem { Text = "Select Division", Value = "0" });
-            foreach (var c in _UserService.GetAllUsers().Where(a => a.UserRole.Name == "User"))
-            {
-                model.AvailableUsers.Add(new SelectListItem
-                {
-                    Text = c.UserAddress.FirstName + " " + c.UserAddress.LastName + " ( " + c.Email + " )",
-                    Value = c.Id.ToString(),
-                    Selected = c.Id == model.Id
-
-                });
-            }
-
-            //countries
-            model.AvailableCountries.Add(new SelectListItem { Text = "Select Country", Value = "0" });
-
-            foreach (var c in _countryService.GetAllCountries(showHidden: true))
-            {
-                model.AvailableCountries.Add(new SelectListItem
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString(),
-                    Selected = c.Id == ((model.UserAddress != null) ? model.UserAddress.CountryId : 0)
-                });
-            }
-
-            //states
-            List<StateProvince> states = new List<StateProvince>();
-            if (model.UserAddress != null)
-            {
-                if (model.UserAddress.CountryId != null)
-                    states = _stateProvinceService.GetStateProvincesByCountryId((int)model.UserAddress.CountryId).ToList();
-            }
-
-
-            if (states.Any())
-            {
-                model.AvailableStates.Add(new SelectListItem { Text = "Select State", Value = null });
-
-                foreach (var s in states)
-                {
-                    model.AvailableStates.Add(new SelectListItem
-                    {
-                        Text = s.Name,
-                        Value = s.Id.ToString(),
-                        Selected = s.Id == model.UserAddress.StateProvinceId
-                    });
-                }
-            }
-            else
-            {
-                var anyCountrySelected = model.AvailableCountries.Any(x => x.Selected);
-
-                model.AvailableStates.Add(new SelectListItem
-                {
-                    Text = "Select State",
-                    Value = null
-                });
-            }
-
-
-        }
-        protected virtual void PrepareUserModel(UserModel model, User User, bool excludeProperties, bool prepareEntireAddressModel)
-        {
-
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-
-
-
-        }
-
-        protected virtual void PrepareUserPasswordModel(UserModel model, User User, bool excludeProperties, bool prepareEntireAddressModel)
-        {
-
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-            var password = _Userpasswordservice.GetPasswordByUserId(User != null ? User.Id : 0);
-            if (User != null)
-            {
-                if (!excludeProperties)
-                {
-                    if (password != null)
-                    {
-                        model.UserPassword = password;
-                    }
-                }
-            }
-
-
-        }
-
         public virtual void PrepareLanguages(LanguageModel model)
         {
             
@@ -252,38 +141,7 @@ namespace DeVeeraApp.Controllers
         #endregion
 
 
-        // POST: Order/GetUserById
-        [HttpPost]
-        public IActionResult GetUserById(int ID)
-        {
-            var model = _UserService.GetUserById(ID);
-            UserAddressViewModel UserModelResponse = new UserAddressViewModel();
-            try
-            {
-                UserModelResponse.UserAddress =
-                    new AddressViewModel()
-                    {
-                        Address1 = model.UserAddress.Address1,
-                        Address2 = model.UserAddress.Address2,
-                        Companyname = model.UserAddress.CompanyName,
-                        City = model.UserAddress.City,
-                        Email = model.UserAddress.Email,
-                        FirstName = model.UserAddress.FirstName,
-                        LastName = model.UserAddress.LastName,
-                        PhoneNumber = model.UserAddress.PhoneNumber,
-                        CountryId = model.UserAddress.CountryId,
-                        StateProvinceId = model.UserAddress.StateProvinceId,
-                        ZipPostalCode = model.UserAddress.ZipPostalCode
-
-                    };
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return Json(UserModelResponse);
-        }
+      
 
         [HttpPost]
         public IActionResult GetUserRoleById(int ID)
@@ -295,186 +153,17 @@ namespace DeVeeraApp.Controllers
                 roleModel.Name = model.Name;
 
             }
-            catch (Exception ex)
+            catch
             {
-
+                return Json(roleModel);
             }
 
             return Json(roleModel);
         }
 
 
-        // POST: Order/Create
-        [HttpPost]
-        public IActionResult GetStateByCountryId(int Id, int SelectedId)
-        {
-            List<SelectListItem> States = new List<SelectListItem>();
-            //states
-            var states = _stateProvinceService.GetStateProvincesByCountryId(Id).ToList();
-            if (states.Any())
-            {
-                States.Add(new SelectListItem { Text = "Select State", Value = null });
-
-                foreach (var s in states)
-                {
-                    States.Add(new SelectListItem { Text = s.Name, Value = s.Id.ToString(), Selected = (s.Id == SelectedId) });
-                }
-            }
-
-            return Json(States);
-        }
-
-
-
-        
-
-        #region User
-
-
-
-        //edit User
-        public IActionResult CreateUser()
-        {
-            UserListModel model = new UserListModel();
-
-            if (HttpContext.Session.GetInt32("isMaintenance") == null)
-                return Logout();
-
-            //   ViewBag.ActiveMenu = "Users";
-
-            //   AddBreadcrumbs("User", "Create", "/User/UserList", "/User/CreateUser");
-
-            if (!_permissionService.Authorize(StandardPermissionProvider.ManageUser))
-                return AccessDeniedView();
-
-            PrepareUserDataModel(model.UserData);
-
-            return View(model);
-
-        }
-
-
-
-
-        [HttpPost]
-        public IActionResult CreateUser(UserListModel model)
-        {
-
-            if (HttpContext.Session.GetInt32("isMaintenance") == null)
-                return Logout();
-            ViewBag.FormName = "User List";
-            AddBreadcrumbs("User", "Create", "/User/UserList", "/User/CreateUser");
-            //permissions
-
-            if (!_permissionService.Authorize(StandardPermissionProvider.ManageUser))
-                return AccessDeniedView();
-            var custdata = new User();
-            try
-            {
-                var formData = this.Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
-
-                User User = null;
-                UserPassword password = null;
-                if (model.UserData.Id == 0)
-                {
-                    if (!string.IsNullOrWhiteSpace(model.UserData.UserAddress.Email))
-                    {
-                        //model.Phone = model.UserAddress.PhoneNumber;
-                        User = _UserService.GetUserByEmail(model.UserData.UserAddress.Email);
-                        if (User != null)
-                        {
-                            ModelState.AddModelError("UserData.UserAddress.Email", "Email Already Exists");
-                            PrepareUserDataModel(model.UserData);
-                            return View(model);
-                        }
-                    }
-                }
-
-                if (model.UserData.UserRoleId == 0)
-                {
-                    ModelState.AddModelError("UserData.UserRoleId", "Please Select UserRole");
-                }
-
-
-                if (ModelState.IsValid)
-                {
-                    if (model.UserData.Id == 0)
-                    {
-
-                        string RoleName = _WorkContextService.CurrentUser.UserRole.Name;
-
-                        var user = model.UserData.ToEntity<User>();
-
-                        user.UserGuid = Guid.NewGuid();
-                        user.Email = model.UserData.UserAddress.Email;
-                        user.Username = model.UserData.UserAddress.Email;
-                        user.UserRoleId = (RoleName == "User") ? _WorkContextService.CurrentUser.UserRole.Id : model.UserData.UserRoleId;
-                        user.Active = true;
-                        user.CreatedOnUtc = DateTime.UtcNow;
-                        user.LastActivityDateUtc = DateTime.UtcNow;
-                        user.ParentUserId = _WorkContextService.CurrentUser.Id;
-                        user.Alias = model.UserData.Alias;
-
-                        _UserService.InsertUser(user);
-
-                        // password
-                        if (!string.IsNullOrWhiteSpace(model.UserData.UserPassword.Password))
-                        {
-                            password = new UserPassword
-                            {
-                                UserId = user.Id,
-                                Password = model.UserData.UserPassword.Password,
-                                CreatedOnUtc = DateTime.UtcNow,
-                                //default passwordFormat
-                                PasswordFormat = PasswordFormat.Clear
-
-                            };
-                            _Userpasswordservice.InsertUserPassword(password);
-                        }
-
-                    }
-                    else
-                    {
-
-                        return Json(model);
-                    }
-
-
-                    // _notificationService.SuccessNotification("New User has been added successfully.");
-                    return RedirectToAction("User", "Login");
-
-                }
-                else
-
-                {
-                    PrepareUserDataModel(model.UserData);
-
-                    var ErrorMessage = string.Join("\n", ModelState.Values
-                            .SelectMany(v => v.Errors)
-                             .Select(e => e.ErrorMessage));
-
-                    //AddNotification(NotificationMessage.TitleError, response.Message, NotificationMessage.TypeError);
-                    return View(model);
-                }
-
-
-
-            }
-            catch (Exception e)
-            {
-                if (custdata != null)
-                {
-                    var User = _UserService.GetUserById(custdata.Id);
-                    _UserService.DeleteUser(User);
-                }
-
-                return View(model);
-            }
-
-
-        }
-
-        #endregion
+       
+      
 
         #region UserLogin
 
@@ -550,24 +239,7 @@ namespace DeVeeraApp.Controllers
             return View(model);
         }
 
-        public virtual IActionResult Logout()
-        {
-            //standard logout 
-            _authenticationService.SignOut();
-
-            //raise logged out event       
-            var UserLogOut = new UserLoggedOutEvent(_WorkContextService.CurrentUser);
-
-            if (_WorkContextService.CurrentUser != null)
-            {
-                _WorkContextService.CurrentUser.UserGuid = new Guid();
-            }
-            //delete current cookie value
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".MarketPlaceCRM.User");
-
-            return RedirectToAction("Login");
-
-        }
+     
 
         //public virtual IActionResult ForgotPassword()
         //{

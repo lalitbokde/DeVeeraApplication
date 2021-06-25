@@ -1,11 +1,6 @@
 ﻿using CRM.Core;
 
-using CRM.Core.Domain.Common;
-using CRM.Core.ViewModels;
-using CRM.Data.Interfaces;
-
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace CRM.Data.Interfaces
@@ -60,16 +55,6 @@ namespace CRM.Data.Interfaces
         /// </summary>
         IQueryable<T> Table { get; }
 
-        /// <summary>
-        /// Gets a table with "no tracking" enabled (EF feature) Use it only when you load record(s) only for read-only operations
-        /// </summary>
-        List<T> ExecuteSP(string query, params object[] parameters);      
-
-
-        /// <summary>
-        /// Insert  a table with cammand
-        /// </summary>
-        void ExecuteCammandSP(string query, params object[] parameters);
 
 
     }

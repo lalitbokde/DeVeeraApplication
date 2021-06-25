@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DeVeeraApp.ViewModels.UserRole
+﻿namespace DeVeeraApp.ViewModels.UserRole
 {
     public class UserRoleResponseModel
     {

@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
-using DeVeeraApp.Filters;
-using CRM.Core.Domain.Users;
 using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using CRM.Services.Users;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
-using CRM.Core.Domain;
 using CRM.Services.DashboardQuotes;
 using CRM.Core;
 using Microsoft.AspNetCore.Http;
@@ -21,13 +15,11 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using static DeVeeraApp.ViewModels.HappynessLevelModel;
 
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class HomeController : BaseController
     {
         #region fields
@@ -320,7 +312,7 @@ namespace DeVeeraApp.Controllers
 
                         if (imagedata != null)
                         {
-                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key).Result;
+                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key);
 
                             _imageMasterService.UpdateImage(imagedata);
 

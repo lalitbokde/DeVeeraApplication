@@ -1,16 +1,13 @@
-﻿
-using CRM.Core.Domain.Common;
-using CRM.Core.Domain.Emotions;
+﻿using CRM.Core.Domain.Emotions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Core.Domain.Users
 {
     public partial class User : BaseEntity
     {
 
-        private ICollection<Address> _addresses;
+      
         private ICollection<User_Emotion_Mapping> _User_Emotion_Mappings;
 
         /// <summary>
@@ -124,23 +121,11 @@ namespace CRM.Core.Domain.Users
         public int? UserAvailabilityId { get; set; }
 
         /// <summary>
-        /// Default billing address
-        /// </summary>
-        public virtual Address UserAddress { get; set; }
-
-        /// <summary>
         /// Default User Role
         /// </summary>
         public virtual UserRole UserRole { get; set; }
 
-        /// <summary>
-        /// Gets or sets User addresses
-        /// </summary>
-        public virtual ICollection<Address> Addresses
-        {
-            get { return _addresses ?? (_addresses = new List<Address>()); }
-            protected set { _addresses = value; }
-        }
+      
         public virtual ICollection<User_Emotion_Mapping> User_Emotion_Mappings
         {
             get { return _User_Emotion_Mappings ?? (_User_Emotion_Mappings = new List<User_Emotion_Mapping>()); }

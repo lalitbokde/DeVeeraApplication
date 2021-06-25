@@ -19,61 +19,6 @@ namespace CRM.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CRM.Core.Domain.Common.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address1");
-
-                    b.Property<string>("Address2");
-
-                    b.Property<int>("AddressType");
-
-                    b.Property<int>("AddressTypeId");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("CompanyName");
-
-                    b.Property<int?>("CountryId");
-
-                    b.Property<DateTime>("CreatedOnUtc");
-
-                    b.Property<string>("CustomAttributes");
-
-                    b.Property<DateTime>("DOB");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FaxNumber");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("MiddleName");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<int?>("StateProvinceId");
-
-                    b.Property<int?>("UserId");
-
-                    b.Property<string>("ZipPostalCode");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("StateProvinceId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Address");
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.DashboardMenus", b =>
                 {
                     b.Property<int>("Id")
@@ -114,58 +59,6 @@ namespace CRM.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DashboardQuote");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Directory.Country", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AllowsBilling");
-
-                    b.Property<bool>("AllowsShipping");
-
-                    b.Property<int>("DisplayOrder");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("NumericIsoCode");
-
-                    b.Property<bool>("Published");
-
-                    b.Property<bool>("SubjectToVat");
-
-                    b.Property<string>("ThreeLetterIsoCode");
-
-                    b.Property<string>("TwoLetterIsoCode");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Country");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Directory.StateProvince", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Abbreviation");
-
-                    b.Property<int>("CountryId");
-
-                    b.Property<int>("DisplayOrder");
-
-                    b.Property<string>("Name");
-
-                    b.Property<bool>("Published");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("StateProvince");
                 });
 
             modelBuilder.Entity("CRM.Core.Domain.Emotions.Emotion", b =>
@@ -611,8 +504,6 @@ namespace CRM.Data.Migrations
 
                     b.Property<bool>("TwoFactorAuthentication");
 
-                    b.Property<int?>("UserAddressId");
-
                     b.Property<int?>("UserAvailabilityId");
 
                     b.Property<Guid>("UserGuid");
@@ -623,8 +514,6 @@ namespace CRM.Data.Migrations
                         .HasMaxLength(1000);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserAddressId");
 
                     b.HasIndex("UserRoleId");
 
@@ -861,29 +750,6 @@ namespace CRM.Data.Migrations
                     b.ToTable("WeeklyUpdates");
                 });
 
-            modelBuilder.Entity("CRM.Core.Domain.Common.Address", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Directory.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("CRM.Core.Domain.Directory.StateProvince", "StateProvince")
-                        .WithMany()
-                        .HasForeignKey("StateProvinceId");
-
-                    b.HasOne("CRM.Core.Domain.Users.User")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("CRM.Core.Domain.Directory.StateProvince", b =>
-                {
-                    b.HasOne("CRM.Core.Domain.Directory.Country", "Country")
-                        .WithMany("StateProvinces")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("CRM.Core.Domain.Emotions.Emotion", b =>
                 {
                     b.HasOne("CRM.Core.Domain.Video", "Video")
@@ -995,10 +861,6 @@ namespace CRM.Data.Migrations
 
             modelBuilder.Entity("CRM.Core.Domain.Users.User", b =>
                 {
-                    b.HasOne("CRM.Core.Domain.Common.Address", "UserAddress")
-                        .WithMany()
-                        .HasForeignKey("UserAddressId");
-
                     b.HasOne("CRM.Core.Domain.Users.UserRole", "UserRole")
                         .WithMany()
                         .HasForeignKey("UserRoleId")

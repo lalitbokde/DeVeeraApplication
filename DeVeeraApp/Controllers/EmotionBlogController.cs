@@ -1,7 +1,4 @@
 using CRM.Core;
-using CRM.Core.Domain;
-using CRM.Core.Domain.Emotions;
-using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Customers;
@@ -10,22 +7,16 @@ using CRM.Services.Emotions;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
-using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
-using DeVeeraApp.ViewModels;
-using DeVeeraApp.ViewModels.Common;
-using DeVeeraApp.ViewModels.Diaries;
 using DeVeeraApp.ViewModels.Emotions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class EmotionBlogController : BaseController
     {
         #region field

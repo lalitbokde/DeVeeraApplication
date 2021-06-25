@@ -17,8 +17,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Xabe.FFmpeg;
-using Xabe.FFmpeg.Enums;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -32,7 +30,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IVideoMasterService _videoMasterService;
 
         private readonly IS3BucketService _videoUploadService;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
 
         #endregion
@@ -45,7 +43,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                        IS3BucketService videoUploadService,
 
-                       IHostingEnvironment hostingEnvironment, IWorkContext workContext,
+                       IWebHostEnvironment hostingEnvironment, IWorkContext workContext,
                                IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -107,33 +105,33 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
 
-        [Obsolete]
-        public async Task<bool> ConvertVideo(string OriginalFileName, string CompressedFileName)
-        {
+        //[Obsolete]
+        //public async Task<bool> ConvertVideo(string OriginalFileName, string CompressedFileName)
+        //{
 
 
-            var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
-            var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
-            //linux
-            FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
-            //windows
-             // FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
+        //    var originalFile = Path.Combine(_hostingEnvironment.WebRootPath, OriginalFileName);
+        //    var CompressedFile = Path.Combine(_hostingEnvironment.WebRootPath + "/Files", CompressedFileName);
+        //    //linux
+        //   // FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
+        //    //windows
+        //     FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
            
-            var info = await MediaInfo.Get(originalFile);
+        //    var info = await MediaInfo.Get(originalFile);
 
-            var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
-            var audioStream = info.AudioStreams.First().SetCodec(AudioCodec.Aac);
-            await Conversion.New().AddStream(audioStream).AddStream(videoStream).SetOutput(CompressedFile).Start();
+        //    var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
+        //    var audioStream = info.AudioStreams.First().SetCodec(AudioCodec.Aac);
+        //    await Conversion.New().AddStream(audioStream).AddStream(videoStream).SetOutput(CompressedFile).Start();
 
-            FileInfo file = new FileInfo(OriginalFileName);
-            if (file.Exists)//check file exsit or not  
-            {
-                file.Delete();
+        //    FileInfo file = new FileInfo(OriginalFileName);
+        //    if (file.Exists)//check file exsit or not  
+        //    {
+        //        file.Delete();
 
-            }
-            return true;
+        //    }
+        //    return true;
 
-        }
+        //}
 
         public IActionResult Edit(int id)
         {
@@ -172,7 +170,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                     }
                 }
-                catch(Exception ex)
+                catch
                 {
 
                 }
@@ -197,15 +195,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (videoList.Count != 0)
             {
                 model = videoList.ToList().ToModelList<Video, VideoModel>(model);
-
-
-
             }
             return View(model);
         }
 
-        [Obsolete]
-        public async Task<bool> Upload(IFormFile file)
+        
+        public bool Upload(IFormFile file)
         {
 
             var FileDic = "Files";
@@ -217,7 +212,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 Directory.CreateDirectory(FilePath);
 
-            string fileName = file.Length > 104857600 ? "UploadedVideo.mp4" : file.FileName;
+            string fileName =  file.FileName;
 
             var filePath = Path.Combine(FilePath, fileName);
 
@@ -229,10 +224,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var OriginalFileName = Path.Combine(FilePath, fileName);
 
             var CompressedFileName = file.FileName;
-            if (file.Length >= 104857600)
-            {
-                await ConvertVideo(OriginalFileName, CompressedFileName);
-            }
+            //if (file.Length >= 104857600)
+            //{
+            //    await ConvertVideo(OriginalFileName, CompressedFileName);
+            //}
             return true;
         }
 

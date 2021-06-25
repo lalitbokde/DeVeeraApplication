@@ -1,13 +1,9 @@
 ﻿using CRM.Core.Domain;
 using CRM.Services.Settings;
 using DeVeeraApp.Filters;
-using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {

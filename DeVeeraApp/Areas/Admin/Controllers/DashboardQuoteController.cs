@@ -32,7 +32,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ILevelServices _levelService;
         private readonly INotificationService _notificationService;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         #endregion
         #region ctor
         public DashboardQuoteController(IDashboardQuoteService dashboardQuoteService,
@@ -41,7 +41,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                         IHttpContextAccessor httpContextAccessor,
                                         IAuthenticationService authenticationService,
                                         INotificationService notificationService,
-                                        IHostingEnvironment hostingEnvironment) : base(workContext: workContext,
+                                        IWebHostEnvironment hostingEnvironment) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {

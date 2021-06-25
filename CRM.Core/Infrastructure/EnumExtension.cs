@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace CRM.Core.Infrastructure
 {
@@ -51,13 +49,6 @@ namespace CRM.Core.Infrastructure
             }
             return displayName;
         }
-        //public static  string GetSeries(Series SeriesId)
-        //{
-
-        //    var Seriestype = typeof(Series);
-        //    var Seriesmember = Seriestype.GetMember(SeriesId.ToString());
-        //    var Seriesattributes = Seriesmember[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-        //  return ((DescriptionAttribute)Seriesattributes[0]).Description;
-        //}
+       
     }
 }

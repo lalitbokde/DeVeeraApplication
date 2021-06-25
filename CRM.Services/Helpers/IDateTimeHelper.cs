@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using CRM.Core.Domain.Users;
 
 namespace CRM.Services.Helpers
 {

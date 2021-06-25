@@ -8,7 +8,6 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Utils
 {

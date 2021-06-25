@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
-using DeVeeraApp.Filters;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.Utils;
@@ -159,7 +156,7 @@ namespace DeVeeraApp.Controllers
 
                 var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
 
-                videoRecord.VideoUrl = videoUrl.Result;
+                videoRecord.VideoUrl = videoUrl;
 
                 _videoMasterService.UpdateVideo(videoRecord);
             }

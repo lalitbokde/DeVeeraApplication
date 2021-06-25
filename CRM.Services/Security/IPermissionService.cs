@@ -9,12 +9,7 @@ namespace CRM.Services.Security
     /// </summary>
     public partial interface IPermissionService
     {
-        /// <summary>
-        /// Delete a permission
-        /// </summary>
-        /// <param name="permission">Permission</param>
-        void DeletePermissionRecord(PermissionRecord permission);
-
+ 
         /// <summary>
         /// Gets a permission
         /// </summary>
@@ -35,29 +30,7 @@ namespace CRM.Services.Security
         /// <returns>Permissions</returns>
         IList<PermissionRecord> GetAllPermissionRecords();
 
-        /// <summary>
-        /// Inserts a permission
-        /// </summary>
-        /// <param name="permission">Permission</param>
-        void InsertPermissionRecord(PermissionRecord permission);
-
-        /// <summary>
-        /// Updates the permission
-        /// </summary>
-        /// <param name="permission">Permission</param>
-        void UpdatePermissionRecord(PermissionRecord permission);
-
-        /// <summary>
-        /// Install permissions
-        /// </summary>
-        /// <param name="permissionProvider">Permission provider</param>
-        void InstallPermissions(IPermissionProvider permissionProvider);
-
-        /// <summary>
-        /// Uninstall permissions
-        /// </summary>
-        /// <param name="permissionProvider">Permission provider</param>
-        void UninstallPermissions(IPermissionProvider permissionProvider);
+       
 
         /// <summary>
         /// Authorize permission
