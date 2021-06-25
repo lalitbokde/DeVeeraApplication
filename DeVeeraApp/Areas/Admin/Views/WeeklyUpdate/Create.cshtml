@@ -32,11 +32,8 @@
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-
-                         <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Quote" />
-
-                            <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label class="form-label text-theme-21 star">Random Quote</label>
+                            @*<input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                            <label class="form-label text-theme-21 star">Random Quote</label>*@
                             <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Quote" />
 
                             <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
@@ -155,8 +152,8 @@
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label  class="form-label text-theme-21 star">Random Quote</label>
+                            @*<input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                            <label  class="form-label text-theme-21 star">Random Quote</label>*@
                             <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Quote" />
                             <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
                         </div>
@@ -381,19 +378,14 @@
                             </div>
                             
                             <div class="col-span-6 mt-5">
-
-
-                             <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  data-search="true"class="tail-select w-full" placeholder="Qoute name"> </select>
-
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
-                                <input id="quotes" asp-for="LandingQuote" class="form-control w-full" required />
-                                <span asp-validation-for="LandingQuote" class="text-theme-6 mt-2"></span>
-
+                                <div id="quotes">
+                                    <select asp-for="QuoteId" asp-items="Model.AvilableQuote" data-search="true" class="tail-select w-full" placeholder="Qoute name"> </select>
+                                </div>
                             </div>
-                        </div>
+                            </div>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
