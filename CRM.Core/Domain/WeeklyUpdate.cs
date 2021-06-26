@@ -10,7 +10,7 @@ namespace CRM.Core.Domain
         public int VideoId { get; set; }
         public int BannerImageId { get; set; }
         public int BodyImageId { get; set; }
-
+        public int? QuoteId { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public Quote QuoteType { get; set; }

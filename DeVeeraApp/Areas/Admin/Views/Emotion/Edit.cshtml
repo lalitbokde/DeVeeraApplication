@@ -61,8 +61,9 @@
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">Quote</label>
-                        <textarea asp-for="Quote" type="text" class="form-control" placeholder="Quote"></textarea>
-                        <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                        @*<textarea asp-for="Quote" type="text" class="form-control" placeholder="Quote"></textarea>*@
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                        <span asp-validation-for="QuoteId" class="text-theme-6 mt-2"></span>
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21">Images</label>
