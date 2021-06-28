@@ -70,9 +70,9 @@
                         <div class="blog-image">
 
                             @{
-                                if (item.SelectedImages.Count > 0)
+                                if (item.BannerImageUrl != null)
                                 {
-                                    string imageUrl = item.SelectedImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                    string imageUrl = item.BannerImageUrl;
                                     if (imageUrl != null)
                                     {
                                         <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" ><img class="img-levels-dashboard" src=@imageUrl></a>

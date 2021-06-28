@@ -84,38 +84,14 @@ namespace DeVeeraApp.Controllers
             }
             var moduleImages = _moduleImageListService.GetModuleImageListByModuleId(data.Id);
 
-          var seletedImages = new SelectedImage();
-                    var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
-            if (imagesRecord != null)
-            {
-                seletedImages.ImageUrl = imagesRecord.ImageUrl;
-                seletedImages.Key = imagesRecord.Key;
-                seletedImages.Name = imagesRecord.Name;
-                seletedImages.ImageId = imagesRecord.Id;
-                moduleData.SelectedModuleImages.Add(seletedImages);
-            }
+            var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
+            moduleData.BannerImageUrl = imagesRecord != null ? imagesRecord.ImageUrl : null;
 
-            var seletedImages1 = new SelectedImage();
             var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
-            if (imagesRecord1!=null)
-            {
-                seletedImages1.ImageUrl = imagesRecord1.ImageUrl;
-                seletedImages1.Key = imagesRecord1.Key;
-                seletedImages1.Name = imagesRecord1.Name;
-                seletedImages1.ImageId = imagesRecord1.Id;
-                moduleData.SelectedModuleImages.Add(seletedImages1);
-            }
-            var seletedImages2 = new SelectedImage();
-            
-                var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
-            if (imagesRecord2 != null)
-            {
-                seletedImages2.ImageUrl = imagesRecord2.ImageUrl;
-                seletedImages2.Key = imagesRecord2.Key;
-                seletedImages2.Name = imagesRecord2.Name;
-                seletedImages2.ImageId = imagesRecord2.Id;
-                moduleData.SelectedModuleImages.Add(seletedImages2);
-            }
+            moduleData.VideoThumbImageUrl = imagesRecord1 != null ? imagesRecord1.ImageUrl : null;
+
+            var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
+            moduleData.ShareBackgroundImageUrl = imagesRecord2 != null ? imagesRecord2.ImageUrl : null;
 
             var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
