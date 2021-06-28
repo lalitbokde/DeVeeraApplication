@@ -6,7 +6,7 @@
 }
 
 <!-- Start Page Banner Area -->
-<div class="page-banner-with-full-image" style="background-image:url('@(Model.SelectedImages.Count() >= 1 ? Model.SelectedImages[0].ImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
+<div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl !=null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
              <h2>@Model.Title</h2>
@@ -25,20 +25,15 @@
     <div class="container">
         <div class="courses-details-image">
             @{
-                var imageUrl2 = Model.SelectedImages.Count() >= 2 ? Model.SelectedImages[1].ImageUrl : "../../assets/images/courses/courses-details.jpg";
+                var imageUrl2 = Model.VideoThumbImageUrl != null? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg";
+                var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
             }
 
             <img src="@imageUrl2" alt="image" width="100%">
-            @{
-                var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-
-                @*<video src="@Url.Content(src)" controls style="width:100%;" loop />*@
 
                 <a href="@src" class="video-btn popup-youtube">
                     <i class="flaticon-play"></i>
                 </a>
-            }
-
         </div>
 
         <div class="row">
@@ -68,55 +63,12 @@
                 <div class="courses-details-info">
                     <div class="image">
                         @{
-                            var imageUrl3 = Model.SelectedImages.Count() >= 3 ? Model.SelectedImages[2].ImageUrl : "../../assets/images/courses/courses-1.jpg";
+                            var imageUrl3 = Model.ShareBackgroundImageUrl !=null ? Model.ShareBackgroundImageUrl : "../../assets/images/courses/courses-1.jpg";
                         }
                         <img src="@imageUrl3" alt="image" style="height:225px;">
 
-                        @*<a href="@Model.VideoUrl" class="video-btn popup-youtube">
-                                <i class="flaticon-play-button"></i>
-                            </a>*@
+
                     </div>
-
-                    @*<ul class="info">
-                            <li class="price">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Price</span>
-                                    $49
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Instructor</span>
-                                    Sarah Taylor
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Duration</span>
-                                    7 weeks
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Lessons</span>
-                                    25
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Enrolled</span>
-                                    255 Students
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Access</span>
-                                    Lifetime
-                                </div>
-                            </li>
-                        </ul>*@
-
-
 
                     <div class="courses-share">
                         <div class="share-info">
