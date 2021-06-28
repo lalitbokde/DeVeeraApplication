@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels.Emotions
 {
@@ -15,6 +13,7 @@ namespace DeVeeraApp.ViewModels.Emotions
             EmotionList = new List<EmotionModel>();
             AvailableImages = new List<SelectListItem>();
             AvailableVideo = new List<SelectListItem>();
+            AvilableQuote = new List<SelectListItem>();
         }
 
        
@@ -24,6 +23,8 @@ namespace DeVeeraApp.ViewModels.Emotions
         [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
         [Required]
         public int VideoId { get; set; }
+        [Required]
+        public int? QuoteId { get; set; }
 
         [Required]
         public int EmotionHeaderImageId { get; set; }
@@ -46,13 +47,12 @@ namespace DeVeeraApp.ViewModels.Emotions
         [Required(ErrorMessage = "Please enter sub title")]
         public string Subtitle { get; set; }
 
-     
         [Required(ErrorMessage = "Please enter Quote")]
         public string Quote { get; set; }
 
         
         public string Description { get; set; }
-
+        public bool IsRandom { get; set; }
         public string EmotionHeaderImageUrl{ get; set; }
         public string EmotionBannerImageUrl { get; set; }
         public string EmotionThumbnailImageUrl { get; set; }
@@ -62,7 +62,9 @@ namespace DeVeeraApp.ViewModels.Emotions
         public bool Deleted { get; set; }
         public virtual Video Video { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
+        public IList<SelectListItem> AvilableQuote { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
         public List<EmotionModel> EmotionList { get; set; }
+        
     }
 }

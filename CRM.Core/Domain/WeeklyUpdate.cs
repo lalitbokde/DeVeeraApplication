@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace CRM.Core.Domain
 {
@@ -10,7 +7,7 @@ namespace CRM.Core.Domain
         public int VideoId { get; set; }
         public int BannerImageId { get; set; }
         public int BodyImageId { get; set; }
-
+        public int? QuoteId { get; set; }
         public string Title { get; set; }
         public string Subtitle { get; set; }
         public Quote QuoteType { get; set; }
@@ -26,6 +23,7 @@ namespace CRM.Core.Domain
         public int DescriptionImageId { get; set; }
         public string LandingQuote { get; set; }
         public bool IsActive { get; set; }
+        public bool IsRandom { get; set; }
         public virtual Video Video { get; set; }
 
     }

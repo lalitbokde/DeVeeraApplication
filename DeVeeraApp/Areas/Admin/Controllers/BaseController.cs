@@ -92,18 +92,22 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         protected virtual IActionResult Logout()
         {
-
             //standard logout 
             _authenticationService.SignOut();
 
             //raise logged out event       
             var UserLogOut = new UserLoggedOutEvent(_workContext.CurrentUser);
 
-            _workContext.CurrentUser.UserGuid = new Guid();
+            if (_workContext.CurrentUser != null)
+            {
+                _workContext.CurrentUser.UserGuid = new Guid();
+            }
             //delete current cookie value
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".MarketPlaceCRM.User");
-            return RedirectToAction("Index", "Home",new { area = "default"});
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".3HappyPals.User");
+
+            return RedirectToAction("Index", "Home", new { area = "default" });
 
         }
+
     }
 }

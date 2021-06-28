@@ -1,7 +1,5 @@
 ﻿using CRM.Core.Domain;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CRM.Services.Settings
 {

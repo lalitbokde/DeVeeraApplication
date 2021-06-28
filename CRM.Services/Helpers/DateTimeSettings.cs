@@ -1,6 +1,4 @@
-﻿
-
-using CRM.Core;
+﻿using CRM.Core;
 
 namespace CRM.Services.Helpers
 {

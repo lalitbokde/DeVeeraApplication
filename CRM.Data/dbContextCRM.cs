@@ -1,10 +1,7 @@
-﻿using CRM.Core.Domain.Common;
-using CRM.Core.Domain.Users;
-using CRM.Core.Domain.Directory;
+﻿using CRM.Core.Domain.Users;
 
 using CRM.Core.Domain.Security;
 using CRM.Data.Mapping.Users;
-using CRM.Data.Mapping.Security;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -25,9 +22,7 @@ namespace CRM.Data
             Database.SetCommandTimeout(1500000);
         }
 
-        public DbSet<Country> Country { get; set; }
-        public DbSet<StateProvince> StateProvince { get; set; }
-        public DbSet<Address> Address { get; set; }
+     
 
         //User
         public DbSet<User> User { get; set; }
@@ -106,9 +101,7 @@ namespace CRM.Data
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new UserRoleMap());
 
-            //security
-            modelBuilder.ApplyConfiguration(new PermissionRecordMap());
-
+          
            
             base.OnModelCreating(modelBuilder);
         }

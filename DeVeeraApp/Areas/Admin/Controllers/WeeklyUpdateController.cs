@@ -3,6 +3,7 @@ using CRM.Core.Domain;
 using CRM.Core.Infrastructure;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.DashboardQuotes;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
@@ -11,10 +12,8 @@ using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -28,6 +27,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly INotificationService _notificationService;
         private readonly IVideoMasterService _videoServices;
         private readonly IImageMasterService _imageMasterService;
+        private readonly IDashboardQuoteService _dashboardQuoteService;
 
         #endregion
 
@@ -38,7 +38,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                       IWorkContext workContext,
                                       IHttpContextAccessor httpContextAccessor,
                                       IAuthenticationService authenticationService,
-                                      INotificationService notificationService) : base(workContext: workContext,
+                                      INotificationService notificationService,
+                                     IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -46,6 +47,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _notificationService = notificationService;
             _videoServices = videoService;
             _imageMasterService = imageMasterService;
+            _dashboardQuoteService = dashboardQuoteService;
         }
         #endregion
         #region Utilities
@@ -81,7 +83,23 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 });
               
             }
-          
+
+            //prepare Available Quotes
+
+            model.AvilableQuote.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+            var AvailableQuote = _dashboardQuoteService.GetAllDashboardQuotes();
+            foreach (var quote in AvailableQuote)
+            {
+                model.AvilableQuote.Add(new SelectListItem
+                {
+                    Value = quote.Id.ToString(),
+                    Text = quote.Title +  " - "  + quote.Author,
+                    Selected = quote.Id == model.QuoteId
+                }) ;
+            }
+
+
+
         }
 
         public virtual void PrepareImageUrls(WeeklyUpdateModel model)
@@ -183,6 +201,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.VideoId = model.VideoId;
                 val.Title = model.Title;
                 val.Subtitle = model.Subtitle;
+                val.IsRandom = model.IsRandom;
                 val.QuoteType = (CRM.Core.Domain.Quote)model.QuoteType;
                 val.LandingQuote = model.LandingQuote;
                 val.DescriptionImageId = model.DescriptionImageId;
@@ -197,10 +216,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.SliderThreeImageId = model.SliderThreeImageId;
                 val.BannerImageId = model.BannerImageId;
                 val.BodyImageId = model.BodyImageId;
+                val.QuoteId = model.QuoteId;
+
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 _notificationService.SuccessNotification("Video edited successfully.");
-
-                return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
+          return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
             PrepareVideo(model);
             return View(model);

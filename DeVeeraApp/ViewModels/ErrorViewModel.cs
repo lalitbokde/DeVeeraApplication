@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DeVeeraApp.ViewModels
+﻿namespace DeVeeraApp.ViewModels
 {
     public class ErrorViewModel
     {

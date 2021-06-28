@@ -5,9 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DeVeeraApp.ViewModels.Enum;
-using System.Linq;
-using System.Threading.Tasks;
 using CRM.Core.Domain.Emotions;
 
 namespace DeVeeraApp.ViewModels

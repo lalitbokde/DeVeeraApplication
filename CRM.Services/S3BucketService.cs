@@ -4,9 +4,7 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CRM.Services
@@ -77,7 +75,7 @@ namespace CRM.Services
         }
 
 
-        public async Task<string> GetPreSignedURL(string key)
+        public string GetPreSignedURL(string key)
         {
             string url = "";
 

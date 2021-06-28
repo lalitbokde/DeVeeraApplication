@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
 using DeVeeraApp.Filters;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
 using DeVeeraApp.Utils;
-using ErrorViewModel = DeVeeraApp.Models.ErrorViewModel;
 using CRM.Core;
 using CRM.Services.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -128,7 +124,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     var seletedImages = new SelectedImage();
                     var imagesRecord = _imageMasterService.GetImageById(item.Image.Id);
                     var imageUrl = _s3BucketService.GetPreSignedURL(imagesRecord.Key);
-                    imagesRecord.ImageUrl = imageUrl.Result;
+                    imagesRecord.ImageUrl = imageUrl;
                     _imageMasterService.UpdateImage(imagesRecord);
                     seletedImages.ImageUrl = imagesRecord.ImageUrl;
                     seletedImages.Key = imagesRecord.Key;
@@ -144,7 +140,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             var videoUrl =  _s3BucketService.GetPreSignedURL(videoRecord.Key);
 
-            videoRecord.VideoUrl = videoUrl.Result;
+            videoRecord.VideoUrl = videoUrl;
 
             _videoMasterService.UpdateVideo(videoRecord);
             }
@@ -184,108 +180,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View(videoData);
         }
 
-
-
-        public IActionResult Previous(int id, int srno)
-        {
-            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-
-            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.Id);
-
-            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.Id < id).FirstOrDefault() : data.Where(a => a.Id < id && a.Active == true).FirstOrDefault();
-
-            if(level != null)
-            {
-                return RedirectToAction("Index", new { id = level.Id, srno = srno - 1 });
-            }
-            return RedirectToAction("Index", new { id = id, srno = srno - 1 });
-
-
-            //if (!(currentUser.UserRole.Name == "Admin"))
-            //{
-            //    var userPreviousLevel = data.OrderByDescending(a => a.Id).Where(a => a.Id < id && a.Active == true).FirstOrDefault();
-
-            //    if (userPreviousLevel != null)
-            //    {
-            //        return RedirectToAction("Index", new { id = userPreviousLevel.Id, srno = srno - 1 });
-            //    }
-            //    return RedirectToAction("Index", new { id = id, srno = srno - 1 });
-
-            //}
-            //else
-            //{
-            //    var adminPreviousLevel = data.OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
-
-            //    if(adminPreviousLevel != null)
-            //    {
-            //        return RedirectToAction("Index", new { id = adminPreviousLevel.Id, srno = srno - 1 });
-            //    }
-            //    return RedirectToAction("Index", new { id = id, srno = srno - 1 });
-
-            //}
-
-        }
-
-        public IActionResult Next(int id, int srno)
-        {
-            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-
-            var data = _levelServices.GetAllLevels();
-
-            if(!(currentUser.UserRole.Name == "Admin"))
-            {
-                if (currentUser.RegistrationComplete == false)
-                {
-                    return RedirectToAction("CompleteRegistration", "User", new { Id = id, SrNo = srno, userId = currentUser.Id });
-                }
-                else
-                {
-                    ViewBag.SrNo = srno;
-                    var userNextLevel = data.Where(a => a.Id > id && a.Active == true).FirstOrDefault();
-
-                    if (userNextLevel != null)
-                    {
-                        if (userNextLevel.Id > currentUser.LastLevel)
-                        {
-                            currentUser.LastLevel = userNextLevel.Id;
-
-                            _userService.UpdateUser(currentUser);
-                        }
-                        return RedirectToAction("Index", new { id = userNextLevel.Id, srno = srno + 1 });
-                    }
-                    return RedirectToAction("Index", new { id = id, srno = srno + 1 });
-
-                }
-
-            }
-            else
-            {
-                ViewBag.SrNo = srno;
-
-                var adminNextLevel = data.Where(a => a.Id > id).FirstOrDefault();
-
-                if(adminNextLevel != null)
-                {
-                    return RedirectToAction("Index", new { id = adminNextLevel.Id, srno = srno + 1 });
-
-                }
-                return RedirectToAction("Index", new { id = id, srno = srno + 1 });
-
-            }
-
-        }
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
         #endregion
     }
 }

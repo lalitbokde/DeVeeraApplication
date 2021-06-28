@@ -2,6 +2,7 @@
 using CRM.Core.Domain.Emotions;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
@@ -14,7 +15,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -28,6 +28,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IEmotionService _emotionService;
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoServices;
+        private readonly IDashboardQuoteService _dashboardQuoteService;
 
         #endregion
 
@@ -39,7 +40,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                  IVideoMasterService videoMasterService,
                                  IWorkContext workContext,
                                  IHttpContextAccessor httpContextAccessor,
-                                 IAuthenticationService authenticationService) : base(workContext: workContext,
+                                 IAuthenticationService authenticationService,
+                                  IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
 
@@ -48,6 +50,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _notificationService = notificationService;
             _imageMasterService = imageMasterService;
             _videoServices = videoMasterService;
+            _dashboardQuoteService = dashboardQuoteService;
         }
         #endregion
         #region Utilities
@@ -73,6 +76,21 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 {
                     Value = item.Id.ToString(),
                     Text = item.Name,
+                });
+            }
+
+
+            //prepare Available Quotes
+
+            model.AvilableQuote.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+            var AvailableQuote = _dashboardQuoteService.GetAllDashboardQuotes();
+            foreach (var quote in AvailableQuote)
+            {
+                model.AvilableQuote.Add(new SelectListItem
+                {
+                    Value = quote.Id.ToString(),
+                    Text = quote.Title + " - " + quote.Author,
+                    Selected = quote.Id == model.QuoteId
                 });
             }
 
@@ -144,10 +162,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 emotion.Quote = model.Quote;
                 emotion.Description = model.Description;
                 emotion.VideoId = model.VideoId;
+                emotion.IsRandom = model.IsRandom;
                 emotion.EmotionHeaderImageId = model.EmotionHeaderImageId;
                 emotion.EmotionBannerImageId = model.EmotionBannerImageId;
                 emotion.EmotionThumbnailImageId = model.EmotionThumbnailImageId;
                 emotion.LastUpdatedOn = DateTime.UtcNow;
+                emotion.QuoteId = model.QuoteId;
 
                 _emotionService.UpdateEmotion(emotion);
                 _notificationService.SuccessNotification("Emotion updated successfully.");

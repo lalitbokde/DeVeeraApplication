@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
 using DeVeeraApp.Filters;
-using CRM.Core.Domain.Users;
-using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using CRM.Services.Users;
 using CRM.Services;
@@ -274,7 +269,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                         if (imagedata != null)
                         {
-                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key).Result;
+                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key);
 
                             _imageMasterService.UpdateImage(imagedata);
 

@@ -1,12 +1,8 @@
-﻿using CRM.Core.Domain;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels
 {
@@ -17,6 +13,7 @@ namespace DeVeeraApp.ViewModels
             this.AvailableVideo = new List<SelectListItem>();
             AvailableImages = new List<SelectListItem>();
             AvailableBannerImage = new List<SelectListItem>();
+            AvilableQuote = new List<SelectListItem>();
         }
 
         [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
@@ -31,7 +28,6 @@ namespace DeVeeraApp.ViewModels
         public string landingImageOneUrl { get; set; }
         public string landingImageTwoUrl { get; set; }
         public string landingImageThreeUrl { get; set; }
-
         public string DescriptionImageUrl { get; set; }
 
         [Required(ErrorMessage = "Enter the Quote ")]
@@ -42,14 +38,16 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
-
+        public bool IsRandom { get; set; }
         public int BannerImageId { get; set; }
+        public int? QuoteId { get; set; }
         public int BodyImageId { get; set; }
         public string BannerImageURL { get; set; }
         public string BodyImageURL { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
         public List<SelectListItem> AvailableImages { get; }
         public List<SelectListItem> AvailableBannerImage { get; set; }
+        public List<SelectListItem> AvilableQuote { get; set; }
 
         public string FileName { get; set; }
 

@@ -1,7 +1,6 @@
 ﻿using CRM.Core.ViewModels;
 using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels.Enum;
-using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeVeeraApp.ViewModels.Diaries

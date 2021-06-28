@@ -2,7 +2,6 @@
 using CRM.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 namespace CRM.Services
 {
@@ -54,7 +53,7 @@ namespace CRM.Services
                 {
                     if(data.Key != null)
                     {
-                        data.VideoUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                        data.VideoUrl = _s3BucketService.GetPreSignedURL(data.Key);
                         data.UpdatedOn = DateTime.Now;
                         UpdateVideo(data);
 

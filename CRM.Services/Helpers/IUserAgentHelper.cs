@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CRM.Services.Helpers
+﻿namespace CRM.Services.Helpers
 {
     public partial interface IUserAgentHelper
     {

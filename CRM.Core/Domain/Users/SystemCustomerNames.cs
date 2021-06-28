@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CRM.Core.Domain.Users
+﻿namespace CRM.Core.Domain.Users
 {
     /// <summary>
     /// System User names
