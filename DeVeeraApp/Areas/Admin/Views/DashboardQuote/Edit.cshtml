@@ -21,17 +21,18 @@
                     <div class="mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                         <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="title">
-                        <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
+                        <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                     </div>
 
                     <div class="mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21">Author</label>
-                        <input id="input-wizard-1" asp-for="Author" type="text" class="form-control" placeholder="title">
-                        <span asp-validation-for="Author" class="text-theme-6 mt-2"></span>
+                        <input id="input-wizard-1" asp-for="Author" type="text" class="form-control" placeholder="Author">
+                        <span asp-validation-for="Author" class="text-theme-21 mt-2"></span>
                     </div>
                     <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21">Select Level</label>
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Select Level</label>
                         <select id="input-wizard-1" asp-for="LevelId" asp-items="Model.AvailableLevels" type="text" class="form-control" placeholder="title"></select>
+                        <span asp-validation-for="LevelId" class="text-theme-21 mt-2"></span>
                     </div>
 
                     <div class="mt-5">

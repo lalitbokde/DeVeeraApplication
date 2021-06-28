@@ -5,7 +5,8 @@ namespace DeVeeraApp.ViewModels
 {
     public class VideoModel : BaseEntityModel
     {
-        [Required]
+        [StringLength(80)]
+        [Required(ErrorMessage ="Please enter video name ")]
         public string Name { get; set; }
         public string VideoUrl { get; set; }
 

@@ -39,10 +39,10 @@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                 <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" required />
-                                <span asp-validation-for="SliderOneTitle" class="text-theme-6 mt-2"></span>
+                                <span asp-validation-for="SliderOneTitle" class="text-theme-21  mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image 1 </label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 ">Image 1 </label>
                                 @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
 
                                 <a onclick="OpenImageSelectionModal('SliderOneImageId','SliderOneImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3" >
@@ -60,9 +60,9 @@
 
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
-                                <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
-                                <span asp-validation-for="SliderOneDescription" class="text-theme-6 mt-2"></span>
+                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                                <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1"></textarea>
+                                <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>
 
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
                                 <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
-                                <span asp-validation-for="SliderTwoTitle" class="text-theme-6 mt-2"></span>
+                                <span asp-validation-for="SliderTwoTitle" class="text-theme-21  mt-2"></span>
                             </div>
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21">Image 2</label>
@@ -95,7 +95,7 @@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                                 <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
-                                <span asp-validation-for="SliderTwoDescription" class="text-theme-6 mt-2"></span>
+                                <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>
                             </div>
                         </div>
                         <div class="col-span-4 mb-4">
@@ -105,7 +105,7 @@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21">Title</label>
                                 <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
-                                <span asp-validation-for="SliderThreeTitle" class="text-theme-6 mt-2"></span>
+                                <span asp-validation-for="SliderThreeTitle" class="text-theme-21 mt-2"></span>
                             </div>
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21">Image 3</label>
@@ -128,7 +128,7 @@
                             <div class="mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21">Description</label>
                                 <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
-                                <span asp-validation-for="SliderThreeDescription" class="text-theme-6 mt-2"></span>
+                                <span asp-validation-for="SliderThreeDescription" class="text-theme-21  mt-2"></span>
 
                             </div>
                         </div>
@@ -283,6 +283,7 @@
                                 <div class="mt-2">
                                     <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
                                     <textarea asp-for="ReasonToSubmit" type="text" class="form-control w-full " placeholder="Reason" required></textarea>
+                                    <span asp-validation-for="ReasonToSubmit" class="text-theme-21 mt-2"></span>
                                 </div>
                             </div>
                         </div>
