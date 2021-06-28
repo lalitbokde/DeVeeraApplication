@@ -30,7 +30,7 @@ namespace CRM.Core.Domain
 
         public virtual ICollection<Level_Emotion_Mapping> Level_Emotion_Mappings
         {
-            get { return _Level_Emotion_Mappings ?? (_Level_Emotion_Mappings = new List<Level_Emotion_Mapping>()); }
+            get { return _Level_Emotion_Mappings ??= new List<Level_Emotion_Mapping>(); }
             protected set { _Level_Emotion_Mappings = value; }
         }
 

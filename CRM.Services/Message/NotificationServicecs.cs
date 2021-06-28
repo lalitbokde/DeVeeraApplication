@@ -66,7 +66,7 @@ namespace CRM.Services.Message
         {
             if (exception == null)
                 return;
-            var customer = _workContext.CurrentUser;
+            _ = _workContext.CurrentUser;
             // _logger.Error(exception.Message, exception, customer);
         }
 

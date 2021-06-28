@@ -14,7 +14,7 @@ namespace CRM.Core.Domain.VideoModules
 
         public virtual ICollection<Question_Answer_Mapping> Question_Answer_Mapping
         {
-            get { return _Question_Answer_Mapping ?? (_Question_Answer_Mapping = new List<Question_Answer_Mapping>()); }
+            get { return _Question_Answer_Mapping ??= new List<Question_Answer_Mapping>(); }
             protected set { _Question_Answer_Mapping = value; }
         }
     }

@@ -150,10 +150,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 foreach(var item in imageList)
                 {
-                    var data = new ImageModel();
-                    data.ImageUrl = item.ImageUrl;
-                    data.Name = item.Name;
-                    data.Id = item.Id;
+                    var data = new ImageModel
+                    {
+                        ImageUrl = item.ImageUrl,
+                        Name = item.Name,
+                        Id = item.Id
+                    };
                     model.Add(data);
                 }
                
@@ -188,7 +190,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             string val;
 
             var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files//Images", fileName);
-            var memory = new MemoryStream();
+            _ = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 val = await _s3BucketService.UploadFileAsync(stream, path, fileName);

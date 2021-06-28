@@ -105,8 +105,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var random = new Random();
            
             ViewBag.TotalLevels = _levelServices.GetAllLevels().Where(a => a.Active == true).ToList().Count;
-            var videoData = new LevelModel();
-            videoData.SelectedImages = new List<SelectedImage>();
+            var videoData = new LevelModel
+            {
+                SelectedImages = new List<SelectedImage>()
+            };
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{levelno}", $"/Lesson/Index/{levelno}");
 
             var result= IsUserFirstLoginOnDay(lastLoginDateUtc);

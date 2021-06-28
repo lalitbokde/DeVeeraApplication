@@ -68,7 +68,7 @@ namespace CRM.Services
                 }
                 else
                 {
-                    var message = $"Error occurred: {amazonS3Exception.Message}";
+                    _ = $"Error occurred: {amazonS3Exception.Message}";
                 }
             }
             return url;

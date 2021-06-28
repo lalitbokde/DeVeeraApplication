@@ -128,7 +128,7 @@ namespace CRM.Core.Domain.Users
       
         public virtual ICollection<User_Emotion_Mapping> User_Emotion_Mappings
         {
-            get { return _User_Emotion_Mappings ?? (_User_Emotion_Mappings = new List<User_Emotion_Mapping>()); }
+            get { return _User_Emotion_Mappings ??= new List<User_Emotion_Mapping>(); }
             protected set { _User_Emotion_Mappings = value; }
         }
 

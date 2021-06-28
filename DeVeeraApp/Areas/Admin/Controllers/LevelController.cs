@@ -264,8 +264,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(LevelModel model)
         {
             AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
-
-            var data = Request.Form["selectedImages"];
+            _ = Request.Form["selectedImages"];
 
             if (ModelState.IsValid)
             {
@@ -337,14 +336,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 {
                     model.Modules.VideoId = (model.Modules.VideoId == 0) ? model.Modules.VideoId = null : model.Modules.VideoId;
 
-                    var modules = new Modules();
-                    modules.LevelId = model.Id;
-                    modules.Title = model.Modules.Title;
-                    modules.VideoId = model.Modules.VideoId;
-                    modules.BannerImageId = model.Modules.BannerImageId;
-                    modules.VideoThumbImageId = model.Modules.VideoThumbImageId;
-                    modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
-                    modules.FullDescription = model.Modules.FullDescription;
+                    var modules = new Modules
+                    {
+                        LevelId = model.Id,
+                        Title = model.Modules.Title,
+                        VideoId = model.Modules.VideoId,
+                        BannerImageId = model.Modules.BannerImageId,
+                        VideoThumbImageId = model.Modules.VideoThumbImageId,
+                        ShareBackgroundImageId = model.Modules.ShareBackgroundImageId,
+                        FullDescription = model.Modules.FullDescription
+                    };
                     _moduleServices.InsertModule(modules);
                     _notificationService.SuccessNotification("Module has been added successfully");
 

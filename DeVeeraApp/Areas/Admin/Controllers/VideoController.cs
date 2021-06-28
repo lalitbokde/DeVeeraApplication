@@ -83,13 +83,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var url = UploadVideo(model.FileName);
-                    var data = new Video();
-                    data.Key = model.FileName;
-                    data.VideoUrl = url.Result.ToString();
-                    data.Name = model.Name;
-                    data.IsNew = model.IsNew;
-                    data.CreatedOn = DateTime.Now;
-                    data.UpdatedOn = DateTime.Now;
+                    var data = new Video
+                    {
+                        Key = model.FileName,
+                        VideoUrl = url.Result.ToString(),
+                        Name = model.Name,
+                        IsNew = model.IsNew,
+                        CreatedOn = DateTime.Now,
+                        UpdatedOn = DateTime.Now
+                    };
                     _videoMasterService.InsertVideo(data);
                     _notificationService.SuccessNotification("Video url added successfully.");
                     return RedirectToAction("List");
@@ -221,9 +223,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 file.CopyTo(fs);
             }
 
-            var OriginalFileName = Path.Combine(FilePath, fileName);
-
-            var CompressedFileName = file.FileName;
+            _ = Path.Combine(FilePath, fileName);
+            _ = file.FileName;
             //if (file.Length >= 104857600)
             //{
             //    await ConvertVideo(OriginalFileName, CompressedFileName);
@@ -306,7 +307,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             string val;
             var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files", fileName);
-            var memory = new MemoryStream();
+            _ = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 val = await _videoUploadService.UploadFileAsync(stream, path, fileName);

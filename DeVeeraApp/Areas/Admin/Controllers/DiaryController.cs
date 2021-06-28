@@ -107,7 +107,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
             DiaryListModel model = new DiaryListModel();
-            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            _ = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             #region DiaryList
 

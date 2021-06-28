@@ -81,7 +81,7 @@ namespace CRM.Services.Users
                     break;
             }
 
-            return UserPassword.Password == null ? false : UserPassword.Password.Equals(savedPassword);
+            return UserPassword.Password != null && UserPassword.Password.Equals(savedPassword);
         }
 
         #endregion
