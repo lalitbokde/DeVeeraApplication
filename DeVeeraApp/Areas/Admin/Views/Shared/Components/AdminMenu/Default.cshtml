@@ -171,6 +171,30 @@
 
                         </ul>
                     </li>
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon">   <i data-feather="film" class="block mx-auto"></i> </div>
+                            <div class="side-menu__title">
+                                Feel Good Stories
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a href="/Admin/FeelGoodStory/Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Admin/FeelGoodStory/List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="list"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 </ul>
             </li>
 
@@ -282,138 +306,189 @@
 
                         </ul>
                     </li>
-                </ul>
-            </li>
 
 
-         
-
-            @*Language*@
-            <li>
-                <a href="javascript:;.html" class="side-menu">
-                    <div class="side-menu__icon">  <i data-feather="trello"></i> </div>
-                    <div class="side-menu__title">
-                        Language Setup
-                        <div class="side-menu__sub-icon"> <i data-feather="chevron-down"></i> </div>
-                    </div>
-                </a>
-                <ul class="">
                     <li>
                         <a href="javascript:;" class="side-menu">
-                            <div class="side-menu__icon">  <i data-feather="align-left" class=""></i> </div>
+                            <div class="side-menu__icon"><i data-feather="airplay" class="block mx-auto"></i>   </div>
                             <div class="side-menu__title">
-                                Languages
+                              Display
                                 <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">                          
+                            <li>
+                                <a href="/Admin/DashboardMenu" class="side-menu">
+                                    <div class="side-menu__icon">   <i data-feather="play" class="block mx-auto"></i>  </div>
+                                    <div class="side-menu__title">
+                                        Quick Links
+                                        @*<div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>*@
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Admin/Home/WeeklyInspiringQuotes" class="side-menu">
+                                    <div class="side-menu__icon">   <i class="" data-feather="file"></i> </div>
+                                    <div class="side-menu__title">
+                                        Quotes
+                                        @*<div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>*@
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Admin/Home/NewVideos" class="side-menu">
+                                    <div class="side-menu__icon"> <i class="" data-feather="video"></i></div>
+                                    <div class="side-menu__title">
+                                        Videos
+                                        @*<div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>*@
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Admin/Home/FeelGoodStories" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="file-text"></i>  </div>
+                                    <div class="side-menu__title">
+                                        Stories
+                                        @*<div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>*@
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+                    </li>
+
+
+
+
+                    @*Language*@
+                    <li>
+                        <a href="javascript:;.html" class="side-menu">
+                            <div class="side-menu__icon">  <i data-feather="trello"></i> </div>
+                            <div class="side-menu__title">
+                                Language Setup
+                                <div class="side-menu__sub-icon"> <i data-feather="chevron-down"></i> </div>
                             </div>
                         </a>
                         <ul class="">
                             <li>
-                                <a asp-controller="Language" asp-action="Create" class="side-menu">
-                                    <div class="side-menu__icon"><i data-feather="edit"></i> </div>
-                                    <div class="side-menu__title">Create</div>
+                                <a href="javascript:;" class="side-menu">
+                                    <div class="side-menu__icon">  <i data-feather="align-left" class=""></i> </div>
+                                    <div class="side-menu__title">
+                                        Languages
+                                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                                    </div>
                                 </a>
+                                <ul class="">
+                                    <li>
+                                        <a asp-controller="Language" asp-action="Create" class="side-menu">
+                                            <div class="side-menu__icon"><i data-feather="edit"></i> </div>
+                                            <div class="side-menu__title">Create</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Language" asp-action="List" class="side-menu">
+                                            <div class="side-menu__icon"> <i data-feather="list"></i>  </div>
+                                            <div class="side-menu__title">List</div>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
                             <li>
-                                <a asp-controller="Language" asp-action="List" class="side-menu">
-                                    <div class="side-menu__icon"> <i data-feather="list"></i>  </div>
-                                    <div class="side-menu__title">List</div>
+                                <a href="javascript:;" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="box"></i>  </div>
+                                    <div class="side-menu__title">
+                                        Language String Resources
+                                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                                    </div>
                                 </a>
+                                <ul class="">
+                                    <li>
+                                        <a asp-controller="LocalStringResources" asp-action="Create" class="side-menu">
+                                            <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
+                                            <div class="side-menu__title">Create</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="LocalStringResources" asp-action="List" class="side-menu">
+                                            <div class="side-menu__icon"> <i data-feather="list"></i> </div>
+                                            <div class="side-menu__title">List</div>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
 
                         </ul>
                     </li>
+
+
+                    @*level and modules*@
                     <li>
                         <a href="javascript:;" class="side-menu">
-                            <div class="side-menu__icon"> <i data-feather="box"></i>  </div>
+                            <div class="side-menu__icon"><i class="" data-feather="bookmark"></i>  </div>
                             <div class="side-menu__title">
-                                Language String Resources
+                                Level
                                 <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
                             </div>
                         </a>
                         <ul class="">
                             <li>
-                                <a asp-controller="LocalStringResources" asp-action="Create" class="side-menu">
+                                <a asp-controller="Level" asp-action="Create" class="side-menu">
                                     <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
-                                    <div class="side-menu__title">Create</div>
+                                    <div class="side-menu__title"> Create </div>
                                 </a>
                             </li>
                             <li>
-                                <a asp-controller="LocalStringResources" asp-action="List" class="side-menu">
-                                    <div class="side-menu__icon"> <i data-feather="list"></i> </div>
-                                    <div class="side-menu__title">List</div>
+                                <a asp-controller="Level" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"><i data-feather="list"></i>  </div>
+                                    <div class="side-menu__title"> List </div>
                                 </a>
                             </li>
+
 
                         </ul>
                     </li>
 
+                    @*Questionarrie*@
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="file-text"></i> </div>
+                            <div class="side-menu__title">
+                                Questionarrie
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="QuestionAnswer" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"><i data-feather="edit"></i> </div>
+                                    <div class="side-menu__title"> Create </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="QuestionAnswer" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"><i data-feather="list"></i>  </div>
+                                    <div class="side-menu__title"> List </div>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+                    @*dashboard*@
+                    <li>
+                        <a asp-controller="Diary" asp-action="Create" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="book"></i> </div>
+                            <div class="side-menu__title">
+                                Diary
+                            </div>
+                        </a>
+                    </li>
                 </ul>
-            </li>
-
-
-            @*level and modules*@
-            <li>
-                <a href="javascript:;" class="side-menu">
-                    <div class="side-menu__icon"><i class="" data-feather="bookmark"></i>  </div>
-                    <div class="side-menu__title">
-                        Level
-                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
-                    </div>
-                </a>
-                <ul class="">
-                    <li>
-                        <a asp-controller="Level" asp-action="Create" class="side-menu">
-                            <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
-                            <div class="side-menu__title"> Create </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Level" asp-action="List" class="side-menu">
-                            <div class="side-menu__icon"><i data-feather="list"></i>  </div>
-                            <div class="side-menu__title"> List </div>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-
-            @*Questionarrie*@
-            <li>
-                <a href="javascript:;" class="side-menu">
-                    <div class="side-menu__icon"> <i data-feather="file-text"></i> </div>
-                    <div class="side-menu__title">
-                        Questionarrie
-                        <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
-                    </div>
-                </a>
-                <ul class="">
-                    <li>
-                        <a asp-controller="QuestionAnswer" asp-action="Create" class="side-menu">
-                            <div class="side-menu__icon"><i data-feather="edit"></i> </div>
-                            <div class="side-menu__title"> Create </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="QuestionAnswer" asp-action="List" class="side-menu">
-                            <div class="side-menu__icon"><i data-feather="list"></i>  </div>
-                            <div class="side-menu__title"> List </div>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </li>
-
-            @*dashboard*@
-            <li>
-                <a asp-controller="Diary" asp-action="Create" class="side-menu">
-                    <div class="side-menu__icon"> <i data-feather="book"></i> </div>
-                    <div class="side-menu__title">
-                        Diary
-                    </div>
-                </a>
-            </li>
-        </ul>
     </nav>
     <!-- END: Side Menu -->

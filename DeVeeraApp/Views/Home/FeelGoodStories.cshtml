@@ -1,16 +1,115 @@
 ﻿@model IList<DeVeeraApp.ViewModels.FeelGoodStoryModel>
 
 @{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
     ViewData["Title"] = "Feel Good Stories";
 
 }
 
-<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">
-        Feel Good Stories
-    </h2>
+@*<div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            Feel Good Stories
+        </h2>
+    </div>*@
+@*<div class="subscribe-inner-box">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="page-banner-content">
+                        <h2>  Feel Good Stories</h2>
+                        <ul>
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li>  Feel Good Stories</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>*@
+@*<div class="subscribe-inner-box">
+        <div class="container-fluid">
+            <div class="page-banner-content-two" >
+                <h2 style="color:#2d2424;"> Feel Good Stories</h2>
+                <ul>
+                    <li>
+                        <a href="index.html" style="color:#2d2424;">Home</a>
+                    </li>
+                    <li > Feel Good Stories</li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+
+<div class="page-banner-with-full-image">
+    <div class="container">
+        <div class="page-banner-content-two">
+            <h2>Feel Good Stories</h2>
+            <ul>
+                <li>
+                    <a  asp-controller="Dashboard" asp-action="Index">Home</a>
+                </li>
+                <li>Feel Good Stories</li>
+            </ul>
+        </div>
+    </div>
 </div>
-<div class="border-t border-theme-25">
+
+<section class="courses-area ptb-100">
+    <div class="container">
+        <div class="row">
+           
+            @if (Model.Count != 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-6 col-md-6">
+                        <div class="single-courses-box">
+                            <div class="courses-image">
+                                @{var largeImg = (item.Image?.ImageUrl == null) ? "/assets/images/courses/courses-1.jpg" : item.Image.ImageUrl;}
+                                <a href="@largeImg">
+                                    <img src="@largeImg" alt="_image">
+                                </a>                                
+                            </div>
+                            <div class="courses-content">
+                                <div class="course-author d-flex align-items-center">
+                                    @{var smallImg = (item.Image?.ImageUrl == null || item.Image?.ImageUrl == "") ? "/assets/images/courses/images-1.jpg" : item.Image.ImageUrl;}
+                                    <img src="@smallImg" class="rounded-circle" alt="image">
+                                    <span>@item.Author</span>
+                                </div>
+                                <h3>
+                                    <a href="courses-details.html">@item.Title</a>
+                                </h3>
+                                <p>@Html.Raw(item.Story)</p>
+                                <ul class="courses-box-footer d-flex justify-content-between align-items-center">
+                                    <li>
+                                        @*<i class='bx bxs-book'></i> 8 Weeks Long*@
+                                    </li>
+                                    <li>
+                                        @*<i class=''></i> @item.Author*@
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h2 class="course-author d-flex align-items-center">
+                    There are no stories yet.
+                </h2>
+            }
+        </div>
+    </div>
+</section>
+
+
+@*<div class="border-t border-theme-25">
 
     <div class="intro-y grid grid-cols-12 gap-6 mt-5">
 
@@ -19,7 +118,7 @@
 
             @foreach (var item in Model)
             {
-                <!-- BEGIN: Blog Layout -->
+              
                 <div class="intro-y blog col-span-12 md:col-span-6 box">
                     <div class="blog__preview image-fit">
                         @{var smallImg = (item.Image?.ImageUrl == null) ? "/dist/images/profile-14.jpg" : item.Image.ImageUrl;}
@@ -54,6 +153,6 @@
             </h2>
         }
     </div>
-</div>
+</div>*@
 
 
