@@ -85,13 +85,13 @@ namespace DeVeeraApp.Controllers
             var moduleImages = _moduleImageListService.GetModuleImageListByModuleId(data.Id);
 
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
-            moduleData.BannerImageUrl = imagesRecord != null ? imagesRecord.ImageUrl : null;
+            moduleData.BannerImageUrl = imagesRecord?.ImageUrl;
 
             var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
-            moduleData.VideoThumbImageUrl = imagesRecord1 != null ? imagesRecord1.ImageUrl : null;
+            moduleData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
 
             var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
-            moduleData.ShareBackgroundImageUrl = imagesRecord2 != null ? imagesRecord2.ImageUrl : null;
+            moduleData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
 
             var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);

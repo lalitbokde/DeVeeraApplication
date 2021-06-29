@@ -29,7 +29,7 @@ namespace CRM.Core.Domain.Security
         /// </summary>
         public virtual ICollection<PermissionRecord_Role_Mapping> PermissionRecord_Role_Mapping
         {
-            get { return _PermissionRecord_Role_Mapping ?? (_PermissionRecord_Role_Mapping = new List<PermissionRecord_Role_Mapping>()); }
+            get { return _PermissionRecord_Role_Mapping ??= new List<PermissionRecord_Role_Mapping>(); }
             protected set { _PermissionRecord_Role_Mapping = value; }
         }   
     }

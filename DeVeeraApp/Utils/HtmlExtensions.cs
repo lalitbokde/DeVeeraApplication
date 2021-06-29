@@ -15,12 +15,10 @@ namespace DeVeeraApp.Utils
         /// <returns>Result</returns>
         public static string RenderHtmlContent(this IHtmlContent htmlContent)
         {
-            using (var writer = new StringWriter())
-            {
-                htmlContent.WriteTo(writer, HtmlEncoder.Default);
-                var htmlOutput = writer.ToString();
-                return htmlOutput;
-            }
+            using var writer = new StringWriter();
+            htmlContent.WriteTo(writer, HtmlEncoder.Default);
+            var htmlOutput = writer.ToString();
+            return htmlOutput;
         }
 
         /// <summary>
@@ -30,11 +28,9 @@ namespace DeVeeraApp.Utils
         /// <returns>String</returns>
         public static string ToHtmlString(this IHtmlContent tag)
         {
-            using (var writer = new StringWriter())
-            {
-                tag.WriteTo(writer, HtmlEncoder.Default);
-                return writer.ToString();
-            }
+            using var writer = new StringWriter();
+            tag.WriteTo(writer, HtmlEncoder.Default);
+            return writer.ToString();
         }
 
         #endregion

@@ -248,8 +248,8 @@ namespace DeVeeraApp.Utils
                 if (sourceConverter != null && sourceConverter.CanConvertTo(destinationType))
                     return sourceConverter.ConvertTo(null, culture, value, destinationType);
 
-                if (destinationType.IsEnum && value is int)
-                    return Enum.ToObject(destinationType, (int)value);
+                if (destinationType.IsEnum && value is int @int)
+                    return Enum.ToObject(destinationType, @int);
 
                 if (!destinationType.IsInstanceOfType(value))
                     return Convert.ChangeType(value, destinationType, culture);

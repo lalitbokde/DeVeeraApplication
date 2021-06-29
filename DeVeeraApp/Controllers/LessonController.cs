@@ -110,8 +110,10 @@ namespace DeVeeraApp.Controllers
            
             var AllLevels = _levelServices.GetAllLevels().ToList();
             ViewBag.TotalLevels = AllLevels.Count;
-            var videoData = new LevelModel();
-            videoData.SelectedImages = new List<SelectedImage>();
+            var videoData = new LevelModel
+            {
+                SelectedImages = new List<SelectedImage>()
+            };
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{levelno}", $"/Lesson/Index/{levelno}");
             var result = IsUserFirstLoginOnDay(lastLoginDateUtc);
             if (result == true)
@@ -120,13 +122,13 @@ namespace DeVeeraApp.Controllers
             }
             var data = _levelServices.GetLevelByLevelNo(levelno);
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
-            videoData.BannerImageUrl = imagesRecord != null ? imagesRecord.ImageUrl : null;
+            videoData.BannerImageUrl = imagesRecord?.ImageUrl;
 
             var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
-            videoData.VideoThumbImageUrl = imagesRecord1 != null ? imagesRecord1.ImageUrl : null;
+            videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
 
             var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
-            videoData.ShareBackgroundImageUrl = imagesRecord2 != null ? imagesRecord2.ImageUrl : null;
+            videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
 
             if (data.VideoId != null)
             {

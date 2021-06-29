@@ -190,12 +190,14 @@ namespace DeVeeraApp.Controllers
                 
                     if (diary == null)
                     {
-                        var newdiary = new Diary();
-                        newdiary.Title = model.Title;
-                        newdiary.Comment = model.Comment;
-                        newdiary.DiaryColor = model.DiaryColor;
-                        newdiary.UserId = _workContext.CurrentUser.Id;
-                        newdiary.CreatedOn =DateTime.UtcNow;
+                        var newdiary = new Diary
+                        {
+                            Title = model.Title,
+                            Comment = model.Comment,
+                            DiaryColor = model.DiaryColor,
+                            UserId = _workContext.CurrentUser.Id,
+                            CreatedOn = DateTime.UtcNow
+                        };
                         _DiaryMasterService.InsertDiary(newdiary);
                         _notificationService.SuccessNotification("Diary added successfully.");                
 

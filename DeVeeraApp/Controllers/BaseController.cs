@@ -94,7 +94,7 @@ namespace DeVeeraApp.Controllers
             _authenticationService.SignOut();
 
             //raise logged out event       
-            var UserLogOut = new UserLoggedOutEvent(_workContext.CurrentUser);
+            _ = new UserLoggedOutEvent(_workContext.CurrentUser);
 
             if (_workContext.CurrentUser != null)
             {

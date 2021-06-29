@@ -7,11 +7,8 @@ namespace DeVeeraApp.Utils
     {
         public static byte[] ImageToByteArray(Image imageIn)
         {
-            using (var ms = new MemoryStream())
-            {
-
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            return ms.ToArray();
         }
 
         public static byte[] Resize2Max50Kbytes(byte[] byteImageIn)

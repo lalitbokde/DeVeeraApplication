@@ -73,7 +73,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (_UserService.GetUserByEmail(model.Email) == null)
                 {
                     var user = model.ToEntity<User>();
-                    UserPassword password = null;
                     user.UserGuid = Guid.NewGuid();
                     user.CreatedOnUtc = DateTime.UtcNow;
                     user.LastActivityDateUtc = DateTime.UtcNow;
@@ -95,7 +94,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
                     {
 
-                        password = new UserPassword
+                        UserPassword password = new UserPassword
                         {
                             UserId = user.Id,
                             Password = model.UserPassword.Password,

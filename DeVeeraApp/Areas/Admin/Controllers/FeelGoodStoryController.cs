@@ -92,11 +92,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.ImageId = (model.ImageId == 0) ? model.ImageId = null : model.ImageId;
-                var data = new FeelGoodStory();
-                data.Author = model.Author;
-                data.Title = model.Title;
-                data.Story = model.Story;
-                data.ImageId = model.ImageId;
+                var data = new FeelGoodStory
+                {
+                    Author = model.Author,
+                    Title = model.Title,
+                    Story = model.Story,
+                    ImageId = model.ImageId
+                };
 
                 _feelGoodStoryServices.InsertFeelGoodStory(data);
                 _notificationService.SuccessNotification("Story added successfully");

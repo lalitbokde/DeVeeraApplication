@@ -142,15 +142,11 @@ namespace DeVeeraApp.Factories
         {
             var EncryptedId = _encryptionService.EncryptText(model.Id.ToString());
 
-            string reportHTML = "";
-
-
-
             //string serverURL = _configuration.GetSection("AppSetting").Get<Dictionary<string, string>>().Where(x => x.Key == "ServerURL").SingleOrDefault().Value; //"http://52.4.251.162:8086";
             string serverURL = "http://dermtech.12skiestech.com";
             string filePath = _hostingEnvironment.ContentRootPath + "/wwwroot/Templates/";
 
-            reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
+            string reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
 
             reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
 
