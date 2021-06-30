@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    [Migration("20210625091730_removedUnnecessaryTables")]
-    partial class removedUnnecessaryTables
+    [Migration("20210630144941_QuoteId")]
+    partial class QuoteId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,8 @@ namespace CRM.Data.Migrations
                     b.Property<DateTime>("LastUpdatedOn");
 
                     b.Property<string>("Quote");
+
+                    b.Property<int?>("QuoteId");
 
                     b.Property<string>("Subtitle");
 
@@ -366,16 +368,11 @@ namespace CRM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("Category");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
-                    b.Property<string>("SystemName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("SystemName");
 
                     b.HasKey("Id");
 
@@ -718,6 +715,8 @@ namespace CRM.Data.Migrations
                     b.Property<bool>("IsRandom");
 
                     b.Property<string>("LandingQuote");
+
+                    b.Property<int?>("QuoteId");
 
                     b.Property<int>("QuoteType");
 
