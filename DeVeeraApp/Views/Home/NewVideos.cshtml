@@ -43,15 +43,15 @@
     </section>*@
 
 
-<div class="page-banner-with-full-image">
+<div class="page-banner-with-full-image" style="background-image:url('@(Model[0].Link_2_bannerImage != null ? Model[0].Link_2_bannerImage: "../../assest/images/page-banner/register.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
-            <h2>New Videos</h2>
+            <h2>@Model[0].Link_2_Title</h2>
             <ul>
                 <li>
-                    <a  asp-controller="Dashboard" asp-action="Index">Home</a>
+                    <a asp-controller="Dashboard" asp-action="Index">Home</a>
                 </li>
-                <li>Videos</li>
+                <li>@Model[0].Link_2_Title</li>
             </ul>
         </div>
     </div>

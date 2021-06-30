@@ -27,5 +27,14 @@
         public int CompleteRegistrationHeaderImgId { get; set; }
         public string ReasonToSubmit { get; set; }
 
+        public string Link_1 { get; set; }
+        public string Link_2 { get; set; }
+        public string Link_3 { get; set; }
+
+        public int Link_1_BannerImageId { get; set; }
+        public int Link_2_BannerImageId { get; set; }
+        public int Link_3_BannerImageId { get; set; }
+
+
     }
 }

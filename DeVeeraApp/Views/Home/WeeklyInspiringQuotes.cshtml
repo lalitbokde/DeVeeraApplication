@@ -11,15 +11,15 @@
             Weekly Inspiring Quotes
         </h2>
     </div>*@
-<div class="page-banner-with-full-image">
+<div class="page-banner-with-full-image" style="background-image:Url('@(Model[0].layoutSetup.Link_1_BannerImageUrl != null ? Model[0].layoutSetup.Link_1_BannerImageUrl: "../../assest/images/page-banner/register.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
-            <h2>Weekly Inspiring Quotes</h2>
+            <h2>@Model[0].layoutSetup.Link_1</h2>
             <ul>
                 <li>
                     <a asp-controller="Dashboard" asp-action="Index">Home</a>
                 </li>
-                <li>Weekly Inspiring Quotes</li>
+                <li>@Model[0].layoutSetup.Link_1</li>
             </ul>
         </div>
     </div>

@@ -45,15 +45,15 @@
         </div>
     </div>*@
 
-<div class="page-banner-with-full-image">
+<div class="page-banner-with-full-image" style="background-image:url('@(Model[0].Link_3_bannerImage != null ? Model[0].Link_3_bannerImage: "../../assest/images/page-banner/register.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
-            <h2>Feel Good Stories</h2>
+            <h2>@Model[0].Link_3_Title</h2>
             <ul>
                 <li>
                     <a  asp-controller="Dashboard" asp-action="Index">Home</a>
                 </li>
-                <li>Feel Good Stories</li>
+                <li>@Model[0].Link_3_Title</li>
             </ul>
         </div>
     </div>
