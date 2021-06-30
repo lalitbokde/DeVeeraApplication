@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    [Migration("20210630152503_QuickLinks")]
+    [Migration("20210630153044_QuickLinks")]
     partial class QuickLinks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

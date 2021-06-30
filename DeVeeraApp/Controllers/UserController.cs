@@ -258,7 +258,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Register(UserModel model)
         {
-            ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
+            //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
             if (ModelState.IsValid)
             {
          
