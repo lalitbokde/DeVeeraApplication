@@ -201,7 +201,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View(model);
         }
 
-        
+        [HttpPost]
+        [DisableRequestSizeLimit]
         public bool Upload(IFormFile file)
         {
 
