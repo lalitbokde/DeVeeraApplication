@@ -116,7 +116,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("FeelGoodStory", "Edit", $"/Admin/FeelGoodStory/List", $"/Admin/FeelGoodStory/Edit/{Id}");
             var data = _feelGoodStoryServices.GetFeelGoodStoryById(Id);
             var model = data.ToModel<FeelGoodStoryModel>();
-            PrepareImages(model);
+            //PrepareImages(model);
+            PrepareImageUrls(model);
             return View(model);
         }
 
@@ -132,6 +133,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.Title = model.Title;
                 data.Story = model.Story;
                 data.ImageId = model.ImageId;
+
 
                 _feelGoodStoryServices.UpdateFeelGoodStory(data);
                 _notificationService.SuccessNotification("Story updated successfully");
@@ -183,6 +185,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             }
             return Json(response);
+        }
+
+        public virtual void PrepareImageUrls(FeelGoodStoryModel model)
+        {
+
+          model.Image.ImageUrl = model.ImageId > 0 ? _imageMasterService.GetImageById(model.Image.Id)?.ImageUrl : null;
+           
         }
 
         #endregion

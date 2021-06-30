@@ -18,7 +18,8 @@ namespace DeVeeraApp.ViewModels
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 
-
+        public string Link_2_bannerImage { get; set; }
+        public string Link_2_Title { get; set; }
 
     }
 }
