@@ -37,7 +37,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View();
         }
 
-        public virtual IActionResult Logout()
+        public new IActionResult Logout()
         {
             //standard logout 
             _authenticationService.SignOut();
@@ -53,7 +53,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(".MarketPlaceCRM.User");
 
             return RedirectToAction("Index", "Home", new { area = "default" });
-
         }
     }
 }

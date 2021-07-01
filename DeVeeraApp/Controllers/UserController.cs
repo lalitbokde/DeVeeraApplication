@@ -261,7 +261,7 @@ namespace DeVeeraApp.Controllers
             ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
             if (ModelState.IsValid)
             {
-         
+
                 //validate unique user
                 if (_UserService.GetUserByEmail(model.Email) == null)
                 {
