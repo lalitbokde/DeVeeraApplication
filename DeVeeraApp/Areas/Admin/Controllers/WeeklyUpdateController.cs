@@ -139,8 +139,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (model.QuoteType.ToString() == "Landing")
             {
                 ModelState.Remove("Subtitle");
+                ModelState.Remove("LandingQuote");
             }
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
 
@@ -148,7 +149,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
                 _notificationService.SuccessNotification("Video created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
-            }
+            }           
             PrepareVideo(model);
             return View(model);
          }
@@ -187,7 +188,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             if (model.QuoteType.ToString() == "Landing")
             {
-                ModelState.Remove("Subtitle");
+                ModelState.Remove("Subtitle"); ModelState.Remove("LandingQuote");
             }
 
             if (ModelState.IsValid)
