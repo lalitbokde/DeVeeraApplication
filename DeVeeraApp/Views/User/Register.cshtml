@@ -22,13 +22,13 @@
 <!-- Start Register Area -->
 
     <section class="register-area ptb-100">
-        <div class="container">
+        <div class="container">           
             <div class="register-form">
                 <h2>@T("Register")</h2>
 
                 <form asp-controller="User" asp-action="Register" method="post">
                     <input type="hidden" asp-for="UserRoleId" value="1" />
-                  
+
 
                     <div class="form-group">
                         <label>@T("User Name")</label>
@@ -38,13 +38,13 @@
 
                     <div class="form-group">
                         <label>@T("Mobile Number")</label>
-                        <input asp-for="@Model.MobileNumber" type="number" class="form-control" placeholder="@T("Mobile Number")">
+                        <input asp-for="@Model.MobileNumber" type="number"  class="form-control" placeholder="@T("Mobile Number")"  oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength ="10">
                         <span asp-validation-for="MobileNumber" class="text-theme-21 mt-2"></span>
                     </div>
 
                     <div class="form-group">
                         <label>@T("Password")</label>
-                        <input asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="@T("Password")">
+                        <input asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="@T("Password")" >
                         <span asp-validation-for="UserPassword.Password" class="text-theme-21 mt-2"></span>
                     </div>
 

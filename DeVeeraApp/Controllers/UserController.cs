@@ -258,7 +258,14 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Register(UserModel model)
         {
-            //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
+          ModelState.Remove("LandingPageModel.Language.Name"); ModelState.Remove("LandingPageModel.Language.UniqueSeoCode");
+            ModelState.Remove("LandingPageModel.Language.LanguageCulture"); ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
+            ModelState.Remove("LandingPageModel.WeeklyUpdate.VideoId"); ModelState.Remove("LandingPageModel.WeeklyUpdate.Subtitle");
+            ModelState.Remove("LandingPageModel.WeeklyUpdate.LandingQuote"); ModelState.Remove("LandingPageModel.WeeklyUpdate.SliderOneTitle");
+            ModelState.Remove("LandingPageModel.WeeklyUpdate.SliderTwoTitle"); ModelState.Remove("LandingPageModel.WeeklyUpdate.SliderThreeTitle");
+            ModelState.Remove("LandingPageModel.WeeklyUpdate.SliderOneDescription"); ModelState.Remove("LandingPageModel.WeeklyUpdate.SliderTwoDescription");
+            ModelState.Remove("LandingPageModel.WeeklyUpdate.SliderThreeDescription");
+
             if (ModelState.IsValid)
             {
 

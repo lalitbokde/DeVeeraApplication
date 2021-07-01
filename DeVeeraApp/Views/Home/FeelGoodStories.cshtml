@@ -70,7 +70,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="single-courses-box">
                             <div class="courses-image">
-                                @{var largeImg = (item.Image?.ImageUrl == null) ? "/assets/images/courses/courses-1.jpg" : item.Image.ImageUrl;}
+                                @{var largeImg = (item.Image?.ImageUrl == null || item.Image?.ImageUrl=="") ? "/assets/images/courses/courses-1.jpg" : item.Image.ImageUrl;}
                                 <a href="@largeImg">
                                     <img src="@largeImg" alt="_image">
                                 </a>                                
