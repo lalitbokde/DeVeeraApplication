@@ -16,13 +16,13 @@ namespace DeVeeraApp.ViewModels
             AvilableQuote = new List<SelectListItem>();
         }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
-        [Required]
+        //[Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
+        //[Required]
         public int VideoId { get; set; }
         public string VideoUrl { get; set; }
 
         
-        [Required(ErrorMessage ="Enter the title ")]
+        //[Required(ErrorMessage ="Enter the title ")]
         public string Title { get; set; }
 
         public string landingImageOneUrl { get; set; }
@@ -30,12 +30,12 @@ namespace DeVeeraApp.ViewModels
         public string landingImageThreeUrl { get; set; }
         public string DescriptionImageUrl { get; set; }
 
-        [Required(ErrorMessage = "Enter the Quote ")]
+        //[Required(ErrorMessage = "Enter the Quote ")]
         public string Subtitle { get; set; }
 
         public string VideoName { get; set; }
 
-        [Required]
+        //[Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
         public bool IsRandom { get; set; }
@@ -51,32 +51,32 @@ namespace DeVeeraApp.ViewModels
 
         public string FileName { get; set; }
 
-        [NotMapped]
+        //[NotMapped]
         public int LastLevel { get; set; }
 
 
-        [NotMapped]
+        //[NotMapped]
         public int FirstLevel { get; set; }
 
-        [Required(ErrorMessage ="Please enter slider 1 title")]
+        //[Required(ErrorMessage ="Please enter slider 1 title")]
         public string SliderOneTitle { get; set; }
 
-        [Required(ErrorMessage = "Please enter slider 1 Description")]
+        //[Required(ErrorMessage = "Please enter slider 1 Description")]
         public string SliderOneDescription { get; set; }
         public int SliderOneImageId { get; set; }
-        [Required(ErrorMessage = "Please enter slider 2 title")]
+        //[Required(ErrorMessage = "Please enter slider 2 title")]
         public string SliderTwoTitle { get; set; }
-        [Required(ErrorMessage = "Please enter slider 2 Description")]
+        //[Required(ErrorMessage = "Please enter slider 2 Description")]
         public string SliderTwoDescription { get; set; }
         public int SliderTwoImageId { get; set; }
-        [Required(ErrorMessage = "Please enter slider 3 title")]
+        //[Required(ErrorMessage = "Please enter slider 3 title")]
         public string SliderThreeTitle { get; set; }
-        [Required(ErrorMessage = "Please enter slider 3 Description")]
+        //[Required(ErrorMessage = "Please enter slider 3 Description")]
         public string SliderThreeDescription { get; set; }
         public int SliderThreeImageId { get; set; }
         public int DescriptionImageId { get; set; }
         
-        [Required(ErrorMessage = "Enter the Quote ")]
+        //[Required(ErrorMessage = "Enter the Quote ")]
         public string LandingQuote { get; set; }
 
     }
