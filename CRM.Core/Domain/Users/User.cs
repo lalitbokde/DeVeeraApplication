@@ -99,6 +99,9 @@ namespace CRM.Core.Domain.Users
         public bool RegistrationComplete { get; set; }
 
         public bool TwoFactorAuthentication { get; set; }
+
+        public bool IsAllow { get; set; }
+
         /// <summary>
         /// Gets or sets the date and time of entity creation
         /// </summary>

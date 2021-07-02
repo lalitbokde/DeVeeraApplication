@@ -1,4 +1,6 @@
 ﻿@model IList<DeVeeraApp.ViewModels.VideoModel>
+@using DeVeeraApp.ViewComponents
+@*@model IList<DeVeeraApp.ViewModels.VideoListModel>*@
 
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -68,14 +70,16 @@
                         <div class="single-gallery-item">
                             <a href="javascript:;" data-toggle="modal" data-target="#add-item-modal">
                                 @{string src = item.VideoUrl;}
+
                                 <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
                             </a>
                         </div>
                     </div>
-                    }
-                }
+                }                
+            }
 
-            </div>
+        </div>
+        @(await Component.InvokeAsync<PagerViewComponent>(Model[0].VideoListPaged))
     </div>
 </section>
 

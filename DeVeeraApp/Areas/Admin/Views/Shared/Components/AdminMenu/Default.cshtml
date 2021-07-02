@@ -51,14 +51,28 @@
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="Admin" asp-action="List" asp-route-roleName="User" class="side-menu">
+                        <a  href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="check-square" class=""></i>  </div>
                             <div class="side-menu__title">
                                 Registered Users
-                                <div class="side-menu__sub-icon "> @*<i data-feather="chevron-down"></i>*@ </div>
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
                             </div>
                         </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="Admin" asp-action="CreateUser" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Admin" asp-action="List" asp-route-roleName="User" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="list"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
 
+                        </ul>
                     </li>
 
                 </ul>
