@@ -87,7 +87,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         }
                     }
                     user.Active = true;
-
+                    user.IsAllow = true;
                     _UserService.InsertUser(user);
 
                     // password

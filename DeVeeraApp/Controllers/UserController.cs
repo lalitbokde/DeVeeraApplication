@@ -233,6 +233,9 @@ namespace DeVeeraApp.Controllers
                     default:
                         ModelState.AddModelError("", "WrongCredentials");
                         break;
+                    case UserLoginResults.NotAllow:
+                        ModelState.AddModelError("", "Not Allowed");
+                        break;
                 }
             }
 
@@ -271,7 +274,7 @@ namespace DeVeeraApp.Controllers
                     user.CreatedOnUtc = DateTime.UtcNow;
                     user.LastActivityDateUtc = DateTime.UtcNow;
                     user.UserRoleId = model.UserRoleId;
-
+                    user.IsAllow = true;
                     user.Active = true;
 
                     _UserService.InsertUser(user);
@@ -325,6 +328,9 @@ namespace DeVeeraApp.Controllers
                         case UserLoginResults.WrongPassword:
                         default:
                             ModelState.AddModelError("", "WrongCredentials");
+                            break;
+                        case UserLoginResults.NotAllow:
+                            ModelState.AddModelError("", "Not Allowed");
                             break;
                     }
 

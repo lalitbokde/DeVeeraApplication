@@ -157,6 +157,8 @@ namespace CRM.Services.Users
                 return UserLoginResults.Deleted;
             if (!User.Active)
                 return UserLoginResults.NotActive;
+            if (!User.IsAllow)
+                return UserLoginResults.NotAllow;
             ////only registered can login
             //if (!User.IsRegistered())
             //    return UserLoginResults.NotRegistered;
