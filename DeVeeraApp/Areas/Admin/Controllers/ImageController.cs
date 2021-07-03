@@ -153,22 +153,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var list = _imageMasterService.GetAllImagesList(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "");
             model.ImageList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalImage) : new PagedResult<ImageViewModel>();
 
-
-            if(imageList.Count > 0)
-            {
-                foreach(var item in imageList)
-                {
-                    var data = new ImageModel
-                    {
-                        ImageUrl = item.ImageUrl,
-                        Name = item.Name,
-                        Id = item.Id
-                    };
-                    model.Add(data);
-                }
-               
-            }
-
             return View(model);
         }
 

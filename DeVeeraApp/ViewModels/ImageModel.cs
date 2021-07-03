@@ -8,8 +8,6 @@ namespace DeVeeraApp.ViewModels
     public class ImageModel : BaseEntityModel
     {
 
-       
-        [Required]
 
         [StringLength(80)]
         [Required(ErrorMessage ="Please enter image name ")]
