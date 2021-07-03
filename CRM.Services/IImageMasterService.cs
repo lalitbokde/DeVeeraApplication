@@ -1,5 +1,11 @@
 ﻿using CRM.Core.Domain;
+
+using CRM.Core.ViewModels;
+using System;
+
 using System.Collections.Generic;
+
+
 
 namespace CRM.Services
 {
@@ -22,5 +28,12 @@ namespace CRM.Services
 
 
         void UpdateImage(Image model);
+        List<ImageViewModel> GetAllImagesList(
+              int page_size = 0,
+             int page_num = 0,
+             bool GetAll = false,
+             string SortBy = ""
+              );
+
     }
 }

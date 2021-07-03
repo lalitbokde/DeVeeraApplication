@@ -3,7 +3,7 @@
     ViewData["Title"] = "List";
 }
 
-@if (Model.Count != 0)
+@if (@ViewBag.TableData != null)
 {
     <div class="intro-y  py-5 sm:py-5 ">
 
@@ -29,58 +29,15 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
-                <div class="intro-y box p-5 col-span-12">
-                    <div class="intro-y ">
+          
 
-                        <div class="p-5" id="basic-table">
-                            <div class="preview">
-                                <div class="overflow-x-auto">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
-                                                @*<th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Quote</th>*@
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Play</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Active</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
-                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
-                                                int i = 1;
-                                                foreach (var item in Model)
-                                                {
-                                                    <tr>
-                                                        <td class="border-b dark:border-dark-5">@i</td>
-                                                        <td class="border-b dark:border-dark-5">@item.Title</td>
-                                                        @*<td class="border-b dark:border-dark-5">@item.Subtitle</td>*@
-                                                        <td class="border-b dark:border-dark-5">@item.VideoName</td>
-                                                        <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Video" asp-action="Play" asp-route-Id="@item.VideoId"><i data-feather="play"></i></a></td>
-                                                        <td class="border-b dark:border-dark-5">
-                                                            <input class="checkbox-custom" type="checkbox" @(item.IsActive==true?"checked":"")>
-                                                        </td>
-                                                        <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="WeeklyUpdate" asp-action="Edit" asp-route-Id="@item.Id" asp-route-Type="@item.QuoteType"><i data-feather="edit"></i></a></td>
-                                                        <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteQuote(@item.Id)')"><i data-feather="trash-2"></i></a></td>
-                                                    </tr>
-                                                    i++;
-                                                }
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+        </div>
 
-                        </div>
-                    </div>
-
-                </div>
-
+        <div class="intro-y box p-5 mt-6">
+            <div class="overflow-x-auto scrollbar-hidden ">
+                <input id="WeeklyUpdate" value="@ViewBag.TableData" hidden />
+                <div id="tabulatorW"></div>
             </div>
-
         </div>
     </div>
 
@@ -95,5 +52,7 @@ else
     </div>
 }
 
-<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
+<script src="~/dist/js/WeeklyUpdate.js"></script>
