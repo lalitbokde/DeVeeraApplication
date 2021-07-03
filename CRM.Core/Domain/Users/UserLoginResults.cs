@@ -33,5 +33,10 @@
         /// Locked out
         /// </summary>
         LockedOut = 7,
+
+        /// <summary>
+        /// Locked out
+        /// </summary>
+        NotAllow = 8,
     }
 }
