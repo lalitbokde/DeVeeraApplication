@@ -123,6 +123,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Create(EmotionModel model)
         {
             AddBreadcrumbs("Emotion", "Create", "/Emotion/List", "/Emotion/Create");
+            ModelState.Remove("Quote");
             if (ModelState.IsValid)
             {
                 var emotion = model.ToEntity<Emotion>();
@@ -152,6 +153,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(EmotionModel model)
         {
             AddBreadcrumbs("Emotion", "Edit", "/Admin/Emotion/List", $"/Admin/Emotion/Edit/{model.Id}");
+            ModelState.Remove("Quote");
             if (ModelState.IsValid)
             {
                 var emotion = _emotionService.GetEmotionById(model.Id);

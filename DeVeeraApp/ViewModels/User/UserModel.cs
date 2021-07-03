@@ -22,7 +22,7 @@ namespace DeVeeraApp.ViewModels.User
         [Required(ErrorMessage = "Please enter username")]
         public string Email { get; set; }
         
-        [DataType(DataType.PhoneNumber)]
+        [DataType(DataType.PhoneNumber),MinLength(10,ErrorMessage ="Phone must size must be 10")]     
         [Required(ErrorMessage ="Please enter contact number")]
         public string MobileNumber { get; set; }
         public Gender? GenderType { get; set; }

@@ -12,12 +12,16 @@ namespace DeVeeraApp.ViewModels
             AvailableImages = new List<SelectListItem>();
         }
 
-        [Required]
+        [Required(ErrorMessage ="Please enter the title")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter the Author")]
         public string Author { get; set; }
+        [Required(ErrorMessage = "Please enter the Story")]
         public string Story { get; set; }
         public int? ImageId { get; set; }
+        public string ImageUrl { get; set; }
+        
+
         public virtual Image Image { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
 

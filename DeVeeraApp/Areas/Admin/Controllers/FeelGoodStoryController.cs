@@ -156,7 +156,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 model = data.ToList().ToModelList<FeelGoodStory, FeelGoodStoryModel>(model);
 
-
             }
 
             return View(model);
@@ -189,9 +188,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public virtual void PrepareImageUrls(FeelGoodStoryModel model)
         {
+            if (model.Image == null)
+            {
+                model.ImageUrl = null;
+            }
+            else {            
+            model.ImageUrl = model.ImageId > 0 ? _imageMasterService.GetImageById(model.Image.Id)?.ImageUrl : null;
+            }
 
-          model.Image.ImageUrl = model.ImageId > 0 ? _imageMasterService.GetImageById(model.Image.Id)?.ImageUrl : null;
-           
         }
 
         #endregion
