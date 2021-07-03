@@ -3,13 +3,12 @@ using CRM.Core;
 using CRM.Core.Domain.Users;
 
 using CRM.Services.Authentication;
-using DeVeeraApp.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DeVeeraApp.Controllers
 {
-  
+
     public class BaseController : Controller
     {
         #region fields
@@ -89,19 +88,23 @@ namespace DeVeeraApp.Controllers
             return RedirectToAction("AccessDenied", "Security");
         }
 
-        protected virtual IActionResult Logout()
+        public virtual IActionResult Logout()
         {
-
             //standard logout 
             _authenticationService.SignOut();
 
             //raise logged out event       
             var UserLogOut = new UserLoggedOutEvent(_workContext.CurrentUser);
 
-            _workContext.CurrentUser.UserGuid = new Guid();
+            if (_workContext.CurrentUser != null)
+            {
+                _workContext.CurrentUser.UserGuid = new Guid();
+            }
             //delete current cookie value
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".MarketPlaceCRM.User");
-            return RedirectToAction("Index", "Home");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete(".3HappyPals.User");
+
+            return RedirectToAction("Login", "User");
+         
 
         }
     }

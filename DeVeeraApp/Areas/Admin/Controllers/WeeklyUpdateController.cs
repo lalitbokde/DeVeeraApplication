@@ -12,11 +12,12 @@ using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 using Newtonsoft.Json;
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -184,6 +185,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.VideoId = model.VideoId;
                 val.Title = model.Title;
                 val.Subtitle = model.Subtitle;
+                val.IsRandom = model.IsRandom;
                 val.QuoteType = (CRM.Core.Domain.Quote)model.QuoteType;
                 val.LandingQuote = model.LandingQuote;
                 val.DescriptionImageId = model.DescriptionImageId;

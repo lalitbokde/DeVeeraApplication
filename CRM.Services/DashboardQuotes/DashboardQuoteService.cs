@@ -2,12 +2,11 @@
 using CRM.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace CRM.Services.DashboardQuotes
 {
-   public class DashboardQuoteService:IDashboardQuoteService
+    public class DashboardQuoteService:IDashboardQuoteService
     {
         #region fields
         private readonly IRepository<DashboardQuote> _dashboardQuoteRepository;

@@ -7,7 +7,6 @@ using CRM.Services.QuestionsAnswer;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
-using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.QuestionAnswer;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +15,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {

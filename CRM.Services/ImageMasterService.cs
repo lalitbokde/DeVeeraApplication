@@ -3,11 +3,13 @@ using CRM.Data.Interfaces;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+
 using System.Text;
 using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 
 using CRM.Core.ViewModels;
+
 
 namespace CRM.Services
 {
@@ -55,7 +57,7 @@ namespace CRM.Services
                 {
                     if(item.UpdatedOn.ToShortDateString() != DateTime.Now.ToShortDateString())
                     {
-                        item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key).Result;
+                        item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key);
                         item.UpdatedOn = DateTime.Now;
                         UpdateImage(item);
 
@@ -120,7 +122,7 @@ namespace CRM.Services
                 {
                     if(data.Key != null)
                     {
-                        data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                        data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key);
                         data.UpdatedOn = DateTime.Now;
                         UpdateImage(data);
 

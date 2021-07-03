@@ -1,12 +1,8 @@
-﻿using CRM.Core.Domain;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels
 {
@@ -30,9 +26,7 @@ namespace DeVeeraApp.ViewModels
         public string landingImageOneUrl { get; set; }
         public string landingImageTwoUrl { get; set; }
         public string landingImageThreeUrl { get; set; }
-
         public string DescriptionImageUrl { get; set; }
-
 
         public string Subtitle { get; set; }
 
@@ -41,7 +35,7 @@ namespace DeVeeraApp.ViewModels
         [Required]
         public Quote QuoteType { get; set; }
         public bool IsActive { get; set; } = false;
-
+        public bool IsRandom { get; set; }
         public int BannerImageId { get; set; }
         public int? QuoteId { get; set; }
         public int BodyImageId { get; set; }

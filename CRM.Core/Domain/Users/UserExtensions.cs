@@ -1,9 +1,4 @@
-﻿
-using CRM.Core.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 
 namespace CRM.Core.Domain.Users
 {
@@ -50,12 +45,6 @@ namespace CRM.Core.Domain.Users
         {
             return IsInUserRole(User, SystemUserRoleNames.Registered, onlyActiveUserRoles);
         }
-
-
-
-
-       
-
         #endregion
 
 

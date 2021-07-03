@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 
 namespace CRM.Services.Authentication
 {
@@ -58,13 +57,13 @@ namespace CRM.Services.Authentication
             var claims = new List<Claim>();
 
             if (!string.IsNullOrEmpty(User.Username))
-                claims.Add(new Claim(ClaimTypes.Name, User.Username, ClaimValueTypes.String, AutoDataImportCookieAuthenticationDefaults.ClaimsIssuer));
+                claims.Add(new Claim(ClaimTypes.Name, User.Username, ClaimValueTypes.String, CookieAuthenticationDefaults.ClaimsIssuer));
 
             if (!string.IsNullOrEmpty(User.Email))
-                claims.Add(new Claim(ClaimTypes.Email, User.Email, ClaimValueTypes.Email, AutoDataImportCookieAuthenticationDefaults.ClaimsIssuer));
+                claims.Add(new Claim(ClaimTypes.Email, User.Email, ClaimValueTypes.Email, CookieAuthenticationDefaults.ClaimsIssuer));
 
             //create principal for the current authentication scheme
-            var userIdentity = new ClaimsIdentity(claims, AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme);
+            var userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var userPrincipal = new ClaimsPrincipal(userIdentity);
 
             //set value indicating whether session is persisted and the time at which the authentication was issued
@@ -75,7 +74,7 @@ namespace CRM.Services.Authentication
             };
 
             //sign in
-            await _httpContextAccessor.HttpContext.SignInAsync(AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
+            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authenticationProperties);
 
             //cache authenticated User
             _cachedUser = User;
@@ -90,7 +89,7 @@ namespace CRM.Services.Authentication
             _cachedUser = null;
 
             //and sign out from the current authentication scheme
-            await _httpContextAccessor.HttpContext.SignOutAsync(AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme);
+            await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace CRM.Services.Authentication
                 return _cachedUser;
 
             //try to get authenticated user identity
-            var authenticateResult = _httpContextAccessor.HttpContext.AuthenticateAsync(AutoDataImportCookieAuthenticationDefaults.AuthenticationScheme).Result;
+            var authenticateResult = _httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme).Result;
             if (!authenticateResult.Succeeded)
                 return null;
 
@@ -112,7 +111,7 @@ namespace CRM.Services.Authentication
            
                 //try to get User by username
                 var usernameClaim = authenticateResult.Principal.FindFirst(claim => claim.Type == ClaimTypes.Name
-                    && claim.Issuer.Equals(AutoDataImportCookieAuthenticationDefaults.ClaimsIssuer, StringComparison.InvariantCultureIgnoreCase));
+                    && claim.Issuer.Equals(CookieAuthenticationDefaults.ClaimsIssuer, StringComparison.InvariantCultureIgnoreCase));
                 if (usernameClaim != null)
                     User = _UserService.GetUserByUsername(usernameClaim.Value);
            

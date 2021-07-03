@@ -11,7 +11,7 @@ var table = new Tabulator("#tabulator1",
             {
                 formatter: "responsiveCollapse",
             },
-            { title: "Level No", field: "LevelNo", headerSort: false, width: 50, formatter: "rownum" },
+            { title: "#", field: "LevelNo", headerSort: false, width: 50 /*formatter: "rownum" */},
             { title: "Title", field: "Title", sorter: "string", width: 250 },
             { title: "Subtitle", field: "Subtitle", sorter: "string", width: 250 },
             { title: "VideoName", field: "VideoName", sorter: "string", width: 240 },

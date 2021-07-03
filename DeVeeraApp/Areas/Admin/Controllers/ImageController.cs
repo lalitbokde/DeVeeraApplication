@@ -27,7 +27,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region fields
 
         private readonly IImageMasterService _imageMasterService;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly INotificationService _notificationService;
         private readonly IS3BucketService _s3BucketService;
         
@@ -40,7 +40,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region ctor
 
         public ImageController(IImageMasterService imageMasterService,
-                               IHostingEnvironment hostingEnvironment,
+                               IWebHostEnvironment hostingEnvironment,
                                INotificationService notificationService,
                                IS3BucketService s3BucketService,
                                IWorkContext workContext,
@@ -132,7 +132,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                     }
                 }
-                catch (Exception ex)
+                catch
                 { }
 
                 imageData.Name = model.Name;
@@ -157,7 +157,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
 
-        public async Task<bool> Uploadlocal(IFormFile file)
+        public bool Uploadlocal(IFormFile file)
         {
             var FileDic = "Files/Images";
 
@@ -201,7 +201,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 var data = _imageMasterService.GetImageById(Id);
 
-                data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key).Result;
+                data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key);
                 _imageMasterService.UpdateImage(data);
                 var model = data.ToModel<ImageModel>();
                 return View(model);

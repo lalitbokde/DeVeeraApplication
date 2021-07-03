@@ -1,11 +1,7 @@
-﻿using CRM.Core.ViewModels;
-using DeVeeraApp.Utils;
-using DeVeeraApp.ViewModels.Images;
-using System;
-using System.Collections.Generic;
+
+﻿using System;
+
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DeVeeraApp.ViewModels
 {

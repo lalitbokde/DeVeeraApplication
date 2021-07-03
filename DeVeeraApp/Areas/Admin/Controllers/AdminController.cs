@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -24,7 +23,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IUserService _UserService;
         private readonly IUserPasswordService _userPasswordService;
         private readonly INotificationService _notificationService;
-        private readonly IWorkContext _workContext;
+      
         #endregion
 
         #region ctor
@@ -181,7 +180,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 admin.Email = model.Email;
 
                 _UserService.UpdateUser(admin);
-                UserPassword password = null;
+              
                 admin.LastActivityDateUtc = DateTime.UtcNow;
                 var userRoleData = _UserService.GetAllUserRoles();
 

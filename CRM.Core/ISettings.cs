@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CRM.Core
+﻿namespace CRM.Core
 {
-   public interface ISettings
+    public interface ISettings
     {
     }
 }

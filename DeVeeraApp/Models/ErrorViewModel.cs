@@ -1,5 +1,3 @@
-using System;
-
 namespace DeVeeraApp.Models
 {
     public class ErrorViewModel

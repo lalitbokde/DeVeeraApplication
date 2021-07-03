@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-
-namespace CRM.Core.Domain.LayoutSetups
+﻿namespace CRM.Core.Domain.LayoutSetups
 {
-   public class LayoutSetup:BaseEntity
+    public class LayoutSetup:BaseEntity
     {
         //User Dashboard
 

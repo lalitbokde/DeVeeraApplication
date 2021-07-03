@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CRM.Core.Domain.Users;
 
 namespace CRM.Core.Domain.Security
 {

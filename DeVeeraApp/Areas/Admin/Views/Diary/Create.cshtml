@@ -8,21 +8,29 @@
 
 <div class="grid grid-cols-12 p-10">
     <div class="col-span-12 lg:col-span-12 xl:col-span-12 md:col-span-12 intro-y box p-5 mt-10">
-        <div class="grid grid-cols-12 ">
-            <div class="col-span-6">
-                <div class="intro-y flex items-center h-10">
-                    <h2 class="text-lg font-medium truncate ml-4">
-                        Recent Diaries
-                    </h2>
+        <form asp-controller="Diary" asp-action="Create" method="Post" class="search-form">
+            <div class="grid grid-cols-12 ">
+                <div class="col-span-4">
+                    <div class="intro-y flex items-center h-10">
+                        <h2 class="text-lg font-medium truncate ml-4">
+                            Recent Diaries
+                        </h2>
+                    </div>
                 </div>
-            </div>
-            <div class="col-span-6 text-right">
-                <form asp-controller="Diary" asp-action="Create" method="Post" class="search-form">
+                <div class="col-span-4 text-right">
+                    <div class="lg:flex intro-y">
+                        <div class="relative text-gray-700 dark:text-gray-300">
+                            <input id="date" asp-for="SearchByDate" type="text" class="form-control py-3 px-4 w-full lg:w-64 box pr-10 placeholder-theme-13" onchange="this.form.submit()" placeholder="Search">
+                            <a class=""><i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-4 text-right">
                     <label>Sort By :</label>
                     <select class="form-control w-48" asp-for="SortTypeId" asp-items="Html.GetEnumSelectList<SortType>()" onchange="this.form.submit()"></select>
-                </form>
+                </div>
             </div>
-            </div>
+        </form>
             <div class="intro-y col-span-12">
                 <!-- BEGIN: Recent Activities -->
                 <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">

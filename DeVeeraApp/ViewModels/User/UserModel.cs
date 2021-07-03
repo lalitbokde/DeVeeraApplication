@@ -1,17 +1,9 @@
 ﻿using CRM.Core.Domain.Users;
-using CRM.Core.ViewModels;
-using DeVeeraApp.Model.Common;
-using DeVeeraApp.ViewModels.User;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
-using DeVeeraApp.ViewModels.QuestionAnswer;
-using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.ViewModels.User
 {
@@ -19,13 +11,9 @@ namespace DeVeeraApp.ViewModels.User
     {
         public UserModel()
         {
-            this.AvailableUserRoles = new List<SelectListItem>();
-            this.AvailableCountries = new List<SelectListItem>();
-            this.AvailableStates = new List<SelectListItem>();
             this.AvailableUsers = new List<SelectListItem>();
             this.UserQuestionAnswerResponse = new List<UserQuestionAnswerResponse>();
             this.LandingPageModel = new LandingPageModel();
-            
         }
 
         public string Username { get; set; }
@@ -66,18 +54,16 @@ namespace DeVeeraApp.ViewModels.User
         public string Alias { get; set; }
 
         //billing info
-        public AddressModel UserAddress { get; set; }
+        
 
         public string ActiveTab { get; set; }
 
         public int UserRoleId { get; set; }
         public UserRoleModel UserRole { get; set; }
         public bool Active { get; set; }
-        public IList<SelectListItem> AvailableCountries { get; set; }
-        public IList<SelectListItem> AvailableStates { get; set; }
+     
         public IList<SelectListItem> AvailableUsers { get; set; }
-        public List<SelectListItem> AvailableUserRoles { get; set; }
-
+      
 
         /// <summary>
         /// Gets or sets the User GUID
@@ -103,22 +89,7 @@ namespace DeVeeraApp.ViewModels.User
         /// </summary>
         public string AdminComment { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether the User is tax exempt
-        /// </summary>
-        public bool IsTaxExempt { get; set; }
-
-        /// <summary>
-        /// Gets or sets the affiliate identifier
-        /// </summary>
-        public int AffiliateId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the vendor identifier with which this User is associated (maganer)
-        /// </summary>
-        public int VendorId { get; set; }
-
-
+      
 
         /// <summary>
         /// Gets or sets a value indicating whether the User is required to re-login

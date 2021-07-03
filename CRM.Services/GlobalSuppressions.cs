@@ -4,6 +4,8 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
+using System.Diagnostics.CodeAnalysis;
+
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.Common.ReportService.GetPalletBarcodeByPalletId(System.Int32)~CRM.Core.ViewModels.Pallet.GetPalletByReceivingLogVM")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.Common.ReportService.DeletePalletById(System.Int32)~System.Boolean")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.Common.ReportService.UpdatePalletBarcodeCommittedQuantity(System.Nullable{System.Int32})")]
@@ -11,4 +13,4 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.WarehouseTransaction.WRTransactionSPService.DeleteShippingRequest(System.Int32)~System.Int32")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.WarehouseTransaction.WRTransactionSPService.DeleteTempPickupProductBins(System.Int32,System.Boolean)~System.Int32")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.Common.ReportService.GetBalanceInventoryReport(System.DateTime)~CRM.Core.ViewModels.Reports.BalanceInventoryReportPaginationVM")]
-
+[assembly: SuppressMessage("Security", "EF1000:Possible SQL injection vulnerability.", Justification = "<Pending>", Scope = "member", Target = "~M:CRM.Services.DiaryMasterService.GetAllDiaries(System.Int32,System.Int32,System.Boolean,System.String,System.String,System.Int32)~System.Collections.Generic.List{CRM.Core.ViewModels.DiaryViewModel}")]

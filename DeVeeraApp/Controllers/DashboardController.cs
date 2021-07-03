@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using DeVeeraApp.Models;
-using DeVeeraApp.Filters;
-using CRM.Core.Domain.Users;
-using DeVeeraApp.ViewModels.User;
 using DeVeeraApp.Utils;
 using CRM.Services.Users;
 using CRM.Services;
 using DeVeeraApp.ViewModels;
-using CRM.Core.Domain;
 using CRM.Services.DashboardQuotes;
 using CRM.Core;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +17,7 @@ using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.Controllers
 {
-   
+
     public class DashboardController : BaseController
     {
 
@@ -112,30 +103,16 @@ namespace DeVeeraApp.Controllers
             model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
 
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
-
-            //int lastlevel = data.LastOrDefault().Id;
-            var lastLevelData = data.LastOrDefault();
-            int lastlevel = lastLevelData != null ? lastLevelData.Id : 0;
+           
             if (data.Count() != 0)
-            {
-                if (!(_workContext.CurrentUser.UserRole.Name == "Admin"))
-                {
-                    var activeLevel = data.ToList();
-
-                    if (activeLevel.Count() != 0)
-                    {
+            {                
                         var LevelOne = data.FirstOrDefault();
 
-                        var lastLevelForNewUser = data.Where(a => a.Id == LevelOne.Id).FirstOrDefault();
-
-                        var lastLevelForOldUser = data.Where(a => a.Id == currentUser.LastLevel).FirstOrDefault();
-
-
-                        lastlevel = (currentUser.LastLevel == null || currentUser.LastLevel == 0) ? lastlevel = lastLevelForNewUser.Id : lastlevel = lastLevelForOldUser.Id;
+                        var lastLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
 
                         foreach (var item in data)
                         {
-                            if (item.Id <= lastlevel)
+                            if (item.LevelNo <= lastLevel)
                             {
                                 
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
@@ -185,7 +162,7 @@ namespace DeVeeraApp.Controllers
                                     }
                                 }
                                 
-                                if (item.Id == lastlevel)
+                                if (item.LevelNo == lastLevel)
                                 {
                                     break;
                                 }
@@ -193,22 +170,8 @@ namespace DeVeeraApp.Controllers
                             }
 
                         }
-
-                    }
-
-
-
-                }
-                else
-                {
-                    foreach (var item in data)
-                    {
-                        model.VideoModelList.Add(item.ToModel<LevelModel>());
-
-                    }
-                }
-
-
+              
+                
                 return View(model);
             }
             return View();

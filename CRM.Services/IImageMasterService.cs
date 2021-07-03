@@ -1,8 +1,9 @@
 ﻿using CRM.Core.Domain;
+
 using CRM.Core.ViewModels;
 using System;
+
 using System.Collections.Generic;
-using System.Text;
 
 
 
