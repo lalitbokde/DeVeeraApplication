@@ -90,11 +90,10 @@ namespace CRM.Services
                         {
                             item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key);
                             item.UpdatedOn = DateTime.Now;
-                            var img = new Image
-                            {
-                                ImageUrl = item.ImageUrl,
-                                UpdatedOn = item.UpdatedOn
-                            };
+                            var img = GetImageById(item.Id);
+                            img.ImageUrl = item.ImageUrl;
+                            img.UpdatedOn = item.UpdatedOn;
+                           
                             UpdateImage(img);
 
                         }
@@ -104,7 +103,7 @@ namespace CRM.Services
             }
             catch (Exception ex)
             {
-                return null;
+                return new List<ImageViewModel>();
             }
 
 
