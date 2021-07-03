@@ -11,6 +11,7 @@ using DeVeeraApp.ViewModels.LayoutSetups;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<LayoutSetup, LayoutSetupModel>(model);
-
+                ViewBag.LayOut = JsonConvert.SerializeObject(model);
+                return View(model);
             }
             return View(model);
         }

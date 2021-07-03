@@ -1,125 +1,86 @@
-﻿@model List<DeVeeraApp.ViewModels.ImageModel>
+﻿@model DeVeeraApp.ViewModels.Images.ImageListModel
+@using DeVeeraApp.Areas.Admin.ViewComponents
 
 @{
     ViewData["Title"] = "List";
 }
 
-@if (Model.Count != 0)
+@if (Model.ImageList.Results.Count != 0)
 {
-<div class="intro-y  py-5 sm:py-5">
+    <div class="intro-y  py-5 sm:py-5">
 
-    <div class="px-5 ">
-        <div class="font-medium text-center text-lg"> Image List</div>
-        <div class="text-gray-600 text-center mt-2">Below are the list of Images.</div>
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg"> Image List</div>
+            <div class="text-gray-600 text-center mt-2">Below are the list of Images.</div>
 
-    </div>
-    <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">
-        <div class="intro-y col-span-12 mt-6">
-            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
-                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
-                    <div class="intro-y col-span-12 pr-5 text-right">
-                        <a asp-controller="Image" asp-action="Create" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Add Image</a>
-
-                    </div>
-
-
-                </div>
-            </div>
         </div>
+        <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">
+            <div class="intro-y col-span-12 mt-6">
+                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
+                    <div class="grid grid-cols-12 gap-4 gap-y-5 ">
+                        <div class="intro-y col-span-12 pr-5 text-right">
+                            <a asp-controller="Image" asp-action="Create" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Add Image</a>
 
-        <div class="mt-6">
-
-            <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
-                @foreach (var item in Model)
-                {
-
-                    <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2">
-                        <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
-                            <div>
-                                <img class="w-64 h-40" src="@(item.ImageUrl = string.IsNullOrWhiteSpace(item.ImageUrl)? "/Images/No_Image_Available.jpg" : item.ImageUrl )" data-action="zoom" />
-                            </div>
-                            <a href="" class="block font-medium mt-4 text-center truncate">@item.Name</a>
-                            <div class="text-gray-600 text-xs text-center mt-0.5">@item.Key</div>
-                            <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
-                                <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-vertical" class="w-5 h-5 text-gray-600"></i> </a>
-                                <div class="dropdown-menu w-40">
-                                    <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                                        <a asp-controller="Image" asp-action="Edit" asp-route-Id="@item.Id" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><i data-feather="edit" class="w-4 h-4 mr-2"></i>Edit</a>
-                                        <a onclick="ShowDeleteConfirmation('PostDeleteImage(@item.Id)')" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-2"></i> Delete </a>
-                                        <a asp-controller="Image" asp-action="ImagePreview" asp-route-Id="@item.Id" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><i data-feather="image" class="w-4 h-4 mr-2"></i>Preview</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
 
                     </div>
-                }
+                </div>
             </div>
 
+            <div class="mt-6">
 
-        </div>
-        @*<div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+                <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
+                    @foreach (var item in Model.ImageList.Results)
+                    {
 
-                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                    <div class="intro-y box p-5 col-span-12">
-                        <div class="intro-y ">
-
-                            <div class="p-5" id="basic-table">
-                                <div class="preview">
-                                    <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Id</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Images</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Show</th>
-
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{
-                                                    int i = 1;
-                                                    foreach (var item in Model)
-                                                    {
-                                                        <tr>
-                                                            <td class="border-b dark:border-dark-5">@i</td>
-
-                                                            <td class="border-b dark:border-dark-5">@item.Name</td>
-                                                            <td class="border-b dark:border-dark-5"><a target="_blank" asp-controller="Level" asp-action="Play" asp-route-url="@item.ImageUrl"><i data-feather="image"></i></a></td>
-
-                                                            <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Image" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                            <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteImage(@item.Id)')"><i data-feather="trash-2"></i></a></td>
-                                                        </tr>
-                                                        i++;
-                                                    }
-
-                                                }
-                                            </tbody>
-                                        </table>
+                        <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2">
+                            <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
+                                <div>
+                                    <img class="w-64 h-40" src="@(item.ImageUrl = string.IsNullOrWhiteSpace(item.ImageUrl)? "/Images/No_Image_Available.jpg" : item.ImageUrl )" data-action="zoom" />
+                                </div>
+                                <a href="" class="block font-medium mt-4 text-center truncate">@item.Name</a>
+                                <div class="text-gray-600 text-xs text-center mt-0.5">@item.Key</div>
+                                <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
+                                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-vertical" class="w-5 h-5 text-gray-600"></i> </a>
+                                    <div class="dropdown-menu w-40">
+                                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                                            <a asp-controller="Image" asp-action="Edit" asp-route-Id="@item.Id" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><i data-feather="edit" class="w-4 h-4 mr-2"></i>Edit</a>
+                                            <a onclick="ShowDeleteConfirmation('PostDeleteImage(@item.Id)')" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-2"></i> Delete </a>
+                                            <a asp-controller="Image" asp-action="ImagePreview" asp-route-Id="@item.Id" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><i data-feather="image" class="w-4 h-4 mr-2"></i>Preview</a>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
+
+
                         </div>
 
-                    </div>
-
+                    }
                 </div>
 
-            </div>*@
+
+            </div>
+         
+        </div>
+
     </div>
-</div>
-    }
-    else
-    {
+    <div class="mt-4">
+
+        <form asp-controller="Image" asp-action="List" method="get">
+            @(await Component.InvokeAsync<PaginationViewComponent>(Model.ImageList));
+        </form>
+
+    </div>
+}
+
+else
+{
     <div class="px-5 ">
         <div class="font-medium text-center text-lg"> There is no data to show.</div>
 
     </div>
-    }
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/dist/js/CustomJs/Delete.js"></script>
+}
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/dist/js/CustomJs/Delete.js"></script>
 

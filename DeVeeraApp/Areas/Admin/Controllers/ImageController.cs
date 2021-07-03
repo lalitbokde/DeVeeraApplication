@@ -1,5 +1,6 @@
 ﻿using CRM.Core;
 using CRM.Core.Domain;
+using CRM.Core.ViewModels;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Message;
@@ -29,6 +30,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly INotificationService _notificationService;
         private readonly IS3BucketService _s3BucketService;
+        
+
 
         #endregion
 
@@ -65,6 +68,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Create()
         {
             AddBreadcrumbs("Image", "Create", "/Admin/Image/List", "/Admin/Image/Create");
+          
             return View();
         }
 
@@ -140,24 +144,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult List()
+        public IActionResult List(DataSourceRequest command)
         {
             AddBreadcrumbs("Image", "List", "/Admin/Image/List", "/Admin/Image/List");
-            var imageList = _imageMasterService.GetAllImages();
-            var model = new List<ImageModel>();
+          
+            ImageListModel model = new ImageListModel();
+            command.PageSize = (command.PageSize == 0) ? 12 : command.PageSize;
+            var list = _imageMasterService.GetAllImagesList(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "");
+            model.ImageList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalImage) : new PagedResult<ImageViewModel>();
 
-            if(imageList.Count > 0)
-            {
-                foreach(var item in imageList)
-                {
-                    var data = new ImageModel();
-                    data.ImageUrl = item.ImageUrl;
-                    data.Name = item.Name;
-                    data.Id = item.Id;
-                    model.Add(data);
-                }
-               
-            }
             return View(model);
         }
 

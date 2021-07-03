@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -198,8 +199,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 model = videoList.ToList().ToModelList<Video, VideoModel>(model);
 
-
-
+               ViewBag.Video = JsonConvert.SerializeObject(model);
+                return View(model);
             }
             return View(model);
         }

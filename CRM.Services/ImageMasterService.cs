@@ -4,6 +4,10 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using CRM.Data;
+using Microsoft.EntityFrameworkCore;
+
+using CRM.Core.ViewModels;
 
 namespace CRM.Services
 {
@@ -13,16 +17,19 @@ namespace CRM.Services
 
         private readonly IRepository<Image> _imageRepository;
         private readonly IS3BucketService _s3BucketService;
+        protected readonly dbContextCRM _dbContext;
 
         #endregion
 
         #region ctor
 
         public ImageMasterService(IRepository<Image> imageRepository,
-                                  IS3BucketService s3BucketService)
+                                  IS3BucketService s3BucketService,
+                                  dbContextCRM dbContext)
         {
             _imageRepository = imageRepository;
             _s3BucketService = s3BucketService;
+            _dbContext = dbContext;
         }
 
         #endregion
@@ -56,6 +63,49 @@ namespace CRM.Services
                 }
             }
             return images;
+        }
+
+        public List<ImageViewModel> GetAllImagesList(
+            int page_size = 0, 
+            int page_num = 0,
+            bool GetAll = false,
+            string SortBy = "")
+        {
+            try
+            {
+
+                string query = @"exec [sp_GetAllImages] @page_size = '" + ((page_size == 0) ? 12 : page_size) + "', " +
+                                "@page_num  = '" + ((page_num == 0) ? 1 : page_num) + "', " +
+                                "@sortBy ='" + SortBy + "' , " +
+                                 "@GetAll ='" + GetAll + "'";
+                var data = _dbContext.ImageViewModel.FromSql(query).ToList();
+                var images= (data.FirstOrDefault() != null) ? data : new List<ImageViewModel>();
+                if (images.Count > 0)
+                {
+                    foreach (var item in images)
+                    {
+                        if (item.UpdatedOn.ToShortDateString() != DateTime.Now.ToShortDateString())
+                        {
+                            item.ImageUrl = _s3BucketService.GetPreSignedURL(item.Key).Result;
+                            item.UpdatedOn = DateTime.Now;
+                            var img = new Image
+                            {
+                                ImageUrl = item.ImageUrl,
+                                UpdatedOn = item.UpdatedOn
+                            };
+                            UpdateImage(img);
+
+                        }
+                    }
+                }
+                return images;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+
         }
 
         public virtual Image GetImageById(int imageId)
@@ -118,6 +168,8 @@ namespace CRM.Services
 
             _imageRepository.Update(model);
         }
+
+       
 
         #endregion
     }

@@ -191,7 +191,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 ViewBag.TableData = JsonConvert.SerializeObject(model);
                 return View(model);
             }
-            return RedirectToAction("Index", "Home");
+            return View(model);
 
         }
 

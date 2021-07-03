@@ -12,6 +12,7 @@ using DeVeeraApp.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -219,10 +220,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 model = data.ToList().ToModelList<WeeklyUpdate, WeeklyUpdateModel>(model);
 
-
+                ViewBag.TableData = JsonConvert.SerializeObject(model);
+                return View(model);
             }
             return View(model);
         }
+
+       
 
         public IActionResult Delete(int id)
         {

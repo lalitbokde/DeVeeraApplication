@@ -12,6 +12,7 @@ using DeVeeraApp.ViewModels.Emotions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,6 +108,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (List.Count != 0)
             {
                 model = List.ToList().ToModelList<Emotion, EmotionModel>(model);
+
+                ViewBag.Emotion = JsonConvert.SerializeObject(model);
+                return View(model);
             }
             return View(model);
         }
