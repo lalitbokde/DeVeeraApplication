@@ -14,15 +14,9 @@ namespace CRM.Core.ViewModels
         public int TotalRecords { get; set; }
         public string Key { get; set; }
 
-        public string FileName { get; set; }
+        //public string FileName { get; set; }
         public bool IsNew { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
-
-        [NotMapped]
-        public string Link_2_bannerImage { get; set; }
-        [NotMapped]
-        public string Link_2_Title { get; set; }
-
     }
 }
