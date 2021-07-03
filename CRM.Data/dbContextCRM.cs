@@ -12,6 +12,7 @@ using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.LayoutSetups;
 using CRM.Core.ViewModels;
 
+
 namespace CRM.Data
 {
     public class dbContextCRM : DbContext
@@ -80,6 +81,7 @@ namespace CRM.Data
         public DbSet<LayoutSetup> LayoutSetup { get; set; }
 
         public virtual DbQuery<DiaryViewModel> DiaryViewModel { get; set; }
+        public virtual DbQuery<ImageViewModel> ImageViewModel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

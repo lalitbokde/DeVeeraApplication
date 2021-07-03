@@ -4,6 +4,7 @@ var table = new Tabulator("#tabulator1",
         index: "id",
         layout: "fitColumns",
         responsiveLayout: "collapse",
+        pagination: "local",
         paginationSize: 10,
         paginationSizeSelector: [10, 20, 30, 40],
         columns: [
