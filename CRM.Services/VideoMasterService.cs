@@ -15,17 +15,17 @@ namespace CRM.Services
         private readonly IS3BucketService _s3BucketService;
         protected readonly dbContextCRM _dbContext;
 
+
+
+        #endregion
         public VideoMasterService(IRepository<Video> videoRepository,
-                                  IS3BucketService s3BucketService,
-                                  dbContextCRM dbContext)
+                                 IS3BucketService s3BucketService,
+                                 dbContextCRM dbContext)
         {
             _videoRepository = videoRepository;
             _s3BucketService = s3BucketService;
             _dbContext = dbContext;
         }
-
-        #endregion
-
 
         #region ctor
 
@@ -127,7 +127,6 @@ namespace CRM.Services
                                 "@sortBy ='" + SortBy + "' , " +
                                 "@GetAll ='" + GetAll + "'";
 
-                
 
                 var data = _dbContext.VideoViewModel.FromSql(query).ToList();
                 return (data.FirstOrDefault() != null) ? data : new List<VideoViewModel>();

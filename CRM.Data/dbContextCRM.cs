@@ -80,6 +80,7 @@ namespace CRM.Data
         public DbSet<LayoutSetup> LayoutSetup { get; set; }
 
         public virtual DbQuery<DiaryViewModel> DiaryViewModel { get; set; }
+        public virtual DbQuery<VideoViewModel> VideoViewModel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
