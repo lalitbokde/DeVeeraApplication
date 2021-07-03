@@ -291,41 +291,16 @@ namespace DeVeeraApp.Controllers
         public IActionResult NewVideos(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "NewVideos", "/Home/NewVideos", "/Home/NewVideos");
-
-            //var model = new List<VideoModel>();
-
-            //var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
-            //var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            //if (newVideoList.Count != 0)
-            //{
-            //    foreach (var item in newVideoList)
-            //    {
-            //        model.Add(item.ToModel<VideoModel>());
-            //    }
-            //    model[0].Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
-            //    model[0].Link_2_Title = data.Link_2;
-            //}
-
             VideoListModel model = new VideoListModel();
-            
-
-            var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            if (newVideoList.Count != 0)
-            {
-                foreach (var item in newVideoList)
-                {
-                    model.Video.Add(item.ToModel<VideoModel>());
-                }
-                model.Video[0].Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
-                model.Video[0].Link_2_Title = data.Link_2;
-            }
-
-            command.PageSize = (command.PageSize == 0) ? 5 : command.PageSize;
+          
+            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
             var list = _videoMasterService.GetAllVideoSp(page_size: command.PageSize,page_num: command.Page,  GetAll: command.GetAll, SortBy: "");
-            model.Video[0].VideoListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<VideoViewModel>();
-
-            return View(model.Video);
+            model.VideoListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<VideoViewModel>();
+            model.Video.Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
+            model.Video.Link_2_Title = data.Link_2;
+           
+            return View(model);
         }    
       
         public IActionResult FeelGoodStories()
