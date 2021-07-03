@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    [Migration("20210630153044_QuickLinks")]
-    partial class QuickLinks
+    [Migration("20210703110232_user-allow")]
+    partial class userallow
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -491,6 +491,8 @@ namespace CRM.Data.Migrations
                     b.Property<string>("ImageURL");
 
                     b.Property<int?>("IncomeAboveOrBelow80K");
+
+                    b.Property<bool>("IsAllow");
 
                     b.Property<bool>("IsSystemAccount");
 

@@ -490,6 +490,8 @@ namespace CRM.Data.Migrations
 
                     b.Property<int?>("IncomeAboveOrBelow80K");
 
+                    b.Property<bool>("IsAllow");
+
                     b.Property<bool>("IsSystemAccount");
 
                     b.Property<DateTime>("LastActivityDateUtc");
