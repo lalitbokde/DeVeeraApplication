@@ -258,16 +258,15 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Register(UserModel model)
         {
-            ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
+            //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
             if (ModelState.IsValid)
             {
-         
+
                 //validate unique user
                 if (_UserService.GetUserByEmail(model.Email) == null)
                 {
                     //fill entity from model
                     var user = model.ToEntity<User>();
-                    UserPassword password = null;
                     user.UserGuid = Guid.NewGuid();
                     user.CreatedOnUtc = DateTime.UtcNow;
                     user.LastActivityDateUtc = DateTime.UtcNow;
@@ -281,7 +280,7 @@ namespace DeVeeraApp.Controllers
                     if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
                     {
 
-                        password = new UserPassword
+                        UserPassword password = new UserPassword
                         {
                             UserId = user.Id,
                             Password = model.UserPassword.Password,
@@ -394,9 +393,11 @@ namespace DeVeeraApp.Controllers
 
                                 if (questionDetails != null && questionDetails.ModuleId != 0)
                                 {
-                                    var data = new UserQuestionAnswerResponse();
-                                    data.Question = questionDetails.Question;
-                                    data.ModuleId = questionDetails.ModuleId;
+                                    var data = new UserQuestionAnswerResponse
+                                    {
+                                        Question = questionDetails.Question,
+                                        ModuleId = questionDetails.ModuleId
+                                    };
                                     var moduleDetail = _moduleService.GetModuleById(questionDetails.ModuleId);
                                     if (moduleDetail != null)
                                     {
@@ -546,11 +547,13 @@ namespace DeVeeraApp.Controllers
                     currentUser.TwoFactorAuthentication = true;
                     _UserService.UpdateUser(currentUser);
 
-                    var diaryPasscode = new DiaryPasscode();
-                    diaryPasscode.Password = model.OTP;
-                    diaryPasscode.CreatedOn = DateTime.UtcNow;
-                    diaryPasscode.DiaryLoginDate = DateTime.UtcNow;
-                    diaryPasscode.UserId = currentUser.Id;
+                    var diaryPasscode = new DiaryPasscode
+                    {
+                        Password = model.OTP,
+                        CreatedOn = DateTime.UtcNow,
+                        DiaryLoginDate = DateTime.UtcNow,
+                        UserId = currentUser.Id
+                    };
                     _diaryPasscodeService.InsertDiaryPasscode(diaryPasscode);
 
                     return RedirectToAction("ChangePasscode","Diary");

@@ -153,6 +153,22 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var list = _imageMasterService.GetAllImagesList(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "");
             model.ImageList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalImage) : new PagedResult<ImageViewModel>();
 
+
+            if(imageList.Count > 0)
+            {
+                foreach(var item in imageList)
+                {
+                    var data = new ImageModel
+                    {
+                        ImageUrl = item.ImageUrl,
+                        Name = item.Name,
+                        Id = item.Id
+                    };
+                    model.Add(data);
+                }
+               
+            }
+
             return View(model);
         }
 
@@ -183,7 +199,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             string val;
 
             var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files//Images", fileName);
-            var memory = new MemoryStream();
+            _ = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 val = await _s3BucketService.UploadFileAsync(stream, path, fileName);

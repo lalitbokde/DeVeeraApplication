@@ -93,7 +93,10 @@ namespace DeVeeraApp.Controllers
         public IActionResult Create(LocalStringResourceModel model)
         {
             try
-            {
+            {                
+                ModelState.Remove("Language.Name");
+                ModelState.Remove("Language.LanguageCulture");
+                ModelState.Remove("Language.UniqueSeoCode");
                 if (ModelState.IsValid)
                 {
                     if(_localStringResourcesServices.GetAllLocalStringResources().Where(r => r.LanguageId == model.LanguageId && r.ResourceName == model.ResourceName).FirstOrDefault() == null)
@@ -149,6 +152,9 @@ namespace DeVeeraApp.Controllers
         {
             try
             {
+                ModelState.Remove("Language.Name");
+                ModelState.Remove("Language.LanguageCulture");
+                ModelState.Remove("Language.UniqueSeoCode");
                 if (ModelState.IsValid)
                 {
                     if (_localStringResourcesServices.GetAllLocalStringResources().Where(r => r.LanguageId == model.LanguageId && r.ResourceName == model.ResourceName).FirstOrDefault() == null)

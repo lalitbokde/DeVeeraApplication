@@ -15,7 +15,8 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 
 using Microsoft.AspNetCore.Localization;
-
+using CRM.Services.Layoutsetup;
+using CRM.Core.ViewModels;
 
 namespace DeVeeraApp.Controllers
 {
@@ -36,6 +37,7 @@ namespace DeVeeraApp.Controllers
         private readonly IVideoMasterService _videoMasterService;
         private readonly IS3BucketService _s3BucketService;
         private readonly ILanguageService _languageService;
+        private readonly ILayoutSetupService _LayoutSetupService;
 
         #endregion
 
@@ -54,7 +56,8 @@ namespace DeVeeraApp.Controllers
                               IVideoMasterService videoMasterService,
                               IS3BucketService s3BucketService,
                               ILanguageService languageService,
-                              IUserService userService
+                              IUserService userService,
+                               ILayoutSetupService layoutSetupService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -71,6 +74,7 @@ namespace DeVeeraApp.Controllers
             _videoMasterService = videoMasterService;
             _s3BucketService = s3BucketService;
             _languageService = languageService;
+            _LayoutSetupService = layoutSetupService;
         }
 
         #endregion
@@ -268,32 +272,61 @@ namespace DeVeeraApp.Controllers
             var model = new List<DashboardQuoteModel>();
 
             var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+           
+
             if (WeeklyQuoteData.Count != 0)
             {
                 foreach (var item in WeeklyQuoteData)
                 {
                     model.Add(item.ToModel<DashboardQuoteModel>());
                 }
+                model[0].layoutSetup.Link_1_BannerImageUrl = data?.Link_1_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_1_BannerImageId)?.ImageUrl : null;
+                model[0].layoutSetup.Link_1 = data.Link_1;
             }
+            
             return View(model);
         }
       
-        public IActionResult NewVideos()
+        public IActionResult NewVideos(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "NewVideos", "/Home/NewVideos", "/Home/NewVideos");
-            var model = new List<VideoModel>();
+
+            //var model = new List<VideoModel>();
+
+            //var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
+            //var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            //if (newVideoList.Count != 0)
+            //{
+            //    foreach (var item in newVideoList)
+            //    {
+            //        model.Add(item.ToModel<VideoModel>());
+            //    }
+            //    model[0].Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
+            //    model[0].Link_2_Title = data.Link_2;
+            //}
+
+            VideoListModel model = new VideoListModel();
+            
 
             var newVideoList = _videoMasterService.GetAllVideos().Where(v => v.IsNew == true).ToList();
-
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
             if (newVideoList.Count != 0)
             {
                 foreach (var item in newVideoList)
                 {
-                    model.Add(item.ToModel<VideoModel>());
+                    model.Video.Add(item.ToModel<VideoModel>());
                 }
+                model.Video[0].Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
+                model.Video[0].Link_2_Title = data.Link_2;
             }
-            return View(model);
-        }
+
+            command.PageSize = (command.PageSize == 0) ? 5 : command.PageSize;
+            var list = _videoMasterService.GetAllVideoSp(page_size: command.PageSize,page_num: command.Page,  GetAll: command.GetAll, SortBy: "");
+            model.Video[0].VideoListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<VideoViewModel>();
+
+            return View(model.Video);
+        }    
       
         public IActionResult FeelGoodStories()
         {
@@ -301,6 +334,7 @@ namespace DeVeeraApp.Controllers
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
             var model = new List<FeelGoodStoryModel>();
+            var layoutdata = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
 
             if (data.Count() != 0)
             {
@@ -323,6 +357,9 @@ namespace DeVeeraApp.Controllers
 
                     model.Add(item.ToModel<FeelGoodStoryModel>());
                 }
+                model[0].Link_3_bannerImage = layoutdata?.Link_3_BannerImageId > 0 ? _imageMasterService.GetImageById(layoutdata.Link_3_BannerImageId)?.ImageUrl : null;
+                model[0].Link_3_Title= layoutdata.Link_3; 
+
             }
             return View(model);
         }

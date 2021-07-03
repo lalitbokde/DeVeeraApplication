@@ -99,8 +99,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Create(string pagetype)
         {
             AddBreadcrumbs("Questionnaire", "Create", "/Admin/QuestionAnswer/List", "/Admin/QuestionAnswer/Create");
-            QuestionModel model = new QuestionModel();
-            model.Questionarrie = pagetype;
+            QuestionModel model = new QuestionModel
+            {
+                Questionarrie = pagetype
+            };
             ViewBag.pagetype = pagetype;
             PrepareDropdowns(model);
             return View(model);
@@ -137,12 +139,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (id != 0)
             {
-                QuestionModel model = new QuestionModel();
+                _ = new QuestionModel();
                 var data = _QuestionAnswerService.GetQuestionById(id);
 
                 if (data != null)
                 {
-                    model = data.ToModel<QuestionModel>();
+                    QuestionModel model = data.ToModel<QuestionModel>();
                     model.LevelId = data.Module.LevelId;
                     PrepareDropdowns(model);
                     return View(model);

@@ -21,11 +21,10 @@ namespace CRM.Core.Infrastructure
                     if (val == e.ToInt32(CultureInfo.InvariantCulture))
                     {
                         var memInfo = type.GetMember(type.GetEnumName(val));
-                        var descriptionAttribute = memInfo[0]
-                            .GetCustomAttributes(typeof(DescriptionAttribute), false)
-                            .FirstOrDefault() as DescriptionAttribute;
 
-                        if (descriptionAttribute != null)
+                        if (memInfo[0]
+                            .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                            .FirstOrDefault() is DescriptionAttribute descriptionAttribute)
                         {
                             return descriptionAttribute.Description;
                         }

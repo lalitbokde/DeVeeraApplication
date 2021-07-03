@@ -30,6 +30,7 @@
                 <div class="form-group">
                     <label>@T("Username")</label>
                     <input type="email" asp-for="Email" class="form-control" placeholder="@T("Username")">
+                    <span asp-validation-for="Email" class="text-theme-6 mt-2"></span>
                 </div>
 
               
@@ -37,6 +38,7 @@
                 <div class="form-group">
                     <label>@T("Password")</label>
                     <input type="password" asp-for="Password" class="form-control" placeholder="@T("Password")">
+                    <span asp-validation-for="Password" class="text-theme-6 mt-2"></span>
                 </div>
 
                 <div class="row align-items-center">

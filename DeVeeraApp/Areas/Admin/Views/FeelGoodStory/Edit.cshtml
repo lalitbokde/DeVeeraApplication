@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<form asp-controller="FeelGoodStory" asp-action="Edit" method="post"  id="feelgoodstory" onsubmit="ShowLoader('feelgoodstory');">
+<form asp-controller="FeelGoodStory" asp-action="Edit" method="post" id="feelgoodstory" onsubmit="ShowLoader('feelgoodstory');">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -37,13 +37,34 @@
                         <span asp-validation-for="Author" class="text-theme-6 mt-2"></span>
 
                     </div>
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Image</label>
+                    @*<div class="mt-5">
+                            <label class="form-label text-theme-21 star">Image</label>
 
-                        <select asp-for="ImageId" asp-items="@Model.AvailableImages" data-search="true" class="tail-select w-full"></select>
-                        <span asp-validation-for="ImageId" class="text-theme-6 mt-2"></span>
+                            <select asp-for="ImageId" asp-items="@Model.AvailableImages" data-search="true" class="tail-select w-full"></select>
+                            <span asp-validation-for="ImageId" class="text-theme-6 mt-2"></span>
 
-                    </div>
+                        </div>*@
+
+                    @{
+                        var storyheaderImage = Model.Image.ImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Image.ImageUrl;
+
+                        <div class="mt-5">
+                            <label class="form-label text-theme-21">Image</label>
+                            <div class="grid grid-cols-12 gap-4  pt-5 border-t border-theme-31">
+                                <a onclick="OpenImageSelectionModal('ImageId','ImageIdEditUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                    <div class="box rounded-md p-3 relative zoom-in">
+                                        <div class="flex-none pos-image relative block">
+                                            <div class="pos-image__preview">
+                                                <input asp-for="ImageId" hidden>
+                                                <img id="ImageIdEditUrl" alt="" src="@storyheaderImage" style="Width:100%;height:100%">
+                                            </div>
+                                        </div>
+                                        <div class="block font-medium text-center truncate mt-3">Header</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
                     <div class="mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 ">Story</label>
                     </div>
@@ -67,7 +88,7 @@
                             </div>
                             <div class="intro-y  col-span-6 ml-auto">
 
-                                <button type="submit" class="btn btn-primary w-24" >Save</button>
+                                <button type="submit" class="btn btn-primary w-24">Save</button>
                             </div>
                         </div>
                     </div>
@@ -84,3 +105,4 @@
 </form>
 
 
+@await Component.InvokeAsync("ImageSelection")

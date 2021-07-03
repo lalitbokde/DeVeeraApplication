@@ -73,6 +73,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             model.BannerTwoImageUrl = model.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(model.BannerTwoImageId)?.ImageUrl : null;
             model.DiaryHeaderImageUrl = model.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(model.DiaryHeaderImageId)?.ImageUrl : null;
             model.CompleteRegistrationHeaderImgUrl = model.CompleteRegistrationHeaderImgId > 0 ? _imageMasterService.GetImageById(model.CompleteRegistrationHeaderImgId)?.ImageUrl : null;
+            model.Link_1_BannerImageUrl= model.Link_1_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_1_BannerImageId)?.ImageUrl : null;
+            model.Link_2_BannerImageUrl = model.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_2_BannerImageId)?.ImageUrl : null;
+            model.Link_3_BannerImageUrl = model.Link_3_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_3_BannerImageId)?.ImageUrl : null;
         }
 
         #endregion
@@ -164,6 +167,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.DiaryHeaderImageId = model.DiaryHeaderImageId;
                 data.ReasonToSubmit = model.ReasonToSubmit;
                 data.CompleteRegistrationHeaderImgId = model.CompleteRegistrationHeaderImgId;
+                data.Link_1_BannerImageId = model.Link_1_BannerImageId;
+                data.Link_2_BannerImageId = model.Link_2_BannerImageId;
+                data.Link_3_BannerImageId = model.Link_3_BannerImageId;
+                data.Link_1 = model.Link_1;
+                data.Link_2 = model.Link_2;
+                data.Link_3 = model.Link_3;
+
 
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _notificationService.SuccessNotification("Layout Setup Updated Successfully.");

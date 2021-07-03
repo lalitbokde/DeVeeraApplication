@@ -6,7 +6,8 @@ namespace DeVeeraApp.ViewModels.Admin
 {
     public class CreateAdminModel : BaseEntityModel
     {
-        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage ="Please enter valid username")]
         public string Email { get; set; }
         [Required]
         public UserPassword UserPassword { get; set; }

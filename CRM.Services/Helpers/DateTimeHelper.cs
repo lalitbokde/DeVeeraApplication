@@ -197,11 +197,9 @@ namespace CRM.Services.Helpers
             {
                 if (!_dateTimeSettings.AllowUsersToSetTimeZone)
                     return;
-
-                var timeZoneId = string.Empty;
                 if (value != null)
                 {
-                    timeZoneId = value.Id;
+                    _ = value.Id;
                 }
 
             }

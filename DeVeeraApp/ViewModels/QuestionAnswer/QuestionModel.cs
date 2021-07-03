@@ -14,9 +14,15 @@ namespace DeVeeraApp.ViewModels.QuestionAnswer
             AvailableModules = new List<SelectListItem>();
             QuestionsList = new List<QuestionModel>();
         }
-        public int LevelId { get; set; }
-        public int ModuleId { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please select the level")]
         [Required]
+        public int LevelId { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please select the module")]
+        [Required]
+        public int ModuleId { get; set; }
+        [Required(ErrorMessage ="Enter the question")]
         public string Question { get; set; }
         public string Answer { get; set; }
         public DateTime CreatedOn { get; set; }

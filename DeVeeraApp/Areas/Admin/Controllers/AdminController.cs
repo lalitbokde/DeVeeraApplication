@@ -73,7 +73,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (_UserService.GetUserByEmail(model.Email) == null)
                 {
                     var user = model.ToEntity<User>();
-                    UserPassword password = null;
                     user.UserGuid = Guid.NewGuid();
                     user.CreatedOnUtc = DateTime.UtcNow;
                     user.LastActivityDateUtc = DateTime.UtcNow;
@@ -95,7 +94,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
                     {
 
-                        password = new UserPassword
+                        UserPassword password = new UserPassword
                         {
                             UserId = user.Id,
                             Password = model.UserPassword.Password,
@@ -138,7 +137,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 model = data.ToList().ToModelList<User, UserModel>(model);
 
-               
                 ViewBag.roleName = roleName;
             return View(model);
 
@@ -240,6 +238,146 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
         }
+
+
+
+        public IActionResult CreateUser()
+        {
+            string roleName = "User";
+            AddBreadcrumbs("User", "CreateUser", $"/Admin/Admin/List/?roleName={roleName}", "/Admin/Admin/CreateUser");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(CreateUserModel model)
+        {
+            string userRoleName = "User";
+            AddBreadcrumbs("User", "CreateUser", $"/Admin/Admin/UserList/?{userRoleName}", "/Admin/Admin/CreateUser");
+
+            if (ModelState.IsValid)
+            {
+                if (_UserService.GetUserByEmail(model.Email) == null)
+                {
+                    var user = model.ToEntity<User>();
+                    user.UserGuid = Guid.NewGuid();
+                    user.CreatedOnUtc = DateTime.UtcNow;
+                    user.LastActivityDateUtc = DateTime.UtcNow;
+                    user.RegistrationComplete = true;
+                    user.TwoFactorAuthentication = true;
+                    var userRoleData = _UserService.GetAllUserRoles();
+                    foreach (var item in userRoleData)
+                    {
+                        if (item.Name == userRoleName)
+                        {
+                            user.UserRoleId = item.Id;
+                        }
+                    }
+                    user.Active = true;
+
+                    _UserService.InsertUser(user);
+
+                    // password
+                    if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
+                    {
+
+                        UserPassword password = new UserPassword
+                        {
+                            UserId = user.Id,
+                            Password = model.UserPassword.Password,
+                            CreatedOnUtc = DateTime.UtcNow,
+                        };
+                        _userPasswordService.InsertUserPassword(password);
+                    }
+                    _UserService.UpdateUser(user);
+
+                    _notificationService.SuccessNotification("New User has been added successfully.");
+
+                    return RedirectToAction("List", "Admin", new { roleName = userRoleName });
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "User Already Exists");
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        public IActionResult EditUser(int id)
+        {
+            string roleName = "User";
+            //AddBreadcrumbs("Admin", "Edit", $"/Admin/Edit/{id}", $"/Admin/Edit/{id}");
+           
+            AddBreadcrumbs("User", "EditUser", $"/Admin/Admin/List/?roleName={roleName}", $"/Admin/Admin/EditUser/{id}");
+            if (id != 0)
+            {
+                var data = _UserService.GetUserById(id);
+
+                if (data != null)
+                {
+                    var userdata = data.ToModel<CreateUserModel>();
+                    return View(userdata);
+                }
+
+                return View();
+            }
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(CreateUserModel model)
+        {
+            string userRoleName = "User";
+            //AddBreadcrumbs("Admin", "EditUser", $"/Admin/User/List/?{userRoleName}", $"/Admin/Admin/EditUser/{id}");
+
+
+            if (ModelState.IsValid)
+            {
+                var admin = _UserService.GetUserById(model.Id);
+
+                admin.Email = model.Email;
+                admin.MobileNumber = model.MobileNumber;
+                admin.IsAllow = model.IsAllow;
+                
+
+                _UserService.UpdateUser(admin);
+
+                admin.LastActivityDateUtc = DateTime.UtcNow;
+                var userRoleData = _UserService.GetAllUserRoles();
+
+                foreach (var item in userRoleData)
+                {
+                    if (item.Name == userRoleName)
+                    {
+                        admin.UserRoleId = item.Id;
+                    }
+                }
+                admin.Active = true;
+
+                _UserService.UpdateUser(admin);
+
+                // password
+                if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
+                {
+                    var adminPassword = _userPasswordService.GetPasswordByUserId(admin.Id);
+                    adminPassword.Password = model.UserPassword.Password;
+                    adminPassword.UserId = model.Id;
+                    _userPasswordService.UpdatePassword(adminPassword);
+                }
+                _UserService.UpdateUser(admin);
+
+                _notificationService.SuccessNotification(" User has been edited successfully.");
+
+                return RedirectToAction("List", "Admin", new { roleName = userRoleName });
+            }
+
+            return View(model);
+
+        }
+
 
         #endregion
     }

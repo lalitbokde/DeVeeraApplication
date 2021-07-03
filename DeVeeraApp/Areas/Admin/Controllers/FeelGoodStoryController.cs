@@ -92,11 +92,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.ImageId = (model.ImageId == 0) ? model.ImageId = null : model.ImageId;
-                var data = new FeelGoodStory();
-                data.Author = model.Author;
-                data.Title = model.Title;
-                data.Story = model.Story;
-                data.ImageId = model.ImageId;
+                var data = new FeelGoodStory
+                {
+                    Author = model.Author,
+                    Title = model.Title,
+                    Story = model.Story,
+                    ImageId = model.ImageId
+                };
 
                 _feelGoodStoryServices.InsertFeelGoodStory(data);
                 _notificationService.SuccessNotification("Story added successfully");
@@ -114,7 +116,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("FeelGoodStory", "Edit", $"/Admin/FeelGoodStory/List", $"/Admin/FeelGoodStory/Edit/{Id}");
             var data = _feelGoodStoryServices.GetFeelGoodStoryById(Id);
             var model = data.ToModel<FeelGoodStoryModel>();
-            PrepareImages(model);
+            //PrepareImages(model);
+            PrepareImageUrls(model);
             return View(model);
         }
 
@@ -130,6 +133,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.Title = model.Title;
                 data.Story = model.Story;
                 data.ImageId = model.ImageId;
+
 
                 _feelGoodStoryServices.UpdateFeelGoodStory(data);
                 _notificationService.SuccessNotification("Story updated successfully");
@@ -181,6 +185,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             }
             return Json(response);
+        }
+
+        public virtual void PrepareImageUrls(FeelGoodStoryModel model)
+        {
+
+          model.Image.ImageUrl = model.ImageId > 0 ? _imageMasterService.GetImageById(model.Image.Id)?.ImageUrl : null;
+           
         }
 
         #endregion

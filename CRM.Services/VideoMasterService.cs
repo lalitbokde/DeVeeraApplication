@@ -1,5 +1,8 @@
 ﻿using CRM.Core.Domain;
+using CRM.Core.ViewModels;
+using CRM.Data;
 using CRM.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +13,21 @@ namespace CRM.Services
         #region fields
         private readonly IRepository<Video> _videoRepository;
         private readonly IS3BucketService _s3BucketService;
+        protected readonly dbContextCRM _dbContext;
+
+        public VideoMasterService(IRepository<Video> videoRepository,
+                                  IS3BucketService s3BucketService,
+                                  dbContextCRM dbContext)
+        {
+            _videoRepository = videoRepository;
+            _s3BucketService = s3BucketService;
+            _dbContext = dbContext;
+        }
+
         #endregion
 
 
         #region ctor
-        public VideoMasterService(IRepository<Video> videoRepository,
-                                  IS3BucketService s3BucketService)
-        {
-            _videoRepository = videoRepository;
-            _s3BucketService = s3BucketService;
-        }
 
         #endregion
 
@@ -101,6 +109,37 @@ namespace CRM.Services
 
             _videoRepository.Update(model);
         }
+
+
+        public List<VideoViewModel> GetAllVideoSp(
+      int page_size = 0,
+      int page_num = 0,
+      bool GetAll = false,
+      string SortBy = ""
+    )
+        {
+
+            try
+            {
+
+                string query = @"exec [sp_GetAllVideos] @page_size = '" + ((page_size == 0) ? 12 : page_size) + "', " +
+                                "@page_num  = '" + ((page_num == 0) ? 1 : page_num) + "', " +
+                                "@sortBy ='" + SortBy + "' , " +
+                                "@GetAll ='" + GetAll + "'";
+
+                
+
+                var data = _dbContext.VideoViewModel.FromSql(query).ToList();
+                return (data.FirstOrDefault() != null) ? data : new List<VideoViewModel>();
+                
+            }
+            catch(Exception e)
+            {
+                return new List<VideoViewModel>();
+            }
+
+        }
+
 
         #endregion
 

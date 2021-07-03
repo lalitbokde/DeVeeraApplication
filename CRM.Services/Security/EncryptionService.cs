@@ -34,28 +34,23 @@ namespace CRM.Services.Security
 
         private byte[] EncryptTextToMemory(string data, byte[] key, byte[] iv) 
         {
-            using (var ms = new MemoryStream()) {
-                using (var cs = new CryptoStream(ms, new TripleDESCryptoServiceProvider().CreateEncryptor(key, iv), CryptoStreamMode.Write)) {
-                    var toEncrypt = Encoding.Unicode.GetBytes(data);
-                    cs.Write(toEncrypt, 0, toEncrypt.Length);
-                    cs.FlushFinalBlock();
-                }
-
-                return ms.ToArray();
+            using var ms = new MemoryStream();
+            using (var cs = new CryptoStream(ms, new TripleDESCryptoServiceProvider().CreateEncryptor(key, iv), CryptoStreamMode.Write))
+            {
+                var toEncrypt = Encoding.Unicode.GetBytes(data);
+                cs.Write(toEncrypt, 0, toEncrypt.Length);
+                cs.FlushFinalBlock();
             }
+
+            return ms.ToArray();
         }
 
         private string DecryptTextFromMemory(byte[] data, byte[] key, byte[] iv) 
         {
-            using (var ms = new MemoryStream(data)) {
-                using (var cs = new CryptoStream(ms, new TripleDESCryptoServiceProvider().CreateDecryptor(key, iv), CryptoStreamMode.Read))
-                {
-                    using (var sr = new StreamReader(cs, Encoding.Unicode))
-                    {
-                        return sr.ReadToEnd();
-                    }
-                }
-            }
+            using var ms = new MemoryStream(data);
+            using var cs = new CryptoStream(ms, new TripleDESCryptoServiceProvider().CreateDecryptor(key, iv), CryptoStreamMode.Read);
+            using var sr = new StreamReader(cs, Encoding.Unicode);
+            return sr.ReadToEnd();
         }
 
         #endregion
@@ -70,14 +65,12 @@ namespace CRM.Services.Security
         public virtual string CreateSaltKey(int size)
         {
             //generate a cryptographic random number
-            using (var provider = new RNGCryptoServiceProvider())
-            {
-                var buff = new byte[size];
-                provider.GetBytes(buff);
+            using var provider = new RNGCryptoServiceProvider();
+            var buff = new byte[size];
+            provider.GetBytes(buff);
 
-                // Return a Base64 string representation of the random number
-                return Convert.ToBase64String(buff);
-            }
+            // Return a Base64 string representation of the random number
+            return Convert.ToBase64String(buff);
         }
 
         /// <summary>
@@ -125,14 +118,14 @@ namespace CRM.Services.Security
             if (string.IsNullOrEmpty(encryptionPrivateKey))
                 encryptionPrivateKey = _securitySettings.EncryptionKey;
 
-            using (var provider = new TripleDESCryptoServiceProvider())
+            using var provider = new TripleDESCryptoServiceProvider
             {
-                provider.Key = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(0, 16));
-                provider.IV = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(8, 8));
+                Key = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(0, 16)),
+                IV = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(8, 8))
+            };
 
-                var encryptedBinary = EncryptTextToMemory(plainText, provider.Key, provider.IV);
-                return Convert.ToBase64String(encryptedBinary);
-            }
+            var encryptedBinary = EncryptTextToMemory(plainText, provider.Key, provider.IV);
+            return Convert.ToBase64String(encryptedBinary);
         }
 
         /// <summary>
@@ -149,14 +142,14 @@ namespace CRM.Services.Security
             if (string.IsNullOrEmpty(encryptionPrivateKey))
                 encryptionPrivateKey = _securitySettings.EncryptionKey;
 
-            using (var provider = new TripleDESCryptoServiceProvider())
+            using var provider = new TripleDESCryptoServiceProvider
             {
-                provider.Key = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(0, 16));
-                provider.IV = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(8, 8));
+                Key = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(0, 16)),
+                IV = Encoding.ASCII.GetBytes(encryptionPrivateKey.Substring(8, 8))
+            };
 
-                var buffer = Convert.FromBase64String(cipherText);
-                return DecryptTextFromMemory(buffer, provider.Key, provider.IV);
-            }
+            var buffer = Convert.FromBase64String(cipherText);
+            return DecryptTextFromMemory(buffer, provider.Key, provider.IV);
         }
 
         #endregion

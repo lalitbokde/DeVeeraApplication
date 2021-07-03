@@ -21,5 +21,8 @@ namespace DeVeeraApp.ViewModels
         public virtual Image Image { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
 
+        public string Link_3_bannerImage { get; set; }
+        public string Link_3_Title { get; set; }
+
     }
 }

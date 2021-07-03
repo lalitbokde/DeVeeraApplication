@@ -142,6 +142,10 @@
     <Compile Include="Migrations\20210611122350_CreatedOn-level.Designer.cs" />
     <Compile Include="Migrations\20210611123329_VideoImage-changes.cs" />
     <Compile Include="Migrations\20210611123329_VideoImage-changes.Designer.cs" />
+    <Compile Include="Migrations\20210630145502_AddQuoteId.cs" />
+    <Compile Include="Migrations\20210630145502_AddQuoteId.Designer.cs" />
+    <Compile Include="Migrations\20210630153044_QuickLinks.cs" />
+    <Compile Include="Migrations\20210630153044_QuickLinks.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
     <Compile Include="Migrations\20210616154341_updateImagesAndOther.Designer.cs" />
     <Compile Include="Migrations\20210616154341_updateImagesAndOther.cs" />
@@ -149,8 +153,8 @@
     <Compile Include="Migrations\20210623134958__quotesRandomChanges.cs" />
     <Compile Include="Migrations\20210616155143_newXhanges.Designer.cs" />
     <Compile Include="Migrations\20210616155143_newXhanges.cs" />
-    <Compile Include="Migrations\20210625091730_removedUnnecessaryTables.cs" />
-    <Compile Include="Migrations\20210625091730_removedUnnecessaryTables.Designer.cs" />
+    <Compile Include="Migrations\20210630152932_last.Designer.cs" />
+    <Compile Include="Migrations\20210630152932_last.cs" />
   </ItemGroup>
 
   <ItemGroup>

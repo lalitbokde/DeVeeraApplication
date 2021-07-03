@@ -32,18 +32,20 @@
 
                     <div class="form-group">
                         <label>@T("User Name")</label>
-                        <input asp-for="@Model.Email" type="email"  class="form-control" placeholder="@T("User Name")">
+                        <input asp-for="@Model.Email" type="email" class="form-control" placeholder="@T("User Name")">
+                        <span asp-validation-for="Email" class="text-theme-21 mt-2"></span>
                     </div>
 
                     <div class="form-group">
                         <label>@T("Mobile Number")</label>
                         <input asp-for="@Model.MobileNumber" type="number" class="form-control" placeholder="@T("Mobile Number")">
+                        <span asp-validation-for="MobileNumber" class="text-theme-21 mt-2"></span>
                     </div>
 
                     <div class="form-group">
                         <label>@T("Password")</label>
                         <input asp-for="@Model.UserPassword.Password" type="password" class="form-control" placeholder="@T("Password")">
-                        <span asp-validation-for="UserPassword.Password" class="text-theme-6 mt-2"></span>
+                        <span asp-validation-for="UserPassword.Password" class="text-theme-21 mt-2"></span>
                     </div>
 
                     <p class="description">The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & )</p>

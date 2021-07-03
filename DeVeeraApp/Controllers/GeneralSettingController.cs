@@ -39,9 +39,11 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        var settingData = new Setting();
-                        settingData.UserId = model.Id;
-                        settingData.LanguageId = model.LandingPageModel.Language.Id;
+                        var settingData = new Setting
+                        {
+                            UserId = model.Id,
+                            LanguageId = model.LandingPageModel.Language.Id
+                        };
                         _settingService.InsertSetting(settingData);
                     }
                 }

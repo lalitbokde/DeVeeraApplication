@@ -108,7 +108,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(DashboardQuoteModel model)
         {
-            
+
+            ModelState.Remove("layoutSetup.SliderOneTitle"); ModelState.Remove("layoutSetup.SliderTwoTitle"); 
+            ModelState.Remove("layoutSetup.SliderThreeTitle"); ModelState.Remove("layoutSetup.ReasonToSubmit");
 
             if (ModelState.IsValid)
             {
@@ -160,7 +162,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult Edit(DashboardQuoteModel model)
         {
             AddBreadcrumbs("Dashboard Quote", "Edit", "/Admin/DashboardQuote/List", $"/Admin/DashboardQuote/Edit/{model.Id}");
-
+            ModelState.Remove("layoutSetup.SliderOneTitle"); ModelState.Remove("layoutSetup.SliderTwoTitle");
+            ModelState.Remove("layoutSetup.SliderThreeTitle"); ModelState.Remove("layoutSetup.ReasonToSubmit");
             if (ModelState.IsValid)
             {
                 var quote = _dashboardQuoteService.GetDashboardQuoteById(model.Id);
@@ -251,42 +254,38 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
-                    using (ExcelPackage package = new ExcelPackage(stream))
+                    using ExcelPackage package = new ExcelPackage(stream);
+                    ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
+
+                    int totalColumns = workSheet.Dimension.Columns;
+
+                    int totalRows = workSheet.Dimension.Rows;
+
+                    var IsValidColumns = (totalColumns == 2);
+
+                    if (!IsValidColumns) ErrorMessage += "Invalid Columns";
+
+                    var IsEmpty = (totalRows <= 0);
+
+                    if (IsEmpty) ErrorMessage += "No Data To Import";
+
+                    for (int row = 2; row <= totalRows; row++)
                     {
-                        ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
-
-                        int totalColumns = workSheet.Dimension.Columns;
-
-                        int totalRows = workSheet.Dimension.Rows;
-
-                        var IsValidColumns = (totalColumns == 2);
-
-                        if (!IsValidColumns) ErrorMessage += "Invalid Columns";
-
-                        var IsEmpty = (totalRows <= 0);
-
-                        if (IsEmpty) ErrorMessage += "No Data To Import";
-
-                        for (int row = 2; row <= totalRows; row++)
+                        if (workSheet.Cells[row, 1].Value != null && workSheet.Cells[row, 2].Value != null)
                         {
-                            if (workSheet.Cells[row, 1].Value != null && workSheet.Cells[row, 2].Value != null)
+                            _QuoteList.Add(new DashboardQuote
                             {
-                                _QuoteList.Add(new DashboardQuote
-                                {
-                                    Title = workSheet.Cells[row, 1].Value.ToString().Trim(),
+                                Title = workSheet.Cells[row, 1].Value.ToString().Trim(),
 
-                                    Author = workSheet.Cells[row, 2].Value.ToString().Trim(),
+                                Author = workSheet.Cells[row, 2].Value.ToString().Trim(),
 
-                                    IsDashboardQuote = false,
+                                IsDashboardQuote = false,
 
-                                    IsRandom = true,
+                                IsRandom = true,
 
-                                    //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
-                                });
-                            }
-
+                                //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
+                            });
                         }
-
 
                     }
 
@@ -363,7 +362,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public virtual IActionResult SampleExcel()
         {
-            string filename = _hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx";
+            _ = _hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx";
             byte[] fileBytes = System.IO.File.ReadAllBytes(_hostingEnvironment.WebRootPath + "/ImportSample/SampleQuote.xlsx");
             return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Xml, "SampleQuote.xlsx");
         }

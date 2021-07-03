@@ -89,6 +89,8 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Quote");
 
+                    b.Property<int?>("QuoteId");
+
                     b.Property<string>("Subtitle");
 
                     b.Property<string>("Title");
@@ -237,6 +239,18 @@ namespace CRM.Data.Migrations
 
                     b.Property<int>("DiaryHeaderImageId");
 
+                    b.Property<string>("Link_1");
+
+                    b.Property<int>("Link_1_BannerImageId");
+
+                    b.Property<string>("Link_2");
+
+                    b.Property<int>("Link_2_BannerImageId");
+
+                    b.Property<string>("Link_3");
+
+                    b.Property<int>("Link_3_BannerImageId");
+
                     b.Property<string>("ReasonToSubmit");
 
                     b.Property<string>("SliderOneDescription");
@@ -364,16 +378,11 @@ namespace CRM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("Category");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
-                    b.Property<string>("SystemName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("SystemName");
 
                     b.HasKey("Id");
 
@@ -716,6 +725,8 @@ namespace CRM.Data.Migrations
                     b.Property<bool>("IsRandom");
 
                     b.Property<string>("LandingQuote");
+
+                    b.Property<int?>("QuoteId");
 
                     b.Property<int>("QuoteType");
 
