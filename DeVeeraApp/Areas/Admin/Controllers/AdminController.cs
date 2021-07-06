@@ -143,7 +143,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 model = data.ToList().ToModelList<User, UserModel>(model);
               
                 ViewBag.roleName = roleName;
-                ViewBag.Admin = JsonConvert.SerializeObject(model.ToString());
+                ViewBag.Admin = JsonConvert.SerializeObject(model);
                 return View(model);
 
             }
