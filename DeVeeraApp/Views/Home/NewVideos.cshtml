@@ -38,11 +38,20 @@
                             </a>
                         </div>
                     </div>
-                }                
+                }
             }
 
         </div>
-        @(await Component.InvokeAsync<PagerViewComponent>(Model.VideoListPaged))
+
+
+        @*@(await Component.InvokeAsync<PaginationViewComponent>(Model.VideoListPaged))*@
+    </div>
+    <div class="mt-4">
+
+        <form asp-controller="Home" asp-action="NewVideos" method="get">
+            @(await Component.InvokeAsync<PagerViewComponent>(Model.VideoListPaged));
+        </form>
+
     </div>
 </section>
 
