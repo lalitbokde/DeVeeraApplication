@@ -10,7 +10,7 @@ namespace CRM.Core.ViewModels
       
         public string Name { get; set; }
         public string VideoUrl { get; set; }
-        [NotMapped]
+        
         public int TotalRecords { get; set; }
         public string Key { get; set; }
 

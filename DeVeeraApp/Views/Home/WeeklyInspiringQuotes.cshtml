@@ -1,5 +1,5 @@
-﻿@model IList<DeVeeraApp.ViewModels.DashboardQuoteModel>
-
+﻿@model DeVeeraApp.ViewModels.DashboardListQuote
+@using DeVeeraApp.ViewComponents
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     ViewData["Title"] = "Weekly Inspiring Quotes";
@@ -11,15 +11,15 @@
             Weekly Inspiring Quotes
         </h2>
     </div>*@
-<div class="page-banner-with-full-image" style="background-image:Url('@(Model[0].layoutSetup.Link_1_BannerImageUrl != null ? Model[0].layoutSetup.Link_1_BannerImageUrl: "../../assest/images/page-banner/register.jpg")')">
+<div class="page-banner-with-full-image" style="background-image:Url('@(Model.DashboardQuote.layoutSetup.Link_1_BannerImageUrl != null ? Model.DashboardQuote.layoutSetup.Link_1_BannerImageUrl: "../../assest/images/page-banner/register.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
-            <h2>@Model[0].layoutSetup.Link_1</h2>
+            <h2>@Model.DashboardQuote.layoutSetup.Link_1</h2>
             <ul>
                 <li>
                     <a asp-controller="Dashboard" asp-action="Index">Home</a>
                 </li>
-                <li>@Model[0].layoutSetup.Link_1</li>
+                <li>@Model.DashboardQuote.layoutSetup.Link_1</li>
             </ul>
         </div>
     </div>
@@ -28,23 +28,23 @@
 <section class="courses-area ptb-100">
     <div class="container">
         <div class="row">
-            @if (Model.Count != 0)
+            @if (Model.DashboardQuoteListPaged.Results.Count != 0)
             {
-                @foreach (var item in Model)
+                @foreach (var item in Model.DashboardQuoteListPaged.Results)
                 {
-                    <div class="col-lg-12 col-md-12" >
-                    <div class="single-courses-box" style="background-image: url(../../assets/images/subscribe-bg.jpg)">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="single-courses-box" style="background-image: url(../../assets/images/subscribe-bg.jpg)">
 
-                        <div class="courses-content">
-                            <div class="course-author d-flex align-items-center">
+                            <div class="courses-content">
+                                <div class="course-author d-flex align-items-center">
 
-                                <span style="color:black;font:bold;">@item.Author</span>
+                                    <span style="color:black;font:bold;">@item.Author</span>
+                                </div>
+                                <p style="color:black;"> @item.Title</p>
+
                             </div>
-                            <p style="color:black;"> @item.Title</p>
-
                         </div>
                     </div>
-                </div>
 
                     @*<div class="col-lg-12 col-md-12">
                         <div class="single-courses-box" >
@@ -63,58 +63,10 @@
                 }
             }
         </div>
-        </div>
+        <form asp-controller="Home" asp-action="WeeklyInspiringQuotes" method="get">
+            @(await Component.InvokeAsync<PagerViewComponent>(Model.DashboardQuoteListPaged))
+        </form> 
+    </div>
+
 </section>
-
-        @*<div class="subscribe-area bg-top">
-            <div class="container">
-                @if (Model.Count != 0)
-                {
-                    @foreach (var item in Model)
-                    {
-                        <div class="subscribe-inner-box">
-                            <div class="subscribe-content">
-                                <h3>@item.Author</h3>
-                                <p> @item.Title</p>
-                            </div>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <h2 class="text-lg font-medium mr-auto">
-                        There are no new Videos yet.
-                    </h2>
-                }
-            </div>
-        </div>*@
-
-        @*@if (Model.Count != 0)
-            {
-                <div class="intro-y mt-10 col-span-12 lg:col-span-8">
-                    <div class="mt-5 pt-5 border-t border-theme-25">
-                        @foreach (var item in Model)
-                        {
-                            <div class="alert alert-primary show mb-2" role="alert">
-                                <div class="flex items-center">
-                                    <div class="font-medium text-lg">@item.Author</div>
-
-                                </div>
-                                <div class="mt-3">
-                                    @item.Title
-                                </div>
-                            </div>
-                        }
-                    </div>
-
-                </div>
-
-
-            }
-            else
-            {
-                <h2 class="text-lg font-medium mr-auto">
-                    There are no new Videos yet.
-                </h2>
-            }*@
 

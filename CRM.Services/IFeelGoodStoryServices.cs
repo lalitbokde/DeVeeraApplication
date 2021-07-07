@@ -1,4 +1,5 @@
 ﻿using CRM.Core.Domain;
+using CRM.Core.ViewModels;
 using System.Collections.Generic;
 
 namespace CRM.Services
@@ -22,6 +23,13 @@ namespace CRM.Services
 
 
         void UpdateFeelGoodStory(FeelGoodStory model);
+        List<FeelGoodViewModel> GetAllFeelGoodStoriesSp(
+          int page_size = 0,
+          int page_num = 0,
+          bool GetAll = false,
+          string SortBy = "",
+          int ImageId = 0
+        );
 
     }
 }

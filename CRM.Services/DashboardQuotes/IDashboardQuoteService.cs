@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CRM.Core.Domain;
+using CRM.Core.ViewModels;
 
 namespace CRM.Services.DashboardQuotes
 {
@@ -12,5 +13,14 @@ namespace CRM.Services.DashboardQuotes
         void UpdateDashboardQuote(DashboardQuote quote);
         void InActiveAllDashboardQuotes();
         IList<DashboardQuote> GetDashboardQuoteByLevelId(int LevelId);
+
+  
+        List<DashBoardQuoteViewModel> GetAllDashboardQuoteSp(
+         int page_size = 0,
+         int page_num = 0,
+         bool GetAll = false,
+         string SortBy = ""
+       );
+
     }
 }
