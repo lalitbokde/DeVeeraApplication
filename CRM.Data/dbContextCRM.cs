@@ -85,6 +85,8 @@ namespace CRM.Data
         public virtual DbQuery<VideoViewModel> VideoViewModel { get; set; }
 
         public virtual DbQuery<ImageViewModel> ImageViewModel { get; set; }
+        public virtual DbQuery<FeelGoodViewModel> FeelGoodViewModels { get; set; }
+        public virtual DbQuery<DashBoardQuoteViewModel> DashBoardQuoteViewModels { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

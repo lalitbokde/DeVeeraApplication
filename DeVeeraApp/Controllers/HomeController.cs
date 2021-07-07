@@ -266,25 +266,17 @@ namespace DeVeeraApp.Controllers
             return View();
         }
        
-        public IActionResult WeeklyInspiringQuotes()
+        public IActionResult WeeklyInspiringQuotes(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes");
-            var model = new List<DashboardQuoteModel>();
+            DashboardListQuote model = new DashboardListQuote();
 
-            var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
-            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+          var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
+           // var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            command.PageSize = (command.PageSize == 0) ? 5: command.PageSize;
+            var list = _dashboardQuoteService.GetAllDashboardQuoteSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "");
+            model.DashboardQuoteListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DashBoardQuoteViewModel>();
            
-
-            if (WeeklyQuoteData.Count != 0)
-            {
-                foreach (var item in WeeklyQuoteData)
-                {
-                    model.Add(item.ToModel<DashboardQuoteModel>());
-                }
-                model[0].layoutSetup.Link_1_BannerImageUrl = data?.Link_1_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_1_BannerImageId)?.ImageUrl : null;
-                model[0].layoutSetup.Link_1 = data.Link_1;
-            }
-            
             return View(model);
         }
       
@@ -294,48 +286,23 @@ namespace DeVeeraApp.Controllers
             VideoListModel model = new VideoListModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
           
-            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
+            command.PageSize = (command.PageSize == 0) ? 12 : command.PageSize;
             var list = _videoMasterService.GetAllVideoSp(page_size: command.PageSize,page_num: command.Page,  GetAll: command.GetAll, SortBy: "");
             model.VideoListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<VideoViewModel>();
             model.Video.Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
             model.Video.Link_2_Title = data.Link_2;
-           
             return View(model);
         }    
       
-        public IActionResult FeelGoodStories()
+        public IActionResult FeelGoodStories(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "FeelGoodStories", "/Home/FeelGoodStories", "/Home/FeelGoodStories");
-            var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
+          //  var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
-            var model = new List<FeelGoodStoryModel>();
-            var layoutdata = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-
-            if (data.Count() != 0)
-            {
-                foreach (var item in data)
-                {
-                    if (item.ImageId != null)
-                    {
-                        var imagedata = _imageMasterService.GetImageById((int)item.ImageId);
-
-                        if (imagedata != null)
-                        {
-                            imagedata.ImageUrl = _s3BucketService.GetPreSignedURL(imagedata.Key);
-
-                            _imageMasterService.UpdateImage(imagedata);
-
-                            item.Image.ImageUrl = imagedata.ImageUrl;
-                        }
-
-                    }
-
-                    model.Add(item.ToModel<FeelGoodStoryModel>());
-                }
-                model[0].Link_3_bannerImage = layoutdata?.Link_3_BannerImageId > 0 ? _imageMasterService.GetImageById(layoutdata.Link_3_BannerImageId)?.ImageUrl : null;
-                model[0].Link_3_Title= layoutdata.Link_3; 
-
-            }
+            FeelGoodListModel model = new FeelGoodListModel ();
+           command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
+            var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "",ImageId:0);
+            model.FeelGoodListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<FeelGoodViewModel>();
             return View(model);
         }
    

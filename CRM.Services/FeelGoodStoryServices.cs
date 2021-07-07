@@ -1,5 +1,8 @@
 ﻿using CRM.Core.Domain;
+using CRM.Core.ViewModels;
+using CRM.Data;
 using CRM.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +13,16 @@ namespace CRM.Services
     {
         #region fields
         private readonly IRepository<FeelGoodStory> _repository;
+        protected readonly dbContextCRM _dbContext;
 
         #endregion
 
         #region ctor
 
-        public FeelGoodStoryServices(IRepository<FeelGoodStory> repository)
+        public FeelGoodStoryServices(IRepository<FeelGoodStory> repository, dbContextCRM dbContext)
         {
             _repository = repository;
+            _dbContext = dbContext;
         }
         #endregion
 
@@ -30,6 +35,38 @@ namespace CRM.Services
                 throw new ArgumentNullException(nameof(model));
 
             _repository.Delete(model);
+        }
+
+        public List<FeelGoodViewModel> GetAllFeelGoodStoriesSp(
+            int page_size = 0,
+            int page_num = 0,
+            bool GetAll = false,
+            string SortBy = "",
+            int ImageId = 0)
+        {
+            {
+
+                try
+                {
+
+                    string query = @"exec [sp_GetAllFeelGoodStories] @page_size = '" + ((page_size == 0) ? 10 : page_size) + "', " +
+                                    "@page_num  = '" + ((page_num == 0) ? 1 : page_num) + "', " +
+                                    "@sortBy ='" + SortBy + "' , " +
+                                     "@ImageId ='" + ImageId + "' , " +
+                                    "@GetAll ='" + GetAll + "'";
+
+
+                    var data = _dbContext.FeelGoodViewModels.FromSql(query).ToList();
+                    return (data.FirstOrDefault() != null) ? data : new List<FeelGoodViewModel>();
+
+                }
+                catch (Exception e)
+                {
+                    return new List<FeelGoodViewModel>();
+                }
+
+            }
+
         }
 
         public IList<FeelGoodStory> GetAllFeelGoodStorys()
