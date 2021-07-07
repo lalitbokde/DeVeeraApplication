@@ -10,6 +10,8 @@ using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +25,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IUserService _UserService;
         private readonly IUserPasswordService _userPasswordService;
         private readonly INotificationService _notificationService;
-      
+
         #endregion
 
         #region ctor
         public AdminController(IUserService userService,
-                               IUserPasswordService userPasswordService, 
+                               IUserPasswordService userPasswordService,
                                IWorkContext workContext,
                                IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService,
@@ -63,7 +65,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateAdminModel model,string email,string passwordd)
+        public IActionResult Create(CreateAdminModel model, string email, string passwordd)
         {
             string userRoleName = "Admin";
             AddBreadcrumbs("Admin", "Create", $"/Admin/Admin/List/?{userRoleName}", "/Admin/Admin/Create");
@@ -105,8 +107,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     _UserService.UpdateUser(user);
 
                     _notificationService.SuccessNotification("New Admin has been added successfully.");
-                    
-                 return RedirectToAction("List", "Admin", new { roleName = userRoleName });
+
+                    return RedirectToAction("List", "Admin", new { roleName = userRoleName });
 
                 }
                 else
@@ -115,9 +117,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     return View(model);
                 }
             }
-           
-           return View(model);  
-          
+
+            return View(model);
+
 
         }
         public IActionResult List(string roleName)
@@ -128,17 +130,21 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 roleName = "Admin";
             }
             var UserRole = _UserService.GetUserRoleByRoleName(roleName);
-
+            
             AddBreadcrumbs($"{UserRole.Name}", "List", $"/Admin/Admin/List?roleName={roleName}", $"/Admin/Admin/List?roleName={roleName}");
 
             var model = new List<UserModel>();
+            
+            
+
             var data = _UserService.GetUserByUserRoleId(UserRole.Id);
-            if(data.Count() != 0)
+            if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<User, UserModel>(model);
-
+              
                 ViewBag.roleName = roleName;
-            return View(model);
+                ViewBag.Admin = JsonConvert.SerializeObject(model);
+                return View(model);
 
             }
             return RedirectToAction("Index", "Home");
@@ -153,7 +159,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 var data = _UserService.GetUserById(id);
 
-                if(data != null)
+                if (data != null)
                 {
                     var userdata = data.ToModel<CreateAdminModel>();
                     return View(userdata);
@@ -162,7 +168,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 return View();
             }
             return View();
-             
+
         }
 
         [HttpPost]
@@ -178,12 +184,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 admin.Email = model.Email;
 
                 _UserService.UpdateUser(admin);
-              
+
                 admin.LastActivityDateUtc = DateTime.UtcNow;
                 var userRoleData = _UserService.GetAllUserRoles();
 
                 foreach (var item in userRoleData)
-                { 
+                {
                     if (item.Name == userRoleName)
                     {
                         admin.UserRoleId = item.Id;
@@ -309,7 +315,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             string roleName = "User";
             //AddBreadcrumbs("Admin", "Edit", $"/Admin/Edit/{id}", $"/Admin/Edit/{id}");
-           
+
             AddBreadcrumbs("User", "EditUser", $"/Admin/Admin/List/?roleName={roleName}", $"/Admin/Admin/EditUser/{id}");
             if (id != 0)
             {
@@ -341,7 +347,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 admin.Email = model.Email;
                 admin.MobileNumber = model.MobileNumber;
                 admin.IsAllow = model.IsAllow;
-                
+
 
                 _UserService.UpdateUser(admin);
 
