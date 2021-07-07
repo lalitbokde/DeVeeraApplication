@@ -42,9 +42,11 @@
             }
 
         </div>
+
         <form asp-controller="Home" asp-action="NewVideos" method="get">
             @(await Component.InvokeAsync<PagerViewComponent>(Model.VideoListPaged))
          </form>
+
     </div>
 </section>
 
