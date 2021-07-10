@@ -47,7 +47,7 @@ namespace DeVeeraApp.ViewModels.Emotions
         [Required(ErrorMessage = "Please enter sub title")]
         public string Subtitle { get; set; }
 
-        [Required(ErrorMessage = "Please enter Quote")]
+        //[Required(ErrorMessage = "Please enter Quote")]
         public string Quote { get; set; }
 
         

@@ -29,4 +29,4 @@ var table = new Tabulator("#tabulatorReg",
 
 var tableData = $("#Register").val();
 table.setData(tableData);
-/*table.location.reload();*/
+

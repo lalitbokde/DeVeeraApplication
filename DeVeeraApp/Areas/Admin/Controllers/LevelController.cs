@@ -167,7 +167,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 //}
 
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("List");
             }
 
             PrepareLevelModel(model);
