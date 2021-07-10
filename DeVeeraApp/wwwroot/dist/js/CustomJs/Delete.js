@@ -88,7 +88,7 @@ function PostDeleteRegisteredUser(Id) {
         userId: Id
 
     };
-    $.post("/Admin/User/Delete",
+    $.post("/Admin/Admin/Delete",
         jsonData
         ,
         function (data, status) {

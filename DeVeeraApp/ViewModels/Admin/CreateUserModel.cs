@@ -15,10 +15,11 @@ namespace DeVeeraApp.ViewModels.Admin
         [Required]
         public UserPassword UserPassword { get; set; }
         public bool IsAllow { get; set; }
+        public int UserRoleId { get; set; }
 
-     
-      
+        [Required(ErrorMessage = "Mobile Number is required.")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
         public string MobileNumber { get; set; }
-
+       public CRM.Core.Domain.Users.UserRole UserRole { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IUserService _UserService;
         private readonly IUserPasswordService _userPasswordService;
         private readonly INotificationService _notificationService;
-
+        private readonly IWorkContext _workContext;
         #endregion
 
         #region ctor
@@ -41,6 +41,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _UserService = userService;
             _userPasswordService = userPasswordService;
             _notificationService = notificationService;
+            _workContext = workContext;
         }
 
         #endregion
@@ -271,7 +272,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     user.LastActivityDateUtc = DateTime.UtcNow;
                     user.RegistrationComplete = true;
                     user.TwoFactorAuthentication = true;
+                    user.UserRole.Name = model.UserRole.Name;
                     var userRoleData = _UserService.GetAllUserRoles();
+
                     foreach (var item in userRoleData)
                     {
                         if (item.Name == userRoleName)
@@ -337,7 +340,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult EditUser(CreateUserModel model)
         {
             string userRoleName = "User";
-            //AddBreadcrumbs("Admin", "EditUser", $"/Admin/User/List/?{userRoleName}", $"/Admin/Admin/EditUser/{id}");
+            AddBreadcrumbs("Admin", "EditUser", $"/Admin/Admin/List/?{userRoleName}", "/Admin/Admin/EditUser");
 
 
             if (ModelState.IsValid)
