@@ -168,10 +168,70 @@ namespace DeVeeraApp.Controllers
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
             var currentLevel = currentUser?.LastLevel > 0?_levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo:null;
+            if (QuoteType !=0)
+            {
+                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
+                var model = data?.ToModel<WeeklyUpdateModel>();
+                if (model.BodyImageId != 0 && model.BannerImageId != 0)
+                {
+                    var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
+                    var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
 
-            var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
+                    if (bannerImageData != null)
+                    {
+                        model.BannerImageURL = bannerImageData.ImageUrl;
+                    }
+                    if (bodyImageData != null)
+                    {
+                        model.BodyImageURL = bodyImageData.ImageUrl;
+                    }
+                }
+                if (model != null)
+                {
+                    model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
 
-            var model = data?.ToModel<WeeklyUpdateModel>();
+                    model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a => a.LevelNo)) ? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
+
+                    model.FirstLevel = (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
+
+                }
+
+                return View(model);
+            }
+            else
+            {
+                var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
+                var model = data?.ToModel<WeeklyUpdateModel>();
+
+                if (model.BodyImageId != 0 && model.BannerImageId != 0)
+                {
+                    var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
+                    var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
+
+                    if (bannerImageData != null)
+                    {
+                        model.BannerImageURL = bannerImageData.ImageUrl;
+                    }
+                    if (bodyImageData != null)
+                    {
+                        model.BodyImageURL = bodyImageData.ImageUrl;
+                    }
+                }
+                if (model != null)
+                {
+                    model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+
+                    model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a => a.LevelNo)) ? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
+
+                    model.FirstLevel = (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
+
+                }
+
+                return View(model);
+            }
+            
+
+           
 
             //var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             //if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
@@ -180,31 +240,7 @@ namespace DeVeeraApp.Controllers
             //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
             //}
 
-            if (model.BodyImageId != 0 && model.BannerImageId != 0)
-            {
-                var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
-                var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
-
-                if(bannerImageData != null)
-                {
-                    model.BannerImageURL = bannerImageData.ImageUrl;
-                }
-                if(bodyImageData != null)
-                {
-                    model.BodyImageURL = bodyImageData.ImageUrl;
-                }
-            }
-            if(model != null)
-            {
-                model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
-                      
-                model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a=>a.LevelNo))?(int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int) _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
-
-                model.FirstLevel = (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
-
-            }
-
-            return View(model);
+          
         }
 
         public IActionResult NewUser(int QuoteType)

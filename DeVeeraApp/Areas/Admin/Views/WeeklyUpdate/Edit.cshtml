@@ -33,7 +33,7 @@
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                             <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                             <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote")    />
+                            <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
                             <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
                         </div>
                         <div class="mt-5">
@@ -84,16 +84,7 @@
 
                         </div>
 
-                                    @*<div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
-                        <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                        <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
-                    </div>
-                    <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
-                        <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                        <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
-                    </div>*@
+                       
 
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
@@ -115,7 +106,13 @@
                                 <div class="intro-y  col-span-6 ml-auto">
 
                                     <button type="submit" class="btn btn-primary w-24">Save</button>
+                                    <a target="_blank" class="btn btn-primary w-24" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">Preview</a>
                                 </div>
+                                @*<div class="intro-y  col-span-3 ml-auto">*@
+
+                               
+
+                                @*</div>*@
                             </div>
                         </div>
                     </div>
@@ -127,6 +124,8 @@
         }
         else if (Enum.GetName(typeof(Quote), Model.QuoteType) == "Registration")
         {
+
+            //Edit Registration Video
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
                 <div class="font-medium text-center text-lg">Edit Registration Video</div>
@@ -162,14 +161,14 @@
 
                         </div>
                         @*<div class="mt-5">
-            <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
-            <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-            <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
-        </div>*@
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
+                                <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                                <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
+                            </div>*@
                         @{
                             var BannerImageURL = Model.BannerImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerImageURL;
                             var BodyImageURL = Model.BodyImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BodyImageURL;
-                            
+
                         }
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 "> Image</label>
@@ -207,10 +206,10 @@
                         </div>
 
                         @*<div class="mt-5">
-            <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
-            <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-            <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
-        </div>*@
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
+                                <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                                <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
+                            </div>*@
 
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
@@ -233,18 +232,21 @@
                                 <div class="intro-y  col-span-6 ml-auto">
 
                                     <button type="submit" class="btn btn-primary w-24">Save</button>
+                                    <a target="_blank" class="btn btn-primary w-24" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">Preview</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    </div>
+                </div>
 
             </div>
 
         }
         else
         {
+            //Edit Landing Page Video
+
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Landing" />
             <div class="px-5 ">
                 <div class="font-medium text-center text-lg">Edit Landing Page Video</div>
@@ -357,7 +359,7 @@
                                         </div>
                                     </a>
                                 </div>
-                               
+
                                 <div class="mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
                                     <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
@@ -385,29 +387,14 @@
                                     <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                                 <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                                 <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
                             </div>
-                            <!--<div class="col-span-6 mt-5">
-        <label for="input-wizard-1" class="form-label text-theme-21 star">Description Image</label>-->
-                            @*<select asp-for="DescriptionImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                            <!--<a onclick="OpenImageSelectionModal('DescriptionImageId','DescriptionImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                <div class="box rounded-md p-3 relative zoom-in" style="width:50%;height:50%">
-                    <div class="flex-none pos-image relative block">
-                        <div class="pos-image__preview">
-                            <input asp-for="DescriptionImageId" hidden>
-                            <img id="DescriptionImageIdUrl" alt="" src="~/dist/images/food-beverage-9.jpg" style="Width:100%;height:100%">
-                        </div>
-                    </div>
-                    <div class="block font-medium text-center truncate mt-3">Description Image</div>
-                </div>
-            </a>
-        </div>-->
-
+                           
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Description Image</label>
@@ -415,7 +402,7 @@
 
                                 @*<select asp-for="DescriptionImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
                                 <a onclick="OpenImageSelectionModal('DescriptionImageId','DescriptionImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                    <div class="box rounded-md p-3 relative zoom-in" >
+                                    <div class="box rounded-md p-3 relative zoom-in">
                                         <div class="flex-none pos-image relative block">
                                             <div class="pos-image__preview">
                                                 <input asp-for="DescriptionImageId" hidden>
@@ -428,57 +415,45 @@
 
                             </div>
                         </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                        </div>
+                        <div class="" id="standard-editor">
+                            <div class="preview">
+                                <textarea id="editor2" asp-for="Subtitle" class="editor2"> </textarea>
                             </div>
-                            <div class="" id="standard-editor">
-                                <div class="preview">
-                                    <textarea id="editor2" asp-for="Subtitle" class="editor2"> </textarea>
-                                </div>
-                                <span asp-validation-for="Subtitle" class="text-theme-21  mt-2"></span>
+                            <span asp-validation-for="Subtitle" class="text-theme-21  mt-2"></span>
 
-                            </div>
-                            <div class="mt-5">
-                                <input asp-for="IsActive" class="form-check-input" type="checkbox">
-                                <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
-                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                            <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
+                        </div>
 
-                            <!--<div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-        <div class="grid grid-cols-12  gap-y-5 mt-5">
-            <div class="intro-y   col-span-6">-->
-                            @*<a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="btn btn-primary w-24"> List</a>*@
-                            <!--<span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
-                        Back to List
-                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)">
-                            <i data-feather="arrow-left" class="w-4 h-4"></i>
-                        </a>
-                    </span>
-                </div>
-                <div class="intro-y  col-span-6 ml-auto">
+                      
 
-                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
-                </div>
-
-            </div>
-        </div>-->
-
-                            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                                <span class="mr-5">
-                                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                        <label class="pl-10">Back to List</label>
-                                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)">
-                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                        </a>
-                                    </span>
+                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                            <span class="mr-5">
+                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                    <label class="pl-10">Back to List</label>
+                                    <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)">
+                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                    </a>
                                 </span>
+                            </span>
 
-                                <button type="submit" class="btn btn-primary mr-2 w-24">Save</button>
-                                @*<a target="_blank" class="btn btn-primary w-24" href="/Home/Index">Preview</a>*@
-                            </div>
+                            <button type="submit" class="btn btn-primary mr-2 w-24">Save</button>
+                            @*<a target="_blank" class="btn btn-primary w-24" href="/Home/Index">Preview</a>*@
+                            @*<div class="intro-y  col-span-3 ml-auto">*@
 
+
+                                <a target="_blank" class="btn btn-primary w-24" href="/Home/index?QuoteType=@((int)Quote.Landing)">Preview</a>
+                            @*</div>*@
                         </div>
 
                     </div>
+
+                </div>
 
             </div>
 
