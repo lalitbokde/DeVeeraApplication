@@ -173,6 +173,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.Link_1 = model.Link_1;
                 data.Link_2 = model.Link_2;
                 data.Link_3 = model.Link_3;
+                data.IsActive = model.IsActive;
 
 
                 _layoutSetupService.UpdateLayoutSetup(data);
