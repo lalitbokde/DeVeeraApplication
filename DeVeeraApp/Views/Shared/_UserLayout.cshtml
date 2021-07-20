@@ -1,9 +1,20 @@
-﻿@model  DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel
+﻿@*@model  DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel*@
 @inject CRM.Services.Users.IUserService UserService
 @inject CRM.Services.ILevelServices levelServices
-@{ var currentLevel = _workContext.CurrentUser.LastLevel;
+@inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
+@{  var currentLevel = _workContext.CurrentUser.LastLevel;
     var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
     var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo : null;}
+
+@{   
+        var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a=>a.IsActive==true).FirstOrDefault()?.Link_1;
+        var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
+        var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
+        var phone = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive ==true).FirstOrDefault()?.PhoneNo;
+        var email = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
+        var location = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
+        var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription; }
+
 <!doctype html>
 <html lang="zxx">
 <head>
@@ -85,7 +96,7 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-3 col-md-12">
+                @*<div class="col-lg-3 col-md-12">
                     <ul class="top-header-optional">
                         <li>
                             <a href="#" target="_blank">
@@ -102,7 +113,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -233,9 +244,9 @@
                         <div class="widget-logo">
                             <a href="#"><img src="~/assets/images/logo-2.png" alt="image"></a>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eir mod tempor invidunt ut labore et.</p>
+                        <p>@Footer</p>
 
-                        <div class="widget-share">
+                        @*<div class="widget-share">
                             <a href="#" target="_blank">
                                 <i class='bx bxl-facebook'></i>
                             </a>
@@ -248,7 +259,7 @@
                             <a href="#" target="_blank">
                                 <i class='bx bxl-linkedin'></i>
                             </a>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
 
@@ -261,20 +272,19 @@
                                     <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> @T("Home")</a>
                                 </li>*@
                             <li>
-                                <a href="/Home/WeeklyInspiringQuotes"><i class='bx bxs-right-arrow'></i></a
+                                <a href="/Home/WeeklyInspiringQuotes" target="_blank"><i class='bx bxs-right-arrow'></i>@Title1</a></li>
+                            <li>
+                                <a href="/Home/NewVideos" target="_blank"><i class='bx bxs-right-arrow'></i>@Title2</a>
                             </li>
                             <li>
-                                <a href="/Home/NewVideos"><i class='bx bxs-right-arrow'></i> @T("Videos")</a>
-                            </li>
-                            <li>
-                                <a href="/Home/FeelGoodStories"><i class='bx bxs-right-arrow'></i> @T("Stories")</a>
+                                <a href="/Home/FeelGoodStories" target="_blank"><i class='bx bxs-right-arrow'></i>@Title3</a>
                             </li>
 
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-6">
+                @*<div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
                         <h3>@T("Explore")</h3>
 
@@ -299,7 +309,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div>*@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
@@ -309,17 +319,17 @@
                             <li>
                                 <i class='flaticon-phone-call'></i>
                                 <span>@T("Phone No:")</span>
-                                <a href="tel:9885394203">+988 5394 203</a>
+                                <p>@phone</p>
                             </li>
                             <li>
                                 <i class='flaticon-mail'></i>
                                 <span>@T("Email Address:")</span>
-                                <a href="mailto:happe@gmail.com">Happe@gmail.com</a>
+                                <p>@email</p>
                             </li>
                             <li>
                                 <i class='flaticon-placeholder'></i>
                                 <span>@T("Location:")</span>
-                                3 Edgar Buildings, George Street, England, BA1 2FJ.
+                                <p>@location</p>
                             </li>
                         </ul>
                     </div>

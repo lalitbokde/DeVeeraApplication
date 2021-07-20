@@ -272,7 +272,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     user.LastActivityDateUtc = DateTime.UtcNow;
                     user.RegistrationComplete = true;
                     user.TwoFactorAuthentication = true;
-                    user.UserRole.Name = model.UserRole.Name;
+                   // user.UserRole.Name = model.UserRole.Name;
                     var userRoleData = _UserService.GetAllUserRoles();
 
                     foreach (var item in userRoleData)

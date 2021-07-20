@@ -35,6 +35,20 @@
         public int Link_2_BannerImageId { get; set; }
         public int Link_3_BannerImageId { get; set; }
 
+        public bool IsActive { get; set; }
+
+        //Module Section Header
+        public string Title { get; set; }
+        public string Description { get; set; }
+
+        //Footer 
+        public string FooterDescription { get; set; }
+
+        public string Email { get; set; }
+        public string PhoneNo { get; set; }
+        public int FooterImageId { get; set; }
+        public string FooterImageUrl { get; set; }
+        public string Location { get; set; }
 
     }
 }

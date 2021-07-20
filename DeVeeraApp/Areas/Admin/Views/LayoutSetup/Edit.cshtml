@@ -4,395 +4,468 @@
 }
 
 <form asp-controller="LayoutSetup" asp-action="Edit" method="post" id="LayoutSetupForm" onsubmit="ShowLoader('LayoutSetupForm');">
-    <div class="intro-y inbox py-10 sm:py-20 ">
-        <div class="px-5 ">
-            <div class="font-medium text-center text-lg">Edit Layout Setup </div>
-            <div class="text-gray-600 text-center mt-2">Please layout setup to show on the dashboad page</div>
-        </div>
-        <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+    <div class="intro-y inbox py-10 sm:py-20 "></div>
+    <div class="px-5 ">
+        <div class="font-medium text-center text-lg">Edit Layout Setup </div>
+        <div class="text-gray-600 text-center mt-2">Please layout setup to show on the dashboad page</div>
+    </div>
+    <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
-            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                <div class="intro-y box p-5 col-span-12">
-                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
-                    {
-                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
+        <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+            <div class="intro-y box p-5 col-span-12">
+                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                    </div>
+                }
+
+                @{
+                    var slider1image = Model.SliderOneImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.SliderOneImageUrl;
+                    var slider2image = Model.SliderTwoImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.SliderTwoImageUrl;
+                    var slider3image = Model.SliderThreeImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.SliderThreeImageUrl;
+                    var BannerOneImageUrl = Model.BannerOneImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerOneImageUrl;
+                    var BannerTwoImageUrl = Model.BannerTwoImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerTwoImageUrl;
+                    var DiaryHeaderImageUrl = Model.DiaryHeaderImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.DiaryHeaderImageUrl;
+                    var CompleteRegistrationHeaderImgUrl = Model.CompleteRegistrationHeaderImgUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.CompleteRegistrationHeaderImgUrl;
+                }
+                <div class="px-5 ">
+                    <div class="font-medium text-center  text-theme-21">User Dashboard</div>
+                </div>
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-4 mb-4">
+                        <div class="mt-5">
+                            <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
                         </div>
-                    }
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                            <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" />
+                            @*<span asp-validation-for="SliderOneTitle" class="text-theme-21  mt-2"></span>*@
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Image 1 </label>
+                            @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
 
-                    @{
-                        var slider1image = Model.SliderOneImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.SliderOneImageUrl;
-                        var slider2image = Model.SliderTwoImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.SliderTwoImageUrl;
-                        var slider3image = Model.SliderThreeImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.SliderThreeImageUrl;
-                        var BannerOneImageUrl = Model.BannerOneImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerOneImageUrl;
-                        var BannerTwoImageUrl = Model.BannerTwoImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerTwoImageUrl;
-                        var DiaryHeaderImageUrl = Model.DiaryHeaderImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.DiaryHeaderImageUrl;
-                        var CompleteRegistrationHeaderImgUrl = Model.CompleteRegistrationHeaderImgUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.CompleteRegistrationHeaderImgUrl;
-                    }
-                    <div class="px-5 ">
-                        <div class="font-medium text-center  text-theme-21">User Dashboard</div>
+                            <a onclick="OpenImageSelectionModal('SliderOneImageId','SliderOneImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="SliderOneImageId" hidden>
+                                            <img id="SliderOneImageIdUrl" alt="" src="@slider1image" style="Width:100%;height:100%">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Slider Image 1</div>
+                                </div>
+                                <span asp-validation-for="SliderOneImageId" class="text-theme-6 mt-2"></span>
+                            </a>
+
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                            <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1"></textarea>
+                            <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>
+
+                        </div>
+                    </div>
+                    <div class="col-span-4 mb-4">
+                        <div class="mt-5">
+                            <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
+                            <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
+                            @*<span asp-validation-for="SliderTwoTitle" class="text-theme-21  mt-2"></span>*@
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Image 2</label>
+                            @*<select asp-for="SliderTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                            <a onclick="OpenImageSelectionModal('SliderTwoImageId','SliderTwoImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="SliderTwoImageId" hidden>
+                                            <img id="SliderTwoImageIdUrl" alt="" src="@slider2image" style="Width:100%;height:100%">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Slider Image 2</div>
+                                </div>
+                                <span asp-validation-for="SliderTwoImageId" class="text-theme-6 mt-2"></span>
+                            </a>
+                        </div>
+
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                            <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
+                            <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>
+                        </div>
+                    </div>
+                    <div class="col-span-4 mb-4">
+                        <div class="mt-5">
+                            <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Title</label>
+                            <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
+                            @*<span asp-validation-for="SliderThreeTitle" class="text-theme-21 mt-2"></span>*@
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Image 3</label>
+                            @*<select asp-for="SliderThreeImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+
+                            <a onclick="OpenImageSelectionModal('SliderThreeImageId','SliderThreeImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="SliderThreeImageId" hidden>
+                                            <img id="SliderThreeImageIdUrl" alt="" src="@slider3image" style="Width:100%;height:100%">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Slider Image 3</div>
+                                </div>
+                                <span asp-validation-for="SliderThreeImageId" class="text-theme-6 mt-2"></span>
+                            </a>
+                        </div>
+
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Description</label>
+                            <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
+                            <span asp-validation-for="SliderThreeDescription" class="text-theme-21  mt-2"></span>
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Registration Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
+                                <select asp-for="BannerOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Login Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
+                                <select asp-for="BannerTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-5 ">
+                                <div class="font-medium text-center text-theme-21">Diary Page</div>
+                                <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
+                                <select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-4 ">
+                        <div class="font-medium text-center text-theme-21">Registration Page</div>
+                        <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
+                            <a onclick="OpenImageSelectionModal('BannerOneImageId','BannerOneImageIdelayoutUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="BannerOneImageId" hidden>
+                                            <img id="BannerOneImageIdelayoutUrl" alt="" src="@BannerOneImageUrl" style="Width:100%;height:100%">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Banner Image</div>
+                                </div>
+                                <span asp-validation-for="BannerOneImageId" class="text-theme-6 mt-2"></span>
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div class="col-span-4 ">
+                        <div class="font-medium text-center text-theme-21">Login Page</div>
+                        <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
+                            <a onclick="OpenImageSelectionModal('BannerTwoImageId','BannerTwoImageIdelayoutUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="BannerTwoImageId" hidden>
+                                            <img id="BannerTwoImageIdelayoutUrl" alt="" src="@BannerTwoImageUrl" style="Width:100%;height:100%">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Banner Image</div>
+                                </div>
+                                <span asp-validation-for="BannerTwoImageId" class="text-theme-6 mt-2"></span>
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div class="col-span-4 ">
+                        <div class="font-medium text-center text-theme-21">Diary Page</div>
+                        <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
+                            <a onclick="OpenImageSelectionModal('DiaryHeaderImageId','DiaryHeaderImageIdeditUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="DiaryHeaderImageId" hidden>
+                                            <img id="DiaryHeaderImageIdeditUrl" alt="" src="@DiaryHeaderImageUrl" style="Width:100%;height:100%">
+                                        </div>
+                                    </div>
+                                    <div class="block font-medium text-center truncate mt-3">Header Image</div>
+                                </div>
+                                <span asp-validation-for="DiaryHeaderImageId" class="text-theme-6 mt-2"></span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 mb-4">
+                    <div class="mt-5 ">
+                        <div class="font-medium text-center text-theme-21">Complete Registration Page</div>
+                        <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                    </div>
+                    <div class="mt-2">
+                        <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>-->
+                @*<select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                <!--</div>
+                        <div class="mt-2">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
+                            <input asp-for="ReasonToSubmit" type="text" class="form-control w-full" placeholder="reason" required />
+                        </div>
+                    </div>
+                </div>-->
+
+
+                @{
+                    var link1Url = Model.Link_1_BannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Link_1_BannerImageUrl;
+                    var link2Url = Model.Link_2_BannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Link_2_BannerImageUrl;
+                    var link3Url = Model.Link_3_BannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Link_3_BannerImageUrl;
+
+                    <div class="px-5  pt-5">
+                        <div class="font-medium text-center  text-theme-21 mt-5">Quick Links</div>
+                        <div class="form-label text-theme-21  border-b-2 w-full"></div>
+
                     </div>
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-4 mb-4">
+
                             <div class="mt-5">
-                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Link 1</label>
+                                <input asp-for="Link_1" type="text" class="form-control w-full" placeholder="Title 1" required />
+                                <span asp-validation-for="Link_1" class="text-theme-21 mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" required />
-                                <span asp-validation-for="SliderOneTitle" class="text-theme-21  mt-2"></span>
-                            </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 ">Image 1 </label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image 1</label>
                                 @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-
-                                <a onclick="OpenImageSelectionModal('SliderOneImageId','SliderOneImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <a onclick="OpenImageSelectionModal('Link_1_BannerImageId','Link1imageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
                                         <div class="flex-none pos-image relative block">
                                             <div class="pos-image__preview">
-                                                <input asp-for="SliderOneImageId" hidden>
-                                                <img id="SliderOneImageIdUrl" alt="" src="@slider1image" style="Width:100%;height:100%">
+                                                <input asp-for="Link_1_BannerImageId" hidden>
+                                                <img id="Link1imageUrl" alt="" src="@link1Url" style="Width:100%;height:100%">
                                             </div>
                                         </div>
-                                        <div class="block font-medium text-center truncate mt-3">Slider Image 1</div>
+                                        <div class="block font-medium text-center truncate mt-3">Banner Image</div>
                                     </div>
-                                    <span asp-validation-for="SliderOneImageId" class="text-theme-6 mt-2"></span>
+                                    <span asp-validation-for="Link_1_BannerImageId" class="text-theme-6 mt-2"></span>
                                 </a>
-
-                            </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
-                                <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1"></textarea>
-                                <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>
-
                             </div>
                         </div>
                         <div class="col-span-4 mb-4">
                             <div class="mt-5">
-                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Link 2</label>
+                                <input asp-for="Link_2" type="text" class="form-control w-full" placeholder="Title 1" required />
+                                <span asp-validation-for="Link_2" class="text-theme-21 mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 ">Title</label>
-                                <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
-                                <span asp-validation-for="SliderTwoTitle" class="text-theme-21  mt-2"></span>
-                            </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Image 2</label>
-                                @*<select asp-for="SliderTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                                <a onclick="OpenImageSelectionModal('SliderTwoImageId','SliderTwoImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image 2</label>
+                                @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                                <a onclick="OpenImageSelectionModal('Link_2_BannerImageId','link2ImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
                                         <div class="flex-none pos-image relative block">
                                             <div class="pos-image__preview">
-                                                <input asp-for="SliderTwoImageId" hidden>
-                                                <img id="SliderTwoImageIdUrl" alt="" src="@slider2image" style="Width:100%;height:100%">
+                                                <input asp-for="Link_2_BannerImageId" hidden>
+                                                <img id="link2ImageUrl" alt="" src="@link2Url" style="Width:100%;height:100%">
                                             </div>
                                         </div>
-                                        <div class="block font-medium text-center truncate mt-3">Slider Image 2</div>
+                                        <div class="block font-medium text-center truncate mt-3">Banner Image</div>
                                     </div>
-                                    <span asp-validation-for="SliderTwoImageId" class="text-theme-6 mt-2"></span>
+                                    <span asp-validation-for="Link_2_BannerImageId" class="text-theme-6 mt-2"></span>
                                 </a>
-                            </div>
-
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
-                                <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
-                                <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>
                             </div>
                         </div>
                         <div class="col-span-4 mb-4">
                             <div class="mt-5">
-                                <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Link 3</label>
+                                <input asp-for="Link_3" type="text" class="form-control w-full" placeholder="Title 1" required />
+                                <span asp-validation-for="Link_3" class="text-theme-21 mt-2"></span>
                             </div>
                             <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Title</label>
-                                <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
-                                <span asp-validation-for="SliderThreeTitle" class="text-theme-21 mt-2"></span>
-                            </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Image 3</label>
-                                @*<select asp-for="SliderThreeImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-
-                                <a onclick="OpenImageSelectionModal('SliderThreeImageId','SliderThreeImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Image 3</label>
+                                @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                                <a onclick="OpenImageSelectionModal('Link_3_BannerImageId','Link3ImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                     <div class="box rounded-md p-3 relative zoom-in">
                                         <div class="flex-none pos-image relative block">
                                             <div class="pos-image__preview">
-                                                <input asp-for="SliderThreeImageId" hidden>
-                                                <img id="SliderThreeImageIdUrl" alt="" src="@slider3image" style="Width:100%;height:100%">
+                                                <input asp-for="Link_3_BannerImageId" hidden>
+                                                <img id="Link3ImageUrl" alt="" src="@link3Url" style="Width:100%;height:100%">
                                             </div>
                                         </div>
-                                        <div class="block font-medium text-center truncate mt-3">Slider Image 3</div>
+                                        <div class="block font-medium text-center truncate mt-3">Banner Image</div>
                                     </div>
-                                    <span asp-validation-for="SliderThreeImageId" class="text-theme-6 mt-2"></span>
+                                    <span asp-validation-for="Link_3_BannerImageId" class="text-theme-6 mt-2"></span>
                                 </a>
                             </div>
+                        </div>
 
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21">Description</label>
-                                <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
-                                <span asp-validation-for="SliderThreeDescription" class="text-theme-21  mt-2"></span>
 
+                    </div>
+
+                }
+
+                <div class="mt-5 ">
+                    <div class="font-medium text-center text-theme-21 mt-5 pt-5">Complete Registration Page</div>
+                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
+
+
+
+                    <div class="grid grid-cols-12 gap-4 ">
+                        <div class="col-span-4 mb-4">
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
+                                @*<select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                                <div class="grid grid-cols-4 gap-4   border-theme-31">
+                                    <a onclick="OpenImageSelectionModal('CompleteRegistrationHeaderImgId','CompleteRegistrationHeaderImgUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                                        <div class="box rounded-md p-3 relative zoom-in">
+                                            <div class="flex-none pos-image relative block">
+                                                <div class="pos-image__preview">
+                                                    <input asp-for="CompleteRegistrationHeaderImgId" hidden>
+                                                    <img id="CompleteRegistrationHeaderImgUrl" alt="" src="@CompleteRegistrationHeaderImgUrl" style="Width:100%;height:100%">
+                                                </div>
+                                            </div>
+                                            <div class="block font-medium text-center truncate mt-3">Header Image</div>
+                                        </div>
+                                        <span asp-validation-for="DiaryHeaderImageId" class="text-theme-6 mt-2"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-8 mb-4"></div>
+
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-4 mt-5">
+                        <div class="col-span-12 mb-4">
+                            <div class="mt-2">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
+                                <textarea asp-for="ReasonToSubmit" type="text" class="form-control w-full " placeholder="Reason" required></textarea>
+                                <span asp-validation-for="ReasonToSubmit" class="text-theme-21 mt-2"></span>
                             </div>
                         </div>
                     </div>
-                    @*<div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 mb-4">
+                </div>
+                @*For Module Description*@
                 <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Registration Page</div>
+                    <div class="font-medium text-center text-theme-21 mt-5 pt-5">Module Section Header</div>
                     <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Module Title</label>
+                        <input asp-for="Title" type="text" class="form-control w-full" placeholder=" Module Title" />
+
+                    </div>
+                    <div class="mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Module Description</label>
+                        <textarea asp-for="Description" rows="4" class="form-control w-full" placeholder="Module Description "></textarea>
+                    </div>
+
                 </div>
-                <div class="mt-2">
-                    <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
-                    <select asp-for="BannerOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 mb-4">
                 <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Login Page</div>
+                    <div class="font-medium text-center text-theme-21 mt-5 pt-5">Footer</div>
                     <div class="form-label text-theme-21  border-b-2 w-full"></div>
-                </div>
-                <div class="mt-2">
-                    <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
-                    <select asp-for="BannerTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 mb-4">
-                <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Diary Page</div>
-                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
-                </div>
-                <div class="mt-2">
-                    <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
-                    <select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                </div>
-            </div>
-        </div>*@
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Footer Description</label>
+                            <textarea asp-for="FooterDescription" rows="4" class="form-control w-full" placeholder="Footer Description "></textarea>
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Location</label>
+                            <textarea asp-for="Location" rows="4" class="form-control w-full" placeholder="Location "></textarea>
+                        </div>
+
+                    </div>
 
                     <div class="grid grid-cols-12 gap-4">
-                        <div class="col-span-4 ">
-                            <div class="font-medium text-center text-theme-21">Registration Page</div>
-                            <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
-                                <a onclick="OpenImageSelectionModal('BannerOneImageId','BannerOneImageIdelayoutUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Phone No</label>
+                            <input asp-for="PhoneNo" type="text" class="form-control w-full" placeholder="Phone No" />
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Email</label>
+                            <input asp-for="Email" type="email" class="form-control w-full" placeholder="Email" />
+
+                        </div>
+
+                    </div>
+                    <div class="grid grid-cols-12 gap-4 mt-6">
+                        <div class="col-span-4 mb-4">
+                            <label for="input-wizard-1" class="form-label text-theme-21">Footer Image</label>
+                            @*<select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                            <div class="grid grid-cols-4 gap-4   border-theme-31">
+                                <a onclick="OpenImageSelectionModal('FooterImageId','FooterImgIdurl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
                                     <div class="box rounded-md p-3 relative zoom-in">
                                         <div class="flex-none pos-image relative block">
                                             <div class="pos-image__preview">
-                                                <input asp-for="BannerOneImageId" hidden>
-                                                <img id="BannerOneImageIdelayoutUrl" alt="" src="@BannerOneImageUrl" style="Width:100%;height:100%">
+                                                <input asp-for="FooterImageId" hidden>
+                                                <img id="FooterImgIdurl" alt="" src="~/dist/images/food-beverage-9.jpg" style="Width:100%;height:100%">
                                             </div>
                                         </div>
-                                        <div class="block font-medium text-center truncate mt-3">Banner Image</div>
+                                        <div class="block font-medium text-center truncate mt-3">Footer Image</div>
                                     </div>
-                                    <span asp-validation-for="BannerOneImageId" class="text-theme-6 mt-2"></span>
+                                    @*<span asp-validation-for="CompleteRegistrationHeaderImgId" class="text-theme-6 mt-2"></span>*@
                                 </a>
-
                             </div>
                         </div>
 
-                        <div class="col-span-4 ">
-                            <div class="font-medium text-center text-theme-21">Login Page</div>
-                            <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
-                                <a onclick="OpenImageSelectionModal('BannerTwoImageId','BannerTwoImageIdelayoutUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
-                                    <div class="box rounded-md p-3 relative zoom-in">
-                                        <div class="flex-none pos-image relative block">
-                                            <div class="pos-image__preview">
-                                                <input asp-for="BannerTwoImageId" hidden>
-                                                <img id="BannerTwoImageIdelayoutUrl" alt="" src="@BannerTwoImageUrl" style="Width:100%;height:100%">
-                                            </div>
-                                        </div>
-                                        <div class="block font-medium text-center truncate mt-3">Banner Image</div>
-                                    </div>
-                                    <span asp-validation-for="BannerTwoImageId" class="text-theme-6 mt-2"></span>
-                                </a>
 
+
+                    </div>
+
+
+                    <div class="mt-5">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                        <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
+                        <span asp-validation-for="IsActive" class="text-theme-21 mt-2"></span>
+
+                    </div>
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <div class="grid grid-cols-12  gap-y-5 mt-5">
+                            <div class="intro-y   col-span-6">
+
+                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                    <label class="pl-10">Back to List</label>
+                                    <a asp-controller="LayoutSetup" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
+                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                    </a>
+                                </span>
                             </div>
-                        </div>
-
-                        <div class="col-span-4 ">
-                            <div class="font-medium text-center text-theme-21">Diary Page</div>
-                            <div class="grid grid-cols-4 gap-4 mt-2 pt-3 border-t border-theme-31">
-                                <a onclick="OpenImageSelectionModal('DiaryHeaderImageId','DiaryHeaderImageIdeditUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
-                                    <div class="box rounded-md p-3 relative zoom-in">
-                                        <div class="flex-none pos-image relative block">
-                                            <div class="pos-image__preview">
-                                                <input asp-for="DiaryHeaderImageId" hidden>
-                                                <img id="DiaryHeaderImageIdeditUrl" alt="" src="@DiaryHeaderImageUrl" style="Width:100%;height:100%">
-                                            </div>
-                                        </div>
-                                        <div class="block font-medium text-center truncate mt-3">Header Image</div>
-                                    </div>
-                                    <span asp-validation-for="DiaryHeaderImageId" class="text-theme-6 mt-2"></span>
-                                </a>
-
+                            <div class="intro-y  col-span-6 ml-auto">
+                                <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                             </div>
                         </div>
                     </div>
-
-                    <!--<div class="grid grid-cols-12 gap-4">
-    <div class="col-span-12 mb-4">
-        <div class="mt-5 ">
-            <div class="font-medium text-center text-theme-21">Complete Registration Page</div>
-            <div class="form-label text-theme-21  border-b-2 w-full"></div>
-        </div>
-        <div class="mt-2">
-            <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>-->
-                    @*<select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                    <!--</div>
-            <div class="mt-2">
-                <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
-                <input asp-for="ReasonToSubmit" type="text" class="form-control w-full" placeholder="reason" required />
-            </div>
-        </div>
-    </div>-->
-
-
-                    @{
-                        var link1Url = Model.Link_1_BannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Link_1_BannerImageUrl;
-                        var link2Url = Model.Link_2_BannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Link_2_BannerImageUrl;
-                        var link3Url = Model.Link_3_BannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.Link_3_BannerImageUrl;
-
-                        <div class="px-5  pt-5">
-                            <div class="font-medium text-center  text-theme-21 mt-5">Quick Links</div>
-                            <div class="form-label text-theme-21  border-b-2 w-full"></div>
-
-                        </div>
-                        <div class="grid grid-cols-12 gap-4">
-                            <div class="col-span-4 mb-4">
-
-                                <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Link 1</label>
-                                    <input asp-for="Link_1" type="text" class="form-control w-full" placeholder="Title 1" required />
-                                    <span asp-validation-for="Link_1" class="text-theme-21 mt-2"></span>
-                                </div>
-                                <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Image 1</label>
-                                    @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                                    <a onclick="OpenImageSelectionModal('Link_1_BannerImageId','Link1imageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="Link_1_BannerImageId" hidden>
-                                                    <img id="Link1imageUrl" alt="" src="@link1Url" style="Width:100%;height:100%">
-                                                </div>
-                                            </div>
-                                            <div class="block font-medium text-center truncate mt-3">Banner Image</div>
-                                        </div>
-                                        <span asp-validation-for="Link_1_BannerImageId" class="text-theme-6 mt-2"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-span-4 mb-4">
-                                <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Link 2</label>
-                                    <input asp-for="Link_2" type="text" class="form-control w-full" placeholder="Title 1" required />
-                                    <span asp-validation-for="Link_2" class="text-theme-21 mt-2"></span>
-                                </div>
-                                <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Image 2</label>
-                                    @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                                    <a onclick="OpenImageSelectionModal('Link_2_BannerImageId','link2ImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="Link_2_BannerImageId" hidden>
-                                                    <img id="link2ImageUrl" alt="" src="@link2Url" style="Width:100%;height:100%">
-                                                </div>
-                                            </div>
-                                            <div class="block font-medium text-center truncate mt-3">Banner Image</div>
-                                        </div>
-                                        <span asp-validation-for="Link_2_BannerImageId" class="text-theme-6 mt-2"></span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-span-4 mb-4">
-                                <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Link 3</label>
-                                    <input asp-for="Link_3" type="text" class="form-control w-full" placeholder="Title 1" required />
-                                    <span asp-validation-for="Link_3" class="text-theme-21 mt-2"></span>
-                                </div>
-                                <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Image 3</label>
-                                    @*<select asp-for="SliderOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                                    <a onclick="OpenImageSelectionModal('Link_3_BannerImageId','Link3ImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="Link_3_BannerImageId" hidden>
-                                                    <img id="Link3ImageUrl" alt="" src="@link3Url" style="Width:100%;height:100%">
-                                                </div>
-                                            </div>
-                                            <div class="block font-medium text-center truncate mt-3">Banner Image</div>
-                                        </div>
-                                        <span asp-validation-for="Link_3_BannerImageId" class="text-theme-6 mt-2"></span>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        }
-
-                        <div class="mt-5 ">
-                            <div class="font-medium text-center text-theme-21 mt-5 pt-5">Complete Registration Page</div>
-                            <div class="form-label text-theme-21  border-b-2 w-full"></div>
-
-
-
-                            <div class="grid grid-cols-12 gap-4 ">
-                                <div class="col-span-4 mb-4">
-                                    <div class="mt-2">
-                                        <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
-                                        @*<select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
-                                        <div class="grid grid-cols-4 gap-4   border-theme-31">
-                                            <a onclick="OpenImageSelectionModal('CompleteRegistrationHeaderImgId','CompleteRegistrationHeaderImgUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
-                                                <div class="box rounded-md p-3 relative zoom-in">
-                                                    <div class="flex-none pos-image relative block">
-                                                        <div class="pos-image__preview">
-                                                            <input asp-for="CompleteRegistrationHeaderImgId" hidden>
-                                                            <img id="CompleteRegistrationHeaderImgUrl" alt="" src="@CompleteRegistrationHeaderImgUrl" style="Width:100%;height:100%">
-                                                        </div>
-                                                    </div>
-                                                    <div class="block font-medium text-center truncate mt-3">Header Image</div>
-                                                </div>
-                                                <span asp-validation-for="DiaryHeaderImageId" class="text-theme-6 mt-2"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-span-8 mb-4"></div>
-
-                            </div>
-
-                            <div class="grid grid-cols-12 gap-4 mt-5">
-                                <div class="col-span-12 mb-4">
-                                    <div class="mt-2">
-                                        <label for="input-wizard-1" class="form-label text-theme-21">Reason to submit the form</label>
-                                        <textarea asp-for="ReasonToSubmit" type="text" class="form-control w-full " placeholder="Reason" required></textarea>
-                                        <span asp-validation-for="ReasonToSubmit" class="text-theme-21 mt-2"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <div class="grid grid-cols-12  gap-y-5 mt-5">
-                                <div class="intro-y   col-span-6">
-                                
-                                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                        <label class="pl-10">Back to List</label>
-                                        <a asp-controller="LayoutSetup" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
-                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="intro-y  col-span-6 ml-auto">
-                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>

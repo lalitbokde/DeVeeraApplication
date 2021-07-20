@@ -4,240 +4,243 @@
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
+@inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
 
-<!-- Start Page Banner Area -->
-<div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl !=null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
-    <div class="container">
-        <div class="page-banner-content-two">
-             <h2>@Model.Title</h2>
-            <ul>
-                <li>
-                    <a asp-controller="Dashboard" asp-action="Index">Home</a>
-                </li>
-                <li>@Model.Title</li>
-            </ul>
+@{var Description = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Description).Where(a => a.IsActive == true).FirstOrDefault()?.Description; }
+
+    <!-- Start Page Banner Area -->
+    <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl !=null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
+        <div class="container">
+            <div class="page-banner-content-two">
+                <h2>@Model.Title</h2>
+                <ul>
+                    <li>
+                        <a asp-controller="Dashboard" asp-action="Index">Home</a>
+                    </li>
+                    <li>@Model.Title</li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-<!-- End Page Banner Area -->
-<!-- Start Courses Details Area -->
-<section class="courses-details-area ptb-100">
-    <div class="container">
-        <div class="courses-details-image">
-            @{
-                var imageUrl2 = Model.VideoThumbImageUrl != null? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg";
-                var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-            }
+    <!-- End Page Banner Area -->
+    <!-- Start Courses Details Area -->
+    <section class="courses-details-area ptb-100">
+        <div class="container">
+            <div class="courses-details-image">
+                @{
+                    var imageUrl2 = Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg";
+                    var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
+                }
 
-            <img src="@imageUrl2" alt="image" width="100%">
+                <img src="@imageUrl2" alt="image" width="100%">
 
                 <a href="@src" class="video-btn popup-youtube">
                     <i class="flaticon-play"></i>
                 </a>
-        </div>
+            </div>
 
-        <div class="row">
-            <div class="col-lg-8 col-md-12">
-                <div class="courses-details-desc">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("Overview")</a></li>
-                        @*<li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Curriculum</a></li>
-                            <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
-                            <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
-                    </ul>
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="courses-details-desc">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("Overview")</a></li>
+                            @*<li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Curriculum</a></li>
+                                <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
+                                <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
+                        </ul>
 
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
-                            <div class="courses-overview">
-                                <h3>@Model.Subtitle</h3>
-                                @Html.Raw(Model.FullDescription)
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                <div class="courses-overview">
+                                    <h3>@Model.Subtitle</h3>
+                                    @Html.Raw(Model.FullDescription)
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="courses-details-info">
+                        <div class="image">
+                            @{
+                                var imageUrl3 = Model.ShareBackgroundImageUrl != null ? Model.ShareBackgroundImageUrl : "../../assets/images/courses/courses-1.jpg";
+                            }
+                            <img src="@imageUrl3" alt="image" style="height:225px;">
+
+
+                        </div>
+
+                        @*<div class="courses-share">
+                                <div class="share-info">
+                                    <span>@T("Share This Course")</span>
+
+                                    <ul class="social-link">
+                                        <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                                        <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                                        <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                                        <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="psylo-post-navigation">
+
+
+
+
+                @if (Convert.ToInt32(Model.LevelNo) != 1)
+                {
+                    <div class="prev-link-wrapper">
+                        <div class="info-prev-link-wrapper">
+                            <a asp-controller="Lesson" asp-action="Previous" asp-route-levelno="@Model.LevelNo">
+                                <span class="image-prev">
+
+                                    @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; }
+                                    <img src="@prevImageUrl" alt="image">
+                                    <span class="post-nav-title">Prev</span>
+                                </span>
+
+                                <span class="prev-link-info-wrapper">
+                                    <span class="prev-title">
+                                        @Model.PrevTitle
+                                    </span>
+                                </span>
+                            </a>
+                            <a asp-controller="Lesson" asp-action="Previous" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Previous Level") <i class="flaticon-left-arrow"></i></a>
+                        </div>
+                    </div>
+                }
+                @if (ViewBag.TotalLevels > Convert.ToInt32(Model.LevelNo))
+                {
+                    if (Model.ModuleList.Count() > 0)
+                    {
+                        <div class="next-link-wrapper">
+                            <div class="info-next-link-wrapper">
+                                <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo">
+                                    <span class="next-link-info-wrapper">
+                                        <span class="next-title">
+                                            @Model.ModuleList.FirstOrDefault().Title
+                                        </span>
+                                    </span>
+
+                                    <span class="image-next">
+                                        @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
+                                        <img src="@nextImageUrl" alt="image">
+                                        <span class="post-nav-title">Next</span>
+                                    </span>
+                                </a>
+                                <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo" class="default-btn">@T("Start Module") <i class="flaticon-right-arrow"></i></a>
                             </div>
                         </div>
 
+                    }
+                    else
+                    {
+                        <div class="next-link-wrapper">
+                            <div class="info-next-link-wrapper">
+                                <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo">
+                                    <span class="next-link-info-wrapper">
+                                        <span class="next-title">
+                                            @Model.NextTitle
+                                        </span>
+                                    </span>
 
-                    </div>
-                </div>
+                                    <span class="image-next">
+                                        @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
+                                        <img src="@nextImageUrl" alt="image">
+                                        <span class="post-nav-title">Next</span>
+                                    </span>
+                                </a>
+                                <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
+                            </div>
+                        </div>
+
+                    }
+                }
+
+
+
             </div>
 
-            <div class="col-lg-4 col-md-12">
-                <div class="courses-details-info">
-                    <div class="image">
-                        @{
-                            var imageUrl3 = Model.ShareBackgroundImageUrl !=null ? Model.ShareBackgroundImageUrl : "../../assets/images/courses/courses-1.jpg";
-                        }
-                        <img src="@imageUrl3" alt="image" style="height:225px;">
-
-
-                    </div>
-
-                    <div class="courses-share">
-                        <div class="share-info">
-                            <span>@T("Share This Course")</span>
-
-                            <ul class="social-link">
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+        </div>
+    </section>
+    <!-- End Courses Details Area -->
+    <!-- Start Products Area -->
+    <section class="products-area pb-70">
+        <div class="container-fluid">
+            <div class="section-title">
+                <h2>@T("Modules for this session")</h2>
+                <p>@Description</p>
             </div>
-        </div>
 
-        <div class="psylo-post-navigation">
-
-
-
-
-            @if (Convert.ToInt32(Model.LevelNo) != 1)
-            {
-                <div class="prev-link-wrapper">
-                    <div class="info-prev-link-wrapper">
-                        <a asp-controller="Lesson" asp-action="Previous" asp-route-levelno="@Model.LevelNo" >
-                            <span class="image-prev">
-
-                                @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; }
-                                <img src="@prevImageUrl" alt="image">
-                                <span class="post-nav-title">Prev</span>
-                            </span>
-
-                            <span class="prev-link-info-wrapper">
-                                <span class="prev-title">
-                                    @Model.PrevTitle
-                                </span>
-                            </span>
-                        </a>
-                        <a asp-controller="Lesson" asp-action="Previous" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Previous Level") <i class="flaticon-left-arrow"></i></a>
-                    </div>
-                </div>
-            }
-            @if (ViewBag.TotalLevels > Convert.ToInt32(Model.LevelNo))
-            {
-                if (Model.ModuleList.Count() > 0)
-                {
-                    <div class="next-link-wrapper">
-                        <div class="info-next-link-wrapper">
-                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo">
-                                <span class="next-link-info-wrapper">
-                                    <span class="next-title">
-                                        @Model.ModuleList.FirstOrDefault().Title
-                                    </span>
-                                </span>
-
-                                <span class="image-next">
-                                    @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
-                                    <img src="@nextImageUrl" alt="image">
-                                    <span class="post-nav-title">Next</span>
-                                </span>
-                            </a>
-                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo" class="default-btn">@T("Start Module") <i class="flaticon-right-arrow"></i></a>
-                        </div>
-                    </div>
-
-                }
-                else
-                {
-                    <div class="next-link-wrapper">
-                        <div class="info-next-link-wrapper">
-                            <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo" >
-                                <span class="next-link-info-wrapper">
-                                    <span class="next-title">
-                                        @Model.NextTitle
-                                    </span>
-                                </span>
-
-                                <span class="image-next">
-                                    @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
-                                    <img src="@nextImageUrl" alt="image">
-                                    <span class="post-nav-title">Next</span>
-                                </span>
-                            </a>
-                            <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo"  class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
-                        </div>
-                    </div>
-
-                }
-            }
-
-
-            
-        </div>
-
-    </div>
-</section>
-<!-- End Courses Details Area -->
-<!-- Start Products Area -->
-<section class="products-area pb-70">
-    <div class="container-fluid">
-        <div class="section-title">
-            <h2>@T("Modules for this session")</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-
-        <div class="products-slides owl-carousel owl-theme">
-            @{
-                int i = 1;
-                foreach (var item in Model.ModuleList)
-                {
+            <div class="products-slides owl-carousel owl-theme">
+                @{
+                    int i = 1;
+                    foreach (var item in Model.ModuleList)
+                    {
 
 
 
-                    <div class="products-item">
-                                    <div class="products-image">
-                                        @{
-                                            if (item.SelectedModuleImages.Count > 0)
-                                            {
-                                                string imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
-                                                if (imageUrl != null)
-                                                {
-                                                    <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src=@imageUrl alt="image"></a>
-
-                                                }
-
-
-                                            }
-                                            else
-                                            {
-                                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
-
-                                            }
+                        <div class="products-item">
+                            <div class="products-image">
+                                @{
+                                    if (item.SelectedModuleImages.Count > 0)
+                                    {
+                                        string imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                        if (imageUrl != null)
+                                        {
+                                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src=@imageUrl alt="image"></a>
 
                                         }
-                                    </div>
+                                            
 
-                        <div class="products-content">
-                            <h3>
-                                <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo">@item.Title</a>
-                            </h3>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src="~/assets/images/products/products-1.jpg" alt="image"></a>
 
+                                    }
+
+                                }
+                            </div>
+
+                            <div class="products-content">
+                                <h3>
+                                    <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo">@item.Title</a>
+                                </h3>
+
+                            </div>
                         </div>
-                    </div>
 
-                    i++;
+                        i++;
+                    }
                 }
-            }
 
-
-        </div>
-    </div>
-
-    <div class="products-main-shape">
-        <img src="~/assets/images/products/shape-1.png" alt="image">
-    </div>
-</section>
-<!-- End Products Area -->
-<!-- Start Subscribe Area -->
-<div class="subscribe-area bg-top">
-    <div class="container">
-        <div class="subscribe-inner-box">
-            <div class="subscribe-content">
-                <h2> @Model.Quote </h2>
-                <p>-@Model.Author</p>
 
             </div>
         </div>
+
+        <div class="products-main-shape">
+            <img src="~/assets/images/products/shape-1.png" alt="image">
+        </div>
+    </section>
+    <!-- End Products Area -->
+    <!-- Start Subscribe Area -->
+    <div class="subscribe-area bg-top">
+        <div class="container">
+            <div class="subscribe-inner-box">
+                <div class="subscribe-content">
+                    <h2> @Model.Quote </h2>
+                    <p>-@Model.Author</p>
+
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<!-- End Subscribe Area -->
+    <!-- End Subscribe Area -->

@@ -1,0 +1,19 @@
+﻿
+.smsCode {
+    text-align: center;
+    line-height: 80px;
+    font-size: 50px;
+    border: solid 1px #f38c8c;
+    box-shadow: 0 0 5px #ccc inset;
+    width: 100%;
+    outline: none;
+    border-radius: 3px;
+}
+.btn {
+    margin : auto;
+    width :40%;
+}
+.preloader-area {
+    display:none !important 
+}
+
