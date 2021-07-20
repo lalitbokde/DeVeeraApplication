@@ -1,9 +1,16 @@
-﻿@model  DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel
+﻿@*@model  DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel*@
 @inject CRM.Services.Users.IUserService UserService
 @inject CRM.Services.ILevelServices levelServices
-@{ var currentLevel = _workContext.CurrentUser.LastLevel;
+@inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
+@{  var currentLevel = _workContext.CurrentUser.LastLevel;
     var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
     var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo : null;}
+
+@{   
+var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a=>a.IsActive==true).FirstOrDefault()?.Link_1;
+var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
+var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3; }
+
 <!doctype html>
 <html lang="zxx">
 <head>
@@ -261,13 +268,12 @@
                                     <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> @T("Home")</a>
                                 </li>*@
                             <li>
-                                <a href="/Home/WeeklyInspiringQuotes"><i class='bx bxs-right-arrow'></i></a
+                                <a href="/Home/WeeklyInspiringQuotes" target="_blank"><i class='bx bxs-right-arrow'></i>@Title1</a></li>
+                            <li>
+                                <a href="/Home/NewVideos" target="_blank"><i class='bx bxs-right-arrow'></i>@Title2</a>
                             </li>
                             <li>
-                                <a href="/Home/NewVideos"><i class='bx bxs-right-arrow'></i> @T("Videos")</a>
-                            </li>
-                            <li>
-                                <a href="/Home/FeelGoodStories"><i class='bx bxs-right-arrow'></i> @T("Stories")</a>
+                                <a href="/Home/FeelGoodStories" target="_blank"><i class='bx bxs-right-arrow'></i>@Title3</a>
                             </li>
 
                         </ul>

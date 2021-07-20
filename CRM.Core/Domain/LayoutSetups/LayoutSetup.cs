@@ -35,6 +35,6 @@
         public int Link_2_BannerImageId { get; set; }
         public int Link_3_BannerImageId { get; set; }
 
-
+        public bool IsActive { get; set; }
     }
 }

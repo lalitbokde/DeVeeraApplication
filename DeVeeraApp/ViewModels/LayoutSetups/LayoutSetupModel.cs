@@ -41,6 +41,7 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         [Required(ErrorMessage = "Please enter slider 3 title")]
         public string SliderThreeTitle { get; set; }
         public string SliderThreeDescription { get; set; }
+        public bool IsActive { get; set; }
 
         //User Registration Form
         public int BannerOneImageId { get; set; }
