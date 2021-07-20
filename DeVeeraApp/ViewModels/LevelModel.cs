@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CRM.Core.Domain.Emotions;
+using DeVeeraApp.ViewModels.LayoutSetups;
 
 namespace DeVeeraApp.ViewModels
 {
@@ -91,6 +92,10 @@ namespace DeVeeraApp.ViewModels
         public string NextTitle { get; set; }
         public string PrevTitle { get; set; }
 
+        [NotMapped]
+        public LayoutSetupModel Titles { get; set; }
+        [NotMapped]
+        public LayoutSetupModel Description { get; set; }
 
     }
 

@@ -76,6 +76,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             model.Link_1_BannerImageUrl= model.Link_1_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_1_BannerImageId)?.ImageUrl : null;
             model.Link_2_BannerImageUrl = model.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_2_BannerImageId)?.ImageUrl : null;
             model.Link_3_BannerImageUrl = model.Link_3_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_3_BannerImageId)?.ImageUrl : null;
+            model.FooterImageUrl = model.FooterImageId > 0 ? _imageMasterService.GetImageById(model.FooterImageId)?.ImageUrl : null;
         }
 
         #endregion
@@ -174,6 +175,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.Link_2 = model.Link_2;
                 data.Link_3 = model.Link_3;
                 data.IsActive = model.IsActive;
+                data.Location = model.Location;
+                data.Description = model.Description;
+                data.PhoneNo = model.PhoneNo;
+                data.FooterImageId = model.FooterImageId;
 
 
                 _layoutSetupService.UpdateLayoutSetup(data);

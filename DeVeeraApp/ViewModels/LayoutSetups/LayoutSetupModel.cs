@@ -23,22 +23,27 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         //User Dashboard
         [DataType(DataType.ImageUrl)]
         [Required(ErrorMessage ="Select slider 1 image")]
+
         public int SliderOneImageId { get; set; }
+
+
         [Required(ErrorMessage = "Select slider 2 image")]
         public int SliderTwoImageId { get; set; }
+
+
         [Required(ErrorMessage = "Select slider 3 image")]
         public int SliderThreeImageId { get; set; }
         public string SliderOneImageUrl { get; set; }
         public string SliderTwoImageUrl { get; set; }
         public string SliderThreeImageUrl { get; set; }
 
-        [Required(ErrorMessage = "Please enter slider 1 title")]
+        //[Required(ErrorMessage = "Please enter slider 1 title")]
         public string SliderOneTitle { get; set; }
         public string SliderOneDescription { get; set; }
-        [Required(ErrorMessage = "Please enter slider 2 title")]
+        //[Required(ErrorMessage = "Please enter slider 2 title")]
         public string SliderTwoTitle { get; set; }
         public string SliderTwoDescription { get; set; }
-        [Required(ErrorMessage = "Please enter slider 3 title")]
+        //[Required(ErrorMessage = "Please enter slider 3 title")]
         public string SliderThreeTitle { get; set; }
         public string SliderThreeDescription { get; set; }
         public bool IsActive { get; set; }
@@ -75,7 +80,17 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         public string Link_2_BannerImageUrl { get; set; }
         public string Link_3_BannerImageUrl { get; set; }
 
-       
+        //Module Section Header
+         public string Title { get; set; }
+         public string Description { get; set; }
 
+        //Footer 
+         public string FooterDescription { get; set; }
+        
+         public string Email{ get; set; }
+         public string PhoneNo{ get; set; }
+         public int FooterImageId { get; set; }
+          public string FooterImageUrl { get; set; }
+        public string Location { get; set; }
     }
 }
