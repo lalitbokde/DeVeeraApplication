@@ -120,17 +120,17 @@
                         </div>
                     </div>
                     @*<div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 mb-4">
-                <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Registration Page</div>
-                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
-                </div>
-                <div class="mt-2">
-                    <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
-                    <select asp-for="BannerOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                </div>
-            </div>
-        </div>*@
+                            <div class="col-span-12 mb-4">
+                                <div class="mt-5 ">
+                                    <div class="font-medium text-center text-theme-21">Registration Page</div>
+                                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
+                                    <select asp-for="BannerOneImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                                </div>
+                            </div>
+                        </div>*@
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-4 ">
                             <div class="font-medium text-center text-theme-21">Registration Page</div>
@@ -191,30 +191,30 @@
                     </div>
 
                     @*<div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 mb-4">
-                <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Login Page</div>
-                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
-                </div>
-                <div class="mt-2">
-                    <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
-                    <select asp-for="BannerTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                </div>
-            </div>
-        </div>*@
+                            <div class="col-span-12 mb-4">
+                                <div class="mt-5 ">
+                                    <div class="font-medium text-center text-theme-21">Login Page</div>
+                                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Banner Image</label>
+                                    <select asp-for="BannerTwoImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                                </div>
+                            </div>
+                        </div>*@
 
                     @*<div class="grid grid-cols-12 gap-4">
-            <div class="col-span-12 mb-4">
-                <div class="mt-5 ">
-                    <div class="font-medium text-center text-theme-21">Diary Page</div>
-                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
-                </div>
-                <div class="mt-2">
-                    <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
-                    <select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
-                </div>
-            </div>
-        </div>*@
+                            <div class="col-span-12 mb-4">
+                                <div class="mt-5 ">
+                                    <div class="font-medium text-center text-theme-21">Diary Page</div>
+                                    <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                                </div>
+                                <div class="mt-2">
+                                    <label for="input-wizard-1" class="form-label text-theme-21">Header Image</label>
+                                    <select asp-for="DiaryHeaderImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
+                                </div>
+                            </div>
+                        </div>*@
 
 
 
@@ -345,35 +345,105 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <input asp-for="IsActive" class="form-check-input" type="checkbox">
-                        <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
-                        <span asp-validation-for="IsActive" class="text-theme-21 mt-2"></span>
+
+                    @*For Module Description*@
+                    <div class="mt-5 ">
+                        <div class="font-medium text-center text-theme-21 mt-5 pt-5">Module Section Header</div>
+                        <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Module Title</label>
+                            <input asp-for="Title" type="text" class="form-control w-full" placeholder=" Module Title" />
+
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Module Description</label>
+                            <textarea asp-for="Description" rows="4" class="form-control w-full" placeholder="Module Description "></textarea>
+                        </div>
 
                     </div>
-                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                        <div class="grid grid-cols-12  gap-y-5 mt-5">
-                            <div class="intro-y   col-span-6">
-
-
-                                @*<a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="btn btn-primary w-24"> List</a>*@
-                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                    <label class="pl-10">Back to List</label>
-                                    <a asp-controller="LayoutSetup" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
-                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                    </a>
-                                </span>
+                    @*For Footer*@
+                    <div class="mt-5 ">
+                        <div class="font-medium text-center text-theme-21 mt-5 pt-5">Footer</div>
+                        <div class="form-label text-theme-21  border-b-2 w-full"></div>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Footer Description</label>
+                                <textarea asp-for="FooterDescription" rows="4" class="form-control w-full" placeholder="Footer Description "></textarea>
                             </div>
-                            <div class="intro-y  col-span-6 ml-auto">
 
-                                <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Location</label>
+                                <textarea asp-for="Location" rows="4" class="form-control w-full" placeholder="Location "></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Phone No</label>
+                                <input asp-for="PhoneNo" type="number" class="form-control w-full" placeholder="Phone No" />
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Email</label>
+                                <input asp-for="Email" type="email" class="form-control w-full" placeholder="Email" />
+
+                            </div>
+
+                        </div>
+                        <div class="grid grid-cols-12 gap-4 mt-6">
+                            <div class="col-span-4 mb-4">
+                                <label for="input-wizard-1" class="form-label text-theme-21">Footer Image</label>
+                                @*<select asp-for="CompleteRegistrationHeaderImgId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>*@
+                                <div class="grid grid-cols-4 gap-4   border-theme-31">
+                                    <a onclick="OpenImageSelectionModal('FooterImageId','FooterImgIdurl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3 pt-2">
+                                        <div class="box rounded-md p-3 relative zoom-in">
+                                            <div class="flex-none pos-image relative block">
+                                                <div class="pos-image__preview">
+                                                    <input asp-for="FooterImageId" hidden>
+                                                    <img id="FooterImgIdurl" alt="" src="~/dist/images/food-beverage-9.jpg" style="Width:100%;height:100%">
+                                                </div>
+                                            </div>
+                                            <div class="block font-medium text-center truncate mt-3">Footer Image</div>
+                                        </div>
+                                        @*<span asp-validation-for="CompleteRegistrationHeaderImgId" class="text-theme-6 mt-2"></span>*@
+                                    </a>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="mt-5">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                            <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
+                            <span asp-validation-for="IsActive" class="text-theme-21 mt-2"></span>
+
+                        </div>
+                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                            <div class="grid grid-cols-12  gap-y-5 mt-5">
+                                <div class="intro-y   col-span-6">
+
+
+                                    @*<a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="btn btn-primary w-24"> List</a>*@
+                                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                        <label class="pl-10">Back to List</label>
+                                        <a asp-controller="LayoutSetup" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
+                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="intro-y  col-span-6 ml-auto">
+
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
-    </div>
 </form>
 
 @await Component.InvokeAsync("ImageSelection")
