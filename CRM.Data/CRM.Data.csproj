@@ -11,153 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Migrations\20210401133626_InitialCreate.cs" />
-    <Compile Include="Migrations\20210401133626_InitialCreate.Designer.cs" />
-    <Compile Include="Migrations\20210409111620_VideoANDWeeklyVideoAdded.cs" />
-    <Compile Include="Migrations\20210409111620_VideoANDWeeklyVideoAdded.Designer.cs" />
-    <Compile Include="Migrations\20210412074135_AddedWeeklyUpdate.cs" />
-    <Compile Include="Migrations\20210412074135_AddedWeeklyUpdate.Designer.cs" />
-    <Compile Include="Migrations\20210412103945_AddedWeeklyUpdateActiveColumn.cs" />
-    <Compile Include="Migrations\20210412103945_AddedWeeklyUpdateActiveColumn.Designer.cs" />
-    <Compile Include="Migrations\20210412105921_AddedVideo_SubTitleColumn.cs" />
-    <Compile Include="Migrations\20210412105921_AddedVideo_SubTitleColumn.Designer.cs" />
-    <Compile Include="Migrations\20210413090811_RemoveWeeklyText.cs" />
-    <Compile Include="Migrations\20210413090811_RemoveWeeklyText.Designer.cs" />
-    <Compile Include="Migrations\20210413092408_AddedVideoNameColumn.cs" />
-    <Compile Include="Migrations\20210413092408_AddedVideoNameColumn.Designer.cs" />
-    <Compile Include="Migrations\20210413113428_AddedVideoNameColumnName.cs" />
-    <Compile Include="Migrations\20210413113428_AddedVideoNameColumnName.Designer.cs" />
-
-    <Compile Include="Migrations\20210416090744_AddedQuoteColumnVideoTable.cs" />
-    <Compile Include="Migrations\20210416090744_AddedQuoteColumnVideoTable.Designer.cs" />
-
-    <Compile Include="Migrations\20210416083016_DashboardQuote.cs" />
-    <Compile Include="Migrations\20210416083016_DashboardQuote.Designer.cs" />
-    <Compile Include="Migrations\20210421070650_Module.cs" />
-    <Compile Include="Migrations\20210421070650_Module.Designer.cs" />
-    <Compile Include="Migrations\20210421071405_VideoModules.cs" />
-    <Compile Include="Migrations\20210421071405_VideoModules.Designer.cs" />
-    <Compile Include="Migrations\20210421071810_ModuleTable.cs" />
-    <Compile Include="Migrations\20210421071810_ModuleTable.Designer.cs" />
-    <Compile Include="Migrations\20210421090253_renameTables.cs" />
-    <Compile Include="Migrations\20210421090253_renameTables.Designer.cs" />
-    <Compile Include="Migrations\20210421093523_addnullableColumn.cs" />
-    <Compile Include="Migrations\20210421093523_addnullableColumn.Designer.cs" />
-    <Compile Include="Migrations\20210421100403_AddedVideoTable.cs" />
-    <Compile Include="Migrations\20210421100403_AddedVideoTable.Designer.cs" />
-    <Compile Include="Migrations\20210421153306_LevelId.cs" />
-    <Compile Include="Migrations\20210421153306_LevelId.Designer.cs" />
-
-    <Compile Include="Migrations\20210422084831_DiaryTable.cs" />
-    <Compile Include="Migrations\20210422084831_DiaryTable.Designer.cs" />
-
-    <Compile Include="Migrations\20210422084333_AddedRegistrationCompleteField.cs" />
-    <Compile Include="Migrations\20210422084333_AddedRegistrationCompleteField.Designer.cs" />
-
-    <Compile Include="Migrations\20210422092214_ChangeUserTableFieldsProperty.cs" />
-    <Compile Include="Migrations\20210422092214_ChangeUserTableFieldsProperty.Designer.cs" />
-    <Compile Include="Migrations\20210422093159_AddedColumnInUser.cs" />
-    <Compile Include="Migrations\20210422093159_AddedColumnInUser.Designer.cs" />
-
-    <Compile Include="Migrations\20210422093217_UseId-Diary.cs" />
-    <Compile Include="Migrations\20210422093217_UseId-Diary.Designer.cs" />
-    <Compile Include="Migrations\20210422144148_ChangeIncomeAboveOrBelow80KCollumn.cs" />
-    <Compile Include="Migrations\20210422144148_ChangeIncomeAboveOrBelow80KCollumn.Designer.cs" />
-    <Compile Include="Migrations\20210422144647_ChangeIncomeAboveOrBelow80KCollumnUpdate.cs" />
-    <Compile Include="Migrations\20210422144647_ChangeIncomeAboveOrBelow80KCollumnUpdate.Designer.cs" />
-    <Compile Include="Migrations\20210423135701_AddedColumnInVideo.cs" />
-    <Compile Include="Migrations\20210423135701_AddedColumnInVideo.Designer.cs" />
-    <Compile Include="Migrations\20210423145859_VideoIdChanges.cs" />
-    <Compile Include="Migrations\20210423145859_VideoIdChanges.Designer.cs" />
-    <Compile Include="Migrations\20210424115630_AddedMobileNoColumn.cs" />
-    <Compile Include="Migrations\20210424115630_AddedMobileNoColumn.Designer.cs" />
-    <Compile Include="Migrations\20210427090000_updatedLevelTable.cs" />
-    <Compile Include="Migrations\20210427090000_updatedLevelTable.Designer.cs" />
-    <Compile Include="Migrations\20210427113309_UpdatedModuleTable.cs" />
-    <Compile Include="Migrations\20210427113309_UpdatedModuleTable.Designer.cs" />
-    <Compile Include="Migrations\20210428133844_UpdatedVideoTable.cs" />
-    <Compile Include="Migrations\20210428133844_UpdatedVideoTable.Designer.cs" />
-
-    <Compile Include="Migrations\20210430075027_AddedImageTable.cs" />
-    <Compile Include="Migrations\20210430075027_AddedImageTable.Designer.cs" />
-    <Compile Include="Migrations\20210430081146_UpdatedImageTable.cs" />
-    <Compile Include="Migrations\20210430081146_UpdatedImageTable.Designer.cs" />
-    <Compile Include="Migrations\20210430082345_AddedLevelImageListTable.cs" />
-    <Compile Include="Migrations\20210430082345_AddedLevelImageListTable.Designer.cs" />
-
-    <Compile Include="Migrations\20210430081735_DashboardQuote-LevelID.cs" />
-    <Compile Include="Migrations\20210430081735_DashboardQuote-LevelID.Designer.cs" />
-    <Compile Include="Migrations\20210430110354_DashboardQuote-Level.cs" />
-    <Compile Include="Migrations\20210430110354_DashboardQuote-Level.Designer.cs" />
-    <Compile Include="Migrations\20210430144853_Level-Remove-quote.cs" />
-    <Compile Include="Migrations\20210430144853_Level-Remove-quote.Designer.cs" />
-    <Compile Include="Migrations\20210501092152_Level-LevelNo.cs" />
-    <Compile Include="Migrations\20210501092152_Level-LevelNo.Designer.cs" />
-    <Compile Include="Migrations\20210506133806_UpdatedDiaryTable.cs" />
-    <Compile Include="Migrations\20210506133806_UpdatedDiaryTable.Designer.cs" />
-    <Compile Include="Migrations\20210507123623_UpdatedLevelTable2.cs" />
-    <Compile Include="Migrations\20210507123623_UpdatedLevelTable2.Designer.cs" />
-    <Compile Include="Migrations\20210508102848_AddedFeelGoodStoryTable.cs" />
-    <Compile Include="Migrations\20210508102848_AddedFeelGoodStoryTable.Designer.cs" />
-    <Compile Include="Migrations\20210508104023_UpdatedStoryTable.cs" />
-    <Compile Include="Migrations\20210508104023_UpdatedStoryTable.Designer.cs" />
-    <Compile Include="Migrations\20210508124918_UpdatedStoryTableAgain.cs" />
-    <Compile Include="Migrations\20210508124918_UpdatedStoryTableAgain.Designer.cs" />
-    <Compile Include="Migrations\20210508140232_UpdatedVideoTableBool.cs" />
-    <Compile Include="Migrations\20210508140232_UpdatedVideoTableBool.Designer.cs" />
-    <Compile Include="Migrations\20210508145716_UpdatedDashBoardQuoteTable.cs" />
-    <Compile Include="Migrations\20210508145716_UpdatedDashBoardQuoteTable.Designer.cs" />
-
-    <Compile Include="Migrations\20210510085313_QuestionMapping.cs" />
-    <Compile Include="Migrations\20210510085313_QuestionMapping.Designer.cs" />
-
-    <Compile Include="Migrations\20210510081916_AddedLanguageTable.cs" />
-    <Compile Include="Migrations\20210510081916_AddedLanguageTable.Designer.cs" />
-    <Compile Include="Migrations\20210511111404_ModuleTable-AddTitle.cs" />
-    <Compile Include="Migrations\20210511111404_ModuleTable-AddTitle.Designer.cs" />
-    <Compile Include="Migrations\20210513115706_LastUpdateOn-Diary.cs" />
-    <Compile Include="Migrations\20210513115706_LastUpdateOn-Diary.Designer.cs" />
-    <Compile Include="Migrations\20210514072807_DasboardMenu.cs" />
-    <Compile Include="Migrations\20210514072807_DasboardMenu.Designer.cs" />
-    <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.cs" />
-    <Compile Include="Migrations\20210517080102_UpdatedUserTableActiveModule.Designer.cs" />
-
-    <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.cs" />
-    <Compile Include="Migrations\20210520082003_UpdatedLevelTableEmotions.Designer.cs" />
-    <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.cs" />
-    <Compile Include="Migrations\20210521121738_UpdatedDiaryColor.Designer.cs" />
-    <Compile Include="Migrations\20210423110251_diaryTableUpdate.cs" />
-    <Compile Include="Migrations\20210423110251_diaryTableUpdate.Designer.cs" />
-    <Compile Include="Migrations\20210423121810_moduleIdAdded.Designer.cs" />
-    <Compile Include="Migrations\20210423121810_moduleIdAdded.cs" />
-    <Compile Include="Migrations\20210528160635_LanguageMigration.cs" />
-    <Compile Include="Migrations\20210528160635_LanguageMigration.Designer.cs" />
-    <Compile Include="Migrations\20210602153717_EmotionUpdateMigration.cs" />
-    <Compile Include="Migrations\20210602153717_EmotionUpdateMigration.Designer.cs" />
-    <Compile Include="Migrations\20210603164643_SliderChanges.cs" />
-    <Compile Include="Migrations\20210603164643_SliderChanges.Designer.cs" />
-    <Compile Include="Migrations\20210607160823_Layoutsetup-table.cs" />
-    <Compile Include="Migrations\20210607160823_Layoutsetup-table.Designer.cs" />
-    <Compile Include="Migrations\20210611122350_CreatedOn-level.cs" />
-    <Compile Include="Migrations\20210611122350_CreatedOn-level.Designer.cs" />
-    <Compile Include="Migrations\20210611123329_VideoImage-changes.cs" />
-    <Compile Include="Migrations\20210611123329_VideoImage-changes.Designer.cs" />
-    <Compile Include="Migrations\20210630145502_AddQuoteId.cs" />
-    <Compile Include="Migrations\20210630145502_AddQuoteId.Designer.cs" />
-    <Compile Include="Migrations\20210703110232_user-allow.cs" />
-    <Compile Include="Migrations\20210703110232_user-allow.Designer.cs" />
-    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
-    <Compile Include="Migrations\20210616154341_updateImagesAndOther.Designer.cs" />
-    <Compile Include="Migrations\20210616154341_updateImagesAndOther.cs" />
-    <Compile Include="Migrations\20210623134958__quotesRandomChanges.Designer.cs" />
-    <Compile Include="Migrations\20210623134958__quotesRandomChanges.cs" />
-    <Compile Include="Migrations\20210616155143_newXhanges.Designer.cs" />
-    <Compile Include="Migrations\20210616155143_newXhanges.cs" />
-    <Compile Include="Migrations\20210630152932_last.Designer.cs" />
-    <Compile Include="Migrations\20210630152932_last.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
@@ -166,5 +19,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
+    <Compile Include="Migrations\20210720182519_20Jul2021.Designer.cs" />
+    <Compile Include="Migrations\20210720182519_20Jul2021.cs" />
   </ItemGroup>
 </Project>

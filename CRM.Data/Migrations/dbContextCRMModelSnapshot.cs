@@ -237,7 +237,19 @@ namespace CRM.Data.Migrations
 
                     b.Property<int>("CompleteRegistrationHeaderImgId");
 
+                    b.Property<string>("Description");
+
                     b.Property<int>("DiaryHeaderImageId");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FooterDescription");
+
+                    b.Property<int>("FooterImageId");
+
+                    b.Property<string>("FooterImageUrl");
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<string>("Link_1");
 
@@ -250,6 +262,10 @@ namespace CRM.Data.Migrations
                     b.Property<string>("Link_3");
 
                     b.Property<int>("Link_3_BannerImageId");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("PhoneNo");
 
                     b.Property<string>("ReasonToSubmit");
 
@@ -270,6 +286,8 @@ namespace CRM.Data.Migrations
                     b.Property<int>("SliderTwoImageId");
 
                     b.Property<string>("SliderTwoTitle");
+
+                    b.Property<string>("Title");
 
                     b.HasKey("Id");
 
