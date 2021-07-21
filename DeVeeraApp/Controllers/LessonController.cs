@@ -36,6 +36,7 @@ namespace DeVeeraApp.Controllers
         private readonly IModuleImageListService _moduleImageListService;
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
 
         #endregion
 
@@ -54,7 +55,8 @@ namespace DeVeeraApp.Controllers
                                 IAuthenticationService authenticationService,
                                 ILevelImageListServices levelImageListServices,
                                 IModuleImageListService moduleImageListService,
-                                IDiaryMasterService diaryMasterService) : base(workContext: workContext,
+                                IDiaryMasterService diaryMasterService,
+                                ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -70,6 +72,7 @@ namespace DeVeeraApp.Controllers
             _moduleImageListService = moduleImageListService;
             _diaryMasterService = diaryMasterService;
             _dashboardQuoteService = dashboardQuoteService;
+            _localStringResourcesServices = localStringResourcesServices;
 
         }
 
@@ -142,7 +145,7 @@ namespace DeVeeraApp.Controllers
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
-            videoData.FullDescription = updatedVideoData.FullDescription;
+            videoData.FullDescription = _localStringResourcesServices.GetLocalStringResourceByResourceName(updatedVideoData.FullDescription);
             videoData.Video = updatedVideoData.Video;
            
             videoData.Subtitle = updatedVideoData.Subtitle;

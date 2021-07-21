@@ -5,6 +5,7 @@ using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Emotions;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Filters;
@@ -36,7 +37,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IEmotionService _emotionService;
         private readonly INotificationService _notificationService;
         private readonly IModuleImageListService _moduleImageListService;
+        private readonly ITranslationService _translationService;
 
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
 
@@ -53,7 +56,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      ILevelImageListServices levelImageListServices,
                                      IEmotionService emotionService,
                                      INotificationService notificationService,
-                                     IModuleImageListService moduleImageListService) : base(workContext: workContext,
+                                     IModuleImageListService moduleImageListService,
+                                     ITranslationService translationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -63,9 +67,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _videoServices = videoService;
             _imageMasterService = imageMasterService;
             _levelImageListServices = levelImageListServices;
-            _emotionService = emotionService;
+            _emotionService = emotionService; 
             _notificationService = notificationService;
             this._moduleImageListService = moduleImageListService;
+            _translationService = translationService;
         }
         #endregion
 
@@ -154,6 +159,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
 
                 _levelServices.InsertLevel(data);
+                /// This is used for translate English To spanish
+                _translationService.Translate(model.Title, key);
+                _translationService.Translate(model.Subtitle, key);
+                _translationService.Translate(model.FullDescription, key);
 
                 //foreach (var result in model.ImageLists.Where(a => a.Selected == true))
                 //{
@@ -284,7 +293,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 levelData.UpdatedOn = DateTime.Now;
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
-
+                /// This is used for translate English To spanish
+                _translationService.Translate(levelData.Title, key);
+                _translationService.Translate(levelData.Subtitle, key);
+                _translationService.Translate(levelData.FullDescription, key);
                 //foreach (var result in model.ImageLists.Where(a=>a.Selected==true))
                 //    {
                 //        var record = new LevelImageList
