@@ -29,6 +29,8 @@ using CRM.Services.VideoModules;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Customers;
 using CRM.Services.Layoutsetup;
+using CRM.Services.TwilioConfiguration;
+using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
@@ -60,7 +62,7 @@ namespace DeVeeraApp.Controllers
         private readonly IDiaryPasscodeService _diaryPasscodeService;
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly IImageMasterService _imageMasterService;
-
+        private readonly IVerificationService _verificationService;
         #endregion
 
         #region CTOR
@@ -71,9 +73,7 @@ namespace DeVeeraApp.Controllers
                                   IUserPasswordService Userpasswordservice,
                                   IUserService UserService,
                                   ILevelServices levelServices,
-                              
-                                  
-                                  
+                                  IVerificationService verificationService,
                                   IDateTimeHelper dateTimeHelper,
                                   IPermissionService permissionService,
                                   IUserRegistrationService UserRegistrationService,
@@ -98,7 +98,7 @@ namespace DeVeeraApp.Controllers
             this._WorkContextService = WorkContextService;
             this._UserService = UserService;
             _levelServices = levelServices;
-           
+            _verificationService = verificationService;
             
             
             this._dateTimeHelper = dateTimeHelper;
@@ -259,11 +259,19 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(UserModel model)
+        public async Task <IActionResult> Register(UserModel model)
         {
             //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
             if (ModelState.IsValid)
             {
+
+                var verification =
+                        await _verificationService.StartVerificationAsync(model.MobileNumber,"");
+
+                if (verification.IsValid)
+                {
+
+                }
 
                 //validate unique user
                 if (_UserService.GetUserByEmail(model.Email) == null)
