@@ -78,8 +78,8 @@
 
                             <div class="col-lg-6">
                                 <div class="main-banner-content">
-                                    <h1> @Model.Title <span>Psychologist</span></h1>
-                                    @Html.Raw(@Model.Subtitle)
+                                    <h1> @Model.Title <span>@Model.Subtitle</span></h1>
+                                    @Html.Raw(@Model.Quote)
                                     <div class="banner-btn">
                                         <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" class="default-btn">@T("Lets Start") <i class="flaticon-pointer"></i></a>
                                     </div>
@@ -106,7 +106,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="about-main-content">
-                        <h3>Know About Us</h3>
+                        <h3>@Model.VideoHeader</h3>
 
                         <div class="about-content-image">
                             <img src="~/assets/images/about/about-2.jpg" alt="image">
