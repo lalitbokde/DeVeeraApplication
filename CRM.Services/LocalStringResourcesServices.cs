@@ -44,7 +44,14 @@ namespace CRM.Services
 
             return _repository.GetById(Id);
         }
-
+        public string GetLocalStringResourceByResourceName(string ResourceName)
+        {
+            var query = from vdo in _repository.Table
+                        orderby vdo.ResourceName
+                        select vdo;
+            var stories = query.FirstOrDefault();
+            return stories.ResourceValue;
+        }
         public void InsertLocalStringResource(LocaleStringResource model)
         {
             if (model == null)
