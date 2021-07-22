@@ -10,8 +10,9 @@
     var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
     var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
     var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
-    var FooterDes = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription; }
-}
+    var FooterDes = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+    }
+
 <!doctype html>
 <html lang="zxx">
 <head>
@@ -182,7 +183,7 @@
 
     @RenderBody()
 
-    <img src="~/assets/images/about/shape-3.png" />
+    
     <!-- End Services Area -->
     <!-- Start Footer Area -->
     @*@{var FooterImgUrl = Model.FooterImageUrl == null ? "~/assets/images/about/shape-3.png" : Model.FooterImageUrl;}*@

@@ -137,6 +137,9 @@ namespace DeVeeraApp
 
             services.AddScoped<IVerificationService, VerificationService>();
 
+            services.AddSingleton<IVerificationService>(new VerificationService(
+              Configuration.GetSection("Twilio").Get<Configuration.Twilio>()));
+
             services.AddScoped<ITranslationService, TranslationService>();
 
 

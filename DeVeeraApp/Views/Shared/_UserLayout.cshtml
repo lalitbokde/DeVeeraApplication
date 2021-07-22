@@ -4,16 +4,17 @@
 @inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
 @{  var currentLevel = _workContext.CurrentUser.LastLevel;
     var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
-    var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo : null;}
-
-@{   
+    var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo : null;
+    
+  
         var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a=>a.IsActive==true).FirstOrDefault()?.Link_1;
         var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
         var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
         var phone = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive ==true).FirstOrDefault()?.PhoneNo;
         var email = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
         var location = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
-        var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription; }
+        var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+    }
 
 <!doctype html>
 <html lang="zxx">
@@ -57,7 +58,6 @@
 </head>
 
 <body>
-
     <!-- Start Preloader Area -->
     <div class="preloader-area">
         <div class="spinner">
