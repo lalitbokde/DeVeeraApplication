@@ -47,10 +47,11 @@ namespace CRM.Services
         public string GetLocalStringResourceByResourceName(string ResourceName)
         {
             var query = from vdo in _repository.Table
+                        where vdo.ResourceName == ResourceName
                         orderby vdo.ResourceName
                         select vdo;
             var stories = query.FirstOrDefault();
-            return stories.ResourceValue;
+            return stories!=null ? stories.ResourceValue: ResourceName;
         }
         public void InsertLocalStringResource(LocaleStringResource model)
         {
