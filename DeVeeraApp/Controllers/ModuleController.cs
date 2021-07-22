@@ -25,7 +25,7 @@ namespace DeVeeraApp.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IS3BucketService _s3BucketService;
         private readonly IQuestionAnswerService _QuestionAnswerService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
                                 IQuestionAnswerService questionAnswerService,
@@ -36,7 +36,8 @@ namespace DeVeeraApp.Controllers
                                 IModuleImageListService moduleImageListService,
                                 IImageMasterService imageMasterService,
                                 IS3BucketService s3BucketService,
-                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                               IAuthenticationService authenticationService,
+                               ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -49,6 +50,7 @@ namespace DeVeeraApp.Controllers
             _imageMasterService = imageMasterService;
             _s3BucketService = s3BucketService;
             _QuestionAnswerService = questionAnswerService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
         #region methods
@@ -62,6 +64,7 @@ namespace DeVeeraApp.Controllers
             var data = _moduleService.GetModuleById(id);
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
+            moduleData.FullDescription = _localStringResourcesServices.GetLocalStringResourceByResourceName(moduleData.FullDescription);
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {

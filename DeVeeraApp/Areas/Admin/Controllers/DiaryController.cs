@@ -7,6 +7,7 @@ using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Customers;
 using CRM.Services.Emotions;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -38,7 +39,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IEmotionService _emotionService;
         private readonly IEmotionMappingService _emotionMappingService;
         private readonly IDiaryPasscodeService _diaryPasscodeService;
+        private readonly ITranslationService _translationService;
 
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
 
@@ -53,6 +56,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                        IEmotionService emotionService,
                        IEmotionMappingService emotionMappingService,
                        IDiaryPasscodeService diaryPasscodeService,
+                       ITranslationService translationService,
                         IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
@@ -68,6 +72,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _emotionService = emotionService;
             _emotionMappingService = emotionMappingService;
             _diaryPasscodeService = diaryPasscodeService;
+            _translationService = translationService;
         }
 
         #endregion
@@ -154,6 +159,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var item = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).ToList();
 
                 DiaryList = item.ToModelList<Diary, DiaryModel>(DiaryList);
+            
 
                 #endregion
 
@@ -171,6 +177,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 diary.Comment = model.Comment;
                 diary.LastUpdatedOn= DateTime.UtcNow;
                 _DiaryMasterService.UpdateDiary(diary);
+                _translationService.Translate(diary.Title, key);
+                _translationService.Translate(diary.Comment,key);
                 _notificationService.SuccessNotification("Diary updated successfully.");
 
                 return RedirectToAction("Create", "Diary", new { levelid = model.LevelId });

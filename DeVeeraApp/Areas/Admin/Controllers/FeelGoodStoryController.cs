@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using DeVeeraApp.Filters;
+using CRM.Services.Localization;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -27,6 +28,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IFeelGoodStoryServices _feelGoodStoryServices;
         private readonly IImageMasterService _imageMasterService;
         private readonly INotificationService _notificationService;
+        private readonly ITranslationService _translationService;
+
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
         #region ctor
@@ -38,6 +42,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                        IImageMasterService imageMasterService,                                      
                                        IWorkContext workContext,
                                        IHttpContextAccessor httpContextAccessor,
+                                        ITranslationService translationService,
                                        IAuthenticationService authenticationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -46,6 +51,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _feelGoodStoryServices = feelGoodStoryServices;
             _imageMasterService = imageMasterService;
             _notificationService = notificationService;
+            _translationService = translationService;
         }
         #endregion
 
@@ -101,6 +107,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 };
 
                 _feelGoodStoryServices.InsertFeelGoodStory(data);
+                _translationService.Translate(data.Title,key);
+                _translationService.Translate(data.Story, key);
                 _notificationService.SuccessNotification("Story added successfully");
                 return RedirectToAction("List");
             }
@@ -136,6 +144,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
                 _feelGoodStoryServices.UpdateFeelGoodStory(data);
+                _translationService.Translate(data.Title, key);
+                _translationService.Translate(data.Story, key);
                 _notificationService.SuccessNotification("Story updated successfully");
 
                 return RedirectToAction("List");

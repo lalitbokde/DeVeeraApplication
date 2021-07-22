@@ -15,6 +15,7 @@ using CRM.Services.VideoModules;
 using CRM.Services.Users;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services.DashboardQuotes;
+using CRM.Services.Localization;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -34,7 +35,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ILevelImageListServices _levelImageListServices;
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly ITranslationService _translationService;
 
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
 
@@ -51,6 +54,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                 IHttpContextAccessor httpContextAccessor,
                                 IAuthenticationService authenticationService,
                                 ILevelImageListServices levelImageListServices,
+                                ITranslationService translationService,
                                 IDiaryMasterService diaryMasterService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -66,6 +70,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _levelImageListServices = levelImageListServices;
             _diaryMasterService = diaryMasterService;
             _dashboardQuoteService = dashboardQuoteService;
+            _translationService = translationService;
 
         }
 
@@ -179,6 +184,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             var moduleList = _moduleServices.GetModulesByLevelId(data.Id);
             videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
+            _translationService.Translate(videoData.Title,key);
+            _translationService.Translate(videoData.Subtitle, key);
+            _translationService.Translate(videoData.Quote, key);
+            _translationService.Translate(videoData.Author, key);
+            _translationService.Translate(videoData.FullDescription, key);
             return View(videoData);
         }
 

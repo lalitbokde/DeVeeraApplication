@@ -78,7 +78,7 @@
 
                             <div class="col-lg-6">
                                 <div class="main-banner-content">
-                                    <h1> @Model.Title <span>Psychologist</span></h1>
+                                    <h1> @T(Model.Title) <span>@T("Psychologist")</span></h1>
                                     @Html.Raw(@Model.Subtitle)
                                     <div class="banner-btn">
                                         <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" class="default-btn">@T("Lets Start") <i class="flaticon-pointer"></i></a>
@@ -111,7 +111,7 @@
                         <div class="about-content-image">
                             <img src="~/assets/images/about/about-2.jpg" alt="image">
 
-                            <h4 class="sub-title">Happe</h4>
+                            <h4 class="sub-title">@T("Happe")</h4>
 
                             <a href="@Model.VideoUrl" class="video-btn popup-youtube">
                                 <i class="flaticon-play"></i>

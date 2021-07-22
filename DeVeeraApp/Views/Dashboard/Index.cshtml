@@ -86,14 +86,14 @@
                                 }
                             }
 
-                            <div class="tag"><span>@item.CreatedOn.ToString("dd MMM")</span></div>
+                            <div class="tag"><span>@T(item.CreatedOn.ToString("dd MMM"))</span></div>
                         </div>
 
                         <div class="blog-content">
                            
 
                             <h3>
-                                <a >@item.Title</a>
+                                <a >@T(item.Title)</a>
                             </h3>
                             <div class="blog-btn">
                                 <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo" class="default-btn">@T("Read More") <i class="flaticon-plus"></i></a>

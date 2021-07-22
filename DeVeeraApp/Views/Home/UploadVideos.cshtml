@@ -24,8 +24,8 @@
                         </div>
                     }
                     <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                        <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">@T("Title")</label>
+                        <input id="input-wizard-1" asp-for="@T(Model.Title)" type="text" class="form-control" placeholder="title">
                         <span asp-validation-for="Title" class="text-theme-6 mt-2"></span>
                     </div>
 
