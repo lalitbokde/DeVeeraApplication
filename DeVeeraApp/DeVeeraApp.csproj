@@ -44,5 +44,6 @@
   <ItemGroup>
     <Content Remove="wwwroot\UserAssets\images\logo-2.png" />
     <Content Remove="wwwroot\UserAssets\images\logo.png" />
+    <Content Remove="Views\User\SendOTP.cshtml" />
   </ItemGroup>
 </Project>
