@@ -20,9 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
-    <Compile Include="Migrations\20210720182519_20Jul2021.Designer.cs" />
-    <Compile Include="Migrations\20210720182519_20Jul2021.cs" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
