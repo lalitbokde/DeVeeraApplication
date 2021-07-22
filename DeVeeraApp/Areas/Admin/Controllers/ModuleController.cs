@@ -11,6 +11,7 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
@@ -28,7 +29,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ITranslationService _translationService;
 
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
-
+      
 
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
@@ -38,7 +39,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                 IDiaryMasterService diaryMasterService,
                                 IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService,
-                               ILocalStringResourcesServices localStringResourcesServices,
+                                 
                                 ITranslationService translationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -50,6 +51,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _diaryMasterService = diaryMasterService;
             _QuestionAnswerService = questionAnswerService;
             _translationService = translationService;
+          
         }
 
         #region methods

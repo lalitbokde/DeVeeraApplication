@@ -136,13 +136,13 @@
                         <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="image-prev">
                                 <img src="@prevImageUrl" alt="image">
-                                <span class="post-nav-title">Prev</span>
+                                <span class="post-nav-title">@T("Prev")</span>
                             </span>
 
                             <span class="prev-link-info-wrapper">
                                 <span class="prev-title">
                                     @*@T("How Does A Psychologist Help To Maintain A Good Mental Health")*@
-                                    @Model.PrevTitle
+                                    @T(Model.PrevTitle)
                                 </span>
                             </span>
                         </a>
@@ -163,13 +163,13 @@
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
                                     @*@T("How Does Consulting A Psychologist Help To Solve Your Problem?")*@
-                                    @Model.NextTitle
+                                    @T(Model.NextTitle)
                                 </span>
                             </span>
 
                             <span class="image-next">
                                 <img src="@nextImageUrl" alt="image">
-                                <span class="post-nav-title">Next</span>
+                                <span class="post-nav-title">@("Next")</span>
                             </span>
                         </a>
                         <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Next Module") <i class="flaticon-right-arrow"></i></a>
@@ -187,13 +187,13 @@
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
                                     @*@T("How Does Consulting A Psychologist Help To Solve Your Problem?")*@
-                                    @Model.NextLeveltitle
+                                    @T(Model.NextLeveltitle)
                                 </span>
                             </span>
 
                             <span class="image-next">
                                 <img src="@nextImageUrl" alt="image">
-                                <span class="post-nav-title">Next</span>
+                                <span class="post-nav-title">@("Next")</span>
                             </span>
                         </a>
                         <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@levelNo"  class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>

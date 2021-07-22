@@ -4,6 +4,7 @@ using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
@@ -30,7 +31,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoServices;
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly ITranslationService _translationService;
 
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
         #region ctor
@@ -42,6 +45,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                  IWorkContext workContext,
                                  IHttpContextAccessor httpContextAccessor,
                                  IAuthenticationService authenticationService,
+                                 ITranslationService translationService,
                                   IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -52,6 +56,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _imageMasterService = imageMasterService;
             _videoServices = videoMasterService;
             _dashboardQuoteService = dashboardQuoteService;
+            _translationService = translationService;
         }
         #endregion
         #region Utilities
@@ -132,6 +137,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var emotion = model.ToEntity<Emotion>();
                 emotion.CreatedOn = DateTime.UtcNow;
                 _emotionService.InsertEmotion(emotion);
+                _translationService.Translate(emotion.Title, key);
+                _translationService.Translate(emotion.Subtitle, key);
+                _translationService.Translate(emotion.Description, key);
                 _notificationService.SuccessNotification("Emotion added successfully.");
                 return RedirectToAction("List");
             }
@@ -174,6 +182,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 emotion.QuoteId = model.QuoteId;
 
                 _emotionService.UpdateEmotion(emotion);
+                _translationService.Translate(emotion.Title, key);
+                _translationService.Translate(emotion.Subtitle, key);
+                _translationService.Translate(emotion.Description, key);
                 _notificationService.SuccessNotification("Emotion updated successfully.");
 
                 return RedirectToAction("List");

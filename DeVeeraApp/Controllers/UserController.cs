@@ -29,6 +29,7 @@ using CRM.Services.VideoModules;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Customers;
 using CRM.Services.Layoutsetup;
+using CRM.Services.Localization;
 
 namespace DeVeeraApp.Controllers
 {
@@ -60,6 +61,9 @@ namespace DeVeeraApp.Controllers
         private readonly IDiaryPasscodeService _diaryPasscodeService;
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly IImageMasterService _imageMasterService;
+        private readonly ITranslationService _translationService;
+
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
 
@@ -86,7 +90,8 @@ namespace DeVeeraApp.Controllers
                                   INotificationService notificationService,
                                   IDiaryPasscodeService diaryPasscodeService,
                                   ILayoutSetupService layoutSetupService,
-                                  IImageMasterService imageMasterService
+                                  IImageMasterService imageMasterService,
+                                  ITranslationService translationService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -115,6 +120,7 @@ namespace DeVeeraApp.Controllers
             _diaryPasscodeService = diaryPasscodeService;
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
+            _translationService = translationService;
         }
 
         #endregion
@@ -278,6 +284,7 @@ namespace DeVeeraApp.Controllers
                     user.Active = true;
 
                     _UserService.InsertUser(user);
+                    
 
                     // password
                     if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
@@ -488,9 +495,10 @@ namespace DeVeeraApp.Controllers
                 SrNo = SrNo,
                 UserId = userId,
                 HeaderImageUrl = HeaderImageUrl,
-                Reason = result?.ReasonToSubmit
+                Reason = result?.ReasonToSubmit 
                 
             };
+            _translationService.Translate(model.Reason, key);
             return View(model);
         }
 
@@ -515,10 +523,11 @@ namespace DeVeeraApp.Controllers
 
 
                 _UserService.UpdateUser(currentUser);
+               
                 _notificationService.SuccessNotification("User info updated successfull.");
                 return RedirectToAction("Next", "Lesson", new { levelno =model.LevelNo , srno = model.SrNo });
             }
-
+            _translationService.Translate(model.Reason, key);
             return View(model);
         }
 

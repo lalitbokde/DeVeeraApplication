@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Hosting;
 using DeVeeraApp.ViewModels.Response;
 using Newtonsoft.Json;
 using DeVeeraApp.Filters;
+using CRM.Services.Localization;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -33,6 +34,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ILevelServices _levelService;
         private readonly INotificationService _notificationService;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly ITranslationService _translationService;
+
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
         #region ctor
         public DashboardQuoteController(IDashboardQuoteService dashboardQuoteService,
@@ -41,6 +45,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                         IHttpContextAccessor httpContextAccessor,
                                         IAuthenticationService authenticationService,
                                         INotificationService notificationService,
+                                        ITranslationService translationService,
                                         IWebHostEnvironment hostingEnvironment) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -49,6 +54,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _levelService = levelServices;
             _notificationService = notificationService;
             _hostingEnvironment = hostingEnvironment;
+            _translationService = translationService;
         }
         #endregion
 
@@ -123,6 +129,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         _dashboardQuoteService.InActiveAllDashboardQuotes();
                     }
                     _dashboardQuoteService.InsertDashboardQuote(quote);
+                    _translationService.Translate(quote.Title,key);
+                    _translationService.Translate(quote.Author, key);
+                   
                     _notificationService.SuccessNotification("Dashboard quote added successfully.");
                     return RedirectToAction("List");
                 }
@@ -178,6 +187,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     _dashboardQuoteService.InActiveAllDashboardQuotes();
                 }
                 _dashboardQuoteService.UpdateDashboardQuote(quote);
+                _translationService.Translate(quote.Title,key);
+                _translationService.Translate(quote.Author,key);
                 _notificationService.SuccessNotification("Dashboard quote edited successfully.");
 
                 return RedirectToAction("List");

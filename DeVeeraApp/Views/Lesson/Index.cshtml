@@ -109,7 +109,7 @@
 
                                 <span class="prev-link-info-wrapper">
                                     <span class="prev-title">
-                                        @Model.PrevTitle
+                                        @T(Model.PrevTitle)
                                     </span>
                                 </span>
                             </a>
@@ -133,7 +133,7 @@
                                     <span class="image-next">
                                         @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
                                         <img src="@nextImageUrl" alt="image">
-                                        <span class="post-nav-title">Next</span>
+                                        <span class="post-nav-title">@T("Next")</span>
                                     </span>
                                 </a>
                                 <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo" class="default-btn">@T("Start Module") <i class="flaticon-right-arrow"></i></a>
@@ -148,14 +148,14 @@
                                 <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo">
                                     <span class="next-link-info-wrapper">
                                         <span class="next-title">
-                                            @Model.NextTitle
+                                            @T(Model.NextTitle)
                                         </span>
                                     </span>
 
                                     <span class="image-next">
                                         @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
                                         <img src="@nextImageUrl" alt="image">
-                                        <span class="post-nav-title">Next</span>
+                                        <span class="post-nav-title">@T("Next")</span>
                                     </span>
                                 </a>
                                 <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
@@ -237,8 +237,8 @@
         <div class="container">
             <div class="subscribe-inner-box">
                 <div class="subscribe-content">
-                    <h2> @Model.Quote </h2>
-                    <p>-@Model.Author</p>
+                    <h2> @T(Model.Quote) </h2>
+                    <p>-@T(Model.Author)</p>
 
                 </div>
             </div>

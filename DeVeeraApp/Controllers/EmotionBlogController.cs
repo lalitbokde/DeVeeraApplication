@@ -33,7 +33,7 @@ namespace DeVeeraApp.Controllers
         private readonly IVideoMasterService _videoMasterService;
         private readonly IImageMasterService _imageMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         #endregion
 
 
@@ -52,6 +52,7 @@ namespace DeVeeraApp.Controllers
                         IHttpContextAccessor httpContextAccessor,
                         IVideoMasterService videoMasterService,
                         IDashboardQuoteService dashboardQuoteService,
+                        ILocalStringResourcesServices localStringResourcesServices,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
@@ -69,6 +70,7 @@ namespace DeVeeraApp.Controllers
             _videoMasterService = videoMasterService;
             _imageMasterService = imageMasterService;
             _dashboardQuoteService = dashboardQuoteService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
         #endregion
@@ -89,6 +91,7 @@ namespace DeVeeraApp.Controllers
                  model.EmotionBannerImageUrl = emotion.EmotionBannerImageId > 0 ?_imageMasterService.GetImageById(emotion.EmotionBannerImageId)?.ImageUrl:null;
                  model.EmotionThumbnailImageUrl = emotion.EmotionThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.EmotionThumbnailImageId)?.ImageUrl:null;
                  model.Video = _videoMasterService.GetVideoById(emotion.VideoId);
+                model.Description = _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Description);
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
                 if (quoteList != null && quoteList.Count > 0 && emotion.IsRandom == true)
                 {

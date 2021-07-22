@@ -38,7 +38,7 @@ namespace DeVeeraApp.Controllers
         private readonly IS3BucketService _s3BucketService;
         private readonly ILanguageService _languageService;
         private readonly ILayoutSetupService _LayoutSetupService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         #endregion
 
 
@@ -57,7 +57,8 @@ namespace DeVeeraApp.Controllers
                               IS3BucketService s3BucketService,
                               ILanguageService languageService,
                               IUserService userService,
-                               ILayoutSetupService layoutSetupService
+                               ILayoutSetupService layoutSetupService,
+                               ILocalStringResourcesServices localStringResourcesServices
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -75,6 +76,7 @@ namespace DeVeeraApp.Controllers
             _s3BucketService = s3BucketService;
             _languageService = languageService;
             _LayoutSetupService = layoutSetupService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
         #endregion
@@ -285,7 +287,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(currentUser);
 
             }
-
+            _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Subtitle);
              return View(model);
 
 
@@ -338,6 +340,7 @@ namespace DeVeeraApp.Controllers
             FeelGoodListModel model = new FeelGoodListModel ();
            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
             var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "",ImageId:0);
+           
             model.FeelGoodListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<FeelGoodViewModel>();
             return View(model);
         }
