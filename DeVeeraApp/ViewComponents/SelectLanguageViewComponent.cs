@@ -37,17 +37,16 @@ namespace DeVeeraApp.ViewComponents
                 {
                     Value = item.Id.ToString(),
                     Text = item.Name,
-                    //Selected =(
-                    //Selected = item.Id == model.LandingPageModel.Language.Id
+                   
                 }) ;
             }
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
             var guestLanguage = _settingService.GetSetting();
-            if (userLanguage!=null)
+            if (userLanguage != null)
             {
                 model.LandingPageModel.Language.Id = userLanguage.LanguageId;
             }
-            else if (guestLanguage!=null)
+            else if (guestLanguage != null)
             {
                 model.LandingPageModel.Language.Id = guestLanguage.LanguageId;
             }
@@ -56,8 +55,7 @@ namespace DeVeeraApp.ViewComponents
                 var defaultLanguage = _languageService.GetAllLanguages().Where(s => s.Name == "English").FirstOrDefault().Id;
                 model.LandingPageModel.Language.Id = defaultLanguage;
             }
-            
-            
+
             return View(model);
         }
 
