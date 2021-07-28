@@ -41,6 +41,26 @@
 
 
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+    <style>
+        .colj-2 {
+            flex: 0 0 auto;
+            width: 83px;
+            height: 66px;
+            margin-left: 12px;
+            border-radius: 10px;
+            border: solid 1px #f38c8c
+            /* size: 24px; */
+        }
+        .verifybtn {
+            width: 100%;
+            border-radius: 15px;
+            border: none;
+            position: relative;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+    </style>
 </head>
 <!-- Required meta tags -->
 
@@ -75,32 +95,32 @@
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
-
-                        <div class="form-group  row col-lg-12 ">
+                      
+                        <div  class=" flex-wrap d-flex justify-content-center row col-lg-12 ">
                             <div class="  col-2">
-                                <input type="text" id="txt1" onkeyup="moveCursor(this,'txt2')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="  col-2 input-newsletter">
+                                <input type="text" id="txt1" onkeyup="moveCursor(this,'txt2')" class=" colj-2 input-newsletter">
                             </div>
-                            <div class=" col-2 ">
-                                <input type="text" id="txt2" onkeyup="moveCursor(this,'txt3')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="  col-2 input-newsletter">
-                            </div>
-                            <div class=" col-2">
-                                <input type="text" id="txt3" onkeyup="moveCursor(this,'txt4')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="  col-2 input-newsletter">
+                            <div class="col-2  ">
+                                <input type="text" id="txt2" onkeyup="moveCursor(this,'txt3')" class="colj-2   input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" id="txt4" onkeyup="moveCursor(this,'txt5')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="col-2 input-newsletter">
+                                <input type="text" id="txt3" onkeyup="moveCursor(this,'txt4')" class="  colj-2 input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" id="txt5" onkeyup="moveCursor(this,'txt6')" style="text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class=" col-2 input-newsletter">
+                                <input type="text" id="txt4" onkeyup="moveCursor(this,'txt5')" class="colj-2 input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" id="txt6" style="text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" required autocomplete="off" class=" col-2 input-newsletter">
+                                <input type="text" id="txt5" onkeyup="moveCursor(this,'txt6')" class=" colj-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" id="txt6" required autocomplete="off" class="colj-2  input-newsletter">
                             </div>
                         </div>
 
-                        <button type="submit" class="default-btn">Verify</button>
+                        <button type="submit" class="default-btn mt-3 verifybtn">Verify</button>
 
                         <div class="intro-y " style="margin-left: 500px; ">
-                            <div class="m-1">
+                            <div class="m-2">
                                 <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">Resend OTP</a>
                             </div>
                         </div>

@@ -284,10 +284,11 @@ namespace DeVeeraApp.Controllers
 
             }
 
+           var verifymobno= model.countryCode + model.MobileNumber;
             return RedirectToAction(nameof(VerifyOTP),
                                              new UserModel
                                              {
-                                                 MobileNumber = model.MobileNumber,
+                                                 MobileNumber = verifymobno,
                                                  Email = model.Email,
                                                  ConfirmPassword = model.ConfirmPassword
                                              });
