@@ -52,6 +52,9 @@ namespace DeVeeraApp.ViewModels
         public string Title { get; set; }
         [Required(ErrorMessage = "Enter the sub title")]
         public string Subtitle { get; set; }
+        public string SpanishTitle { get; set; }
+        [Required(ErrorMessage = "Enter the sub title")]
+        public string SpanishSubtitle { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 
@@ -64,7 +67,7 @@ namespace DeVeeraApp.ViewModels
 
         public string FullDescription { get; set; }
 
-       
+        public string SpanishFullDescription { get; set; }
         [Required]
         public int EmotionId { get; set; }
 

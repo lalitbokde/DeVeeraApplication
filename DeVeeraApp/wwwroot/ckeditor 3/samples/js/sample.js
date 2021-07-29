@@ -13,12 +13,12 @@ if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
 CKEDITOR.config.height = 150;
 CKEDITOR.config.width = 'auto';
 
-var initSample = ( function() {
+var initSampleSpanish = ( function() {
 	var wysiwygareaAvailable = isWysiwygareaAvailable(),
 		isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
 
 	return function() {
-		var editorElement = CKEDITOR.document.getById( 'editor2' );
+		var editorElement = CKEDITOR.document.getById( 'editorSpanish' );
 
 		// :(((
 		if ( isBBCodeBuiltIn ) {
@@ -30,10 +30,10 @@ var initSample = ( function() {
 
 		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
 		if ( wysiwygareaAvailable ) {
-			CKEDITOR.replace( 'editor2' );
+			CKEDITOR.replace( 'editorSpanish' );
 		} else {
 			editorElement.setAttribute( 'contenteditable', 'true' );
-			CKEDITOR.inline( 'editor2' );
+			CKEDITOR.inline( 'editorSpanish' );
 
 			// TODO we can consider displaying some info box that
 			// without wysiwygarea the classic editor may not work.
@@ -51,12 +51,12 @@ var initSample = ( function() {
 	}
 } )();
 
-var initSample1 = (function () {
+var initSampleEnglish = (function () {
 	var wysiwygareaAvailable = isWysiwygareaAvailable(),
 		isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
 
 	return function () {
-		var editorElement = CKEDITOR.document.getById('editor3');
+		var editorElement = CKEDITOR.document.getById('editorEnglish');
 
 		// :(((
 		if (isBBCodeBuiltIn) {
@@ -68,10 +68,86 @@ var initSample1 = (function () {
 
 		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
 		if (wysiwygareaAvailable) {
-			CKEDITOR.replace('editor3');
+			CKEDITOR.replace('editorEnglish');
 		} else {
 			editorElement.setAttribute('contenteditable', 'true');
-			CKEDITOR.inline('editor3');
+			CKEDITOR.inline('editorEnglish');
+
+			// TODO we can consider displaying some info box that
+			// without wysiwygarea the classic editor may not work.
+		}
+	};
+
+	function isWysiwygareaAvailable() {
+		// If in development mode, then the wysiwygarea must be available.
+		// Split REV into two strings so builder does not replace it :D.
+		if (CKEDITOR.revision == ('%RE' + 'V%')) {
+			return true;
+		}
+
+		return !!CKEDITOR.plugins.get('wysiwygarea');
+	}
+})();
+
+var initSampleModuleEnglish = (function () {
+	var wysiwygareaAvailable = isWysiwygareaAvailable(),
+		isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
+
+	return function () {
+		var editorElement = CKEDITOR.document.getById('editorModuleEnglish');
+
+		// :(((
+		if (isBBCodeBuiltIn) {
+			editorElement.setHtml(
+				'Hello world!\n\n' +
+				'I\'m an instance of [url=https://ckeditor.com]CKEditor[/url].'
+			);
+		}
+
+		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
+		if (wysiwygareaAvailable) {
+			CKEDITOR.replace('editorModuleEnglish');
+		} else {
+			editorElement.setAttribute('contenteditable', 'true');
+			CKEDITOR.inline('editorModuleEnglish');
+
+			// TODO we can consider displaying some info box that
+			// without wysiwygarea the classic editor may not work.
+		}
+	};
+
+	function isWysiwygareaAvailable() {
+		// If in development mode, then the wysiwygarea must be available.
+		// Split REV into two strings so builder does not replace it :D.
+		if (CKEDITOR.revision == ('%RE' + 'V%')) {
+			return true;
+		}
+
+		return !!CKEDITOR.plugins.get('wysiwygarea');
+	}
+})();
+
+var initSampleModuleSpanish = (function () {
+	var wysiwygareaAvailable = isWysiwygareaAvailable(),
+		isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
+
+	return function () {
+		var editorElement = CKEDITOR.document.getById('editorModuleSpanish');
+
+		// :(((
+		if (isBBCodeBuiltIn) {
+			editorElement.setHtml(
+				'Hello world!\n\n' +
+				'I\'m an instance of [url=https://ckeditor.com]CKEditor[/url].'
+			);
+		}
+
+		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
+		if (wysiwygareaAvailable) {
+			CKEDITOR.replace('editorModuleSpanish');
+		} else {
+			editorElement.setAttribute('contenteditable', 'true');
+			CKEDITOR.inline('editorModuleSpanish');
 
 			// TODO we can consider displaying some info box that
 			// without wysiwygarea the classic editor may not work.

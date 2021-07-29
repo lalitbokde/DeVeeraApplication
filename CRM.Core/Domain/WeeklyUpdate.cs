@@ -25,6 +25,9 @@ namespace CRM.Core.Domain
         public bool IsActive { get; set; }
         public bool IsRandom { get; set; }
         public virtual Video Video { get; set; }
+      
+        public string Quote { get; set; }
+        public string VideoHeader { get; set; }
 
     }
 

@@ -11,6 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Migrations\20210720182519_20Jul2021.cs" />
+    <Compile Include="Migrations\20210720182519_20Jul2021.Designer.cs" />
+    <Compile Include="Migrations\20210729102156_error.cs" />
+    <Compile Include="Migrations\20210729102156_error.Designer.cs" />
+    <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0" />
@@ -19,9 +27,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRM.Core\CRM.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
