@@ -36,7 +36,7 @@ namespace CRM.Core.Domain.GoogleTranslate.GoogleTranslate
         /// GET queries have a limit of 2000 characters, POST queries have a limit of 5000 characters.
         /// Default: Not set, Google defaults to false
         /// </summary>
-        public bool? LargeQuery { get; set; }
+        public bool? LargeQuery { get; set; } = true;
 
         /// <summary>
         /// Translates a text from one language to another.
