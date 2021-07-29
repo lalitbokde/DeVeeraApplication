@@ -53,6 +53,9 @@
     <title>Happ-e</title>
 
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -91,7 +94,7 @@
                 <div class="main-responsive-menu">
                     <div class="logo">
                         <a href="#">
-                            <img src="~/assets/images/logo.png" alt="logo"  width="300" height="300">
+                            <img src="~/assets/images/logo.png" alt="logo" width="300" height="300">
                         </a>
                     </div>
                 </div>
@@ -102,7 +105,7 @@
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <a class="navbar-brand" href="#">
-                        <img src="~/assets/images/logo.png" alt="logo"  width="300" height="300">
+                        <img src="~/assets/images/logo.png" alt="logo" width="300" height="300">
                     </a>
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -185,7 +188,7 @@
 
     @RenderBody()
 
-    
+
     <!-- End Services Area -->
     <!-- Start Footer Area -->
     @*@{var FooterImgUrl = Model.FooterImageUrl == null ? "~/assets/images/about/shape-3.png" : Model.FooterImageUrl;}*@
@@ -196,7 +199,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
                         <div class="widget-logo">
-                            <a href="#"><img src="~/assets/images/logo-2.png" alt="image"   width="300" height="300"></a>
+                            <a href="#"><img src="~/assets/images/logo-2.png" alt="image" width="300" height="300"></a>
                         </div>
                         <p>@FooterDes</p>
 
@@ -350,5 +353,9 @@
     <script src="~/assets/js/wow.min.js"></script>
     <!-- Custom JS -->
     <script src="~/assets/js/main.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 </body>
 </html>

@@ -31,9 +31,9 @@
 
                 @*<video src="@Url.Content(src)" controls style="width:100%;" loop />*@
 
-                <a href="@src" class="video-btn popup-youtube">
+                @*<a href="@src" class="video-btn popup-youtube">
                     <i class="flaticon-play"></i>
-                </a>
+                </a>*@
             }
 
         </div>
@@ -63,9 +63,9 @@
                     <div class="image">
                         <img src=@(Model.ShareBackgroundImageUrl != null ? Model.ShareBackgroundImageUrl : "../../assets/images/courses/courses-1.jpg") alt="image">
 
-                        <a class="video-btn popup-youtube">
+                        @*<a class="video-btn popup-youtube">
                             <i class="flaticon-play-button"></i>
-                        </a>
+                        </a>*@
                     </div>
 
                     @*<ul class="info">
@@ -109,7 +109,7 @@
 
 
 
-                    <div class="courses-share">
+                    @*<div class="courses-share">
                         <div class="share-info">
                             <span>@T("Share This Course")</span>
 
@@ -120,7 +120,7 @@
                                 <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
