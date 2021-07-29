@@ -44,5 +44,16 @@ namespace CRM.Services.Localization
 
         
         }
+
+        public string TranslateLevel(string translationStrings, string key)
+        {
+            GoogleTranslate google = new GoogleTranslate(key);
+
+            //Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
+            List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
+           var Spanish = results.FirstOrDefault().TranslatedText;
+           
+            return (Spanish);
+        }
     }
 }

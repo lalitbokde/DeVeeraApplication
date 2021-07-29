@@ -29,7 +29,9 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-content">
+
                     <div id="level" class="tab-pane @(ViewBag.ActiveTab == "Level" ? "active" : "")" role="tabpanel" aria-labelledby="level-tab">
                         <form asp-controller="Level" asp-action="Edit" method="post" id="levelForm" onsubmit="ShowLoader('levelForm');">
                             <input type="hidden" asp-for="@Model.srno" />
@@ -38,21 +40,77 @@
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">
                                 </div>
                             }
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
-                                <input id="input-wizard-1" asp-for="@Model.LevelNo" type="number" class="form-control" placeholder="title">
-                                <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>
+                            <div class="grid grid-cols-12 gap-4">
+                                <div class="col-span-6 mt-5">
+                                    <div>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">English Language</label>
+
+                                        <a onclick="TranslateSpanish()" style="color:skyblue " class="  ml-2" href="#">English to  Spanish</a>
+
+                                    </div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
+                                    <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                                    <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>
+                                </div>
+
+                                <div class="col-span-6 mt-5">
+                                    <div>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish Language</label>
+                                        <a class=" ml-2" style="color:skyblue " href="url">Spanish to English </a>
+                                    </div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star ">Level No.</label>
+                                    <input id="levelSpanish" class="form-control  ">
+
+                                </div>
+                                <div class="col-span-6 mt-5">
+
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="@Model.Title" type="text" class="form-control title" placeholder="title">
+                                    <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                                </div>
+
+                                <div class="col-span-6 mt-5">
+
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
+                                    @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
+                                    <input id="titleSpanish" type="text" class="form-control ">
+                                </div>
+                                <div class="col-span-6 mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                                    <input asp-for="@Model.Subtitle" type="text" class="form-control " placeholder="Subtitle">
+                                    <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                                </div>
+                                <div class="col-span-6 mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                                    <input id="input-wizard-1" type="text" class="form-control ">
+                                    @*<span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>*@
+                                </div>
+
+
                             </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">
-                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            <div class="grid grid-cols-12 gap-4">
+                                <div class="col-span-6 mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                                    <div class="" id="standard-editor">
+                                        <div class="preview">
+                                            <textarea id="editor2" asp-for="FullDescription" class="editor2 "> </textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-span-6 mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+
+                                    <div class="" id="standard-editor">
+                                        <div class="preview">
+                                            <textarea id="editor3" asp-for="FullDescription" class="editor3"> </textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                                <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="title">
-                                <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
-                            </div>
+
+
 
                             <div class="mt-5">
                                 <label class="form-label text-theme-21 star">Video</label>
@@ -67,62 +125,54 @@
                             </div>
 
                             <div class="mt-5">
-                                @{  
-                                    var BannerImageUrl =Model.BannerImageUrl!=null? Model.BannerImageUrl : "/dist/images/food-beverage-9.jpg";
+                                @{
+                                    var BannerImageUrl = Model.BannerImageUrl != null ? Model.BannerImageUrl : "/dist/images/food-beverage-9.jpg";
                                     var VideoThumbImageUrl = Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "/dist/images/food-beverage-9.jpg";
                                     var ShareBackgroundImageUrl = Model.ShareBackgroundImageUrl != null ? Model.ShareBackgroundImageUrl : "/dist/images/food-beverage-9.jpg";
 
-                                <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
-                                    <a onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="BannerImageId" hidden>
-                                                    <img id="BannerImageUrl" alt="" src="@BannerImageUrl" style="Width:100%;height:100%">
+                                    <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
+                                        <a onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                <div class="flex-none pos-image relative block">
+                                                    <div class="pos-image__preview">
+                                                        <input asp-for="BannerImageId" hidden>
+                                                        <img id="BannerImageUrl" alt="" src="@BannerImageUrl" style="Width:100%;height:100%">
+                                                    </div>
                                                 </div>
+                                                <div class="block font-medium text-center truncate mt-3">Banner</div>
                                             </div>
-                                            <div class="block font-medium text-center truncate mt-3">Banner</div>
-                                        </div>
-                                    </a>
-                                    <a onclick="OpenImageSelectionModal('VideoThumbImageId','VideoThumbImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="VideoThumbImageId" hidden>
-                                                    <img id="VideoThumbImageUrl" alt="" src="@VideoThumbImageUrl" style="Width:100%;height:100%">
+                                        </a>
+                                        <a onclick="OpenImageSelectionModal('VideoThumbImageId','VideoThumbImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                <div class="flex-none pos-image relative block">
+                                                    <div class="pos-image__preview">
+                                                        <input asp-for="VideoThumbImageId" hidden>
+                                                        <img id="VideoThumbImageUrl" alt="" src="@VideoThumbImageUrl" style="Width:100%;height:100%">
+                                                    </div>
+                                                    <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
                                                 </div>
-                                                <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
-                                            </div>
 
-                                        </div>
-                                    </a>
-                                    <a onclick="OpenImageSelectionModal('ShareBackgroundImageId','ShareBackgroundImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="ShareBackgroundImageId" hidden>
-                                                    <img id="ShareBackgroundImageUrl" alt="" src="@ShareBackgroundImageUrl" style="Width:100%;height:100%">
-                                                </div>
                                             </div>
-                                            <div class="block font-medium text-center truncate mt-3">Share Panel Background</div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                        <a onclick="OpenImageSelectionModal('ShareBackgroundImageId','ShareBackgroundImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                <div class="flex-none pos-image relative block">
+                                                    <div class="pos-image__preview">
+                                                        <input asp-for="ShareBackgroundImageId" hidden>
+                                                        <img id="ShareBackgroundImageUrl" alt="" src="@ShareBackgroundImageUrl" style="Width:100%;height:100%">
+                                                    </div>
+                                                </div>
+                                                <div class="block font-medium text-center truncate mt-3">Share Panel Background</div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 }
                             </div>
                             <div class="mt-5">
                                 <input asp-for="Active" type="checkbox" class="form-check-input" placeholder="IsActive" />
                                 <label class="form-label text-theme-21 pl-1">Active</label>
                             </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
-                            </div>
-                            <div class="" id="standard-editor">
-                                <div class="preview">
-                                    <textarea id="editor2" asp-for="FullDescription" class="editor2"> </textarea>
 
-                                </div>
-                            </div>
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <div class="grid grid-cols-12  gap-y-5 mt-5">
                                     <div class="intro-y   col-span-6">
@@ -193,7 +243,7 @@
                                             <div class="box rounded-md p-3 relative zoom-in">
                                                 <div class="flex-none pos-image relative block">
                                                     <div class="pos-image__preview">
-                                                        <input asp-for="Modules.VideoThumbImageId"  hidden>
+                                                        <input asp-for="Modules.VideoThumbImageId" hidden>
                                                         <img id="ModuleVideoThumbImageUrl" alt="" src="@ModuleVideoThumbImageUrl" style="Width:100%;height:100%">
                                                     </div>
                                                     <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
@@ -295,3 +345,45 @@
 
 @await Component.InvokeAsync("ImageSelection")
 <script src="~/dist/js/Level.js"></script>
+
+<script type="text/javascript">
+
+    //$(document).ready(function () {
+
+    //    var level = $(".level ").val();
+    //    var Title = $(".title ").val();
+    //    var subtitle = $(".Subtitle ").val();
+    //    var Description = $(".Description ").val();
+    //    var data = { "level": level, "title": Title, "Subtitle": subtitle, "Description": Description };
+    //    debugger
+
+
+
+
+    //});
+
+    function TranslateSpanish() {
+
+        var level = document.getElementById('LevelNo').value;
+        var Title = document.getElementById('Title').value;
+        var subtitle = document.getElementById('Subtitle').value;
+        var Description = document.getElementById('editor2').value;
+        $.ajax({
+            url: "/Admin/Level/TranslateSpanish",
+            type: 'POST',
+            data: { level, Title, subtitle, Description },
+           
+            success: function (response) {
+                alert(response.LevelSpanish)
+                {
+                    $("#levelSpanish ").val(response.LevelSpanish);
+                    $("#titleSpanish ").val(data.Title);
+                }
+
+
+            },
+
+        });
+    }
+
+</script>   
