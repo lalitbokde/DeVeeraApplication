@@ -8,5 +8,8 @@ namespace CRM.Services.Localization
     {
 
         public void Translate( string  translationStrings, string key);
+
+        public string TranslateLevel(string translationStrings, string key);
+        
     }
 }

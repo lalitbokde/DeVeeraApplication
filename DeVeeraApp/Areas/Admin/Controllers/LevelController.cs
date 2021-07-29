@@ -67,7 +67,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _videoServices = videoService;
             _imageMasterService = imageMasterService;
             _levelImageListServices = levelImageListServices;
-            _emotionService = emotionService; 
+            _emotionService = emotionService;
             _notificationService = notificationService;
             this._moduleImageListService = moduleImageListService;
             _translationService = translationService;
@@ -190,7 +190,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Level", "List", "/Admin/Level/List", "/Admin/Level/List");
 
             var model = new List<LevelModel>();
-            var data = _levelServices.GetAllLevels().OrderBy(a=>a.LevelNo);
+            var data = _levelServices.GetAllLevels().OrderBy(a => a.LevelNo);
             if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<Level, LevelModel>(model);
@@ -490,6 +490,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             }
             return Json(response);
+        }
+
+        [HttpPost]
+        public IActionResult TranslateSpanish(LevelModel level)
+        {
+            LevelModel model = new LevelModel();
+
+            // model.LevelNo  = _translationService.TranslateLevel(level.LevelNo, key);
+            model.Title = _translationService.TranslateLevel(level.Title, key);
+            model.Subtitle = _translationService.TranslateLevel(level.Subtitle, key);
+            model.FullDescription = _translationService.TranslateLevel(level.FullDescription, key);
+            return Json(model);
+            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
 
         #endregion
