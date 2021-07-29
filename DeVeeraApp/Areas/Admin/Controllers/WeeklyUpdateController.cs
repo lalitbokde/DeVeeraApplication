@@ -4,6 +4,7 @@ using CRM.Core.Infrastructure;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardQuotes;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
@@ -32,7 +33,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IVideoMasterService _videoServices;
         private readonly IImageMasterService _imageMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
+        private readonly ITranslationService _translationService;
 
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
         #region ctor
@@ -43,6 +46,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                       IHttpContextAccessor httpContextAccessor,
                                       IAuthenticationService authenticationService,
                                       INotificationService notificationService,
+                                      ITranslationService translationService,
                                      IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -52,6 +56,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _videoServices = videoService;
             _imageMasterService = imageMasterService;
             _dashboardQuoteService = dashboardQuoteService;
+            _translationService = translationService;
         }
         #endregion
         #region Utilities
@@ -150,6 +155,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 var data = model.ToEntity<WeeklyUpdate>();
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
+                _translationService.Translate(data.Title,key);
+                _translationService.Translate(data.Subtitle, key);
                 _notificationService.SuccessNotification("Video created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
@@ -227,6 +234,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
+                _translationService.Translate(val.Title,key);
+                _translationService.Translate(val.Subtitle, key);
+                _translationService.Translate(val.SliderTwoTitle, key);
                 _notificationService.SuccessNotification("Video edited successfully.");
                 return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }

@@ -10,6 +10,7 @@ namespace CRM.Services
         void UpdateLocalStringResource(LocaleStringResource model);
         IList<LocaleStringResource> GetAllLocalStringResources();
         LocaleStringResource GetLocalStringResourceById(int Id);
+        string GetLocalStringResourceByResourceName(string ResourceName);
 
     }
 }

@@ -6,6 +6,7 @@ using AutoMapper;
 using CRM.Core;
 using CRM.Core.Domain.Security;
 using CRM.Core.Infrastructure;
+using CRM.Core.ViewModels;
 using CRM.Data;
 using CRM.Data.Interfaces;
 using CRM.Services;
@@ -23,6 +24,7 @@ using CRM.Services.Message;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Security;
 using CRM.Services.Settings;
+using CRM.Services.TwilioConfiguration;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Factories;
@@ -82,14 +84,14 @@ namespace DeVeeraApp
             });
             services.AddDbContext<dbContextCRM>(options =>
           options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+           
+
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 
-           // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-          
             services.AddSession();
             services.AddTransient(typeof(IRepository<>), typeof(EfRepository<>));
-          
+            services.Configure<GoogleKey>(Configuration.GetSection("GoogleKey"));
             services.AddScoped<IWorkContext, WebWorkContext>();
             services.AddScoped<IAuthenticationService, CookieAuthenticationService>();
 
@@ -132,6 +134,13 @@ namespace DeVeeraApp
             services.AddScoped<ILocalStringResourcesServices, LocalStringResourcesServices>();
             services.AddScoped<IModuleImageListService, ModuleImageListService>();
             services.AddScoped<ILayoutSetupService, LayoutSetupService>();
+
+            services.AddScoped<IVerificationService, VerificationService>();
+
+            services.AddSingleton<IVerificationService>(new VerificationService(
+              Configuration.GetSection("Twilio").Get<Configuration.Twilio>()));
+
+            services.AddScoped<ITranslationService, TranslationService>();
 
 
             var authenticationBuilder = services.AddAuthentication(options =>

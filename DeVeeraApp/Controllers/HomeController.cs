@@ -38,7 +38,7 @@ namespace DeVeeraApp.Controllers
         private readonly IS3BucketService _s3BucketService;
         private readonly ILanguageService _languageService;
         private readonly ILayoutSetupService _LayoutSetupService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         #endregion
 
 
@@ -57,7 +57,8 @@ namespace DeVeeraApp.Controllers
                               IS3BucketService s3BucketService,
                               ILanguageService languageService,
                               IUserService userService,
-                               ILayoutSetupService layoutSetupService
+                               ILayoutSetupService layoutSetupService,
+                               ILocalStringResourcesServices localStringResourcesServices
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -75,6 +76,7 @@ namespace DeVeeraApp.Controllers
             _s3BucketService = s3BucketService;
             _languageService = languageService;
             _LayoutSetupService = layoutSetupService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
         #endregion
@@ -95,12 +97,21 @@ namespace DeVeeraApp.Controllers
             if (data != null) 
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
+                _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderOneDescription);
+                _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderOneTitle);
+                _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderTwoTitle);
+                _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderTwoDescription);
+                _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderThreeTitle);
+                _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderThreeDescription);
 
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
                 if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
                 {
                     int index = random.Next(quoteList.Count);
                     model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
+                    _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
+                    _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
+                    _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
                 }
 
                 ViewBag.VideoUrl = data?.Video?.VideoUrl;
@@ -109,7 +120,7 @@ namespace DeVeeraApp.Controllers
                 model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
                 model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : null;
                 model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
-
+              
             }
             return View(model);
         }
@@ -285,7 +296,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(currentUser);
 
             }
-
+            _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Subtitle);
              return View(model);
 
 
@@ -338,6 +349,7 @@ namespace DeVeeraApp.Controllers
             FeelGoodListModel model = new FeelGoodListModel ();
            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
             var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "",ImageId:0);
+           
             model.FeelGoodListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<FeelGoodViewModel>();
             return View(model);
         }

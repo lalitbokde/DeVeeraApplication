@@ -8,6 +8,7 @@ using CRM.Services.Authentication;
 using CRM.Services.Customers;
 using CRM.Services.Emotions;
 using CRM.Services.Layoutsetup;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -39,7 +40,9 @@ namespace DeVeeraApp.Controllers
         private readonly IDiaryPasscodeService _diaryPasscodeService;
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly IImageMasterService _imageMasterService;
+        private readonly ITranslationService _translationService;
 
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
 
@@ -57,6 +60,7 @@ namespace DeVeeraApp.Controllers
                        ILayoutSetupService layoutSetupService,
                        IImageMasterService imageMasterService,
                         IHttpContextAccessor httpContextAccessor,
+                        ITranslationService translationService,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
@@ -73,6 +77,7 @@ namespace DeVeeraApp.Controllers
             _diaryPasscodeService = diaryPasscodeService;
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
+            _translationService = translationService;
         }
 
         #endregion
@@ -199,6 +204,8 @@ namespace DeVeeraApp.Controllers
                             CreatedOn = DateTime.UtcNow
                         };
                         _DiaryMasterService.InsertDiary(newdiary);
+                        _translationService.Translate(newdiary.Title,key);
+                        _translationService.Translate(newdiary.Comment, key);
                         _notificationService.SuccessNotification("Diary added successfully.");                
 
                         if (diary == null )
@@ -214,6 +221,8 @@ namespace DeVeeraApp.Controllers
                         diary.LastUpdatedOn = DateTime.UtcNow;
                         diary.DiaryColor = model.DiaryColor;
                         _DiaryMasterService.UpdateDiary(diary);
+                        _translationService.Translate(diary.Title, key);
+                        _translationService.Translate(diary.Comment, key);
                         _notificationService.SuccessNotification("Diary updated successfully.");
                     }
                     return RedirectToAction("Create", "Diary");
@@ -322,7 +331,7 @@ namespace DeVeeraApp.Controllers
                     CurrentEmotion = true
                 });
                 var emotionname = _emotionService.GetEmotionById(model.Id).EmotionName;
-
+                _translationService.Translate(emotionname,key);
                 _userService.UpdateUser(user);
 
                 var data = _levelServices.GetAllLevels().Where(l => l.Level_Emotion_Mappings.Where(a => a.EmotionId == model.Id).Count() > 0 && l.Active == true).FirstOrDefault();

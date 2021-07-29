@@ -77,10 +77,6 @@ namespace DeVeeraApp.ViewModels.User
 
      
 
-        /// <summary>
-        /// Gets or sets the username
-        /// </summary>
-        public string Companyname { get; set; }
 
         public string FullName { get; set; }
 
@@ -161,7 +157,10 @@ namespace DeVeeraApp.ViewModels.User
         public DateTime LastActivityDateUtc { get; set; }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public string OTP { get; set; }
 
 
 

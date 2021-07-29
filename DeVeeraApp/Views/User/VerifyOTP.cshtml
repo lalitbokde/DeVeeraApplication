@@ -1,0 +1,182 @@
+﻿@model DeVeeraApp.ViewModels.User.UserModel
+
+@{Layout = null; }
+<!doctype html>
+
+<html lang="zxx">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/assets/css/animate.min.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="~/assets/css/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="~/assets/css/odometer.min.css">
+    <!-- Slick Min CSS -->
+    <link rel="stylesheet" href="~/assets/css/slick.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/assets/css/nice-select.min.css">
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <!-- Carousel Default CSS -->
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.min.css">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="~/assets/css/fancybox.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/assets/css/styleUser.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <link href="~/assets/css/OTPForm.css" rel="stylesheet" />
+    <link href="~/dist/css/Rating.css" rel="stylesheet">
+
+
+    <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+</head>
+<!-- Required meta tags -->
+
+
+<body>
+
+    @*Start Preloader Area*@
+    <div class="preloader-area">
+        <div class="spinner">
+            <div class="inner">
+                <div class="disc"></div>
+                <div class="disc"></div>
+                <div class="disc"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+    <!-- Start Coming Soon Area -->
+    <div class="coming-soon-area">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="coming-soon-content">
+                    <div>
+                        <img src="/assets/images/logo.png" alt="logo" style="margin-right:80px" width="300" height="300">
+                    </div>
+                    <div style="margin-right:20px">
+                        <h2>Enter Your OTP</h2>
+                    </div>
+
+                    <form asp-controller="User" asp-action="VerifyOTP" method="post" class="OtpForm">
+                        <input type="hidden" asp-for="UserRoleId" value="1" />
+                        <input type="hidden" asp-for="Email" value="@Model.Email">
+                        <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
+                        <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
+
+                        <div class="form-group  row col-lg-12 ">
+                            <div class="  col-2">
+                                <input type="text" id="txt1" onkeyup="moveCursor(this,'txt2')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="  col-2 input-newsletter">
+                            </div>
+                            <div class=" col-2 ">
+                                <input type="text" id="txt2" onkeyup="moveCursor(this,'txt3')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="  col-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" id="txt3" onkeyup="moveCursor(this,'txt4')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="  col-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" id="txt4" onkeyup="moveCursor(this,'txt5')" style=" text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="col-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" id="txt5" onkeyup="moveCursor(this,'txt6')" style="text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" class=" col-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" id="txt6" style="text-align: center; font-weight: bold" maxlength="1" size="1" min="0" max="6" pattern="\d*" required autocomplete="off" class=" col-2 input-newsletter">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="default-btn">Verify</button>
+
+                        <div class="intro-y " style="margin-left: 500px; ">
+                            <div class="m-1">
+                                <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">Resend OTP</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Coming Soon Area -->
+    <!-- Jquery Slim JS -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Meanmenu JS -->
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <!-- Jquery Appear JS -->
+    <script src="~/assets/js/jquery.appear.js"></script>
+    <!-- Odometer JS -->
+    <script src="~/assets/js/odometer.min.js"></script>
+    <!-- Slick Min JS -->
+    <script src="~/assets/js/slick.min.js"></script>
+    <!-- Nice Select JS -->
+    <script src="~/assets/js/nice-select.min.js"></script>
+    <!-- Magnific Popup JS -->
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Fancybox JS -->
+    <script src="~/assets/js/fancybox.min.js"></script>
+    <!-- Ajaxchimp JS -->
+    <script src="~/assets/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Form Validator JS -->
+    <script src="~/assets/js/form-validator.min.js"></script>
+    <!-- Contact JS -->
+    <script src="~/assets/js/contact-form-script.js"></script>
+    <!-- Wow JS -->
+    <script src="~/assets/js/wow.min.js"></script>
+    <!-- Custom JS -->
+    <script src="~/assets/js/main.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function resendOTP(){
+            $.ajax({
+                url: '@Url.Content("~/ResendOTP")',
+                method: 'POST',
+                data: {
+                  channel: $('input[name=channel]').val()
+                },
+                success: function(result) {
+                    if(result.isValid === true) {
+                        showMessages(['New code sent to the registered phone number']);
+                    } else {
+                        showMessages(result.errors);
+                    }
+                },
+                error: function() {
+                    showMessages('Request failed: check your internet connection');
+                }
+            })
+        }
+    });
+    function showMessages(messages) {
+        $('#messages').html(
+            '<ul>' + messages.map(function(message){ return '<li>'+message+'</li>' }).join('') + '</ul>'
+        );
+    }
+
+    function moveCursor(fromTextbox, toTextbox)
+    {
+        var length = fromTextbox.value.length;
+        var maxLength = fromTextbox.getAttribute("maxLength");
+        if (length=maxLength) {
+            document.getElementById(toTextbox).focus();
+        }
+    }
+</script>

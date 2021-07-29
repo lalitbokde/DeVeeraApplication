@@ -70,7 +70,7 @@
                     <ul class="services-list">
                         @foreach (var item in Model.EmotionList.OrderBy(a => a.EmotionNo))
                         {
-                            <li><a asp-controller="EmotionBlog" asp-action="Index" asp-route-emotionid="@item.Id"> @item.EmotionName <i class="flaticon-imagination"></i></a></li>
+                            <li><a asp-controller="EmotionBlog" asp-action="Index" asp-route-emotionid="@item.Id"> @T(item.EmotionName) <i class="flaticon-imagination"></i></a></li>
                         }
                     </ul>
                 </div>

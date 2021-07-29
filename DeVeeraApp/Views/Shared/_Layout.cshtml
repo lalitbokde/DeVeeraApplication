@@ -10,8 +10,11 @@
     var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
     var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
     var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
-    var FooterDes = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription; }
-}
+
+    var FooterDes = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+    }
+
+
 <!doctype html>
 <html lang="zxx">
 <head>
@@ -88,7 +91,7 @@
                 <div class="main-responsive-menu">
                     <div class="logo">
                         <a href="#">
-                            <img src="~/assets/images/logo.png" alt="logo">
+                            <img src="~/assets/images/logo.png" alt="logo"  width="300" height="300">
                         </a>
                     </div>
                 </div>
@@ -99,7 +102,7 @@
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <a class="navbar-brand" href="#">
-                        <img src="~/assets/images/logo.png" alt="logo">
+                        <img src="~/assets/images/logo.png" alt="logo"  width="300" height="300">
                     </a>
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -139,12 +142,12 @@
 
                             <div class="option-item">
                                 <div class="navbar-btn">
-                                    <a asp-controller="User" asp-action="Register" class="default-btn">Register <i class="flaticon-pointer"></i></a>
+                                    <a asp-controller="User" asp-action="Register" class="default-btn">@T("Register") <i class="flaticon-pointer"></i></a>
                                 </div>
                             </div>
                             <div class="option-item">
                                 <div class="navbar-btn">
-                                    <a asp-controller="User" asp-action="Login" class="default-btn">Login <i class="bx bx-log-in"></i></a>
+                                    <a asp-controller="User" asp-action="Login" class="default-btn">@T("Login") <i class="bx bx-log-in"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +185,7 @@
 
     @RenderBody()
 
-    <img src="~/assets/images/about/shape-3.png" />
+    
     <!-- End Services Area -->
     <!-- Start Footer Area -->
     @*@{var FooterImgUrl = Model.FooterImageUrl == null ? "~/assets/images/about/shape-3.png" : Model.FooterImageUrl;}*@
@@ -193,7 +196,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
                         <div class="widget-logo">
-                            <a href="#"><img src="~/assets/images/logo-2.png" alt="image"></a>
+                            <a href="#"><img src="~/assets/images/logo-2.png" alt="image"   width="300" height="300"></a>
                         </div>
                         <p>@FooterDes</p>
 

@@ -2,6 +2,7 @@
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Localization;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -10,6 +11,7 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
@@ -24,6 +26,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IUserService _userService;
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IQuestionAnswerService _QuestionAnswerService;
+        private readonly ITranslationService _translationService;
+
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+      
 
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
@@ -32,7 +38,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                 IUserService userService,
                                 IDiaryMasterService diaryMasterService,
                                 IHttpContextAccessor httpContextAccessor,
-                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                               IAuthenticationService authenticationService,
+                                 
+                                ITranslationService translationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -42,6 +50,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _userService = userService;
             _diaryMasterService = diaryMasterService;
             _QuestionAnswerService = questionAnswerService;
+            _translationService = translationService;
+          
         }
 
         #region methods
@@ -55,6 +65,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _moduleService.GetModuleById(id);
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
+            _translationService.Translate(moduleData.Title,key);
+            _translationService.Translate(moduleData.FullDescription, key);
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {

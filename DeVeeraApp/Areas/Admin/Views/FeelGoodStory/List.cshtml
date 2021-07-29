@@ -50,8 +50,8 @@
                                                 {
                                                     <tr>
                                                         <td class="border-b dark:border-dark-5">@i</td>
-                                                        <td class="border-b dark:border-dark-5">@item.Title</td>
-                                                        <td class="border-b dark:border-dark-5">@item.Author</td>
+                                                        <td class="border-b dark:border-dark-5">@T(item.Title)</td>
+                                                        <td class="border-b dark:border-dark-5">@T(item.Author)</td>
                                                         <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="FeelGoodStory" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
                                                         <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteFeelGoodStory(@item.Id)')"><i data-feather="trash-2"></i></a></td>
                                                     </tr>

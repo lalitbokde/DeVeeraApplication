@@ -26,12 +26,12 @@
 
                 <div class="col-lg-6 col-md-6">
                     <div class="page-banner-content">
-                        <h2>@Model.EmotionName</h2>
+                        <h2>@T(Model.EmotionName)</h2>
                         <ul>
                             <li>
                                 <a asp-controller="Dashboard" asp-action="Index">@T("Home")</a>
                             </li>
-                            <li>@Model.EmotionName</li>
+                            <li>@T(Model.EmotionName)</li>
                         </ul>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
         <div class="blog-details-desc">
             <div class="article-content">
                 <div class="title-box">
-                    <h2>@Model.Title</h2>
+                    <h2>@T(Model.Title)</h2>
                     <div class="entry-meta">
                         <ul>
                             <li><i class="flaticon-calendar"></i> <a href="#">@Model.CreatedOn.ToString("MMMM d, yyyy")</a></li>
@@ -64,10 +64,10 @@
                     <img src="@BannerImage" alt="image" width="100%">
                 </div>
 
-                <h3>@Model.Subtitle</h3>
+                <h3>@T(Model.Subtitle)</h3>
 
                 <blockquote class="wp-block-quote">
-                    <p>@Model.Quote</p>
+                    <p>@T(Model.Quote)</p>
                 </blockquote>
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12">

@@ -14,6 +14,7 @@ using CRM.Core;
 using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
+using CRM.Services.Localization;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -34,6 +35,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IVideoMasterService _videoMasterService;
         private readonly IS3BucketService _s3BucketService;
+        private readonly ITranslationService _translationService;
+
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
 
@@ -51,6 +55,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                               IImageMasterService imageMasterService,
                               IVideoMasterService videoMasterService,
                               IS3BucketService s3BucketService,
+                              ITranslationService translationService,
                               IUserService userService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -67,6 +72,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _imageMasterService = imageMasterService;
             _videoMasterService = videoMasterService;
             _s3BucketService = s3BucketService;
+            _translationService = translationService;
         }
 
         #endregion
@@ -87,7 +93,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             model.Author = quote?.Author;
 
             model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
-
+            _translationService.Translate(model.Title, key);
+            _translationService.Translate(model.Author, key);
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
 
             //int lastlevel = data.LastOrDefault().Id;
@@ -155,8 +162,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
             var model = data?.ToModel<WeeklyUpdateModel>();
-
-            if(model != null)
+            _translationService.Translate(model.Title,key);
+            _translationService.Translate(model.Subtitle, key);
+            if (model != null)
             {
                 model.VideoUrl = data?.Video?.VideoUrl;
 
@@ -205,8 +213,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _UserService.UpdateUser(currentUser);
 
             }
-
-             return View(model);
+            _translationService.Translate(model.Title,key);
+            _translationService.Translate(model.Subtitle, key);
+            return View(model);
 
 
 
@@ -258,6 +267,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
             var model = new List<FeelGoodStoryModel>();
+         
 
             if (data.Count() != 0)
             {
@@ -277,7 +287,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         }
 
                     }
-
+                    _translationService.Translate(item.Title,key);
+                    _translationService.Translate(item.Story, key);
                     model.Add(item.ToModel<FeelGoodStoryModel>());
                 }
             }

@@ -30,6 +30,13 @@ using CRM.Services.QuestionsAnswer;
 using CRM.Services.Customers;
 using CRM.Services.Layoutsetup;
 
+using CRM.Services.Localization;
+
+using CRM.Services.TwilioConfiguration;
+using System.Threading.Tasks;
+using CRM.Core.TwilioConfig;
+
+
 namespace DeVeeraApp.Controllers
 {
 
@@ -46,9 +53,9 @@ namespace DeVeeraApp.Controllers
         private readonly IQuestionAnswerService _questionAnswerService;
         private readonly IQuestionAnswerMappingService _questionAnswerMappingService;
         private readonly IAuthenticationService _authenticationService;
-       
-        
-        
+
+
+
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IUserPasswordService _Userpasswordservice;
         private readonly IUserRegistrationService _UserRegistrationService;
@@ -61,6 +68,12 @@ namespace DeVeeraApp.Controllers
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly IImageMasterService _imageMasterService;
 
+        private readonly ITranslationService _translationService;
+
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+
+        private readonly IVerificationService _verificationService;
+
         #endregion
 
         #region CTOR
@@ -71,9 +84,7 @@ namespace DeVeeraApp.Controllers
                                   IUserPasswordService Userpasswordservice,
                                   IUserService UserService,
                                   ILevelServices levelServices,
-                              
-                                  
-                                  
+                                  IVerificationService verificationService,
                                   IDateTimeHelper dateTimeHelper,
                                   IPermissionService permissionService,
                                   IUserRegistrationService UserRegistrationService,
@@ -86,7 +97,8 @@ namespace DeVeeraApp.Controllers
                                   INotificationService notificationService,
                                   IDiaryPasscodeService diaryPasscodeService,
                                   ILayoutSetupService layoutSetupService,
-                                  IImageMasterService imageMasterService
+                                  IImageMasterService imageMasterService,
+                                  ITranslationService translationService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -98,9 +110,9 @@ namespace DeVeeraApp.Controllers
             this._WorkContextService = WorkContextService;
             this._UserService = UserService;
             _levelServices = levelServices;
-           
-            
-            
+            _verificationService = verificationService;
+
+
             this._dateTimeHelper = dateTimeHelper;
             this._Userpasswordservice = Userpasswordservice;
             this._UserRegistrationService = UserRegistrationService;
@@ -115,6 +127,7 @@ namespace DeVeeraApp.Controllers
             _diaryPasscodeService = diaryPasscodeService;
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
+            _translationService = translationService;
         }
 
         #endregion
@@ -124,7 +137,7 @@ namespace DeVeeraApp.Controllers
 
         public virtual void PrepareLanguages(LanguageModel model)
         {
-            
+
             model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
             var AvailableLanguage = _languageService.GetAllLanguages();
             foreach (var item in AvailableLanguage)
@@ -141,7 +154,7 @@ namespace DeVeeraApp.Controllers
         #endregion
 
 
-      
+
 
         [HttpPost]
         public IActionResult GetUserRoleById(int ID)
@@ -162,8 +175,8 @@ namespace DeVeeraApp.Controllers
         }
 
 
-       
-      
+
+
 
         #region UserLogin
 
@@ -172,7 +185,7 @@ namespace DeVeeraApp.Controllers
         {
             var model = _UserModelFactory.PrepareLoginModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl:null;
+            model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
             return View(model);
         }
 
@@ -190,7 +203,7 @@ namespace DeVeeraApp.Controllers
                 {
                     case UserLoginResults.Successful:
                         {
-                            var User = _UserService.GetUserByEmail(model.Email);                  
+                            var User = _UserService.GetUserByEmail(model.Email);
 
                             _authenticationService.SignIn(User, model.RememberMe);
 
@@ -202,12 +215,12 @@ namespace DeVeeraApp.Controllers
 
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login , LastLoginDateUtc=LastLoginDateUtc });
+                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login, LastLoginDateUtc = LastLoginDateUtc });
                                 }
                                 else
                                 {
 
-                                    return RedirectToAction("Index", "Home",new { area= "Admin" });
+                                    return RedirectToAction("Index", "Home", new { area = "Admin" });
                                 }
 
 
@@ -242,7 +255,7 @@ namespace DeVeeraApp.Controllers
             return View(model);
         }
 
-     
+
 
         //public virtual IActionResult ForgotPassword()
         //{
@@ -259,11 +272,157 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(UserModel model)
+        public async Task<IActionResult> SendOTP(UserModel model)
+        {
+
+
+            var verification =
+                    await _verificationService.StartVerificationAsync(model.MobileNumber, "sms");
+
+            if (verification.IsValid)
+            {
+
+            }
+
+            return RedirectToAction(nameof(VerifyOTP),
+                                             new UserModel
+                                             {
+                                                 MobileNumber = model.MobileNumber,
+                                                 Email = model.Email,
+                                                 ConfirmPassword = model.ConfirmPassword
+                                             });
+        }
+
+
+        public IActionResult VerifyOTP(UserModel model)
+        {
+            UserPassword password = new UserPassword
+            {
+                Password = model.ConfirmPassword,
+                CreatedOnUtc = DateTime.UtcNow,
+            };
+            model.UserPassword = password;
+           
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<VerificationResult> ResendOTP(string channel)
+        {
+            var user =  _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+
+           
+                return await _verificationService.StartVerificationAsync(user.MobileNumber, channel);
+            
+
+           // return new VerificationResult(new List<string> { "Your phone number is already verified" });
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP)
+        {
+         
+            string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
+            var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
+            if (result.IsValid)
+            {
+                //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
+                if (ModelState.IsValid)
+                {
+                    //validate unique user
+                    if (_UserService.GetUserByEmail(model.Email) == null)
+                    {
+                        //fill entity from model
+                        var user = model.ToEntity<User>();
+                        user.UserGuid = Guid.NewGuid();
+                        user.CreatedOnUtc = DateTime.UtcNow;
+                        user.LastActivityDateUtc = DateTime.UtcNow;
+                        user.UserRoleId = model.UserRoleId;
+                        user.IsAllow = true;
+                        user.Active = true;
+
+                        _UserService.InsertUser(user);
+
+                        // password
+                        if (!string.IsNullOrWhiteSpace(model.ConfirmPassword))
+                        {
+
+                            UserPassword password = new UserPassword
+                            {
+                                UserId = user.Id,
+                                Password = model.ConfirmPassword,
+                                CreatedOnUtc = DateTime.UtcNow,
+                            };
+                            _Userpasswordservice.InsertUserPassword(password);
+                        }
+                        _UserService.UpdateUser(user);
+                        var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.ConfirmPassword);
+                        switch (loginResult)
+                        {
+                            case UserLoginResults.Successful:
+                                {
+                                    var User = _UserService.GetUserByEmail(model.Email);
+
+                                    _authenticationService.SignIn(User, true);
+
+
+                                    HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
+
+                                    _notificationService.SuccessNotification("User registered successfull.");
+
+                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
+
+
+                                }
+                            case UserLoginResults.UserNotExist:
+                                ModelState.AddModelError("", "UserNotExist");
+                                break;
+                            case UserLoginResults.Deleted:
+                                ModelState.AddModelError("", "Deleted");
+                                break;
+                            case UserLoginResults.NotActive:
+                                ModelState.AddModelError("", "NotActive");
+                                break;
+                            case UserLoginResults.NotRegistered:
+                                ModelState.AddModelError("", "NotRegistered");
+                                break;
+                            case UserLoginResults.LockedOut:
+                                ModelState.AddModelError("", "LockedOut");
+                                break;
+                            case UserLoginResults.WrongPassword:
+                            default:
+                                ModelState.AddModelError("", "WrongCredentials");
+                                break;
+                            case UserLoginResults.NotAllow:
+                                ModelState.AddModelError("", "Not Allowed");
+                                break;
+                        }
+                    }
+
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Email Already Exists");
+                }
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(UserModel model)
         {
             //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
             if (ModelState.IsValid)
             {
+
+                var verification =
+                        await _verificationService.StartVerificationAsync(model.MobileNumber, "");
+
+                if (verification.IsValid)
+                {
+
+                }
 
                 //validate unique user
                 if (_UserService.GetUserByEmail(model.Email) == null)
@@ -278,6 +437,7 @@ namespace DeVeeraApp.Controllers
                     user.Active = true;
 
                     _UserService.InsertUser(user);
+                    
 
                     // password
                     if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
@@ -377,8 +537,9 @@ namespace DeVeeraApp.Controllers
                         {
                             var lastLevel = _levelServices.GetLevelById((int)userData.LastLevel);
 
-                            if (lastLevel != null) { 
-                            model.LevelTitle = lastLevel.Title;
+                            if (lastLevel != null)
+                            {
+                                model.LevelTitle = lastLevel.Title;
                             }
                         }
                         if (userData.ActiveModule != null && userData.ActiveModule != 0)
@@ -488,9 +649,11 @@ namespace DeVeeraApp.Controllers
                 SrNo = SrNo,
                 UserId = userId,
                 HeaderImageUrl = HeaderImageUrl,
-                Reason = result?.ReasonToSubmit
-                
+
+                Reason = result?.ReasonToSubmit 
+
             };
+            _translationService.Translate(model.Reason, key);
             return View(model);
         }
 
@@ -515,10 +678,11 @@ namespace DeVeeraApp.Controllers
 
 
                 _UserService.UpdateUser(currentUser);
+               
                 _notificationService.SuccessNotification("User info updated successfull.");
-                return RedirectToAction("Next", "Lesson", new { levelno =model.LevelNo , srno = model.SrNo });
+                return RedirectToAction("Next", "Lesson", new { levelno = model.LevelNo, srno = model.SrNo });
             }
-
+            _translationService.Translate(model.Reason, key);
             return View(model);
         }
 
@@ -562,7 +726,7 @@ namespace DeVeeraApp.Controllers
                     };
                     _diaryPasscodeService.InsertDiaryPasscode(diaryPasscode);
 
-                    return RedirectToAction("ChangePasscode","Diary");
+                    return RedirectToAction("ChangePasscode", "Diary");
                 }
 
             }
@@ -604,11 +768,11 @@ namespace DeVeeraApp.Controllers
 
                     _notificationService.SuccessNotification("Passcode change successfully.");
 
-                    return RedirectToAction("UserProfile", "User",new { userId= currentUser.Id });
+                    return RedirectToAction("UserProfile", "User", new { userId = currentUser.Id });
                 }
-            
+
             }
-            
+
             return View(model);
         }
 
@@ -659,8 +823,6 @@ namespace DeVeeraApp.Controllers
 
             }
             return Json(response);
-
-
         }
 
         //[HttpPost]
