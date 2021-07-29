@@ -274,24 +274,38 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SendOTP(UserModel model)
         {
+            if (model.countryCode == null)
+            {
+                ModelState.AddModelError("countryCode", "please select country code.!!!");
+                return RedirectToAction("Register", "User");
+            }
+            if (model.MobileNumber == null)
+            {
+                ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
+                return RedirectToAction("Register", "User");
 
-
+            }
+            var verifymobno = model.countryCode + model.MobileNumber;
             var verification =
-                    await _verificationService.StartVerificationAsync(model.MobileNumber, "sms");
+                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-            if (verification.IsValid)
+            if (verification.IsValid == true)
             {
 
             }
+            else
+            {
+                return RedirectToAction("Register", "User");
+            }
 
-           var verifymobno= model.countryCode + model.MobileNumber;
-            return RedirectToAction(nameof(VerifyOTP),
-                                             new UserModel
-                                             {
-                                                 MobileNumber = verifymobno,
-                                                 Email = model.Email,
-                                                 ConfirmPassword = model.ConfirmPassword
-                                             });
+                return RedirectToAction(nameof(VerifyOTP),
+                                                 new UserModel
+                                                 {
+                                                     MobileNumber = verifymobno,
+                                                     Email = model.Email,
+                                                     ConfirmPassword = model.ConfirmPassword
+                                                 });
+            
         }
 
 
@@ -331,7 +345,14 @@ namespace DeVeeraApp.Controllers
                 //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
                 if (ModelState.IsValid)
                 {
-                    //validate unique user
+                    if (model.countryCode == null)
+                    {
+                        ModelState.AddModelError("MobileNumber", "please select country code.!!!");
+                    }
+                    if (model.MobileNumber==null) 
+                    {
+                        ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
+                    } //validate unique user
                     if (_UserService.GetUserByEmail(model.Email) == null)
                     {
                         //fill entity from model
@@ -342,6 +363,7 @@ namespace DeVeeraApp.Controllers
                         user.UserRoleId = model.UserRoleId;
                         user.IsAllow = true;
                         user.Active = true;
+                        user.MobileNumber = model.MobileNumber;
 
                         _UserService.InsertUser(user);
 
@@ -436,7 +458,7 @@ namespace DeVeeraApp.Controllers
                     user.UserRoleId = model.UserRoleId;
                     user.IsAllow = true;
                     user.Active = true;
-
+                    user.MobileNumber = model.MobileNumber;
                     _UserService.InsertUser(user);
                     
 
