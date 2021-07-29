@@ -28,9 +28,7 @@
             <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-
-                <video src="@Url.Content(src)" controls style="width:100%;" loop />
-
+                
                 <a href="@src" class="video-btn popup-youtube">
                     <i class="flaticon-play"></i>
                 </a>
