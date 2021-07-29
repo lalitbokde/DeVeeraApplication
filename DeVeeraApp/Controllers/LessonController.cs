@@ -178,7 +178,7 @@ namespace DeVeeraApp.Controllers
             foreach (var module in videoData.ModuleList)
             {
                 var seletedImages5 = new SelectedImage();
-                var imagesRecord5 = _imageMasterService.GetImageById(data.BannerImageId);
+                var imagesRecord5 = _imageMasterService.GetImageById(module.BannerImageId);
                 if (imagesRecord5 != null)
                 {
                     seletedImages5.ImageUrl = imagesRecord5.ImageUrl;
