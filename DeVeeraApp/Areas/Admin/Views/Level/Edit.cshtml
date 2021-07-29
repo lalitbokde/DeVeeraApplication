@@ -43,10 +43,9 @@
                             <div class="grid grid-cols-12 gap-4">
                                 <div class="col-span-6 mt-5">
                                     <div>
-                                        <label for="input-wizard-1" class="form-label text-theme-21 star">English Language</label>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
 
-                                        <a onclick="TranslateSpanish()" style="color:skyblue " class="  ml-2" href="#">English to  Spanish</a>
-
+                                        <a onclick="TranslateSpanish()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
                                     </div>
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
                                     <input asp-for="@Model.LevelNo" type="number" class="form-control ">
@@ -55,11 +54,12 @@
 
                                 <div class="col-span-6 mt-5">
                                     <div>
-                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish Language</label>
-                                        <a class=" ml-2" style="color:skyblue " href="url">Spanish to English </a>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                        <a class="btn btn-primary w-40" onclick="TranslateEnglish()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                                     </div>
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star ">Level No.</label>
-                                    <input id="levelSpanish" class="form-control  ">
+                                    @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
+                                        <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                                        <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
 
                                 </div>
                                 <div class="col-span-6 mt-5">
@@ -74,16 +74,16 @@
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                     @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
                                     @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
-                                    <input id="titleSpanish" type="text" class="form-control ">
+                                    <input asp-for="@Model.SpanishTitle" id="titleSpanish" type="text" class="form-control ">
                                 </div>
                                 <div class="col-span-6 mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                                    <input asp-for="@Model.Subtitle" type="text" class="form-control " placeholder="Subtitle">
+                                    <input asp-for="@Model.Subtitle" type="text" class="form-control   " id="subtitlespanish" placeholder="Subtitle">
                                     <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
                                 </div>
                                 <div class="col-span-6 mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                                    <input id="input-wizard-1" type="text" class="form-control ">
+                                    <input id="input-wizard-1" asp-for="@Model.SpanishSubtitle" type="text" class="form-control SpanishSubtitle ">
                                     @*<span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>*@
                                 </div>
 
@@ -94,7 +94,7 @@
                                     <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                                     <div class="" id="standard-editor">
                                         <div class="preview">
-                                            <textarea id="editor2" asp-for="FullDescription" class="editor2 "> </textarea>
+                                            <textarea id="editorEnglish" asp-for="FullDescription" class="editorEnglish editorEnglishLevel"> </textarea>
 
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
 
                                     <div class="" id="standard-editor">
                                         <div class="preview">
-                                            <textarea id="editor3" asp-for="FullDescription" class="editor3"> </textarea>
+                                            <textarea id="editorSpanish" asp-for="SpanishFullDescription" class="editorSpanish SpanishFullDescription"> </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -205,14 +205,56 @@
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">
                                 </div>
                             }
+                            <div class="grid grid-cols-12 gap-4 ">
+                                <div class=" col-span-6">
+                                    <div>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+                                        <a onclick="TranslateSpanishModule()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
 
-                            <div class="mt-5">
-                                <label class="form-label text-theme-21 ">title</label>
-                                <input asp-for="Id" hidden />
-                                <input asp-for="Modules.Id" hidden />
-                                <input asp-for="@Model.Modules.Title" type="text" class="form-control w-full" placeholder="Title" />
+                                    </div>
+                                    <div class="mt-5">
+                                        <label class="form-label text-theme-21 ">title</label>
+                                        <input asp-for="Id" hidden />
+                                        <input asp-for="Modules.Id" hidden />
+                                        <input asp-for="@Model.Modules.Title" type="text" id="titlemodule" class="form-control w-full" placeholder="Title" />
 
+                                    </div>
+
+                                    <div class="mt-5">
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                    </div>
+                                    <div class="" id="standard-editor">
+                                        <div class="preview">
+                                            <textarea id="editorModuleEnglish" asp-for="Modules.FullDescription" class="editorModuleEnglish moduleEnglishdesc " required> </textarea>
+
+                                        </div>
+                                        <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
+                                    </div>
+                                </div>
+                                <div class="col-span-6">
+                                    <div>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                        <a class="btn btn-primary w-40" onclick="TranslateEnglishModule()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+
+                                    </div>
+                                    <div class="mt-5">
+                                        <label class="form-label text-theme-21 ">title</label>
+                                        <input asp-for="@Model.Modules.Title" id="titlemodulespanish" type="text" class="form-control w-full" placeholder="Title" />
+
+                                    </div>
+
+                                    <div class="mt-5">
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                    </div>
+                                    <div class="" id="standard-editor">
+                                        <div class="preview">
+                                            <textarea id="editorModuleSpanish" asp-for="Modules.FullDescription" class="editorModuleSpanish modulespanishdec" required> </textarea>
+                                        </div>
+                                        <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="mt-5">
                                 <label class="form-label text-theme-21 ">Video</label>
                                 @{
@@ -265,17 +307,6 @@
                                     </div>
                                 }
                             </div>
-                            <div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
-                            </div>
-                            <div class="" id="standard-editor">
-                                <div class="preview">
-                                    <textarea id="editor3" asp-for="Modules.FullDescription" class="editor3" required> </textarea>
-
-                                </div>
-                                <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
-                            </div>
-
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <span class="mr-5">
                                     <span class="btn btn-outline-secondary relative justify-end rounded-full h-10 w-32">
@@ -348,40 +379,90 @@
 
 <script type="text/javascript">
 
-    //$(document).ready(function () {
-
-    //    var level = $(".level ").val();
-    //    var Title = $(".title ").val();
-    //    var subtitle = $(".Subtitle ").val();
-    //    var Description = $(".Description ").val();
-    //    var data = { "level": level, "title": Title, "Subtitle": subtitle, "Description": Description };
-    //    debugger
-
-
-
-
-    //});
-
     function TranslateSpanish() {
 
-        var LevelNo = document.getElementById('LevelNo').value;
         var Title = document.getElementById('Title').value;
-        var Subtitle = document.getElementById('Subtitle').value;
-        var FullDescription = document.getElementById('editor2').value;
+        var Subtitle = document.getElementById('subtitlespanish').value;
+        var FullDescription = document.getElementById('editorEnglish').value;
         $.ajax({
             url: "/Admin/Level/TranslateSpanish",
-            type: 'POST',
-            data: { LevelNo, Title, Subtitle, FullDescription },
-           
-            success: function (success) {
-                alert(success.Title)
-                {
-                   /* $("#levelSpanish ").val(response.LevelSpanish);*/
-                    $("#titleSpanish ").val(success.Title);
-                }
+            type: "POST",
+            data: { Title, Subtitle, FullDescription },
 
+            success: function (data, status) {
+                $("#titleSpanish").val(data.title);
+                $(".SpanishSubtitle").val(data.subtitle);
+                /*$(".SpanishFullDescription").val(data.fullDescription);*/
+                CKEDITOR.instances['editorSpanish'].setData(data.fullDescription);
+            },
+
+
+        });
+    }
+
+</script>
+<script>
+    function TranslateEnglish() {
+
+        var Title = document.getElementById('titleSpanish').value;
+        var Subtitle = document.getElementsByClassName('SpanishSubtitle').value;
+        var FullDescription = document.getElementsByClassName('editorSpanish').value;
+        $.ajax({
+            url: "/Admin/Level/TranslateEnglish",
+            type: "POST",
+            data: { Title, Subtitle, FullDescription },
+
+            success: function (data, status) {
+                $("#Title").val(data.title);
+                $(".subtitle").val(data.subtitle);
+
+                CKEDITOR.instances['editorEnglish'].setData(data.fullDescription);
 
             },
+
+
+        });
+    }
+</script>
+<script type="text/javascript">
+
+    function TranslateSpanishModule() {
+
+        var Title = document.getElementById('titlemodule').value;
+
+        var FullDescription = document.getElementById('editorModuleEnglish').value;
+        $.ajax({
+            url: "/Admin/Level/TranslateSpanishModule",
+            type: "POST",
+            data: { Title, FullDescription },
+
+            success: function (data, status) {
+                $("#titlemodulespanish").val(data.title);
+                CKEDITOR.instances['editorModuleSpanish'].setData(data.fullDescription);
+            },
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateEnglishModule() {
+
+        var Title = document.getElementById('titlemodulespanish').value;
+
+        var FullDescription = document.getElementById('editorModuleSpanish').value;
+        $.ajax({
+            url: "/Admin/Level/TranslateEnglishModule",
+            type: "POST",
+            data: { Title, FullDescription },
+
+            success: function (data, status) {
+                $("#titlemodule").val(data.title);
+                CKEDITOR.instances['editorModuleEnglish'].setData(data.fullDescription);
+            },
+
 
         });
     }
