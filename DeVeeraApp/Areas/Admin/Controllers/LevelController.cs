@@ -515,7 +515,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return Json(model);
             //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
+        [HttpPost]
+        public IActionResult TranslateSpanishCreate(LevelModel level)
+        {
+            LevelModel model = new LevelModel();
 
+            // model.LevelNo  = _translationService.TranslateLevel(level.LevelNo, key);
+            model.Title = _translationService.TranslateLevel(level.Title, key);
+            model.Subtitle = _translationService.TranslateLevel(level.Subtitle, key);
+            return Json(model);
+            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
+        }
         [HttpPost]
         public IActionResult TranslateEnglish(LevelModel level)
         {
