@@ -22,23 +22,54 @@
                         <div asp-validation-summary="All" class="text-theme-6 mt-4">
                         </div>
                     }
-                    <div class="mt-5">
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-6 mt-5">
+                        <div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                            <a onclick="TranslateSpanishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                        </div>
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
-                        <input id="input-wizard-1" asp-for="@Model.LevelNo" type="number" class="form-control" placeholder="Level No.">
+                        <input asp-for="@Model.LevelNo" type="number" class="form-control ">
                         <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>
                     </div>
-                    <div class="mt-5">
+
+                    <div class="col-span-6 mt-5">
+                        <div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                            <a class="btn btn-primary w-40" onclick="TranslateEnglishCreate()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                        </div>
+                        @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
+            <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+            <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
+
+                    </div>
+                    <div class="col-span-6 mt-5">
+
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                        <input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="Title">
+                        <input id="Createtitle" asp-for="@Model.Title" type="text" class="form-control" placeholder="Title">
                         <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                     </div>
 
-                    <div class="mt-5">
+                    <div class="col-span-6 mt-5">
+
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                        <input id="titleSpanish" asp-for="@Model.Title" type="text" class="form-control title" placeholder="Title">
+                        <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                    </div>
+                    <div class="col-span-6 mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                        <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="Subtitle">
+                        <input id="subtitlespanish" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="Subtitle">
+                        <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                    </div>
+                    <div class="col-span-6 mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                        <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control subtitleenglish" placeholder="Subtitle">
                         <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
                     </div>
 
+
+                </div>
                     <div class="mt-5">
 
                         <label class="form-label text-theme-21 star">Video</label>
@@ -139,7 +170,7 @@
         </div>
 
     </div>
-   
+
 </form>
 
 @await Component.InvokeAsync("ImageSelection")
@@ -147,4 +178,28 @@
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
 <script src="~/dist/js/Level.js"></script>
+<script type="text/javascript">
+
+    function TranslateSpanishCreate() {
+
+        var Title = document.getElementById('Createtitle').value;
+        var Subtitle = document.getElementById('subtitlespanish').value;
+       
+        $.ajax({
+            url: "/Admin/Level/TranslateSpanishCreate",
+            type: "POST",
+            data: { Title, Subtitle},
+
+            success: function (data, status) {
+                $("#titleSpanish").val(data.title);
+                $(".subtitleenglish").val(data.subtitle);
+               
+            },
+
+
+        });
+    }
+
+</script>
+
 
