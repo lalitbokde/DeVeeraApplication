@@ -78,6 +78,8 @@ namespace DeVeeraApp.ViewModels
         
         //[Required(ErrorMessage = "Enter the Quote ")]
         public string LandingQuote { get; set; }
+        public string Quote { get; set; }
+        public string VideoHeader { get; set; }
 
     }
 

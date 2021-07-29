@@ -150,8 +150,8 @@
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                             <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                             <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                            <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
 
                         </div>
                         <div class="mt-5">
@@ -160,11 +160,21 @@
                             <span asp-validation-for="VideoId" class="text-theme-21  mt-2"></span>
 
                         </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Title" />
+                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                            <input asp-for="VideoHeader" type="text" class="form-control w-full" placeholder="Video Header" />
+                            <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
+                        </div>
                         @*<div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
-                                <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
-                            </div>*@
+            <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
+            <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+            <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
+        </div>*@
                         @{
                             var BannerImageURL = Model.BannerImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerImageURL;
                             var BodyImageURL = Model.BodyImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BodyImageURL;
@@ -206,10 +216,10 @@
                         </div>
 
                         @*<div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
-                                <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
-                            </div>*@
+            <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
+            <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+            <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
+        </div>*@
 
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
