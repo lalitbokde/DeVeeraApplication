@@ -17,6 +17,7 @@ namespace DeVeeraApp.ViewModels.User
         }
 
         public string Username { get; set; }
+        public string countryCode { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Please enter username")]

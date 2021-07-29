@@ -7788,11 +7788,11 @@ Coming Soon Area CSS
         margin-top: 30px;
 
         div {
-            background-color: $main-color;
+           
             color: $white-color;
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
+            width: 30%;
+            height: 80px;
+            
             font-size: 40px;
             font-weight: bold;
             margin-left: 5px;
@@ -7858,6 +7858,26 @@ Coming Soon Area CSS
         .validation-danger {
             margin-top: 15px;
             color: red;
+        }
+    }
+}
+#timer1 {
+    margin-top: 30px;
+
+    div {
+       
+        width: 30%;
+        height: 80px;
+        font-size: 40px;
+        font-weight: bold;
+        margin-left: 5px;
+        margin-right: 5px;
+
+        span {
+            display: block;
+            margin-top: -2px;
+            font-size: 15px;
+            font-weight: 500;
         }
     }
 }
