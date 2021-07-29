@@ -364,20 +364,20 @@
 
     function TranslateSpanish() {
 
-        var level = document.getElementById('LevelNo').value;
+        var LevelNo = document.getElementById('LevelNo').value;
         var Title = document.getElementById('Title').value;
-        var subtitle = document.getElementById('Subtitle').value;
-        var Description = document.getElementById('editor2').value;
+        var Subtitle = document.getElementById('Subtitle').value;
+        var FullDescription = document.getElementById('editor2').value;
         $.ajax({
             url: "/Admin/Level/TranslateSpanish",
             type: 'POST',
-            data: { level, Title, subtitle, Description },
+            data: { LevelNo, Title, Subtitle, FullDescription },
            
-            success: function (response) {
-                alert(response.LevelSpanish)
+            success: function (success) {
+                alert(success.Title)
                 {
-                    $("#levelSpanish ").val(response.LevelSpanish);
-                    $("#titleSpanish ").val(data.Title);
+                   /* $("#levelSpanish ").val(response.LevelSpanish);*/
+                    $("#titleSpanish ").val(success.Title);
                 }
 
 

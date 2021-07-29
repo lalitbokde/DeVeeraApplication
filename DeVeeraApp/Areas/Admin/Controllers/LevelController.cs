@@ -493,15 +493,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult TranslateSpanish(LevelModel model)
+        public IActionResult TranslateSpanish(LevelModel level)
         {
-            LevelModel level = new LevelModel()
-            //var LevelNo = _translationService.TranslateLevel(model.LevelNo, key);
-           // var titleSpanish = _translationService.TranslateLevel(title, key);
-           // var subtitlespanish = _translationService.TranslateLevel(Subtitle, key);
-           // var descriptionSpanish = _translationService.TranslateLevel(Description, key);
-           // var data = (levelSpanish, titleSpanish, subtitlespanish, descriptionSpanish);
-           // return Json (new { Status = "success",LevelSpanish = levelSpanish , TitleSpanish = titleSpanish , Subtitlespanish= subtitlespanish, DescriptionSpanish = descriptionSpanish });
+            LevelModel model = new LevelModel();
+
+            // model.LevelNo  = _translationService.TranslateLevel(level.LevelNo, key);
+            model.Title = _translationService.TranslateLevel(level.Title, key);
+            model.Subtitle = _translationService.TranslateLevel(level.Subtitle, key);
+            model.FullDescription = _translationService.TranslateLevel(level.FullDescription, key);
+            return Json(model);
+            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
 
         #endregion
