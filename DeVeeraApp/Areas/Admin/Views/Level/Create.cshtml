@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-span-6 mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                        <input id="input-wizard-1" asp-for="@Model.Subtitle" type="text" class="form-control subtitleenglish" placeholder="Subtitle">
+                        <input id="subtitleenglish" asp-for="@Model.Subtitle" type="text" class="form-control subtitleenglish" placeholder="Subtitle">
                         <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
                     </div>
 
@@ -202,4 +202,27 @@
 
 </script>
 
+<script type="text/javascript">
+
+    function TranslateEnglishCreate() {
+
+        var Title = document.getElementById('titleSpanish').value;
+        var Subtitle = document.getElementById('subtitleenglish').value;
+
+        $.ajax({
+            url: "/Admin/Level/TranslateEnglishCreate",
+            type: "POST",
+            data: { Title, Subtitle },
+
+            success: function (data, status) {
+                $("#titleSpanishCreatetitle").val(data.title);
+                $("#subtitlespanish").val(data.subtitle);
+
+            },
+
+
+        });
+    }
+
+</script>
 
