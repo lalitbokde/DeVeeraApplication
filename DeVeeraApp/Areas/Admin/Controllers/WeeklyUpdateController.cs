@@ -228,13 +228,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.BannerImageId = model.BannerImageId;
                 val.BodyImageId = model.BodyImageId;
                 val.QuoteId = model.QuoteId;
+                val.Quote = model.Quote;
+                val.Subtitle = model.Subtitle;
+                val.VideoHeader = model.VideoHeader;
+
 
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 _translationService.Translate(val.Title,key);
                 _translationService.Translate(val.Subtitle, key);
                 _translationService.Translate(val.SliderTwoTitle, key);
                 _notificationService.SuccessNotification("Video edited successfully.");
-          return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
+                return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
             PrepareVideo(model);
             return View(model);
