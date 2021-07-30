@@ -239,7 +239,7 @@
                                     </div>
                                     <div class="mt-5">
                                         <label class="form-label text-theme-21 ">title</label>
-                                        <input asp-for="@Model.Modules.Title" id="titlemodulespanish" type="text" class="form-control w-full" placeholder="Title" />
+                                        <input asp-for="@Model.SpanishTitleModule" id="titlemodulespanish" type="text" class="form-control w-full" placeholder="Title" />
 
                                     </div>
 
@@ -248,9 +248,9 @@
                                     </div>
                                     <div class="" id="standard-editor">
                                         <div class="preview">
-                                            <textarea id="editorModuleSpanish" asp-for="Modules.FullDescription" class="editorModuleSpanish modulespanishdec" required> </textarea>
+                                            <textarea id="editorModuleSpanish" asp-for="@Model.SpanishFullDescriptionModule" class="editorModuleSpanish modulespanishdec" required> </textarea>
                                         </div>
-                                        <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
+                                        <span asp-validation-for="@Model.SpanishFullDescriptionModule" class="text-theme-6 mt-2"></span>
                                     </div>
                                 </div>
                             </div>

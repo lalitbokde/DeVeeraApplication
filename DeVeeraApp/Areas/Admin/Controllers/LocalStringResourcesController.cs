@@ -2,6 +2,7 @@
 using CRM.Core.Domain;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
@@ -24,6 +25,8 @@ namespace DeVeeraApp.Controllers
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly INotificationService _notificationService;
         private readonly ILanguageService _languageService;
+        private readonly ITranslationService _translationService;
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
         #region ctor
@@ -32,12 +35,14 @@ namespace DeVeeraApp.Controllers
                                               ILanguageService languageService,
                                               IWorkContext workContext,
                                IHttpContextAccessor httpContextAccessor,
-                               IAuthenticationService authenticationService) : base(workContext: workContext,
+                              ITranslationService translationService,
+        IAuthenticationService authenticationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             _localStringResourcesServices = localStringResourcesServices;
             _notificationService = notificationService;
+            _translationService = translationService;
             this._languageService = languageService;
         }
 
@@ -211,7 +216,22 @@ namespace DeVeeraApp.Controllers
             }
             return Json(response);
         }
-
+        [HttpPost]
+        public IActionResult TranslatationSpanish(string ResourceName)
+        {
+            LocalStringResourceModel model1 = new LocalStringResourceModel();
+            model1.ResourceName = _translationService.TranslateLevel(ResourceName, key);
+            return Json(model1.ResourceName);
+            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
+        }
+        [HttpPost]
+        public IActionResult TranslatationEnglish(string ResourceValue)
+        {
+            LocalStringResourceModel model1 = new LocalStringResourceModel();
+            model1.ResourceValue = _translationService.TranslateLevelSpanish(ResourceValue, key);
+            return Json(model1.ResourceValue);
+            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
+        }
 
         #endregion
     }
