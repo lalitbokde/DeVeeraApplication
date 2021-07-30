@@ -209,6 +209,31 @@
 
                         </ul>
                     </li>
+
+                    <li>
+                        <a href="javascript:;" class="side-menu">
+                            <div class="side-menu__icon"> <i data-feather="box"></i>  </div>
+                            <div class="side-menu__title">
+                                Translations
+                                <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
+                            </div>
+                        </a>
+                        <ul class="">
+                            <li>
+                                <a asp-controller="LocalStringResources" asp-action="Create" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
+                                    <div class="side-menu__title">Create</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="LocalStringResources" asp-action="List" class="side-menu">
+                                    <div class="side-menu__icon"> <i data-feather="list"></i> </div>
+                                    <div class="side-menu__title">List</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                 </ul>
             </li>
 
@@ -369,7 +394,7 @@
 
 
                     @*Language*@
-                    <li>
+                    <!--<li>
                         <a href="javascript:;.html" class="side-menu">
                             <div class="side-menu__icon">  <i data-feather="trello"></i> </div>
                             <div class="side-menu__title">
@@ -428,7 +453,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li>-->
 
 
                     @*level and modules*@

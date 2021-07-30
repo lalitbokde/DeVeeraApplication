@@ -5,7 +5,7 @@
         /// <summary>
         /// Gets or sets the language identifier
         /// </summary>
-        public int LanguageId { get; set; }
+        public int? LanguageId { get; set; }
 
         /// <summary>
         /// Gets or sets the resource name

@@ -51,7 +51,16 @@ namespace CRM.Services
                         orderby vdo.ResourceName
                         select vdo;
             var stories = query.FirstOrDefault();
-            return stories!=null ? stories.ResourceValue: ResourceName;
+            return stories!=null ? stories.ResourceName: ResourceName;
+        }
+        public string GetResourceValueByResourceName(string ResourceName)
+        {
+            var query = from vdo in _repository.Table
+                        where vdo.ResourceName == ResourceName
+                        orderby vdo.ResourceName
+                        select vdo;
+            var stories = query.FirstOrDefault();
+            return stories != null ? stories.ResourceValue : ResourceName;
         }
         public void InsertLocalStringResource(LocaleStringResource model)
         {

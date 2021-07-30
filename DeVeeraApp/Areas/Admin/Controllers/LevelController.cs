@@ -38,7 +38,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly INotificationService _notificationService;
         private readonly IModuleImageListService _moduleImageListService;
         private readonly ITranslationService _translationService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
@@ -57,7 +57,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      IEmotionService emotionService,
                                      INotificationService notificationService,
                                      IModuleImageListService moduleImageListService,
-                                     ITranslationService translationService) : base(workContext: workContext,
+                                     ITranslationService translationService,
+                                       ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -71,6 +72,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _notificationService = notificationService;
             this._moduleImageListService = moduleImageListService;
             _translationService = translationService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
         #endregion
 
@@ -233,7 +235,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
                 model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
 
-
+                model.SpanishFullDescription = _localStringResourcesServices.GetResourceValueByResourceName(model.FullDescription);
+                model.SpanishSubtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                model.SpanishTitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
                 var moduleList = _moduleServices.GetModulesByLevelId(id);
                 model.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(model.ModuleList.ToList());
                 if (ModuleId > 0 && ModuleId != 0)
@@ -252,6 +256,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.BannerImageUrl = _imageMasterService.GetImageById(module.BannerImageId)?.ImageUrl;
                     model.Modules.VideoThumbImageUrl = _imageMasterService.GetImageById(module.VideoThumbImageId)?.ImageUrl;
                     model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
+                    model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
+                    model.SpanishFullDescriptionModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.FullDescription);
                 }
 
 
@@ -359,6 +365,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         FullDescription = model.Modules.FullDescription
                     };
                     _moduleServices.InsertModule(modules);
+                    _translationService.Translate(modules.Title, key);
+                    _translationService.Translate(modules.FullDescription, key);
                     _notificationService.SuccessNotification("Module has been added successfully");
 
                     if (model.SelectedModuleImg.Count() != 0)
@@ -389,6 +397,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.UpdateModule(modules);
+                    _translationService.Translate(modules.Title, key);
+                    _translationService.Translate(modules.FullDescription, key);
                     _notificationService.SuccessNotification("Module has been updated successfully");
 
                     _moduleImageListService.DeleteModuleImageListByModuleId(modules.Id);
