@@ -197,7 +197,7 @@
                                         string imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
                                         if (imageUrl != null)
                                         {
-                                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src=@imageUrl width="750" height="650" alt="image"></a>
+                                            <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src=@imageUrl width="750" style="min-height:200px" height="650" alt="image"></a>
 
                                         }
                                             
@@ -205,7 +205,7 @@
                                     }
                                     else
                                     {
-                                        <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src="~/assets/images/products/products-1.jpg" width="750" height="650" alt="image"></a>
+                                        <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src="~/assets/images/products/products-1.jpg" width="750" style="min-height:200px" height="650" alt="image"></a>
 
                                     }
 
