@@ -234,7 +234,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
                 model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
                 model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
-
                 model.SpanishFullDescription = _localStringResourcesServices.GetResourceValueByResourceName(model.FullDescription);
                 model.SpanishSubtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
                 model.SpanishTitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
@@ -256,8 +255,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.BannerImageUrl = _imageMasterService.GetImageById(module.BannerImageId)?.ImageUrl;
                     model.Modules.VideoThumbImageUrl = _imageMasterService.GetImageById(module.VideoThumbImageId)?.ImageUrl;
                     model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
-                    model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
+                   model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
                     model.SpanishFullDescriptionModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.FullDescription);
+              
                 }
 
 

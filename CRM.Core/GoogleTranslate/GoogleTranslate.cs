@@ -126,12 +126,12 @@ namespace CRM.Core.Domain.GoogleTranslate.GoogleTranslate
             //Compute the total size of the content
             int sum = requestContent.Sum(item => item.Length);
 
-            if (((LargeQuery.HasValue && !LargeQuery.Value) || !LargeQuery.HasValue) && sum >= 2000)
+            if (((LargeQuery.HasValue && !LargeQuery.Value) || !LargeQuery.HasValue) && sum >= 10000)
             {
                 throw new ArgumentException("Your text content is larger than 2000 characters. Set LargeQuery to 'true' to enable support up to 5000 characters.");
             }
 
-            if (sum > 5000)
+            if (sum > 15000)
                 throw new ArgumentException("Your text content is larger than 5000 characters. Google Translate only allow up to 5000 characters");
         }
 

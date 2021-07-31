@@ -35,7 +35,7 @@ namespace DeVeeraApp.ViewModels
         public int DisplayOrder { get; set; }
 
        
-        public int LanguageId { get; set; }
+        public int? LanguageId { get; set; }
         public IList<SelectListItem> AvailableLanguages { get; set; }
 
     }

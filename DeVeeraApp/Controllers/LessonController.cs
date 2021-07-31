@@ -145,7 +145,7 @@ namespace DeVeeraApp.Controllers
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
-            videoData.FullDescription = _localStringResourcesServices.GetLocalStringResourceByResourceName(updatedVideoData.FullDescription);
+            videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
             videoData.Video = updatedVideoData.Video;
            
             videoData.Subtitle = updatedVideoData.Subtitle;
@@ -208,8 +208,10 @@ namespace DeVeeraApp.Controllers
                 var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
                 videoData.PrevImageUrl = level?.ImageUrl;
             }
-
-
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Subtitle);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Title);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Quote);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Author);
             return View(videoData);
         }
 
