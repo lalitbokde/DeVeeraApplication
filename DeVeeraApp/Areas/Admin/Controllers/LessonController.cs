@@ -36,7 +36,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ITranslationService _translationService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
@@ -55,6 +55,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                 IAuthenticationService authenticationService,
                                 ILevelImageListServices levelImageListServices,
                                 ITranslationService translationService,
+                                  ILocalStringResourcesServices localStringResourcesServices,
                                 IDiaryMasterService diaryMasterService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -71,6 +72,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _diaryMasterService = diaryMasterService;
             _dashboardQuoteService = dashboardQuoteService;
             _translationService = translationService;
+            _localStringResourcesServices = localStringResourcesServices;
 
         }
 
@@ -159,7 +161,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
             videoData.LevelNo = updatedVideoData.LevelNo;
-
+           
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
@@ -189,6 +191,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _translationService.Translate(videoData.Quote, key);
             _translationService.Translate(videoData.Author, key);
             _translationService.Translate(videoData.FullDescription, key);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Subtitle);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Title);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Quote);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.Author);
+            _localStringResourcesServices.GetResourceValueByResourceName(videoData.FullDescription);
             return View(videoData);
         }
 
