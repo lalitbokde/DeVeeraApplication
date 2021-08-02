@@ -16,6 +16,7 @@
         /// Gets or sets the resource value
         /// </summary>
         public string ResourceValue { get; set; }
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets the language

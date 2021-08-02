@@ -120,9 +120,9 @@ namespace DeVeeraApp.Controllers
                             LanguageId = model.LanguageId,
                             ResourceName = model.ResourceName,
                             ResourceValue = model.ResourceValue,
-                            IsActive = model.IsActive
-                            
-                        };
+                            IsActive = true,
+
+                    };
                         _localStringResourcesServices.InsertLocalStringResource(data);
                         _notificationService.SuccessNotification("Local String Resource Inserted Successfully.");
                         return RedirectToAction(nameof(List));
@@ -182,7 +182,7 @@ namespace DeVeeraApp.Controllers
                             data.LanguageId = model.LanguageId;
                             data.ResourceName = model.ResourceName;
                             data.ResourceValue = model.ResourceValue;
-                            data.IsActive = model.IsActive;
+                            data.IsActive =true;
                             _localStringResourcesServices.UpdateLocalStringResource(data);
                             _notificationService.SuccessNotification("Local String Resource Inserted Successfully.");
 
