@@ -27,5 +27,7 @@ namespace DeVeeraApp.ViewModels
         /// 
        
         public virtual LanguageModel Language { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

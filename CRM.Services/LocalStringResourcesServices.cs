@@ -36,7 +36,7 @@ namespace CRM.Services
             return stories;
         }
 
-        public LocaleStringResource GetLocalStringResourceById(int Id)
+        public LocaleStringResource GetLocalStringResourceById(int? Id)
         {
             if (Id == 0)
                 return null;

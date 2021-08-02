@@ -9,7 +9,7 @@ namespace CRM.Services
         void InsertLocalStringResource(LocaleStringResource model);
         void UpdateLocalStringResource(LocaleStringResource model);
         IList<LocaleStringResource> GetAllLocalStringResources();
-        LocaleStringResource GetLocalStringResourceById(int Id);
+        LocaleStringResource GetLocalStringResourceById(int? Id);
         string GetLocalStringResourceByResourceName(string ResourceName);
         string GetResourceValueByResourceName(string ResourceName);
 
