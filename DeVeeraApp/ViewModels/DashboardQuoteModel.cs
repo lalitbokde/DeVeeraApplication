@@ -37,5 +37,10 @@ namespace DeVeeraApp.ViewModels
         public DashboardMenus Menus { get; set; }
         public IList<LevelModel> VideoModelList { get; set; }
         public IList<SelectListItem> AvailableLevels { get; set; }
+
+        public int TotalLevelCount { get; set; }
+        public int TotalUserCount { get; set; }
+        public int TotalVisitorsCount { get; set; }
+        public int TotalModuleCount { get; set; }
     }
 }

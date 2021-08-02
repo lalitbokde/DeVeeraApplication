@@ -2,18 +2,89 @@
 <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 xxl:col-span-9">
         <div class="grid grid-cols-12 gap-6">
-            <!-- BEGIN: General Report -->
-            @if (Model != null)
+            @if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {
+                <!-- BEGIN: General Report -->
                 <div class="col-span-12 mt-8">
+                    <div class="intro-y flex items-center h-10">
+                        <h2 class="text-lg font-medium truncate mr-5">
+                            General Report
+                        </h2>
+                        @*<a href="" class="ml-auto flex items-center text-theme-30 dark:text-theme-25"> <i data-feather="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>*@
+                    </div>
+                    <div class="grid grid-cols-12 gap-6 mt-5">
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-feather="users" class="report-box__icon text-theme-24 dark:text-theme-25"></i>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-theme-20 tooltip cursor-pointer"> User <i data-feather="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-bold leading-8 mt-6">@Model.TotalUserCount</div>
+                                    <div class="text-base text-gray-600 mt-1">No.Of Users</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-feather="bookmark" class="report-box__icon text-theme-29"></i>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-theme-21 tooltip cursor-pointer"> Level<i data-feather="chevron-down" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-bold leading-8 mt-6">@Model.TotalLevelCount</div>
+                                    <div class="text-base text-gray-600 mt-1">No. Of Levels</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-feather="monitor" class="report-box__icon text-theme-15"></i>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-theme-20 tooltip cursor-pointer"> Module <i data-feather="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-bold leading-8 mt-6">@Model.TotalModuleCount</div>
+                                    <div class="text-base text-gray-600 mt-1">No. Of Modules</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-feather="user" class="report-box__icon text-theme-20"></i>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-theme-21 tooltip cursor-pointer"> Visitor <i data-feather="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-bold leading-8 mt-6">@Model.TotalVisitorsCount</div>
+                                    <div class="text-base text-gray-600 mt-1">No.Of Visitors</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: General Report -->
+                <!-- BEGIN: General Report -->
+            }
+                @if (Model != null)
+                {
+                    <div class="col-span-12 mt-8">
 
-                    @*<div class="intro-y flex items-center h-10">
+                        @*<div class="intro-y flex items-center h-10">
                         <h2 class="text-lg font-medium truncate mr-5">@T(Model.Title) <a class="text-theme-21 dark:text-theme-10" href="">– @T(Model.Author)</a></h2>
 
                         <a asp-controller="Diary" asp-action="Create" asp-route-levelid="@Model.Id" asp-route-srno="@ViewBag.SrNo" class="ml-auto flex btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
 
                     </div>*@
-                    @*<div class="grid grid-cols-12 gap-6 mt-5">
+                        @*<div class="grid grid-cols-12 gap-6 mt-5">
                         @{
 
                             int i = 1;
@@ -34,66 +105,142 @@
                         }
                     </div>*@
 
-                    <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
-                        <div class="intro-y col-span-12 lg:col-span-12">
+                        <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
+                            <div class="intro-y col-span-12 lg:col-span-12">
 
-                            <div class="grid grid-cols-12 gap-5 mt-5">
+                                <div class="grid grid-cols-12 gap-5 mt-5">
 
-                                <a asp-controller="Home"  asp-action="WeeklyInspiringQuotes" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in" hidden >
+                                    <a asp-controller="Home" asp-action="WeeklyInspiringQuotes" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in" hidden>
 
-                                    <div class="font-medium text-base text-white"> @Model.Menus?.Menu_1 </div>
-                                </a>
-                                <a asp-controller="Home" asp-action="NewVideos" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in" hidden>
-                                    <div class="font-medium text-base text-white"> @Model.Menus?.Menu_2 </div>
-                                </a>
-                                <a asp-controller="Home" asp-action="FeelGoodStories" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in" hidden>
-                                    <div class="font-medium text-base text-white"> @Model.Menus?.Menu_3 </div>
+                                        <div class="font-medium text-base text-white"> @Model.Menus?.Menu_1 </div>
+                                    </a>
+                                    <a asp-controller="Home" asp-action="NewVideos" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in" hidden>
+                                        <div class="font-medium text-base text-white"> @Model.Menus?.Menu_2 </div>
+                                    </a>
+                                    <a asp-controller="Home" asp-action="FeelGoodStories" class="col-span-12 sm:col-span-4 xxl:col-span-3 box bg-theme-17 dark:bg-theme-17 p-5 cursor-pointer zoom-in" hidden>
+                                        <div class="font-medium text-base text-white"> @Model.Menus?.Menu_3 </div>
 
-                                </a>
+                                    </a>
 
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            }
-            else
-            { <div class="col-span-12 mt-8">
-                    <div class="intro-y flex items-center h-10">
-                        <h2 class="text-lg font-medium  mr-5">There is no data.</h2>
+                }
+                else
+                { <div class="col-span-12 mt-8">
+                        <div class="intro-y flex items-center h-10">
+                            <h2 class="text-lg font-medium  mr-5">There is no data.</h2>
 
 
-                    </div>
-                </div>
-
-            }
-            <!-- END: General Report -->
-
-                 @if (_workContext.CurrentUser.UserRole.Name=="Admin") 
-                 {
-                <div class="col-span-12 lg:col-span-12">
-                    <!-- BEGIN: Vertical Bar Chart -->
-                    <div class="intro-y box">
-                        <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                            <h2 class="font-medium text-base mr-auto">
-                               @T("User Emotions")
-                            </h2>
-                          
-                        </div>
-                        <div id="vertical-bar-chart" class="p-5">
-                            <div class="preview">
-                                <canvas id="vertical-bar-chart-widget1" height="100"></canvas>
-                            </div>
-                           
                         </div>
                     </div>
-                    <!-- END: Vertical Bar Chart -->
 
-             
-            </div>
-                 }
+                }
+                <!-- END: General Report -->
+
+                @if (_workContext.CurrentUser.UserRole.Name == "Admin")
+                {
+        <div class="col-span-12 lg:col-span-12">
+            <!-- BEGIN: Vertical Bar Chart -->
+            <!--<div class="intro-y box">
+        <div class="flex flex-col sm:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+            <h2 class="font-medium text-base mr-auto">
+                @T("User Emotions")
+            </h2>
+
         </div>
+        <div id="vertical-bar-chart" class="p-5">
+            <div class="preview">
+                <canvas id="vertical-bar-chart-widget1" height="100"></canvas>
+            </div>
+
+        </div>
+    </div>-->
+            <!-- END: Vertical Bar Chart -->
+            <!-- BEGIN: Work In Progress -->
+            <div class="intro-y box col-span-12 lg:col-span-6">
+                <div class="flex items-center px-5 py-5 sm:py-0 border-b border-gray-200 dark:border-dark-5">
+                    <h2 class="font-medium text-base mr-auto">
+                      @T("User Emotions")
+                    </h2>
+                    <div class="dropdown ml-auto sm:hidden">
+                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i> </a>
+                        @*<div class="nav nav-tabs dropdown-menu w-40" role="tablist">
+                            <div class="dropdown-menu__content box dark:bg-dark-1 p-2"> <a id="work-in-progress-new-tab" href="javascript:;" data-toggle="tab" data-target="#work-in-progress-new" class="block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" role="tab" aria-controls="work-in-progress-new" aria-selected="true">New</a> <a id="work-in-progress-last-week-tab" href="javascript:;" data-toggle="tab" data-target="#work-in-progress-last-week" class="block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" role="tab" aria-selected="false">Last Week</a> </div>
+                        </div>*@
+                    </div>
+                    <div class="nav nav-tabs ml-auto hidden sm:flex" role="tablist"> <a id="work-in-progress-mobile-new-tab" data-toggle="tab" data-target="#work-in-progress-new" href="javascript:;" class="py-5 ml-6 active" role="tab" aria-selected="true">Emotion</a> </div>
+                </div>
+                <div class="p-5">
+                    <div class="tab-content">
+                        <div id="work-in-progress-new" class="tab-pane active" role="tabpanel" aria-labelledby="work-in-progress-new-tab">
+                            <div>
+                                <div class="flex">
+                                    <div class="mr-auto">Fear</div>
+                                    <div>100%</div>
+                                </div>
+                                <div class="progress h-1 mt-2">
+                                    <div class="progress-bar w-10 bg-theme-25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <div class="flex">
+                                    <div class="mr-auto">Anger</div>
+                                    <div>200%</div>
+                                </div>
+                                <div class="progress h-1 mt-2">
+                                    <div class="progress-bar w-20 bg-theme-25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <div class="flex">
+                                    <div class="mr-auto">Lust</div>
+                                    <div>300%</div>
+                                </div>
+                                <div class="progress h-1 mt-2">
+                                    <div class="progress-bar w-40 bg-theme-25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <div class="flex">
+                                    <div class="mr-auto">Sadness</div>
+                                    <div>400%</div>
+                                </div>
+                                <div class="progress h-1 mt-2">
+                                    <div class="progress-bar w-48 bg-theme-25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <div class="flex">
+                                    <div class="mr-auto">Ego</div>
+                                    <div>500%</div>
+                                </div>
+                                <div class="progress h-1 mt-2">
+                                    <div class="progress-bar w-72 bg-theme-25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <div class="flex">
+                                    <div class="mr-auto">Happy</div>
+                                    <div>500%</div>
+                                </div>
+                                <div class="progress h-1 mt-2">
+                                    <div class="progress-bar w-72 bg-theme-25" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            @*<a href="" class="btn btn-secondary block w-40 mx-auto mt-5">View More Details</a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Work In Progress -->
+
+        </div>
+                }
+            </div>
             </div>
 
         </div>

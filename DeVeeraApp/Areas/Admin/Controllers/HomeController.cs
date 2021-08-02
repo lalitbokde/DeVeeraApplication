@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 using CRM.Services.Localization;
+using CRM.Services.VideoModules;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -36,7 +37,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IVideoMasterService _videoMasterService;
         private readonly IS3BucketService _s3BucketService;
         private readonly ITranslationService _translationService;
-
+        private readonly IModuleService _moduleService;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
@@ -56,6 +57,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                               IVideoMasterService videoMasterService,
                               IS3BucketService s3BucketService,
                               ITranslationService translationService,
+                              IModuleService moduleService,
                               IUserService userService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -73,6 +75,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _videoMasterService = videoMasterService;
             _s3BucketService = s3BucketService;
             _translationService = translationService;
+            _moduleService = moduleService;
         }
 
         #endregion
@@ -96,7 +99,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _translationService.Translate(model.Title, key);
             _translationService.Translate(model.Author, key);
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
-
+            ///all count data
+            model.TotalModuleCount = _moduleService.GetAllModules().Count();
+            model.TotalLevelCount = _levelServices.GetAllLevels().Count();
+            model.TotalUserCount = _UserService.GetAllUsers().Count();
+            model.TotalVisitorsCount = _UserService.GetAllUsers().Where(a => a.RegistrationComplete == true).Count();
             //int lastlevel = data.LastOrDefault().Id;
             var lastLevelData = data.LastOrDefault();
             int lastlevel = lastLevelData != null ? lastLevelData.Id : 0;
