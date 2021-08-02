@@ -55,6 +55,9 @@ namespace DeVeeraApp.ViewModels
         public string SpanishTitle { get; set; }
         [Required(ErrorMessage = "Enter the sub title")]
         public string SpanishSubtitle { get; set; }
+
+        public string SpanishTitleModule { get; set; }
+        public string SpanishFullDescriptionModule { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 

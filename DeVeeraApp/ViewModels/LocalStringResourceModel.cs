@@ -11,9 +11,9 @@ namespace DeVeeraApp.ViewModels
         }
 
        
-        [Range(1, int.MaxValue, ErrorMessage = "Please select the language")]
-        [Required]
-        public int LanguageId { get; set; }
+        //[Range(1, int.MaxValue, ErrorMessage = "Please select the language")]
+        //[Required]
+        public int? LanguageId { get; set; }
 
         [Required(ErrorMessage ="Enter Resourse name")]
         public string ResourceName { get; set; }
@@ -27,5 +27,7 @@ namespace DeVeeraApp.ViewModels
         /// 
        
         public virtual LanguageModel Language { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

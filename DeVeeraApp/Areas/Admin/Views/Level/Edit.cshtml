@@ -245,7 +245,7 @@
                                     </div>
                                     <div class="mt-5">
                                         <label class="form-label text-theme-21 ">title</label>
-                                        <input asp-for="@Model.Modules.Title" id="titlemodulespanish" type="text" class="form-control w-full" placeholder="Title" />
+                                        <input asp-for="@Model.SpanishTitleModule" id="titlemodulespanish" type="text" class="form-control w-full" placeholder="Title" />
 
                                     </div>
 
@@ -254,9 +254,9 @@
                                     </div>
                                     <div class="" id="standard-editor">
                                         <div class="preview">
-                                            <textarea id="editorModuleSpanish" asp-for="Modules.FullDescription" class="editorModuleSpanish modulespanishdec" required> </textarea>
+                                            <textarea id="editorModuleSpanish" asp-for="@Model.SpanishFullDescriptionModule" class="editorModuleSpanish modulespanishdec" required> </textarea>
                                         </div>
-                                        <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
+                                        <span asp-validation-for="@Model.SpanishFullDescriptionModule" class="text-theme-6 mt-2"></span>
                                     </div>
                                 </div>
                             </div>
@@ -317,7 +317,9 @@
                                 <span class="mr-5">
                                     <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
                                         <label class="pl-10">Back to List</label>
+
                                         <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Admin" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name">
+
                                             <i data-feather="arrow-left" class="w-4 h-4"></i>
                                         </a>
                                     </span>

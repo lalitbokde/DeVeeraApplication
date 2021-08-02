@@ -15,6 +15,8 @@
     <Compile Include="Migrations\20210720182519_20Jul2021.Designer.cs" />
     <Compile Include="Migrations\20210729102156_error.cs" />
     <Compile Include="Migrations\20210729102156_error.Designer.cs" />
+    <Compile Include="Migrations\20210730111047_null.cs" />
+    <Compile Include="Migrations\20210730111047_null.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 
