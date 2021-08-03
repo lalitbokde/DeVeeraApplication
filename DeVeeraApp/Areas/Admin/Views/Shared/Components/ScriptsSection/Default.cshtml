@@ -28,7 +28,8 @@
 
         $('#time').mdtimepicker();
 
-        var ctx = $('#vertical-bar-chart-widget1');
+    var ctx = $('#vertical-bar-chart-widget1');
+    var barColors = ["red", "green", "blue", "orange", "brown"];
         var graph = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -40,7 +41,7 @@
                     maxBarThickness: 100,
                     minBarLength: 2,
                     data: [100, 200, 300, 400, 500, 600],
-                    backgroundColor: "#151B54",
+                    backgroundColor: barColors ,
                 }]
 
 
