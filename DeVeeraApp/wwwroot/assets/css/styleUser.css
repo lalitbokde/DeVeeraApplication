@@ -1509,6 +1509,7 @@ Main Banner Area CSS
 .main-banner-content h1 span {
   font-weight: 400;
   font-style: italic;
+ 
 }
 
 .main-banner-content p {
@@ -1541,9 +1542,10 @@ Main Banner Area CSS
   font-weight: bold;
 }
 
-.main-banner-item-box .main-banner-content h1 span {
-  font-weight: 400;
-}
+    .main-banner-item-box .main-banner-content h1 span {
+        font-weight: 400;
+        font-size: 29px;
+    }
 
 .main-banner-item-box .main-banner-content p {
   color: #6b6b84;
@@ -5141,9 +5143,12 @@ Courses Details Area CSS
 .courses-details-desc .nav {
   margin-bottom: 0;
   list-style-type: none;
-  background-color: #f8f9f8;
+  /*background-color: #f8f9f8;*/
+  
   border: none;
   border-radius: 5px;
+  
+  
 }
 
 .courses-details-desc .nav .nav-item {
@@ -5158,11 +5163,12 @@ Courses Details Area CSS
   -webkit-transition: 0.6s;
   transition: 0.6s;
   padding: 30px;
-  background-color: #f8f9f8;
+  /*background-color: #f8f9f8;*/
   position: relative;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
+  padding-left:1px;
 }
 
 .courses-details-desc .nav .nav-item .nav-link::before {
@@ -5536,7 +5542,7 @@ Courses Details Area CSS
 }
 
 .courses-details-info {
-  background-color: #f5f5f5;
+ /* background-color: #f5f5f5;*/
   border-radius: 5px;
   padding: 12px 12px 50px 12px;
   margin-top: 50px;
@@ -9054,30 +9060,34 @@ Subscribe Area CSS
   z-index: 1;
 }
 
-.subscribe-inner-box::before {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 100%;
-  background-color: #ffffff;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: -1;
-  opacity: .50;
-}
+    .subscribe-inner-box::before {
+        position: absolute;
+        content: "";
+        height: 100%;
+        width: 100%;
+        /*background-color: #ffffff;*/
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: -1;
+        opacity: .50;
+        
+    }
+
 
 .subscribe-inner-box .subscribe-content {
-  text-align: center;
-  max-width: 835px;
-  margin: auto;
+    text-align: center;
+    max-width: 835px;
+    margin: auto;
+    
 }
 
-.subscribe-inner-box .subscribe-content h2 {
-  margin-bottom: 25px;
-  font-size: 45px;
-  margin-top: -5px;
-}
+    .subscribe-inner-box .subscribe-content h2 {
+        margin-bottom: 25px;
+        font-size: 45px;
+        margin-top: -5px;
+        font-family: Gabriola;
+    }
 
 .subscribe-inner-box .subscribe-content p {
   color: #212529;

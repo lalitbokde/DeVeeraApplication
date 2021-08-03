@@ -1,20 +1,22 @@
 ﻿@*@model  DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel*@
 @inject CRM.Services.Users.IUserService UserService
 @inject CRM.Services.ILevelServices levelServices
+@inject CRM.Services.IImageMasterService ImageService
 @inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
-@{  var currentLevel = _workContext.CurrentUser.LastLevel;
+@{ var currentLevel = _workContext.CurrentUser.LastLevel;
     var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
     var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo : null;
-    
-  
-        var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a=>a.IsActive==true).FirstOrDefault()?.Link_1;
-        var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
-        var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
-        var phone = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Id).Where(a => a.IsActive ==true).FirstOrDefault()?.PhoneNo;
-        var email = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
-        var location = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
-        var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a=>a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
-    }
+    var FooterImgid = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterImageId).Where(a => a.IsActive == true).FirstOrDefault()?.FooterImageId;
+    var Imageurl = ImageService.GetImageById((int)FooterImgid)?.ImageUrl;
+
+    var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_1;
+    var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
+    var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
+    var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
+    var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
+    var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
+    var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+}
 
 <!doctype html>
 <html lang="zxx">
@@ -97,23 +99,23 @@
                 </div>
 
                 @*<div class="col-lg-3 col-md-12">
-                    <ul class="top-header-optional">
-                        <li>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-facebook'></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-twitter'></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-instagram'></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-linkedin'></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>*@
+                        <ul class="top-header-optional">
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>*@
             </div>
         </div>
     </div>
@@ -125,7 +127,7 @@
                 <div class="main-responsive-menu">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="~/assets/images/logo.jpg" alt="logo"   width="300" height="300">
+                            <img src="~/assets/images/logo.jpg" alt="logo" width="300" height="300">
                         </a>
                     </div>
                 </div>
@@ -136,7 +138,7 @@
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <a class="navbar-brand" href="#">
-                        <img src="~/assets/images/logo.jpg" alt="logo"   width="300" height="300">
+                        <img src="~/assets/images/logo.jpg" alt="logo" width="300" height="300">
                     </a>
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -236,30 +238,30 @@
     <!-- End Search Layout -->
     @RenderBody()
     <!-- Start Footer Area -->
-    <footer class="footer-area bg-top pt-100 pb-70">
+    <footer class="footer-area bg-top pt-100 pb-70" style="background-image:url('@Imageurl')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
                         <div class="widget-logo">
-                            <a href="#"><img src="~/assets/images/logo-2.png" alt="image"   width="300" height="300"></a>
+                            <a href="#"><img src="~/assets/images/logo-2.png" alt="image" width="300" height="300"></a>
                         </div>
                         <p>@Footer</p>
 
                         @*<div class="widget-share">
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-facebook'></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-twitter'></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-instagram'></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class='bx bxl-linkedin'></i>
-                            </a>
-                        </div>*@
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-facebook'></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                            </div>*@
                     </div>
                 </div>
 
@@ -272,7 +274,8 @@
                                     <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> @T("Home")</a>
                                 </li>*@
                             <li>
-                                <a href="/Home/WeeklyInspiringQuotes" target="_blank"><i class='bx bxs-right-arrow'></i>@Title1</a></li>
+                                <a href="/Home/WeeklyInspiringQuotes" target="_blank"><i class='bx bxs-right-arrow'></i>@Title1</a>
+                            </li>
                             <li>
                                 <a href="/Home/NewVideos" target="_blank"><i class='bx bxs-right-arrow'></i>@Title2</a>
                             </li>
@@ -285,31 +288,31 @@
                 </div>
 
                 @*<div class="col-lg-3 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h3>@T("Explore")</h3>
+                        <div class="single-footer-widget">
+                            <h3>@T("Explore")</h3>
 
-                        <ul class="quick-links">
-                            <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i>@T("About Us")</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Success Story")</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Membership")</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Purchase Guide")</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i>  @T("Privacy Policy")</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class='bx bxs-right-arrow'></i> @T("Terms Of Services")</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>*@
+                            <ul class="quick-links">
+                                <li>
+                                    <a href="#"><i class='bx bxs-right-arrow'></i>@T("About Us")</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class='bx bxs-right-arrow'></i> @T("Success Story")</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class='bx bxs-right-arrow'></i> @T("Membership")</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class='bx bxs-right-arrow'></i> @T("Purchase Guide")</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class='bx bxs-right-arrow'></i>  @T("Privacy Policy")</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class='bx bxs-right-arrow'></i> @T("Terms Of Services")</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>*@
 
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-footer-widget">
@@ -397,7 +400,7 @@
             })
         }
 
-                    //$.material.init()
+                        //$.material.init()
     </script>
 
 </body>
