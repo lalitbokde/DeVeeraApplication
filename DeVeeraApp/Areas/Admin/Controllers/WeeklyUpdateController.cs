@@ -236,7 +236,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
                 _translationService.Translate(val.Title,key);
                 _translationService.Translate(val.Subtitle, key);
-                _translationService.Translate(val.SliderTwoTitle, key);
+                //_translationService.Translate(val.SliderTwoTitle, key);
                 _notificationService.SuccessNotification("Video edited successfully.");
                 return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
             }
