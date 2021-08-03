@@ -31,7 +31,7 @@ function ShowLoaderUser(formid) {
     window.onload();
 }
 function onImageSelectionSuccess(data) {
-    debugger
+ 
     $("#" + data.imageFieldId).val(data.selectedImage.id);
     $("#" + data.imageFieldUrl).attr("src", data.selectedImage.imageUrl);
     //$("#superlarge-modal-size-preview").modal('hide');
@@ -43,7 +43,7 @@ function onFailed() {
 
 
 function OpenImageSelectionModal(ImageFieldId, ImageFieldUrl) {
-    debugger
+    
     $("#ImageFieldId").val(ImageFieldId);
     $("#ImageFieldUrl").val(ImageFieldUrl);
   
@@ -51,7 +51,7 @@ function OpenImageSelectionModal(ImageFieldId, ImageFieldUrl) {
 }
 
 function InActiveAllImage() {
-    debugger
+  
     $('.form-check-input').click(function () {
         $('.form-check-input').not(this).prop('checked', false);
     });  
