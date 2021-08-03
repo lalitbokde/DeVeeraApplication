@@ -117,7 +117,7 @@ namespace DeVeeraApp.Controllers
                     {
                         LocaleStringResource data = new LocaleStringResource()
                         {
-                            LanguageId = model.LanguageId,
+                            LanguageId = 5,
                             ResourceName = model.ResourceName,
                             ResourceValue = model.ResourceValue,
                             IsActive = true,
@@ -179,7 +179,7 @@ namespace DeVeeraApp.Controllers
 
                         if (data != null)
                         {
-                            data.LanguageId = model.LanguageId;
+                            data.LanguageId = 5;
                             data.ResourceName = model.ResourceName;
                             data.ResourceValue = model.ResourceValue;
                             data.IsActive =true;
