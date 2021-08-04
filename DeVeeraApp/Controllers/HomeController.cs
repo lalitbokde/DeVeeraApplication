@@ -94,7 +94,7 @@ namespace DeVeeraApp.Controllers
             var model = new UserModel();
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
-            if (data != null) 
+            if (data != null)
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
                 _localStringResourcesServices.GetLocalStringResourceByResourceName(model.LandingPageModel.WeeklyUpdate.SliderOneDescription);
@@ -120,17 +120,17 @@ namespace DeVeeraApp.Controllers
                 model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
                 model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : null;
                 model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
-              
+
             }
             return View(model);
         }
 
-        
+
         public IActionResult AskHappynessLevel()
         {
             return View();
         }
-       
+
         [HttpPost]
         public IActionResult AskHappynessLevel(HappynessLevelModel model)
         {
@@ -171,15 +171,15 @@ namespace DeVeeraApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-      
-        public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
+
+        public IActionResult ExistingUser(int QuoteType, DateTime LastLoginDateUtc)
         {
             var random = new Random();
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
-            var currentLevel = currentUser?.LastLevel > 0?_levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo:null;
-            if (QuoteType !=0)
+            var currentLevel = currentUser?.LastLevel > 0 ? _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo : null;
+            if (QuoteType != 0)
             {
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
                 var model = data?.ToModel<WeeklyUpdateModel>();
@@ -240,9 +240,9 @@ namespace DeVeeraApp.Controllers
 
                 return View(model);
             }
-            
 
-           
+
+
 
             //var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             //if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
@@ -251,7 +251,7 @@ namespace DeVeeraApp.Controllers
             //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
             //}
 
-          
+
         }
 
         public IActionResult NewUser(int QuoteType)
@@ -287,7 +287,7 @@ namespace DeVeeraApp.Controllers
             if (model != null)
             {
                 model.VideoUrl = data?.Video?.VideoUrl;
-                var firstLevel = _levelServices.GetAllLevels().OrderBy(a=>a.LevelNo).FirstOrDefault();
+                var firstLevel = _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault();
                 if (firstLevel != null)
                 {
                     model.LastLevel = (int)firstLevel.LevelNo;
@@ -297,7 +297,7 @@ namespace DeVeeraApp.Controllers
 
             }
             _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Subtitle);
-             return View(model);
+            return View(model);
 
 
 
@@ -312,48 +312,49 @@ namespace DeVeeraApp.Controllers
         {
             return View();
         }
-       
+
         public IActionResult WeeklyInspiringQuotes(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes", "/Home/WeeklyInspiringQuotes");
             DashboardListQuote model = new DashboardListQuote();
-
-          var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
-           // var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            command.PageSize = (command.PageSize == 0) ? 5: command.PageSize;
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            var WeeklyQuoteData = _dashboardQuoteService.GetAllDashboardQuotes().Where(q => q.IsWeeklyInspiringQuotes == true).ToList();
+            // var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            command.PageSize = (command.PageSize == 0) ? 5 : command.PageSize;
             var list = _dashboardQuoteService.GetAllDashboardQuoteSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "");
             model.DashboardQuoteListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DashBoardQuoteViewModel>();
-           
+            model.DashboardQuote.layoutSetup.Link_1_BannerImageUrl = data.Link_1_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_1_BannerImageId)?.ImageUrl : null;
+            model.DashboardQuote.layoutSetup.Link_1 = data.Link_1;
             return View(model);
         }
-      
+
         public IActionResult NewVideos(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "NewVideos", "/Home/NewVideos", "/Home/NewVideos");
             VideoListModel model = new VideoListModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-          
+
             command.PageSize = (command.PageSize == 0) ? 12 : command.PageSize;
-            var list = _videoMasterService.GetAllVideoSp(page_size: command.PageSize,page_num: command.Page,  GetAll: command.GetAll, SortBy: "");
+            var list = _videoMasterService.GetAllVideoSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "");
             model.VideoListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<VideoViewModel>();
             model.Video.Link_2_bannerImage = data?.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(data.Link_2_BannerImageId)?.ImageUrl : null;
             model.Video.Link_2_Title = data.Link_2;
             return View(model);
-        }    
-      
+        }
+
         public IActionResult FeelGoodStories(DataSourceRequest command)
         {
             AddBreadcrumbs("Home", "FeelGoodStories", "/Home/FeelGoodStories", "/Home/FeelGoodStories");
-          //  var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
-
-            FeelGoodListModel model = new FeelGoodListModel ();
-           command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
-            var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "",ImageId:0);
-           
+            var data = _feelGoodStoryServices.GetAllFeelGoodStorys().FirstOrDefault();
+            FeelGoodListModel model = new FeelGoodListModel();
+            command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
+            var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "", ImageId: 0);
             model.FeelGoodListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<FeelGoodViewModel>();
+          // model.FeelGoodModel.Link_3_bannerImage = data?.ImageId > 0 ? _imageMasterService.GetImageById(data.ImageId)?.ImageUrl : null;
+           // model.FeelGoodModel.Link_3_Title = data
             return View(model);
         }
-   
+
 
         #endregion
     }
