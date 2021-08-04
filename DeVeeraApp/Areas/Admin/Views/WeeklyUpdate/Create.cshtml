@@ -24,20 +24,71 @@
                             </div>
                         }
 
-                        <div class="mt-5">
+
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                                    <a onclick="TranslateSpanishCreateLogin()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                </div>
+
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a class="btn btn-primary w-40" onclick="TranslateSpanishCreateLogin()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" id="titlelogin" class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input id="titleSpanishLogin" asp-for="@Model.SpanishTitleLogin" type="text" class="form-control title" placeholder="Title">
+                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+
+                                <input id="quoteslogin" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
+
+                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+
+                                <input id="quotesLoginspanish" asp-for="SpanishQuoteLogin" type="text" class="form-control w-full" placeholder="Quote" />
+
+                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                            </div>
+                        </div>
+
+
+                        @*old*@
+                        <!--<div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                             <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
                             <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                         </div>
 
                         <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>-->
+                        @*<input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                            <label class="form-label text-theme-21 star">Random Quote</label>*@
+                        <!--<input id="quotes" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
+
 
                             <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                        </div>
+                        </div>-->
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
@@ -51,16 +102,9 @@
                                 <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
                             </div>*@
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Subtitle" />
-                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
-                        </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
-                            <input asp-for="VideoHeader" type="text" class="form-control w-full" placeholder="Videoheader" />
-                            <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
-                        </div>
+
+
+
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star"> Image</label>
                             @*<select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>*@
@@ -153,36 +197,72 @@
                             </div>
                         }
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
-                            <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+                                    <a onclick="TranslateSpanish()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                </div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" id="titleRegistration" class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a onclick="TranslateEnglishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" id="titleSpanishregistration" titleSpanish class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="TitleRegistration" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                                <input asp-for="Subtitle" type="text" id="Subtilteregistration" class="form-control w-full" placeholder="SubTitle" />
+                                <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                                <input asp-for="Subtitle" type="text" id="SubtitleSpanishregistration" class="form-control w-full" />
+                                <span asp-validation-for="SubtitleRegistration" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesregistraion" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquoteSpanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqouteSpanish();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesSpanishregistration" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                                <input asp-for="VideoHeader" type="text" id="videoheaderregistation" class="form-control w-full" placeholder="Video Header" />
+                                <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                                <input asp-for="VideoHeader" type="text" class="form-control w-full VideoHeaderSpanishR" placeholder="Video Header" />
+                                <span asp-validation-for="VideoHeaderRegistration" class="text-theme-21 mt-2"></span>
+                            </div>
                         </div>
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
-                            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-
-                        </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoId" class="text-theme-21  mt-2"></span>
 
                         </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Title" />
-                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
-                        </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
-                            <input asp-for="VideoHeader" type="text" class="form-control w-full" placeholder="Video Header" />
-                            <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
-                        </div>
+
+
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 "> Image</label>
                             @*<select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>*@
@@ -219,24 +299,6 @@
                             </div>
 
                         </div>
-                        <!--<div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>-->
-                        @*<select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>*@
-                        <!--<div class="grid grid-cols-12 gap-4 mt-5 pt-5 border-t border-theme-31">
-                            <a onclick="OpenImageSelectionModal('BodyImageId','BodyImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                <div class="box rounded-md p-3 relative zoom-in">
-                                    <div class="flex-none pos-image relative block">
-                                        <div class="pos-image__preview">
-                                            <input asp-for="BodyImageId" hidden>
-                                            <img id="BodyImageIdUrl" alt="" src="~/dist/images/food-beverage-9.jpg" style="Width:100%;height:100%">
-                                        </div>
-                                    </div>
-                                    <div class="block font-medium text-center truncate mt-3">Body Image</div>
-                                </div>
-                            </a>
-                            <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
-                        </div>
-                        </div>-->
 
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
@@ -477,3 +539,109 @@
 </form>
 
 @await Component.InvokeAsync("ImageSelection")
+@* Registration *@
+<script type="text/javascript">
+
+    function TranslateSpanish() {
+
+        var Title = document.getElementById('titleRegistration').value;
+        var Subtitle = document.getElementById('Subtilteregistration').value;
+        var Quote = document.getElementById('quotesregistraion').value;
+        var VideoHeader = document.getElementById('videoheaderregistation').value;
+
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateSpanish",
+            type: "POST",
+            data: { Title, Subtitle, Quote, VideoHeader },
+
+            success: function (data, status) {
+                debugger
+                $("#titleSpanishregistration").val(data.title);
+                $("#SubtitleSpanishregistration").val(data.subtitle);
+                $("#quotesSpanishregistration").val(data.quote);
+                $(".VideoHeaderSpanishR").val(data.videoHeader);
+
+            },
+
+
+        });
+    }
+
+
+
+
+</script>
+<script type="text/javascript">
+
+    function TranslateEnglishCreate() {
+        debugger
+        var Title = document.getElementById('titleSpanishregistration').value;
+        var Subtitle = document.getElementById('SubtitleSpanishregistration').value;
+        var Quote = document.getElementById('quotesSpanishregistration').value;
+        var VideoHeader = document.getElementById('VideoHeaderSpanishR').value;
+
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateEnglishCreateRegistration",
+            type: "POST",
+            data: { Title, Subtitle, Quote, VideoHeader },
+
+            success: function (data, status) {
+
+                $("#titleRegistration").val(data.title);
+                $("#Subtilteregistration").val(data.subtitle);
+                $("#quotesregistraion").val(data.quote);
+                $("#videoheaderregistation").val(data.videoheader);
+
+            },
+
+
+        });
+    }
+
+</script>
+
+@* Login *@
+<script type="text/javascript">
+
+    function TranslateSpanishCreateLogin() {
+        debugger
+        var Title = document.getElementById('titlelogin').value;
+        var Quote = document.getElementById('quoteslogin').value;
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateEnglishCreateLogin",
+            type: "POST",
+            data: { Title, Quote },
+
+            success: function (data, status) {
+
+                $("#titleSpanishLogin").val(data.title);
+                $("#quotesLoginspanish").val(data.quote);
+            },
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateEnglishCreateLogin() {
+        debugger
+        var Title = document.getElementById('titleSpanishLogin').value;
+        var Quote = document.getElementById('quotesLoginspanish').value;
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateSpanishCreateLogin",
+            type: "POST",
+            data: { Title, Quote },
+
+            success: function (data, status) {
+
+                $("#titlelogin").val(data.title);
+                $("#quoteslogin").val(data.quote);
+            },
+
+
+        });
+    }
+
+</script>

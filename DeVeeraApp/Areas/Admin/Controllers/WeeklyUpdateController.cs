@@ -34,7 +34,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ITranslationService _translationService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
@@ -47,7 +47,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                       IAuthenticationService authenticationService,
                                       INotificationService notificationService,
                                       ITranslationService translationService,
-                                     IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
+                                     IDashboardQuoteService dashboardQuoteService,
+                                       ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -57,6 +58,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _imageMasterService = imageMasterService;
             _dashboardQuoteService = dashboardQuoteService;
             _translationService = translationService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
         #endregion
         #region Utilities
@@ -81,16 +83,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             model.AvailableBannerImage.Add(new SelectListItem { Text = "Select BannerImage", Value = "0" });
             model.AvailableImages.Add(new SelectListItem { Text = "Select BodyImages", Value = "0" });
 
-            
+
             foreach (var item in AvailableImages)
             {
                 model.AvailableImages.Add(new SelectListItem
                 {
                     Value = item.Id.ToString(),
-                    Text = item.Name,                     
-                    
+                    Text = item.Name,
+
                 });
-              
+
             }
 
             //prepare Available Quotes
@@ -102,9 +104,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 model.AvilableQuote.Add(new SelectListItem
                 {
                     Value = quote.Id.ToString(),
-                    Text = quote.Title +  " - "  + quote.Author,
+                    Text = quote.Title + " - " + quote.Author,
                     Selected = quote.Id == model.QuoteId
-                }) ;
+                });
             }
 
 
@@ -122,12 +124,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
 
-            #endregion
-            #region methods
+        #endregion
+        #region methods
 
-            public IActionResult Create(CRM.Core.Domain.Quote type)
+        public IActionResult Create(CRM.Core.Domain.Quote type)
         {
-            AddBreadcrumbs( $"{type} Page", "Create", $"/Admin/WeeklyUpdate/List?typeId={(int)type}", $"/Admin/WeeklyUpdate/Create?type={type}");
+            AddBreadcrumbs($"{type} Page", "Create", $"/Admin/WeeklyUpdate/List?typeId={(int)type}", $"/Admin/WeeklyUpdate/Create?type={type}");
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             ViewBag.QuoteType = type.ToString();
             PrepareVideo(model);
@@ -143,26 +145,28 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 ModelState.Remove("SliderOneTitle"); ModelState.Remove("SliderOneDescription"); ModelState.Remove("SliderTwoTitle");
                 ModelState.Remove("SliderTwoDescription"); ModelState.Remove("SliderThreeTitle"); ModelState.Remove("SliderThreeDescription");
-                ModelState.Remove("LandingQuote"); 
+                ModelState.Remove("LandingQuote");
             }
             if (model.QuoteType.ToString() == "Landing")
             {
                 ModelState.Remove("Subtitle");
             }
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
 
                 var data = model.ToEntity<WeeklyUpdate>();
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
-                _translationService.Translate(data.Title,key);
-                _translationService.Translate(data.Subtitle, key);
+                _translationService.Translate(data.Quote, model.QuoteRegistration);
+                _translationService.Translate(data.Title, model.TitleRegistration);
+                _translationService.Translate(data.Subtitle, model.SubtitleRegistration);
+                _translationService.Translate(data.VideoHeader, model.VideoHeaderRegistration);
                 _notificationService.SuccessNotification("Video created successfully.");
                 return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
             PrepareVideo(model);
             return View(model);
-         }
+        }
 
 
         public IActionResult Edit(int id, CRM.Core.Domain.Quote type)
@@ -176,6 +180,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<WeeklyUpdateModel>();
+                    model.SpanishTitleLogin = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                    model.SpanishSubtitleLogin = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                    model.QuoteRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
+                    model.TitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                    model.SubtitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                    model.VideoHeaderRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.VideoHeader);
                     PrepareVideo(model);
                     PrepareImageUrls(model);
                     return View(model);
@@ -203,9 +213,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                if (model.IsActive==true) 
-                { 
-                _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
+                if (model.IsActive == true)
+                {
+                    _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
                 }
                 var val = _weeklyUpdateServices.GetWeeklyUpdateById(model.Id);
                 val.IsActive = model.IsActive;
@@ -234,11 +244,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
-                _translationService.Translate(val.Title,key);
-                _translationService.Translate(val.Subtitle, key);
+
+                _translationService.Translate(val.Title, model.TitleRegistration);
+                _translationService.Translate(val.Subtitle, model.SubtitleRegistration);
+                _translationService.Translate(val.Quote, model.QuoteRegistration);
+                _translationService.Translate(val.VideoHeader, model.VideoHeaderRegistration);
+
                 //_translationService.Translate(val.SliderTwoTitle, key);
                 _notificationService.SuccessNotification("Video edited successfully.");
-                return RedirectToAction("List", "WeeklyUpdate",new { typeId = (int)model.QuoteType });
+                return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
             }
             PrepareVideo(model);
             return View(model);
@@ -262,7 +276,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View(model);
         }
 
-       
+
 
         public IActionResult Delete(int id)
         {
@@ -291,5 +305,78 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         #endregion
 
+        #region Translation
+        [HttpPost]
+        public IActionResult TranslateSpanish(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
+            model.Subtitle = _translationService.TranslateLevel(weeklyupdate.Subtitle, key);
+            model.Quote = _translationService.TranslateLevel(weeklyupdate.Quote, key);
+            model.VideoHeader = _translationService.TranslateLevel(weeklyupdate.VideoHeader, key);
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateEnglishCreateRegistration(WeeklyUpdate weeklyUpdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+            model.Title = _translationService.TranslateLevelSpanish(weeklyUpdate.Title, key);
+            model.Subtitle = _translationService.TranslateLevelSpanish(weeklyUpdate.Subtitle, key);
+            model.Quote = _translationService.TranslateLevelSpanish(weeklyUpdate.Quote, key);
+            model.VideoHeader = _translationService.TranslateLevelSpanish(weeklyUpdate.VideoHeader, key);
+
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateSpanishEditRegistration(WeeklyUpdate weeklyUpdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+            model.Title = _translationService.TranslateLevel(weeklyUpdate.Title, key);
+            model.Subtitle = _translationService.TranslateLevel(weeklyUpdate.Subtitle, key);
+        
+            model.VideoHeader = _translationService.TranslateLevel(weeklyUpdate.VideoHeader, key);
+
+            return Json(model);
+
+        }
+        
+        [HttpPost]
+        public IActionResult TranslateEnglishCreateLogin(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
+           
+           
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateSpanishCreateLogin(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Title = _translationService.TranslateLevelSpanish(weeklyupdate.Title, key);
+            model.Quote = _translationService.TranslateLevelSpanish(weeklyupdate.Quote, key);
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateLanding(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
+            model.Subtitle = _translationService.TranslateLevel(weeklyupdate.Subtitle, key);
+
+            return Json(model);
+
+        }
+        
+
+        #endregion
     }
 }
