@@ -159,6 +159,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
                 _translationService.Translate(data.Quote, model.QuoteRegistration);
                 _translationService.Translate(data.Title, model.TitleRegistration);
+                _translationService.Translate(data.Title, model.TitleSpanishLanding);
+                _translationService.Translate(data.Subtitle, model.SubtitleSpanishLanding);
                 _translationService.Translate(data.Subtitle, model.SubtitleRegistration);
                 _translationService.Translate(data.VideoHeader, model.VideoHeaderRegistration);
                 _notificationService.SuccessNotification("Video created successfully.");
