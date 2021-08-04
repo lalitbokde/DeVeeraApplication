@@ -350,8 +350,8 @@ namespace DeVeeraApp.Controllers
             command.PageSize = (command.PageSize == 0) ? 10 : command.PageSize;
             var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "", ImageId: 0);
             model.FeelGoodListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<FeelGoodViewModel>();
-          // model.FeelGoodModel.Link_3_bannerImage = data?.ImageId > 0 ? _imageMasterService.GetImageById(data.ImageId)?.ImageUrl : null;
-           // model.FeelGoodModel.Link_3_Title = data
+            model.FeelGoodModel.Link_3_bannerImage = data?.ImageId > 0 ? _imageMasterService.GetImageById(data.ImageId)?.ImageUrl : null;
+         //  model.FeelGoodModel.Link_3_Title = data.
             return View(model);
         }
 

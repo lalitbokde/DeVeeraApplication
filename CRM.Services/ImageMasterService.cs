@@ -109,7 +109,7 @@ namespace CRM.Services
 
         }
 
-        public virtual Image GetImageById(int imageId)
+        public virtual Image GetImageById(int? imageId)
         {
             if (imageId == 0)
                 return null;
