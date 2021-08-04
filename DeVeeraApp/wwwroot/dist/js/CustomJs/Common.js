@@ -57,6 +57,24 @@ function InActiveAllImage() {
     });  
 }
 
+function hideshowqoutetrans() {
+    debugger
+    var val = $('#randomquotespanish').is(':checked');
+    if (val == true) {
+        $('#quotesspanish').addClass('hidden', true)
+    } else {
+        $('#quotesspanish').removeClass('hidden', true)
+    }
+}
+function hideshowqoutetrans() {
+    debugger
+    var val = $('#randomquotespanish').is(':checked');
+    if (val == true) {
+        $('#quotesspanish').addClass('hidden', true)
+    } else {
+        $('#quotesspanish').removeClass('hidden', true)
+    }
+}
 function hideshowqoute() {
     debugger
     var val = $('#randomquote').is(':checked'); 
@@ -64,5 +82,14 @@ function hideshowqoute() {
         $('#quotes').addClass('hidden', true)
     } else {
         $('#quotes').removeClass('hidden', true)
+    }
+}
+function hideshowqouteregist() {
+    debugger
+    var val = $('#randomquote').is(':checked');
+    if (val == true) {
+        $('#quotesregistraion').addClass('hidden', true)
+    } else {
+        $('#quotesregistraion').removeClass('hidden', true)
     }
 }

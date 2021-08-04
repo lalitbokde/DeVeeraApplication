@@ -32,7 +32,8 @@ namespace DeVeeraApp.ViewModels
 
         //[Required(ErrorMessage = "Enter the Quote ")]
         public string Subtitle { get; set; }
-
+        public string SpanishSubtitleLogin { get; set; }
+        
         public string VideoName { get; set; }
 
         //[Required]
@@ -80,7 +81,14 @@ namespace DeVeeraApp.ViewModels
         public string LandingQuote { get; set; }
         public string Quote { get; set; }
         public string VideoHeader { get; set; }
-
+        public string SpanishTitleLogin { get; set; }
+        public string SpanishQuoteLogin { get; set; }
+        public string TitleRegistration { get; set; }
+        public string SubtitleRegistration { get; set; }
+        public string QuoteRegistration { get; set; }
+        public string VideoHeaderRegistration { get; set; }
+        public string SubtitleSpanishLanding { get; set; }
+        public string TitleSpanishLanding { get; set; }
     }
 
     public enum Quote

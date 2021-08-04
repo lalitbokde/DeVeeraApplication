@@ -162,9 +162,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 _levelServices.InsertLevel(data);
                 /// This is used for translate English To spanish
-                _translationService.Translate(model.Title, key);
-                _translationService.Translate(model.Subtitle, key);
-                _translationService.Translate(model.FullDescription, key);
+                _translationService.Translate(model.Title, model.SpanishTitle);
+                _translationService.Translate(model.Subtitle, model.SpanishSubtitle);
+                _translationService.Translate(model.FullDescription, model.SpanishFullDescription);
 
                 //foreach (var result in model.ImageLists.Where(a => a.Selected == true))
                 //{
@@ -300,9 +300,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _levelImageListServices.DeleteLevelImagesByLevelId(levelData.Id);
 
                 /// This is used for translate English To spanish
-                _translationService.Translate(levelData.Title, key);
-                _translationService.Translate(levelData.Subtitle, key);
-                _translationService.Translate(levelData.FullDescription, key);
+                _translationService.Translate(levelData.Title, model.SpanishTitle);
+                _translationService.Translate(levelData.Subtitle, model.SpanishTitleModule);
+                _translationService.Translate(levelData.FullDescription, model.SpanishFullDescription);
                 //foreach (var result in model.ImageLists.Where(a=>a.Selected==true))
                 //    {
                 //        var record = new LevelImageList
@@ -365,8 +365,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         FullDescription = model.Modules.FullDescription
                     };
                     _moduleServices.InsertModule(modules);
-                    _translationService.Translate(modules.Title, key);
-                    _translationService.Translate(modules.FullDescription, key);
+                    _translationService.Translate(modules.Title, model.SpanishTitleModule);
+                    _translationService.Translate(modules.FullDescription, model.SpanishFullDescriptionModule);
                     _notificationService.SuccessNotification("Module has been added successfully");
 
                     if (model.SelectedModuleImg.Count() != 0)
@@ -397,8 +397,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
                     modules.FullDescription = model.Modules.FullDescription;
                     _moduleServices.UpdateModule(modules);
-                    _translationService.Translate(modules.Title, key);
-                    _translationService.Translate(modules.FullDescription, key);
+                    _translationService.Translate(modules.Title, model.SpanishTitleModule);
+                    _translationService.Translate(modules.FullDescription, model.SpanishFullDescriptionModule);
                     _notificationService.SuccessNotification("Module has been updated successfully");
 
                     _moduleImageListService.DeleteModuleImageListByModuleId(modules.Id);

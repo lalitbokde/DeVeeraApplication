@@ -83,14 +83,20 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         //Module Section Header
          public string Title { get; set; }
          public string Description { get; set; }
+        public string ModuleSpanishDescription { get; set; }
+        public string ModuleSpanishTitle { get; set; }
+        
 
         //Footer 
          public string FooterDescription { get; set; }
-        
-         public string Email{ get; set; }
-         public string PhoneNo{ get; set; }
+        public string FooterDescriptionSpanish { get; set; }
+        public string Email{ get; set; }
+     
+        public string PhoneNo{ get; set; }
          public int FooterImageId { get; set; }
           public string FooterImageUrl { get; set; }
         public string Location { get; set; }
+        public string LocationSpanish { get; set; }
+
     }
 }

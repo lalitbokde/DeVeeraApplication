@@ -27,18 +27,16 @@ namespace CRM.Services.Localization
         public void Translate(string translationStrings, string key)
         {
 
-            GoogleTranslate google = new GoogleTranslate(key);
+            //GoogleTranslate google = new GoogleTranslate(key);
 
-            //Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
-            List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
-
-           
+            ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
+            //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
 
             LocaleStringResource data = new LocaleStringResource()
             {
                 LanguageId = 5,
                 ResourceName = translationStrings,
-                ResourceValue = results.FirstOrDefault().TranslatedText
+                ResourceValue = key
             };
             _localStringResourcesServices.InsertLocalStringResource(data);
 

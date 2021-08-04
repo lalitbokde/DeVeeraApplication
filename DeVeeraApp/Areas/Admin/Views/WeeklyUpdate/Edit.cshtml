@@ -23,18 +23,53 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
-                            <span asp-validation-for="Title" class="text-theme-21  mt-2"></span>
-                        </div>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                                    <a onclick="TranslateSpanishEditLogin()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                </div>
+
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a class="btn btn-primary w-40" onclick="TranslateEnglishEditLogin()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" id="titlelogin" type="text" class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="Title" class="text-theme-21  mt-2"></span>
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
+                                @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
+                                <input asp-for="@Model.SpanishTitleLogin" id="titleSpanishLogin" type="text" class="form-control ">
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
+                                <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquotespanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoutetrans();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesspanish" asp-for="SpanishSubtitleLogin" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
+                                <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                            </div>
+
+
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
@@ -109,7 +144,7 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank"  href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
+                                            <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
                                             <a href="#">Spanish</a>
 
                                         </div>
@@ -148,41 +183,70 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
-                            <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+                                    <a onclick="TranslateSpanish()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                </div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" id="titleRegistration" class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a onclick="TranslateEnglishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" id="titleSpanishregistration" titleSpanish class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="TitleRegistration" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                                <input asp-for="Subtitle" type="text" id="Subtilteregistration" class="form-control w-full" placeholder="SubTitle" />
+                                <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                                <input asp-for="Subtitle" type="text" id="SubtitleSpanishregistration" class="form-control w-full" />
+                                <span asp-validation-for="SubtitleRegistration" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesregistraion" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquoteSpanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqouteSpanish();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesSpanishregistration" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                                <input asp-for="VideoHeader" type="text" id="videoheaderregistation" class="form-control w-full" placeholder="Video Header" />
+                                <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                                <input asp-for="VideoHeader" type="text" class="form-control w-full VideoHeaderSpanishR" placeholder="Video Header" />
+                                <span asp-validation-for="VideoHeaderRegistration" class="text-theme-21 mt-2"></span>
+                            </div>
                         </div>
 
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
-                            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-
-                        </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoId" class="text-theme-21  mt-2"></span>
 
                         </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Title" />
-                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
-                        </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
-                            <input asp-for="VideoHeader" type="text" class="form-control w-full" placeholder="Video Header" />
-                            <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
-                        </div>
-                        @*<div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
-                                <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
-                            </div>*@
                         @{
                             var BannerImageURL = Model.BannerImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BannerImageURL;
                             var BodyImageURL = Model.BodyImageURL == null ? "/dist/images/food-beverage-5.jpg" : Model.BodyImageURL;
@@ -254,7 +318,7 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank"href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">English</a>
+                                            <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">English</a>
                                             <a href="#">Spanish</a>
 
                                         </div>
@@ -299,8 +363,8 @@
                                     <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                    <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" />
+                                    <!--<label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="SliderOneTitle" type="text" class="form-control w-full" placeholder="Title 1" />-->
                                     @*<span asp-validation-for="SliderOneTitle" class="text-theme-21 mt-2"></span>*@
                                 </div>
                                 <div class="mt-5">
@@ -325,9 +389,9 @@
                                     </a>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star ">Description</label>
+                                    @*<label for="input-wizard-1" class="form-label text-theme-21 star ">Description</label>
                                     <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
-                                    <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>
+                                    <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>*@
 
                                 </div>
                             </div>
@@ -336,8 +400,8 @@
                                     <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 2</label>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star ">Title</label>
-                                    <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />
+                                    @*<label for="input-wizard-1" class="form-label text-theme-21 star ">Title</label>
+                                    <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />*@
                                     @*<span asp-validation-for="SliderTwoTitle" class="text-theme-21 mt-2"></span>*@
                                 </div>
                                 <div class="mt-5">
@@ -357,9 +421,9 @@
                                 </div>
 
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star ">Description</label>
+                                    @*<label for="input-wizard-1" class="form-label text-theme-21 star ">Description</label>
                                     <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
-                                    <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>
+                                    <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>*@
                                 </div>
                             </div>
                             <div class="col-span-4 mt-5">
@@ -367,8 +431,8 @@
                                     <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 3</label>
                                 </div>
                                 <div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                    <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />
+                                    @*<label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />*@
                                     @*<span asp-validation-for="SliderThreeTitle" class="text-theme-21 mt-2"></span>*@
                                 </div>
                                 <div class="mt-5">
@@ -387,12 +451,12 @@
                                     </a>
                                 </div>
 
-                                <div class="mt-5">
+                                @*<div class="mt-5">
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
                                     <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
                                     <span asp-validation-for="SliderThreeDescription" class="text-theme-21 mt-2"></span>
 
-                                </div>
+                                </div>*@
                             </div>
                         </div>
 
@@ -401,10 +465,57 @@
                         </div>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+                                    <a onclick="TranslateSpanishLanding()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                </div>
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                 <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle" required />
                                 <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                             </div>
+
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a onclick="TranslateEnglishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" id="titleSpanishlanding"  class="form-control w-full" placeholder="Title" />
+                                <span asp-validation-for="TitleSpanishLanding" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                                </div>
+                                <div class="" id="standard-editor">
+                                    <div class="preview">
+                                        <textarea id="editorEnglish" asp-for="Subtitle" class="editorEnglish"> </textarea>
+                                    </div>
+                                    <span asp-validation-for="Subtitle" class="text-theme-21  mt-2"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <div class="mt-5">
+                                    <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                                </div>
+                                <div class="" id="standard-editor">
+                                    <div class="preview">
+                                        <textarea id="editorSpanish" asp-for="Subtitle" class="editorSpanish"> </textarea>
+                                    </div>
+                                    <span asp-validation-for="SubtitleSpanishLanding" class="text-theme-21  mt-2"></span>
+
+                                </div>
+                            </div>
+                           
+                        </div>
+                        @*old*@
+                        <div class="grid grid-cols-12 gap-4">
+                            @*<div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle" required />
+                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            </div>*@
 
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
@@ -442,16 +553,7 @@
 
                             </div>
                         </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
-                        </div>
-                        <div class="" id="standard-editor">
-                            <div class="preview">
-                                <textarea id="editor2" asp-for="Subtitle" class="editor2"> </textarea>
-                            </div>
-                            <span asp-validation-for="Subtitle" class="text-theme-21  mt-2"></span>
-
-                        </div>
+                       
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
@@ -498,3 +600,132 @@
 </form>
 @await Component.InvokeAsync("ImageSelection")
 <link href="~/assets/css/PreviewDropdown.css" rel="stylesheet" />
+@* Login *@
+<script type="text/javascript">
+
+    function TranslateSpanishEditLogin() {
+        debugger
+        var Title = document.getElementById('titlelogin').value;
+     
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateEnglishEditLogin",
+            type: "POST",
+            data: { Title },
+
+            success: function (data, status) {
+
+                $("#titleSpanishLogin").val(data.title);
+              
+            },
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateEnglishEditLogin() {
+        debugger
+        var Title = document.getElementById('titleSpanishLogin').value;
+        var Quote = document.getElementById('quotesspanish').value;
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateSpanishCreateLogin",
+            type: "POST",
+            data: { Title, Quote },
+
+            success: function (data, status) {
+
+                $("#titlelogin").val(data.title);
+                $("#quotes").val(data.quote);
+            },
+
+
+        });
+    }
+
+</script>
+@* Registration *@
+<script type="text/javascript">
+
+    function TranslateSpanish() {
+
+        var Title = document.getElementById('titleRegistration').value;
+        var Subtitle = document.getElementById('Subtilteregistration').value;
+
+        var VideoHeader = document.getElementById('videoheaderregistation').value;
+
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateSpanishEditRegistration",
+            type: "POST",
+            data: { Title, Subtitle, VideoHeader },
+
+            success: function (data, status) {
+                debugger
+                $("#titleSpanishregistration").val(data.title);
+                $("#SubtitleSpanishregistration").val(data.subtitle);
+                $(".VideoHeaderSpanishR").val(data.videoHeader);
+
+            },
+
+
+        });
+    }
+
+
+
+
+</script>
+<script type="text/javascript">
+
+    function TranslateEnglishCreate() {
+        debugger
+        var Title = document.getElementById('titleSpanishregistration').value;
+        var Subtitle = document.getElementById('SubtitleSpanishregistration').value;
+        var Quote = document.getElementById('quotesSpanishregistration').value;
+        var VideoHeader = document.getElementById('VideoHeaderSpanishR').value;
+
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateEnglishCreateRegistration",
+            type: "POST",
+            data: { Title, Subtitle, Quote, VideoHeader },
+
+            success: function (data, status) {
+
+                $("#titleRegistration").val(data.title);
+                $("#Subtilteregistration").val(data.subtitle);
+                $("#quotesregistraion").val(data.quote);
+                $("#videoheaderregistation").val(data.videoheader);
+
+            },
+
+
+        });
+    }
+
+</script>
+@* landing *@
+<script type="text/javascript">
+
+    function TranslateSpanishLanding() {
+      
+        var Title = document.getElementById('LandingTitle').value;
+        var Subtitle = document.getElementById('editorEnglish').value;
+       
+
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateLanding",
+            type: "POST",
+            data: { Title, Subtitle },
+
+            success: function (data, status) {
+
+                $("#titleSpanishlanding").val(data.title);
+                CKEDITOR.instances['editorSpanish'].setData(data.subtitle);
+            },
+
+
+        });
+    }
+
+</script>

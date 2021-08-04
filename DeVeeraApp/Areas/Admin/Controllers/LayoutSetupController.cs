@@ -3,6 +3,7 @@ using CRM.Core.Domain.LayoutSetups;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Layoutsetup;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
@@ -28,7 +29,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ILayoutSetupService _layoutSetupService;
         private readonly INotificationService _notificationService;
         private readonly IImageMasterService _imageMasterService;
-
+        private readonly ITranslationService _translationService;
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
         #region ctor
@@ -38,7 +41,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      INotificationService notificationService,
                                      IWorkContext workContext,
                                      IHttpContextAccessor httpContextAccessor,
-                                     IAuthenticationService authenticationService) : base(workContext: workContext,
+                                     IAuthenticationService authenticationService,
+                                      ITranslationService translationService,
+                                       ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
 
@@ -46,6 +51,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _layoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
             _notificationService = notificationService;
+            _translationService = translationService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
         #endregion
 
@@ -118,6 +125,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var data = model.ToEntity<LayoutSetup>();
 
                 _layoutSetupService.InsertLayoutSetup(data);
+                _translationService.Translate(model.Title, model.ModuleSpanishTitle);
+                _translationService.Translate(model.Description, model.ModuleSpanishDescription);
+                _translationService.Translate(model.Location, model.LocationSpanish);
+                _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
                 _notificationService.SuccessNotification("Layout Setup Successfully.");
                 return RedirectToAction("List");
             }
@@ -136,6 +147,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<LayoutSetupModel>();
+                    model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                    model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceName(model.Description);
+                    model.FooterDescriptionSpanish = _localStringResourcesServices.GetResourceValueByResourceName(model.FooterDescription);
+                    model.LocationSpanish = _localStringResourcesServices.GetResourceValueByResourceName(model.Location);
                     PrepareImageUrls(model);
                     return View(model);
                 }
@@ -182,6 +197,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
                 _layoutSetupService.UpdateLayoutSetup(data);
+                _translationService.Translate(model.Title, model.ModuleSpanishTitle);
+                _translationService.Translate(model.Description, model.ModuleSpanishDescription);
+                _translationService.Translate(model.Location, model.LocationSpanish);
+                _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
                 _notificationService.SuccessNotification("Layout Setup Updated Successfully.");
                 return RedirectToAction("List");
             }
@@ -214,5 +233,31 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             return Json(response);
         }
+
+        #region Translate
+        [HttpPost]
+        public IActionResult TranslateModule(LayoutSetupModel weeklyupdate)
+        {
+            LayoutSetupModel model = new LayoutSetupModel();
+
+            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
+            model.Description = _translationService.TranslateLevel(weeklyupdate.Description, key);
+
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateFooter(LayoutSetupModel weeklyupdate)
+        {
+            LayoutSetupModel model = new LayoutSetupModel();
+
+            model.FooterDescription = _translationService.TranslateLevel(weeklyupdate.FooterDescription, key);
+            model.Location = _translationService.TranslateLevel(weeklyupdate.Location, key);
+
+            return Json(model);
+
+        }
+        
+        #endregion
     }
 }
