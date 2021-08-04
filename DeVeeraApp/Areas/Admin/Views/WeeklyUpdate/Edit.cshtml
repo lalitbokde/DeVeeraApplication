@@ -28,18 +28,29 @@
                             <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
                             <span asp-validation-for="Title" class="text-theme-21  mt-2"></span>
                         </div>
-
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                             <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                             <label class="form-label text-theme-21 star">Random Quote</label>
-                            <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
-                            <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>
+                            <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                            <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
+                            <span asp-validation-for="VideoId" class="text-theme-21  mt-2"></span>
+
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Subtitle" />
+                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                            <input asp-for="VideoHeader" type="text" class="form-control w-full" placeholder="Video Header" />
+                            <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
                         </div>
 
                         <div class="mt-5">
@@ -109,7 +120,7 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank"  href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
+                                            <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
                                             <a href="#">Spanish</a>
 
                                         </div>
@@ -170,7 +181,7 @@
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Title" />
+                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Subtitle" />
                             <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
                         </div>
                         <div class="mt-5">
