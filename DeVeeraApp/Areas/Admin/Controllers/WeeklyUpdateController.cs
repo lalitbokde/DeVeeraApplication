@@ -253,8 +253,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _translationService.Translate(val.Subtitle, model.SubtitleRegistration);
                 _translationService.Translate(val.Quote, model.QuoteRegistration);
                 _translationService.Translate(val.VideoHeader, model.VideoHeaderRegistration);
-                _translationService.Translate(val.Title, model.SubtitleSpanishLanding);
-                _translationService.Translate(val.Subtitle, model.TitleSpanishLanding);
+                _translationService.Translate(val.Title, model.TitleSpanishLanding);
+                _translationService.Translate(val.Subtitle, model.SubtitleSpanishLanding);
 
                 //_translationService.Translate(val.SliderTwoTitle, key);
                 _notificationService.SuccessNotification("Video edited successfully.");

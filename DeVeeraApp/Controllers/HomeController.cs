@@ -17,6 +17,7 @@ using CRM.Services.DashboardMenu;
 using Microsoft.AspNetCore.Localization;
 using CRM.Services.Layoutsetup;
 using CRM.Core.ViewModels;
+using CRM.Services.Settings;
 
 namespace DeVeeraApp.Controllers
 {
@@ -39,6 +40,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILanguageService _languageService;
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        private readonly ISettingService _settingService;
         #endregion
 
 
@@ -58,6 +60,7 @@ namespace DeVeeraApp.Controllers
                               ILanguageService languageService,
                               IUserService userService,
                                ILayoutSetupService layoutSetupService,
+                               ISettingService settingService,
                                ILocalStringResourcesServices localStringResourcesServices
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -77,6 +80,7 @@ namespace DeVeeraApp.Controllers
             _languageService = languageService;
             _LayoutSetupService = layoutSetupService;
             _localStringResourcesServices = localStringResourcesServices;
+            _settingService = settingService;
         }
 
         #endregion
@@ -94,6 +98,7 @@ namespace DeVeeraApp.Controllers
             var model = new UserModel();
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
+            
             if (data != null)
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
@@ -109,9 +114,13 @@ namespace DeVeeraApp.Controllers
                 {
                     int index = random.Next(quoteList.Count);
                     model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
-                    _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
-                    _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
-                    _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
+                    var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+                    if (userLanguage.LanguageId==5) {
+                    model.LandingPageModel.WeeklyUpdate.Title= _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
+                    model.LandingPageModel.WeeklyUpdate.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
+                    }
+                   
+                    //model.LandingPageModel.WeeklyUpdate.LandingQuote = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
                 }
 
                 ViewBag.VideoUrl = data?.Video?.VideoUrl;

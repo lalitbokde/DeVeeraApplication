@@ -3,6 +3,7 @@ using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.QuestionsAnswer;
+using CRM.Services.Settings;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -26,6 +27,7 @@ namespace DeVeeraApp.Controllers
         private readonly IS3BucketService _s3BucketService;
         private readonly IQuestionAnswerService _QuestionAnswerService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        private readonly ISettingService _settingService;
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
                                 IQuestionAnswerService questionAnswerService,
@@ -37,6 +39,7 @@ namespace DeVeeraApp.Controllers
                                 IImageMasterService imageMasterService,
                                 IS3BucketService s3BucketService,
                                IAuthenticationService authenticationService,
+                                       ISettingService settingService,
                                ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -51,6 +54,7 @@ namespace DeVeeraApp.Controllers
             _s3BucketService = s3BucketService;
             _QuestionAnswerService = questionAnswerService;
             _localStringResourcesServices = localStringResourcesServices;
+            _settingService = settingService;
         }
 
         #region methods
@@ -64,7 +68,11 @@ namespace DeVeeraApp.Controllers
             var data = _moduleService.GetModuleById(id);
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
-            moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+            if (userLanguage.LanguageId == 5)
+            {
+                moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
+            }
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {

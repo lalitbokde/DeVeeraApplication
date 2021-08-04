@@ -59,7 +59,7 @@ namespace CRM.Services
                         where vdo.ResourceName == ResourceName
                         orderby vdo.ResourceName
                         select vdo;
-            var stories = query.FirstOrDefault();
+            var stories = query.LastOrDefault();
             return stories != null ? stories.ResourceValue : ResourceName;
         }
         public void InsertLocalStringResource(LocaleStringResource model)

@@ -16,6 +16,7 @@ using CRM.Services.VideoModules;
 using CRM.Services.Users;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services.DashboardQuotes;
+using CRM.Services.Settings;
 
 namespace DeVeeraApp.Controllers
 {
@@ -37,7 +38,7 @@ namespace DeVeeraApp.Controllers
         private readonly IDiaryMasterService _diaryMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
-
+        private readonly ISettingService _settingService;
         #endregion
 
 
@@ -56,6 +57,7 @@ namespace DeVeeraApp.Controllers
                                 ILevelImageListServices levelImageListServices,
                                 IModuleImageListService moduleImageListService,
                                 IDiaryMasterService diaryMasterService,
+                                        ISettingService settingService,
                                 ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -73,6 +75,7 @@ namespace DeVeeraApp.Controllers
             _diaryMasterService = diaryMasterService;
             _dashboardQuoteService = dashboardQuoteService;
             _localStringResourcesServices = localStringResourcesServices;
+            _settingService = settingService;
 
         }
 
@@ -145,11 +148,16 @@ namespace DeVeeraApp.Controllers
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
-            videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+            if (userLanguage.LanguageId == 5)
+            {
+                videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
+               
+            }
             videoData.Video = updatedVideoData.Video;
-           
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
+
             videoData.LevelNo = updatedVideoData.LevelNo;
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
@@ -189,6 +197,7 @@ namespace DeVeeraApp.Controllers
                 }
 
             }
+
 
             var userNextLevel = AllLevels.Where(a => a.LevelNo > levelno).FirstOrDefault();
 

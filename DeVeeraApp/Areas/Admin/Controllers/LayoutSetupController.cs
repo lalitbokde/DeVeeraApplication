@@ -194,7 +194,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.Description = model.Description;
                 data.PhoneNo = model.PhoneNo;
                 data.FooterImageId = model.FooterImageId;
-
+                data.FooterDescription = model.FooterDescription;
 
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
