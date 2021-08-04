@@ -77,13 +77,11 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("LocalStringResources", "List", "/Admin/LocalStringResources/List", "/Admin/LocalStringResources/List");
             var model = new List<LocalStringResourceModel>();
             var data = _localStringResourcesServices.GetAllLocalStringResources();
-            var staticLabel = _localStringResourcesServices.GetAllLocalStringResources().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Id;
-            var translationData = _localStringResourcesServices.GetLocalStringResourceById(staticLabel);
-            List<LocaleStringResource> parts = new List<LocaleStringResource>();
-            parts.Add(translationData);
+            var staticLabel = _localStringResourcesServices.GetAllLocalStringResources().OrderBy(a => a.Id).Where(a => a.IsActive == true);
+           
             if (staticLabel !=null)
             {
-               model = parts.ToList().ToModelList<LocaleStringResource, LocalStringResourceModel>(model);
+               model = staticLabel.ToList().ToModelList<LocaleStringResource, LocalStringResourceModel>(model);
                 ViewBag.ResourcesTable = JsonConvert.SerializeObject(model);
                 return View(model);
             }

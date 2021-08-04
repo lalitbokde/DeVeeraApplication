@@ -18,7 +18,7 @@ namespace CRM.Services
 
 
 
-        Image GetImageById(int videoId);
+        Image GetImageById(int? videoId);
 
 
         IList<Image> GetImageByIds(int[] VideoIds);
