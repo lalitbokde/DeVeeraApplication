@@ -68,10 +68,14 @@ namespace DeVeeraApp.Controllers
             var data = _moduleService.GetModuleById(id);
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
-            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
-            if (userLanguage.LanguageId == 5)
+           
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+            if (userLanguage !=null)
+            {
+                if (userLanguage.LanguageId == 5)
             {
                 moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
+            }
             }
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
@@ -80,7 +84,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                diary = _diaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser.Id).OrderByDescending(a => a.Id).FirstOrDefault();
+                diary = _diaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser?.Id).OrderByDescending(a => a.Id).FirstOrDefault();
 
             }
             moduleData.DiaryText = diary != null ? diary.Comment : "";

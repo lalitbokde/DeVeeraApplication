@@ -127,6 +127,7 @@ namespace DeVeeraApp.Controllers
             //    return RedirectToAction("AskHappynessLevel", "Home");
             //}
             var data = _levelServices.GetLevelByLevelNo(levelno);
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
             videoData.BannerImageUrl = imagesRecord?.ImageUrl;
 
@@ -148,11 +149,13 @@ namespace DeVeeraApp.Controllers
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
-            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+            if (userLanguage!=null) {
             if (userLanguage.LanguageId == 5)
             {
                 videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
                
+            }
             }
             videoData.Video = updatedVideoData.Video;
             videoData.Subtitle = updatedVideoData.Subtitle;
