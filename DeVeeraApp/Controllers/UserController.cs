@@ -676,7 +676,7 @@ namespace DeVeeraApp.Controllers
                 Reason = result?.ReasonToSubmit 
 
             };
-            _translationService.Translate(model.Reason, key);
+           
             return View(model);
         }
 
@@ -705,7 +705,7 @@ namespace DeVeeraApp.Controllers
                 _notificationService.SuccessNotification("User info updated successfull.");
                 return RedirectToAction("Next", "Lesson", new { levelno = model.LevelNo, srno = model.SrNo });
             }
-            _translationService.Translate(model.Reason, key);
+          
             return View(model);
         }
 
