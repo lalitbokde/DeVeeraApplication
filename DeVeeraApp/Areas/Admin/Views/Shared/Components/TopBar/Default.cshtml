@@ -1,4 +1,5 @@
-﻿<!-- BEGIN: Top Bar -->
+﻿@model DeVeeraApp.ViewModels.User.UserModel
+@*< !--BEGIN: Top Bar -->*@
 <div class="top-bar -mx-4 px-4 md:mx-0 md:px-0">
     <!-- BEGIN: Breadcrumb -->
     <div class="-intro-x breadcrumb mr-auto hidden sm:flex">
@@ -7,11 +8,30 @@
         <a href="@ViewBag.ActionUrl" class="breadcrumb--active">@ViewBag.Action</a>
     </div>
     <!-- END: Breadcrumb -->
+    <!-- BEGIN: Notifications -->
+    <div class="intro-x dropdown mr-auto sm:mr-6">
+        <div class="dropdown-toggle notification cursor-pointer" role="button" aria-expanded="false"> <i data-feather="lock" class="locked dark:text-gray-300"></i> </div>
+        <div class="notification-content pt-2 dropdown-menu">
+            <div class="notification-content__box dropdown-menu__content box dark:bg-dark-6">
+                <div class="notification-content__title">Default Language</div>
+                <form asp-controller="Admin" asp-action="Languange" method="post">
+                    <input type="hidden" asp-for="@Model.Id" value="@_workContext.CurrentUser.Id" />
+                    <input type="hidden" asp-for="@Model.LandingPageModel.Language.ReturnUrl" value="refresh" />
+                    <select asp-for="@Model.LandingPageModel.Language.Id" asp-items="@Model.LandingPageModel.Language.AvailableLanguages" class="form-control" onchange="this.form.submit();">
+                        @*<option> Select Language</option>
+                        <option value="3" id="english" onchange="this.form.submit()">English</option>
+                        <option value="5" id="spanish" onchange="this.form.submit()">Spanish</option>*@
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END: Notifications -->
     <!-- BEGIN: Account Menu -->
 
     <div class="intro-x dropdown w-8 h-8">
         <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg " role="button" aria-expanded="false">
-            <i class="fa fa-user fa-2x" ></i>
+            <i class="fa fa-user fa-2x"></i>
         </div>
         <div class="dropdown-menu w-56">
             <div class="dropdown-menu__content box dark:bg-dark-6">

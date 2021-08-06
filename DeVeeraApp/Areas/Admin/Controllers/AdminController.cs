@@ -1,10 +1,13 @@
 ﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Core.Domain.Users;
 using CRM.Services.Authentication;
 using CRM.Services.Message;
+using CRM.Services.Settings;
 using CRM.Services.Users;
 using DeVeeraApp.Filters;
 using DeVeeraApp.Utils;
+using DeVeeraApp.ViewModels;
 using DeVeeraApp.ViewModels.Admin;
 using DeVeeraApp.ViewModels.Common;
 using DeVeeraApp.ViewModels.User;
@@ -26,6 +29,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IUserPasswordService _userPasswordService;
         private readonly INotificationService _notificationService;
         private readonly IWorkContext _workContext;
+        private readonly ISettingService _settingService;
         #endregion
 
         #region ctor
@@ -34,6 +38,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                IWorkContext workContext,
                                IHttpContextAccessor httpContextAccessor,
                                IAuthenticationService authenticationService,
+                               ISettingService settingService,
                                INotificationService notificationService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -42,6 +47,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _userPasswordService = userPasswordService;
             _notificationService = notificationService;
             _workContext = workContext;
+            _settingService = settingService;
         }
 
         #endregion
@@ -389,5 +395,44 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
         #endregion
+
+        [HttpPost]
+        public IActionResult Languange(UserModel model)
+        {
+            if (model.LandingPageModel.Language.Id != 0)
+            {
+                if (model.Id != 0)
+                {
+                    var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == model.Id).FirstOrDefault();
+                    if (userLanguage != null)
+                    {
+                        userLanguage.UserId = model.Id;
+                        userLanguage.LanguageId = model.LandingPageModel.Language.Id;
+                        _settingService.UpdateSetting(userLanguage);
+                    }
+                    else
+                    {
+                        var settingData = new Setting
+                        {
+                            UserId = model.Id,
+                            LanguageId = model.LandingPageModel.Language.Id
+                        };
+                        _settingService.InsertSetting(settingData);
+                    }
+                }
+                else
+                {
+                    var guestLanguage = _settingService.GetSetting();
+                    if (guestLanguage != null)
+                    {
+                        guestLanguage.LanguageId = model.LandingPageModel.Language.Id;
+                        _settingService.UpdateSetting(guestLanguage);
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                }
+
+            }
+            return RedirectToAction("Index", "Home", new { area = "Admin" });
+        }
     }
 }
