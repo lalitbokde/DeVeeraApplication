@@ -58,7 +58,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Content -->
         <div class="content">
             @*<vc:top-bar></vc:top-bar>*@
-            @await Component.InvokeAsync("TopBar")
+            @await Component.InvokeAsync("TopBar", new DeVeeraApp.ViewModels.User.UserModel())
 
             @RenderBody()
         </div>
