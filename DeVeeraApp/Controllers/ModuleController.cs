@@ -70,11 +70,11 @@ namespace DeVeeraApp.Controllers
             var moduleData = data.ToModel<ModulesModel>();
            
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
-            if (userLanguage !=null)
+            if (userLanguage !=null) 
             {
                 if (userLanguage.LanguageId == 5)
             {
-                moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
+                 moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
             }
             }
             Diary diary = new Diary();

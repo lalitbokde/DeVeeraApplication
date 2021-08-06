@@ -16,7 +16,7 @@
                 <h2>@T(Model.Title)</h2>
                 <ul>
                     <li>
-                        <a asp-controller="Dashboard" asp-action="Index">@("Home")</a>
+                        <a asp-controller="Dashboard" asp-action="Index">@T("Home")</a>
                     </li>
                     <li>@T(Model.Title)</li>
                 </ul>
@@ -105,7 +105,7 @@
 
                                     @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; }
                                     <img src="@prevImageUrl" alt="image">
-                                    <span class="post-nav-title">Prev</span>
+                                    <span class="post-nav-title">@T("Prev")</span>
                                 </span>
 
                                 <span class="prev-link-info-wrapper">
@@ -127,7 +127,7 @@
                                 <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo">
                                     <span class="next-link-info-wrapper">
                                         <span class="next-title">
-                                            @Model.ModuleList.FirstOrDefault().Title
+                                            @T(Model.ModuleList.FirstOrDefault().Title)
                                         </span>
                                     </span>
 
@@ -178,7 +178,7 @@
         <div class="container-fluid">
             <div class="section-title">
                 <h2>@T("Modules for this session")</h2>
-                <p>@Description</p>
+                <p>@T(Description)</p>
             </div>
 
             <div class="products-slides owl-carousel owl-theme">

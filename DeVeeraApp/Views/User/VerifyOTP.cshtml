@@ -88,7 +88,7 @@
                         <img src="/assets/images/logo.jpg" alt="logo" style="margin-right:80px" width="300" height="300">
                     </div>
                     <div style="margin-right:20px">
-                        <h2>Enter Your OTP</h2>
+                        <h2>@T("Enter Your OTP")</h2>
                     </div>
 
                     <form asp-controller="User" asp-action="VerifyOTP" method="post" class="OtpForm">
@@ -118,11 +118,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="default-btn mt-3 verifybtn">Verify</button>
+                        <button type="submit" class="default-btn mt-3 verifybtn">@T("Verify")</button>
 
                         <div class="intro-y " style="margin-left: 500px; ">
                             <div class="m-2">
-                                <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">Resend OTP</a>
+                                <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
                             </div>
                         </div>
                     </form>
