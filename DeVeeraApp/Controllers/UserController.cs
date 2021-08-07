@@ -285,9 +285,14 @@ namespace DeVeeraApp.Controllers
                 return RedirectToAction("Register", "User");
 
             }
-            var verifymobno = model.countryCode + model.MobileNumber;
-            if (_UserService.GetUserByMobileNo(verifymobno) == null)
+
+            if (_UserService.GetUserByEmail(model.Email) != null)
             {
+                TempData["Email"] = "Email Already Registered";
+                return RedirectToAction("Register");
+            }
+                var verifymobno = model.countryCode + model.MobileNumber;
+
                 var verification =
                     await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
@@ -428,6 +433,11 @@ namespace DeVeeraApp.Controllers
                                 ModelState.AddModelError("", "Not Allowed");
                                 break;
                         }
+                    }
+                    else
+                    {
+                        TempData["Email"] = "Email Already Exists";
+                        return RedirectToAction("Register");
                     }
 
                 }

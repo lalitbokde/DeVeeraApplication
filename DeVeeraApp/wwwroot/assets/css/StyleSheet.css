@@ -132,6 +132,10 @@
 .dudp__wrapper[data-theme='blue'] .dudp__buttons .dudp__button, .dudp__wrapper[data-theme='blue'] .dudp__months-view .dudp__month.selected, .dudp__wrapper[data-theme='blue'] .dudp__years-view .dudp__year.selected {
     color: black;
 }
+.temp {
+    color:red;
+   font:bold;
+}
 /*.dudp__date.current {
     background-color: #F0B9B2 !important;
 }
