@@ -164,11 +164,12 @@
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ready(function () {
+   
 
-        function resendOTP(){
+    function resendOTP() {
+            debugger
             $.ajax({
-                url: '@Url.Content("~/ResendOTP")',
+                url: "/User/ResendOTP",
                 method: 'POST',
                 data: {
                   channel: $('input[name=channel]').val()
@@ -185,7 +186,7 @@
                 }
             })
         }
-    });
+    
     function showMessages(messages) {
         $('#messages').html(
             '<ul>' + messages.map(function(message){ return '<li>'+message+'</li>' }).join('') + '</ul>'

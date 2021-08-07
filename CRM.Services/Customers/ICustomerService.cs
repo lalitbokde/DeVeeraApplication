@@ -117,7 +117,7 @@ namespace CRM.Services.Users
         /// </summary>
         /// <param name="User">User</param>
         void UpdateUser(User User);
-
+        User GetUserByMobileNo(string MobileNo);
 
 
         #endregion
