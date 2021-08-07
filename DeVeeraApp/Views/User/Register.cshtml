@@ -1,7 +1,8 @@
 ﻿@model DeVeeraApp.ViewModels.User.UserModel
 @using DeVeeraApp.ViewModels.User
-@{
 
+@{
+    ViewData["Title"] = "Register";
 }
 
 <style>
@@ -68,7 +69,7 @@
     <div class="container">
         <div class="register-form">
             <h2>@T("Register")</h2>
-
+           
             <form asp-controller="User" asp-action="SendOTP" method="post">
                 <input type="hidden" asp-for="UserRoleId" value="1" />
 
@@ -83,7 +84,7 @@
                     <label>@T("Mobile Number")</label>
                     <div class="row ">
                         <div class="col-lg-5 ">
-                            <select asp-for="@Model.countryCode" class="form-control select2 select2-hidden-accessible" style="width: 220px ;" tabindex="-1" aria-hidden="true">
+                            <select asp-for="@Model.countryCode"  class="form-control select2 select2-hidden-accessible" style="width: 220px ;" tabindex="-1" aria-hidden="true">
 
                                 <option data-countryCode="US" value="+1" selected="selected">USA (+1)</option>
                                 <option data-countryCode="GB" value="+44">UK (+44)</option>
@@ -306,9 +307,10 @@
                             <span asp-validation-for="countryCode" class="text-theme-21 mt-2"></span>
                         </div>
 
-                        <div class="col-lg-7" >
-                            <input type="text" asp-for="@Model.MobileNumber" onkeydown="return isNumberKey(this, event);" maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
+                        <div class="col-lg-7">
+                            <input type="text" id=" mobile" asp-for="@Model.MobileNumber" onkeydown="return isNumberKey(this, event)  ;" maxlength="10" class="form-control iti1  w-full " required placeholder="@T("Mobile Number")">
                             <span asp-validation-for="MobileNumber" class="text-theme-21 mt-2"></span>
+                            <p id="temp" class="alert-danger"> @TempData["Message"]  </p>
 
                         </div>
                     </div>
@@ -321,7 +323,7 @@
 
                 <p class="description">@T("The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers")</p>
 
-                <button type="submit">@T("Register Now")</button>
+                <button onclick="MobileRegister()" type="submit">@T("Register Now")</button>
             </form>
         </div>
     </div>
@@ -357,6 +359,12 @@
         return false;
     }
 </script>
+<script type="text/javascript">
+    $("#temp").show().delay(4000).fadeOut();
+</script>
+
+
+
 
 
 <!-- End Register Area -->

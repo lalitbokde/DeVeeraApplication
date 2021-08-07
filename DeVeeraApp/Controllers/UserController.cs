@@ -286,17 +286,19 @@ namespace DeVeeraApp.Controllers
 
             }
             var verifymobno = model.countryCode + model.MobileNumber;
-            var verification =
+            if (_UserService.GetUserByMobileNo(verifymobno) == null)
+            {
+                var verification =
                     await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-            if (verification.IsValid == true)
-            {
+                if (verification.IsValid == true)
+                {
 
-            }
-            else
-            {
-                return RedirectToAction("Register", "User");
-            }
+                }
+                else
+                {
+                    return RedirectToAction("Register", "User");
+                }
 
                 return RedirectToAction(nameof(VerifyOTP),
                                                  new UserModel
@@ -305,10 +307,17 @@ namespace DeVeeraApp.Controllers
                                                      Email = model.Email,
                                                      ConfirmPassword = model.ConfirmPassword
                                                  });
-            
+
+            }
+            else
+            {
+                TempData["Message"] = "Mobile Number is already Registered";
+                return RedirectToAction("Register");
+            }
+           
         }
 
-
+        
         public IActionResult VerifyOTP(UserModel model)
         {
             UserPassword password = new UserPassword
@@ -317,27 +326,25 @@ namespace DeVeeraApp.Controllers
                 CreatedOnUtc = DateTime.UtcNow,
             };
             model.UserPassword = password;
-           
+
             return View(model);
         }
 
         [HttpPost]
         public async Task<VerificationResult> ResendOTP(string channel)
         {
-            var user =  _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+            var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+            return await _verificationService.StartVerificationAsync(user.MobileNumber, channel);
 
-           
-                return await _verificationService.StartVerificationAsync(user.MobileNumber, channel);
-            
 
-           // return new VerificationResult(new List<string> { "Your phone number is already verified" });
+            // return new VerificationResult(new List<string> { "Your phone number is already verified" });
         }
 
 
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP)
         {
-         
+
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
             var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
             if (result.IsValid)
@@ -349,7 +356,7 @@ namespace DeVeeraApp.Controllers
                     {
                         ModelState.AddModelError("MobileNumber", "please select country code.!!!");
                     }
-                    if (model.MobileNumber==null) 
+                    if (model.MobileNumber == null)
                     {
                         ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
                     } //validate unique user
@@ -427,6 +434,8 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                     ModelState.AddModelError("Email", "Email Already Exists");
+                   
+
                 }
             }
             return View(model);
@@ -460,7 +469,7 @@ namespace DeVeeraApp.Controllers
                     user.Active = true;
                     user.MobileNumber = model.MobileNumber;
                     _UserService.InsertUser(user);
-                    
+
 
                     // password
                     if (!string.IsNullOrWhiteSpace(model.UserPassword.Password))
@@ -520,7 +529,9 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "Email Already Exists");
+                    //   ModelState.AddModelError("Email", "Email Already Exists");
+                    TempData["Email"] = "Email is already Registered";
+                    return View(model);
                 }
             }
             return View(model);
@@ -604,7 +615,6 @@ namespace DeVeeraApp.Controllers
                     }
                 }
                 PrepareLanguages(model.LandingPageModel.Language);
-
                 return View(model);
 
             }
@@ -673,10 +683,10 @@ namespace DeVeeraApp.Controllers
                 UserId = userId,
                 HeaderImageUrl = HeaderImageUrl,
 
-                Reason = result?.ReasonToSubmit 
+                Reason = result?.ReasonToSubmit
 
             };
-           
+
             return View(model);
         }
 
@@ -701,11 +711,11 @@ namespace DeVeeraApp.Controllers
 
 
                 _UserService.UpdateUser(currentUser);
-               
+
                 _notificationService.SuccessNotification("User info updated successfull.");
                 return RedirectToAction("Next", "Lesson", new { levelno = model.LevelNo, srno = model.SrNo });
             }
-          
+
             return View(model);
         }
 

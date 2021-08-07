@@ -437,6 +437,19 @@ namespace CRM.Services.Users
 
         }
 
+        public User GetUserByMobileNo(string MobileNo)
+        {
+            if (string.IsNullOrWhiteSpace(MobileNo))
+                return null;
+
+            var query = from c in _UserRepository.Table
+                        orderby c.Id
+                        where c.MobileNumber == MobileNo
+                        select c;
+            var User = query.FirstOrDefault();
+            return User;
+        }
+
         #endregion
 
 
