@@ -291,8 +291,9 @@ namespace DeVeeraApp.Controllers
                 TempData["Email"] = "Email Already Registered";
                 return RedirectToAction("Register");
             }
-                var verifymobno = model.countryCode + model.MobileNumber;
-
+            var verifymobno = model.countryCode + model.MobileNumber;
+            if (_UserService.GetUserByMobileNo(verifymobno) == null)
+            {
                 var verification =
                     await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
@@ -319,10 +320,11 @@ namespace DeVeeraApp.Controllers
                 TempData["Message"] = "Mobile Number is already Registered";
                 return RedirectToAction("Register");
             }
-           
+
         }
 
-        
+
+
         public IActionResult VerifyOTP(UserModel model)
         {
             UserPassword password = new UserPassword
