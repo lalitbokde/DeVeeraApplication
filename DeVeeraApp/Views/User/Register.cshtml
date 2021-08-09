@@ -69,7 +69,7 @@
     <div class="container">
         <div class="register-form">
             <h2>@T("Register")</h2>
-           
+
             <form asp-controller="User" asp-action="SendOTP" method="post">
                 <input type="hidden" asp-for="UserRoleId" value="1" />
 
@@ -85,7 +85,7 @@
                     <label>@T("Mobile Number")</label>
                     <div class="row ">
                         <div class="col-lg-5 ">
-                            <select asp-for="@Model.countryCode"  class="form-control select2 select2-hidden-accessible" style="width: 220px ;" tabindex="-1" aria-hidden="true">
+                            <select asp-for="@Model.countryCode" class="form-control select2 select2-hidden-accessible" style="width: 220px ;" tabindex="-1" aria-hidden="true">
 
                                 <option data-countryCode="US" value="+1" selected="selected">USA (+1)</option>
                                 <option data-countryCode="GB" value="+44">UK (+44)</option>
@@ -313,7 +313,7 @@
                             <input type="text" asp-for="@Model.MobileNumber" onkeydown="return isNumberKey(this, event);" maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
 
                             <span asp-validation-for="MobileNumber" class="text-theme-21 mt-2"></span>
-                            <p id="temp" class="alert-danger"> @TempData["Message"]  </p>
+                            <p id="temp" class="temp"> @TempData["Message"]  </p>
 
                         </div>
                     </div>
@@ -365,17 +365,22 @@
 </script>
 
 @*@if (TempData["Email"] != null)
-{
-    <script>
-        window.setTimeout(function () {
-            window.location.href = '/User/Login';
-        }, 5000);
-    </script>
-}*@
+    {
+        <script>
+            window.setTimeout(function () {
+                window.location.href = '/User/Login';
+            }, 5000);
+        </script>
+    }*@
 <link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
 
 <script>
     $("#email").show("slow").delay(4000).hide("slow");
+    $("#temp").show().delay(4000).fadeOut();
 </script>
+@*<script type="text/javascript">
+   
+</script>*@
+
 
 <!-- End Register Area -->
