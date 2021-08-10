@@ -183,13 +183,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 {
                     var model = data.ToModel<WeeklyUpdateModel>();
                     model.SpanishTitleLogin = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                    model.SpanishSubtitleLogin = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                    model.SpanishSubtitleLogin = _localStringResourcesServices.GetResourceValueByResourceNameScreen(data.Subtitle);
                     model.QuoteRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
                     model.TitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                    model.SubtitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                    model.SubtitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(data.Subtitle);
                     model.VideoHeaderRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.VideoHeader);
                     model.TitleSpanishLanding=_localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                    model.SubtitleSpanishLanding = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                    model.SubtitleSpanishLanding = _localStringResourcesServices.GetResourceValueByResourceNameScreen(data.Subtitle);
                     PrepareVideo(model);
                     PrepareImageUrls(model);
                     return View(model);
@@ -243,7 +243,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.BodyImageId = model.BodyImageId;
                 val.QuoteId = model.QuoteId;
                 val.Quote = model.Quote;
-                val.Subtitle = model.Subtitle;
+               
                 val.VideoHeader = model.VideoHeader;
 
 
@@ -342,9 +342,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             model.Title = _translationService.TranslateLevel(weeklyUpdate.Title, key);
             model.Subtitle = _translationService.TranslateLevel(weeklyUpdate.Subtitle, key);
-        
-            model.VideoHeader = _translationService.TranslateLevel(weeklyUpdate.VideoHeader, key);
-
             return Json(model);
 
         }

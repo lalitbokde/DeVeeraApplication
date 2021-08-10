@@ -12,6 +12,7 @@ namespace CRM.Services
         LocaleStringResource GetLocalStringResourceById(int? Id);
         string GetLocalStringResourceByResourceName(string ResourceName);
         string GetResourceValueByResourceName(string ResourceName);
+        string GetResourceValueByResourceNameScreen(string ResourceName);
 
     }
 }

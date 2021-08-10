@@ -606,7 +606,7 @@
     function TranslateSpanishCreateLogin() {
         debugger
         var Title = document.getElementById('titlelogin').value;
-        var Quote = document.getElementById('quoteslogin').value;
+       
         $.ajax({
             url: "/Admin/WeeklyUpdate/TranslateEnglishCreateLogin",
             type: "POST",
@@ -615,7 +615,7 @@
             success: function (data, status) {
 
                 $("#titleSpanishLogin").val(data.title);
-                $("#quotesLoginspanish").val(data.quote);
+              
             },
 
 
