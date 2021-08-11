@@ -255,7 +255,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.BannerImageUrl = _imageMasterService.GetImageById(module.BannerImageId)?.ImageUrl;
                     model.Modules.VideoThumbImageUrl = _imageMasterService.GetImageById(module.VideoThumbImageId)?.ImageUrl;
                     model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
-                   model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
+                    model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
                     model.SpanishFullDescriptionModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.FullDescription);
               
                 }
@@ -301,7 +301,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 /// This is used for translate English To spanish
                 _translationService.Translate(levelData.Title, model.SpanishTitle);
-                _translationService.Translate(levelData.Subtitle, model.SpanishTitleModule);
+                //_translationService.Translate(levelData.Subtitle, model.SpanishTitleModule);
                 _translationService.Translate(levelData.FullDescription, model.SpanishFullDescription);
                 //foreach (var result in model.ImageLists.Where(a=>a.Selected==true))
                 //    {
@@ -536,6 +536,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             // model.LevelNo  = _translationService.TranslateLevel(level.LevelNo, key);
             model.Title = _translationService.TranslateLevel(level.Title, key);
             model.Subtitle = _translationService.TranslateLevel(level.Subtitle, key);
+            model.FullDescription = _translationService.TranslateLevel(level.FullDescription, key);
             return Json(model);
             //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
@@ -547,6 +548,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             // model.LevelNo  = _translationService.TranslateLevel(level.LevelNo, key);
             model.Title = _translationService.TranslateLevel(level.Title, key);
             model.Subtitle = _translationService.TranslateLevel(level.Subtitle, key);
+            model.FullDescription = _translationService.TranslateLevel(level.FullDescription, key);
             return Json(model);
             //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
@@ -568,10 +570,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             LevelModel model = new LevelModel();
 
             // model.LevelNo  = _translationService.TranslateLevel(level.LevelNo, key);
-            model.Title = _translationService.TranslateLevel(level.Title, key);
-            model.FullDescription = _translationService.TranslateLevel(level.FullDescription, key);
+            model.Title = _translationService.TranslateLevelSpanish(level.Title, key);
+            model.FullDescription = _translationService.TranslateLevelSpanish(level.FullDescription, key);
             return Json(model);
-            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
         #endregion
         #endregion

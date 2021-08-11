@@ -22,54 +22,80 @@
                         <div asp-validation-summary="All" class="text-theme-6 mt-4">
                         </div>
                     }
-                <div class="grid grid-cols-12 gap-4">
-                    <div class="col-span-6 mt-5">
-                        <div>
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
 
-                            <a onclick="TranslateSpanishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                <a onclick="TranslateSpanishCreate()" class="btn btn-primary w-40 " style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                            </div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
+                            <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                            <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>
                         </div>
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
-                        <input asp-for="@Model.LevelNo" type="number" class="form-control ">
-                        <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>
-                    </div>
 
-                    <div class="col-span-6 mt-5">
-                        <div>
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
-                            <a class="btn btn-primary w-40" onclick="TranslateEnglishCreate()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                <a class="btn btn-primary w-40" onclick="TranslateEnglishCreate()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                            </div>
+                            @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
+                                <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                                <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
+
                         </div>
-                        @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
-            <input asp-for="@Model.LevelNo" type="number" class="form-control ">
-            <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
+                        <div class="col-span-6 mt-5">
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                            <input id="Createtitle" asp-for="@Model.Title" type="text" class="form-control" placeholder="Title">
+                            <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            <p id="Titletag" class="temp"></p>
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                            <input id="titleSpanish" asp-for="@Model.Title" type="text" class="form-control title" placeholder="Title">
+                            <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                            <p id="TitletagSpan" class="temp"></p>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                            <input id="subtitlespanish" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="Subtitle">
+                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                            <p id="Subtitletag" class="temp"></p>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                            <input id="subtitleenglish" asp-for="@Model.Subtitle" type="text" class="form-control subtitleenglish" placeholder="Subtitle">
+                            @*<span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>*@
+                            <p id="SubtitletagSpan" class="temp"></p>
+                        </div>
+
 
                     </div>
-                    <div class="col-span-6 mt-5">
 
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                        <input id="Createtitle" asp-for="@Model.Title" type="text" class="form-control" placeholder="Title">
-                        <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorEnglish" asp-for="FullDescription" class="editorEnglish editorEnglishLevel"> </textarea>
+                                    <p id="FullDescriptiontag" class="temp"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
+
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorSpanish" asp-for="SpanishFullDescription" class="editorSpanish SpanishFullDescription"> </textarea>
+                                    <p id="FullDescriptiontagSpan" class="temp"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="col-span-6 mt-5">
-
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                        <input id="titleSpanish" asp-for="@Model.Title" type="text" class="form-control title" placeholder="Title">
-                        <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
-                    </div>
-                    <div class="col-span-6 mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                        <input id="subtitlespanish" asp-for="@Model.Subtitle" type="text" class="form-control" placeholder="Subtitle">
-                        <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
-                    </div>
-                    <div class="col-span-6 mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
-                        <input id="subtitleenglish" asp-for="@Model.Subtitle" type="text" class="form-control subtitleenglish" placeholder="Subtitle">
-                        <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
-                    </div>
-
-
-                </div>
                     <div class="mt-5">
 
                         <label class="form-label text-theme-21 star">Video</label>
@@ -125,25 +151,16 @@
                     </div>
 
                     @*<div class="mt-3">
-            <label for="post-form-3" class="form-label text-theme-21">Images</label>
-            @Html.ListBoxFor(m => m.SelectedImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
+                            <label for="post-form-3" class="form-label text-theme-21">Images</label>
+                            @Html.ListBoxFor(m => m.SelectedImg, @Model.AvailableImages, new { @Id = "post-form-3", @class = "tail-select w-full", @placeholder = "Select Images" })
 
-        </div>*@
+                        </div>*@
                     <div class="mt-5">
                         <input asp-for="Active" type="checkbox" class="form-check-input" placeholder="IsActive" checked="checked" />
                         <label class="form-label text-theme-21 ml-2">Active</label>
                     </div>
 
-                    <div class="mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
-                    </div>
-                    <div class="" id="standard-editor">
-                        <div class="preview">
-                            <textarea id="editorEnglish" asp-for="FullDescription" class="editorEnglish"> </textarea>
 
-                        </div>
-
-                    </div>
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12  gap-y-5 mt-5">
                             <div class="intro-y   col-span-6">
@@ -174,7 +191,7 @@
 </form>
 
 @await Component.InvokeAsync("ImageSelection")
-
+<link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
 <script src="~/dist/js/Level.js"></script>
@@ -184,45 +201,77 @@
 
         var Title = document.getElementById('Createtitle').value;
         var Subtitle = document.getElementById('subtitlespanish').value;
-       
-        $.ajax({
-            url: "/Admin/Level/TranslateSpanishCreate",
-            type: "POST",
-            data: { Title, Subtitle},
+        /*   var FullDescription = document.getElementById('editorEnglish').value;*/
+        var FullDescription = CKEDITOR.instances.editorEnglish.getData();
+        if (Title == null || Title == '') {
+            document.getElementById("Titletag").innerHTML = "Please Enter Title.";
+        }
 
-            success: function (data, status) {
-                $("#titleSpanish").val(data.title);
-                $(".subtitleenglish").val(data.subtitle);
-               
-            },
+        if (Subtitle == null || Subtitle == '') {
+            document.getElementById("Subtitletag").innerHTML = "Please Enter Subtitle.";
+        }
+        if (FullDescription == null || FullDescription == '') {
+            document.getElementById("FullDescriptiontag").innerHTML = "Please Enter Description.";
+        }
+        else if (Title != null || Title != '' && Subtitle != null || Subtitle != '' && FullDescription != null || FullDescription != '') {
+
+            $.ajax({
+                url: "/Admin/Level/TranslateSpanishCreate",
+                type: "POST",
+                data: { Title, Subtitle, FullDescription },
+
+                success: function (data, status) {
+                    $("#titleSpanish").val(data.title);
+                    $(".subtitleenglish").val(data.subtitle);
+                    CKEDITOR.instances['editorSpanish'].setData(data.fullDescription);
+                },
 
 
-        });
+            });
+        }
+
+
+
+
     }
 
 </script>
-
+@*<script>
+    $("#Titletag").show("slow").delay(4000).hide("slow");
+</script>*@
 <script type="text/javascript">
 
     function TranslateEnglishCreate() {
 
         var Title = document.getElementById('titleSpanish').value;
         var Subtitle = document.getElementById('subtitleenglish').value;
+        var FullDescription = CKEDITOR.instances.editorSpanish.getData();
+        if (Title == null || Title == '') {
+            document.getElementById("TitletagSpan").innerHTML = "Please Enter Title.";
+        }
 
-        $.ajax({
-            url: "/Admin/Level/TranslateEnglishCreate",
-            type: "POST",
-            data: { Title, Subtitle },
+        if (Subtitle == null || Subtitle == '') {
+            document.getElementById("SubtitletagSpan").innerHTML = "Please Enter Subtitle.";
+        }
+        if (FullDescription == null || FullDescription == '') {
+            document.getElementById("FullDescriptiontagSpan").innerHTML = "Please Enter Description.";
+        }
+        else if (Title != null || Title != '' && Subtitle != null || Subtitle != '' && FullDescription != null || FullDescription != '') {
 
-            success: function (data, status) {
-                $("#titleSpanishCreatetitle").val(data.title);
-                $("#subtitlespanish").val(data.subtitle);
+            $.ajax({
+                url: "/Admin/Level/TranslateEnglishCreate",
+                type: "POST",
+                data: { Title, Subtitle, FullDescription },
 
-            },
+                success: function (data, status) {
+                    $("#Createtitle").val(data.title);
+                    $("#subtitlespanish").val(data.subtitle);
+                    CKEDITOR.instances['editorEnglish'].setData(data.fullDescription);
+                },
 
 
-        });
+            });
+        }
     }
 
 </script>
-

@@ -58,7 +58,7 @@ function InActiveAllImage() {
 }
 
 function hideshowqoutetrans() {
-    debugger
+   
     var val = $('#randomquotespanish').is(':checked');
     if (val == true) {
         $('#quotesspanish').addClass('hidden', true)
@@ -67,7 +67,7 @@ function hideshowqoutetrans() {
     }
 }
 function hideshowqoutetrans() {
-    debugger
+    
     var val = $('#randomquotespanish').is(':checked');
     if (val == true) {
         $('#quotesspanish').addClass('hidden', true)
@@ -76,7 +76,7 @@ function hideshowqoutetrans() {
     }
 }
 function hideshowqoute() {
-    debugger
+   
     var val = $('#randomquote').is(':checked'); 
     if (val == true) {
         $('#quotes').addClass('hidden', true)
@@ -85,11 +85,20 @@ function hideshowqoute() {
     }
 }
 function hideshowqouteregist() {
-    debugger
+   
     var val = $('#randomquote').is(':checked');
     if (val == true) {
         $('#quotesregistraion').addClass('hidden', true)
     } else {
         $('#quotesregistraion').removeClass('hidden', true)
+    }
+}
+function hideshowqouteSpanish() {
+    debugger
+    var val = $('#randomquoteSpanish').is(':checked');
+    if (val == true) {
+        $('#quotesSpanish').addClass('hidden', true)
+    } else {
+        $('#quotesSpanish').removeClass('hidden', true)
     }
 }

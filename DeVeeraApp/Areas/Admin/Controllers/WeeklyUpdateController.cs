@@ -325,7 +325,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
         [HttpPost]
-        public IActionResult TranslateEnglishCreateRegistration(WeeklyUpdate weeklyUpdate)
+        public IActionResult TranslateEnglishCreate(WeeklyUpdate weeklyUpdate)
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             model.Title = _translationService.TranslateLevelSpanish(weeklyUpdate.Title, key);
@@ -352,8 +352,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             WeeklyUpdateModel model = new WeeklyUpdateModel();
 
             model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
-           
-           
+            model.Quote = _translationService.TranslateLevel(weeklyupdate.Quote, key);
             return Json(model);
 
         }
