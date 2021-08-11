@@ -53,7 +53,7 @@ namespace DeVeeraApp.ViewModels
         [Required(ErrorMessage = "Enter the sub title")]
         public string Subtitle { get; set; }
         public string SpanishTitle { get; set; }
-        [Required(ErrorMessage = "Enter the sub title")]
+       // [Required(ErrorMessage = "Enter the sub title")]
         public string SpanishSubtitle { get; set; }
 
         public string SpanishTitleModule { get; set; }
