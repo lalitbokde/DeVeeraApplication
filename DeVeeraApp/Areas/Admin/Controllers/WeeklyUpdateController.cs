@@ -358,6 +358,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
         [HttpPost]
+        public IActionResult TranslateEnglishEditLogin(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
+
+
+            return Json(model);
+
+        }
+        [HttpPost]
         public IActionResult TranslateSpanishCreateLogin(WeeklyUpdate weeklyupdate)
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
