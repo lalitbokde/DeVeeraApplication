@@ -396,6 +396,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.VideoThumbImageId = model.Modules.VideoThumbImageId;
                     modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
                     modules.FullDescription = model.Modules.FullDescription;
+                    
                     _moduleServices.UpdateModule(modules);
                     _translationService.Translate(modules.Title, model.SpanishTitleModule);
                     _translationService.Translate(modules.FullDescription, model.SpanishFullDescriptionModule);

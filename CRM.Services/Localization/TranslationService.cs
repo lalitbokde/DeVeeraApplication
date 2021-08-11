@@ -31,16 +31,26 @@ namespace CRM.Services.Localization
 
             ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
             //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
-
-            LocaleStringResource data = new LocaleStringResource()
+            var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
+           
+           
+            if (matchvalue  !=null) 
             {
-                LanguageId = 5,
-                ResourceName = translationStrings,
-                ResourceValue = key
-            };
-            _localStringResourcesServices.InsertLocalStringResource(data);
+                matchvalue.ResourceValue = key;
+                _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
+            }
+            else
+            {
+                LocaleStringResource data = new LocaleStringResource()
+                {
+                    LanguageId = 5,
+                    ResourceName = translationStrings,
+                    ResourceValue = key
+                };
+                _localStringResourcesServices.InsertLocalStringResource(data);
 
-        
+            }
+
         }
 
         public string TranslateLevel(string translationStrings, string key)

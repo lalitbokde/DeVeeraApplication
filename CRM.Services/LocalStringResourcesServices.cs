@@ -44,13 +44,22 @@ namespace CRM.Services
 
             return _repository.GetById(Id);
         }
+        public LocaleStringResource GetLocalStringResourceByKey(string ResourceName)
+        {
+            var query = from vdo in _repository.Table
+                        where vdo.ResourceName == ResourceName
+                        orderby vdo.ResourceName
+                        select vdo;
+            var stories = query.LastOrDefault();
+            return stories ;
+        }
         public string GetLocalStringResourceByResourceName(string ResourceName)
         {
             var query = from vdo in _repository.Table
                         where vdo.ResourceName == ResourceName
                         orderby vdo.ResourceName
                         select vdo;
-            var stories = query.FirstOrDefault();
+            var stories = query.LastOrDefault();
             return stories!=null ? stories.ResourceName: ResourceName;
         }
         public string GetResourceValueByResourceName(string ResourceName)
@@ -59,7 +68,7 @@ namespace CRM.Services
                         where vdo.ResourceName == ResourceName
                         orderby vdo.ResourceName
                         select vdo;
-            var stories = query.FirstOrDefault();
+            var stories = query.LastOrDefault();
             return stories != null ? stories.ResourceValue : ResourceName;
         }
         public string GetResourceValueByResourceNameScreen(string ResourceName)
