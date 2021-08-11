@@ -632,7 +632,14 @@
 
         var Title = document.getElementById('titlelogin').value;
        
+
         var Quote = document.getElementById('quoteslogin').value;
+
+        $.ajax({
+            url: "/Admin/WeeklyUpdate/TranslateEnglishCreateLogin",
+            type: "POST",
+            data: { Title, Quote },
+
 
         if (Title == null || Title == '') {
             document.getElementById("TitleEngWBS").innerHTML = "Please Enter Title.";
@@ -650,6 +657,7 @@
                     $("#titleSpanishLogin").val(data.title);
                     $("#quotesLoginspanish").val(data.quote);
                 },
+
 
 
             });
