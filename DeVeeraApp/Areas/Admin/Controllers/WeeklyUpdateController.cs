@@ -182,13 +182,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<WeeklyUpdateModel>();
-                    model.SpanishTitleLogin = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                    model.SpanishTitleLogin = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
                     model.SpanishSubtitleLogin = _localStringResourcesServices.GetResourceValueByResourceNameScreen(data.Subtitle);
-                    model.QuoteRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
-                    model.TitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                    model.SubtitleRegistration= _localStringResourcesServices.GetResourceValueByResourceName(data.Subtitle);
-                    model.VideoHeaderRegistration= _localStringResourcesServices.GetResourceValueByResourceName(model.VideoHeader);
-                    model.TitleSpanishLanding=_localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                    model.QuoteRegistration= _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Quote);
+                    model.TitleRegistration= _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
+                    model.SubtitleRegistration= _localStringResourcesServices.GetResourceValueByResourceNameScreen(data.Subtitle);
+                    model.VideoHeaderRegistration= _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.VideoHeader);
+                    model.TitleSpanishLanding=_localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
                     model.SubtitleSpanishLanding = _localStringResourcesServices.GetResourceValueByResourceNameScreen(data.Subtitle);
                     PrepareVideo(model);
                     PrepareImageUrls(model);
@@ -249,12 +249,39 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);
 
-                _translationService.Translate(val.Title, model.TitleRegistration);
-                _translationService.Translate(val.Subtitle, model.SubtitleRegistration);
-                _translationService.Translate(val.Quote, model.QuoteRegistration);
-                _translationService.Translate(val.VideoHeader, model.VideoHeaderRegistration);
-                _translationService.Translate(val.Title, model.TitleSpanishLanding);
-                _translationService.Translate(val.Subtitle, model.SubtitleSpanishLanding);
+                if (model.SpanishTitleLogin!=null) {
+                _translationService.Translate(val.Title, model.SpanishTitleLogin);
+                }
+                if (model.SpanishSubtitleLogin != null)
+                {
+                    _translationService.Translate(val.Subtitle, model.SpanishSubtitleLogin);
+                }
+                if (model.TitleRegistration != null)
+                {
+                    _translationService.Translate(val.Title, model.TitleRegistration);
+                }
+                if (model.SubtitleRegistration != null)
+                {
+                    _translationService.Translate(val.Subtitle, model.SubtitleRegistration);
+                }
+                if (model.QuoteRegistration != null)
+                {
+                    _translationService.Translate(val.Quote, model.QuoteRegistration);
+                }
+                if (model.VideoHeaderRegistration != null)
+                {
+                    _translationService.Translate(val.VideoHeader, model.VideoHeaderRegistration);
+                }
+                if (model.TitleSpanishLanding != null)
+                {
+                    _translationService.Translate(val.Title, model.TitleSpanishLanding);
+                }
+                if (model.SubtitleSpanishLanding != null)
+                {
+                    _translationService.Translate(val.Subtitle, model.SubtitleSpanishLanding);
+                }
+
+               
 
                 //_translationService.Translate(val.SliderTwoTitle, key);
                 _notificationService.SuccessNotification("Video edited successfully.");

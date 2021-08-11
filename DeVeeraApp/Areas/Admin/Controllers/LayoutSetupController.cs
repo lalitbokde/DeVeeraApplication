@@ -147,10 +147,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<LayoutSetupModel>();
-                    model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                    model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceName(model.Description);
-                    model.FooterDescriptionSpanish = _localStringResourcesServices.GetResourceValueByResourceName(model.FooterDescription);
-                    model.LocationSpanish = _localStringResourcesServices.GetResourceValueByResourceName(model.Location);
+                    model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
+                    model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Description);
+                    model.FooterDescriptionSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.FooterDescription);
+                    model.LocationSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Location);
                     PrepareImageUrls(model);
                     return View(model);
                 }
@@ -195,7 +195,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.PhoneNo = model.PhoneNo;
                 data.FooterImageId = model.FooterImageId;
                 data.FooterDescription = model.FooterDescription;
-
+                data.Title = model.Title;
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);

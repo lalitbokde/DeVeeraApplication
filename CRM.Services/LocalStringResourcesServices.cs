@@ -65,7 +65,7 @@ namespace CRM.Services
         public string GetResourceValueByResourceNameScreen(string ResourceName)
         {
             var query = from vdo in _repository.Table
-                        where vdo.ResourceName == ResourceName
+                        where vdo.ResourceName== ResourceName
                         select vdo;
             var stories = query.LastOrDefault();
             return stories != null ? stories.ResourceValue : ResourceName;
