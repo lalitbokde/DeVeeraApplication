@@ -188,6 +188,14 @@ namespace DeVeeraApp.Controllers
             videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
             foreach (var module in videoData.ModuleList)
             {
+                if (userLanguage != null)
+                {
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        module.Title = _localStringResourcesServices.GetResourceValueByResourceName(module.Title);
+
+                    }
+                }
                 var seletedImages5 = new SelectedImage();
                 var imagesRecord5 = _imageMasterService.GetImageById(module.BannerImageId);
                 if (imagesRecord5 != null)
