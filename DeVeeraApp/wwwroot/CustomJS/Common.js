@@ -1,7 +1,7 @@
 ﻿
 
 function hideloaderfn() {
-    debugger
+   
     $("#loader").hide();
 }
 setTimeout(function () {
@@ -15,7 +15,7 @@ $('.oval').css('display', 'block');
 $('.loader').removeAttr("hidden");
 }
 function ShowLoader(formid) {
-    debugger
+  
     var isValid = $("#" + formid).valid(); 
     debugger
     if (isValid) {

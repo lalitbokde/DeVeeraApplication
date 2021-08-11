@@ -1,5 +1,5 @@
 function ShowDeleteConfirmation(url) {
-    debugger
+
     swal({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -132,7 +132,7 @@ function PostDeleteRegisteredUser(Id) {
 }
 
 function PostDeleteLevel(Id) {
-    debugger
+    
     var jsonData = {
 
         videoId: Id
@@ -143,7 +143,7 @@ function PostDeleteLevel(Id) {
         ,
         function (data, status) {
             if (data.success == true) {
-                debugger
+            
                 if (data.message != null) {
                     swal({
                         type: 'warning',
@@ -194,7 +194,7 @@ function PostDeleteQuote(Id) {
         ,
         function (data, status) {
             if (data.success == true) {
-                debugger
+           
                 if (data.message != null) {
                     swal({
                         type: 'warning',
@@ -243,7 +243,7 @@ function PostDeleteDashboardQuote(Id) {
         ,
         function (data, status) {
             if (data.success == true) {
-                debugger
+             
                 if (data.message != null) {
                     swal({
                         type: 'warning',
@@ -282,7 +282,7 @@ function PostDeleteDashboardQuote(Id) {
 }
 
 function PostDeleteModule(Id) {
-    debugger
+   debugger
     var jsonData = {
 
         id: Id

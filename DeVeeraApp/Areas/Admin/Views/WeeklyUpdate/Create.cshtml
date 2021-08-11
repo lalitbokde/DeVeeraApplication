@@ -11,7 +11,7 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Create Login Video</div>
+                <div class="font-medium text-center text-lg">Create Welcome Back Screen </div>
                 <div class="text-gray-600 text-center mt-2">Please add video to show weekly video after user login</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -30,7 +30,7 @@
                                 <div>
                                     <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
 
-                                    <a onclick="TranslateSpanishCreateLogin()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                    <a onclick="TranslateEnglishCreateLogin()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
                                 </div>
 
                             </div>
@@ -47,6 +47,7 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                 <input asp-for="Title" type="text" id="titlelogin" class="form-control w-full" placeholder="Title" />
                                 <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                                <p id="TitleEngWBS" class="temp"></p>
                             </div>
 
                             <div class="col-span-6 mt-5">
@@ -54,41 +55,25 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                 <input id="titleSpanishLogin" asp-for="@Model.SpanishTitleLogin" type="text" class="form-control title" placeholder="Title">
                                 <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                                <p id="TitleSpanWBS" class="temp"></p>
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
 
                                 <input id="quoteslogin" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
-
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                                <p id="QuoteEngWBS" class="temp"></p>
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
 
                                 <input id="quotesLoginspanish" asp-for="SpanishQuoteLogin" type="text" class="form-control w-full" placeholder="Quote" />
-
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
+                                <p id="QuoteSpanWBS" class="temp"></p>
                             </div>
                         </div>
 
 
-                        @*old*@
-                        <!--<div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" />
-                            <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
-                        </div>
-
-                        <div class="mt-5">
-
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>-->
-                        @*<input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                            <label class="form-label text-theme-21 star">Random Quote</label>*@
-                        <!--<input id="quotes" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
-
-
-                            <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                        </div>-->
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
@@ -184,7 +169,7 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Create Registration Video</div>
+                <div class="font-medium text-center text-lg">Create Welcome Screen</div>
                 <div class="text-gray-600 text-center mt-2">Please add video to show on the weekly video after user Registration</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
@@ -206,6 +191,7 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
                                 <input asp-for="Title" type="text" id="titleRegistration" class="form-control w-full" placeholder="Title" />
                                 <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                                <p id="TitletagSpan" class="temp"></p>
                             </div>
 
                             <div class="col-span-6 mt-5">
@@ -214,44 +200,52 @@
                                     <a onclick="TranslateEnglishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                                 </div>
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                <input asp-for="Title" type="text" id="titleSpanishregistration" titleSpanish class="form-control w-full" placeholder="Title" />
+                                <input asp-for="Title" type="text" id="titleSpanishregistration" class="form-control w-full" placeholder="Title" />
                                 <span asp-validation-for="TitleRegistration" class="text-theme-21 mt-2"></span>
+                                <p id="TitletagEng" class="temp"></p>
+
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
                                 <input asp-for="Subtitle" type="text" id="Subtilteregistration" class="form-control w-full" placeholder="SubTitle" />
                                 <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                                <p id="SubtitletagSpan" class="temp"></p>
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
                                 <input asp-for="Subtitle" type="text" id="SubtitleSpanishregistration" class="form-control w-full" />
                                 <span asp-validation-for="SubtitleRegistration" class="text-theme-21 mt-2"></span>
+                                <p id="SubtitletagEng" class="temp"></p>
+
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
-                                <input id="quotesregistraion" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-
+                                <p id="QuoteSpan" class="temp"></p>
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquoteSpanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqouteSpanish();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
-                                <input id="quotesSpanishregistration" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <input id="quotesSpanish" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>
+                                <p id="QuoteEng" class="temp"></p>
 
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
-                                <input asp-for="VideoHeader" type="text" id="videoheaderregistation" class="form-control w-full" placeholder="Video Header" />
-                                <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
+                                <input asp-for="VideoHeaderRegistration" type="text" id="videoheaderregistation" class="form-control w-full" placeholder="Video Header" />
+                                <span asp-validation-for="VideoHeaderRegistration" class="text-theme-21 mt-2"></span>
+                                <p id="VideoHeaderSpan" class="temp"></p>
                             </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
-                                <input asp-for="VideoHeader" type="text" class="form-control w-full VideoHeaderSpanishR" placeholder="Video Header" />
-                                <span asp-validation-for="VideoHeaderRegistration" class="text-theme-21 mt-2"></span>
+                                <input asp-for="VideoHeader" type="text" id="videoSpanish" class="form-control w-full VideoHeaderSpanishR" placeholder="Video Header" />
+                                <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
+                                <p id="VideoHeaderEng" class="temp"></p>
                             </div>
                         </div>
 
@@ -540,31 +534,47 @@
 
 @await Component.InvokeAsync("ImageSelection")
 @* Registration *@
+<link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
 <script type="text/javascript">
 
     function TranslateSpanish() {
 
         var Title = document.getElementById('titleRegistration').value;
         var Subtitle = document.getElementById('Subtilteregistration').value;
-        var Quote = document.getElementById('quotesregistraion').value;
+        var Quote = document.getElementById('quotes').value;
         var VideoHeader = document.getElementById('videoheaderregistation').value;
+        if (Title == null || Title == '') {
+            document.getElementById("TitletagSpan").innerHTML = "Please Enter Title.";
+        }
 
-        $.ajax({
-            url: "/Admin/WeeklyUpdate/TranslateSpanish",
-            type: "POST",
-            data: { Title, Subtitle, Quote, VideoHeader },
+        if (Subtitle == null || Subtitle == '') {
+            document.getElementById("SubtitletagSpan").innerHTML = "Please Enter Subtitle.";
+        }
+        if (Quote == null || Quote == '') {
+            document.getElementById("QuoteSpan").innerHTML = "Please Enter Quote.";
+        }
 
-            success: function (data, status) {
-                debugger
-                $("#titleSpanishregistration").val(data.title);
-                $("#SubtitleSpanishregistration").val(data.subtitle);
-                $("#quotesSpanishregistration").val(data.quote);
-                $(".VideoHeaderSpanishR").val(data.videoHeader);
+        if (VideoHeader == null || VideoHeader == '') {
+            document.getElementById("VideoHeaderSpan").innerHTML = "Please Enter Video Header.";
+        }
+        else if (Title != null || Title != '' && Subtitle != null || Subtitle != '' && Quote != null || Quote != '' && VideoHeader != null || VideoHeader != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateSpanish",
+                type: "POST",
+                data: { Title, Subtitle, Quote, VideoHeader },
 
-            },
+                success: function (data, status) {
+                    debugger
+                    $("#titleSpanishregistration").val(data.title);
+                    $("#SubtitleSpanishregistration").val(data.subtitle);
+                    $("#quotesSpanish").val(data.quote);
+                    $(".VideoHeaderSpanishR").val(data.videoHeader);
+
+                },
 
 
-        });
+            });
+        }
     }
 
 
@@ -577,71 +587,102 @@
         debugger
         var Title = document.getElementById('titleSpanishregistration').value;
         var Subtitle = document.getElementById('SubtitleSpanishregistration').value;
-        var Quote = document.getElementById('quotesSpanishregistration').value;
-        var VideoHeader = document.getElementById('VideoHeaderSpanishR').value;
+        var Quote = document.getElementById('quotesSpanish').value;
+        var VideoHeader = document.getElementById('videoSpanish').value;
+        if (Title == null || Title == '') {
+            document.getElementById("TitletagEng").innerHTML = "Please Enter Title.";
+        }
 
-        $.ajax({
-            url: "/Admin/WeeklyUpdate/TranslateEnglishCreateRegistration",
-            type: "POST",
-            data: { Title, Subtitle, Quote, VideoHeader },
+        if (Subtitle == null || Subtitle == '') {
+            document.getElementById("SubtitletagEng").innerHTML = "Please Enter Subtitle.";
+        }
+        if (Quote == null || Quote == '') {
+            document.getElementById("QuoteEng").innerHTML = "Please Enter Quote.";
+        }
 
-            success: function (data, status) {
+        if (VideoHeader == null || VideoHeader == '') {
+            document.getElementById("VideoHeaderEng").innerHTML = "Please Enter Video Header.";
+        }
+        else if (Title != null || Title != '' && Subtitle != null || Subtitle != '' && Quote != null || Quote != '' && VideoHeader != null || VideoHeader != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateEnglishCreate",
+                type: "POST",
+                data: { Title, Subtitle, Quote, VideoHeader },
 
-                $("#titleRegistration").val(data.title);
-                $("#Subtilteregistration").val(data.subtitle);
-                $("#quotesregistraion").val(data.quote);
-                $("#videoheaderregistation").val(data.videoheader);
+                success: function (data, status) {
 
-            },
+                    $("#titleRegistration").val(data.title);
+                    $("#Subtilteregistration").val(data.subtitle);
+                    $("#quotes").val(data.quote);
+                    $("#videoheaderregistation").val(data.videoHeader);
+
+                },
 
 
-        });
+            });
+        }
     }
 
 </script>
 
-@* Login *@
-<script type="text/javascript">
-
-    function TranslateSpanishCreateLogin() {
-        debugger
-        var Title = document.getElementById('titlelogin').value;
-        var Quote = document.getElementById('quoteslogin').value;
-        $.ajax({
-            url: "/Admin/WeeklyUpdate/TranslateEnglishCreateLogin",
-            type: "POST",
-            data: { Title, Quote },
-
-            success: function (data, status) {
-
-                $("#titleSpanishLogin").val(data.title);
-                $("#quotesLoginspanish").val(data.quote);
-            },
-
-
-        });
-    }
-
-</script>
+@*  create welcome back screen *@
 <script type="text/javascript">
 
     function TranslateEnglishCreateLogin() {
-        debugger
+
+        var Title = document.getElementById('titlelogin').value;
+       
+        var Quote = document.getElementById('quoteslogin').value;
+
+        if (Title == null || Title == '') {
+            document.getElementById("TitleEngWBS").innerHTML = "Please Enter Title.";
+        }
+        if (Quote == null || Quote == '') {
+            document.getElementById("QuoteEngWBS").innerHTML = "Please Enter Quote.";
+        }
+        else if (Title != null || Title != '' && Quote != null || Quote != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateEnglishCreateLogin",
+                type: "POST",
+                data: { Title, Quote },
+
+                success: function (data, status) {
+                    $("#titleSpanishLogin").val(data.title);
+                    $("#quotesLoginspanish").val(data.quote);
+                },
+
+
+            });
+        }
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateSpanishCreateLogin() {
+        
         var Title = document.getElementById('titleSpanishLogin').value;
         var Quote = document.getElementById('quotesLoginspanish').value;
-        $.ajax({
-            url: "/Admin/WeeklyUpdate/TranslateSpanishCreateLogin",
-            type: "POST",
-            data: { Title, Quote },
+        if (Title == null || Title == '') {
+            document.getElementById("TitleSpanWBS").innerHTML = "Please Enter Title.";
+        }
+        if (Quote == null || Quote == '') {
+            document.getElementById("QuoteSpanWBS").innerHTML = "Please Enter Quote.";
+        }
+        else if (Title != null || Title != '' && Quote != null || Quote != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateSpanishCreateLogin",
+                type: "POST",
+                data: { Title, Quote },
 
-            success: function (data, status) {
+                success: function (data, status) {
+                    $("#titlelogin").val(data.title);
+                    $("#quoteslogin").val(data.quote);
+                },
 
-                $("#titlelogin").val(data.title);
-                $("#quoteslogin").val(data.quote);
-            },
 
-
-        });
+            });
+        }
     }
 
 </script>

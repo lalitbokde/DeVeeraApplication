@@ -223,7 +223,7 @@
                                         <input asp-for="Id" hidden />
                                         <input asp-for="Modules.Id" hidden />
                                         <input asp-for="@Model.Modules.Title" type="text" id="titlemodule" class="form-control w-full" placeholder="Title" />
-
+                                        <p id="Titletag" class="temp"></p>
                                     </div>
 
                                     <div class="mt-5">
@@ -232,7 +232,7 @@
                                     <div class="" id="standard-editor">
                                         <div class="preview">
                                             <textarea id="editorModuleEnglish" asp-for="Modules.FullDescription" class="editorModuleEnglish moduleEnglishdesc " required> </textarea>
-
+                                            <p id="FullDescriptiontag" class="temp"></p>   
                                         </div>
                                         <span asp-validation-for="Modules.FullDescription" class="text-theme-6 mt-2"></span>
                                     </div>
@@ -246,7 +246,7 @@
                                     <div class="mt-5">
                                         <label class="form-label text-theme-21 ">title</label>
                                         <input asp-for="@Model.SpanishTitleModule" id="titlemodulespanish" type="text" class="form-control w-full" placeholder="Title" />
-
+                                        <p id="TitletagSpan" class="temp"></p>
                                     </div>
 
                                     <div class="mt-5">
@@ -255,6 +255,7 @@
                                     <div class="" id="standard-editor">
                                         <div class="preview">
                                             <textarea id="editorModuleSpanish" asp-for="@Model.SpanishFullDescriptionModule" class="editorModuleSpanish modulespanishdec" required> </textarea>
+                                            <p id="FullDescriptiontagSpan" class="temp"></p>
                                         </div>
                                         <span asp-validation-for="@Model.SpanishFullDescriptionModule" class="text-theme-6 mt-2"></span>
                                     </div>
@@ -318,7 +319,7 @@
                                     <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
                                         <label class="pl-10">Back to List</label>
 
-                                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Admin" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name">
+                                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name">
 
                                             <i data-feather="arrow-left" class="w-4 h-4"></i>
                                         </a>
@@ -393,7 +394,8 @@
 @await Component.InvokeAsync("ImageSelection")
 <script src="~/dist/js/Level.js"></script>
 <link href="~/assets/css/PreviewDropdown.css" rel="stylesheet" />
-
+<script src="~/dist/js/CustomJs/Delete.js"></script>
+<link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
 <script type="text/javascript">
 
     function TranslateSpanish() {
@@ -444,22 +446,31 @@
 <script type="text/javascript">
 
     function TranslateSpanishModule() {
-
+        debugger
         var Title = document.getElementById('titlemodule').value;
+        var FullDescription = CKEDITOR.instances.editorModuleEnglish.getData();
+        //var FullDescription = document.getElementById('editorModuleEnglish').value;
+        if (Title == null || Title == '') {
+            document.getElementById("Titletag").innerHTML = "Please Enter Title.";
+        }
 
-        var FullDescription = document.getElementById('editorModuleEnglish').value;
-        $.ajax({
-            url: "/Admin/Level/TranslateSpanishModule",
-            type: "POST",
-            data: { Title, FullDescription },
+        if (FullDescription == null || FullDescription == '') {
+            document.getElementById("FullDescriptiontag").innerHTML = "Please Enter Description.";
+        }
+        else if (Title != null || Title != '' &&  FullDescription != null || FullDescription != '') {
+            $.ajax({
+                url: "/Admin/Level/TranslateSpanishModule",
+                type: "POST",
+                data: { Title, FullDescription },
 
-            success: function (data, status) {
-                $("#titlemodulespanish").val(data.title);
-                CKEDITOR.instances['editorModuleSpanish'].setData(data.fullDescription);
-            },
+                success: function (data, status) {
+                    $("#titlemodulespanish").val(data.title);
+                    CKEDITOR.instances['editorModuleSpanish'].setData(data.fullDescription);
+                },
 
 
-        });
+            });
+        }
     }
 
 </script>
@@ -468,20 +479,29 @@
     function TranslateEnglishModule() {
 
         var Title = document.getElementById('titlemodulespanish').value;
+        var FullDescription = CKEDITOR.instances.editorModuleSpanish.getData();
+        //var FullDescription = document.getElementById('editorModuleSpanish').value;
+        if (Title == null || Title == '') {
+            document.getElementById("TitletagSpan").innerHTML = "Please Enter Title.";
+        }
 
-        var FullDescription = document.getElementById('editorModuleSpanish').value;
-        $.ajax({
-            url: "/Admin/Level/TranslateEnglishModule",
-            type: "POST",
-            data: { Title, FullDescription },
+        if (FullDescription == null || FullDescription == '') {
+            document.getElementById("FullDescriptiontagSpan").innerHTML = "Please Enter Description.";
+        }
+        else if (Title != null || Title != '' && FullDescription != null || FullDescription != '') {
+            $.ajax({
+                url: "/Admin/Level/TranslateEnglishModule",
+                type: "POST",
+                data: { Title, FullDescription },
 
-            success: function (data, status) {
-                $("#titlemodule").val(data.title);
-                CKEDITOR.instances['editorModuleEnglish'].setData(data.fullDescription);
-            },
+                success: function (data, status) {
+                    $("#titlemodule").val(data.title);
+                    CKEDITOR.instances['editorModuleEnglish'].setData(data.fullDescription);
+                },
 
 
-        });
+            });
+        }
     }
 
 </script>   
