@@ -180,13 +180,16 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             var level = _levelServices.GetLevelByLevelNo(levelSrno);
-               
-                var data = _moduleService.GetAllModules().Where(a => a.Id > id && a.LevelId == level.Id).FirstOrDefault();
-                if (data != null)
-                {
-                    return RedirectToAction("Index", new { id = data.Id, srno = srno + 1, levelsrno = levelSrno });
-                }
+            if (srno==1)
+            {
                 return RedirectToAction("Index", new { id = id, srno = srno + 1, levelsrno = levelSrno });
+            }
+            var data = _moduleService.GetAllModules().Where(a => a.Id > id && a.LevelId == level.Id).FirstOrDefault();
+            if (data != null)
+            {
+                return RedirectToAction("Index", new { id = data.Id, srno = srno + 1, levelsrno = levelSrno });
+            }
+            return RedirectToAction("Index", new { id = id, srno = srno + 1, levelsrno = levelSrno });
         }
 
         #endregion
