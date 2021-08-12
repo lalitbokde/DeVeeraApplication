@@ -350,45 +350,109 @@
                     <div class="mt-5 ">
                         <div class="font-medium text-center text-theme-21 mt-5 pt-5">Module Section Header</div>
                         <div class="form-label text-theme-21  border-b-2 w-full"></div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Module Title</label>
-                            <input asp-for="Title" type="text" class="form-control w-full" placeholder=" Module Title" />
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                                    <a onclick="TranslateSpanishModule()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                                </div>
+
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a class="btn btn-primary w-40" onclick="TranslateEnglishEditLogin()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Module Title</label>
+                                <input asp-for="Title" id="moduleTitle" type="text" class="form-control w-full" placeholder=" Module Title" />
+
+                            </div>
+
+                            <div class="col-span-6 mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
+                                @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
+                                <input asp-for="@Model.ModuleSpanishTitle" id="titleSpanishModule" type="text" class="form-control ">
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Module Description</label>
+                                <textarea asp-for="Description" id="moduleDescription" rows="4" class="form-control w-full" placeholder="Module Description "></textarea>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Module Description</label>
+                                <textarea asp-for="ModuleSpanishDescription" id="moduleSpanishDescription" rows="4" class="form-control w-full" placeholder="Module Description "></textarea>
+                            </div>
+
 
                         </div>
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Module Description</label>
-                            <textarea asp-for="Description" rows="4" class="form-control w-full" placeholder="Module Description "></textarea>
-                        </div>
+                        @* old *@
+                        @*<div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Module Title</label>
+                                <input asp-for="Title" type="text" class="form-control w-full" placeholder=" Module Title" />
+
+                            </div>
+                            <div class="mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Module Description</label>
+                                <textarea asp-for="Description" rows="4" class="form-control w-full" placeholder="Module Description "></textarea>
+                            </div>*@
 
                     </div>
-                    @*For Footer*@
                     <div class="mt-5 ">
                         <div class="font-medium text-center text-theme-21 mt-5 pt-5">Footer</div>
                         <div class="form-label text-theme-21  border-b-2 w-full"></div>
                         <div class="grid grid-cols-12 gap-4">
+
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                                <a onclick="TranslateSpanishFooter()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <div>
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                    <a class="btn btn-primary w-40" onclick="TranslateEnglishCreate()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                                </div>
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
+                                    <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                                    <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
+
+                            </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Footer Description</label>
-                                <textarea asp-for="FooterDescription" rows="4" class="form-control w-full" placeholder="Footer Description "></textarea>
+                                <textarea asp-for="FooterDescription" id="FooterDescription" rows="4" class="form-control w-full" placeholder="Footer Description "></textarea>
                             </div>
-
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Footer Description</label>
+                                <textarea asp-for="FooterDescriptionSpanish" id="footerDescriptionSpanish" rows="4" class="form-control w-full" placeholder="Footer Description "></textarea>
+                            </div>
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Location</label>
-                                <textarea asp-for="Location" rows="4" class="form-control w-full" placeholder="Location "></textarea>
+                                <textarea asp-for="Location" id="Location" rows="4" class="form-control w-full" placeholder="Location "></textarea>
                             </div>
+                            <div class="col-span-6 mt-5">
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Location</label>
+                                <textarea asp-for="LocationSpanish" id="LocationSpanish" rows="4" class="form-control w-full" placeholder="Location "></textarea>
+                            </div>
+
 
                         </div>
-
-                        <div class="grid grid-cols-12 gap-4">
-                            <div class="col-span-6 mt-5">
+                        <div class="grid grid-cols-6 gap-4">
+                            <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Phone No</label>
-                                <input asp-for="PhoneNo" type="number" class="form-control w-full" placeholder="Phone No" />
+                                <input asp-for="PhoneNo" type="text" class="form-control w-full" placeholder="Phone No" />
                             </div>
-                            <div class="col-span-6 mt-5">
+                            <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Email</label>
                                 <input asp-for="Email" type="email" class="form-control w-full" placeholder="Email" />
 
                             </div>
-
                         </div>
                         <div class="grid grid-cols-12 gap-4 mt-6">
                             <div class="col-span-4 mb-4">
@@ -425,8 +489,6 @@
                             <div class="grid grid-cols-12  gap-y-5 mt-5">
                                 <div class="intro-y   col-span-6">
 
-
-                                    @*<a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="btn btn-primary w-24"> List</a>*@
                                     <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
                                         <label class="pl-10">Back to List</label>
                                         <a asp-controller="LayoutSetup" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
@@ -435,7 +497,6 @@
                                     </span>
                                 </div>
                                 <div class="intro-y  col-span-6 ml-auto">
-
                                     <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
                                 </div>
                             </div>
@@ -447,3 +508,54 @@
 </form>
 
 @await Component.InvokeAsync("ImageSelection")
+@* Module *@
+<script type="text/javascript">
+
+    function TranslateSpanishModule() {
+
+        var Title = document.getElementById('moduleTitle').value;
+        var Description = document.getElementById('moduleDescription').value;
+
+
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateModule",
+            type: "POST",
+            data: { Title, Description },
+
+            success: function (data, status) {
+
+                $("#titleSpanishModule").val(data.title);
+                $("#moduleSpanishDescription").val(data.description);
+            },
+
+
+        });
+    }
+
+</script>
+
+@* Footer *@
+<script type="text/javascript">
+
+    function TranslateSpanishFooter() {
+
+        var FooterDescription = document.getElementById('FooterDescription').value;
+        var Location = document.getElementById('Location').value;
+
+
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateFooter",
+            type: "POST",
+            data: { FooterDescription, Location },
+
+            success: function (data, status) {
+
+                $("#footerDescriptionSpanish").val(data.footerDescription);
+                $("#LocationSpanish").val(data.location);
+            },
+
+
+        });
+    }
+
+</script>
