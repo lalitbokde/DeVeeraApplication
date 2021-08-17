@@ -40,7 +40,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
         #endregion
-
+         
 
         #region ctor
         public LessonController(ILogger<LessonController> logger,
@@ -155,11 +155,16 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
                
+            }else
+                {
+                    videoData.FullDescription = updatedVideoData.FullDescription;
+                }
             }
-            }
+            
             videoData.Video = updatedVideoData.Video;
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
+            
 
             videoData.LevelNo = updatedVideoData.LevelNo;
 
