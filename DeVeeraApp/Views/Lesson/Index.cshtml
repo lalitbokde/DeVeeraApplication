@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 }
-                @if (ViewBag.TotalLevels > Convert.ToInt32(Model.LevelNo))
+                @if (ViewBag.TotalLevels >= Convert.ToInt32(Model.LevelNo))
                 {
                     if (Model.ModuleList.Count() > 0)
                     {

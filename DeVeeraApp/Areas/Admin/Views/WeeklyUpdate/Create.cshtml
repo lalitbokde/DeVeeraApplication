@@ -80,12 +80,21 @@
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
                         </div>
-
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Subtitle</label>
+                            <input asp-for="Subtitle" type="text" class="form-control w-full" placeholder="Subtitle" />
+                            <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                        </div>
+                        <div class="mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
+                            <input asp-for="VideoHeader" type="text" class="form-control w-full" placeholder="Video Header" />
+                            <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
+                        </div>
                         @*<div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
-                                <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
-                            </div>*@
+            <label for="input-wizard-1" class="form-label text-theme-21 star">Banner Image</label>
+            <select asp-for="BannerImageId" asp-items="Model.AvailableBannerImage" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+            <span asp-validation-for="BannerImageId" class="text-theme-6 mt-2"></span>
+        </div>*@
 
 
 
@@ -128,10 +137,10 @@
                         </div>
 
                         @*<div class="mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
-                                <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                                <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
-                            </div>*@
+            <label for="input-wizard-1" class="form-label text-theme-21 star">Body Image</label>
+            <select asp-for="BodyImageId" asp-items="Model.AvailableImages" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+            <span asp-validation-for="BodyImageId" class="text-theme-6 mt-2"></span>
+        </div>*@
 
 
                         <div class="mt-5">
