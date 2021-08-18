@@ -155,12 +155,20 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
                
-            }else
+            } 
+            else
                 {
                     videoData.FullDescription = updatedVideoData.FullDescription;
                 }
             }
-            
+            else if (_workContext.CurrentUser.UserRole.Name == "User")
+            {
+                videoData.FullDescription = updatedVideoData.FullDescription;
+            }
+            else if (_workContext.CurrentUser.UserRole.Name == "Admin")
+            {
+                videoData.FullDescription = updatedVideoData.FullDescription;
+            }
             videoData.Video = updatedVideoData.Video;
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
