@@ -111,7 +111,6 @@ namespace DeVeeraApp.Controllers
             var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
             var alllevel = _levelServices.GetAllLevels();
-
             var usernextmodule = AllmoduleList.Where(a => a.Id > id).FirstOrDefault();           
             var userprevmodule = AllmoduleList.OrderByDescending(a=>a.Id).Where(a => a.Id < id).FirstOrDefault();
 

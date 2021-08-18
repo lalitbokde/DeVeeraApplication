@@ -198,6 +198,19 @@ namespace DeVeeraApp.Controllers
             {
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
                 var model = data?.ToModel<WeeklyUpdateModel>();
+                var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+                if (userLanguage != null)
+                {
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.Quote = _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
+
+                    }
+                    else
+                    {
+                        model.Quote = data.Quote;
+                    }
+                }
                 if (model.BodyImageId != 0 && model.BannerImageId != 0)
                 {
                     var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
@@ -228,7 +241,19 @@ namespace DeVeeraApp.Controllers
             {
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
                 var model = data?.ToModel<WeeklyUpdateModel>();
+                var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+                if (userLanguage != null)
+                {
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.Quote = _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
 
+                    }
+                    else
+                    {
+                        model.Quote = data.Quote;
+                    }
+                }
                 if (model.BodyImageId != 0 && model.BannerImageId != 0)
                 {
                     var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
