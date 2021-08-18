@@ -297,14 +297,14 @@ namespace DeVeeraApp.Controllers
                 var verification =
                     await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-                if (verification.IsValid == true)
-                {
+                //if (verification.IsValid == true)
+                //{
 
-                }
-                else
-                {
-                    return RedirectToAction("Register", "User");
-                }
+                //}
+                //else
+                //{
+                    //return RedirectToAction("Register", "User");
+                //}
 
                 return RedirectToAction(nameof(VerifyOTP),
                                                  new UserModel
@@ -353,8 +353,8 @@ namespace DeVeeraApp.Controllers
         {
 
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
-            var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
-            if (result.IsValid)
+          //  var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
+            if (true)
             {
                 //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
                 if (ModelState.IsValid)
