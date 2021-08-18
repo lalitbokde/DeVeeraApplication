@@ -25,7 +25,7 @@ namespace CRM.Services.TwilioConfiguration
         {
             try
             {
-                var verificationResource = await VerificationResource.CreateAsync(
+                var verificationResource = VerificationResource.Create(
                     to: phoneNumber,
                     channel: channel,
                     pathServiceSid: _config.VerificationSid
