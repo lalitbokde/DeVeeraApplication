@@ -113,7 +113,7 @@ namespace DeVeeraApp.Controllers
             var alllevel = _levelServices.GetAllLevels();
             var usernextmodule = AllmoduleList.Where(a => a.Id > id).FirstOrDefault();           
             var userprevmodule = AllmoduleList.OrderByDescending(a=>a.Id).Where(a => a.Id < id).FirstOrDefault();
-
+            ViewBag.Previousmodules = userprevmodule;
             if (usernextmodule != null)
             {
                 moduleData.NextTitle = usernextmodule?.Title;
