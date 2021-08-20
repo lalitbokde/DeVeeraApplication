@@ -36,6 +36,11 @@
         public int Link_3_BannerImageId { get; set; }
 
         public bool IsActive { get; set; }
+        //home
+        public string HomeTitle { get; set; }
+        public string HomeDescription { get; set; }
+
+       
 
         //Module Section Header
         public string Title { get; set; }

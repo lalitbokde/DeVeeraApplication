@@ -32,6 +32,48 @@
                     <div class="font-medium text-center  text-theme-21">User Dashboard</div>
                 </div>
                 <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-6 mt-5">
+                        <div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                            <a onclick="TranslateSpanishHome()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-span-6 mt-5">
+                        <div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                            <a class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                        </div>
+
+                    </div>
+                    <div class="col-span-6 mt-5">
+
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Home Title</label>
+                        <input asp-for="HomeTitle" id="homeTitle" type="text" class="form-control w-full" placeholder=" Home Title" />
+
+                    </div>
+
+                    <div class="col-span-6 mt-5">
+
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Home Title</label>
+                        @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
+                        @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
+                        <input asp-for="@Model.HomeTitleSpanish" id="homeTitleSpanish" type="text" class="form-control ">
+                    </div>
+                    <div class="col-span-6 mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
+                        <textarea asp-for="HomeDescription" id="homeDescription" rows="4" class="form-control w-full" placeholder="Home Description "></textarea>
+                    </div>
+                    <div class="col-span-6 mt-5">
+                        <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
+                        <textarea asp-for="HomeSpanishDescription" id="homeSpanishDescription" rows="4" class="form-control w-full" placeholder="Home Description "></textarea>
+                    </div>
+
+
+                </div>
+                <div class="grid grid-cols-12 gap-4">
                     <div class="col-span-4 mb-4">
                         <div class="mt-5">
                             <label for="input-wizard-1 " class="form-label text-theme-21  border-b-2 w-full">Slider 1</label>
@@ -449,8 +491,8 @@
                                 <a class="btn btn-primary w-40" onclick="TranslateEnglishCreate()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                             </div>
                             @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
-                <input asp-for="@Model.LevelNo" type="number" class="form-control ">
-                <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
+                                <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                                <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
 
                         </div>
                         <div class="col-span-6 mt-5">
@@ -582,6 +624,31 @@
 
                 $("#footerDescriptionSpanish").val(data.footerDescription);
                 $("#LocationSpanish").val(data.location);
+            },
+
+
+        });
+    }
+
+</script>
+@* dashboard *@
+<script type="text/javascript">
+
+    function TranslateSpanishHome() {
+
+        var Title = document.getElementById('homeTitle').value;
+        var Description = document.getElementById('homeDescription').value;
+
+
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateModule",
+            type: "POST",
+            data: { Title, Description },
+
+            success: function (data, status) {
+
+                $("#homeTitleSpanish").val(data.title);
+                $("#homeSpanishDescription").val(data.description);
             },
 
 

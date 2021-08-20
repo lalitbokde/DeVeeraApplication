@@ -93,24 +93,34 @@ namespace DeVeeraApp.Controllers
                 model.layoutSetup.SliderOneImageUrl= result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
+                model.layoutSetup.HomeTitle = result.HomeTitle;
+                model.layoutSetup.HomeDescription = result.HomeDescription;
             }
 
             var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
 
             model.Title = quote?.Title;
+            
             model.Author = quote?.Author;
 
             model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
 
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
-           
+          
             if (data.Count() != 0)
             {                
-                        var LevelOne = data.FirstOrDefault();
-
-                        var lastLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
-
-                        foreach (var item in data)
+                 var LevelOne = data.FirstOrDefault();
+                var lastLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
+                if (lastLevel != null) {
+                var levelget = _levelServices.GetLevelByLevelNo(lastLevel??1);
+                if (levelget.VideoId != null)
+                {
+                    var videoRecord = _videoMasterService.GetVideoById((int)levelget.VideoId);
+                    var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
+                    model.VideoUrl = videoUrl;
+                }
+               
+                foreach (var item in data)
                         {
                             if (item.LevelNo <= lastLevel)
                             {
@@ -143,8 +153,8 @@ namespace DeVeeraApp.Controllers
                             }
 
                         }
-              
-                
+
+                }
                 return View(model);
             }
             return View();

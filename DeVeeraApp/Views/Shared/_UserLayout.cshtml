@@ -54,7 +54,7 @@
     <link rel="stylesheet" href="~/assets/css/responsive.css">
     <!-- Date Picker -->
     <link href="~/dist/js/datetimepicker/css/duDatepicker.css" rel="stylesheet" />
-    <title>3 Happy Pals</title>
+    <title>Three Happy Pals</title>
 
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
 </head>
@@ -241,7 +241,7 @@
     <footer class="footer-area bg-top pt-100 pb-70" style="background-image:url('@Imageurl')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-2">
                     <div class="single-footer-widget">
                         <div class="widget-logo">
                             <a href="#"><img src="~/assets/images/logo-2.png" alt="image" width="300" height="300"></a>
@@ -265,14 +265,14 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-0">
                     <div class="single-footer-widget">
-                        <h3>@T("Quick Links")</h3>
+                        @*<h3>@T("Quick Links")</h3>
 
                         <ul class="quick-links">
-                            @*<li>
+                            <li>
                                     <a asp-controller="Dashboard" asp-action="Index"><i class='bx bxs-right-arrow'></i> @T("Home")</a>
-                                </li>*@
+                                </li>
                             <li>
                                 <a href="/Home/WeeklyInspiringQuotes" target="_blank"><i class='bx bxs-right-arrow'></i>@Title1</a>
                             </li>
@@ -283,12 +283,12 @@
                                 <a href="/Home/FeelGoodStories" target="_blank"><i class='bx bxs-right-arrow'></i>@Title3</a>
                             </li>
 
-                        </ul>
+                        </ul>*@
                     </div>
                 </div>
 
-                @*<div class="col-lg-3 col-sm-6">
-                        <div class="single-footer-widget">
+                <!--<div class="col-lg-3 col-sm-0">-->
+                        @*<div class="single-footer-widget">
                             <h3>@T("Explore")</h3>
 
                             <ul class="quick-links">
@@ -311,11 +311,11 @@
                                     <a href="#"><i class='bx bxs-right-arrow'></i> @T("Terms Of Services")</a>
                                 </li>
                             </ul>
-                        </div>
-                    </div>*@
+                        </div>*@
+                    <!--</div>-->
 
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-footer-widget">
+                <div class="col-lg-3 col-sm-10">
+                    <div class="single-footer-widget" style="margin-left: 181px;">
                         <h3>@T("Contact Us")</h3>
 
                         <ul class="footer-contact-info">
@@ -346,8 +346,8 @@
         <div class="container">
             <div class="copyright-area-content">
                 <p>
-                    @T("Copyright © 2021 3 Happy Pals. All rights reserved By")
-                    <a>3 Happy Pals Team</a>
+                    @T("Copyright © 2021 Three Happy Pals. All rights reserved By")
+                    <a>Three Happy Pals Team </a>
                 </p>
             </div>
         </div>

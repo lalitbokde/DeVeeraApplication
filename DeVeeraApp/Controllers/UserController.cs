@@ -212,11 +212,14 @@ namespace DeVeeraApp.Controllers
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
                                 _notificationService.SuccessNotification("Login successfull.");
-
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login, LastLoginDateUtc = LastLoginDateUtc });
+                                    return RedirectToAction("Index","Dashboard");
                                 }
+                                //if (_WorkContextService.CurrentUser.UserRole.Name == "User")
+                                //{
+                                //    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login, LastLoginDateUtc = LastLoginDateUtc });
+                                //}
                                 else
                                 {
 
@@ -407,8 +410,9 @@ namespace DeVeeraApp.Controllers
                                     HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
                                     _notificationService.SuccessNotification("User registered successfull.");
-
-                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
+                                    
+                                         return RedirectToAction("Index", "Dashboard");
+                                    //return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
 
 
                                 }
