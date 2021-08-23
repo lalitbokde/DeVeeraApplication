@@ -249,10 +249,6 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("FooterImageUrl");
 
-                    b.Property<string>("HomeDescription");
-
-                    b.Property<string>("HomeTitle");
-
                     b.Property<bool>("IsActive");
 
                     b.Property<string>("Link_1");
@@ -359,8 +355,6 @@ namespace CRM.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<int?>("LanguageId");
 
