@@ -95,8 +95,8 @@ namespace DeVeeraApp.Controllers
                 model.layoutSetup.SliderOneImageUrl = result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
-                //model.layoutSetup.HomeTitle = result.HomeTitle;
-                //model.layoutSetup.HomeDescription = result.HomeDescription;
+                model.layoutSetup.HomeTitle = result.HomeTitle;
+                model.layoutSetup.HomeDescription = result.HomeDescription;
             }
 
             var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();

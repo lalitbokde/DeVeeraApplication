@@ -38,8 +38,8 @@
         public bool IsActive { get; set; }
 
         ////home
-        //public string HomeTitle { get; set; }
-        //public string HomeDescription { get; set; }
+        public string HomeTitle { get; set; }
+        public string HomeDescription { get; set; }
 
 
         //Module Section Header

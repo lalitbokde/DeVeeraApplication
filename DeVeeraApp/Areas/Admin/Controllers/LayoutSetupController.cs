@@ -200,8 +200,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.FooterImageId = model.FooterImageId;
                 data.FooterDescription = model.FooterDescription;
                 data.Title = model.Title;
-                //data.HomeDescription = model.HomeDescription;
-                //data.HomeTitle = model.HomeTitle;
+                data.HomeDescription = model.HomeDescription;
+                data.HomeTitle = model.HomeTitle;
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);
