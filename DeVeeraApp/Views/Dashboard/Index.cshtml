@@ -26,8 +26,9 @@
                     <div class="container">
                         <div class="courses-details-image">
                             @{
+                                var imageUrl0 = Model.layoutSetup?.SliderOneImageUrl != null ? Model.layoutSetup?.SliderOneImageUrl : "../../assets/images/SLIDER-BG-1.jpg";
                                 var src = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
-
+                                <img   width="100%" >
                                 <a href="@src" class="video-btn popup-youtube">
                                     <i class="flaticon-play"></i>
                                 </a>
@@ -52,8 +53,9 @@
                     <div class="container">
                         <div class="courses-details-image">
                             @{
+                                var imageUrl1 = Model.layoutSetup?.SliderTwoImageUrl != null ? Model.layoutSetup?.SliderTwoImageUrl : "../../assets/images/SLIDER-BG-3.jpg";
                                 var src1 = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
-
+                                                        <img   width="100%">
                                 <a href="@src1" class="video-btn popup-youtube">
                                     <i class="flaticon-play"></i>
                                 </a>
@@ -77,8 +79,9 @@
                     <div class="container">
                         <div class="courses-details-image">
                             @{
+                                var imageUrl2 = Model.layoutSetup?.SliderThreeImageUrl != null ? Model.layoutSetup?.SliderThreeImageUrl : "../../assets/images/SLIDER-BG-4.jpg";
                                 var src2 = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
-
+                                <img   width="100%">
                                 <a href="@src2" class="video-btn popup-youtube">
                                     <i class="flaticon-play"></i>
                                 </a>
@@ -98,9 +101,25 @@
 <!-- Start Blog Area -->
 <section class="blog-area pt-100 pb-70">
     <div class="container">
+        <div class="courses-details-desc">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("Overview")</a></li>
+                @*<li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Curriculum</a></li>
+                <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
+                <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                    <div class="courses-overview">
+                        <h3> @Html.Raw(Model.layoutSetup?.HomeDescription)</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="section-title">
             <h2>@T(Model.layoutSetup?.HomeTitle)</h2>
-            <p>@T(Model.layoutSetup?.HomeDescription)</p>
+            <p>@T(Model.layoutSetup?.HomeSubTitle)</p>
         </div>
 
         <div class="blog-slides owl-carousel owl-theme">

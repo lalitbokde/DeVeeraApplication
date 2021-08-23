@@ -40,7 +40,13 @@
         ////home
         public string HomeTitle { get; set; }
         public string HomeDescription { get; set; }
+        public string HomeSubTitle { get; set; }
+        public int? VideoId { get; set; }
+        public int BannerImageId { get; set; }
 
+        public int VideoThumbImageId { get; set; }
+
+        public int ShareBackgroundImageId { get; set; }
 
         //Module Section Header
         public string Title { get; set; }

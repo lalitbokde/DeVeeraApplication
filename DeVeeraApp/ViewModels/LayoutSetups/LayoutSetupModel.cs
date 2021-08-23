@@ -15,7 +15,7 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         public LayoutSetupModel()
         {
             AvailableImages = new List<SelectListItem>();
-           
+            AvailableVideo = new List<SelectListItem>();
         }
 
       
@@ -89,8 +89,23 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         //Home
         public string HomeTitle { get; set; }
         public string HomeDescription { get; set; }
+        public string HomeSubTitle { get; set; }
         public string HomeSpanishDescription { get; set; }
         public string HomeTitleSpanish { get; set; }
+        public string HomeSubTitleSpanish { get; set; }
+
+        //video
+        [Required]
+        public int? VideoId { get; set; }
+        public int BannerImageId { get; set; }
+        public string BannerImageUrl { get; set; }
+
+        public int VideoThumbImageId { get; set; }
+        public string VideoThumbImageUrl { get; set; }
+
+        public int ShareBackgroundImageId { get; set; }
+        public string ShareBackgroundImageUrl { get; set; }
+        public IList<SelectListItem> AvailableVideo { get; set; }
         //Footer 
         public string FooterDescription { get; set; }
         public string FooterDescriptionSpanish { get; set; }

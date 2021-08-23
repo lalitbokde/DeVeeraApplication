@@ -12,6 +12,7 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 using CRM.Services.Layoutsetup;
 using DeVeeraApp.ViewModels.LayoutSetups;
+using CRM.Services.Settings;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,7 +37,8 @@ namespace DeVeeraApp.Controllers
         private readonly ILevelImageListServices _levelImageListServices;
         private readonly IS3BucketService _s3BucketService;
         private readonly ILayoutSetupService _LayoutSetupService;
-
+        private readonly ISettingService _settingService;
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         #endregion
 
 
@@ -55,12 +57,15 @@ namespace DeVeeraApp.Controllers
                               ILevelImageListServices levelImageListServices,
                               IS3BucketService s3BucketService,
                               IUserService userService,
-                              ILayoutSetupService layoutSetupService
+                              ISettingService settingService,
+                              ILayoutSetupService layoutSetupService,
+                                ILocalStringResourcesServices localStringResourcesServices
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
             _logger = logger;
+            _localStringResourcesServices = localStringResourcesServices;
             _levelServices = levelServices;
             _weeklyUpdateServices = weeklyUpdateServices;
             _dashboardQuoteService = dashboardQuoteService;
@@ -73,6 +78,7 @@ namespace DeVeeraApp.Controllers
             _levelImageListServices = levelImageListServices;
             _s3BucketService = s3BucketService;
             _LayoutSetupService = layoutSetupService;
+            _settingService = settingService;
         }
 
         #endregion
@@ -96,7 +102,34 @@ namespace DeVeeraApp.Controllers
                 model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
                 model.layoutSetup.HomeTitle = result.HomeTitle;
-                model.layoutSetup.HomeDescription = result.HomeDescription;
+                model.layoutSetup.HomeSubTitle = result.HomeSubTitle;
+                if (model.layoutSetup.VideoId != null)
+                {
+                    var videoRecord = _videoMasterService.GetVideoById((int)model.layoutSetup.VideoId);
+                    var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
+                    model.VideoUrl = videoUrl;
+                }
+                var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+                if (userLanguage != null)
+                {
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.layoutSetup.HomeDescription = _localStringResourcesServices.GetResourceValueByResourceName(result.HomeDescription);
+
+                    }
+                    else
+                    {
+                        model.layoutSetup.HomeDescription = result.HomeDescription;
+                    }
+                }
+                else if (_workContext.CurrentUser.UserRole.Name == "User")
+                {
+                    model.layoutSetup.HomeDescription = result.HomeDescription;
+                }
+                else if (_workContext.CurrentUser.UserRole.Name == "Admin")
+                {
+                    model.layoutSetup.HomeDescription = result.HomeDescription;
+                }
             }
 
             var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
@@ -155,13 +188,7 @@ namespace DeVeeraApp.Controllers
                     if (lastLevel != null)
                     {
                         var levelget = _levelServices.GetLevelByLevelNo(lastLevel ?? 1);
-                        if (levelget.VideoId != null)
-                        {
-                            var videoRecord = _videoMasterService.GetVideoById((int)levelget.VideoId);
-                            var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
-                            model.VideoUrl = videoUrl;
-                        }
-
+                       
                         foreach (var item in data)
                         {
                             if (item.LevelNo <= lastLevel)
