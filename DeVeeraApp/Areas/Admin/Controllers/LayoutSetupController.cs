@@ -30,6 +30,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly INotificationService _notificationService;
         private readonly IImageMasterService _imageMasterService;
         private readonly ITranslationService _translationService;
+        private readonly IVideoMasterService _videoServices;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
@@ -40,6 +41,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      IImageMasterService imageMasterService,
                                      INotificationService notificationService,
                                      IWorkContext workContext,
+                                     IVideoMasterService videoService,
                                      IHttpContextAccessor httpContextAccessor,
                                      IAuthenticationService authenticationService,
                                       ITranslationService translationService,
@@ -52,6 +54,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _imageMasterService = imageMasterService;
             _notificationService = notificationService;
             _translationService = translationService;
+            _videoServices = videoService;
             _localStringResourcesServices = localStringResourcesServices;
         }
         #endregion
@@ -59,6 +62,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         #region Utilities
         public virtual void PrepareImages(LayoutSetupModel model)
         {
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideo.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
+                    Selected = url.Id == model.VideoId
+                });
+            }
             //prepare available images
             var AvailableImages = _imageMasterService.GetAllImages();
             foreach (var item in AvailableImages)
@@ -72,7 +86,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
         public virtual void PrepareImageUrls(LayoutSetupModel model)
         {
-
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideo.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
+                    Selected = url.Id == model.VideoId
+                });
+            }
             model.SliderOneImageUrl = model.SliderOneImageId>0 ? _imageMasterService.GetImageById(model.SliderOneImageId)?.ImageUrl:null;
             model.SliderTwoImageUrl = model.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(model.SliderTwoImageId)?.ImageUrl : null;
             model.SliderThreeImageUrl = model.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(model.SliderThreeImageId)?.ImageUrl : null;
@@ -121,13 +145,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-
+                model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
                 var data = model.ToEntity<LayoutSetup>();
 
                 _layoutSetupService.InsertLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);
                 _translationService.Translate(model.Title, model.HomeTitleSpanish);
+                _translationService.Translate(model.HomeSubTitle, model.HomeSubTitleSpanish);
                 _translationService.Translate(model.Description, model.HomeSpanishDescription);
                 _translationService.Translate(model.Location, model.LocationSpanish);
                 _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
@@ -149,9 +174,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<LayoutSetupModel>();
+                    model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
+                    model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
+                    model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
                     model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
                     model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Description);
                     model.HomeTitleSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeTitle);
+                    model.HomeSubTitleSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeSubTitle);
                     model.HomeSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeDescription);
                     model.FooterDescriptionSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.FooterDescription);
                     model.LocationSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Location);
@@ -170,6 +199,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
                 var data = _layoutSetupService.GetLayoutSetupById(model.Id);
 
                 data.SliderOneTitle = model.SliderOneTitle;
@@ -181,7 +211,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.SliderThreeTitle = model.SliderThreeTitle;
                 data.SliderThreeDescription = model.SliderThreeDescription;
                 data.SliderThreeImageId = model.SliderThreeImageId;
-
                 data.BannerOneImageId = model.BannerOneImageId;
                 data.BannerTwoImageId = model.BannerTwoImageId;
                 data.DiaryHeaderImageId = model.DiaryHeaderImageId;
@@ -202,10 +231,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.Title = model.Title;
                 data.HomeDescription = model.HomeDescription;
                 data.HomeTitle = model.HomeTitle;
+                data.HomeSubTitle = model.HomeSubTitle;
+                data.VideoId = model.VideoId;
+                data.BannerImageId = model.BannerImageId;
+                data.VideoThumbImageId = model.VideoThumbImageId;
+                data.ShareBackgroundImageId = model.ShareBackgroundImageId;
+               
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);
                 _translationService.Translate(model.HomeTitle, model.HomeTitleSpanish);
+                _translationService.Translate(model.HomeSubTitle, model.HomeSubTitleSpanish);
                 _translationService.Translate(model.HomeDescription, model.HomeSpanishDescription);
                 _translationService.Translate(model.Location, model.LocationSpanish);
                 _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
@@ -262,6 +298,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             model.FooterDescription = _translationService.TranslateLevel(weeklyupdate.FooterDescription, key);
             model.Location = _translationService.TranslateLevel(weeklyupdate.Location, key);
 
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateHome(LayoutSetupModel weeklyupdate)
+        {
+            LayoutSetupModel model = new LayoutSetupModel();
+
+            model.HomeTitle = _translationService.TranslateLevel(weeklyupdate.HomeTitle, key);
+            model.HomeDescription = _translationService.TranslateLevel(weeklyupdate.HomeDescription, key);
+            model.HomeSubTitle = _translationService.TranslateLevel(weeklyupdate.HomeSubTitle, key);
             return Json(model);
 
         }

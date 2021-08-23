@@ -61,6 +61,9 @@
             left: 0;
             padding: 20px;
         }
+        .background {
+            background: radial-gradient( #fff4f2 10%, #fcd2cb 90%)
+        }
     </style>
 </head>
 <!-- Required meta tags -->
@@ -80,9 +83,9 @@
     </div>
     <!-- End Preloader Area -->
     <!-- Start Coming Soon Area -->
-    @*style="background-image: url(~/assets/images/products/shape-1.png)"*@
-    <div class="coming-soon-area">
-        <div class="d-table">
+    
+    <div class="coming-soon-area" >
+        <div class="d-table background">
             <div class="d-table-cell">
                 <div class="coming-soon-content">
                     <div>
@@ -122,10 +125,10 @@
                         <button type="submit" class="default-btn mt-3 verifybtn">@T("Verify")</button>
 
                         @*<div class="intro-y " style="margin-left: 500px; ">
-                                <div class="m-2">
-                                    <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
-                                </div>
-                            </div>*@
+                            <div class="m-2">
+                                <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
+                            </div>
+                        </div>*@
                     </form>
                 </div>
             </div>

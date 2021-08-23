@@ -3,105 +3,44 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
+
+
+
+@* Previous Code design deleted Because some errors are getting  *@
+
 <!-- Start Main Slides Area -->
 <div class="main-slides-area">
     <div class="home-slides owl-carousel owl-theme">
-        <div class="main-slides-item" style="background-image:url('@(Model.layoutSetup?.SliderOneImageUrl != null ? Model.layoutSetup?.SliderOneImageUrl: "../../assets/images/SLIDER-BG-1.jpg")')">
+        <div class="courses-details-image">
+            @{
+                var imageUrl2 = Model.layoutSetup?.VideoThumbImageUrl != null ? Model.layoutSetup?.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg";
+                var src = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
+            }
 
-            @*<div class="courses-details-image">
-                    @{
-                        var src = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
+            <img src="@imageUrl2" alt="image" width="100%">
 
-                        <a href="@src" class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                    }
-                </div>*@
-
-
-            <div class="container">
-                <div class="main-slides-content">
-                    <h1>@Html.Raw(Model.layoutSetup?.SliderOneTitle)</h1>
-                    <p>@Html.Raw(Model.layoutSetup?.SliderOneDescription)</p>
-                    <div class="container">
-                        <div class="courses-details-image">
-                            @{
-                                var src = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
-
-                                <a href="@src" class="video-btn popup-youtube">
-                                    <i class="flaticon-play"></i>
-                                </a>
-                            }
-
-                        </div>
-                    </div>
-                    @*<div class="slides-btn">
-                            <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
-                            <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
-                        </div>*@
-                </div>
-            </div>
+            <a href="@src" class="video-btn popup-youtube">
+                <i class="flaticon-play"></i>
+            </a>
         </div>
 
-        <div class="main-slides-item " style="background-image:url('@(Model.layoutSetup?.SliderTwoImageUrl != null ? Model.layoutSetup?.SliderTwoImageUrl: "../../assets/images/SLIDER-BG-3.jpg")')">
-
-            <div class="container">
-                <div class="main-slides-content">
-                    <h1>@Html.Raw(Model.layoutSetup?.SliderTwoTitle)</h1>
-                    <p>@Html.Raw(Model.layoutSetup?.SliderTwoDescription)</p>
-                    <div class="container">
-                        <div class="courses-details-image">
-                            @{
-                                var src1 = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
-
-                                <a href="@src1" class="video-btn popup-youtube">
-                                    <i class="flaticon-play"></i>
-                                </a>
-                            }
-                        </div>
-                    </div>
-                    @*<div class="slides-btn">
-                            <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
-                            <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
-                        </div>*@
-                </div>
-            </div>
-        </div>
-
-        <div class="main-slides-item " style="background-image:url('@(Model.layoutSetup?.SliderThreeImageUrl != null ? Model.layoutSetup?.SliderThreeImageUrl: "../../assets/images/SLIDER-BG-4.jpg")')">
-
-            <div class="container">
-                <div class="main-slides-content">
-                    <h1>@Html.Raw(Model.layoutSetup?.SliderThreeTitle)</h1>
-                    <p>@Html.Raw(Model.layoutSetup?.SliderThreeDescription)</p>
-                    <div class="container">
-                        <div class="courses-details-image">
-                            @{
-                                var src2 = Model.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.VideoUrl;
-
-                                <a href="@src2" class="video-btn popup-youtube">
-                                    <i class="flaticon-play"></i>
-                                </a>
-                            }
-                        </div>
-                    </div>
-                    @*<div class="slides-btn">
-                            <a href="#" class="default-btn">Book Online Session <i class="flaticon-pointer"></i></a>
-                            <a href="#" class="optional-btn">Our Services <i class="flaticon-repairing-service"></i></a>
-                        </div>*@
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- End Main Slides Area -->
+<div class="container pt-56">
+    <div class="courses-details-desc">
+                <div class="align-content-center">
+                    <h5> @Html.Raw(Model.layoutSetup?.HomeDescription)</h5>
+                </div>
+    </div>
+</div>
 <!-- Start Blog Area -->
 <section class="blog-area pt-100 pb-70">
     <div class="container">
         <div class="section-title">
             <h2>@T(Model.layoutSetup?.HomeTitle)</h2>
-            <p>@T(Model.layoutSetup?.HomeDescription)</p>
-        </div>
+            <p>@T(Model.layoutSetup?.HomeSubTitle)</p>
+       </div>
 
         <div class="blog-slides owl-carousel owl-theme">
 
