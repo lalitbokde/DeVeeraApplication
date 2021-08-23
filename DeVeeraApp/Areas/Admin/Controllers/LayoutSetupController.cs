@@ -174,6 +174,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<LayoutSetupModel>();
+                    model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
+                    model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
+                    model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
                     model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
                     model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Description);
                     model.HomeTitleSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeTitle);
@@ -208,7 +211,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.SliderThreeTitle = model.SliderThreeTitle;
                 data.SliderThreeDescription = model.SliderThreeDescription;
                 data.SliderThreeImageId = model.SliderThreeImageId;
-
                 data.BannerOneImageId = model.BannerOneImageId;
                 data.BannerTwoImageId = model.BannerTwoImageId;
                 data.DiaryHeaderImageId = model.DiaryHeaderImageId;
@@ -234,6 +236,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.BannerImageId = model.BannerImageId;
                 data.VideoThumbImageId = model.VideoThumbImageId;
                 data.ShareBackgroundImageId = model.ShareBackgroundImageId;
+               
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);

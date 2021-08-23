@@ -101,6 +101,14 @@ namespace DeVeeraApp.Controllers
                 model.layoutSetup.SliderOneImageUrl = result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
+                var imagesRecord = _imageMasterService.GetImageById(result.BannerImageId);
+                model.layoutSetup.BannerImageUrl = imagesRecord?.ImageUrl;
+
+                var imagesRecord1 = _imageMasterService.GetImageById(result.VideoThumbImageId);
+                model.layoutSetup.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+
+                var imagesRecord2 = _imageMasterService.GetImageById(result.ShareBackgroundImageId);
+                model.layoutSetup.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
                 model.layoutSetup.HomeTitle = result.HomeTitle;
                 model.layoutSetup.HomeSubTitle = result.HomeSubTitle;
                 if (model.layoutSetup.VideoId != null)
