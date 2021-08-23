@@ -85,10 +85,14 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
          public string Description { get; set; }
         public string ModuleSpanishDescription { get; set; }
         public string ModuleSpanishTitle { get; set; }
-        
 
+        //Home
+        public string HomeTitle { get; set; }
+        public string HomeDescription { get; set; }
+        public string HomeSpanishDescription { get; set; }
+        public string HomeTitleSpanish { get; set; }
         //Footer 
-         public string FooterDescription { get; set; }
+        public string FooterDescription { get; set; }
         public string FooterDescriptionSpanish { get; set; }
         public string Email{ get; set; }
      

@@ -78,9 +78,11 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         // GET: /<controller>/
+
+        //(Changes in redirecting new/exististing user to home page)
         public IActionResult Index()
         {
-           
+
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var model = new DashboardQuoteModel();
@@ -90,51 +92,101 @@ namespace DeVeeraApp.Controllers
             if (result != null)
             {
                 model.layoutSetup = result.ToModel<LayoutSetupModel>();
-                model.layoutSetup.SliderOneImageUrl= result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
+                model.layoutSetup.SliderOneImageUrl = result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
+                model.layoutSetup.HomeTitle = result.HomeTitle;
+                model.layoutSetup.HomeDescription = result.HomeDescription;
             }
 
             var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
 
             model.Title = quote?.Title;
+
             model.Author = quote?.Author;
 
             model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
 
             var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
-           
-            if (data.Count() != 0)
-            {                
-                        var LevelOne = data.FirstOrDefault();
 
-                        var lastLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
+            if (data.Count() != 0)
+            {
+                if (currentUser.LastLevel == null)
+                {
+                    foreach (var item in data)
+                    {
+                        if (item.LevelNo <= 1)
+                        {
+
+                            model.VideoModelList.Add(item.ToModel<LevelModel>());
+
+                            if (model.VideoModelList.Count() > 0)
+                            {
+                                foreach (var level in model.VideoModelList)
+                                {
+                                    var leveldata = _levelServices.GetLevelByLevelNo(level.LevelNo ?? 1);
+                                    if (leveldata != null)
+                                    {
+                                        var img = _imageMasterService.GetImageById(leveldata.BannerImageId);
+                                        if (img != null)
+                                        {
+                                            level.BannerImageUrl = img.ImageUrl;
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                            if (item.LevelNo == 1)
+                            {
+                                break;
+                            }
+
+                        }
+
+                    }
+                    return View(model);
+                }
+                else
+                {
+                    var LevelOne = data.FirstOrDefault();
+                    var lastLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
+                    if (lastLevel != null)
+                    {
+                        var levelget = _levelServices.GetLevelByLevelNo(lastLevel ?? 1);
+                        if (levelget.VideoId != null)
+                        {
+                            var videoRecord = _videoMasterService.GetVideoById((int)levelget.VideoId);
+                            var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
+                            model.VideoUrl = videoUrl;
+                        }
 
                         foreach (var item in data)
                         {
                             if (item.LevelNo <= lastLevel)
                             {
-                                
+
                                 model.VideoModelList.Add(item.ToModel<LevelModel>());
 
-                                if(model.VideoModelList.Count() > 0)
+                                if (model.VideoModelList.Count() > 0)
                                 {
-                                    foreach(var level in model.VideoModelList)
+                                    foreach (var level in model.VideoModelList)
                                     {
-                                        var leveldata = _levelServices.GetLevelByLevelNo(level.LevelNo??1);
-                                        if(leveldata != null)
+                                        var leveldata = _levelServices.GetLevelByLevelNo(level.LevelNo ?? 1);
+                                        if (leveldata != null)
                                         {
                                             var img = _imageMasterService.GetImageById(leveldata.BannerImageId);
-                                            if (img != null) 
+                                            if (img != null)
                                             {
-                                                level.BannerImageUrl= img.ImageUrl;
+                                                level.BannerImageUrl = img.ImageUrl;
                                             }
-                                           
+
                                         }
 
                                     }
                                 }
-                                
+
                                 if (item.LevelNo == lastLevel)
                                 {
                                     break;
@@ -143,11 +195,87 @@ namespace DeVeeraApp.Controllers
                             }
 
                         }
-              
-                
+                    }
+                }
                 return View(model);
             }
             return View();
         }
+
+
+
+        #region oldCode
+        //public IActionResult Index()
+        //{
+
+        //    var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
+
+        //    var model = new DashboardQuoteModel();
+
+        //    var result = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+
+        //    if (result != null)
+        //    {
+        //        model.layoutSetup = result.ToModel<LayoutSetupModel>();
+        //        model.layoutSetup.SliderOneImageUrl = result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
+        //        model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
+        //        model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
+        //    }
+
+        //    var quote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsDashboardQuote == true).FirstOrDefault();
+
+        //    model.Title = quote?.Title;
+        //    model.Author = quote?.Author;
+
+        //    model.Menus = _dashboardMenuService.GetAllDashboardMenus().FirstOrDefault();
+
+        //    var data = _levelServices.GetAllLevels().OrderBy(l => l.LevelNo);
+
+        //    if (data.Count() != 0)
+        //    {
+        //        var LevelOne = data.FirstOrDefault();
+
+        //        var lastLevel = _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo;
+
+        //        foreach (var item in data)
+        //        {
+        //            if (item.LevelNo <= lastLevel)
+        //            {
+
+        //                model.VideoModelList.Add(item.ToModel<LevelModel>());
+
+        //                if (model.VideoModelList.Count() > 0)
+        //                {
+        //                    foreach (var level in model.VideoModelList)
+        //                    {
+        //                        var leveldata = _levelServices.GetLevelByLevelNo(level.LevelNo ?? 1);
+        //                        if (leveldata != null)
+        //                        {
+        //                            var img = _imageMasterService.GetImageById(leveldata.BannerImageId);
+        //                            if (img != null)
+        //                            {
+        //                                level.BannerImageUrl = img.ImageUrl;
+        //                            }
+
+        //                        }
+
+        //                    }
+        //                }
+
+        //                if (item.LevelNo == lastLevel)
+        //                {
+        //                    break;
+        //                }
+
+        //            }
+
+        //        }
+
+
+        //        return View(model);
+        //    }
+        //    return View();
+        //}
+        #endregion
     }
 }

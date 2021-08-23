@@ -127,6 +127,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _layoutSetupService.InsertLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);
+                _translationService.Translate(model.Title, model.HomeTitleSpanish);
+                _translationService.Translate(model.Description, model.HomeSpanishDescription);
                 _translationService.Translate(model.Location, model.LocationSpanish);
                 _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
                 _notificationService.SuccessNotification("Layout Setup Successfully.");
@@ -149,6 +151,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     var model = data.ToModel<LayoutSetupModel>();
                     model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
                     model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Description);
+                    model.HomeTitleSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeTitle);
+                    model.HomeSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeDescription);
                     model.FooterDescriptionSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.FooterDescription);
                     model.LocationSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Location);
                     PrepareImageUrls(model);
@@ -196,9 +200,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 data.FooterImageId = model.FooterImageId;
                 data.FooterDescription = model.FooterDescription;
                 data.Title = model.Title;
+                data.HomeDescription = model.HomeDescription;
+                data.HomeTitle = model.HomeTitle;
                 _layoutSetupService.UpdateLayoutSetup(data);
                 _translationService.Translate(model.Title, model.ModuleSpanishTitle);
                 _translationService.Translate(model.Description, model.ModuleSpanishDescription);
+                _translationService.Translate(model.HomeTitle, model.HomeTitleSpanish);
+                _translationService.Translate(model.HomeDescription, model.HomeSpanishDescription);
                 _translationService.Translate(model.Location, model.LocationSpanish);
                 _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
                 _notificationService.SuccessNotification("Layout Setup Updated Successfully.");
