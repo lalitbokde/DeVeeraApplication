@@ -4,14 +4,16 @@ using CRM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CRM.Data.Migrations
 {
     [DbContext(typeof(dbContextCRM))]
-    partial class dbContextCRMModelSnapshot : ModelSnapshot
+    [Migration("20210823082704_video")]
+    partial class video
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,8 +233,6 @@ namespace CRM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BannerImageId");
-
                     b.Property<int>("BannerOneImageId");
 
                     b.Property<int>("BannerTwoImageId");
@@ -277,8 +277,6 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("ReasonToSubmit");
 
-                    b.Property<int>("ShareBackgroundImageId");
-
                     b.Property<string>("SliderOneDescription");
 
                     b.Property<int>("SliderOneImageId");
@@ -300,8 +298,6 @@ namespace CRM.Data.Migrations
                     b.Property<string>("Title");
 
                     b.Property<int?>("VideoId");
-
-                    b.Property<int>("VideoThumbImageId");
 
                     b.HasKey("Id");
 
