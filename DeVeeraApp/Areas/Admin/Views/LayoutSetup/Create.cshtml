@@ -69,11 +69,21 @@
                         </div>
                         <div class="col-span-6 mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
-                            <textarea asp-for="HomeDescription" id="homeDescription" rows="4" class="form-control w-full" placeholder="Home Description "></textarea>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorEnglish" asp-for="HomeDescription" class="editorEnglish editorEnglishLevel"> </textarea>
+                                    <p id="FullDescriptiontag" class="temp"></p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-span-6 mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
-                            <textarea asp-for="HomeSpanishDescription" id="homeSpanishDescription" rows="4" class="form-control w-full" placeholder="Home Description "></textarea>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorSpanish" asp-for="HomeSpanishDescription" class="editorSpanish SpanishFullDescription"> </textarea>
+                                    <p id="FullDescriptiontagSpan" class="temp"></p>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -667,7 +677,7 @@
     function TranslateSpanishHome() {
 
         var HomeTitle = document.getElementById('homeTitle').value;
-        var HomeDescription = document.getElementById('homeDescription').value;
+        var HomeDescription = document.getElementById('editorEnglish').value;
         var HomeSubTitle = document.getElementById('homeSubTitle').value;
 
         $.ajax({
@@ -678,7 +688,7 @@
             success: function (data, status) {
 
                 $("#homeTitleSpanish").val(data.homeTitle);
-                $("#homeSpanishDescription").val(data.homeDescription);
+                $("#editorSpanish").val(data.homeDescription);
                 $("#HomeSubTitleSpanish").val(data.homeSubTitle);
             },
 

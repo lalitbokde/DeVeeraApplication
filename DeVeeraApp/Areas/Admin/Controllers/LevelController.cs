@@ -125,7 +125,6 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View();
         }
 
-
         public IActionResult Create()
         {
             AddBreadcrumbs("Level", "Create", "/Admin/Level/List", "/Admin/Level/Create");
