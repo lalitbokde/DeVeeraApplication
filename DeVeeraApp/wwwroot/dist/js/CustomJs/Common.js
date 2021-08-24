@@ -45,7 +45,7 @@ function onFailed() {
 function OpenImageSelectionModal(ImageFieldId, ImageFieldUrl) {
     
     $("#ImageFieldId").val(ImageFieldId);
-    $("#ImageFieldUrl").val(ImageFieldUrl);
+    $("#ImageFieldUrl").val(ImageFieldUrl);  
   
     //$("#superlarge-modal-size-preview").modal('show');
 }

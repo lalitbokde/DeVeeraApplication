@@ -78,14 +78,21 @@
                     </div>
                     <div class="col-span-6 mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
-                        <textarea asp-for="HomeDescription" id="homeDescription" rows="4" class="form-control w-full" placeholder="Home Description "></textarea>
+                        <div class="" id="standard-editor">
+                            <div class="preview">
+                                <textarea id="editorEnglish" asp-for="HomeDescription" class="editorEnglish editorEnglishLevel"> </textarea>
+
+                            </div>
+                        </div>
                     </div>
                     <div class="col-span-6 mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
-                        <textarea asp-for="HomeSpanishDescription" id="homeSpanishDescription" rows="4" class="form-control w-full" placeholder="Home Description "></textarea>
+                        <div class="" id="standard-editor">
+                            <div class="preview">
+                                <textarea id="editorSpanish" asp-for="HomeSpanishDescription" class="editorSpanish SpanishFullDescription"> </textarea>
+                            </div>
+                        </div>
                     </div>
-
-
                 </div>
                 <div class="mt-5">
 
@@ -702,7 +709,7 @@
     function TranslateSpanishHome() {
 
         var HomeTitle = document.getElementById('homeTitle').value;
-        var HomeDescription = document.getElementById('homeDescription').value;
+        var HomeDescription = document.getElementById('editorEnglish').value;
         var HomeSubTitle = document.getElementById('homeSubTitle').value;
 
         $.ajax({
@@ -713,7 +720,7 @@
             success: function (data, status) {
 
                 $("#homeTitleSpanish").val(data.homeTitle);
-                $("#homeSpanishDescription").val(data.homeDescription);
+                CKEDITOR.instances['editorSpanish'].setData(data.homeDescription);
                 $("#HomeSubTitleSpanish").val(data.homeSubTitle);
             },
 
