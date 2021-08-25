@@ -71,7 +71,7 @@
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
                             <div class="" id="standard-editor">
                                 <div class="preview">
-                                    <textarea id="editorEnglish" asp-for="HomeDescription" class="editorEnglish editorEnglishLevel"> </textarea>
+                                    <textarea id="editorModuleEnglish" asp-for="HomeDescription" class="editorModuleEnglish editorEnglishLevel"> </textarea>
                                     <p id="FullDescriptiontag" class="temp"></p>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
                             <div class="" id="standard-editor">
                                 <div class="preview">
-                                    <textarea id="editorSpanish" asp-for="HomeSpanishDescription" class="editorSpanish SpanishFullDescription"> </textarea>
+                                    <textarea id="editorModuleSpanish" asp-for="HomeSpanishDescription" class="editorModuleSpanish SpanishFullDescription"> </textarea>
                                     <p id="FullDescriptiontagSpan" class="temp"></p>
                                 </div>
                             </div>
@@ -677,7 +677,7 @@
     function TranslateSpanishHome() {
 
         var HomeTitle = document.getElementById('homeTitle').value;
-        var HomeDescription = document.getElementById('editorEnglish').value;
+        var HomeDescription = CKEDITOR.instances.editorModuleEnglish.getData();
         var HomeSubTitle = document.getElementById('homeSubTitle').value;
 
         $.ajax({
@@ -688,7 +688,7 @@
             success: function (data, status) {
 
                 $("#homeTitleSpanish").val(data.homeTitle);
-                $("#editorSpanish").val(data.homeDescription);
+                CKEDITOR.instances['editorModuleSpanish'].setData(data.homeDescription);
                 $("#HomeSubTitleSpanish").val(data.homeSubTitle);
             },
 
