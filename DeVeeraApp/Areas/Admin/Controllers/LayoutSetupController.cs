@@ -284,8 +284,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             LayoutSetupModel model = new LayoutSetupModel();
 
-            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
-            model.Description = _translationService.TranslateLevel(weeklyupdate.Description, key);
+            model.Title = weeklyupdate.Title !=null?_translationService.TranslateLevel(weeklyupdate.Title, key):"";
+            model.Description = weeklyupdate.Description !=null? _translationService.TranslateLevel(weeklyupdate.Description, key):"";
 
             return Json(model);
 
@@ -295,8 +295,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             LayoutSetupModel model = new LayoutSetupModel();
 
-            model.FooterDescription = _translationService.TranslateLevel(weeklyupdate.FooterDescription, key);
-            model.Location = _translationService.TranslateLevel(weeklyupdate.Location, key);
+            model.FooterDescription = weeklyupdate.FooterDescription!=null ?_translationService.TranslateLevel(weeklyupdate.FooterDescription, key):"";
+            model.Location = weeklyupdate.Location !=null? _translationService.TranslateLevel(weeklyupdate.Location, key):"";
 
             return Json(model);
 
@@ -306,9 +306,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             LayoutSetupModel model = new LayoutSetupModel();
 
-            model.HomeTitle = _translationService.TranslateLevel(weeklyupdate.HomeTitle, key);
-            model.HomeDescription = _translationService.TranslateLevel(weeklyupdate.HomeDescription, key);
-            model.HomeSubTitle = _translationService.TranslateLevel(weeklyupdate.HomeSubTitle, key);
+            model.HomeTitle = weeklyupdate.HomeTitle!=null?_translationService.TranslateLevel(weeklyupdate.HomeTitle, key):"";
+            model.HomeDescription = weeklyupdate.HomeDescription!=null ? _translationService.TranslateLevel(weeklyupdate.HomeDescription, key):"";
+            model.HomeSubTitle = weeklyupdate.HomeSubTitle!=null?_translationService.TranslateLevel(weeklyupdate.HomeSubTitle, key):"";
             return Json(model);
 
         }
@@ -319,9 +319,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             LayoutSetupModel model = new LayoutSetupModel();
 
-            model.HomeTitleSpanish = _translationService.TranslateLevelSpanish(weeklyupdate.HomeTitleSpanish, key);
-            model.HomeSubTitleSpanish = _translationService.TranslateLevelSpanish(weeklyupdate.HomeSubTitleSpanish, key);
-            model.HomeSpanishDescription = _translationService.TranslateLevelSpanish(weeklyupdate.HomeSpanishDescription, key);
+            model.HomeTitleSpanish = weeklyupdate.HomeTitleSpanish!=null ? _translationService.TranslateLevelSpanish(weeklyupdate.HomeTitleSpanish, key):"";
+            model.HomeSubTitleSpanish = weeklyupdate.HomeSubTitleSpanish!=null ? _translationService.TranslateLevelSpanish(weeklyupdate.HomeSubTitleSpanish, key):"";
+            model.HomeSpanishDescription = weeklyupdate.HomeSpanishDescription!=null ?_translationService.TranslateLevelSpanish(weeklyupdate.HomeSpanishDescription, key):"";
             return Json(model);
 
         }
