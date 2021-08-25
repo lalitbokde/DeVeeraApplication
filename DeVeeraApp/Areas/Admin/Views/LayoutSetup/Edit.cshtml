@@ -44,7 +44,7 @@
                     <div class="col-span-6 mt-5">
                         <div>
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
-                            <a class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                            <a class="btn btn-primary w-40" onclick="TranslateHomeEngilsh()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                         </div>
 
                     </div>
@@ -722,6 +722,30 @@
                 $("#homeTitleSpanish").val(data.homeTitle);
                 CKEDITOR.instances['editorModuleSpanish'].setData(data.homeDescription);
                 $("#HomeSubTitleSpanish").val(data.homeSubTitle);
+            },
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateHomeEngilsh() {
+
+        var HomeTitleSpanish = document.getElementById('homeTitleSpanish').value;
+        var HomeSubTitleSpanish = document.getElementById('HomeSubTitleSpanish').value;
+        var HomeSpanishDescription = CKEDITOR.instances.editorModuleSpanish.getData();
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateHomeEngilsh",
+            type: "POST",
+            data: { HomeTitleSpanish, HomeSubTitleSpanish, HomeSpanishDescription },
+
+            success: function (data, status) {
+
+                $("#homeTitle").val(data.homeTitleSpanish);
+                CKEDITOR.instances['editorModuleEnglish'].setData(data.homeSpanishDescription);
+                $("#homeSubTitle").val(data.homeSubTitleSpanish);
             },
 
 
