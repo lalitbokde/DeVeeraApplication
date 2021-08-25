@@ -312,7 +312,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return Json(model);
 
         }
-        
+
+
+        [HttpPost]
+        public IActionResult TranslateHomeEngilsh(LayoutSetupModel weeklyupdate)
+        {
+            LayoutSetupModel model = new LayoutSetupModel();
+
+            model.HomeTitleSpanish = _translationService.TranslateLevelSpanish(weeklyupdate.HomeTitleSpanish, key);
+            model.HomeSubTitleSpanish = _translationService.TranslateLevelSpanish(weeklyupdate.HomeSubTitleSpanish, key);
+            model.HomeSpanishDescription = _translationService.TranslateLevelSpanish(weeklyupdate.HomeSpanishDescription, key);
+            return Json(model);
+
+        }
         #endregion
     }
 }
