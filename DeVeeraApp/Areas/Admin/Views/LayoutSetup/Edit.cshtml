@@ -77,19 +77,20 @@
                         <input asp-for="@Model.HomeSubTitleSpanish" id="HomeSubTitleSpanish" type="text" class="form-control ">
                     </div>
                     <div class="col-span-6 mt-5">
-                        <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
+                        <label for="input-wizard-1" class="form-label text-theme-21 ">Home Description</label>
                         <div class="" id="standard-editor">
                             <div class="preview">
-                                <textarea id="editorEnglish" asp-for="HomeDescription" class="editorEnglish editorEnglishLevel"> </textarea>
+                                <textarea id="editorModuleEnglish" asp-for="HomeDescription" class="editorModuleEnglish"> </textarea>
 
                             </div>
                         </div>
                     </div>
                     <div class="col-span-6 mt-5">
                         <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
+
                         <div class="" id="standard-editor">
                             <div class="preview">
-                                <textarea id="editorSpanish" asp-for="HomeSpanishDescription" class="editorSpanish SpanishFullDescription"> </textarea>
+                                <textarea id="editorModuleSpanish" asp-for="HomeSpanishDescription" class="editorModuleSpanish SpanishFullDescription"> </textarea>
                             </div>
                         </div>
                     </div>
@@ -709,18 +710,17 @@
     function TranslateSpanishHome() {
 
         var HomeTitle = document.getElementById('homeTitle').value;
-        var HomeDescription = document.getElementById('editorEnglish').value;
         var HomeSubTitle = document.getElementById('homeSubTitle').value;
-
+        var HomeDescription = CKEDITOR.instances.editorModuleEnglish.getData();
         $.ajax({
             url: "/Admin/LayoutSetup/TranslateHome",
             type: "POST",
-            data: { HomeTitle, HomeDescription, HomeSubTitle },
+            data: { HomeTitle, HomeSubTitle, HomeDescription },
 
             success: function (data, status) {
 
                 $("#homeTitleSpanish").val(data.homeTitle);
-                CKEDITOR.instances['editorSpanish'].setData(data.homeDescription);
+                CKEDITOR.instances['editorModuleSpanish'].setData(data.homeDescription);
                 $("#HomeSubTitleSpanish").val(data.homeSubTitle);
             },
 
