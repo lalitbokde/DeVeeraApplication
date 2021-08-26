@@ -172,8 +172,9 @@ namespace DeVeeraApp.Controllers
             videoData.Video = updatedVideoData.Video;
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
-            
-
+            videoData.IsLike = updatedVideoData.IsLike;
+            videoData.IsDisLike = updatedVideoData.IsDisLike;
+            videoData.Comments = updatedVideoData.Comments;
             videoData.LevelNo = updatedVideoData.LevelNo;
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
@@ -338,7 +339,52 @@ namespace DeVeeraApp.Controllers
 
         }
 
+        #region like/dislike
+        [HttpPost]
+        public IActionResult Like(int id, bool islike)
+        {
 
+            var levelData = _levelServices.GetLevelById(id);
+            var model = levelData.ToModel<LevelModel>();
+            if (levelData != null)
+            {
+                if (islike==true) { 
+                levelData.IsLike = true;
+                    levelData.IsDisLike = false;
+                    levelData.LikeId = model.LikeId + 1;
+                   levelData.DisLikeId = model.DisLikeId -1;
+                    _levelServices.UpdateLevel(levelData);
+                }
+                else
+                {
+                    levelData.IsDisLike = true;
+                    levelData.IsLike = false;
+                    levelData.DisLikeId = model.DisLikeId + 1;
+                    levelData.LikeId = model.LikeId -1;
+                    _levelServices.UpdateLevel(levelData);
+                }
+            }
+            return Json(model);
+        }
+        [HttpPost]
+        public IActionResult Comments(int id, string comments)
+        {
+
+            var levelData = _levelServices.GetLevelById(id);
+            var model = levelData.ToModel<LevelModel>();
+            if (levelData != null)
+            {
+                if (comments != null)
+                {
+                    levelData.Comments = comments;
+                    _levelServices.UpdateLevel(levelData);
+                }
+            }
+            return Json(model);
+        }
+        #endregion
+
+       
         public IActionResult Privacy()
         {
             return View();

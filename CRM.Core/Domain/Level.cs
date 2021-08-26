@@ -34,6 +34,15 @@ namespace CRM.Core.Domain
             protected set { _Level_Emotion_Mappings = value; }
         }
 
+        //Like Unlike section
+        public int LikeId { get; set; }
+
+        public int DisLikeId { get; set; }
+
+        public bool IsLike { get; set; }
+        public bool IsDisLike { get; set; }
+        public string Comments { get; set; }
+
     }
 
 

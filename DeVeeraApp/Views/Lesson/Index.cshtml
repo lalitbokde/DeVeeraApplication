@@ -8,7 +8,15 @@
 
 @{var Description = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Description).Where(a => a.IsActive == true).FirstOrDefault()?.Description; }
 
+<style>
+    .colbutn {
+        background-color: Highlight;
+    }
 
+    .disbutn {
+        background-color: olivedrab;
+    }
+</style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl !=null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
@@ -90,12 +98,33 @@
                 </div>
             </div>
         </div>
+        <div class="mt-4">
+
+            @if (Model.IsLike == true && Model.IsDisLike == false)
+            {
+                <a class="default-btn colbutn" onclick="LikeButton(@Model.Id, true);"> @T("Like")<img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20" /></a>
+            }
+            else
+            {
+                <a class="default-btn" onclick="LikeButton(@Model.Id, true);"> @T("Like") <img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20"/></a>
+            }
+            @if (Model.IsLike == false && Model.IsDisLike == true)
+            {
+                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20"/></a>
+            }
+            else
+            {
+                <a class="default-btn" onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
+            }
+
+            <div class="col-3 mt-5">
+                <label for="input-wizard-1" class="form-check-label ">Comments</label>
+                <textarea rows="4" class="form-check" id="comments" placeholder="Add Comments here......"> </textarea>
+            </div>
+            <a class="default-btn" onclick="comment(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>
+        </div>
 
         <div class="psylo-post-navigation">
-
-
-
-
             @if (Convert.ToInt32(Model.LevelNo) != 1)
             {
                 <div class="prev-link-wrapper">
@@ -159,10 +188,10 @@
                                     <span class="post-nav-title">@T("Next")</span>
                                 </span>
                             </a>
-                            
-                                <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
 
-                           
+                            <a asp-controller="Lesson" asp-action="Next" asp-route-levelno="@Model.LevelNo" class="default-btn">@T("Next Level") <i class="flaticon-right-arrow"></i></a>
+
+
                         </div>
                     </div>
 
@@ -178,6 +207,7 @@
 <!-- End Courses Details Area -->
 <!-- Start Products Area -->
 <section class="products-area pb-70">
+
     <div class="container-fluid">
         <div class="section-title">
             <h2>@T("Modules for this session")</h2>
@@ -249,3 +279,40 @@
     </div>
 </div>
 <!-- End Subscribe Area -->
+<script>
+
+    function LikeButton(InputId, status) {
+        var Id = InputId;
+        var islike = status;
+        $.ajax({
+            url: 'Lesson/Like',
+            type: "POST",
+            data: { Id, islike },
+
+            success: function (data, status) {
+                location.reload();
+            },
+
+        });
+
+    }
+</script>
+<script>
+
+    function comment(id) {
+        var id = id;
+        var comments = document.getElementById('comments').value;
+        $.ajax({
+            url: 'Lesson/Comments',
+            type: "POST",
+            data: { id, comments },
+
+            success: function (data, status) {
+                location.reload();
+            },
+
+        });
+
+    }
+</script>
+       
