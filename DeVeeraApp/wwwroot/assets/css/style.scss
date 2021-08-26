@@ -194,6 +194,43 @@ Default Btn CSS
         }
     }
 }
+.color-btn {
+    display: inline-block;
+    padding: 15px 60px 15px 10px;
+    border-radius: 10px 10px 0 10px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: forestgreen;
+    color: $black-color;
+    transition: $transition;
+    position: relative;
+
+    i {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        display: inline-block;
+        height: 38px;
+        width: 38px;
+        line-height: 38px;
+        color: $white-color;
+        border-radius: 10px 10px 0 10px;
+        background-color: $black-color;
+        transition: $transition;
+    }
+
+    &:hover {
+        background: $optional-color;
+        color: $white-color;
+
+        i {
+            background-color: $white-color;
+            color: $black-color;
+        }
+    }
+}
 .optional-btn {
     display: inline-block;
     padding: 15px 60px 14px 15px;

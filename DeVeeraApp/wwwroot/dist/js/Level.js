@@ -6,7 +6,7 @@ var table = new Tabulator("#tabulator1",
         responsiveLayout: "collapse",
         pagination: "local",
         paginationSize: 10,
-        paginationSizeSelector: [10, 20, 30, 40],
+        paginationSizeSelector: [10, 20, 30, 40,50,60,70],
         columns: [
             {
                 formatter: "responsiveCollapse",
@@ -15,6 +15,8 @@ var table = new Tabulator("#tabulator1",
             { title: "Title", field: "Title", sorter: "string", width: 250 },
             { title: "Subtitle", field: "Subtitle", sorter: "string", width: 250 },
             { title: "VideoName", field: "VideoName", sorter: "string", width: 240 },
+            { title: "Like", field: "LikeId", sorter: "string", width: 85 },
+            { title: "DisLike", field: "DisLikeId", sorter: "string", width: 100 },
             { title: "Edit", field: "", hozAlign: "center", width: 85, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a href="/Admin/Level/Edit/${e.getData().Id}" >\n <i data-feather="edit" class="text-theme-10"></i> \n</a>\n</div>   ` }, },
             { title: "Delete", field: "", hozAlign: "center", width: 95, formatter: function (e, t) { return `<div class="flex lg:justify-center items-center">\n  <a onclick="ShowDeleteConfirmation('PostDeleteLevel(${e.getData().Id})')"" >\n <i data-feather="trash-2" class="text-theme-24"></i> \n</a>\n</div>   ` }, },],
 

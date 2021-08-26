@@ -354,6 +354,8 @@
                                             <tr>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Likes</th>
+                                                <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">DisLikes</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Video</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
                                                 <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
@@ -363,13 +365,15 @@
                                             @{ int i = 1;
                                                 foreach (var item in Model.ModuleList)
                                                 {
-                                                    <tr>
-                                                        <td class="border-b dark:border-dark-5">@i</td>
-                                                        <td class="border-b dark:border-dark-5">@item.Title</td>
-                                                        <td class="border-b dark:border-dark-5">@(item.Video?.Name == null ? "Not Available" : item.Video?.Name)</td>
-                                                        <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>
-                                                        <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteModule(@item.Id)')"><i data-feather="trash-2"></i></a></td>
-                                                    </tr>
+                                                                                        <tr>
+                                                                                            <td class="border-b dark:border-dark-5">@i</td>
+                                                                                            <td class="border-b dark:border-dark-5">@item.Title</td>
+                                                                                            <td class="border-b dark:border-dark-5">@item.LikeId</td>
+                                                                                            <td class="border-b dark:border-dark-5">@item.DisLikeId</td>
+                                                                                            <td class="border-b dark:border-dark-5">@(item.Video?.Name == null ? "Not Available" : item.Video?.Name)</td>
+                                                                                            <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-ModuleId="@item.Id"><i data-feather="edit"></i></a></td>
+                                                                                            <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteModule(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                                                        </tr>
                                                     i++;
                                                 }
                                             }

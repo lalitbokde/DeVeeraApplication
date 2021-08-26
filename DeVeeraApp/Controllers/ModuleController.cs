@@ -39,7 +39,7 @@ namespace DeVeeraApp.Controllers
                                 IImageMasterService imageMasterService,
                                 IS3BucketService s3BucketService,
                                IAuthenticationService authenticationService,
-                                       ISettingService settingService,
+                               ISettingService settingService,
                                ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -58,7 +58,7 @@ namespace DeVeeraApp.Controllers
         }
 
         #region methods
-
+     
         public IActionResult Index(int id, int srno, int levelSrno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
@@ -68,7 +68,9 @@ namespace DeVeeraApp.Controllers
             var data = _moduleService.GetModuleById(id);
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
-           
+            moduleData.IsLike = data.IsLike;
+            moduleData.IsDisLike = data.IsDisLike;
+            moduleData.Comments = data.Comments;
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             if (userLanguage !=null) 
             {
@@ -188,6 +190,49 @@ namespace DeVeeraApp.Controllers
             return RedirectToAction("Index", new { id = id, srno = srno + 1, levelsrno = levelSrno });
         }
 
+        #endregion
+        #region like/dislike
+        [HttpPost]
+        public IActionResult ModuleLike(int id, bool islike)
+        {
+
+            var data = _moduleService.GetModuleById(id);
+            var model = data.ToModel<ModulesModel>();
+            if (data != null)
+            {
+                if (islike == true)
+                {
+                    data.IsLike = true;
+                    data.IsDisLike = false;
+                    data.LikeId = model.LikeId + 1;
+                    _moduleService.UpdateModule(data);
+                }
+                else
+                {
+                    data.IsDisLike = true;
+                    data.IsLike = false;
+                    data.DisLikeId = model.DisLikeId + 1;
+                    _moduleService.UpdateModule(data);
+                }
+            }
+            return Json(model);
+        }
+        [HttpPost]
+        public IActionResult ModuleComments(int id, string comments)
+        {
+
+            var data = _moduleService.GetModuleById(id);
+            var model = data.ToModel<ModulesModel>();
+            if (data != null)
+            {
+                if (comments != null)
+                {
+                    data.Comments = model.Comments;
+                    _moduleService.UpdateModule(data);
+                }
+            }
+            return Json(model);
+        }
         #endregion
     }
 }

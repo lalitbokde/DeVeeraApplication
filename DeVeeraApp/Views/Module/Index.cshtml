@@ -6,6 +6,15 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var levelNo = _levelService.GetLevelById(Model.LevelId).LevelNo;
 }
+<style>
+    .colbutn {
+        background-color: Highlight;
+    }
+
+    .disbutn {
+        background-color: olivedrab;
+    }
+</style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl != null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
@@ -28,7 +37,7 @@
             <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-                
+
                 <a href="@src" class="video-btn popup-youtube">
                     <i class="flaticon-play"></i>
                 </a>
@@ -62,8 +71,8 @@
                         <img src=@(Model.ShareBackgroundImageUrl != null ? Model.ShareBackgroundImageUrl : "../../assets/images/courses/courses-1.jpg") alt="image">
 
                         @*<a class="video-btn popup-youtube">
-                            <i class="flaticon-play-button"></i>
-                        </a>*@
+                                <i class="flaticon-play-button"></i>
+                            </a>*@
                     </div>
 
                     @*<ul class="info">
@@ -108,19 +117,44 @@
 
 
                     @*<div class="courses-share">
-                        <div class="share-info">
-                            <span>@T("Share This Course")</span>
+                            <div class="share-info">
+                                <span>@T("Share This Course")</span>
 
-                            <ul class="social-link">
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
-                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
-                            </ul>
-                        </div>
-                    </div>*@
+                                <ul class="social-link">
+                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                                </ul>
+                            </div>
+                        </div>*@
                 </div>
             </div>
+        </div>
+        <div class="mt-4">
+
+            @if (Model.IsLike == true && Model.IsDisLike == false)
+            {
+                <a class="default-btn colbutn" onclick="ModuleLikeButton(@Model.Id, true);"> @T("Like")<img src="../../assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20"/></a>
+            }
+            else
+            {
+                <a class="default-btn" onclick="ModuleLikeButton(@Model.Id, true);"> @T("Like") <img src="../../assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20"/></a>
+            }
+            @if (Model.IsLike == false && Model.IsDisLike == true)
+            {
+                <a class="default-btn disbutn" onclick="ModuleLikeButton(@Model.Id, false);">@T("Dislike") <img src="../../assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20"/></a>
+            }
+            else
+            {
+                <a class="default-btn" onclick="ModuleLikeButton(@Model.Id, false);">@T("Dislike")<img src="../../assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
+            }
+
+            <div class="col-3 mt-5">
+                <label for="input-wizard-1" class="form-check-label ">Comments</label>
+                <textarea rows="4" class="form-check" id="comments" placeholder="Add Comments here......"> </textarea>
+            </div>
+            <a class="default-btn" onclick="ModuleComments(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>
         </div>
 
         <div class="psylo-post-navigation">
@@ -151,7 +185,7 @@
 
             }
 
-          @if (ViewBag.TotalModules > ViewBag.SrNo)
+            @if (ViewBag.TotalModules > ViewBag.SrNo)
 
             {
 
@@ -211,3 +245,43 @@
     </div>
 </section>
 <!-- End Courses Details Area -->
+<script>
+
+    function ModuleLikeButton(InputId, status) {
+        debugger
+        var Id = InputId;
+        var islike = status;
+        var url = '/Module/ModuleLike';
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { Id, islike },
+
+            success: function (data, status) {
+                location.reload();
+            },
+
+        });
+
+    }
+</script>
+<script>
+
+    function ModuleComments(id) {
+        debugger
+        var id = id;
+        var comments = document.getElementById('comments').value;
+        var url = '/Module/ModuleComments';
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { id, comments },
+
+            success: function (data, status) {
+                location.reload();
+            },
+
+        });
+
+    }
+</script>

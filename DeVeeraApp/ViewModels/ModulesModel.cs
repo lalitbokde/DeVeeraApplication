@@ -49,7 +49,14 @@ namespace DeVeeraApp.ViewModels
 
         public string NextLevelUrl { get; set; }
         public string NextLeveltitle { get; set; }
+        //Like Unlike section
+        public int LikeId { get; set; }
 
+        public int DisLikeId { get; set; }
+
+        public bool IsLike { get; set; }
+        public bool IsDisLike { get; set; }
+        public string Comments { get; set; }
 
     }
 }
