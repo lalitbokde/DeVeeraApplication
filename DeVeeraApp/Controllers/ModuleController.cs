@@ -223,6 +223,11 @@ namespace DeVeeraApp.Controllers
                         likesdata.IsDisLike = false;
                         likesdata.LikeId = model.LikeId + 1;
                         _likesService.InsertLikes(likesdata);
+                        //module
+                        data.IsLike = true;
+                        data.IsDisLike = false;
+                        data.LikeId = model.LikeId + 1;
+                        _moduleService.UpdateModule(data);
                     }
                     else
                     {
@@ -232,13 +237,13 @@ namespace DeVeeraApp.Controllers
                         likesbyuserid.IsDisLike = false;
                         likesbyuserid.LikeId = model.LikeId + 1;
                         _likesService.UpdateLikes(likesbyuserid);
-
+                        //module
+                        data.IsLike = true;
+                        data.IsDisLike = false;
+                        data.LikeId = model.LikeId + 1;
+                        _moduleService.UpdateModule(data);
                     }
-                    //module
-                    data.IsLike = true;
-                    data.IsDisLike = false;
-                    data.LikeId = model.LikeId + 1;
-                    _moduleService.UpdateModule(data);
+                   
                 }
                 else
                 {
@@ -250,6 +255,11 @@ namespace DeVeeraApp.Controllers
                         likesdata.IsLike = false;
                         likesdata.DisLikeId = model.DisLikeId + 1;
                         _likesService.InsertLikes(likesdata);
+                        //module
+                        data.IsDisLike = true;
+                        data.IsLike = false;
+                        data.DisLikeId = model.DisLikeId + 1;
+                        _moduleService.UpdateModule(data);
                     }
                     else
                     {
@@ -259,12 +269,13 @@ namespace DeVeeraApp.Controllers
                         likesbyuserid.IsLike = false;
                         likesbyuserid.DisLikeId = model.DisLikeId + 1;
                         _likesService.UpdateLikes(likesbyuserid);
+                        //module
+                        data.IsDisLike = true;
+                        data.IsLike = false;
+                        data.DisLikeId = model.DisLikeId + 1;
+                        _moduleService.UpdateModule(data);
                     }
-                    //module
-                    data.IsDisLike = true;
-                    data.IsLike = false;
-                    data.DisLikeId = model.DisLikeId + 1;
-                    _moduleService.UpdateModule(data);
+                  
                 }
             }
             return Json(model);
