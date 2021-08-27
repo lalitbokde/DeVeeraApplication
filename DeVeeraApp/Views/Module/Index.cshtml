@@ -135,7 +135,7 @@
 
             @if (Model.IsLike == true && Model.IsDisLike == false)
             {
-                <a class="default-btn colbutn" onclick="ModuleLikeButton(@Model.Id, true);"> @T("Like")<img src="../../assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20"/></a>
+                <a class="default-btn colbutn" onclick="ModuleLikeButton(@Model.Id, true,'doubleLike');"> @T("Like")<img src="../../assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20"/></a>
             }
             else
             {
@@ -143,7 +143,7 @@
             }
             @if (Model.IsLike == false && Model.IsDisLike == true)
             {
-                <a class="default-btn disbutn" onclick="ModuleLikeButton(@Model.Id, false);">@T("Dislike") <img src="../../assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20"/></a>
+                <a class="default-btn disbutn" onclick="ModuleLikeButton(@Model.Id, false,'doubleDislike');">@T("Dislike") <img src="../../assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20"/></a>
             }
             else
             {
@@ -247,15 +247,16 @@
 <!-- End Courses Details Area -->
 <script>
 
-    function ModuleLikeButton(InputId, status) {
+    function ModuleLikeButton(InputId, status, getvalue) {
         debugger
         var Id = InputId;
         var islike = status;
+        var value = getvalue;
         var url = '/Module/ModuleLike';
         $.ajax({
             url: url,
             type: "POST",
-            data: { Id, islike },
+            data: { Id, islike, value  },
 
             success: function (data, status) {
                 location.reload();

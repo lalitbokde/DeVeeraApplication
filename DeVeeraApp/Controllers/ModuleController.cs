@@ -204,7 +204,7 @@ namespace DeVeeraApp.Controllers
         #endregion
         #region like/dislike
         [HttpPost]
-        public IActionResult ModuleLike(int id, bool islike)
+        public IActionResult ModuleLike(int id, bool islike, string value)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var likesdata = new LikesUnlikess();
@@ -226,7 +226,15 @@ namespace DeVeeraApp.Controllers
                         //module
                         data.IsLike = true;
                         data.IsDisLike = false;
-                        data.LikeId = model.LikeId + 1;
+                        if (value == "doubleLike") 
+                        { 
+                            data.LikeId = model.LikeId ; 
+                        }
+                        else 
+                        { 
+                            data.LikeId = model.LikeId + 1; 
+                        }
+                        
                         if (data.LikeId!=0) {
                             data.DisLikeId =  model.DisLikeId -1;
                             if (data.DisLikeId == -1)
@@ -247,7 +255,12 @@ namespace DeVeeraApp.Controllers
                         //module
                         data.IsLike = true;
                         data.IsDisLike = false;
-                        data.LikeId = model.LikeId + 1;
+                        if(value == "doubleLike")
+                        {
+                            data.LikeId = model.LikeId ;
+                        }
+                        else { data.LikeId = model.LikeId + 1; }
+                       
                         if (data.LikeId != 0)
                         {
                             data.DisLikeId =  model.DisLikeId -1;
@@ -274,7 +287,15 @@ namespace DeVeeraApp.Controllers
                         //module
                         data.IsDisLike = true;
                         data.IsLike = false;
-                        data.DisLikeId = model.DisLikeId + 1;
+                        if (value == "doubleDislike") 
+                        {
+                            data.DisLikeId = model.DisLikeId ;
+                        }
+                        else
+                        {
+                            data.DisLikeId = model.DisLikeId + 1;
+                        }
+                       
                         if (data.DisLikeId != 0)
                         {
                             data.LikeId = model.LikeId -1;
@@ -296,7 +317,15 @@ namespace DeVeeraApp.Controllers
                         //module
                         data.IsDisLike = true;
                         data.IsLike = false;
-                        data.DisLikeId = model.DisLikeId + 1;
+                       
+                        if (value == "doubleDislike")
+                        {
+                            data.DisLikeId = model.DisLikeId;
+                        }
+                        else
+                        {
+                            data.DisLikeId = model.DisLikeId + 1;
+                        }
                         if (data.DisLikeId != 0)
                         {
                             data.LikeId =  model.LikeId -1;
