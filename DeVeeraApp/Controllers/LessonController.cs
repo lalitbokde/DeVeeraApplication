@@ -475,14 +475,14 @@ namespace DeVeeraApp.Controllers
                     {
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
-                        likesdata.Comments = levelData.Comments;
+                        likesdata.Comments = comments;
                         _likesService.InsertLikes(likesdata);
                     }
                     else
                     {
                         likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.LevelId = levelData.Id;
-                        likesbyuserid.Comments = levelData.Comments;
+                        likesbyuserid.LevelId = model.Id;
+                        likesbyuserid.Comments = comments;
                         _likesService.UpdateLikes(likesbyuserid);
                     }
                     levelData.Comments = comments;

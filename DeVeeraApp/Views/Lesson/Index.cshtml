@@ -54,8 +54,8 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("Overview")</a></li>
                         @*<li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">Curriculum</a></li>
-                            <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
-                            <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
+                        <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">Instructor</a></li>
+                        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">Reviews</a></li>*@
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
@@ -84,17 +84,17 @@
                     </div>
 
                     @*<div class="courses-share">
-                            <div class="share-info">
-                                <span>@T("Share This Course")</span>
+                        <div class="share-info">
+                            <span>@T("Share This Course")</span>
 
-                                <ul class="social-link">
-                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
-                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
-                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
-                                    <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
-                                </ul>
-                            </div>
-                        </div>*@
+                            <ul class="social-link">
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-facebook'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-twitter'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-instagram'></i></a></li>
+                                <li><a href="#" class="d-block" target="_blank"><i class='bx bxl-linkedin'></i></a></li>
+                            </ul>
+                        </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -106,11 +106,11 @@
             }
             else
             {
-                <a class="default-btn" onclick="LikeButton(@Model.Id, true);"> @T("Like") <img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20"/></a>
+                <a class="default-btn" onclick="LikeButton(@Model.Id, true);"> @T("Like") <img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20" /></a>
             }
             @if (Model.IsLike == false && Model.IsDisLike == true)
             {
-                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20"/></a>
+                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
             }
             else
             {
@@ -118,12 +118,17 @@
             }
 
             <div class="col-3 mt-5">
-                <label for="input-wizard-1" class="form-check-label ">Comments</label>
+
+                <label for="input-wizard-1" class="form-check-label "> Add a Comments here..</label>
                 <textarea rows="4" class="form-check" id="comments" placeholder="Add Comments here......"> </textarea>
             </div>
             <a class="default-btn" onclick="comment(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>
         </div>
-
+        @*<div class="col-3 mt-5"> 
+            <p>
+                @T(Model.Comments)
+            </p>
+        </div>*@
         <div class="psylo-post-navigation">
             @if (Convert.ToInt32(Model.LevelNo) != 1)
             {
