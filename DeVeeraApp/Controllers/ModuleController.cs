@@ -234,12 +234,23 @@ namespace DeVeeraApp.Controllers
                         { 
                             data.LikeId = model.LikeId + 1; 
                         }
-                        
-                        if (data.LikeId!=0) {
-                            data.DisLikeId =  model.DisLikeId -1;
-                            if (data.DisLikeId == -1)
+
+                        if (value == "doubleLike" && likesbyuserid == null)
+                        {
+                            if (data.LikeId != 0)
                             {
-                                data.DisLikeId = 0;
+                                data.DisLikeId = model.DisLikeId;
+                            }
+                        }
+                        else
+                        {
+                            if (data.LikeId != 0)
+                            {
+                                data.DisLikeId = model.DisLikeId - 1;
+                                if (data.DisLikeId == -1)
+                                {
+                                    data.DisLikeId = 0;
+                                }
                             }
                         }
                         _moduleService.UpdateModule(data);
@@ -260,13 +271,23 @@ namespace DeVeeraApp.Controllers
                             data.LikeId = model.LikeId ;
                         }
                         else { data.LikeId = model.LikeId + 1; }
-                       
-                        if (data.LikeId != 0)
+
+                        if (value == "doubleLike" && likesbyuserid == null)
                         {
-                            data.DisLikeId =  model.DisLikeId -1;
-                            if (data.DisLikeId == -1)
+                            if (data.LikeId != 0)
                             {
-                                data.DisLikeId = 0;
+                                data.DisLikeId = model.DisLikeId;
+                            }
+                        }
+                        else
+                        {
+                            if (data.LikeId != 0)
+                            {
+                                data.DisLikeId = model.DisLikeId - 1;
+                                if (data.DisLikeId == -1)
+                                {
+                                    data.DisLikeId = 0;
+                                }
                             }
                         }
                         _moduleService.UpdateModule(data);
@@ -295,13 +316,23 @@ namespace DeVeeraApp.Controllers
                         {
                             data.DisLikeId = model.DisLikeId + 1;
                         }
-                       
-                        if (data.DisLikeId != 0)
+
+                        if (value == "doubleDislike" && likesbyuserid == null)
                         {
-                            data.LikeId = model.LikeId -1;
-                            if (data.LikeId == -1)
+                            if (data.DisLikeId != 0)
                             {
-                                data.LikeId = 0;
+                                data.LikeId = model.LikeId;
+                            }
+                        }
+                        else
+                        {
+                            if (data.DisLikeId != 0)
+                            {
+                                data.LikeId = model.LikeId - 1;
+                                if (data.LikeId == -1)
+                                {
+                                    data.LikeId = 0;
+                                }
                             }
                         }
                         _moduleService.UpdateModule(data);
@@ -326,12 +357,22 @@ namespace DeVeeraApp.Controllers
                         {
                             data.DisLikeId = model.DisLikeId + 1;
                         }
-                        if (data.DisLikeId != 0)
+                        if (value == "doubleDislike" && likesbyuserid == null)
                         {
-                            data.LikeId =  model.LikeId -1;
-                            if (data.LikeId == -1)
+                            if (data.DisLikeId != 0)
                             {
-                                data.LikeId = 0;
+                                data.LikeId = model.LikeId;
+                            }
+                        }
+                        else
+                        {
+                            if (data.DisLikeId != 0)
+                            {
+                                data.LikeId = model.LikeId - 1;
+                                if (data.LikeId == -1)
+                                {
+                                    data.LikeId = 0;
+                                }
                             }
                         }
                         _moduleService.UpdateModule(data);
