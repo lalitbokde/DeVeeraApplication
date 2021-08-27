@@ -227,6 +227,13 @@ namespace DeVeeraApp.Controllers
                         data.IsLike = true;
                         data.IsDisLike = false;
                         data.LikeId = model.LikeId + 1;
+                        if (data.LikeId!=0) {
+                            data.DisLikeId =  model.DisLikeId -1;
+                            if (data.DisLikeId == -1)
+                            {
+                                data.DisLikeId = 0;
+                            }
+                        }
                         _moduleService.UpdateModule(data);
                     }
                     else
@@ -241,6 +248,14 @@ namespace DeVeeraApp.Controllers
                         data.IsLike = true;
                         data.IsDisLike = false;
                         data.LikeId = model.LikeId + 1;
+                        if (data.LikeId != 0)
+                        {
+                            data.DisLikeId =  model.DisLikeId -1;
+                            if (data.DisLikeId == -1)
+                            {
+                                data.DisLikeId = 0;
+                            }
+                        }
                         _moduleService.UpdateModule(data);
                     }
                    
@@ -254,11 +269,20 @@ namespace DeVeeraApp.Controllers
                         likesdata.IsDisLike = true;
                         likesdata.IsLike = false;
                         likesdata.DisLikeId = model.DisLikeId + 1;
+                       
                         _likesService.InsertLikes(likesdata);
                         //module
                         data.IsDisLike = true;
                         data.IsLike = false;
                         data.DisLikeId = model.DisLikeId + 1;
+                        if (data.DisLikeId != 0)
+                        {
+                            data.LikeId = model.LikeId -1;
+                            if (data.LikeId == -1)
+                            {
+                                data.LikeId = 0;
+                            }
+                        }
                         _moduleService.UpdateModule(data);
                     }
                     else
@@ -273,6 +297,14 @@ namespace DeVeeraApp.Controllers
                         data.IsDisLike = true;
                         data.IsLike = false;
                         data.DisLikeId = model.DisLikeId + 1;
+                        if (data.DisLikeId != 0)
+                        {
+                            data.LikeId =  model.LikeId -1;
+                            if (data.LikeId == -1)
+                            {
+                                data.LikeId = 0;
+                            }
+                        }
                         _moduleService.UpdateModule(data);
                     }
                   
