@@ -74,7 +74,7 @@ namespace DeVeeraApp.Controllers
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a => a.LevelId == data.LevelId).Count();
             var moduleData = data.ToModel<ModulesModel>();
 
-            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id).FirstOrDefault();
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId==data.Id ).FirstOrDefault();
             if (likesdata != null)
             {
                 moduleData.IsLike = likesdata.IsLike;

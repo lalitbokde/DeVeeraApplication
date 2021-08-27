@@ -178,7 +178,7 @@ namespace DeVeeraApp.Controllers
             videoData.Video = updatedVideoData.Video;
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
-            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id).FirstOrDefault();
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId== data.Id).FirstOrDefault();
             if (likesdata != null)
             {
                 videoData.IsLike = likesdata.IsLike;
