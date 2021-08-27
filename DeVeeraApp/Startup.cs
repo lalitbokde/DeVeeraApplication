@@ -19,6 +19,7 @@ using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
 using CRM.Services.Helpers;
 using CRM.Services.Layoutsetup;
+using CRM.Services.Likes;
 using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.QuestionsAnswer;
@@ -134,7 +135,7 @@ namespace DeVeeraApp
             services.AddScoped<ILocalStringResourcesServices, LocalStringResourcesServices>();
             services.AddScoped<IModuleImageListService, ModuleImageListService>();
             services.AddScoped<ILayoutSetupService, LayoutSetupService>();
-
+            services.AddScoped<ILikesService, LikesService>();
             services.AddScoped<IVerificationService, VerificationService>();
 
             services.AddSingleton<IVerificationService>(new VerificationService(
