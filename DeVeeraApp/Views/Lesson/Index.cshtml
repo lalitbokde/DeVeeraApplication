@@ -102,19 +102,19 @@
 
             @if (Model.IsLike == true && Model.IsDisLike == false)
             {
-                <a class="default-btn colbutn" onclick="LikeButton(@Model.Id, true);"> @T("Like")<img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20" /></a>
+                <a class="default-btn colbutn" onclick="LikeButton(@Model.Id, true,'doubleLike');"> @T("Like")<img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20" /></a>
             }
             else
             {
-                <a class="default-btn" onclick="LikeButton(@Model.Id, true);"> @T("Like") <img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20" /></a>
+                <a class="default-btn" onclick="LikeButton(@Model.Id,true);"> @T("Like") <img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 12px;margin-bottom: 7px;" width="20" height="20" /></a>
             }
             @if (Model.IsLike == false && Model.IsDisLike == true)
             {
-                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
+                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false,'doubleDislike');">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
             }
             else
             {
-                <a class="default-btn" onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
+                <a class="default-btn"  onclick="LikeButton(@Model.Id, false);">@T("Dislike") <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 8px;margin-bottom: 0px;" width="20" height="20" /></a>
             }
 
             <div class="col-3 mt-5">
@@ -286,13 +286,14 @@
 <!-- End Subscribe Area -->
 <script>
 
-    function LikeButton(InputId, status) {
+    function LikeButton(InputId, status, getvalue) {
         var Id = InputId;
         var islike = status;
+        var value = getvalue;
         $.ajax({
             url: 'Lesson/Like',
             type: "POST",
-            data: { Id, islike },
+            data: { Id, islike, value },
 
             success: function (data, status) {
                 location.reload();
