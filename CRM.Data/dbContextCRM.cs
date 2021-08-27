@@ -88,6 +88,8 @@ namespace CRM.Data
         public virtual DbQuery<FeelGoodViewModel> FeelGoodViewModels { get; set; }
         public virtual DbQuery<DashBoardQuoteViewModel> DashBoardQuoteViewModels { get; set; }
 
+        //Likes
+        public DbSet<LikesUnlikess> Likes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 

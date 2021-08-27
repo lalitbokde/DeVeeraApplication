@@ -1,7 +1,9 @@
 ﻿using CRM.Core;
+using CRM.Core.Domain;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.Likes;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Settings;
 using CRM.Services.Users;
@@ -28,6 +30,7 @@ namespace DeVeeraApp.Controllers
         private readonly IQuestionAnswerService _QuestionAnswerService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
+        private readonly ILikesService _likesService;
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
                                 IQuestionAnswerService questionAnswerService,
@@ -40,6 +43,7 @@ namespace DeVeeraApp.Controllers
                                 IS3BucketService s3BucketService,
                                IAuthenticationService authenticationService,
                                ISettingService settingService,
+                               ILikesService likesService,
                                ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -55,10 +59,11 @@ namespace DeVeeraApp.Controllers
             _QuestionAnswerService = questionAnswerService;
             _localStringResourcesServices = localStringResourcesServices;
             _settingService = settingService;
+            _likesService = likesService;
         }
 
         #region methods
-     
+
         public IActionResult Index(int id, int srno, int levelSrno)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
@@ -66,18 +71,23 @@ namespace DeVeeraApp.Controllers
             ViewBag.SrNo = srno;
             ViewBag.LevelSrNo = levelSrno;
             var data = _moduleService.GetModuleById(id);
-            ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
+            ViewBag.TotalModules = _moduleService.GetAllModules().Where(a => a.LevelId == data.LevelId).Count();
             var moduleData = data.ToModel<ModulesModel>();
-            moduleData.IsLike = data.IsLike;
-            moduleData.IsDisLike = data.IsDisLike;
-            moduleData.Comments = data.Comments;
+
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id).FirstOrDefault();
+            if (likesdata != null)
+            {
+                moduleData.IsLike = likesdata.IsLike;
+                moduleData.IsDisLike = likesdata.IsDisLike;
+                moduleData.Comments = likesdata.Comments;
+            }
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
-            if (userLanguage !=null) 
+            if (userLanguage != null)
             {
                 if (userLanguage.LanguageId == 5)
-            {
-                 moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
-            }
+                {
+                    moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
+                }
             }
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
@@ -89,11 +99,12 @@ namespace DeVeeraApp.Controllers
                 diary = _diaryMasterService.GetAllDiarys().Where(a => a.UserId == _workContext.CurrentUser?.Id).OrderByDescending(a => a.Id).FirstOrDefault();
 
             }
+
             moduleData.DiaryText = diary != null ? diary.Comment : "";
             moduleData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
             ViewBag.LevelName = _levelServices.GetLevelById(data.LevelId).Title;
             moduleData.QuestionsList = _QuestionAnswerService.GetQuestionsByModuleId(id).ToList();
-            if(currentUser.UserRole.Name != "Admin")
+            if (currentUser.UserRole.Name != "Admin")
             {
                 currentUser.ActiveModule = id;
                 _userService.UpdateUser(currentUser);
@@ -113,8 +124,8 @@ namespace DeVeeraApp.Controllers
             var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
             var alllevel = _levelServices.GetAllLevels();
-            var usernextmodule = AllmoduleList.Where(a => a.Id > id).FirstOrDefault();           
-            var userprevmodule = AllmoduleList.OrderByDescending(a=>a.Id).Where(a => a.Id < id).FirstOrDefault();
+            var usernextmodule = AllmoduleList.Where(a => a.Id > id).FirstOrDefault();
+            var userprevmodule = AllmoduleList.OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
             ViewBag.Previousmodules = userprevmodule;
             if (usernextmodule != null)
             {
@@ -130,7 +141,7 @@ namespace DeVeeraApp.Controllers
                 moduleData.PrevImageUrl = module?.ImageUrl;
 
             }
-       
+
             var nextlevel = alllevel.Where(a => a.LevelNo > leveldata?.LevelNo).FirstOrDefault();
             if (nextlevel != null)
             {
@@ -177,11 +188,11 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Next(int id, int srno, int levelSrno)
         {
-          //  ViewBag.SrNo = srno;
-           // var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            //  ViewBag.SrNo = srno;
+            // var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             var level = _levelServices.GetLevelByLevelNo(levelSrno);
-          
+
             var data = _moduleService.GetAllModules().Where(a => a.Id > id && a.LevelId == level.Id).FirstOrDefault();
             if (data != null)
             {
@@ -195,13 +206,35 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult ModuleLike(int id, bool islike)
         {
-
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var likesdata = new LikesUnlikess();
             var data = _moduleService.GetModuleById(id);
+            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
             var model = data.ToModel<ModulesModel>();
             if (data != null)
             {
                 if (islike == true)
                 {
+                    if (likesbyuserid == null)
+                    {
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.ModuleId = data.Id;
+                        likesdata.IsLike = true;
+                        likesdata.IsDisLike = false;
+                        likesdata.LikeId = model.LikeId + 1;
+                        _likesService.InsertLikes(likesdata);
+                    }
+                    else
+                    {
+                        likesbyuserid.UserId = currentUser.Id;
+                        likesbyuserid.ModuleId = data.Id;
+                        likesbyuserid.IsLike = true;
+                        likesbyuserid.IsDisLike = false;
+                        likesbyuserid.LikeId = model.LikeId + 1;
+                        _likesService.UpdateLikes(likesbyuserid);
+
+                    }
+                    //module
                     data.IsLike = true;
                     data.IsDisLike = false;
                     data.LikeId = model.LikeId + 1;
@@ -209,6 +242,25 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
+                    if (likesbyuserid == null)
+                    {
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.ModuleId = data.Id;
+                        likesdata.IsDisLike = true;
+                        likesdata.IsLike = false;
+                        likesdata.DisLikeId = model.DisLikeId + 1;
+                        _likesService.InsertLikes(likesdata);
+                    }
+                    else
+                    {
+                        likesbyuserid.UserId = currentUser.Id;
+                        likesbyuserid.ModuleId = data.Id;
+                        likesbyuserid.IsDisLike = true;
+                        likesbyuserid.IsLike = false;
+                        likesbyuserid.DisLikeId = model.DisLikeId + 1;
+                        _likesService.UpdateLikes(likesbyuserid);
+                    }
+                    //module
                     data.IsDisLike = true;
                     data.IsLike = false;
                     data.DisLikeId = model.DisLikeId + 1;
@@ -221,12 +273,30 @@ namespace DeVeeraApp.Controllers
         public IActionResult ModuleComments(int id, string comments)
         {
 
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var likesdata = new LikesUnlikess();
             var data = _moduleService.GetModuleById(id);
+            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
             var model = data.ToModel<ModulesModel>();
             if (data != null)
             {
                 if (comments != null)
                 {
+                    if (likesbyuserid==null) 
+                    {
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.ModuleId = data.Id;
+                        likesdata.Comments = model.Comments;
+                        _likesService.InsertLikes(likesdata);
+
+                    }
+                    else
+                    {
+                        likesbyuserid.UserId = currentUser.Id;
+                        likesbyuserid.ModuleId = data.Id;
+                        likesbyuserid.Comments = model.Comments;
+                        _likesService.UpdateLikes(likesbyuserid);
+                    }
                     data.Comments = model.Comments;
                     _moduleService.UpdateModule(data);
                 }

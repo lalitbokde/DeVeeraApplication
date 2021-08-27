@@ -17,6 +17,8 @@ using CRM.Services.Users;
 using CRM.Core.Domain.VideoModules;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Settings;
+using CRM.Core.Domain;
+using CRM.Services.Likes;
 
 namespace DeVeeraApp.Controllers
 {
@@ -39,8 +41,9 @@ namespace DeVeeraApp.Controllers
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
+        private readonly ILikesService _likesService;
         #endregion
-         
+
 
         #region ctor
         public LessonController(ILogger<LessonController> logger,
@@ -58,6 +61,7 @@ namespace DeVeeraApp.Controllers
                                 IModuleImageListService moduleImageListService,
                                 IDiaryMasterService diaryMasterService,
                                         ISettingService settingService,
+                                        ILikesService likesService,
                                 ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -76,6 +80,7 @@ namespace DeVeeraApp.Controllers
             _dashboardQuoteService = dashboardQuoteService;
             _localStringResourcesServices = localStringResourcesServices;
             _settingService = settingService;
+            _likesService = likesService;
 
         }
 
@@ -110,10 +115,10 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(int levelno,DateTime? lastLoginDateUtc)
+        public IActionResult Index(int levelno, DateTime? lastLoginDateUtc)
         {
             var random = new Random();
-           
+
             var AllLevels = _levelServices.GetAllLevels().ToList();
             ViewBag.TotalLevels = AllLevels.Count;
             var videoData = new LevelModel
@@ -150,13 +155,14 @@ namespace DeVeeraApp.Controllers
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
-            if (userLanguage!=null) {
-            if (userLanguage.LanguageId == 5)
+            if (userLanguage != null)
             {
-                videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
-               
-            } 
-            else
+                if (userLanguage.LanguageId == 5)
+                {
+                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
+
+                }
+                else
                 {
                     videoData.FullDescription = updatedVideoData.FullDescription;
                 }
@@ -172,14 +178,18 @@ namespace DeVeeraApp.Controllers
             videoData.Video = updatedVideoData.Video;
             videoData.Subtitle = updatedVideoData.Subtitle;
             videoData.Title = updatedVideoData.Title;
-            videoData.IsLike = updatedVideoData.IsLike;
-            videoData.IsDisLike = updatedVideoData.IsDisLike;
-            videoData.Comments = updatedVideoData.Comments;
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id).FirstOrDefault();
+            if (likesdata != null)
+            {
+                videoData.IsLike = likesdata.IsLike;
+                videoData.IsDisLike = likesdata.IsDisLike;
+                videoData.Comments = likesdata.Comments;
+            }
             videoData.LevelNo = updatedVideoData.LevelNo;
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             //quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
-            
+
             if (quoteList != null && quoteList.Count > 0)
             {
                 int index = random.Next(quoteList.Count);
@@ -304,8 +314,8 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                 
-                    var userNextLevel = data.OrderBy(a=>a.LevelNo).Where(a => a.LevelNo > levelno).FirstOrDefault();
+
+                    var userNextLevel = data.OrderBy(a => a.LevelNo).Where(a => a.LevelNo > levelno).FirstOrDefault();
 
                     if (userNextLevel != null)
                     {
@@ -324,7 +334,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-              
+
 
                 var adminNextLevel = data.Where(a => a.LevelNo > levelno).FirstOrDefault();
 
@@ -333,7 +343,7 @@ namespace DeVeeraApp.Controllers
                     return RedirectToAction("Index", new { levelno = adminNextLevel.LevelNo });
 
                 }
-                return RedirectToAction("Index", new { levelno = levelno});
+                return RedirectToAction("Index", new { levelno = levelno });
 
             }
 
@@ -343,24 +353,66 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Like(int id, bool islike)
         {
-
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
+            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
-                if (islike==true) { 
-                levelData.IsLike = true;
+                if (islike == true)
+                {
+                    if (likesbyuserid == null)
+                    {
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.LevelId = levelData.Id;
+                        likesdata.IsLike = true;
+                        likesdata.IsDisLike = false;
+                        likesdata.LikeId = model.LikeId + 1;
+                        _likesService.InsertLikes(likesdata);
+                    }
+                    else
+                    {
+                        likesbyuserid.UserId = currentUser.Id;
+                        likesbyuserid.LevelId = levelData.Id;
+                        likesbyuserid.IsLike = true;
+                        likesbyuserid.IsDisLike = false;
+                        likesbyuserid.LikeId = model.LikeId + 1;
+                        _likesService.UpdateLikes(likesbyuserid);
+                    }
+                    //level
+                    levelData.IsLike = true;
                     levelData.IsDisLike = false;
                     levelData.LikeId = model.LikeId + 1;
-                   levelData.DisLikeId = model.DisLikeId -1;
+                    levelData.DisLikeId = model.DisLikeId - 1;
                     _levelServices.UpdateLevel(levelData);
                 }
                 else
                 {
+                    if (likesbyuserid == null)
+                    {
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.LevelId = levelData.Id;
+                        likesdata.IsDisLike = true;
+                        likesdata.IsLike = false;
+                        likesdata.DisLikeId = model.DisLikeId + 1;
+                        levelData.LikeId = model.LikeId - 1;
+                        _likesService.InsertLikes(likesdata);
+                    }
+                    else
+                    {
+                        likesbyuserid.UserId = currentUser.Id;
+                        likesbyuserid.LevelId = levelData.Id;
+                        likesbyuserid.IsDisLike = true;
+                        likesbyuserid.IsLike = false;
+                        likesbyuserid.DisLikeId = model.DisLikeId + 1;
+                        likesbyuserid.LikeId = model.LikeId - 1;
+                        _likesService.UpdateLikes(likesbyuserid);
+                    }
                     levelData.IsDisLike = true;
                     levelData.IsLike = false;
                     levelData.DisLikeId = model.DisLikeId + 1;
-                    levelData.LikeId = model.LikeId -1;
+                    levelData.LikeId = model.LikeId - 1;
                     _levelServices.UpdateLevel(levelData);
                 }
             }
@@ -370,12 +422,29 @@ namespace DeVeeraApp.Controllers
         public IActionResult Comments(int id, string comments)
         {
 
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
+            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
                 if (comments != null)
                 {
+                    if (likesbyuserid== null) 
+                    {
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.LevelId = levelData.Id;
+                        likesdata.Comments = levelData.Comments;
+                        _likesService.InsertLikes(likesdata);
+                    }
+                    else
+                    {
+                        likesbyuserid.UserId = currentUser.Id;
+                        likesbyuserid.LevelId = levelData.Id;
+                        likesbyuserid.Comments = levelData.Comments;
+                        _likesService.UpdateLikes(likesbyuserid);
+                    }
                     levelData.Comments = comments;
                     _levelServices.UpdateLevel(levelData);
                 }
@@ -384,7 +453,7 @@ namespace DeVeeraApp.Controllers
         }
         #endregion
 
-       
+
         public IActionResult Privacy()
         {
             return View();
