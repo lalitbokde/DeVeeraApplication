@@ -344,10 +344,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
 
-            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
-            model.Subtitle = _translationService.TranslateLevel(weeklyupdate.Subtitle, key);
-            model.Quote = _translationService.TranslateLevel(weeklyupdate.Quote, key);
-            model.VideoHeader = _translationService.TranslateLevel(weeklyupdate.VideoHeader, key);
+            model.Title = weeklyupdate.Title != null ? _translationService.TranslateLevel(weeklyupdate.Title, key) : "";
+            model.Subtitle = weeklyupdate.Subtitle != null ? _translationService.TranslateLevel(weeklyupdate.Subtitle, key) : "";
+            model.Quote = weeklyupdate.Quote != null ? _translationService.TranslateLevel(weeklyupdate.Quote, key) : "";
+            model.VideoHeader = weeklyupdate.VideoHeader != null ? _translationService.TranslateLevel(weeklyupdate.VideoHeader, key) : "";
             return Json(model);
 
         }
@@ -355,10 +355,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult TranslateEnglishCreate(WeeklyUpdate weeklyUpdate)
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
-            model.Title = _translationService.TranslateLevelSpanish(weeklyUpdate.Title, key);
-            model.Subtitle = _translationService.TranslateLevelSpanish(weeklyUpdate.Subtitle, key);
-            model.Quote = _translationService.TranslateLevelSpanish(weeklyUpdate.Quote, key);
-            model.VideoHeader = _translationService.TranslateLevelSpanish(weeklyUpdate.VideoHeader, key);
+            model.Title = weeklyUpdate.Title!=null?_translationService.TranslateLevelSpanish(weeklyUpdate.Title, key):"";
+            model.Subtitle = weeklyUpdate.Subtitle!=null? _translationService.TranslateLevelSpanish(weeklyUpdate.Subtitle, key) :"";
+            model.Quote = weeklyUpdate.Quote!=null? _translationService.TranslateLevelSpanish(weeklyUpdate.Quote, key) :"";
+            model.VideoHeader = weeklyUpdate.VideoHeader!=null ?_translationService.TranslateLevelSpanish(weeklyUpdate.VideoHeader, key):"";
 
             return Json(model);
 
@@ -367,8 +367,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         public IActionResult TranslateSpanishEditRegistration(WeeklyUpdate weeklyUpdate)
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
-            model.Title = _translationService.TranslateLevel(weeklyUpdate.Title, key);
-            model.Subtitle = _translationService.TranslateLevel(weeklyUpdate.Subtitle, key);
+            model.Title = weeklyUpdate.Title!=null? _translationService.TranslateLevel(weeklyUpdate.Title, key):"";
+            model.Subtitle = weeklyUpdate.Subtitle != null ? _translationService.TranslateLevel(weeklyUpdate.Subtitle, key) : "";
             return Json(model);
 
         }
@@ -378,8 +378,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
 
-            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
-            model.Quote = _translationService.TranslateLevel(weeklyupdate.Quote, key);
+            model.Title = weeklyupdate.Title != null ? _translationService.TranslateLevel(weeklyupdate.Title, key) : "";
+            model.Quote = weeklyupdate.Quote != null ? _translationService.TranslateLevel(weeklyupdate.Quote, key) : "";
             return Json(model);
 
         }
@@ -388,7 +388,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
 
-            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
+            model.Title = weeklyupdate.Title != null ? _translationService.TranslateLevel(weeklyupdate.Title, key) : "";
 
 
             return Json(model);
@@ -399,8 +399,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
 
-            model.Title = _translationService.TranslateLevelSpanish(weeklyupdate.Title, key);
-            model.Quote = _translationService.TranslateLevelSpanish(weeklyupdate.Quote, key);
+            model.Title = weeklyupdate.Title != null ? _translationService.TranslateLevelSpanish(weeklyupdate.Title, key) : "";
+            model.Quote = weeklyupdate.Quote != null ? _translationService.TranslateLevelSpanish(weeklyupdate.Quote, key) : "";
             return Json(model);
 
         }
@@ -409,8 +409,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             WeeklyUpdateModel model = new WeeklyUpdateModel();
 
-            model.Title = _translationService.TranslateLevel(weeklyupdate.Title, key);
-            model.Subtitle = _translationService.TranslateLevel(weeklyupdate.Subtitle, key);
+            model.Title = weeklyupdate.Title != null ? _translationService.TranslateLevel(weeklyupdate.Title, key) : "";
+            model.Subtitle = weeklyupdate.Subtitle != null ? _translationService.TranslateLevel(weeklyupdate.Subtitle, key) : "";
 
             return Json(model);
 

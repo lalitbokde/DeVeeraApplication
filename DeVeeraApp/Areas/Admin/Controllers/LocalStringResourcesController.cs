@@ -230,17 +230,15 @@ namespace DeVeeraApp.Controllers
         public IActionResult TranslatationSpanish(string ResourceName)
         {
             LocalStringResourceModel model1 = new LocalStringResourceModel();
-            model1.ResourceName = _translationService.TranslateLevel(ResourceName, key);
+            model1.ResourceName = ResourceName!=null? _translationService.TranslateLevel(ResourceName, key):"";
             return Json(model1.ResourceName);
-            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
         [HttpPost]
         public IActionResult TranslatationEnglish(string ResourceValue)
         {
             LocalStringResourceModel model1 = new LocalStringResourceModel();
-            model1.ResourceValue = _translationService.TranslateLevelSpanish(ResourceValue, key);
+            model1.ResourceValue = ResourceValue != null ? _translationService.TranslateLevelSpanish(ResourceValue, key) : "";
             return Json(model1.ResourceValue);
-            //return Json(new { Status = "success",/* LevelSpanish = model.Title,*/ TitleSpanish = model.Subtitle, Subtitlespanish = model.Subtitle, DescriptionSpanish = model.FullDescription });
         }
 
         #endregion
