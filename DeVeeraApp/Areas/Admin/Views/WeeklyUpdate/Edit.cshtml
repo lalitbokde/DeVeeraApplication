@@ -3,7 +3,49 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<style>
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 60px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
 
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 58px;
+        /* margin-bottom: 14px; */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 56px;
+        position: absolute;
+        top: 0px;
+        right: 1px;
+        width: 24px;
+    }
+
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #eeeeee;
+        border-radius: 4px;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            border-color: #eee transparent transparent transparent;
+            /* border-style: solid; */
+            border-width: 5px 4px 0 4px;
+            height: 0;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -2px;
+            position: absolute;
+            top: 50%;
+            width: 0;
+        }
+</style>
 <form asp-controller="WeeklyUpdate" asp-action="Edit" method="post" id="Registrationform" onsubmit="ShowLoader('Registrationform');">
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
@@ -74,7 +116,7 @@
                         </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
-                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" id="video" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoId" class="text-theme-21  mt-2"></span>
 
                         </div>
@@ -255,7 +297,7 @@
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
-                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                            <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" id="video" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                             <span asp-validation-for="VideoId" class="text-theme-21  mt-2"></span>
 
                         </div>
@@ -403,8 +445,8 @@
                                 </div>
                                 <div class="mt-5">
                                     @*<label for="input-wizard-1" class="form-label text-theme-21 star ">Description</label>
-                                    <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
-                                    <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>*@
+                                        <textarea asp-for="SliderOneDescription" rows="4" class="form-control w-full" placeholder="Description 1" required></textarea>
+                                        <span asp-validation-for="SliderOneDescription" class="text-theme-21 mt-2"></span>*@
 
                                 </div>
                             </div>
@@ -414,7 +456,7 @@
                                 </div>
                                 <div class="mt-5">
                                     @*<label for="input-wizard-1" class="form-label text-theme-21 star ">Title</label>
-                                    <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />*@
+                                        <input asp-for="SliderTwoTitle" type="text" class="form-control w-full" placeholder="Title 2" />*@
                                     @*<span asp-validation-for="SliderTwoTitle" class="text-theme-21 mt-2"></span>*@
                                 </div>
                                 <div class="mt-5">
@@ -435,8 +477,8 @@
 
                                 <div class="mt-5">
                                     @*<label for="input-wizard-1" class="form-label text-theme-21 star ">Description</label>
-                                    <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
-                                    <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>*@
+                                        <textarea asp-for="SliderTwoDescription" rows="4" class="form-control w-full" placeholder="Description 2"></textarea>
+                                        <span asp-validation-for="SliderTwoDescription" class="text-theme-21 mt-2"></span>*@
                                 </div>
                             </div>
                             <div class="col-span-4 mt-5">
@@ -445,7 +487,7 @@
                                 </div>
                                 <div class="mt-5">
                                     @*<label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                    <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />*@
+                                        <input asp-for="SliderThreeTitle" type="text" class="form-control w-full" placeholder="Title 3" />*@
                                     @*<span asp-validation-for="SliderThreeTitle" class="text-theme-21 mt-2"></span>*@
                                 </div>
                                 <div class="mt-5">
@@ -465,11 +507,11 @@
                                 </div>
 
                                 @*<div class="mt-5">
-                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
-                                    <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
-                                    <span asp-validation-for="SliderThreeDescription" class="text-theme-21 mt-2"></span>
+                                        <label for="input-wizard-1" class="form-label text-theme-21 star">Description</label>
+                                        <textarea asp-for="SliderThreeDescription" rows="4" class="form-control w-full" placeholder="Description 3"></textarea>
+                                        <span asp-validation-for="SliderThreeDescription" class="text-theme-21 mt-2"></span>
 
-                                </div>*@
+                                    </div>*@
                             </div>
                         </div>
 
@@ -493,7 +535,7 @@
                                     <a onclick="TranslateEnglishCreate()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                                 </div>
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                <input asp-for="TitleSpanishLanding" type="text" id="titleSpanishlanding"  class="form-control w-full" placeholder="Title" />
+                                <input asp-for="TitleSpanishLanding" type="text" id="titleSpanishlanding" class="form-control w-full" placeholder="Title" />
                                 <span asp-validation-for="TitleSpanishLanding" class="text-theme-21 mt-2"></span>
                             </div>
                             <div class="col-span-6 mt-5">
@@ -520,15 +562,15 @@
 
                                 </div>
                             </div>
-                           
+
                         </div>
                         @*old*@
                         <div class="grid grid-cols-12 gap-4">
                             @*<div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
-                                <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle" required />
-                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
-                            </div>*@
+                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Title</label>
+                                    <input asp-for="Title" type="text" class="form-control w-full" placeholder="Title" id="LandingTitle" required />
+                                    <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+                                </div>*@
 
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
@@ -542,7 +584,7 @@
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
-                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                                <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" id="video" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                                 <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
                             </div>
 
@@ -566,7 +608,7 @@
 
                             </div>
                         </div>
-                       
+
                         <div class="mt-5">
                             <input asp-for="IsActive" class="form-check-input" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
@@ -613,13 +655,20 @@
 </form>
 @await Component.InvokeAsync("ImageSelection")
 <link href="~/assets/css/PreviewDropdown.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<script>
+    $('select').select2({ closeOnSelect: true, width: '100%'
+    });
+</script>
 @* Login *@
 <script type="text/javascript">
 
     function TranslateSpanishEditLogin() {
         debugger
         var Title = document.getElementById('titlelogin').value;
-     
+
         $.ajax({
             url: "/Admin/WeeklyUpdate/TranslateEnglishEditLogin",
             type: "POST",
@@ -628,7 +677,7 @@
             success: function (data, status) {
 
                 $("#titleSpanishLogin").val(data.title);
-              
+
             },
 
 
@@ -721,10 +770,10 @@
 <script type="text/javascript">
 
     function TranslateSpanishLanding() {
-      
+
         var Title = document.getElementById('LandingTitle').value;
         var Subtitle = document.getElementById('editorEnglish').value;
-       
+
 
         $.ajax({
             url: "/Admin/WeeklyUpdate/TranslateLanding",
