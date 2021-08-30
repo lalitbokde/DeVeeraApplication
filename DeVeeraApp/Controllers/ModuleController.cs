@@ -223,37 +223,27 @@ namespace DeVeeraApp.Controllers
                         likesdata.IsDisLike = false;
                         likesdata.LikeId = model.LikeId + 1;
                         _likesService.InsertLikes(likesdata);
-                        //module
-                        data.IsLike = true;
-                        data.IsDisLike = false;
-                        if (value == "doubleLike") 
-                        { 
-                            data.LikeId = model.LikeId ; 
-                        }
-                        else 
-                        { 
-                            data.LikeId = model.LikeId + 1; 
-                        }
-
-                        if (value == "doubleLike" && likesbyuserid == null)
+                        if (value == "doubleLike")
                         {
-                            if (data.LikeId != 0)
-                            {
-                                data.DisLikeId = model.DisLikeId;
-                            }
+                            data.IsDisLike = false;
+                            data.IsLike = true;
+                            data.LikeId = model.LikeId;
+                            data.DisLikeId = model.DisLikeId;
+                            _moduleService.UpdateModule(data);
                         }
                         else
                         {
-                            if (data.LikeId != 0)
+                            data.IsDisLike = false;
+                            data.IsLike = true;
+                            data.LikeId = model.LikeId + 1;
+                            data.DisLikeId = model.DisLikeId - 1;
+                            if (data.DisLikeId == -1)
                             {
-                                data.DisLikeId = model.DisLikeId - 1;
-                                if (data.DisLikeId == -1)
-                                {
-                                    data.DisLikeId = 0;
-                                }
+                                data.DisLikeId = 0;
                             }
+                            _moduleService.UpdateModule(data);
                         }
-                        _moduleService.UpdateModule(data);
+
                     }
                     else
                     {
@@ -263,34 +253,26 @@ namespace DeVeeraApp.Controllers
                         likesbyuserid.IsDisLike = false;
                         likesbyuserid.LikeId = model.LikeId + 1;
                         _likesService.UpdateLikes(likesbyuserid);
-                        //module
-                        data.IsLike = true;
-                        data.IsDisLike = false;
-                        if(value == "doubleLike")
+                        if (value == "doubleLike")
                         {
-                            data.LikeId = model.LikeId ;
-                        }
-                        else { data.LikeId = model.LikeId + 1; }
-
-                        if (value == "doubleLike" && likesbyuserid == null)
-                        {
-                            if (data.LikeId != 0)
-                            {
-                                data.DisLikeId = model.DisLikeId;
-                            }
+                            data.IsDisLike = false;
+                            data.IsLike = true;
+                            data.LikeId = model.LikeId;
+                            data.DisLikeId = model.DisLikeId;
+                            _moduleService.UpdateModule(data);
                         }
                         else
                         {
-                            if (data.LikeId != 0)
+                            data.IsDisLike = false;
+                            data.IsLike = true;
+                            data.LikeId = model.LikeId + 1;
+                            data.DisLikeId = model.DisLikeId - 1;
+                            if (data.DisLikeId == -1)
                             {
-                                data.DisLikeId = model.DisLikeId - 1;
-                                if (data.DisLikeId == -1)
-                                {
-                                    data.DisLikeId = 0;
-                                }
+                                data.DisLikeId = 0;
                             }
+                            _moduleService.UpdateModule(data);
                         }
-                        _moduleService.UpdateModule(data);
                     }
                    
                 }
@@ -305,37 +287,27 @@ namespace DeVeeraApp.Controllers
                         likesdata.DisLikeId = model.DisLikeId + 1;
                        
                         _likesService.InsertLikes(likesdata);
-                        //module
-                        data.IsDisLike = true;
-                        data.IsLike = false;
-                        if (value == "doubleDislike") 
+                        if (value == "doubleDislike")
                         {
-                            data.DisLikeId = model.DisLikeId ;
+                            data.IsDisLike = true;
+                            data.IsLike = false;
+                            data.LikeId = model.LikeId;
+                            data.DisLikeId = model.DisLikeId;
+                            _moduleService.UpdateModule(data);
                         }
                         else
                         {
+                            data.IsDisLike = true;
+                            data.IsLike = false;
                             data.DisLikeId = model.DisLikeId + 1;
-                        }
-
-                        if (value == "doubleDislike" && likesbyuserid == null)
-                        {
-                            if (data.DisLikeId != 0)
+                            data.LikeId = model.LikeId - 1;
+                            if (data.LikeId == -1)
                             {
-                                data.LikeId = model.LikeId;
+                                data.LikeId = 0;
                             }
+                            _moduleService.UpdateModule(data);
                         }
-                        else
-                        {
-                            if (data.DisLikeId != 0)
-                            {
-                                data.LikeId = model.LikeId - 1;
-                                if (data.LikeId == -1)
-                                {
-                                    data.LikeId = 0;
-                                }
-                            }
-                        }
-                        _moduleService.UpdateModule(data);
+                       
                     }
                     else
                     {
@@ -345,37 +317,27 @@ namespace DeVeeraApp.Controllers
                         likesbyuserid.IsLike = false;
                         likesbyuserid.DisLikeId = model.DisLikeId + 1;
                         _likesService.UpdateLikes(likesbyuserid);
-                        //module
-                        data.IsDisLike = true;
-                        data.IsLike = false;
-                       
                         if (value == "doubleDislike")
                         {
+                            data.IsDisLike = true;
+                            data.IsLike = false;
+                            data.LikeId = model.LikeId;
                             data.DisLikeId = model.DisLikeId;
+                            _moduleService.UpdateModule(data);
                         }
                         else
                         {
+                            data.IsDisLike = true;
+                            data.IsLike = false;
                             data.DisLikeId = model.DisLikeId + 1;
-                        }
-                        if (value == "doubleDislike" && likesbyuserid == null)
-                        {
-                            if (data.DisLikeId != 0)
+                            data.LikeId = model.LikeId - 1;
+                            if (data.LikeId == -1)
                             {
-                                data.LikeId = model.LikeId;
+                                data.LikeId = 0;
                             }
+                            _moduleService.UpdateModule(data);
                         }
-                        else
-                        {
-                            if (data.DisLikeId != 0)
-                            {
-                                data.LikeId = model.LikeId - 1;
-                                if (data.LikeId == -1)
-                                {
-                                    data.LikeId = 0;
-                                }
-                            }
-                        }
-                        _moduleService.UpdateModule(data);
+                        
                     }
                   
                 }
