@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CRM.Core.Domain.Emotions;
 using DeVeeraApp.ViewModels.LayoutSetups;
+using CRM.Core.ViewModels;
+using DeVeeraApp.Utils;
 
 namespace DeVeeraApp.ViewModels
 {
@@ -63,7 +65,7 @@ namespace DeVeeraApp.ViewModels
 
         public string Quote { get; set; }
         public string Author { get; set; }
-
+        public string UserName { get; set; }
         public string VideoUrl { get; set; }
         public string VideoName { get; set; }
         public bool Active { get; set; }
@@ -79,6 +81,7 @@ namespace DeVeeraApp.ViewModels
         public Image Image { get; set; }
         public Emotion Emotion { get; set; }
         public IList<ModulesModel> ModuleList { get; set; }
+        public IList<ModulesViewModel> ModuleDataList { get; set; }
         public List<Image> ImageLists { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
         public IList<SelectListItem> AvailableImages { get; set; }
@@ -112,6 +115,9 @@ namespace DeVeeraApp.ViewModels
         public bool IsDisLike { get; set; }
         public string Comments { get; set; }
         public bool IsNew { get; set; }
+        public IList<LevelViewModel> LevelListPaged { get; set; }
+        public IList<LikesUnlikess> LikeUser { get; set; }
+        public IList<LikesUnlikess> LikeModule { get; set; }
     }
 
    

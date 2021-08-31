@@ -2,9 +2,11 @@
 using CRM.Core.Domain;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.VideoModules;
+using CRM.Core.ViewModels;
 using CRM.Services;
 using CRM.Services.Authentication;
 using CRM.Services.Emotions;
+using CRM.Services.Likes;
 using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.VideoModules;
@@ -38,6 +40,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly INotificationService _notificationService;
         private readonly IModuleImageListService _moduleImageListService;
         private readonly ITranslationService _translationService;
+        private readonly ILikesService _likesService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
@@ -58,6 +61,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      INotificationService notificationService,
                                      IModuleImageListService moduleImageListService,
                                      ITranslationService translationService,
+                                     ILikesService likesService,
                                        ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -69,6 +73,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _imageMasterService = imageMasterService;
             _levelImageListServices = levelImageListServices;
             _emotionService = emotionService;
+            _likesService = likesService;
             _notificationService = notificationService;
             this._moduleImageListService = moduleImageListService;
             _translationService = translationService;
@@ -186,18 +191,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View(model);
         }
 
-        public IActionResult List()
+        public IActionResult List(DataSourceRequest command)
         {
-            AddBreadcrumbs("Level", "List", "/Admin/Level/List", "/Admin/Level/List");
+            var model = new LevelModel();
+            var list = _levelServices.GetAllLevelsDataSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "", Title: model.Title, Subtitle: model.Subtitle, VideoName: model.VideoName, LikeId: model.LikeId, DisLikeId: model.DisLikeId).OrderBy(a => a.LevelNo).ToList();
+            model.LevelListPaged = list.FirstOrDefault() != null ? list : new List<LevelViewModel>(); 
 
-            var model = new List<LevelModel>();
-            var data = _levelServices.GetAllLevels().OrderBy(a => a.LevelNo);
-            if (data.Count() != 0)
+            if (model.LevelListPaged != null)
             {
-                model = data.ToList().ToModelList<Level, LevelModel>(model);
-
-
-                ViewBag.TableData = JsonConvert.SerializeObject(model);
+               
                 return View(model);
             }
             return View(model);
@@ -212,7 +214,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{id}");
             ViewBag.ActiveTab = "Level";
             List<string> Emotions = new List<string>();
-
+            DataSourceRequest command = new DataSourceRequest();
             if (id != 0)
             {
                 var data = _levelServices.GetLevelById(id);
@@ -227,9 +229,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                     model.SelectedEmotions = Emotions;
                 }
-
+                model.LikeUser = _likesService.GetLikesByLevelId(data.Id);
+                ViewBag.likes = model.LikeUser.Count();
+                foreach (var result in model.LikeUser)
+                {
+                    var record = new LevelModel
+                    {
+                        UserName = result.User.Email,
+                        
+                    };
+                }
+                
                 model.srno = srno;
-
+                
                 model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
                 model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
                 model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
@@ -237,7 +249,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 model.SpanishSubtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
                 model.SpanishTitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
                 var moduleList = _moduleServices.GetModulesByLevelId(id);
-                model.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(model.ModuleList.ToList());
+               
+                var list = _levelServices.GetAllModulesDataSp(id).OrderBy(a => a.Id).ToList();
+                model.ModuleDataList = list.FirstOrDefault() != null ? list : new List<ModulesViewModel>().OrderBy(a => a.Id).ToList();
                 if (ModuleId > 0 && ModuleId != 0)
                 {
                     var module = _moduleServices.GetModuleById(ModuleId);
@@ -256,10 +270,22 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
                     model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
                     model.SpanishFullDescriptionModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.FullDescription);
-              
+                    
+
                 }
+                model.LikeModule = _likesService.GetLikesByModuleId(ModuleId);
+                if (model.LikeModule !=null)
+                {
+                    ViewBag.modulelikes = model.LikeModule.Count();
+                    foreach (var result in model.LikeModule)
+                    {
+                        var record = new LevelModel
+                        {
+                            UserName = result.User.Email,
 
-
+                        };
+                    }
+                }
 
                 PrepareLevelModel(model);
 

@@ -209,137 +209,47 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var likesdata = new LikesUnlikess();
             var data = _moduleService.GetModuleById(id);
-            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
+            var likesbylid = _likesService.GetLikesByModuleIdandUserId(data.Id, currentUser.Id);
             var model = data.ToModel<ModulesModel>();
             if (data != null)
             {
                 if (islike == true)
                 {
-                    if (likesbyuserid == null)
+                    if (likesbylid == null)
                     {
-                        likesdata.UserId = currentUser.Id;
-                        likesdata.ModuleId = data.Id;
                         likesdata.IsLike = true;
                         likesdata.IsDisLike = false;
-                        likesdata.LikeId = model.LikeId + 1;
+                        likesdata.UserId = currentUser.Id;
+                        likesdata.ModuleId = data.Id;
                         _likesService.InsertLikes(likesdata);
-                        if (value == "doubleLike")
-                        {
-                            data.IsDisLike = false;
-                            data.IsLike = true;
-                            data.LikeId = model.LikeId;
-                            data.DisLikeId = model.DisLikeId;
-                            _moduleService.UpdateModule(data);
-                        }
-                        else
-                        {
-                            data.IsDisLike = false;
-                            data.IsLike = true;
-                            data.LikeId = model.LikeId + 1;
-                            data.DisLikeId = model.DisLikeId - 1;
-                            if (data.DisLikeId == -1)
-                            {
-                                data.DisLikeId = 0;
-                            }
-                            _moduleService.UpdateModule(data);
-                        }
-
                     }
                     else
                     {
-                        likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.ModuleId = data.Id;
-                        likesbyuserid.IsLike = true;
-                        likesbyuserid.IsDisLike = false;
-                        likesbyuserid.LikeId = model.LikeId + 1;
-                        _likesService.UpdateLikes(likesbyuserid);
-                        if (value == "doubleLike")
-                        {
-                            data.IsDisLike = false;
-                            data.IsLike = true;
-                            data.LikeId = model.LikeId;
-                            data.DisLikeId = model.DisLikeId;
-                            _moduleService.UpdateModule(data);
-                        }
-                        if (model.IsNew == true)
-                        {
-                            data.IsDisLike = false;
-                            data.IsLike = true;
-                            data.LikeId = model.LikeId + 1;
-                            data.DisLikeId = model.DisLikeId - 1;
-                            if (data.DisLikeId == -1)
-                            {
-                                data.DisLikeId = 0;
-                            }
-                            _moduleService.UpdateModule(data);
-                        }
-
+                        likesbylid.IsLike = true;
+                        likesbylid.IsDisLike = false;
+                        likesbylid.UserId = currentUser.Id;
+                        likesbylid.ModuleId = data.Id;
+                        _likesService.UpdateLikes(likesbylid);
                     }
-                   
                 }
                 else
                 {
-                    if (likesbyuserid == null)
+                    if (likesbylid == null)
                     {
+                        likesdata.IsLike = false;
+                        likesdata.IsDisLike = true;
                         likesdata.UserId = currentUser.Id;
                         likesdata.ModuleId = data.Id;
-                        likesdata.IsDisLike = true;
-                        likesdata.IsLike = false;
-                        likesdata.DisLikeId = model.DisLikeId + 1;
-                       
                         _likesService.InsertLikes(likesdata);
-                        if (value == "doubleDislike")
-                        {
-                            data.IsDisLike = true;
-                            data.IsLike = false;
-                            data.LikeId = model.LikeId;
-                            data.DisLikeId = model.DisLikeId;
-                            _moduleService.UpdateModule(data);
-                        }
-                        else
-                        {
-                            data.IsDisLike = true;
-                            data.IsLike = false;
-                            data.DisLikeId = model.DisLikeId + 1;
-                            data.LikeId = model.LikeId - 1;
-                            if (data.LikeId == -1)
-                            {
-                                data.LikeId = 0;
-                            }
-                            _moduleService.UpdateModule(data);
-                        }
-                       
                     }
                     else
                     {
-                        likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.ModuleId = data.Id;
-                        likesbyuserid.IsDisLike = true;
-                        likesbyuserid.IsLike = false;
-                        likesbyuserid.DisLikeId = model.DisLikeId + 1;
-                        _likesService.UpdateLikes(likesbyuserid);
-                        if (value == "doubleDislike")
-                        {
-                            data.IsDisLike = true;
-                            data.IsLike = false;
-                            data.LikeId = model.LikeId;
-                            data.DisLikeId = model.DisLikeId;
-                            _moduleService.UpdateModule(data);
-                        }
-                        if (model.IsNew == true)
-                        {
-                            data.IsDisLike = true;
-                            data.IsLike = false;
-                            data.DisLikeId = model.DisLikeId + 1;
-                            data.LikeId = model.LikeId - 1;
-                            if (data.LikeId == -1)
-                            {
-                                data.LikeId = 0;
-                            }
-                            _moduleService.UpdateModule(data);
-                        }
+                        likesbylid.IsLike = false;
+                        likesbylid.IsDisLike = true;
+                        likesbylid.UserId = currentUser.Id;
+                        likesbylid.ModuleId = data.Id;
+                        _likesService.UpdateLikes(likesbylid);
                     }
-                  
                 }
             }
             return Json(model);
@@ -351,13 +261,13 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var likesdata = new LikesUnlikess();
             var data = _moduleService.GetModuleById(id);
-            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
+            var likesbylid = _likesService.GetLikesByModuleIdandUserId(data.Id, currentUser.Id);
             var model = data.ToModel<ModulesModel>();
             if (data != null)
             {
                 if (comments != null)
                 {
-                    if (likesbyuserid==null) 
+                    if (likesbylid == null) 
                     {
                         likesdata.UserId = currentUser.Id;
                         likesdata.ModuleId = data.Id;
@@ -367,13 +277,12 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.ModuleId = data.Id;
-                        likesbyuserid.Comments = model.Comments;
-                        _likesService.UpdateLikes(likesbyuserid);
+                        likesbylid.UserId = currentUser.Id;
+                        likesbylid.ModuleId = data.Id;
+                        likesbylid.Comments = model.Comments;
+                        _likesService.UpdateLikes(likesbylid);
                     }
-                    data.Comments = model.Comments;
-                    _moduleService.UpdateModule(data);
+                    
                 }
             }
             return Json(model);
