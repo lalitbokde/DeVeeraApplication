@@ -261,7 +261,7 @@ namespace DeVeeraApp.Controllers
                             data.DisLikeId = model.DisLikeId;
                             _moduleService.UpdateModule(data);
                         }
-                        else
+                        if (model.IsNew == true)
                         {
                             data.IsDisLike = false;
                             data.IsLike = true;
@@ -273,6 +273,7 @@ namespace DeVeeraApp.Controllers
                             }
                             _moduleService.UpdateModule(data);
                         }
+
                     }
                    
                 }
@@ -325,7 +326,7 @@ namespace DeVeeraApp.Controllers
                             data.DisLikeId = model.DisLikeId;
                             _moduleService.UpdateModule(data);
                         }
-                        else
+                        if (model.IsNew == true)
                         {
                             data.IsDisLike = true;
                             data.IsLike = false;
@@ -337,7 +338,6 @@ namespace DeVeeraApp.Controllers
                             }
                             _moduleService.UpdateModule(data);
                         }
-                        
                     }
                   
                 }

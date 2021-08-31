@@ -111,7 +111,7 @@ namespace DeVeeraApp.ViewModels
         public bool IsLike { get; set; }
         public bool IsDisLike { get; set; }
         public string Comments { get; set; }
-
+        public bool IsNew { get; set; }
     }
 
    
