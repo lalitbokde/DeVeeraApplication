@@ -376,6 +376,7 @@ namespace DeVeeraApp.Controllers
                             levelData.IsLike = true;
                             levelData.LikeId = model.LikeId;
                             levelData.DisLikeId = model.DisLikeId;
+                            
                             _levelServices.UpdateLevel(levelData);
                         } 
                         else
@@ -383,11 +384,7 @@ namespace DeVeeraApp.Controllers
                             levelData.IsDisLike = false;
                             levelData.IsLike = true;
                             levelData.LikeId = model.LikeId+1;
-                            levelData.DisLikeId = model.DisLikeId - 1;
-                            if (levelData.DisLikeId == -1)
-                            {
-                                levelData.DisLikeId = 0;
-                            }
+                            levelData.IsNew = true;
                             _levelServices.UpdateLevel(levelData);
                         }
                    
@@ -408,11 +405,12 @@ namespace DeVeeraApp.Controllers
                             levelData.DisLikeId = model.DisLikeId;
                             _levelServices.UpdateLevel(levelData);
                         }
-                        else
+
+                        if (model.IsNew == true)
                         {
                             levelData.IsDisLike = false;
                             levelData.IsLike = true;
-                            levelData.LikeId = model.LikeId + 1;
+                            levelData.LikeId = model.LikeId+1;
                             levelData.DisLikeId = model.DisLikeId - 1;
                             if (levelData.DisLikeId == -1)
                             {
@@ -420,7 +418,6 @@ namespace DeVeeraApp.Controllers
                             }
                             _levelServices.UpdateLevel(levelData);
                         }
-
                     }
                
                 }
@@ -443,15 +440,11 @@ namespace DeVeeraApp.Controllers
                             _levelServices.UpdateLevel(levelData);
                         }
                         else
-                        {
+                        { 
                             levelData.IsDisLike = true;
                             levelData.IsLike = false;
                             levelData.DisLikeId = model.DisLikeId + 1;
-                            levelData.LikeId = model.LikeId - 1;
-                            if (levelData.LikeId == -1)
-                            {
-                                levelData.LikeId = 0;
-                            }
+                            levelData.IsNew = true;
                             _levelServices.UpdateLevel(levelData);
                         }
 
@@ -473,11 +466,11 @@ namespace DeVeeraApp.Controllers
                             levelData.DisLikeId = model.DisLikeId;
                             _levelServices.UpdateLevel(levelData);
                         }
-                        else
+                        if (model.IsNew==true) 
                         {
                             levelData.IsDisLike = true;
                             levelData.IsLike = false;
-                            levelData.DisLikeId = model.DisLikeId + 1;
+                            levelData.DisLikeId = model.DisLikeId+1;
                             levelData.LikeId = model.LikeId - 1;
                             if (levelData.LikeId == -1)
                             {
@@ -485,6 +478,7 @@ namespace DeVeeraApp.Controllers
                             }
                             _levelServices.UpdateLevel(levelData);
                         }
+                       
                     }
                   
                 }
