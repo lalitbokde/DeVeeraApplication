@@ -1,4 +1,4 @@
-﻿@model List<DeVeeraApp.ViewModels.LevelModel>
+﻿@model DeVeeraApp.ViewModels.LevelModel
 @{
     ViewData["Title"] = "List";
 }
@@ -40,8 +40,42 @@ else
 <!-- BEGIN: HTML Table Data -->
 <div class="intro-y box p-5 mt-2">
     <div class="overflow-x-auto scrollbar-hidden">
-        <input id="tabledata" value="@ViewBag.TableData" hidden />
-        <div id="tabulator1"></div>
+        <div class="preview">
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Title</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Subtitle</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">VideoName</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Like</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">DisLike</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1;
+                            foreach (var item in Model.LevelListPaged)
+                            {
+                                                <tr>
+                                                    <td class="border-b dark:border-dark-5">@item.LevelNo</td>
+                                                    <td class="border-b dark:border-dark-5">@item.Title</td>
+                                                    <td class="border-b dark:border-dark-5">@item.Subtitle</td>
+                                                    <td class="border-b dark:border-dark-5">@item.VideoName</td>
+                                                    <td class="border-b dark:border-dark-5">@(item.LikeId == null ? 0 : item.LikeId)</td>
+                                                    <td class="border-b dark:border-dark-5">@(item.DisLikeId == null ? 0 : item.DisLikeId)</td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Level" asp-action="Edit" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                    <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteLevel(@item.Id)')"><i data-feather="trash-2"></i></a></td>
+                                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 <!-- END: HTML Table Data -->

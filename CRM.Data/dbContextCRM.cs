@@ -83,7 +83,8 @@ namespace CRM.Data
         public virtual DbQuery<DiaryViewModel> DiaryViewModel { get; set; }
 
         public virtual DbQuery<VideoViewModel> VideoViewModel { get; set; }
-
+        public virtual DbQuery<LevelViewModel> LevelViewModel { get; set; }
+        public virtual DbQuery<ModulesViewModel> ModulesViewModel { get; set; }
         public virtual DbQuery<ImageViewModel> ImageViewModel { get; set; }
         public virtual DbQuery<FeelGoodViewModel> FeelGoodViewModels { get; set; }
         public virtual DbQuery<DashBoardQuoteViewModel> DashBoardQuoteViewModels { get; set; }

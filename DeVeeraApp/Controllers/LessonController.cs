@@ -356,133 +356,55 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
-            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
+            var likesbylevelid = _likesService.GetLikesByLevelIdandUserId(levelData.Id, currentUser.Id);
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
-                if (islike == true)
+                if (islike==true) { 
+                if (likesbylevelid== null)
                 {
-                    if (likesbyuserid == null)
-                    {
+                        likesdata.IsLike = true;
+                        likesdata.LikeId = 1;
+                        likesdata.IsDisLike = false;
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
-                        likesdata.IsLike = true;
-                        likesdata.IsDisLike = false;
-                        likesdata.LikeId = model.LikeId + 1;
                         _likesService.InsertLikes(likesdata);
-                        if (value== "doubleLike") 
-                        {
-                            levelData.IsDisLike = false;
-                            levelData.IsLike = true;
-                            levelData.LikeId = model.LikeId;
-                            levelData.DisLikeId = model.DisLikeId;
-                            
-                            _levelServices.UpdateLevel(levelData);
-                        } 
-                        else
-                        {
-                            levelData.IsDisLike = false;
-                            levelData.IsLike = true;
-                            levelData.LikeId = model.LikeId+1;
-                            levelData.IsNew = true;
-                            _levelServices.UpdateLevel(levelData);
-                        }
-                   
                     }
                     else
                     {
-                        likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.LevelId = levelData.Id;
-                        likesbyuserid.IsLike = true;
-                        likesbyuserid.IsDisLike = false;
-                        likesbyuserid.LikeId = model.LikeId + 1;
-                        _likesService.UpdateLikes(likesbyuserid);
-                        if (value == "doubleLike")
-                        {
-                            levelData.IsDisLike = false;
-                            levelData.IsLike = true;
-                            levelData.LikeId = model.LikeId;
-                            levelData.DisLikeId = model.DisLikeId;
-                            _levelServices.UpdateLevel(levelData);
-                        }
-
-                        if (model.IsNew == true)
-                        {
-                            levelData.IsDisLike = false;
-                            levelData.IsLike = true;
-                            levelData.LikeId = model.LikeId+1;
-                            levelData.DisLikeId = model.DisLikeId - 1;
-                            if (levelData.DisLikeId == -1)
-                            {
-                                levelData.DisLikeId = 0;
-                            }
-                            _levelServices.UpdateLevel(levelData);
-                        }
+                        likesbylevelid.IsLike = true;
+                        likesbylevelid.DisLikeId = 0;
+                        likesbylevelid.LikeId =  1;
+                        likesbylevelid.IsDisLike = false;
+                        likesbylevelid.UserId = currentUser.Id;
+                        likesbylevelid.LevelId = levelData.Id;
+                        _likesService.UpdateLikes(likesbylevelid);
                     }
-               
-                }
+               }
                 else
                 {
-                    if (likesbyuserid == null)
+                    if (likesbylevelid == null)
                     {
+                        likesdata.IsLike = false;
+                        likesdata.DisLikeId = 1;
+                        likesdata.IsDisLike = true;
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
-                        likesdata.IsDisLike = true;
-                        likesdata.IsLike = false;
-                        likesdata.DisLikeId = model.DisLikeId + 1;
                         _likesService.InsertLikes(likesdata);
-                        if (value == "doubleDislike")
-                        {
-                            levelData.IsDisLike = true;
-                            levelData.IsLike = false;
-                            levelData.LikeId = model.LikeId;
-                            levelData.DisLikeId = model.DisLikeId;
-                            _levelServices.UpdateLevel(levelData);
-                        }
-                        else
-                        { 
-                            levelData.IsDisLike = true;
-                            levelData.IsLike = false;
-                            levelData.DisLikeId = model.DisLikeId + 1;
-                            levelData.IsNew = true;
-                            _levelServices.UpdateLevel(levelData);
-                        }
-
                     }
                     else
                     {
-                        likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.LevelId = levelData.Id;
-                        likesbyuserid.IsDisLike = true;
-                        likesbyuserid.IsLike = false;
-                        likesbyuserid.DisLikeId = model.DisLikeId + 1;
-                
-                        _likesService.UpdateLikes(likesbyuserid);
-                        if (value == "doubleDislike")
-                        {
-                            levelData.IsDisLike = true;
-                            levelData.IsLike = false;
-                            levelData.LikeId = model.LikeId;
-                            levelData.DisLikeId = model.DisLikeId;
-                            _levelServices.UpdateLevel(levelData);
-                        }
-                        if (model.IsNew==true) 
-                        {
-                            levelData.IsDisLike = true;
-                            levelData.IsLike = false;
-                            levelData.DisLikeId = model.DisLikeId+1;
-                            levelData.LikeId = model.LikeId - 1;
-                            if (levelData.LikeId == -1)
-                            {
-                                levelData.LikeId = 0;
-                            }
-                            _levelServices.UpdateLevel(levelData);
-                        }
-                       
+                        likesbylevelid.IsLike = false;
+                        likesbylevelid.LikeId = 0;
+                        likesbylevelid.DisLikeId = 1;
+                        likesbylevelid.IsDisLike = true;
+                        likesbylevelid.UserId = currentUser.Id;
+                        likesbylevelid.LevelId = levelData.Id;
+                        _likesService.UpdateLikes(likesbylevelid);
                     }
-                  
                 }
             }
+          
          
             return Json(model);
         }
@@ -493,29 +415,31 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
-            var likesbyuserid = _likesService.GetLikesByUserId(currentUser.Id);
-           
+            var likesbylevelid = _likesService.GetLikesByLevelIdandUserId(levelData.Id, currentUser.Id);
+            
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
                 if (comments != null)
                 {
-                    if (likesbyuserid== null) 
+                    if (likesbylevelid == null) 
                     {
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
                         likesdata.Comments = comments;
+                        likesdata.IsLike = false;
+                        likesdata.IsDisLike = false;
                         _likesService.InsertLikes(likesdata);
                     }
                     else
                     {
-                        likesbyuserid.UserId = currentUser.Id;
-                        likesbyuserid.LevelId = model.Id;
-                        likesbyuserid.Comments = comments;
-                        _likesService.UpdateLikes(likesbyuserid);
+                        likesbylevelid.UserId = currentUser.Id;
+                        likesbylevelid.LevelId = model.Id;
+                        likesbylevelid.Comments = comments;
+                        likesbylevelid.IsDisLike = likesbylevelid.IsDisLike;
+                        likesbylevelid.IsLike = likesbylevelid.IsLike;
+                        _likesService.UpdateLikes(likesbylevelid);
                     }
-                    levelData.Comments = comments;
-                    _levelServices.UpdateLevel(levelData);
                 }
             }
             return Json(model);
