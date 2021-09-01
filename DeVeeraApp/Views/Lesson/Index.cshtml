@@ -10,7 +10,7 @@
 
 <style>
     .colbutn {
-        background-color: grey;
+        background-color: lightgray;
         padding: 6px 24px 3px 4px;
     }
 
@@ -104,19 +104,19 @@
 
             @if (Model.IsLike == true && Model.IsDisLike == false)
             {
-                <a class="default-btn disbutn " onclick="LikeButton(@Model.Id, true,'doubleLike');"><img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 10px;margin-bottom: 7px;" width="20" height="20" /></a>
+                <a class="default-btn disbutn " onclick="LikeButton(@Model.Id, true,'doubleLike');" title="like"><img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 10px;margin-bottom: 7px;" width="20" height="20" /></a>
             }
             else
             {
-                <a class="default-btn colbutn" onclick="LikeButton(@Model.Id,true);"><img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 10px;margin-bottom: 7px;" width="20" height="20" /></a>
+                <a class="default-btn colbutn" onclick="LikeButton(@Model.Id,true);" title="like"><img src="~/assets/images/Icon material-thumb-up.png" style="margin-left: 10px;margin-bottom: 7px;" width="20" height="20" /></a>
             }
             @if (Model.IsLike == false && Model.IsDisLike == true)
             {
-                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false,'doubleDislike');"> <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 12px;margin-bottom: 1px;" width="23" height="23" /></a>
+                <a class="default-btn disbutn" onclick="LikeButton(@Model.Id, false,'doubleDislike');" title="dislike"> <img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 12px;margin-bottom: 4px;" width="23" height="23" /></a>
             }
             else
             {
-                <a class="default-btn colbutn"  onclick="LikeButton(@Model.Id, false);"><img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 12px;margin-bottom: 1px;" width="23" height="23" /></a>
+                <a class="default-btn colbutn"  onclick="LikeButton(@Model.Id, false);" title="dislike"><img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 12px;margin-bottom: 4px;" width="23" height="23" /></a>
             }
 
             <div class="col-3 mt-5">
