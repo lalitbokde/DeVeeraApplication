@@ -65,6 +65,7 @@ namespace DeVeeraApp.ViewModels
 
         public string Quote { get; set; }
         public string Author { get; set; }
+        
         public string UserName { get; set; }
         public string VideoUrl { get; set; }
         public string VideoName { get; set; }

@@ -67,7 +67,7 @@ namespace CRM.Services.Likes
         }
         public IList<LikesUnlikess> GetCommenntsByModuleId(int ModuleId)
         {
-            var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId).ToList();
+            var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId ).ToList();
             return data.ToList();
         }
         public IList<LikesUnlikess> GetDislikesByLevelId(int LevelId)
