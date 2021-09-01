@@ -1,0 +1,272 @@
+﻿@model DeVeeraApp.ViewModels.LayoutSetups.LayoutSetupModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-controller="Home" asp-action="Create" method="post" id="LayoutSetupForm" onsubmit="ShowLoader('LayoutSetupForm');">
+    <div class="intro-y inbox py-10 sm:py-20 ">
+        <div class="px-5 ">
+            <div class="font-medium text-center text-lg">Create Home Page </div>
+            <div class="text-gray-600 text-center mt-2">Please Create Home Page to show on the dashboad page</div>
+        </div>
+        <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
+
+            <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                <div class="intro-y box p-5 col-span-12">
+                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                    {
+                        <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                        </div>
+                    }
+
+                    <div class="px-5 ">
+                        <div class="font-medium text-center  text-theme-21">User Dashboard</div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                                <a onclick="TranslateSpanishHome()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                            </div>
+
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                <a class="btn btn-primary w-40" onclick="TranslateHomeEngilsh()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                            </div>
+
+                        </div>
+                        <div class="col-span-6 mt-5">
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Home Title</label>
+                            <input asp-for="HomeTitle" id="homeTitle" type="text" class="form-control w-full" placeholder=" Home Title" />
+
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Home Title</label>
+                            @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
+                            @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
+                            <input asp-for="@Model.HomeTitleSpanish" id="homeTitleSpanish" type="text" class="form-control ">
+                        </div>
+                        <div class="col-span-6 mt-5">
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Home SubTitle</label>
+                            <input asp-for="HomeSubTitle" id="homeSubTitle" type="text" class="form-control w-full" placeholder=" Home sub Title" />
+
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Home SubTitle</label>
+                            @*<input id="input-wizard-1" asp-for="@Model.Title" type="text" class="form-control" placeholder="title">*@
+                            @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
+                            <input asp-for="@Model.HomeSubTitleSpanish" id="HomeSubTitleSpanish" type="text" class="form-control ">
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorModuleEnglish" asp-for="HomeDescription" class="editorModuleEnglish editorEnglishLevel"> </textarea>
+                                    <p id="FullDescriptiontag" class="temp"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label for="input-wizard-1" class="form-label text-theme-21 star">Home Description</label>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorModuleSpanish" asp-for="HomeSpanishDescription" class="editorModuleSpanish SpanishFullDescription"> </textarea>
+                                    <p id="FullDescriptiontagSpan" class="temp"></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="mt-5">
+
+                        <label class="form-label text-theme-21 star">Video</label>
+                        <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
+
+                    </div>
+                    <div class="mt-5">
+                        <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
+                            @*<a onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                    <div class="box rounded-md p-3 relative zoom-in">
+                        <div class="flex-none pos-image relative block">
+                            <div class="pos-image__preview">
+                                <input asp-for="BannerImageId" hidden>
+                                <img id="BannerImageUrl" alt="" src="~/dist/images/food-beverage-9.jpg" style="Width:100%;height:100%">
+                            </div>
+                        </div>
+                        <div class="block font-medium text-center truncate mt-3">Banner</div>
+                    </div>
+                </a>*@
+                            <a onclick="OpenImageSelectionModal('VideoThumbImageId','VideoThumbImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                <div class="box rounded-md p-3 relative zoom-in">
+                                    <div class="flex-none pos-image relative block">
+                                        <div class="pos-image__preview">
+                                            <input asp-for="VideoThumbImageId" hidden>
+                                            <img id="VideoThumbImageUrl" alt="" src="~/dist/images/food-beverage-19.jpg" style="Width:100%;height:100%">
+                                        </div>
+                                        <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
+                                    </div>
+
+                                </div>
+                            </a>
+                            @*<a onclick="OpenImageSelectionModal('ShareBackgroundImageId','ShareBackgroundImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                    <div class="box rounded-md p-3 relative zoom-in">
+                        <div class="flex-none pos-image relative block">
+                            <div class="pos-image__preview">
+                                <input asp-for="ShareBackgroundImageId" hidden>
+                                <img id="ShareBackgroundImageUrl" alt="" src="~/dist/images/food-beverage-5.jpg" style="Width:100%;height:100%">
+                            </div>
+                        </div>
+                        <div class="block font-medium text-center truncate mt-3">Share Panel Background</div>
+                    </div>
+                </a>*@
+                        </div>
+
+                    </div>
+
+                    <div class="mt-5">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                        <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Active</label>
+                        <span asp-validation-for="IsActive" class="text-theme-21 mt-2"></span>
+
+                    </div>
+
+
+                    <div class="mt-5 ">
+                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                            <div class="grid grid-cols-12  gap-y-5 mt-5">
+                                <div class="intro-y   col-span-6">
+
+                                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                        <label class="pl-10">Back to List</label>
+                                        <a asp-controller="Home" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
+                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="intro-y  col-span-6 ml-auto">
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('RegistartionForm');">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@await Component.InvokeAsync("ImageSelection")
+@* Module *@
+<script type="text/javascript">
+
+    function TranslateSpanishModule() {
+
+        var Title = document.getElementById('moduleTitle').value;
+        var Description = document.getElementById('moduleDescription').value;
+
+
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateModule",
+            type: "POST",
+            data: { Title, Description },
+
+            success: function (data, status) {
+
+                $("#titleSpanishModule").val(data.title);
+                $("#moduleSpanishDescription").val(data.description);
+            },
+
+
+        });
+    }
+
+</script>
+
+@* Footer *@
+<script type="text/javascript">
+
+    function TranslateSpanishFooter() {
+
+        var FooterDescription = document.getElementById('FooterDescription').value;
+        var Location = document.getElementById('Location').value;
+
+
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateFooter",
+            type: "POST",
+            data: { FooterDescription, Location },
+
+            success: function (data, status) {
+
+                $("#footerDescriptionSpanish").val(data.footerDescription);
+                $("#LocationSpanish").val(data.location);
+            },
+
+
+        });
+    }
+
+</script>
+@* dashboard *@
+<script type="text/javascript">
+
+    function TranslateSpanishHome() {
+
+        var HomeTitle = document.getElementById('homeTitle').value;
+        var HomeDescription = CKEDITOR.instances.editorModuleEnglish.getData();
+        var HomeSubTitle = document.getElementById('homeSubTitle').value;
+
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateHome",
+            type: "POST",
+            data: { HomeTitle, HomeDescription, HomeSubTitle },
+
+            success: function (data, status) {
+
+                $("#homeTitleSpanish").val(data.homeTitle);
+                CKEDITOR.instances['editorModuleSpanish'].setData(data.homeDescription);
+                $("#HomeSubTitleSpanish").val(data.homeSubTitle);
+            },
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateHomeEngilsh() {
+
+        var HomeTitleSpanish = document.getElementById('homeTitleSpanish').value;
+        var HomeSubTitleSpanish = document.getElementById('HomeSubTitleSpanish').value;
+        var HomeSpanishDescription = CKEDITOR.instances.editorModuleSpanish.getData();
+        $.ajax({
+            url: "/Admin/LayoutSetup/TranslateHomeEngilsh",
+            type: "POST",
+            data: { HomeTitleSpanish, HomeSubTitleSpanish, HomeSpanishDescription },
+
+            success: function (data, status) {
+
+                $("#homeTitle").val(data.homeTitleSpanish);
+                CKEDITOR.instances['editorModuleEnglish'].setData(data.homeSpanishDescription);
+                $("#homeSubTitle").val(data.homeSubTitleSpanish);
+            },
+
+
+        });
+    }
+
+</script>

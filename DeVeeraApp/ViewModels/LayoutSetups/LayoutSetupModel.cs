@@ -64,7 +64,7 @@ namespace DeVeeraApp.ViewModels.LayoutSetups
         public int CompleteRegistrationHeaderImgId { get; set; }
         public string CompleteRegistrationHeaderImgUrl { get; set; }
         
-        [Required(ErrorMessage ="Enter the reason")]
+       // [Required(ErrorMessage ="Enter the reason")]
         public string ReasonToSubmit { get; set; }
         public List<SelectListItem> AvailableImages { get; }
 

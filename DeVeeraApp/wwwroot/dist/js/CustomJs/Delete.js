@@ -847,3 +847,53 @@ function PostDeleteLayoutSetup(Id) {
         });
 
 }
+
+function PostDeleteHome(Id) {
+    debugger
+    var jsonData = {
+
+        id: Id
+
+    };
+    $.post("/Admin/Home/Delete",
+        jsonData
+        ,
+        function (data, status) {
+            if (data.success == true) {
+                debugger
+                if (data.message != null) {
+                    swal({
+                        type: 'warning',
+                        title: 'Warning!',
+                        text: data.message,
+                        buttonsStyling: false,
+                        confirmButtonClass: 'btn btn-lg btn-warning'
+                    });
+                }
+                else {
+                    swal({
+                        title: 'Deleted!',
+                        text: "LayoutSetup has been deleted.",
+                        type: 'success',
+                        confirmButtonColor: '#2f47c2',
+                        confirmButtonText: 'Ok',
+                        confirmButtonClass: 'btn btn-lg btn-primary',
+                        buttonsStyling: false
+                    }).then(function () {
+
+                        window.location.reload();
+
+                    })
+                }
+
+            }
+            else
+                swal(
+                    'Error!',
+                    "Emotion is in use.",
+                    'error',
+
+                )
+        });
+
+}

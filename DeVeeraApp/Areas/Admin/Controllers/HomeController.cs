@@ -16,6 +16,13 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 using CRM.Services.Localization;
 using CRM.Services.VideoModules;
+using DeVeeraApp.ViewModels.LayoutSetups;
+using CRM.Services.Layoutsetup;
+using Newtonsoft.Json;
+using CRM.Core.Domain.LayoutSetups;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using CRM.Services.Message;
+using DeVeeraApp.ViewModels.Common;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
@@ -39,7 +46,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ITranslationService _translationService;
         private readonly IModuleService _moduleService;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
-
+        private readonly ILayoutSetupService _layoutSetupService;
+        private readonly INotificationService _notificationService;
+        private readonly IVideoMasterService _videoServices;
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         #endregion
 
 
@@ -58,7 +68,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                               IS3BucketService s3BucketService,
                               ITranslationService translationService,
                               IModuleService moduleService,
-                              IUserService userService
+                              IUserService userService,
+                              ILayoutSetupService layoutSetupService,
+                              INotificationService notificationService,
+                              IVideoMasterService videoService,
+                              ILocalStringResourcesServices localStringResourcesServices
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -76,6 +90,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _s3BucketService = s3BucketService;
             _translationService = translationService;
             _moduleService = moduleService;
+            _layoutSetupService = layoutSetupService;
+            _notificationService = notificationService;
+            _videoServices = videoService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
         #endregion
@@ -159,7 +177,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult ExistingUser(int QuoteType,DateTime LastLoginDateUtc)
+        public IActionResult ExistingUser(int QuoteType, DateTime LastLoginDateUtc)
         {
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
 
@@ -169,7 +187,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Login);
 
             var model = data?.ToModel<WeeklyUpdateModel>();
-            _translationService.Translate(model.Title,key);
+            _translationService.Translate(model.Title, key);
             _translationService.Translate(model.Subtitle, key);
             if (model != null)
             {
@@ -206,7 +224,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);
 
             var model = data?.ToModel<WeeklyUpdateModel>();
-            if(model != null)
+            if (model != null)
             {
                 model.VideoUrl = data?.Video?.VideoUrl;
                 var firstLevel = _levelServices.GetAllLevels().Where(a => a.Active == true).FirstOrDefault();
@@ -220,7 +238,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _UserService.UpdateUser(currentUser);
 
             }
-            _translationService.Translate(model.Title,key);
+            _translationService.Translate(model.Title, key);
             _translationService.Translate(model.Subtitle, key);
             return View(model);
 
@@ -274,7 +292,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _feelGoodStoryServices.GetAllFeelGoodStorys();
 
             var model = new List<FeelGoodStoryModel>();
-         
+
 
             if (data.Count() != 0)
             {
@@ -294,7 +312,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         }
 
                     }
-                    _translationService.Translate(item.Title,key);
+                    _translationService.Translate(item.Title, key);
                     _translationService.Translate(item.Story, key);
                     model.Add(item.ToModel<FeelGoodStoryModel>());
                 }
@@ -303,5 +321,199 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
         #endregion
+
+        #region Home Master
+        public virtual void PrepareImages(LayoutSetupModel model)
+        {
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideo.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
+                    Selected = url.Id == model.VideoId
+                });
+            }
+            //prepare available images
+            var AvailableImages = _imageMasterService.GetAllImages();
+            foreach (var item in AvailableImages)
+            {
+                model.AvailableImages.Add(new SelectListItem
+                {
+                    Value = item.Id.ToString(),
+                    Text = item.Name,
+                });
+            }
+        }
+        public virtual void PrepareImageUrls(LayoutSetupModel model)
+        {
+            model.AvailableVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            var AvailableVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url in AvailableVideoUrl)
+            {
+                model.AvailableVideo.Add(new SelectListItem
+                {
+                    Value = url.Id.ToString(),
+                    Text = url.Name,
+                    Selected = url.Id == model.VideoId
+                });
+            }
+            model.SliderOneImageUrl = model.SliderOneImageId > 0 ? _imageMasterService.GetImageById(model.SliderOneImageId)?.ImageUrl : null;
+            model.SliderTwoImageUrl = model.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(model.SliderTwoImageId)?.ImageUrl : null;
+            model.SliderThreeImageUrl = model.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(model.SliderThreeImageId)?.ImageUrl : null;
+            model.BannerOneImageUrl = model.BannerOneImageId > 0 ? _imageMasterService.GetImageById(model.BannerOneImageId)?.ImageUrl : null;
+            model.BannerTwoImageUrl = model.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(model.BannerTwoImageId)?.ImageUrl : null;
+            model.DiaryHeaderImageUrl = model.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(model.DiaryHeaderImageId)?.ImageUrl : null;
+            model.CompleteRegistrationHeaderImgUrl = model.CompleteRegistrationHeaderImgId > 0 ? _imageMasterService.GetImageById(model.CompleteRegistrationHeaderImgId)?.ImageUrl : null;
+            model.Link_1_BannerImageUrl = model.Link_1_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_1_BannerImageId)?.ImageUrl : null;
+            model.Link_2_BannerImageUrl = model.Link_2_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_2_BannerImageId)?.ImageUrl : null;
+            model.Link_3_BannerImageUrl = model.Link_3_BannerImageId > 0 ? _imageMasterService.GetImageById(model.Link_3_BannerImageId)?.ImageUrl : null;
+            model.FooterImageUrl = model.FooterImageId > 0 ? _imageMasterService.GetImageById(model.FooterImageId)?.ImageUrl : null;
+        }
+        public IActionResult List()
+        {
+            AddBreadcrumbs("Home", "List", "/Admin/Home/List", "/Admin/Home/List");
+            var model = new List<LayoutSetupModel>();
+            var data = _layoutSetupService.GetAllLayoutSetups();
+            if (data.Count() != 0)
+            {
+                model = data.ToList().ToModelList<LayoutSetup, LayoutSetupModel>(model);
+                ViewBag.LayOut = JsonConvert.SerializeObject(model);
+                return View(model);
+            }
+            return View(model);
+        }
+
+        public IActionResult Create()
+        {
+            AddBreadcrumbs("Home", "Create", "/Admin/Home/List", "/Admin/Home/Create");
+            LayoutSetupModel model = new LayoutSetupModel();
+            PrepareImages(model);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Create(LayoutSetupModel model)
+        {
+            AddBreadcrumbs("Home", "Create", "/Admin/Home/Create", "/Admin/Home/Create");
+
+            if (ModelState.IsValid)
+            {
+                model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
+                var data = model.ToEntity<LayoutSetup>();
+
+                _layoutSetupService.InsertLayoutSetup(data);
+                _translationService.Translate(model.Title, model.ModuleSpanishTitle);
+                _translationService.Translate(model.Description, model.ModuleSpanishDescription);
+                _translationService.Translate(model.Title, model.HomeTitleSpanish);
+                _translationService.Translate(model.HomeSubTitle, model.HomeSubTitleSpanish);
+                _translationService.Translate(model.Description, model.HomeSpanishDescription);
+
+                _notificationService.SuccessNotification("Home Created Successfully.");
+                return RedirectToAction("List", "Home");
+            }
+
+            PrepareImages(model);
+            return View(model);
+        }
+
+        public IActionResult Edit(int Id)
+        {
+            AddBreadcrumbs("Home", "Edit", $"/Admin/Home/List", $"/Admin/Home/Edit/{Id}");
+
+            if (Id != 0)
+            {
+                var data = _layoutSetupService.GetLayoutSetupById(Id);
+                if (data != null)
+                {
+                    var model = data.ToModel<LayoutSetupModel>();
+                    model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
+                    model.VideoThumbImageUrl = _imageMasterService.GetImageById(data.VideoThumbImageId)?.ImageUrl;
+                    model.ShareBackgroundImageUrl = _imageMasterService.GetImageById(data.ShareBackgroundImageId)?.ImageUrl;
+                    model.ModuleSpanishTitle = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Title);
+                    model.ModuleSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Description);
+                    model.HomeTitleSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeTitle);
+                    model.HomeSubTitleSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeSubTitle);
+                    model.HomeSpanishDescription = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.HomeDescription);
+                    model.FooterDescriptionSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.FooterDescription);
+                    model.LocationSpanish = _localStringResourcesServices.GetResourceValueByResourceNameScreen(model.Location);
+                    PrepareImageUrls(model);
+                    return View(model);
+                }
+
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(LayoutSetupModel model)
+        {
+            AddBreadcrumbs("Home", "Edit", $"/Admin/Home/List", $"/Home/Edit/{model.Id}");
+
+            if (ModelState.IsValid)
+            {
+                model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
+                var data = _layoutSetupService.GetLayoutSetupById(model.Id);
+ 
+                data.IsActive = model.IsActive;
+                data.Location = model.Location;
+                data.Description = model.Description;
+                data.PhoneNo = model.PhoneNo;
+                data.FooterImageId = model.FooterImageId;
+                data.FooterDescription = model.FooterDescription;
+                data.Title = model.Title;
+                data.HomeDescription = model.HomeDescription;
+                data.HomeTitle = model.HomeTitle;
+                data.HomeSubTitle = model.HomeSubTitle;
+                data.VideoId = model.VideoId;
+                data.BannerImageId = model.BannerImageId;
+                data.VideoThumbImageId = model.VideoThumbImageId;
+                data.ShareBackgroundImageId = model.ShareBackgroundImageId;
+
+                _layoutSetupService.UpdateLayoutSetup(data);
+                _translationService.Translate(model.Title, model.ModuleSpanishTitle);
+                _translationService.Translate(model.Description, model.ModuleSpanishDescription);
+                _translationService.Translate(model.HomeTitle, model.HomeTitleSpanish);
+                _translationService.Translate(model.HomeSubTitle, model.HomeSubTitleSpanish);
+                _translationService.Translate(model.HomeDescription, model.HomeSpanishDescription);
+                _translationService.Translate(model.Location, model.LocationSpanish);
+                _translationService.Translate(model.FooterDescription, model.FooterDescriptionSpanish);
+                _notificationService.SuccessNotification("Home Page Updated Successfully.");
+                return RedirectToAction("List");
+            }
+
+            PrepareImageUrls(model);
+            return View(model);
+        }
+        public IActionResult Delete(int id)
+        {
+            ResponseModel response = new ResponseModel();
+
+            if (id != 0)
+            {
+                var Data = _layoutSetupService.GetLayoutSetupById(id);
+                if (Data == null)
+                {
+                    response.Success = false;
+                    response.Message = "No data found";
+                }
+                _layoutSetupService.DeleteLayoutSetup(Data);
+
+                response.Success = true;
+            }
+            else
+            {
+                response.Success = false;
+                response.Message = "Id is 0";
+
+            }
+            return Json(response);
+        }
+
+
+        #endregion
     }
+
 }
