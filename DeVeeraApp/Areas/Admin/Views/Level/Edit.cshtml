@@ -276,7 +276,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.LikeUser != null)
+                                                                    @if (Model.LikeUser.Count != 0)
                                                                     {
                                                                         int m = 0;
                                                                         foreach (var likesuser in Model.LikeUser)
@@ -291,7 +291,7 @@
                                                                     else
                                                                     {
                                                                         <div class="dz-message" data-dz-message>
-                                                                            <div class="text-lg font-medium">No Level Like</div>
+                                                                            <div class="text-lg font-medium">*No Level Like !!!</div>
                                                                         </div>
                                                                     }
                                                                 }
@@ -321,7 +321,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.DisLikeUser != null)
+                                                                    @if (Model.DisLikeUser.Count != 0)
                                                                     {
                                                                         int m = 0;
                                                                         foreach (var likesuser in Model.DisLikeUser)
@@ -336,7 +336,7 @@
                                                                     else
                                                                     {
                                                                         <div class="dz-message">
-                                                                            <div class="text-lg font-medium">No Level dislike</div>
+                                                                            <div class="text-lg font-medium">*No Level Dislike!!!</div>
                                                                         </div>
                                                                     }
                                                                 }
@@ -374,28 +374,31 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.LikeComments != null)
+                                                                    @if (Model.LikeComments.Count != 0)
                                                                     {
-                                                                        int m = 0;
+
                                                                         foreach (var likesuser in Model.LikeComments)
                                                                         {
-                                                                            if(likesuser.Comments  != null) {
-                                                                            <label for="input-wizard-1" class="form-label text-theme-21 ">* @likesuser.User.Email :</label>
-                                                                            <div class="dz-message" data-dz-message>
-                                                                                <div class="text-md font-medium">@likesuser.Comments</div>
-                                                                            </div>
-                                                                            <br />
-                                                                            }
-                                                                        }
-                                                                        m++;
-                                                                    }
 
+                                                                            if (likesuser.Comments != null)
+                                                                            {
+                                                                                <label for="input-wizard-1" class="form-label text-theme-21 ">* @likesuser.User.Email :</label>
+                                                                                <div class="dz-message" data-dz-message>
+                                                                                    <div class="text-md font-medium">@likesuser.Comments</div>
+                                                                                </div>
+                                                                                <br />
+                                                                            }
+
+
+                                                                        }
+
+                                                                    }
                                                                     else
                                                                     {
-                                                                        <div class="dz-message">
-                                                                            <div class="text-lg font-medium">No Comments yet!!!</div>
-                                                                        </div>
+                                                                        <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
                                                                     }
+
+
                                                                 }
                                                             </div>
                                                         </div>
@@ -572,9 +575,9 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.LikeModule != null)
+                                                                    @if (Model.LikeModule.Count != 0)
                                                                     {
-                                                                        int j = 1;
+                                                                        
                                                                         foreach (var likesuser in Model.LikeModule)
                                                                         {
                                                                             
@@ -583,7 +586,7 @@
                                                                             </div>
                                                                             <br />
                                                                         }
-                                                                        j++;
+                                                                      
 
 
                                                                     }
@@ -591,7 +594,7 @@
                                                                     else
                                                                     {
                                                                         <div class="dz-message">
-                                                                            <div class="text-lg font-medium">No Module Like</div>
+                                                                            <div class="text-lg font-medium">*No Module Like!!!</div>
                                                                         </div>
                                                                     }
                                                                 }
@@ -621,16 +624,16 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.DisLikeModule != null)
+                                                                    @if (Model.DisLikeModule.Count != 0)
                                                                     {
-                                                                        int n = 1;
+                                                                        
                                                                         foreach (var likesuser in Model.DisLikeModule)
                                                                         {
                                                                             <div class="dz-message" data-dz-message>
                                                                                 <div class="text-lg font-medium">@likesuser.User.Email</div>
                                                                             </div>
                                                                         }
-                                                                        n++;
+                                                                      
 
 
                                                                     }
@@ -638,7 +641,7 @@
                                                                     else
                                                                     {
                                                                         <div class="dz-message">
-                                                                            <div class="text-lg font-medium">No Module Dislike !!!</div>
+                                                                            <div class="text-lg font-medium">*No Module Dislike !!!</div>
                                                                         </div>
                                                                     }
                                                                 }
@@ -676,11 +679,12 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.CommentsModule != null)
+                                                                    @if (Model.CommentsModule.Count != 0)
                                                                     {
-                                                                        int m = 0;
+
                                                                         foreach (var likesuser in Model.CommentsModule)
                                                                         {
+
                                                                             if (likesuser.Comments != null)
                                                                             {
                                                                                 <label for="input-wizard-1" class="form-label text-theme-21 "> * @likesuser.User.Email :</label>
@@ -689,16 +693,15 @@
                                                                                 </div>
                                                                                 <br />
                                                                             }
-                                                                            else
-                                                                            {
-                                                                                <div class="dz-message" data-dz-message>
-                                                                                    <div class="text-lg font-medium">No Comments yet!!!</div>
-                                                                                </div>
-                                                                            }
-                                                                        }
-                                                                        m++;
-                                                                    }
+                                                                          
 
+                                                                        }
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
+                                                                    }
 
                                                                 }
                                                             </div>
