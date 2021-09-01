@@ -26,6 +26,12 @@ namespace DeVeeraApp.ViewModels
             SelectedModuleImages = new List<SelectedImage>();
             ModuleList = new List<ModulesModel>();
             SelectedImages = new List<SelectedImage>();
+            LikeModule = new List<LikesUnlikess>();
+            CommentsModule= new List<LikesUnlikess>();
+            LikeComments = new List<LikesUnlikess>();
+            DisLikeUser = new List<LikesUnlikess>();
+            LikeModule = new List<LikesUnlikess>();
+            DisLikeModule = new List<LikesUnlikess>();
         }
 
         [Required(ErrorMessage ="Enter the level")]
