@@ -117,7 +117,11 @@ namespace DeVeeraApp.ViewModels
         public bool IsNew { get; set; }
         public IList<LevelViewModel> LevelListPaged { get; set; }
         public IList<LikesUnlikess> LikeUser { get; set; }
+        public IList<LikesUnlikess> LikeComments { get; set; }
+        public IList<LikesUnlikess> DisLikeUser { get; set; }
         public IList<LikesUnlikess> LikeModule { get; set; }
+        public IList<LikesUnlikess> DisLikeModule { get; set; }
+        public IList<LikesUnlikess> CommentsModule { get; set; }
     }
 
    

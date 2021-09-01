@@ -255,18 +255,20 @@
                             </div>
                             <div class="mt-5">
 
-                                <label class="form-label text-theme-21 pl-1">Status</label> -
-                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#likesdatamodal">@ViewBag.likes</a>
-
-                                <!-- BEGIN: Modal Content -->
-                                <div id="likesdatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                <label class="form-label text-theme-21 pl-1">Like</label> -
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#likesleveldatamodal">@ViewBag.likes</a>
+                                @* dislike *@
+                                <label class="form-label text-theme-21 pl-1">Like</label> -
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#dislikeleveldatamodal">@ViewBag.dislikes</a>
+                                <!-- BEGIN: Modal like Content -->
+                                <div id="likesleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            
+
                                             <!-- BEGIN: Modal Body -->
                                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                                 <div class="col-span-12 sm:col-span-12">
-                                                
+
                                                     <div id="single-file-upload" class="p-5">
                                                         <div class="preview">
                                                             <div data-single="true" fallback="true">
@@ -274,57 +276,163 @@
 
                                                                 </div>
                                                                 @{
-                                                                    foreach (var likesuser in Model.LikeUser)
+                                                                    @if (Model.LikeUser.Count != 0)
+                                                                    {
+                                                                        int m = 0;
+                                                                        foreach (var likesuser in Model.LikeUser)
+                                                                        {
+                                                                            <div class="dz-message" data-dz-message>
+                                                                                <div class="text-lg font-medium">@likesuser.User.Email</div>
+                                                                            </div>
+                                                                        }
+                                                                        m++;
+                                                                    }
+
+                                                                    else
                                                                     {
                                                                         <div class="dz-message" data-dz-message>
-                                                                            <div class="text-lg font-medium">@likesuser.User.Email</div>
+                                                                            <div class="text-lg font-medium">No Level Like</div>
                                                                         </div>
                                                                     }
                                                                 }
-
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END: Modal Content -->
+                                <!-- BEGIN: Modal like Content -->
+                                <div id="dislikeleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- BEGIN: Modal Body -->
+                                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                                <div class="col-span-12 sm:col-span-12">
+
+                                                    <div id="single-file-upload" class="p-5">
+                                                        <div class="preview">
+                                                            <div data-single="true" fallback="true">
+                                                                <div class="fallback">
+
+                                                                </div>
+                                                                @{
+                                                                    @if (Model.DisLikeUser.Count != 0)
+                                                                    {
+                                                                        int m = 0;
+                                                                        foreach (var likesuser in Model.DisLikeUser)
+                                                                        {
+                                                                            <div class="dz-message" data-dz-message>
+                                                                                <div class="text-lg font-medium">@likesuser.User.Email</div>
+                                                                            </div>
+                                                                        }
+                                                                        m++;
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        <div class="dz-message" data-dz-message>
+                                                                            <div class="text-lg font-medium">No Level dislike</div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <!-- END: Modal Content -->
                                 <div>
-                                 
+
                                 </div>
                             </div>
-                            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                                <div class="grid grid-cols-12  gap-y-5 mt-5">
-                                    <div class="intro-y   col-span-6">
-                                        <span class="pl-6px">
-                                            <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                                <label class="pl-10">Back to List</label>
-                                                <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List">
-                                                    <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                                </a>
-                                            </span>
-                                        </span>
-                                    </div>
+                            <div class="mt-5">
 
-                                    <div class="intro-y   col-span-3 pl-5">
-                                        <button type="submit" class="btn btn-primary w-24">Save</button>
-                                    </div>
-                                    <div class="intro-y  col-span-3 ml-auto">
-                                        <div class="dropdown">
-                                            <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
-                                            <div class="dropdown-content">
-                                                <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
-                                                <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">Spanish</a>
+                                <label class="form-label text-theme-21 pl-1">Comments</label> -
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsleveldatamodal">Check Comments Here</a>
+                                <!-- BEGIN: Modal like Content -->
+                                <div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
 
+                                            <!-- BEGIN: Modal Body -->
+                                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                                <div class="col-span-12 sm:col-span-12">
+
+                                                    <div id="single-file-upload" class="p-5">
+                                                        <div class="preview">
+                                                            <div data-single="true" fallback="true">
+                                                                <div class="fallback">
+
+                                                                </div>
+                                                                @{
+                                                                    @if (Model.LikeComments.Count != 0)
+                                                                    {
+                                                                        int m = 0;
+                                                                        foreach (var likesuser in Model.LikeComments)
+                                                                        {
+                                                                            <div class="dz-message" data-dz-message>
+                                                                                <div class="text-lg font-medium">@likesuser.Comments</div>
+                                                                            </div>
+                                                                        }
+                                                                        m++;
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        <div class="dz-message" data-dz-message>
+                                                                            <div class="text-lg font-medium">No Comments yet!!!</div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                         </div>
-                                        @*<a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index?levelno=@Model.LevelNo">Preview</a>*@
                                     </div>
                                 </div>
+                                <!-- END: Modal Content -->
                             </div>
+                                <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                                    <div class="grid grid-cols-12  gap-y-5 mt-5">
+                                        <div class="intro-y   col-span-6">
+                                            <span class="pl-6px">
+                                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                                    <label class="pl-10">Back to List</label>
+                                                    <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List">
+                                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <div class="intro-y   col-span-3 pl-5">
+                                            <button type="submit" class="btn btn-primary w-24">Save</button>
+                                        </div>
+                                        <div class="intro-y  col-span-3 ml-auto">
+                                            <div class="dropdown">
+                                                <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
+                                                <div class="dropdown-content">
+                                                    <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
+                                                    <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">Spanish</a>
+
+                                                </div>
+                                            </div>
+                                            @*<a target="_blank" class="btn btn-primary w-24" href="/Lesson/Index?levelno=@Model.LevelNo">Preview</a>*@
+                                        </div>
+                                    </div>
+                                </div>
                         </form>
                     </div>
                     <div id="modules" class="tab-pane @(ViewBag.ActiveTab=="Add Module" ? "active":"")" role="tabpanel" aria-labelledby="modules-tab">
@@ -439,14 +547,16 @@
                             </div>
                             <div class="mt-5">
 
-                                <label class="form-label text-theme-21 pl-1">Status</label> -
-                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#modulesdatamodal">@ViewBag.modulelikes</a>
-
+                                <label class="form-label text-theme-21 pl-1">Like</label> -
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#likemodulesdatamodal">@ViewBag.modulelikes</a>
+                                @*//dislikes*@
+                                <label class="form-label text-theme-21 pl-1">Dislike</label> -
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#dislikemodulesdatamodal">@ViewBag.moduledislikes</a>
                                 <!-- BEGIN: Modal Content -->
-                                <div id="modulesdatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                <div id="likemodulesdatamodal" class="modal" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                           
+
                                             <!-- BEGIN: Modal Body -->
                                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                                 <div class="col-span-12 sm:col-span-12">
@@ -458,14 +568,74 @@
 
                                                                 </div>
                                                                 @{
-                                                                    foreach (var likesuser in Model.LikeModule)
+                                                                    @if (Model.LikeModule.Count != 0)
+                                                                    {
+                                                                        int j = 1;
+                                                                        foreach (var likesuser in Model.LikeModule)
+                                                                        {
+                                                                            <div class="dz-message" data-dz-message>
+                                                                                <div class="text-lg font-medium">@likesuser.User.Email</div>
+                                                                            </div>
+                                                                        }
+                                                                        j++;
+
+
+                                                                    }
+
+                                                                    else
                                                                     {
                                                                         <div class="dz-message" data-dz-message>
-                                                                            <div class="text-lg font-medium">@likesuser.User.Email</div>
+                                                                            <div class="text-lg font-medium">No Module Like</div>
                                                                         </div>
                                                                     }
                                                                 }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END: Modal Content -->
+                                <!-- BEGIN: Modal Content -->
+                                <div id="dislikemodulesdatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- BEGIN: Modal Body -->
+                                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                                <div class="col-span-12 sm:col-span-12">
+
+                                                    <div id="single-file-upload" class="p-5">
+                                                        <div class="preview">
+                                                            <div data-single="true" fallback="true">
+                                                                <div class="fallback">
+
+                                                                </div>
+                                                                @{
+                                                                    @if (Model.DisLikeModule.Count != 0)
+                                                                    {
+                                                                        int n = 1;
+                                                                        foreach (var likesuser in Model.DisLikeModule)
+                                                                        {
+                                                                            <div class="dz-message" data-dz-message>
+                                                                                <div class="text-lg font-medium">@likesuser.User.Email</div>
+                                                                            </div>
+                                                                        }
+                                                                        n++;
+
+
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        <div class="dz-message" data-dz-message>
+                                                                            <div class="text-lg font-medium">No Module Dislike</div>
+                                                                        </div>
+                                                                    }
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -479,6 +649,56 @@
                                 <div>
 
                                 </div>
+                            </div>
+                            <div class="mt-5">
+
+                                <label class="form-label text-theme-21 pl-1">Comments</label> -
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsleveldatamodal">Check Comments Here</a>
+                                <!-- BEGIN: Modal like Content -->
+                                <div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- BEGIN: Modal Body -->
+                                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                                <div class="col-span-12 sm:col-span-12">
+
+                                                    <div id="single-file-upload" class="p-5">
+                                                        <div class="preview">
+                                                            <div data-single="true" fallback="true">
+                                                                <div class="fallback">
+
+                                                                </div>
+                                                                @{
+                                                                    @if (Model.CommentsModule.Count != 0)
+                                                                    {
+                                                                        int m = 0;
+                                                                        foreach (var likesuser in Model.CommentsModule)
+                                                                        {
+                                                                            <div class="dz-message" data-dz-message>
+                                                                                <div class="text-lg font-medium">@likesuser.Comments</div>
+                                                                            </div>
+                                                                        }
+                                                                        m++;
+                                                                    }
+
+                                                                    else
+                                                                    {
+                                                                        <div class="dz-message" data-dz-message>
+                                                                            <div class="text-lg font-medium">No Comments yet!!!</div>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END: Modal Content -->
                             </div>
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <span class="mr-5">

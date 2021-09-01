@@ -231,6 +231,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
                 model.LikeUser = _likesService.GetLikesByLevelId(data.Id);
                 ViewBag.likes = model.LikeUser.Count();
+                if (ViewBag.likes== null) { ViewBag.likes = 0; }
                 foreach (var result in model.LikeUser)
                 {
                     var record = new LevelModel
@@ -239,7 +240,18 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         
                     };
                 }
-                
+                model.DisLikeUser = _likesService.GetDislikesByLevelId(data.Id);
+                ViewBag.dislikes = model.DisLikeUser.Count();
+                if (ViewBag.dislikes == null) { ViewBag.dislikes = 0; }
+                foreach (var result in model.DisLikeUser)
+                {
+                    var record = new LevelModel
+                    {
+                        UserName = result.User.Email,
+
+                    };
+                }
+                model.LikeComments= _likesService.GetCommenntsByLevelId(data.Id);
                 model.srno = srno;
                 
                 model.BannerImageUrl = _imageMasterService.GetImageById(data.BannerImageId)?.ImageUrl;
@@ -270,23 +282,38 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.ShareBackgroundImageUrl = _imageMasterService.GetImageById(module.ShareBackgroundImageId)?.ImageUrl;
                     model.SpanishTitleModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.Title);
                     model.SpanishFullDescriptionModule = _localStringResourcesServices.GetResourceValueByResourceName(model.Modules.FullDescription);
-                    
-
-                }
-                model.LikeModule = _likesService.GetLikesByModuleId(ModuleId);
-                if (model.LikeModule !=null)
-                {
-                    ViewBag.modulelikes = model.LikeModule.Count();
-                    foreach (var result in model.LikeModule)
+                    model.LikeModule = _likesService.GetLikesByModuleId(module.Id);
+                    if (model.LikeModule != null)
                     {
-                        var record = new LevelModel
+                        ViewBag.modulelikes = model.LikeModule.Count();
+                        if (ViewBag.modulelikes == null) { ViewBag.modulelikes = 0; }
+                        foreach (var result in model.LikeModule)
                         {
-                            UserName = result.User.Email,
+                            var record = new LevelModel
+                            {
+                                UserName = result.User.Email,
 
-                        };
+                            };
+                        }
                     }
-                }
+                    model.DisLikeModule = _likesService.GetDisLikesByModuleId(module.Id);
+                    if (model.LikeModule != null)
+                    {
+                        ViewBag.moduledislikes = model.DisLikeModule.Count();
+                        if (ViewBag.moduledislikes == null) { ViewBag.moduledislikes = 0; }
+                        foreach (var result in model.DisLikeModule)
+                        {
+                            var record = new LevelModel
+                            {
+                                UserName = result.User.Email,
 
+                            };
+                        }
+                    }
+                    model.CommentsModule = _likesService.GetCommenntsByModuleId(module.Id);
+
+                }
+               
                 PrepareLevelModel(model);
 
                 //foreach (var result in imagedata)

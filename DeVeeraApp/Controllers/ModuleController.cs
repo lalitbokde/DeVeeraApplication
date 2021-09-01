@@ -271,7 +271,9 @@ namespace DeVeeraApp.Controllers
                     {
                         likesdata.UserId = currentUser.Id;
                         likesdata.ModuleId = data.Id;
-                        likesdata.Comments = model.Comments;
+                        likesdata.Comments = comments;
+                        likesdata.IsLike = false;
+                        likesdata.IsDisLike = false;
                         _likesService.InsertLikes(likesdata);
 
                     }
@@ -279,7 +281,9 @@ namespace DeVeeraApp.Controllers
                     {
                         likesbylid.UserId = currentUser.Id;
                         likesbylid.ModuleId = data.Id;
-                        likesbylid.Comments = model.Comments;
+                        likesbylid.Comments = comments;
+                        likesbylid.IsDisLike = likesbylid.IsDisLike;
+                        likesbylid.IsLike = likesbylid.IsLike;
                         _likesService.UpdateLikes(likesbylid);
                     }
                     

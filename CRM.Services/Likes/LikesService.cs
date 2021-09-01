@@ -57,12 +57,32 @@ namespace CRM.Services.Likes
         }
         public IList<LikesUnlikess> GetLikesByLevelId(int LevelId)
         {
-            var data = _likesrepository.Table.Where(a => a.LevelId == LevelId ).ToList();
+            var data = _likesrepository.Table.Where(a => a.LevelId == LevelId && a.IsLike==true ).ToList();
+            return data.ToList();
+        }
+        public IList<LikesUnlikess> GetCommenntsByLevelId(int LevelId)
+        {
+            var data = _likesrepository.Table.Where(a => a.LevelId == LevelId).ToList();
+            return data.ToList();
+        }
+        public IList<LikesUnlikess> GetCommenntsByModuleId(int ModuleId)
+        {
+            var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId).ToList();
+            return data.ToList();
+        }
+        public IList<LikesUnlikess> GetDislikesByLevelId(int LevelId)
+        {
+            var data = _likesrepository.Table.Where(a => a.LevelId == LevelId && a.IsDisLike == true).ToList();
             return data.ToList();
         }
         public IList<LikesUnlikess> GetLikesByModuleId(int ModuleId)
         {
-            var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId).ToList();
+            var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId && a.IsLike == true).ToList();
+            return data.ToList();
+        }
+        public IList<LikesUnlikess> GetDisLikesByModuleId(int ModuleId)
+        {
+            var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId && a.IsDisLike == true).ToList();
             return data.ToList();
         }
         public LikesUnlikess GetLikesByLevelIdandUserId(int LevelId, int UserId)

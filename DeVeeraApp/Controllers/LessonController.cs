@@ -416,7 +416,7 @@ namespace DeVeeraApp.Controllers
             var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
             var likesbylevelid = _likesService.GetLikesByLevelIdandUserId(levelData.Id, currentUser.Id);
-
+            
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
@@ -427,6 +427,8 @@ namespace DeVeeraApp.Controllers
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
                         likesdata.Comments = comments;
+                        likesdata.IsLike = false;
+                        likesdata.IsDisLike = false;
                         _likesService.InsertLikes(likesdata);
                     }
                     else
@@ -434,6 +436,8 @@ namespace DeVeeraApp.Controllers
                         likesbylevelid.UserId = currentUser.Id;
                         likesbylevelid.LevelId = model.Id;
                         likesbylevelid.Comments = comments;
+                        likesbylevelid.IsDisLike = likesbylevelid.IsDisLike;
+                        likesbylevelid.IsLike = likesbylevelid.IsLike;
                         _likesService.UpdateLikes(likesbylevelid);
                     }
                 }
