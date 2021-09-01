@@ -276,7 +276,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.LikeUser.Count != 0)
+                                                                    @if (Model.LikeUser != null)
                                                                     {
                                                                         int m = 0;
                                                                         foreach (var likesuser in Model.LikeUser)
@@ -321,7 +321,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.DisLikeUser.Count != 0)
+                                                                    @if (Model.DisLikeUser != null)
                                                                     {
                                                                         int m = 0;
                                                                         foreach (var likesuser in Model.DisLikeUser)
@@ -335,7 +335,7 @@
 
                                                                     else
                                                                     {
-                                                                        <div class="dz-message" data-dz-message>
+                                                                        <div class="dz-message" >
                                                                             <div class="text-lg font-medium">No Level dislike</div>
                                                                         </div>
                                                                     }
@@ -374,7 +374,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.LikeComments.Count != 0)
+                                                                    @if (Model.LikeComments != null)
                                                                     {
                                                                         int m = 0;
                                                                         foreach (var likesuser in Model.LikeComments)
@@ -388,7 +388,7 @@
 
                                                                     else
                                                                     {
-                                                                        <div class="dz-message" data-dz-message>
+                                                                        <div class="dz-message" >
                                                                             <div class="text-lg font-medium">No Comments yet!!!</div>
                                                                         </div>
                                                                     }
@@ -568,7 +568,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.LikeModule.Count != 0)
+                                                                    @if (Model.LikeModule != null)
                                                                     {
                                                                         int j = 1;
                                                                         foreach (var likesuser in Model.LikeModule)
@@ -584,7 +584,7 @@
 
                                                                     else
                                                                     {
-                                                                        <div class="dz-message" data-dz-message>
+                                                                        <div class="dz-message" >
                                                                             <div class="text-lg font-medium">No Module Like</div>
                                                                         </div>
                                                                     }
@@ -615,7 +615,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.DisLikeModule.Count != 0)
+                                                                    @if (Model.DisLikeModule != null)
                                                                     {
                                                                         int n = 1;
                                                                         foreach (var likesuser in Model.DisLikeModule)
@@ -631,8 +631,8 @@
 
                                                                     else
                                                                     {
-                                                                        <div class="dz-message" data-dz-message>
-                                                                            <div class="text-lg font-medium">No Module Dislike</div>
+                                                                        <div class="dz-message" >
+                                                                            <div class="text-lg font-medium">No Module Dislike !!!</div>
                                                                         </div>
                                                                     }
                                                                 }
@@ -653,9 +653,9 @@
                             <div class="mt-5">
 
                                 <label class="form-label text-theme-21 pl-1">Comments</label> -
-                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsleveldatamodal">Check Comments Here</a>
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsmoduledatamodal">Check Comments Here</a>
                                 <!-- BEGIN: Modal like Content -->
-                                <div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                <div id="Coomentsmoduledatamodal" class="modal" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -670,7 +670,7 @@
 
                                                                 </div>
                                                                 @{
-                                                                    @if (Model.CommentsModule.Count != 0)
+                                                                    @if (Model.CommentsModule !=null )
                                                                     {
                                                                         int m = 0;
                                                                         foreach (var likesuser in Model.CommentsModule)
@@ -682,7 +682,7 @@
                                                                         m++;
                                                                     }
 
-                                                                    else
+                                                                    else 
                                                                     {
                                                                         <div class="dz-message" data-dz-message>
                                                                             <div class="text-lg font-medium">No Comments yet!!!</div>
