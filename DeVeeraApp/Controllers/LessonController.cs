@@ -93,14 +93,15 @@ namespace DeVeeraApp.Controllers
 
             var currentDate = DateTime.UtcNow.ToShortDateString();
 
-            //  var lastLoginDate = lastLoginDateUtc.Value.ToShortDateString();
+            //var lastLoginDate = currentUser.LastLoginDateUtc.ToString();
 
             if (currentUser.UserRole.Name != "Admin")
             {
-                if (lastLoginDateUtc != null && currentDate != lastLoginDateUtc.Value.ToShortDateString())
+                if (lastLoginDateUtc == null)
                 {
                     return true;
                 }
+                else if (currentDate != lastLoginDateUtc.Value.ToShortDateString()) { return true; }
                 else
                 {
                     return false;
@@ -126,11 +127,11 @@ namespace DeVeeraApp.Controllers
                 SelectedImages = new List<SelectedImage>()
             };
             AddBreadcrumbs("Level", "Index", $"/Lesson/Index/{levelno}", $"/Lesson/Index/{levelno}");
-            //var result = IsUserFirstLoginOnDay(lastLoginDateUtc);
-            //if (result == true)
-            //{
-            //    return RedirectToAction("AskHappynessLevel", "Home");
-            //}
+            var result = IsUserFirstLoginOnDay(lastLoginDateUtc);
+            if (result == true)
+            {
+                return RedirectToAction("AskHappynessLevel", "Home");
+            }
             var data = _levelServices.GetLevelByLevelNo(levelno);
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
