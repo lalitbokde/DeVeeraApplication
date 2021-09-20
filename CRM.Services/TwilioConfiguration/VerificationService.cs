@@ -29,11 +29,14 @@ namespace CRM.Services.TwilioConfiguration
                     to: phoneNumber,
                     channel: channel,
                     pathServiceSid: _config.VerificationSid
+
                 );
+                Console.WriteLine(verificationResource.Status);
                 return new VerificationResult(verificationResource.Sid);
             }
             catch (TwilioException e)
             {
+                
                 return new VerificationResult(new List<string> { e.Message });
             }
         }

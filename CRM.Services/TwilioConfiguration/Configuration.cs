@@ -4,7 +4,11 @@ namespace Configuration
     public  class Twilio
     {
         public string AccountSid { get; set; } = "AC4ee5b4220aa9f74487cb66068dc42702";
-        public string AuthToken { get; set; } = "ab95532d32935182d022b369521848d0";
-        public string VerificationSid { get; set; } = "VAa8cbf70599fb9088774f3a47c31528ea";
+
+        //old token
+        //public string AuthToken { get; set; } = "ab95532d32935182d022b369521848d0";
+        public string AuthToken { get; set; } = "d7ade836b4afe5a70fed460ba5321c2f";
+       
+        public string VerificationSid { get; set; } = "VA0dc2634edcf87d0df2ff0ae1352e9ef4";
     }
 }
