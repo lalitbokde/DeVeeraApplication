@@ -97,11 +97,10 @@ namespace DeVeeraApp.Controllers
 
             if (currentUser.UserRole.Name != "Admin")
             {
-                if (lastLoginDateUtc == null)
+                if (lastLoginDateUtc == null && currentDate != lastLoginDateUtc.Value.ToShortDateString())
                 {
                     return true;
                 }
-                else if (currentDate != lastLoginDateUtc.Value.ToShortDateString()) { return true; }
                 else
                 {
                     return false;
