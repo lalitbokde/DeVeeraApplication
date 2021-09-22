@@ -58,14 +58,39 @@
                     </div>
                     <form asp-controller="Diary" asp-action="Create" method="post" id="diaryForm" onsubmit="return getDiaryContent()">
                         <div id="creatediaryForm">
+                           
+                            @*<div class="row">
+                                <div class="col-lg-4">
+                                    <div class="row ms-4">
+                                        <button type="button" class="btn col-lg-2 " onclick="document.execCommand( 'bold',false,null);"> <i data-feather="bold" class="block mx-auto w-5 h-5"></i><b>B</b></button>
+                                        <button type="button" class="btn col-lg-2" onclick="document.execCommand('italic',false,null);"> <i data-feather="italic" class="block mx-auto w-5 h-5"></i><em>I</em></button>
+                                        <button type="button" class="btn col-lg-2" onclick="document.execCommand( 'underline',false,null);"> <i data-feather="underline" class="block mx-auto w-5 h-5"><u>U</u></i></button>
+                                        <input id="select-colour" type="color" onchange="ChangeColor(this.value)" hidden>
+                                        <button type="button" class="btn col-lg-2"> <i id="text-colour" data-feather="underline" class="block mx-auto w-5 h-5">A</i></button>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-center mr-4">
+                                    <div class="font-medium text-xl">@T("Diary")</div>
+                                </div>
+                                <div class="col-lg-4 col-sm-12 mt-2 text-center">
+                                    <a><div class="sticky-note-white" id="#FFFFFF" onclick="getDiaryColor(this.id)"></div></a>
+                                    <a><div class="sticky-note-yellow" id="#ffffe0" onclick="getDiaryColor(this.id)"></div></a>
+                                    <a><div class="sticky-note-green" id="#c9eebf" onclick="getDiaryColor(this.id)"></div></a>
+                                    <a><div class="sticky-note-sky-blue" id="#e2e9f6" onclick="getDiaryColor(this.id)"></div></a>
+                                    <a><div class="sticky-note-pink" id="#f5dff0" onclick="getDiaryColor(this.id)"></div></a>
+                                    <a><div class="sticky-note-fall-green" id="#efe6c1" onclick="getDiaryColor(this.id)"></div></a>
+                                </div>
+                            </div>*@
                             <div class="paper" id="diaryPaper" style="background-color:@Model.Diary.DiaryColor">
                                 <div class="paper-header">
+
                                     <div class="row">
                                         <div class="col-lg-4 mt-3">
                                             <div class="form-group ms-4">
-                                                @{ var date = Model.Diary.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" ? "" : Model.Diary.DiaryDate.ToString("MMMM d, yyyy");}
+                                                @{ var date = (Model.Diary.DiaryDate.ToString("dd-MM-yyyy") == "01-01-0001" || Model.Diary.DiaryDate.ToString("dd/MM/yyyy") == "01/01/0001") ? "" : Model.Diary.DiaryDate.ToString("MMMM d, yyyy");}
                                                 @*<input asp-for="Diary.DiaryDate" onchange="GetDiaryByDate()" type="text" id="date" value="@date" data-maxdate="@DateTime.UtcNow.ToString("MM/dd/yyyy")" class="form-control" required>*@
-                                                <label>Created On :</label><label id="diarydate">@Model.Diary.CreatedOn.ToShortDateString()</label><br>
+                                                <label>Created On :</label><label id="diarydate">@date</label><br>
                                                 @*<label>Updated On : @Model.Diary.LastUpdatedOn.ToShortDateString()</label>*@
                                             </div>
 
@@ -79,31 +104,6 @@
                                             </button>
 
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="row ms-4">
-                                                <button type="button" class="btn col-lg-2 " onclick="document.execCommand( 'bold',false,null);"> <i data-feather="bold" class="block mx-auto w-5 h-5"></i><b>B</b></button>
-                                                <button type="button" class="btn col-lg-2" onclick="document.execCommand('italic',false,null);"> <i data-feather="italic" class="block mx-auto w-5 h-5"></i><em>I</em></button>
-                                                <button type="button" class="btn col-lg-2" onclick="document.execCommand( 'underline',false,null);"> <i data-feather="underline" class="block mx-auto w-5 h-5"><u>U</u></i></button>
-                                                <input id="select-colour" type="color" onchange="ChangeColor(this.value)" hidden>
-                                                <button type="button" class="btn col-lg-2"> <i id="text-colour" data-feather="underline" class="block mx-auto w-5 h-5">A</i></button>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 text-center mr-4">
-                                            <div class="font-medium text-xl">@T("Diary")</div>
-                                        </div>
-                                        <div class="col-lg-4 mt-2 text-center">
-                                            <a><div class="sticky-note-white" id="#FFFFFF" onclick="getDiaryColor(this.id)"></div></a>
-                                            <a><div class="sticky-note-yellow" id="#ffffe0" onclick="getDiaryColor(this.id)"></div></a>
-                                            <a><div class="sticky-note-green" id="#c9eebf" onclick="getDiaryColor(this.id)"></div></a>
-                                            <a><div class="sticky-note-sky-blue" id="#e2e9f6" onclick="getDiaryColor(this.id)"></div></a>
-                                            <a><div class="sticky-note-pink" id="#f5dff0" onclick="getDiaryColor(this.id)"></div></a>
-                                            <a><div class="sticky-note-fall-green" id="#efe6c1" onclick="getDiaryColor(this.id)"></div></a>
-
-                                        </div>
-
                                     </div>
 
                                 </div>

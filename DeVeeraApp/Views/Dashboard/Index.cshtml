@@ -101,13 +101,13 @@
                                         string imageUrl = item.BannerImageUrl;
                                         if (imageUrl != null)
                                         {
-                                            <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo"><img class="img-levels-dashboard" src=@imageUrl></a>
+                                            <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo"><img class="img-levels-dashboard" style="width:800px;height:250px" src=@imageUrl></a>
 
                                         }
                                     }
                                     else
                                     {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo"><img src="~/assets/images/blog/blog-1.jpg" alt="image"></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo"><img src="~/assets/images/blog/blog-1.jpg" style="width:800px;height:250px"  alt="image"></a>
 
                                     }
                                 }
