@@ -84,11 +84,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var url = UploadVideo(model.FileName);
+                    var url2 = UploadVideo(model.SpanishFileName);
                     var data = new Video
                     {
                         Key = model.FileName,
                         VideoUrl = url.Result.ToString(),
                         Name = model.Name,
+
+                        //spanish
+                        SpanishKey = model.SpanishFileName,
+                        SpanishVideoUrl = url.Result.ToString(),
                         IsNew = model.IsNew,
                         CreatedOn = DateTime.Now,
                         UpdatedOn = DateTime.Now
@@ -222,6 +227,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 Directory.CreateDirectory(FilePath);
 
             string fileName =  file.FileName;
+    
 
             var filePath = Path.Combine(FilePath, fileName);
 
@@ -241,15 +247,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Play(int Id)
         {
-            if (Id != 0)
-            {
                 var data = _videoMasterService.GetVideoById(Id);
               
                 var model = data.ToModel<VideoModel>();
                 return View(model);
-            }
-            return RedirectToAction("List");
-
+        
         }
         public IActionResult DeleteVideo(int videoId)
         {
