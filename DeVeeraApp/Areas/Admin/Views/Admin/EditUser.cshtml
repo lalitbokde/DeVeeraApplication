@@ -39,6 +39,19 @@
                         <input id="Contactno" asp-for="@Model.MobileNumber" type="number" class="form-control" placeholder="Contact Number" autocomplete="new-password" oninput="javascript:if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
                         <span asp-validation-for="MobileNumber"></span>
                     </div>
+                    <div class="w-52 mx-auto xl:mr-0 xl:ml-6">
+                        <div class="border-2 border-dashed shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
+                            <div class="h-40 relative image-fit cursor-pointer zoom-in mx-auto">
+                                <img class="rounded-md" alt="Tinker Tailwind HTML Admin Template" id="output" src="@Model.ImageUrl" >
+                                <div title="Remove this profile photo?" @*class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-21 right-0 top-0 -mr-2 -mt-2"*@> <i data-feather="x" class="w-4 h-4"></i> </div>
+                            </div>
+                            <div class="mx-auto cursor-pointer relative mt-5">
+                                <button type="button" class="btn btn-primary w-full">Change Photo</button>
+                                <input type="file" class="w-full h-full top-0 left-0 absolute opacity-0" onchange="loadFile(event)" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mt-5">
                         <input asp-for="IsAllow" class="form-check-input" type="checkbox">
                         <label for="input-wizard-1" class="form-label text-theme-21 pl-1">Allow</label>
@@ -70,5 +83,10 @@
     </div>
 
 </form>
-
-
+<script>
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+    image.src = URL.createObjectURL(event.target.files[0]);
+    
+};
+</script>
