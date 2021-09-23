@@ -267,7 +267,25 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
             }
             return View(model);
+
         }
+        
+
+        public IActionResult Play(int Id)
+        {
+    
+            if (Id != 0)
+            {
+                var data = _videoMasterService.GetVideoById(Id);
+
+                var model = data.ToModel<VideoModel>();
+                return View(model);
+            }
+            return RedirectToAction("List");
+            
+
+        }
+        
         public IActionResult FeelGoodStories()
         {
             AddBreadcrumbs("Home", "FeelGoodStories", "/Admin", "/Admin/Home/FeelGoodStories");
