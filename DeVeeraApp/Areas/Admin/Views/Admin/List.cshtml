@@ -5,23 +5,56 @@
 
 @if (ViewBag.Admin != null)
 {
-<div class="intro-y  py-5 sm:py-5">
+    <div class="intro-y  py-5 sm:py-5">
 
-    @if (ViewBag.roleName == "Admin")
-    {
+        @if (ViewBag.roleName == "Admin")
+        {
 
-        <div class="px-5 ">
-            <div class="font-medium text-center text-lg"> Admin List</div>
-            <div class="text-gray-600 text-center mt-2">Below are the list of admin users.</div>
+            <div class="px-5 ">
+                <div class="font-medium text-center text-lg"> Admin List</div>
+                <div class="text-gray-600 text-center mt-2">Below are the list of admin users.</div>
 
-        </div>
-        <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">
+            </div>
+            <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">
+
+                <div class="intro-y col-span-12 mt-6">
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
+                        <div class="grid grid-cols-12 gap-4 gap-y-5 ">
+                            <div class="intro-y col-span-12 pr-5 text-right">
+                                <a asp-controller="Admin" asp-action="Create" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Create</a>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="intro-y box p-5 mt-6">
+                    <div class="overflow-x-auto scrollbar-hidden ">
+                        <input id="Admin" value="@ViewBag.Admin" hidden />
+                        <div id="tabulatorAdmin"></div> 
+                                           </div>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="px-5 ">
+                <div class="font-medium text-center text-lg"> Registered User List</div>
+                <div class="text-gray-600 text-center mt-2">Below are the list of registered users.</div>
+
+            </div>
 
             <div class="intro-y col-span-12 mt-6">
                 <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
                     <div class="grid grid-cols-12 gap-4 gap-y-5 ">
                         <div class="intro-y col-span-12 pr-5 text-right">
-                            <a asp-controller="Admin" asp-action="Create" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Create</a>
+                            <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Create</a>
 
                         </div>
 
@@ -29,106 +62,74 @@
                     </div>
                 </div>
             </div>
+            @*  <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
+                    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
+                        <div class="intro-y box p-5 col-span-12">
+                            <div class="intro-y ">
 
+                                <div class="p-5" id="basic-table">
+                                    <div class="preview">
+                                        <div class="overflow-x-auto">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">UserName</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Gender</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Age</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Occupation</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        int i = 1;
+                                                        foreach (var item in Model)
+                                                        {
+                                                            <tr>
 
-            <div class="intro-y box p-5 mt-6">
-                <div class="overflow-x-auto scrollbar-hidden ">
-                    <input id="Admin" value="@ViewBag.Admin" hidden />
-                    <div id="tabulatorAdmin"></div>
-                </div>
-            </div>
-        </div>
+                                                                <td class="border-b dark:border-dark-5">@i</td>
+                                                                <td class="border-b dark:border-dark-5">@item.Email</td>
+                                                                <td class="border-b dark:border-dark-5">@item.GenderType</td>
+                                                                <td class="border-b dark:border-dark-5">@item.Age</td>
+                                                                <td class="border-b dark:border-dark-5">@item.Occupation</td>
+                                                                <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Admin" asp-action="EditUser" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
+                                                                <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteRegisteredUser(@item.Id)')"><i data-feather="trash-2"></i></a></td>
 
-    }
-    else
-    {
-        <div class="px-5 ">
-            <div class="font-medium text-center text-lg"> Registered User List</div>
-            <div class="text-gray-600 text-center mt-2">Below are the list of registered users.</div>
-
-        </div>
-
-        <div class="intro-y col-span-12 mt-6">
-            <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end ">
-                <div class="grid grid-cols-12 gap-4 gap-y-5 ">
-                    <div class="intro-y col-span-12 pr-5 text-right">
-                        <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-primary w-40"><i data-feather="file-plus" class="mr-2"></i>Create</a>
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-        @*  <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
-
-                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
-                    <div class="intro-y box p-5 col-span-12">
-                        <div class="intro-y ">
-
-                            <div class="p-5" id="basic-table">
-                                <div class="preview">
-                                    <div class="overflow-x-auto">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">UserName</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Gender</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Age</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Occupation</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Edit</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Delete</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{
-                                                    int i = 1;
-                                                    foreach (var item in Model)
-                                                    {
-                                                        <tr>
-
-                                                            <td class="border-b dark:border-dark-5">@i</td>
-                                                            <td class="border-b dark:border-dark-5">@item.Email</td>
-                                                            <td class="border-b dark:border-dark-5">@item.GenderType</td>
-                                                            <td class="border-b dark:border-dark-5">@item.Age</td>
-                                                            <td class="border-b dark:border-dark-5">@item.Occupation</td>
-                                                            <td class="border-b dark:border-dark-5 text-theme-10"><a asp-controller="Admin" asp-action="EditUser" asp-route-Id="@item.Id"><i data-feather="edit"></i></a></td>
-                                                            <td class="border-b dark:border-dark-5 text-theme-24"><a onclick="ShowDeleteConfirmation('PostDeleteRegisteredUser(@item.Id)')"><i data-feather="trash-2"></i></a></td>
-
-                                                        </tr>
-                                                        i++;
+                                                            </tr>
+                                                            i++;
+                                                        }
                                                     }
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="source-code hidden">
+                                        <button data-target="#copy-basic-table" class="copy-code btn py-1 px-2 btn-outline-secondary"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Copy example code </button>
+
                                     </div>
                                 </div>
-                                <div class="source-code hidden">
-                                    <button data-target="#copy-basic-table" class="copy-code btn py-1 px-2 btn-outline-secondary"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Copy example code </button>
-
-                                </div>
                             </div>
+
                         </div>
 
                     </div>
 
+                </div>*@
+            <div class="intro-y box p-5 mt-6">
+                <div class="overflow-x-auto scrollbar-hidden ">
+                    <input id="Register" value="@ViewBag.Admin" hidden />
+                    <div id="tabulatorReg"> </div>
+                                    
                 </div>
-
-            </div>*@
-        <div class="intro-y box p-5 mt-6">
-            <div class="overflow-x-auto scrollbar-hidden ">
-                <input id="Register" value="@ViewBag.Admin" hidden />
-                <div id="tabulatorReg"></div>
             </div>
-        </div>
-    }
+        }
 
 
-</div>
+    </div>
 
 }
 else
@@ -140,7 +141,6 @@ else
     </div>
 
 }
-
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
