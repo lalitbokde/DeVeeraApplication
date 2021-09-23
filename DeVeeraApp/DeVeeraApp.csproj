@@ -14,6 +14,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\LandingPage\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Files\" />
@@ -31,6 +32,7 @@
     <Folder Include="Areas\Admin\Views\Shared\Components\MobileMenu\" />
     <Folder Include="Areas\Admin\Views\Shared\Components\ScriptsSection\" />
     <Folder Include="Areas\Admin\Views\Shared\Components\TopBar\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />

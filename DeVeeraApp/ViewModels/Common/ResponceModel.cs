@@ -11,6 +11,7 @@ namespace DeVeeraApp.ViewModels.Common
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public string ImageUrl { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
 

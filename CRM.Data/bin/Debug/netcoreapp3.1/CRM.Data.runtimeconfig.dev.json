@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/Users/Apurva/.dotnet/store/|arch|/|tfm|",
-      "/Users/Apurva/.nuget/packages"
+      "C:\\Users\\ThinkerSteps\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ThinkerSteps\\.nuget\\packages"
     ]
   }
 }

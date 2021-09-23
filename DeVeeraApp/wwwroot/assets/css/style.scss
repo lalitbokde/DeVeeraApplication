@@ -2759,6 +2759,8 @@ Blog Area CSS
         
         img {
             border-radius: 5px 5px 0 0;
+            display: inline-block;
+            height:100%;
         }
         .tag {
             display: inline-block;
@@ -2840,6 +2842,7 @@ Blog Area CSS
         img {
             border-radius: 5px 5px 0 0;
             display: inline-block;
+            height:100%;
         }
         .tag {
             display: inline-block;
@@ -8503,4 +8506,9 @@ Go Top CSS
         box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
         transform: translateY(-5px);
     }
+}
+.responsive {
+    width: 100%;
+   
+    height: auto;
 }

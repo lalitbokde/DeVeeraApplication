@@ -1,4 +1,5 @@
 ﻿using CRM.Core.Domain.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,8 @@ namespace DeVeeraApp.ViewModels.User
         [Required(ErrorMessage = "Please enter username")]
         public string Email { get; set; }
         
-        [DataType(DataType.PhoneNumber)]
-        [Required(ErrorMessage ="Please enter contact number")]
+        //[DataType(DataType.PhoneNumber)]
+        //[Required(ErrorMessage ="Please enter contact number")]
         public string MobileNumber { get; set; }
         public Gender? GenderType { get; set; }
         public int Age { get; set; }
@@ -32,12 +33,17 @@ namespace DeVeeraApp.ViewModels.User
         public Education EducationType { get; set; }
         public Income IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
+        [Required(ErrorMessage = "Please choose profile image")]
+        [Display(Name = "Profile Picture")]
+
         public string ImageUrl { get; set; }
         public string BannerImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
         public LandingPageModel LandingPageModel { get; set; }
         [NotMapped]
         public string OldPassword { get; set; }
+
+        
 
         //[NotMapped]
         //[Required(ErrorMessage ="Enter correct password")]

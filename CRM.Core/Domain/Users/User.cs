@@ -1,6 +1,8 @@
 ﻿using CRM.Core.Domain.Emotions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CRM.Core.Domain.Users
 {
@@ -46,6 +48,7 @@ namespace CRM.Core.Domain.Users
         /// </summary>
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Please choose profile image")]
         public string ImageURL { get; set; }
         public string EmailToRevalidate { get; set; }
 

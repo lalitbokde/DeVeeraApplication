@@ -13035,7 +13035,7 @@ img[data-action=zoom] {
     font-size: 14px;
     text-align: left;
     overflow: hidden;
-    transform: translatez(0)
+    transform: translatez(0);
 }
 
     .tabulator[tabulator-layout=fitDataFill] .tabulator-tableHolder .tabulator-table {
@@ -13128,7 +13128,7 @@ img[data-action=zoom] {
                     }
 
                     .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title .tabulator-header-menu-button + .tabulator-title-editor {
-                        width: calc(100% - 22px)
+                       width: calc(100% - 22px)
                     }
 
                 .tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-sorter {
@@ -14684,6 +14684,7 @@ html {
 
                 .tabulator .tabulator-header .tabulator-headers .tabulator-col .tabulator-col-content .tabulator-col-title {
                     padding-right: 0
+
                 }
 
                 .tabulator .tabulator-header .tabulator-headers .tabulator-col .tabulator-col-content .tabulator-arrow {

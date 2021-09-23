@@ -13,6 +13,8 @@ namespace DeVeeraApp.ViewModels.Admin
         [Required(ErrorMessage = "Please enter valid username")]
         public string Email { get; set; }
         [Required]
+        public string ImageUrl { get; set; }
+        [Required]
         public UserPassword UserPassword { get; set; }
         public bool IsAllow { get; set; }
         public int UserRoleId { get; set; }
