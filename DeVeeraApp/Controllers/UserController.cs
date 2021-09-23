@@ -35,7 +35,13 @@ using CRM.Services.Localization;
 using CRM.Services.TwilioConfiguration;
 using System.Threading.Tasks;
 using CRM.Core.TwilioConfig;
-
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using DeVeeraApp.ViewModels.Images;
+using Microsoft.Extensions.Hosting;
+using CRM.Core.Domain;
+using Microsoft.EntityFrameworkCore;
+using CRM.Data;
 
 namespace DeVeeraApp.Controllers
 {
@@ -56,6 +62,8 @@ namespace DeVeeraApp.Controllers
 
 
 
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
         private readonly IDateTimeHelper _dateTimeHelper;
         private readonly IUserPasswordService _Userpasswordservice;
         private readonly IUserRegistrationService _UserRegistrationService;
@@ -67,12 +75,16 @@ namespace DeVeeraApp.Controllers
         private readonly IDiaryPasscodeService _diaryPasscodeService;
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly IImageMasterService _imageMasterService;
+        private readonly IS3BucketService _s3BucketService;
 
         private readonly ITranslationService _translationService;
 
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         private readonly IVerificationService _verificationService;
+
+        public object IWebHostingEnvironment { get; private set; }
+        public readonly dbContextCRM dbContext;
 
         #endregion
 
@@ -98,7 +110,12 @@ namespace DeVeeraApp.Controllers
                                   IDiaryPasscodeService diaryPasscodeService,
                                   ILayoutSetupService layoutSetupService,
                                   IImageMasterService imageMasterService,
-                                  ITranslationService translationService
+                                  ITranslationService translationService,
+                                  IWebHostEnvironment hostingEnvironment,
+                                  IS3BucketService s3BucketService,
+                                   dbContextCRM context
+
+
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -111,8 +128,7 @@ namespace DeVeeraApp.Controllers
             this._UserService = UserService;
             _levelServices = levelServices;
             _verificationService = verificationService;
-
-
+            dbContext = context;
             this._dateTimeHelper = dateTimeHelper;
             this._Userpasswordservice = Userpasswordservice;
             this._UserRegistrationService = UserRegistrationService;
@@ -128,6 +144,10 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
             _translationService = translationService;
+            _s3BucketService = s3BucketService;
+
+             _hostingEnvironment = hostingEnvironment;
+
         }
 
         #endregion
@@ -214,7 +234,7 @@ namespace DeVeeraApp.Controllers
                                 _notificationService.SuccessNotification("Login successfull.");
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("Index","Dashboard");
+                                    return RedirectToAction("Index", "Dashboard");
                                 }
                                 //if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 //{
@@ -306,7 +326,7 @@ namespace DeVeeraApp.Controllers
                 //}
                 //else
                 //{
-                    //return RedirectToAction("Register", "User");
+                //return RedirectToAction("Register", "User");
                 //}
 
                 return RedirectToAction(nameof(VerifyOTP),
@@ -356,7 +376,7 @@ namespace DeVeeraApp.Controllers
         {
 
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
-          //  var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
+            //  var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
             if (true)
             {
                 //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
@@ -410,8 +430,8 @@ namespace DeVeeraApp.Controllers
                                     HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
                                     _notificationService.SuccessNotification("User registered successfull.");
-                                    
-                                         return RedirectToAction("Index", "Dashboard");
+
+                                    return RedirectToAction("Index", "Dashboard");
                                     //return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
 
 
@@ -450,7 +470,7 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                     ModelState.AddModelError("Email", "Email Already Exists");
-                   
+
 
                 }
             }
@@ -514,7 +534,7 @@ namespace DeVeeraApp.Controllers
 
                                 _notificationService.SuccessNotification("User registered successfull.");
 
-                                return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
+                                return RedirectToAction("NewUser", "Home", new { QuoteType = (int)CRM.Core.Domain.Quote.Registration });
 
 
                             }
@@ -561,12 +581,11 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult UserProfile(int userId)
         {
-            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
+            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
 
             if (userId != 0)
             {
-
                 var userData = _UserService.GetUserById(userId);
                 if (userData != null)
                 {
@@ -579,6 +598,8 @@ namespace DeVeeraApp.Controllers
                     model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
                     model.Occupation = userData.Occupation;
                     model.UserRoleName = userData.UserRole.Name;
+                    model.ImageUrl = userData.ImageURL;
+                   
                     model.TwoFactorAuthentication = userData.TwoFactorAuthentication;
 
                     if (_WorkContextService.CurrentUser.UserRole.Name == "Admin")
@@ -635,6 +656,7 @@ namespace DeVeeraApp.Controllers
 
             }
             PrepareLanguages(model.LandingPageModel.Language);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -659,6 +681,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
+                        
                         User.Username = model.Username;
                         User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
                         User.Age = model.Age;
@@ -666,11 +689,11 @@ namespace DeVeeraApp.Controllers
                         User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                         User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
                         _notificationService.SuccessNotification("User info updated successfull.");
+                        User.ImageURL = model.ImageUrl;
 
                         _UserService.UpdateUser(User);
 
                     }
-
                     model = User.ToModel<UserModel>();
 
                     return View(model);
@@ -890,7 +913,94 @@ namespace DeVeeraApp.Controllers
         //    return View();
         //}
         #endregion
+        //for upload image
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            //AddBreadcrumbs("User", "Profile", "/User/UserProfile", "/User/UserProfile");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(ImageModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var data = model.ToEntity<Image>();
+                    var imageUrl = UploadToAWS(model.FileName);
+                    data.ImageUrl = imageUrl.Result.ToString();
+                    data.Key = model.FileName;
+                    data.CreatedOn = DateTime.Now;
+                    data.UpdatedOn = DateTime.Now;
+                    _imageMasterService.InsertImage(data);
+                    _notificationService.SuccessNotification("Image url added successfully");
+                    return RedirectToAction("List");
+                }
+            }
+            catch (Exception ex)
+            {
+                _notificationService.ErrorNotification(ex.Message);
+                return RedirectToAction("List");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Uploadlocal(IFormFile file)
+        {
+            try
+            {
+                ResponseModel response = new ResponseModel();
+                string FilePath = null;
 
 
+                FilePath = _hostingEnvironment.WebRootPath + "\\NewFolder";
+
+
+                //string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+                if (!Directory.Exists(FilePath))
+
+                    Directory.CreateDirectory(FilePath);
+
+                var filePath = Path.Combine(FilePath, file.FileName);
+
+                using (FileStream fs = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(fs);
+                }
+
+                response.ImageUrl = /*"\\NewFolder"+"\\"+*/file.FileName;
+                response.Success = true;
+                return Json(response);
+            }
+            catch (Exception)
+            {
+                return Json("Upload Failed");
+            }
+        }
+
+        public async Task<string> UploadToAWS(string fileName)
+        {
+            string val;
+
+            var path = Path.Combine(IWebHostingEnvironment.ToString() + "//NewFolder", fileName);
+            _ = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                val = await _s3BucketService.UploadFileAsync(stream, path, fileName);
+
+
+            }
+            System.IO.File.Delete(path);
+            return val;
+        }
     }
 }
