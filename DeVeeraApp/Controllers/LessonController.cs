@@ -151,6 +151,7 @@ namespace DeVeeraApp.Controllers
                 videoRecord.VideoUrl = videoUrl;
 
                 _videoMasterService.UpdateVideo(videoRecord);
+                videoData.VideoId = data.VideoId;
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;

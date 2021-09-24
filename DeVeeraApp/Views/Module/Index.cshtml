@@ -1,11 +1,15 @@
 ﻿@model DeVeeraApp.ViewModels.ModulesModel
 @inject CRM.Core.IWorkContext _workContext
 @inject CRM.Services.ILevelServices _levelService
-
+@inject CRM.Services.IVideoMasterService videoMasterService
+@inject CRM.Services.IS3BucketService s3BucketService
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var levelNo = _levelService.GetLevelById(Model.LevelId).LevelNo;
 }
+@{var video = videoMasterService.GetVideoById((int)Model.VideoId)?.Key;}
+@{ var videourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(video) : ""; }
+
 <style>
     .colbutn {
         background-color: lightgray;
@@ -258,7 +262,7 @@
         $.ajax({
             url: url,
             type: "POST",
-            data: { Id, islike, value  },
+            data: { Id, islike, value },
 
             success: function (data, status) {
                 location.reload();

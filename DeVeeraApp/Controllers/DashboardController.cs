@@ -116,6 +116,7 @@ namespace DeVeeraApp.Controllers
                     var videoRecord = _videoMasterService.GetVideoById((int)model.layoutSetup.VideoId);
                     var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
                     model.VideoUrl = videoUrl;
+                    model.VideoId = (int)model.layoutSetup.VideoId;
                 }
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
                 if (userLanguage != null)
