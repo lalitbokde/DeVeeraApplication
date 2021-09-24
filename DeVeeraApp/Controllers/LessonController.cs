@@ -120,6 +120,7 @@ namespace DeVeeraApp.Controllers
             var random = new Random();
 
             var AllLevels = _levelServices.GetAllLevels().ToList();
+           
             ViewBag.TotalLevels = AllLevels.Count;
             var videoData = new LevelModel
             {
@@ -133,6 +134,7 @@ namespace DeVeeraApp.Controllers
             }
             var data = _levelServices.GetLevelByLevelNo(levelno);
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
             videoData.BannerImageUrl = imagesRecord?.ImageUrl;
 
@@ -151,10 +153,11 @@ namespace DeVeeraApp.Controllers
                 videoRecord.VideoUrl = videoUrl;
 
                 _videoMasterService.UpdateVideo(videoRecord);
+                videoData.VideoId = data.VideoId;
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
             videoData.Id = updatedVideoData.Id;
-            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+          
             if (userLanguage != null)
             {
                 if (userLanguage.LanguageId == 5)

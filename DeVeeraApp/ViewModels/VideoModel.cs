@@ -44,8 +44,13 @@ namespace DeVeeraApp.ViewModels
                 SortTypeId = (int)value;
             }
         }
-      
 
+        //For Spanish
+
+        public string SpanishFileName { get; set; }
+        public string SpanishName { get; set; }
+        public string SpanishVideoUrl { get; set; }
+        public string SpanishKey { get; set; }
         public PagedResult<VideoViewModel> VideoListPaged { get; set; }
 
 

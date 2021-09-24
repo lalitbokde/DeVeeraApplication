@@ -31,6 +31,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
         private readonly ILikesService _likesService;
+        private readonly IVideoMasterService _videoMasterService;
         public ModuleController(IModuleService moduleService,
                                 ILevelServices levelServices,
                                 IQuestionAnswerService questionAnswerService,
@@ -44,6 +45,7 @@ namespace DeVeeraApp.Controllers
                                IAuthenticationService authenticationService,
                                ISettingService settingService,
                                ILikesService likesService,
+                               IVideoMasterService videoMasterService,
                                ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -60,6 +62,7 @@ namespace DeVeeraApp.Controllers
             _localStringResourcesServices = localStringResourcesServices;
             _settingService = settingService;
             _likesService = likesService;
+            _videoMasterService = videoMasterService;
         }
 
         #region methods
@@ -150,7 +153,17 @@ namespace DeVeeraApp.Controllers
                 moduleData.NextLevelUrl = level?.ImageUrl;
 
             }
+            if (moduleData.VideoId != null)
+            {
+                var videoRecord = _videoMasterService.GetVideoById((int)moduleData.VideoId);
 
+                var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
+
+                videoRecord.VideoUrl = videoUrl;
+
+                _videoMasterService.UpdateVideo(videoRecord);
+                moduleData.VideoId = (int)moduleData.VideoId;
+            }
             //var userNextLevel = AllLevels.Where(a => a.LevelNo > levelno).FirstOrDefault();
 
             //if (userNextLevel != null)

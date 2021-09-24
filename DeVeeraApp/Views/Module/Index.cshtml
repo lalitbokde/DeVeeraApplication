@@ -1,11 +1,18 @@
 ﻿@model DeVeeraApp.ViewModels.ModulesModel
 @inject CRM.Core.IWorkContext _workContext
 @inject CRM.Services.ILevelServices _levelService
-
+@inject CRM.Services.IVideoMasterService videoMasterService
+@inject CRM.Services.IS3BucketService s3BucketService
+@inject CRM.Services.Settings.ISettingService settingService
 @{
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var levelNo = _levelService.GetLevelById(Model.LevelId).LevelNo;
 }
+@{var video = videoMasterService.GetVideoById((int)Model.VideoId)?.Key;}
+@{ var videourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(video) : ""; }
+@{var Spanishvideo = videoMasterService.GetVideoById((int)Model.VideoId)?.SpanishKey;}
+@{ var Spanishvideourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(Spanishvideo) : ""; }
+@{var userLanguage = settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault(); }
 <style>
     .colbutn {
         background-color: lightgray;
@@ -39,10 +46,18 @@
             <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-
-                <a href="@src" class="video-btn popup-youtube">
-                    <i class="flaticon-play"></i>
-                </a>
+                @if (userLanguage.LanguageId == 5)
+                {
+                    <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                }
+                else
+                {
+                    <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                }
             }
 
         </div>
@@ -258,7 +273,7 @@
         $.ajax({
             url: url,
             type: "POST",
-            data: { Id, islike, value  },
+            data: { Id, islike, value },
 
             success: function (data, status) {
                 location.reload();

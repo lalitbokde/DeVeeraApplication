@@ -83,16 +83,25 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var data = new Video();
                     var url = UploadVideo(model.FileName);
-                    var data = new Video
+                    var url2 = UploadVideo(model.SpanishFileName);
+                    if (model.SpanishFileName==null && url2 ==null) 
                     {
-                        Key = model.FileName,
-                        VideoUrl = url.Result.ToString(),
-                        Name = model.Name,
-                        IsNew = model.IsNew,
-                        CreatedOn = DateTime.Now,
-                        UpdatedOn = DateTime.Now
-                    };
+                        model.SpanishFileName = model.FileName;
+                        url2 = url;
+                    }
+                    data.Key = model.FileName;
+                    if (url!=null && url2!=null) {
+                    data.VideoUrl = url.Result.ToString();
+                    data.Name = model.Name;
+                    //spanish
+                    data.SpanishKey = model.SpanishFileName;
+                    data.SpanishVideoUrl = url2.Result.ToString();
+                    }
+                    data.IsNew = model.IsNew;
+                    data.CreatedOn = DateTime.Now;
+                    data.UpdatedOn = DateTime.Now;
                     _videoMasterService.InsertVideo(data);
                     _notificationService.SuccessNotification("Video url added successfully.");
                     return RedirectToAction("List");
@@ -164,11 +173,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var videoData = _videoMasterService.GetVideoById(model.Id);
                 try
                 {
-                    if(model.FileName != null)
+                    if(model.FileName != null && model.SpanishFileName!=null)
                     {
                         var url = UploadVideo(model.FileName);
+                        var url2 = UploadVideo(model.SpanishFileName);
                         videoData.VideoUrl = url.Result;
+                        videoData.SpanishVideoUrl = url2.Result;
                         videoData.Key = model.FileName;
+                        videoData.SpanishKey = model.SpanishFileName;
                         videoData.UpdatedOn = DateTime.Now;
 
                     }
@@ -222,6 +234,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 Directory.CreateDirectory(FilePath);
 
             string fileName =  file.FileName;
+    
 
             var filePath = Path.Combine(FilePath, fileName);
 
@@ -241,15 +254,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult Play(int Id)
         {
-            if (Id != 0)
-            {
                 var data = _videoMasterService.GetVideoById(Id);
               
                 var model = data.ToModel<VideoModel>();
                 return View(model);
-            }
-            return RedirectToAction("List");
-
+        
         }
         public IActionResult DeleteVideo(int videoId)
         {

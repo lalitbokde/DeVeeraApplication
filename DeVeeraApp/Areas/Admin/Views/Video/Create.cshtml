@@ -22,35 +22,72 @@
                         </div>
                     }
 
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Name</label>
-                        <input asp-for="FileName" hidden />
-                        <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
-                        <span asp-validation-for="Name" class="text-theme-21 mt-2"></span>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
 
-                    </div>
+                            </div>
 
-
-                    <div class="mt-5">
-                        <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                            <label class="font-label  mr-auto text-theme-21">
-                                Upload File
-                            </label>
                         </div>
-                        <div id="single-file-upload" class="p-5">
-                            <div class="preview">
-                                <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone">
-                                    <div class="fallback">
 
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                               
+                            </div>
+
+                        </div>
+                        <div class="col-span-6 mt-5">
+
+                            <label class="form-label text-theme-21 star">Name</label>
+                            <input asp-for="FileName" hidden />
+                            <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
+                            <span asp-validation-for="Name" class="text-theme-21 mt-2"></span>
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+                            <input asp-for="SpanishFileName" hidden />
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                    Upload File
+                                </label>
+                            </div>
+                            <div id="single-file-upload" class="p-5">
+                                <div class="preview" >
+                                    <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone">
+                                        <div class="fallback">
+
+                                        </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>
                                     </div>
-                                    <div class="dz-message" data-dz-message>
-                                        <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                   Spanish Upload File
+                                </label>
+                            </div>
+                            <div id="single-file-upload" class="p-5">
+                                <div class="preview" >
+                                    <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone1">
+                                        <div class="fallback">
+
+                                        </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="mt-5">
                         <input asp-for="IsNew" type="checkbox" class="form-check-input" placeholder="IsActive" />
                         <label class="form-label text-theme-21 pl-1">New</label>
@@ -103,11 +140,31 @@
                 file.previewElement.classList.add("dz-error");
             }
         });
-    });
 
+        //2nd 
+        $("#mydropzone1").dropzone({
+            autoProcessQueue: false,
+
+
+            success: function (file, response) {
+                debugger
+                var imgName = response;
+                file.previewElement.classList.add("dz-success");
+                console.log("Successfully uploaded :" + imgName);
+            },
+            error: function (file, response) {
+                file.previewElement.classList.add("dz-error");
+            }
+        });
+    });
+   
 
     function GetFileName() {
-        var filename = $(".dz-filename").text();
+        var filename = $("#mydropzone .dz-filename").text();
+        var filename1 = $("#mydropzone1 .dz-filename").text();
         document.getElementById("FileName").value = filename;
+        document.getElementById("SpanishFileName").value = filename1;
+       
     }
+   
 </script>

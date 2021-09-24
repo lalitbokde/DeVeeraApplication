@@ -3,7 +3,14 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-
+@inject CRM.Services.IVideoMasterService videoMasterService
+@inject CRM.Services.IS3BucketService s3BucketService
+@inject CRM.Services.Settings.ISettingService settingService
+@{var video = videoMasterService.GetVideoById((int)Model.VideoId)?.Key;}
+@{ var videourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(video) : ""; }
+@{var Spanishvideo = videoMasterService.GetVideoById((int)Model.VideoId)?.SpanishKey;}
+@{ var Spanishvideourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(Spanishvideo) : ""; }
+@{var userLanguage = settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault(); }
 
 
 @* Previous Code design deleted Because some errors are getting  *@
@@ -18,10 +25,19 @@
             }
 
             <img src="@imageUrl2" alt="image" width="100%">
+            @if (userLanguage.LanguageId==5)
+            {
+                <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
+                </a>
+            }
+            else
+            {
+                <a href="@videourl" class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
+                </a>
+            }
 
-            <a href="@src" class="video-btn popup-youtube">
-                <i class="flaticon-play"></i>
-            </a>
         </div>
 
     </div>
@@ -29,9 +45,9 @@
 <!-- End Main Slides Area -->
 <div class="container pt-56">
     <div class="courses-details-desc">
-                <div class="align-content-center">
-                    <p>@Html.Raw(Model.layoutSetup?.HomeDescription)</p>
-                </div>
+        <div class="align-content-center">
+            <p>@Html.Raw(Model.layoutSetup?.HomeDescription)</p>
+        </div>
     </div>
 </div>
 <!-- Start Blog Area -->
@@ -40,7 +56,7 @@
         <div class="section-title">
             <h2>@T(Model.layoutSetup?.HomeTitle)</h2>
             <p>@T(Model.layoutSetup?.HomeSubTitle)</p>
-       </div>
+        </div>
 
         <div class="blog-slides owl-carousel owl-theme">
 
@@ -107,7 +123,7 @@
                                     }
                                     else
                                     {
-                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo"><img src="~/assets/images/blog/blog-1.jpg" style="width:800px;height:250px"  alt="image"></a>
+                                        <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@item.LevelNo"><img src="~/assets/images/blog/blog-1.jpg" style="width:800px;height:250px" alt="image"></a>
 
                                     }
                                 }
@@ -142,14 +158,14 @@
 <!-- End Blog Area -->
 <!-- Start Subscribe Area -->
 @*<div class="subscribe-area bg-top">
-    <div class="container">
-        <div class="subscribe-inner-box">
-            <div class="subscribe-content">
-                <h2> @T(Model.Title) </h2>
-                <p>- @T(Model.Author)</p>
+        <div class="container">
+            <div class="subscribe-inner-box">
+                <div class="subscribe-content">
+                    <h2> @T(Model.Title) </h2>
+                    <p>- @T(Model.Author)</p>
 
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 <!-- End Subscribe Area -->

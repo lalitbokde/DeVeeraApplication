@@ -36,7 +36,7 @@ namespace DeVeeraApp.ViewModels
         public LayoutSetupModel layoutSetup { get; set; }
         public DashboardMenus Menus { get; set; }
         public string VideoUrl { get; set; }
-       
+        public int? VideoId { get; set; }
         public IList<LevelModel> VideoModelList { get; set; }
         public IList<SelectListItem> AvailableLevels { get; set; }
 
