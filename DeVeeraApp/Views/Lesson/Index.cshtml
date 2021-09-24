@@ -7,9 +7,13 @@
 @inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
 @inject CRM.Services.IVideoMasterService videoMasterService
 @inject CRM.Services.IS3BucketService s3BucketService
+@inject CRM.Services.Settings.ISettingService settingService
 @{var Description = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Description).Where(a => a.IsActive == true).FirstOrDefault()?.Description; }
 @{var video = videoMasterService.GetVideoById((int)Model.VideoId)?.Key;}
-@{ var videourl = (s3BucketService.GetPreSignedURL(video)!=null)? s3BucketService.GetPreSignedURL(video):"" ; }
+@{ var videourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(video) : ""; }
+@{var Spanishvideo = videoMasterService.GetVideoById((int)Model.VideoId)?.SpanishKey;}
+@{ var Spanishvideourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(Spanishvideo) : ""; }
+@{var userLanguage = settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault(); }
 <style>
     .colbutn {
         background-color: lightgray;
@@ -46,10 +50,18 @@
             }
 
             <img src="@imageUrl2" alt="image" width="100%">
-
-            <a href="@videourl" class="video-btn popup-youtube">
-                <i class="flaticon-play"></i>
-            </a>
+            @if (userLanguage.LanguageId == 5)
+            {
+                <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
+                </a>
+            }
+            else
+            {
+                <a href="@videourl" class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
+                </a>
+            }
         </div>
 
         <div class="row">
