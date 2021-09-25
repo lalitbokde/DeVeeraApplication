@@ -18,6 +18,26 @@
     <Compile Include="Migrations\20210730111047_null.cs" />
     <Compile Include="Migrations\20210730111047_null.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
+    <Compile Include="Migrations\20210802062129_isactive.cs" />
+    <Compile Include="Migrations\20210802062129_isactive.Designer.cs" />
+    <Compile Include="Migrations\20210820091347_homefields.cs" />
+    <Compile Include="Migrations\20210820091347_homefields.Designer.cs" />
+    <Compile Include="Migrations\20210823082704_video.cs" />
+    <Compile Include="Migrations\20210823082704_video.Designer.cs" />
+    <Compile Include="Migrations\20210823095511_bannerinhome.cs" />
+    <Compile Include="Migrations\20210823095511_bannerinhome.Designer.cs" />
+    <Compile Include="Migrations\20210826104112_likefield.cs" />
+    <Compile Include="Migrations\20210826104112_likefield.Designer.cs" />
+    <Compile Include="Migrations\20210827040245_likestable.cs" />
+    <Compile Include="Migrations\20210827040245_likestable.Designer.cs" />
+    <Compile Include="Migrations\20210830130413_isnew.cs" />
+    <Compile Include="Migrations\20210830130413_isnew.Designer.cs" />
+    <Compile Include="Migrations\20210831051633_moduleisnew.cs" />
+    <Compile Include="Migrations\20210831051633_moduleisnew.Designer.cs" />
+    <Compile Include="Migrations\20210923143650_spanishvideo.cs" />
+    <Compile Include="Migrations\20210923143650_spanishvideo.Designer.cs" />
+    <Compile Include="Migrations\20210924215057_mappingColumns.cs" />
+    <Compile Include="Migrations\20210924215057_mappingColumns.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
