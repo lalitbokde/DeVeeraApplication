@@ -65,6 +65,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             var data = _moduleService.GetModuleById(id);
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a=>a.LevelId == data.LevelId).Count();      
             var moduleData = data.ToModel<ModulesModel>();
+            moduleData.VideoId = data.VideoId;
             _translationService.Translate(moduleData.Title,key);
             _translationService.Translate(moduleData.FullDescription, key);
             Diary diary = new Diary();

@@ -89,7 +89,7 @@
                                     <input type="hidden" asp-for="@Model.ModuleId" />
                                     <input type="hidden" asp-for="@Model.UserId" />
                                     <div class="form-group">
-                                        <input type="text" asp-for="@Model.OTP" class="form-control" placeholder="@T("passcode")">
+                                        <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("passcode")">
                                         <span asp-validation-for="OTP" class="text-theme-6 mt-2"></span>
                                     </div>
                                     <button type="submit">@T("Submit")</button>
@@ -136,5 +136,29 @@
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
+    <script>
+        function isNumberKey(txt, evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            //console.log(charCode);
+            if (charCode == 46) {
+                //Check if the text already contains the . character
+                if (txt.value.indexOf('.') === -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //if (charCode > 31 &&
+                //    (charCode < 48 || charCode > 57))
+                //    return false;
+                if ((charCode == 8) //backspace
+                    || (charCode >= 48 && charCode <= 57) //keypad: 0 to 9
+                    || (charCode >= 96 && charCode <= 105)) //numpad: 0 to 9
+                    return true;
+            }
+            return false;
+        }
+
+    </script>
 </body>
 </html>

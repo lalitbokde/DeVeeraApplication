@@ -738,31 +738,47 @@ namespace DeVeeraApp.Controllers
 
         #region 2-FactorAuthentication
 
-        public IActionResult TwoFactorAuthentication(int UserId)
+        public async Task<IActionResult> TwoFactorAuthentication(int UserId)
         {
             var model = new TwoFactorAuthModel()
             {
                 UserId = UserId
             };
+            var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+            var verifymobno = currentUser?.MobileNumber;
+            var verification =
+                   await _verificationService.StartVerificationAsync(verifymobno, "sms");
+            if (verification.IsValid == true)
+            {
+
+            }
+            else
+            {
+                ModelState.AddModelError("OTP", "OTP Doesn't match");
+            }
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult TwoFactorAuthentication(TwoFactorAuthModel model)
+        public async Task<IActionResult> TwoFactorAuthentication(TwoFactorAuthModel model)
         {
             if (ModelState.IsValid)
             {
-                string passcode = "1234";
-
-                if (model.OTP != passcode)
+                var currentUser = _UserService.GetUserById(model.UserId);
+                //string passcode = "1234";
+                var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
+                if (result.IsValid == false)
                 {
-                    ModelState.AddModelError("", "Invalid Code");
-
-                    return View();
+                    ModelState.AddModelError("Passcode", "Passcode Doesn't match");
                 }
-                else
-                {
-                    var currentUser = _UserService.GetUserById(model.UserId);
+                //if (model.OTP == null)
+                //{
+                //    ModelState.AddModelError("", "Invalid Code");
+
+                //    return View();
+                //}
+                    
+                    if (true) {
                     currentUser.TwoFactorAuthentication = true;
                     _UserService.UpdateUser(currentUser);
 
@@ -776,7 +792,8 @@ namespace DeVeeraApp.Controllers
                     _diaryPasscodeService.InsertDiaryPasscode(diaryPasscode);
 
                     return RedirectToAction("ChangePasscode", "Diary");
-                }
+                    }
+                
 
             }
             return View();

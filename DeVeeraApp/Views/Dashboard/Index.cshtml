@@ -25,6 +25,7 @@
             }
 
             <img src="@imageUrl2" alt="image" width="100%">
+            @if (userLanguage!=null) {
             @if (userLanguage.LanguageId==5)
             {
                 <a href="@Spanishvideourl" class="video-btn popup-youtube">
@@ -37,7 +38,7 @@
                     <i class="flaticon-play"></i>
                 </a>
             }
-
+            }
         </div>
 
     </div>

@@ -2,7 +2,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@inject CRM.Services.IVideoMasterService videoMasterService
+@inject CRM.Services.IS3BucketService s3BucketService
+@{var video = videoMasterService.GetVideoById((int)Model.VideoId)?.Key;}
+@{ var videourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(video) : ""; }
 <style>
     .imgbackModule {
         background-image: url('/Images/beauty.jpg');
@@ -56,7 +59,7 @@
 
             }
 
-            <a asp-controller="Diary" asp-action="Create"  class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
+            <a asp-controller="Diary" asp-action="Create" class="btn-warning intro-x btn py-3 px-4 border-white dark:border-dark-5"> Diary </a>
 
             @if (Convert.ToInt32(ViewBag.SrNo) != 1)
             {
@@ -85,7 +88,7 @@
     <div class="intro-y mt-6">
         <div class="news__preview image-fit">
             @{string src = Model.Video.VideoUrl; }
-            <video src="@Url.Content(src)" controls style="width:100%; height:100%" loop />
+            <video src="@Url.Content(videourl)" controls style="width:100%; height:100%" loop />
         </div>
     </div>
 
@@ -153,7 +156,7 @@
                                         <div class="bg-gray-200 dark:bg-dark-5 px-4 py-3 text-gray-700 dark:text-gray-300 rounded-r-md rounded-t-md">
                                             <div class="mt-1 text-xs text-gray-600"> @item.Question_Answer_Mapping.Where(a => a.UserId == UserId).FirstOrDefault()?.User?.Email </div>
                                             <label for="input-wizard-1" class="form-label"> @item.Question_Answer_Mapping.Where(a => a.UserId == UserId).FirstOrDefault()?.Answer</label>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +169,7 @@
                                             @foreach (var data in item.Question_Answer_Mapping)
                                             {
                                                 <div class="mt-1 text-xs text-gray-600"> @data.User.Email </div>
-                                                <label for="input-wizard-1" class="form-label"> @data.Answer </label>                                    
+                                                <label for="input-wizard-1" class="form-label"> @data.Answer </label>
                                             }
                                         </div>
                                     </div>

@@ -10,6 +10,7 @@ using CRM.Services.Emotions;
 using CRM.Services.Layoutsetup;
 using CRM.Services.Localization;
 using CRM.Services.Message;
+using CRM.Services.TwilioConfiguration;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DeVeeraApp.Controllers
 {
@@ -43,6 +45,7 @@ namespace DeVeeraApp.Controllers
         private readonly ITranslationService _translationService;
 
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+        private readonly IVerificationService _verificationService;
         #endregion
 
 
@@ -59,6 +62,7 @@ namespace DeVeeraApp.Controllers
                        IDiaryPasscodeService diaryPasscodeService,
                        ILayoutSetupService layoutSetupService,
                        IImageMasterService imageMasterService,
+                       IVerificationService verificationService,
                         IHttpContextAccessor httpContextAccessor,
                         ITranslationService translationService,
                                IAuthenticationService authenticationService
@@ -78,6 +82,7 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
             _translationService = translationService;
+            _verificationService = verificationService;
         }
 
         #endregion
@@ -118,9 +123,15 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("Diary", "Create", "/Diary/Create", "/Diary/Create");
             DiaryListModel model = new DiaryListModel();
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-
+            var verifymobno = currentUser?.MobileNumber;
             if (currentUser.TwoFactorAuthentication == false && currentUser.UserRole.Name != "Admin")
             {
+                //var verification =
+                //   await _verificationService.StartVerificationAsync(verifymobno, "sms");
+                // if (verification.IsValid == true)
+                //{
+
+                //}
                 return RedirectToAction("TwoFactorAuthentication", "User", new { UserId = currentUser.Id });
             }
             else
@@ -353,14 +364,26 @@ namespace DeVeeraApp.Controllers
             @ViewBag.emotion = Emotion;
             return View();
         }
-        public IActionResult EnterPasscode()
+        public async Task <IActionResult> EnterPasscode()
         {
             AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
+            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
+            var verifymobno = currentUser?.MobileNumber;
+            var verification =
+                   await _verificationService.StartVerificationAsync(verifymobno, "sms");
+            if (verification.IsValid == true)
+            {
+
+            }
+            else
+            {
+                ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult EnterPasscode(EnterPasscodeModel model)
+        public async Task<IActionResult> EnterPasscode(EnterPasscodeModel model)
         {
             AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
 
@@ -369,8 +392,8 @@ namespace DeVeeraApp.Controllers
                 var currentUser = _workContext.CurrentUser;
 
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
-
-                if (model.Passcode != passcode.Password)
+                var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
+                if (result.IsValid==false)
                 {
                     ModelState.AddModelError("Passcode", "Passcode Doesn't match");
                 }

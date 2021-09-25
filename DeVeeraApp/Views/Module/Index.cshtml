@@ -25,7 +25,7 @@
     }
 </style>
 <!-- Start Page Banner Area -->
-<div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl != null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
+<div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl != null ? Model.BannerImageUrl : "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
         <div class="page-banner-content-two">
             <h2>@T(Model.Title)</h2>
@@ -46,21 +46,23 @@
             <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-                @if (userLanguage.LanguageId == 5)
+                @if (userLanguage != null)
                 {
-                    <a href="@Spanishvideourl" class="video-btn popup-youtube">
-                        <i class="flaticon-play"></i>
-                    </a>
+                    @if (userLanguage.LanguageId == 5)
+                    {
+                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                            <i class="flaticon-play"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@videourl" class="video-btn popup-youtube">
+                            <i class="flaticon-play"></i>
+                        </a>
+                    }
                 }
-                else
-                {
-                    <a href="@videourl" class="video-btn popup-youtube">
-                        <i class="flaticon-play"></i>
-                    </a>
                 }
-            }
-
-        </div>
+            </div>
 
         <div class="row">
             <div class="col-lg-8 col-md-12">
