@@ -377,7 +377,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                ModelState.AddModelError("Passcode", "Passcode not exist's");
             }
             return View();
         }
