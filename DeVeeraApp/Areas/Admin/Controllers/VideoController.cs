@@ -173,13 +173,25 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var videoData = _videoMasterService.GetVideoById(model.Id);
                 try
                 {
-                    if(model.FileName != null && model.SpanishFileName!=null)
+                    if(model.FileName != null)
                     {
                         var url = UploadVideo(model.FileName);
-                        var url2 = UploadVideo(model.SpanishFileName);
+                      
                         videoData.VideoUrl = url.Result;
-                        videoData.SpanishVideoUrl = url2.Result;
+                        
                         videoData.Key = model.FileName;
+                      
+                        videoData.UpdatedOn = DateTime.Now;
+
+                    }
+
+                    if (model.SpanishFileName != null)
+                    {
+                       
+                        var url2 = UploadVideo(model.SpanishFileName);
+                      
+                        videoData.SpanishVideoUrl = url2.Result;
+                
                         videoData.SpanishKey = model.SpanishFileName;
                         videoData.UpdatedOn = DateTime.Now;
 
