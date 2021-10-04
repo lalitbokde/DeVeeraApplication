@@ -22,63 +22,161 @@
                         </div>
                     }
 
-                    <div class="mt-5">
-                        <label class="form-label text-theme-21 star">Name</label>
-                        <input asp-for="FileName" hidden />
-                        <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
-                        <span asp-validation-for="Name" class="text-theme-21 mt-2"></span>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
 
-                    </div>
+                            </div>
 
-
-                    <div class="mt-5">
-                        <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                            <label class="font-label  mr-auto text-theme-21">
-                                Upload File
-                            </label>
                         </div>
-                        <div id="single-file-upload" class="p-5">
-                            <div class="preview">
-                                <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone">
-                                    <div class="fallback">
 
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+
+                            </div>
+
+                        </div>
+                        <div class="col-span-6 mt-5">
+
+                            <label class="form-label text-theme-21 star">Name</label>
+                            <input asp-for="FileName" hidden />
+                            <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
+                            <span asp-validation-for="Name" class="text-theme-21 mt-2"></span>
+                        </div>
+                        <div class="col-span-6 mt-5">
+
+                            <label class="form-label text-theme-21 star">Spanish Name</label>
+                            <input asp-for="FileName" hidden />
+                            <input asp-for="Name" type="text" class="form-control" placeholder="video name" />
+                            <span asp-validation-for="Name" class="text-theme-21 mt-2"></span>
+                        </div>
+                    </div>
+                    <div class="col-span-6 mt-5">
+                        <input asp-for="SpanishFileName" hidden />
+                    </div>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                    Upload File
+                                </label>
+                            </div>
+                            <div id="single-file-upload" class="p-5">
+                                <div class="preview">
+                                    <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone">
+                                        @*<div class="fallback">
+
+                                            </div>*@
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium" id="upload">Drop files here or click to upload.</div>
+                                        </div>
                                     </div>
-                                    <div class="dz-message" data-dz-message>
-                                        <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                </div>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                    <label class="font-label  mr-auto text-theme-21">
+                                         Youtube Url
+                                    </label>
+                                </div>
+
+                                <div class="dz-message" data-dz-message>
+                                    <input asp-for="Name" type="text" class="form-control" placeholder="YoutubeVideo Url" />
+
+                                    @*<select type="file" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>*@
+                                </div>
+                                <!--<div id="single-file-upload" class="p-5">-->
+                                    @*<div class="preview">*@
+                                    <!--<div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone">-->
+                                        @*<div class="fallback">
+
+                                            </div>*@
+                                        <!--<div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>
+                                    </div>-->
+                                    @*</div>*@
+                                <!--</div>-->
+
+                            </div>
+                        </div>
+
+                        <div class="col-span-6 mt-5">
+                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                <label class="font-label  mr-auto text-theme-21">
+                                    Spanish Upload File
+                                </label>
+                            </div>
+                            <div id="single-file-upload" class="p-5">
+                                <div class="preview">
+                                    <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone1">
+                                        <div class="fallback">
+
+                                        </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                                    <label class="font-label  mr-auto text-theme-21">
+                                        Spanish  Youtube Url
+                                    </label>
+                                </div>
+                                <div class="dz-message" data-dz-message>
+                                    <input asp-for="Name" type="text" class="form-control" placeholder="YoutubeVideo Url" />
+
+                                    @*<select type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>*@
+                                </div>
+                            </div>
+                            <!--<div id="single-file-upload" class="p-5">
+                                <div class="preview">
+                                    <div data-single="true" fallback="true" action="/Admin/video/Upload" class="dropzone" id="mydropzone">
+                                        <div class="fallback">
+
+                                        </div>-->
+                                        @*<div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                        </div>*@
+                                    <!--</div>
+                                </div>
+                            </div>-->
+
+                        </div>
+                        <div class="mt-5">
+                            <input asp-for="IsNew" type="checkbox" class="form-check-input" placeholder="IsActive" />
+                            <label class="form-label text-theme-21 pl-1">New</label>
+                        </div>
+
+                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                            <div class="grid grid-cols-12  gap-y-5 mt-5">
+                                <div class="intro-y   col-span-6">
+                                    @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
+                                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                        <label class="pl-10">Back to List</label>
+                                        <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Video" asp-action="List">
+                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="intro-y  col-span-6 ml-auto">
+
+                                    <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('Videoform')">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="mt-5">
-                        <input asp-for="IsNew" type="checkbox" class="form-check-input" placeholder="IsActive" />
-                        <label class="form-label text-theme-21 pl-1">New</label>
-                    </div>
-
-                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                        <div class="grid grid-cols-12  gap-y-5 mt-5">
-                            <div class="intro-y   col-span-6">
-                                @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
-                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                    <label class="pl-10">Back to List</label>
-                                    <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Video" asp-action="List">
-                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                    </a>
-                                </span>
-                            </div>
-                            <div class="intro-y  col-span-6 ml-auto">
-
-                                <button type="submit" class="btn btn-primary w-24" onclick="ShowLoader('Videoform')">Save</button>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
-
         </div>
+
+    </div>
+
+    </div>
 
     </div>
 
@@ -91,8 +189,24 @@
     $(document).ready(function () {
         $("#mydropzone").dropzone({
             autoProcessQueue: false,
-            
-           
+
+
+            success: function (file, response) {
+                debugger
+                var imgName = response;
+                file.previewElement.classList.add("dz-success");
+                console.log("Successfully uploaded :" + imgName);
+            },
+            error: function (file, response) {
+                file.previewElement.classList.add("dz-error");
+            }
+        });
+
+        //2nd
+        $("#mydropzone1").dropzone({
+            autoProcessQueue: false,
+
+
             success: function (file, response) {
                 debugger
                 var imgName = response;
@@ -109,5 +223,17 @@
     function GetFileName() {
         var filename = $(".dz-filename").text();
         document.getElementById("FileName").value = filename;
+        document.getElementById("SpanishFileName").value = filename1;
+
     }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('input[type="file"]').change(function (e) {
+            var fileName = e.target.files[0].name;
+            alert('The file "' + fileName + '" has been selected.');
+        });
+    });
 </script>

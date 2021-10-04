@@ -145,10 +145,18 @@ namespace DeVeeraApp.Controllers
             if (data.VideoId != null)
             {
                 var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
+                ////for youtube Url
+                var YoutubeVideoUrl = _videoMasterService.GetVideoById((int)data.VideoId);
+                var SpanishYoutubeVideoUrl = _videoMasterService.GetVideoById((int)data.VideoId);
 
                 var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
-
+                //for spanish
+                var SpanishvideoUrl = _s3BucketService.GetPreSignedURL(videoRecord.SpanishKey);
                 videoRecord.VideoUrl = videoUrl;
+                //for spanish
+                videoRecord.SpanishVideoUrl = SpanishvideoUrl;
+               _videoMasterService.UpdateVideo(videoRecord);
+                videoData.VideoId = data.VideoId;
 
                 _videoMasterService.UpdateVideo(videoRecord);
             }

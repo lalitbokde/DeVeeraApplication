@@ -83,6 +83,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var data = new Video();
+                    //for youtube video
+                    data.YoutubeVideoUrl = model.YoutubeVideoUrl;
+                    data.SpanishYoutubeVideoUrl = model.SpanishYoutubeVideoUrl;
+
                     var url = UploadVideo(model.FileName);
                     var data = new Video
                     {
@@ -108,6 +113,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         }
 
+      
         //[Obsolete]
         //public async Task<bool> ConvertVideo(string OriginalFileName, string CompressedFileName)
         //{
@@ -119,7 +125,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         //   // FFmpeg.ExecutablesPath = Path.Combine("/usr/bin");
         //    //windows
         //     FFmpeg.ExecutablesPath = Path.Combine(_hostingEnvironment.WebRootPath, "FFmpeg");
-           
+
         //    var info = await MediaInfo.Get(originalFile);
 
         //    var videoStream = info.VideoStreams.First().SetCodec(VideoCodec.H264).SetSize(VideoSize.Hd480);
@@ -180,6 +186,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                
                 videoData.Name = model.Name;
                 videoData.IsNew = model.IsNew;
+                videoData.YoutubeVideoUrl = model.YoutubeVideoUrl;
+                videoData.SpanishYoutubeVideoUrl = model.SpanishYoutubeVideoUrl;
 
                 _videoMasterService.UpdateVideo(videoData);
                 _notificationService.SuccessNotification("Video url updated successfully.");
@@ -188,7 +196,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return View();
 
         }
-
+      
         public IActionResult List()
         {
             AddBreadcrumbs("Video", "List", "/Admin/Video/List", "/Admin/Video/List");
@@ -251,6 +259,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return RedirectToAction("List");
 
         }
+       
+
         public IActionResult DeleteVideo(int videoId)
         {
             ResponseModel response = new ResponseModel();
@@ -265,9 +275,16 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     response.Message = "No video found";
                 }
                 _videoUploadService.DeleteFile(data.Key);
+                //for spanish key
+                _videoUploadService.DeleteFile(data.SpanishKey);
 
                 data.Key = null;
                 data.VideoUrl = null;
+
+                //for spanish video 
+                data.SpanishKey = null;
+                data.SpanishVideoUrl = null;
+
 
                 _videoMasterService.UpdateVideo(data);
                 response.Success = true;
@@ -296,6 +313,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     response.Message = "No video found";
                 }
                 _videoUploadService.DeleteFile(videoData.Key);
+                //for spanish
+                _videoUploadService.DeleteFile(videoData.SpanishKey);
                 _videoMasterService.DeleteVideo(videoData);
 
                 response.Success = true;

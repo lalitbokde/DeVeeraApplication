@@ -17,6 +17,10 @@
     <Compile Include="Migrations\20210729102156_error.Designer.cs" />
     <Compile Include="Migrations\20210730111047_null.cs" />
     <Compile Include="Migrations\20210730111047_null.Designer.cs" />
+    <Compile Include="Migrations\20210930055328_youtube.cs" />
+    <Compile Include="Migrations\20210930055328_youtube.Designer.cs" />
+    <Compile Include="Migrations\20210930125734_spanishyoutubevideo.cs" />
+    <Compile Include="Migrations\20210930125734_spanishyoutubevideo.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
   </ItemGroup>
 

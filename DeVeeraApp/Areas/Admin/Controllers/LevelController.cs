@@ -96,6 +96,18 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     Selected = url.Id == model.VideoId
                 });
             }
+            //prepare available url for spanish video
+            model.AvailableSpanishVideo.Add(new SelectListItem { Text = "Select Video", Value = "0" });
+            var AvailableSpanishVideoUrl = _videoServices.GetAllVideos();
+            foreach (var url1 in AvailableSpanishVideoUrl)
+            {
+                model.AvailableSpanishVideo.Add(new SelectListItem
+                {
+                    Value = url1.Id.ToString(),
+                    Text = url1.Name,
+                    Selected = url1.Id == model.VideoId
+                });
+            }
 
             //prepare available images
             model.ImageLists = _imageMasterService.GetAllImages().ToList();
@@ -119,6 +131,18 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     Text = item.EmotionName,
                 });
             }
+            ////for prepare available Spanish Emotions //
+            //model.AvailableSpanishEmotions.Add(new SelectListItem { Text = "Select Emotion", Value = "0" });
+            //var AvailableSpanishEmotions = _emotionService.GetAllEmotions();
+            //foreach (var item in AvailableSpanishEmotions)
+            //{
+            //    model.AvailableSpanishEmotions.Add(new SelectListItem
+            //    {
+            //        Value = item.Id.ToString(),
+            //        Text = item.EmotionName,
+            //    });
+            //}
+
         }
 
 

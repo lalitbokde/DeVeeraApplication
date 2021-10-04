@@ -16,8 +16,8 @@ namespace DeVeeraApp.ViewModels
         [Required(ErrorMessage ="Please enter video name ")]
         public string Name { get; set; }
         public string VideoUrl { get; set; }
-
-
+        public string YoutubeVideoUrl { get; set; }
+        public string SpanishYoutubeVideoUrl { get; set; }
         public string Key { get; set; }
 
         public string FileName { get; set; }

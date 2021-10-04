@@ -19,8 +19,12 @@ namespace DeVeeraApp.ViewModels
             Modules = new Modules();
             ImageLists = new List<Image>();
             this.AvailableVideo = new List<SelectListItem>();
+            this.AvailableSpanishVideo = new List<SelectListItem>();
+            this.AvailableYoutubeVideo = new List<SelectListItem>();
+            this.AvailableSpanishYoutubeVideo = new List<SelectListItem>();
             AvailableImages = new List<SelectListItem>();
             this.AvailableEmotions = new List<SelectListItem>();
+          
             SelectedModuleImg = new List<string>();
             SelectedImg = new List<string>();
             SelectedModuleImages = new List<SelectedImage>();
@@ -74,6 +78,7 @@ namespace DeVeeraApp.ViewModels
         
         public string UserName { get; set; }
         public string VideoUrl { get; set; }
+        public string YoutubeVideoUrl{ get; set; }
         public string VideoName { get; set; }
         public bool Active { get; set; }
 
@@ -91,8 +96,14 @@ namespace DeVeeraApp.ViewModels
         public IList<ModulesViewModel> ModuleDataList { get; set; }
         public List<Image> ImageLists { get; set; }
         public IList<SelectListItem> AvailableVideo { get; set; }
+        public IList<SelectListItem> AvailableSpanishVideo { get; set; }
+        public IList<SelectListItem> AvailableYoutubeVideo { get; set; }
+        public IList<SelectListItem> AvailableSpanishYoutubeVideo { get; set; }
+
         public IList<SelectListItem> AvailableImages { get; set; }
         public IList<SelectListItem> AvailableEmotions { get; set; }
+        public IList<SelectListItem> AvailableSpanishEmotions { get; set; }
+
         [NotMapped]
         public int srno { get; set; }
 

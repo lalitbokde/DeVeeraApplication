@@ -66,12 +66,20 @@ namespace CRM.Services
                         UpdateVideo(data);
 
                     }
+                    //for spanish video
+                     if(data.SpanishKey != null)
+                    {
+                        data.SpanishVideoUrl= _s3BucketService.GetPreSignedURL(data.SpanishKey);
+                        data.UpdatedOn = DateTime.Now;
+                        UpdateVideo(data);
+                    }
+                    
 
                 }
             }
             return data;
         }
-
+     
         public IList<Video> GetVideoByIds(int[] VideoIds)
         {
             if (VideoIds == null || VideoIds.Length == 0)
