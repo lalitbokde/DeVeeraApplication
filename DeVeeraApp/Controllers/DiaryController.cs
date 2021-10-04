@@ -367,8 +367,10 @@ namespace DeVeeraApp.Controllers
         public async Task <IActionResult> EnterPasscode()
         {
             AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
+            var model = new EnterPasscodeModel();
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
+            model.MobileNumber = verifymobno;
             var verification =
                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
             if (verification.IsValid == true)
@@ -379,7 +381,7 @@ namespace DeVeeraApp.Controllers
             {
                 ModelState.AddModelError("Passcode", "Passcode not exist's");
             }
-            return View();
+            return View(model);
         }
 
         [HttpPost]

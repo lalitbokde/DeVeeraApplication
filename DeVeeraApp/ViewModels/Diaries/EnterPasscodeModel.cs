@@ -6,5 +6,6 @@ namespace DeVeeraApp.ViewModels.Diaries
     {
         [Required]
         public string Passcode { get; set; }
+        public string MobileNumber { get; set; }
     }
 }

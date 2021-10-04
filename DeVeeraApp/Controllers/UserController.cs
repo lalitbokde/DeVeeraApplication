@@ -746,6 +746,7 @@ namespace DeVeeraApp.Controllers
             };
             var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
+            model.MobileNumber = verifymobno;
             var verification =
                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
             if (verification.IsValid == true)
