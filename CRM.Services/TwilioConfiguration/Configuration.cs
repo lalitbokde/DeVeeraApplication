@@ -7,7 +7,7 @@ namespace Configuration
 
         //old token
         //public string AuthToken { get; set; } = "ab95532d32935182d022b369521848d0";
-        public string AuthToken { get; set; } = "11bea00d43683fdfde6f77a7e8edcec1";
+        public string AuthToken { get; set; } = "3240f1ae42a02e4338b794f6afcab81d";
        
         public string VerificationSid { get; set; } = "VA0dc2634edcf87d0df2ff0ae1352e9ef4";
     }
