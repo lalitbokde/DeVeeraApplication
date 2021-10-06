@@ -22,7 +22,9 @@ namespace DeVeeraApp.ViewModels
         
         [Required(ErrorMessage ="The Quote field is Required")]
         public string Title { get; set; }
-        
+
+        public string TitleSpanish { get; set; }
+
         [Required(ErrorMessage ="Please enter the author ")]
         public string Author { get; set; }
         public string Level { get; set; }

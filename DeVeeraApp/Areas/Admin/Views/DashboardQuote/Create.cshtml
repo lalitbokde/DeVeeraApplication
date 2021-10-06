@@ -20,10 +20,27 @@
                             <div asp-validation-summary="All" class="text-theme-6 mt-4">
                             </div>
                         }
-                        <div class="mt-5">
-                            <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                            <input id="input-wizard-1" asp-for="Title" type="text" class="form-control" placeholder="Quote">
+                        <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5 ">                             
+                             <div class="col-span-6 ">
+                                 <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                                <a onclick="TranslateSpanishCreateQuote()" class="btn btn-primary w-40 " style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                            </div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star mt-5">Quote</label>
+                            <input id="createquote" asp-for="Title" type="text" class="form-control" placeholder="Quote">
                             <span asp-validation-for="Title" class="text-theme-21  mt-2"></span>
+                               </div> 
+                             
+                                <div class="col-span-6 ">
+                                     <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                <a class="btn btn-primary w-40" onclick="TranslateEnglishCreateQuote()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                            </div>
+                            <label for="input-wizard-1" class="form-label text-theme-21 star mt-5">Quote</label>
+                            <input id="spanishquote" asp-for="Title" type="text" class="form-control" placeholder="Quote">
+                            <span asp-validation-for="Title" class="text-theme-21  mt-2"></span>
+                               </div>   
                         </div>
 
                         <div class="mt-5">
@@ -76,5 +93,58 @@
 
 </form>
 
+<script type="text/javascript">
 
+    function TranslateSpanishCreateQuote() {
+
+        var Title = document.getElementById('createquote').value;
+       
+        
+
+            $.ajax({
+                url: "/Admin/DashboardQuote/TranslateSpanishCreateQuote",
+                type: "POST",
+                data: { Title },
+
+                success: function (data, status) {
+                    $("#spanishquote").val(data.title);
+                    //$(".subtitleenglish").val(data.subtitle);
+                    CKEDITOR.instances['editorSpanish'].setData(data.fullDescription);
+                },
+
+
+            });
+      
+
+
+
+
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    function TranslateEnglishCreateQuote() {
+
+        var Title = document.getElementById('spanishquote').value;
+        
+       
+
+            $.ajax({
+               url: "/Admin/DashboardQuote/TranslateEnglishCreateQuote",
+                type: "POST",
+                data: { Title  },
+
+                success: function (data, status) {
+                    $("#createquote").val(data.title);                   
+                    CKEDITOR.instances['editorEnglish'].setData(data.fullDescription);
+                },
+
+
+            });
+        
+    }
+
+</script>
 
