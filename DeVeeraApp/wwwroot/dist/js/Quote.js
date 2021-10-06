@@ -36,7 +36,9 @@ var table = new Tabulator("#tabulator1",
             
             //{ title: "#", field: "", sorter: "number", width: 50, editor: true, headerSort: false},
             { title: "#", width: 50, headerSort: false, formatter: "rownum"},
-            { title: "Quote", field: "Title", sorter: "string", width: 240 },
+            { title: "English", field: "Title", sorter: "string", width: 240 },
+
+            { title: "Spanish", field: "TitleSpanish", sorter: "string", width: 240 }, 
             { title: "Author", field: "Author", sorter: "string", width: 140 },
             { title: "Level", field: "Level" , sorter: "string", width: 140 },
             { title: "Dashboard Quote", field: "IsDashboardQuote", sorter: "boolean", width: 140, formatter: function (e, t) { return `<input class="checkbox-custom" type="checkbox" ${e.getValue()== true ? "checked":""}>` }, },

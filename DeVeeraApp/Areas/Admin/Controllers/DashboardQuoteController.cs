@@ -98,7 +98,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     }
                     model.Add(item.ToModel<DashboardQuoteModel>());
                 }
-
+                foreach(var list in model)
+                {
+                   list.TitleSpanish= list.Title != null ? _translationService.TranslateLevel(list.Title, key) : ""; 
+                    
+                }
+                
                 ViewBag.QuoteTable = JsonConvert.SerializeObject(model);
                 return View(model);
             }
@@ -117,7 +122,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             ModelState.Remove("layoutSetup.SliderOneTitle"); ModelState.Remove("layoutSetup.SliderTwoTitle"); 
             ModelState.Remove("layoutSetup.SliderThreeTitle"); ModelState.Remove("layoutSetup.ReasonToSubmit");
-
+            ModelState.Remove("layoutSetup.VideoId"); 
             if (ModelState.IsValid)
             {
                 var ExistingQuote = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Title == model.Title && a.Author == model.Author);
@@ -129,8 +134,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         _dashboardQuoteService.InActiveAllDashboardQuotes();
                     }
                     _dashboardQuoteService.InsertDashboardQuote(quote);
-                    _translationService.Translate(quote.Title,key);
-                    _translationService.Translate(quote.Author, key);
+                    _translationService.Translate(quote.Title,model.TitleSpanish);
+                   // _translationService.Translate(quote.Author, key);
                    
                     _notificationService.SuccessNotification("Dashboard quote added successfully.");
                     return RedirectToAction("List");
@@ -173,6 +178,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Dashboard Quote", "Edit", "/Admin/DashboardQuote/List", $"/Admin/DashboardQuote/Edit/{model.Id}");
             ModelState.Remove("layoutSetup.SliderOneTitle"); ModelState.Remove("layoutSetup.SliderTwoTitle");
             ModelState.Remove("layoutSetup.SliderThreeTitle"); ModelState.Remove("layoutSetup.ReasonToSubmit");
+            ModelState.Remove("layoutSetup.VideoId");
             if (ModelState.IsValid)
             {
                 var quote = _dashboardQuoteService.GetDashboardQuoteById(model.Id);
@@ -272,13 +278,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                     int totalRows = workSheet.Dimension.Rows;
 
-                    var IsValidColumns = (totalColumns == 2);
+                    var IsValidColumns = (totalColumns == 3);
 
                     if (!IsValidColumns) ErrorMessage += "Invalid Columns";
 
                     var IsEmpty = (totalRows <= 0);
 
                     if (IsEmpty) ErrorMessage += "No Data To Import";
+                    
 
                     for (int row = 2; row <= totalRows; row++)
                     {
@@ -287,8 +294,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                             _QuoteList.Add(new DashboardQuote
                             {
                                 Title = workSheet.Cells[row, 1].Value.ToString().Trim(),
+                                TitleSpanish = workSheet.Cells[row, 2].Value.ToString().Trim(),
 
-                                Author = workSheet.Cells[row, 2].Value.ToString().Trim(),
+                                Author = workSheet.Cells[row, 3].Value.ToString().Trim(),
 
                                 IsDashboardQuote = false,
 
@@ -299,10 +307,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         }
 
                     }
-
                 }
+                
 
-                if (_QuoteList.Count() != 0)
+                    if (_QuoteList.Count() != 0)
                 {
                     foreach (var item in _QuoteList)
                     {
@@ -358,8 +366,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     System.IO.File.Delete(path);
                     response.Success = false;
                 }
-
-            }
+                    
+                }
             else
             {
                 _notificationService.ErrorNotification("File Not Selected.");
@@ -367,7 +375,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 response.Success = false;
 
             }
-
+            
 
             return Json(response);
         }
@@ -379,5 +387,48 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
         #endregion
+
+
+
+
+
+        [HttpPost]
+        public IActionResult TranslateSpanishCreateQuote(DashboardQuoteModel dashboardQuoteModel)
+        {
+            DashboardQuoteModel model = new DashboardQuoteModel();
+            model.Title = dashboardQuoteModel.Title != null ? _translationService.TranslateLevel(dashboardQuoteModel.Title, key) : "";           
+            return Json(model);
+
+        }
+
+        
+        [HttpPost]
+        public IActionResult TranslateSpanishQuoteModule(DashboardQuoteModel dashboardQuoteModel)
+        {
+            DashboardQuoteModel model = new DashboardQuoteModel();
+            model.Title = dashboardQuoteModel.Title != null ? _translationService.TranslateLevel(dashboardQuoteModel.Title, key) : "";
+            return Json(model);
+
+        }
+
+        [HttpPost]
+        public IActionResult TranslateEnglishCreateQuote(DashboardQuoteModel dashboardQuoteModel)
+        {
+            DashboardQuoteModel model = new DashboardQuoteModel();
+            model.Title = dashboardQuoteModel.Title != null ? _translationService.TranslateLevelSpanish(dashboardQuoteModel.Title, key) : "";
+            return Json(model);
+
+        }
+
+        [HttpPost]
+        public IActionResult TranslateEnglishQuoteModule(DashboardQuoteModel dashboardQuoteModel)
+        {
+            DashboardQuoteModel model = new DashboardQuoteModel();
+            model.Title = dashboardQuoteModel.Title != null ? _translationService.TranslateLevelSpanish(dashboardQuoteModel.Title, key) : "";
+            return Json(model);
+
+        }
+        
+
     }
 }

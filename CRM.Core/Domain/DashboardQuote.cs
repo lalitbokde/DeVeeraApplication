@@ -1,4 +1,6 @@
-﻿namespace CRM.Core.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CRM.Core.Domain
 {
     public class DashboardQuote : BaseEntity
     {
@@ -9,6 +11,8 @@
         public bool IsDashboardQuote { get; set; }
         public bool IsRandom { get; set; }
         public bool IsWeeklyInspiringQuotes { get; set; }
-
+        [NotMapped]
+        public string TitleSpanish { get; set; }
+        
     }
 }
