@@ -128,8 +128,17 @@ namespace DeVeeraApp.Controllers
 
                     //model.LandingPageModel.WeeklyUpdate.LandingQuote = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
                 }
+                var master = _languageService.GetLanguageById(userLanguagem.LanguageId);
+                var dataForVideo = _videoMasterService.GetVideoById(data.VideoId);
 
-                ViewBag.VideoUrl = data?.Video?.VideoUrl;
+                if (master != null && master.Name == "Spanish")
+                {
+                    ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
+                }
+                else
+                {
+                    ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                }
 
                 model.LandingPageModel.SliderOneImageUrl = data.SliderOneImageId > 0 ? _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl : null;
                 model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
