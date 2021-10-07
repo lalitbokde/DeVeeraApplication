@@ -128,7 +128,7 @@ namespace DeVeeraApp.Controllers
 
                     //model.LandingPageModel.WeeklyUpdate.LandingQuote = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
                 }
-                var master = _languageService.GetLanguageById(userLanguagem.LanguageId);
+                var master = _languageService.GetLanguageById(userLanguagem!=null?userLanguagem.LanguageId : 0);
                 var dataForVideo = _videoMasterService.GetVideoById(data.VideoId);
 
                 if (master != null && master.Name == "Spanish")
