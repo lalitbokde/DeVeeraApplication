@@ -76,40 +76,40 @@ namespace CRM.Services.Localization
             return (Spanish);
         }
 
-        public void TranslateEnglishToSpanish(string translationStrings, string key)
-        {
+        //public void TranslateEnglishToSpanish(string translationStrings, string key)
+        //{
 
-            //GoogleTranslate google = new GoogleTranslate(key);
+        //    //GoogleTranslate google = new GoogleTranslate(key);
 
-            ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
-            //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
-            var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
+        //    ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
+        //    //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
+        //    var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
 
 
-            if (matchvalue != null)
-            {
-                matchvalue.ResourceValue = key;
-                _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
-            }
-            else
-            {
-                string keylevel = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
-                var value=TranslateLevel(translationStrings, keylevel);
-                LocaleStringResource data = new LocaleStringResource()
-                {
-                    LanguageId = 5,
-                    ResourceName = translationStrings,
-                    ResourceValue = value
-                };
-                _localStringResourcesServices.InsertLocalStringResource(data);
+        //    if (matchvalue != null)
+        //    {
+        //        matchvalue.ResourceValue = key;
+        //        _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
+        //    }
+        //    else
+        //    {
+        //        string keylevel = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+        //        var value=TranslateLevel(translationStrings, keylevel);
+        //        LocaleStringResource data = new LocaleStringResource()
+        //        {
+        //            LanguageId = 5,
+        //            ResourceName = translationStrings,
+        //            ResourceValue = value
+        //        };
+        //        _localStringResourcesServices.InsertLocalStringResource(data);
 
-            }
+        //    }
 
-        }
+        //}
 
         public string GetLocaleStringResource(string translationStrings, string key)
         {
-            var matchvalue = _localStringResourcesServices.GetResourceValue(translationStrings);
+            var matchvalue = _localStringResourcesServices.GetResourceValueByResourceName(translationStrings);
             return matchvalue == null?"":matchvalue;
         }
 

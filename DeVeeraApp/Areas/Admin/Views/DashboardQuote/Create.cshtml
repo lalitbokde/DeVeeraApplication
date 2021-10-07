@@ -38,8 +38,8 @@
                                 <a class="btn btn-primary w-40" onclick="TranslateEnglishCreateQuote()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                             </div>
                             <label for="input-wizard-1" class="form-label text-theme-21 star mt-5">Quote</label>
-                            <input id="spanishquote" asp-for="Title" type="text" class="form-control" placeholder="Quote">
-                            <span asp-validation-for="Title" class="text-theme-21  mt-2"></span>
+                            <input id="spanishquote" asp-for="TitleSpanish" type="text" class="form-control" placeholder="Quote">
+                            <span asp-validation-for="TitleSpanish" class="text-theme-21  mt-2"></span>
                                </div>   
                         </div>
 
@@ -107,9 +107,12 @@
                 data: { Title },
 
                 success: function (data, status) {
+
+alert(data.title);
+
                     $("#spanishquote").val(data.title);
-                    //$(".subtitleenglish").val(data.subtitle);
-                    CKEDITOR.instances['editorSpanish'].setData(data.fullDescription);
+                  
+                  
                 },
 
 

@@ -137,7 +137,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         _dashboardQuoteService.InActiveAllDashboardQuotes();
                     }
                     _dashboardQuoteService.InsertDashboardQuote(quote);
-                   _translationService.TranslateEnglishToSpanish(quote.Title,model.TitleSpanish);
+                   _translationService.Translate(quote.Title,model.TitleSpanish);
                 
                    
                     _notificationService.SuccessNotification("Dashboard quote added successfully.");
@@ -200,7 +200,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _dashboardQuoteService.UpdateDashboardQuote(quote);
                 //_translationService.Translate(quote.Title,key);
                 //_translationService.Translate(quote.Author,key);
-                _translationService.TranslateEnglishToSpanish(quote.Title, model.TitleSpanish);
+                _translationService.Translate(quote.Title, model.TitleSpanish);
 
                 _notificationService.SuccessNotification("Dashboard quote edited successfully.");
 

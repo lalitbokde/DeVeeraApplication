@@ -15,7 +15,7 @@ namespace CRM.Services
         string GetResourceValueByResourceName(string ResourceName);
         string GetResourceValueByResourceNameScreen(string ResourceName);
 
-        string GetResourceValue(string ResourceName); 
+        //string GetResourceValue(string ResourceName); 
           
 
     }
