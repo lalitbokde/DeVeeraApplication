@@ -11,6 +11,8 @@ namespace CRM.Services.Localization
 
         public string TranslateLevel(string translationStrings, string key);
         public string TranslateLevelSpanish(string translationStrings, string key);
+        //public void TranslateEnglishToSpanish(string translationStrings, string key);
 
+        public string GetLocaleStringResource(string translationStrings, string key); 
     }
 }

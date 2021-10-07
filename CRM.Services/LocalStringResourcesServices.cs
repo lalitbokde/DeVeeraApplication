@@ -87,6 +87,22 @@ namespace CRM.Services
             _repository.Insert(model);
         }
 
+
+        //public string GetResourceValue(string ResourceName)
+        //{
+        //    var query = from vdo in _repository.Table
+        //                where vdo.ResourceName == ResourceName
+        //                orderby vdo.ResourceName
+        //                select vdo;
+        //    var stories = query.LastOrDefault();
+        //    if (stories == null)
+        //    {
+        //        return "";
+        //    }
+        //    return stories.ResourceValue== null ?  "": stories.ResourceValue;
+        //}
+
+
         public void UpdateLocalStringResource(LocaleStringResource model)
         {
             if (model == null)
