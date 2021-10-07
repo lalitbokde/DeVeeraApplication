@@ -35,7 +35,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly INotificationService _notificationService;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ITranslationService _translationService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
         #region ctor
@@ -46,7 +46,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                         IAuthenticationService authenticationService,
                                         INotificationService notificationService,
                                         ITranslationService translationService,
-                                        IWebHostEnvironment hostingEnvironment) : base(workContext: workContext,
+                                        IWebHostEnvironment hostingEnvironment,
+                                         ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -55,6 +56,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _notificationService = notificationService;
             _hostingEnvironment = hostingEnvironment;
             _translationService = translationService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
         #endregion
 
@@ -100,7 +102,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
                 foreach(var list in model)
                 {
-                   list.TitleSpanish= list.Title != null ? _translationService.TranslateLevel(list.Title, key) : ""; 
+                    var Resourcevalue = _translationService.GetLocaleStringResource(list.Title,key);
+                   list.TitleSpanish=Resourcevalue; 
                     
                 }
                 
@@ -134,8 +137,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         _dashboardQuoteService.InActiveAllDashboardQuotes();
                     }
                     _dashboardQuoteService.InsertDashboardQuote(quote);
-                    _translationService.Translate(quote.Title,model.TitleSpanish);
-                   // _translationService.Translate(quote.Author, key);
+                   _translationService.TranslateEnglishToSpanish(quote.Title,model.TitleSpanish);
+                
                    
                     _notificationService.SuccessNotification("Dashboard quote added successfully.");
                     return RedirectToAction("List");
@@ -162,7 +165,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (data != null)
                 {
                     var model = data.ToModel<DashboardQuoteModel>();
+                    model.TitleSpanish = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
                     PrepareLevelDropdown(model);
+                    
                     return View(model);
                 }
 
@@ -193,8 +198,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     _dashboardQuoteService.InActiveAllDashboardQuotes();
                 }
                 _dashboardQuoteService.UpdateDashboardQuote(quote);
-                _translationService.Translate(quote.Title,key);
-                _translationService.Translate(quote.Author,key);
+                //_translationService.Translate(quote.Title,key);
+                //_translationService.Translate(quote.Author,key);
+                _translationService.TranslateEnglishToSpanish(quote.Title, model.TitleSpanish);
+
                 _notificationService.SuccessNotification("Dashboard quote edited successfully.");
 
                 return RedirectToAction("List");
