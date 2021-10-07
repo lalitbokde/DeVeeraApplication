@@ -52,16 +52,16 @@
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Select Level</label>
                             <select id="input-wizard-1" asp-for="LevelId" asp-items="Model.AvailableLevels" type="text" class="form-control" placeholder="title"></select>
-                            <span asp-validation-for="LevelId" class="text-theme-21 mt-2"></span>
+                        
                         </div>
 
                         <div class="mt-5">
                             <input asp-for="IsDashboardQuote" class="form-check-input" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Dashboard Quote</label>
-                            <span asp-validation-for="IsDashboardQuote" class="text-theme-6 mt-2"></span>
+                          
                             <input asp-for="IsRandom" class="form-check-input ml-4" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Random Quote</label>
-                            <span asp-validation-for="IsRandom" class="text-theme-6 mt-2"></span>
+                         
                             <input asp-for="IsWeeklyInspiringQuotes" class="form-check-input ml-4" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Weekly Inspiring Quote</label>
                         </div>

@@ -77,13 +77,25 @@
     <div class="top-header-area bg-color">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-9 col-md-12">
+                 
+                            <div class="col-lg-2 col-md-3 flex">
+                              
+                         @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel())
+                               </div>
+                       
+                <div class="col-lg-10 col-md-12 flex">
+                     
                     <ul class="top-header-information">
 
                         @*<li>
                                 <i class="flaticon-phone-call"></i>
                                 <a>@_workContext.CurrentUser.Email</a>
                             </li>*@
+                   
+                            
+                   
+                
+                       
                         <li>
                             <i class="flaticon-phone-call"></i>
                             <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id">@T("My Account")</a>
@@ -93,7 +105,7 @@
                             <i class="flaticon-mail"></i>
                             <a asp-controller="User" asp-action="Logout">@T("Logout")</a>
                         </li>
-
+                       
 
                     </ul>
                 </div>

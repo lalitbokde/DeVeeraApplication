@@ -15,14 +15,13 @@ namespace DeVeeraApp.ViewModels
             layoutSetup = new LayoutSetupModel();
         }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Please select the level")]
-        [Required]
+       
         public int? LevelId { get; set; }
 
         
-        [Required(ErrorMessage ="The Quote field is Required")]
+        [Required(ErrorMessage ="The English Quote field is Required")]
         public string Title { get; set; }
-
+        [Required(ErrorMessage = "The Spanish Quote field is Required ")]
         public string TitleSpanish { get; set; }
 
         [Required(ErrorMessage ="Please enter the author ")]
@@ -46,5 +45,10 @@ namespace DeVeeraApp.ViewModels
         public int TotalUserCount { get; set; }
         public int TotalVisitorsCount { get; set; }
         public int TotalModuleCount { get; set; }
+
+        //[Range(1, int.MaxValue, ErrorMessage = "Please select the level")]
+        //[Required]
+
+
     }
 }
