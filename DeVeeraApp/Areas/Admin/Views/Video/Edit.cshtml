@@ -63,7 +63,9 @@
                                         <div class="flex flex-wrap px-4">
                                             <div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
                                                 <img class="rounded-md" src="../../../dist/images/Videothumbnail.png">
-                                                <a onclick="ShowDeleteConfirmation('DeleteEditPageVideo(@Model.Id)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                                @{ int i = 1;
+                                                <a onclick="ShowDeleteConfirmation('DeleteEditPageVideo(@Model.Id,@i)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                                }
                                             </div>
                                         </div>
                                         <div class="px-4 pb-4 flex items-center cursor-pointer relative dark:text-gray-500">
@@ -102,7 +104,9 @@
                                         <div class="flex flex-wrap px-4">
                                             <div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
                                                 <img class="rounded-md" src="../../../dist/images/Videothumbnail.png">
-                                                <a onclick="ShowDeleteConfirmation('DeleteEditPageVideo(@Model.Id)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                                @{ var key = Model.SpanishKey;int i = 2;
+                                                <a onclick="ShowDeleteConfirmation('DeleteEditPageVideo(@Model.Id,@i)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                                }
                                             </div>
                                         </div>
                                         <div class="px-4 pb-4 flex items-center cursor-pointer relative dark:text-gray-500">

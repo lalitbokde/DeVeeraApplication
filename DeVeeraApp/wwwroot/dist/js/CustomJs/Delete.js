@@ -381,13 +381,25 @@ function PostDeleteVideo(Id) {
 
 }
 
-function DeleteEditPageVideo(Id) {
+function DeleteEditPageVideo(Id,i) {
 
-    var jsonData = {
 
-        videoId: Id
+
+
+
+
+
+
+
+
+
+  var jsonData = {
+
+        videoId: Id , keyId: i
 
     };
+
+
     $.post("/Admin/Video/DeleteVideo",
         jsonData
         ,
@@ -414,8 +426,11 @@ function DeleteEditPageVideo(Id) {
                         buttonsStyling: false
                     }).then(function () {
                         debugger
-                        $("#previousVideo").hide();
-                        $("#uploadFile").show();
+                        //$("#previousVideo").hide();
+                        //$("#uploadFile").show();
+
+location.reload();
+
 
                     })
                 }

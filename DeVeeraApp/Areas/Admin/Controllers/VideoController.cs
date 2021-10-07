@@ -145,7 +145,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         //}
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id)        
         {
             AddBreadcrumbs("Video", "Edit", "/Admin/Video/List", $"/Admin/Video/Edit/{id}");
            
@@ -272,10 +272,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 return View(model);
         
         }
-        public IActionResult DeleteVideo(int videoId)
+        public IActionResult DeleteVideo(int videoId,int keyId)
         {
             ResponseModel response = new ResponseModel();
-
+            //,string keyId,string language
             if (videoId != 0)
             {
                 var data = _videoMasterService.GetVideoById(videoId);
@@ -285,10 +285,21 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     response.Success = false;
                     response.Message = "No video found";
                 }
-                _videoUploadService.DeleteFile(data.Key);
+
+            if (keyId == 1) 
+            {
+                 _videoUploadService.DeleteFile(data.Key);
 
                 data.Key = null;
                 data.VideoUrl = null;
+            }
+            else
+            {
+                    _videoUploadService.DeleteFile(data.SpanishKey);
+
+                    data.SpanishKey = null;
+                    data.SpanishVideoUrl = null;
+                }
 
                 _videoMasterService.UpdateVideo(data);
                 response.Success = true;
