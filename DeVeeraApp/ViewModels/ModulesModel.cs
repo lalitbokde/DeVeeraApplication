@@ -11,6 +11,7 @@ namespace DeVeeraApp.ViewModels
         {
             QuestionsList = new List<Questions>();
             SelectedModuleImages = new List<SelectedImage>();
+            LikeCommentslModulelist = new List<LikesUnlikess>();
         }
         public string Title { get; set; }
         public int LevelId { get; set; }
@@ -18,6 +19,7 @@ namespace DeVeeraApp.ViewModels
         public int? VideoId { get; set; }
 
         public IList<SelectedImage> SelectedModuleImages { get; set; }
+        public IList<LikesUnlikess> LikeCommentslModulelist { get; }
         public string FullDescription { get; set; }
         public virtual Level Level { get; set; }
 

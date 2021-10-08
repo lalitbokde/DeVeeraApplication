@@ -264,7 +264,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return true;
         }
 
-        public IActionResult Play(int Id)
+        public IActionResult Play(int Id,int i)
         {
                 var data = _videoMasterService.GetVideoById(Id);
               

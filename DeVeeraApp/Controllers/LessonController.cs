@@ -182,14 +182,18 @@ namespace DeVeeraApp.Controllers
             videoData.Video = updatedVideoData?.Video;
             videoData.Subtitle = updatedVideoData?.Subtitle;
             videoData.Title = updatedVideoData?.Title;
-            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId== data.Id).FirstOrDefault();
+            
+            
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId== (data?.Id==null?1:data.Id)).ToList();
             if (likesdata != null)
             {
-                videoData.IsLike = likesdata.IsLike;
-                videoData.IsDisLike = likesdata.IsDisLike;
-                videoData.Comments = likesdata.Comments;
+                videoData.IsLike = likesdata[0].IsLike;
+                videoData.IsDisLike = likesdata[0].IsDisLike;
+                //videoData.Comments = likesdata[0].Comments;
             }
             videoData.LevelNo = updatedVideoData?.LevelNo;
+
+            videoData.LikeComments = likesdata;
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             //quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
@@ -212,8 +216,10 @@ namespace DeVeeraApp.Controllers
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
-            var moduleList = _moduleServices.GetModulesByLevelId(data.Id);
-            videoData.ModuleList = moduleList.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
+            var moduleList = _moduleServices.GetModulesByLevelId((data==null)?0:data.Id);
+            videoData.ModuleList = moduleList?.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
+            if (videoData.ModuleList != null) { 
+            
             foreach (var module in videoData.ModuleList)
             {
                 if (userLanguage != null)
@@ -236,7 +242,7 @@ namespace DeVeeraApp.Controllers
                 }
 
             }
-
+            }
 
             var userNextLevel = AllLevels.Where(a => a.LevelNo > levelno).FirstOrDefault();
 
@@ -260,6 +266,8 @@ namespace DeVeeraApp.Controllers
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Title);
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Quote);
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Author);
+
+             
             return View(videoData);
         }
 
@@ -371,7 +379,7 @@ namespace DeVeeraApp.Controllers
                         likesdata.LikeId = 1;
                         likesdata.IsDisLike = false;
                         likesdata.UserId = currentUser.Id;
-                        likesdata.LevelId = levelData.Id;
+                        likesdata.LevelId = levelData.Id;                        
                         _likesService.InsertLikes(likesdata);
                     }
                     else
@@ -426,24 +434,25 @@ namespace DeVeeraApp.Controllers
             {
                 if (comments != null)
                 {
-                    if (likesbylevelid == null) 
-                    {
+                    //if (likesbylevelid == null) 
+                    //{
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
                         likesdata.Comments = comments;
                         likesdata.IsLike = false;
                         likesdata.IsDisLike = false;
-                        _likesService.InsertLikes(likesdata);
-                    }
-                    else
-                    {
-                        likesbylevelid.UserId = currentUser.Id;
-                        likesbylevelid.LevelId = model.Id;
-                        likesbylevelid.Comments = comments;
-                        likesbylevelid.IsDisLike = likesbylevelid.IsDisLike;
-                        likesbylevelid.IsLike = likesbylevelid.IsLike;
-                        _likesService.UpdateLikes(likesbylevelid);
-                    }
+                    likesdata.CreatedDate = DateTime.Now;
+                    _likesService.InsertLikes(likesdata);
+                    //}
+                    //else
+                    //{
+                    //    likesbylevelid.UserId = currentUser.Id;
+                    //    likesbylevelid.LevelId = model.Id;
+                    //    likesbylevelid.Comments = comments;
+                    //    likesbylevelid.IsDisLike = likesbylevelid.IsDisLike;
+                    //    likesbylevelid.IsLike = likesbylevelid.IsLike;
+                    //    _likesService.UpdateLikes(likesbylevelid);
+                    //}
                 }
             }
             return Json(model);

@@ -170,7 +170,8 @@
             }
 
 
-              @if (Model.Comments != null) { 
+              @if (Model?.LikeCommentslModulelist != null) { 
+                  foreach(var comments in Model.LikeCommentslModulelist.OrderByDescending(a=>a.CreatedDate)) { 
              <div class="comment-list mt-5 ">
                             <div class="comment">
                                 <div class="comment-body" >
@@ -178,17 +179,18 @@
                                        <div class="comment-author vcard"></div>
 
                                         <div class="comment-metadata">
-                                            <a href="#">@DateTime.Now</a>
+                                            <a href="#">@comments.CreatedDate</a>
                                         </div>
                                     </footer>
 
                                     <div class="comment-content " style="margin-top:3px;">
-                                        <p>@Model.Comments</p>
+                                        <p>@comments.Comments</p>
                                     </div>
                             </div>
                           </div>
                    </div>
-            }
+                  }
+              }
 
               <div class="comment-respond mt-4">
                 <h3 class="comment-reply-title " style="font-weight:200;font-size:18px;">Leave A Comment</h3>

@@ -12,6 +12,7 @@ using DeVeeraApp.Utils;
 using DeVeeraApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace DeVeeraApp.Controllers
@@ -77,13 +78,16 @@ namespace DeVeeraApp.Controllers
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a => a.LevelId == data.LevelId).Count();
             var moduleData = data.ToModel<ModulesModel>();
 
-            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId==data.Id ).FirstOrDefault();
-            if (likesdata != null)
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId==data.Id ).ToList();
+            if (likesdata.Count()!=0)
             {
-                moduleData.IsLike = likesdata.IsLike;
-                moduleData.IsDisLike = likesdata.IsDisLike;
-                moduleData.Comments = likesdata.Comments;
+                moduleData.IsLike = likesdata[0].IsLike;
+                moduleData.IsDisLike = likesdata[0].IsDisLike;
+            //   moduleData.Comments = likesdata.Comments;
             }
+            foreach(var datacomment in likesdata) {
+                moduleData.LikeCommentslModulelist.Add(datacomment);
+                    }
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             if (userLanguage != null)
             {
@@ -280,25 +284,26 @@ namespace DeVeeraApp.Controllers
             {
                 if (comments != null)
                 {
-                    if (likesbylid == null) 
-                    {
+                    //if (likesbylid == null) 
+                    //{
                         likesdata.UserId = currentUser.Id;
                         likesdata.ModuleId = data.Id;
                         likesdata.Comments = comments;
                         likesdata.IsLike = false;
                         likesdata.IsDisLike = false;
-                        _likesService.InsertLikes(likesdata);
+                      likesdata.CreatedDate = DateTime.Now;
+                      _likesService.InsertLikes(likesdata);
 
-                    }
-                    else
-                    {
-                        likesbylid.UserId = currentUser.Id;
-                        likesbylid.ModuleId = data.Id;
-                        likesbylid.Comments = comments;
-                        likesbylid.IsDisLike = likesbylid.IsDisLike;
-                        likesbylid.IsLike = likesbylid.IsLike;
-                        _likesService.UpdateLikes(likesbylid);
-                    }
+                    //}
+                    //else
+                    //{
+                    //    likesbylid.UserId = currentUser.Id;
+                    //    likesbylid.ModuleId = data.Id;
+                    //    likesbylid.Comments = comments;
+                    //    likesbylid.IsDisLike = likesbylid.IsDisLike;
+                    //    likesbylid.IsLike = likesbylid.IsLike;
+                    //    _likesService.UpdateLikes(likesbylid);
+                    //}
                     
                 }
             }

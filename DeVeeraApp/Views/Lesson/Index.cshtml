@@ -137,7 +137,8 @@
 
 
 
-            @if (Model.Comments != null) { 
+            @if (Model?.LikeComments != null) { 
+                foreach(var data in Model.LikeComments.OrderByDescending(a=>a.CreatedDate)) { 
              <div class="comment-list mt-5 ">
                             <div class="comment">
                                 <div class="comment-body" >
@@ -145,16 +146,17 @@
                                        <div class="comment-author vcard"></div>
 
                                         <div class="comment-metadata">
-                                            <a href="#">@DateTime.Now</a>
+                                            <a href="#">@data.CreatedDate</a>
                                         </div>
                                     </footer>
 
                                     <div class="comment-content " style="margin-top:3px;">
-                                        <p>@Model.Comments</p>
+                                        <p>@data.Comments</p>
                                     </div>
                             </div>
                           </div>
                    </div>
+                }
             }
 
             
