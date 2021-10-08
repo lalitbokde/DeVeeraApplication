@@ -185,7 +185,7 @@ namespace DeVeeraApp.Controllers
             
             
             var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId== (data?.Id==null?1:data.Id)).ToList();
-            if (likesdata != null)
+            if (likesdata.Count() != 0)
             {
                 videoData.IsLike = likesdata[0].IsLike;
                 videoData.IsDisLike = likesdata[0].IsDisLike;

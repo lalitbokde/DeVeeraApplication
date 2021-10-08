@@ -85,9 +85,7 @@ namespace DeVeeraApp.Controllers
                 moduleData.IsDisLike = likesdata[0].IsDisLike;
             //   moduleData.Comments = likesdata.Comments;
             }
-            foreach(var datacomment in likesdata) {
-                moduleData.LikeCommentslModulelist.Add(datacomment);
-                    }
+           
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             if (userLanguage != null)
             {
@@ -186,7 +184,12 @@ namespace DeVeeraApp.Controllers
             //    var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
             //    videoData.PrevImageUrl = level?.ImageUrl;
             //}
+            var likesdatacomment = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId == data.Id).ToList();
 
+            foreach (var datacomment in likesdata)
+            {
+                moduleData.LikeCommentslModulelist.Add(datacomment);
+            }
             return View(moduleData);
         }
 
