@@ -135,12 +135,55 @@
                 <a class="default-btn colbutn" onclick="LikeButton(@Model.Id, false);" title="dislike"><img src="~/assets/images/Icon material-thumb-down.png" style="margin-left: 12px;margin-bottom: 4px;" width="23" height="23" /></a>
             }
 
-            <div class="col-3 mt-5">
+
+
+            @if (Model.Comments != null) { 
+             <div class="comment-list mt-5 ">
+                            <div class="comment">
+                                <div class="comment-body" >
+                                    <footer class="comment-meta">
+                                       <div class="comment-author vcard"></div>
+
+                                        <div class="comment-metadata">
+                                            <a href="#">@DateTime.Now</a>
+                                        </div>
+                                    </footer>
+
+                                    <div class="comment-content " style="margin-top:3px;">
+                                        <p>@Model.Comments</p>
+                                    </div>
+                            </div>
+                          </div>
+                   </div>
+            }
+
+            
+             <div class="comment-respond mt-4">
+                <h3 class="comment-reply-title " style="font-weight:200;font-size:18px;">Leave A Comment</h3>
+
+                <form class="comment-form">
+                    <div class="row">
+                                   
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <textarea name="message" class="form-control" id="comments" placeholder="Your Comment"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="default-btn " style="margin-top:7px;"  onclick="comment(@Model.Id);" >@T("Submit") <i class="flaticon-right-arrow"></i></button>
+                </form>
+              </div>
+
+
+            @*<div class="col-3 mt-5">
 
                 <label for="input-wizard-1" class="form-check-label "> Add a Comments here..</label>
                 <textarea rows="4" class="form-check" id="comments" placeholder="Add Comments here......"> </textarea>
-            </div>
-            <a class="default-btn" onclick="comment(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>
+            </div>*@
+
+
+            @*<a class="default-btn" onclick="comment(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>*@
         </div>
         @*<div class="col-3 mt-5">
                 <p>
