@@ -135,20 +135,20 @@ namespace DeVeeraApp.Controllers
             var data = _levelServices.GetLevelByLevelNo(levelno);
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
-            var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
+            var imagesRecord = _imageMasterService.GetImageById(data?.BannerImageId);
             videoData.BannerImageUrl = imagesRecord?.ImageUrl;
 
-            var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
+            var imagesRecord1 = _imageMasterService.GetImageById(data?.VideoThumbImageId);
             videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
 
-            var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
+            var imagesRecord2 = _imageMasterService.GetImageById(data?.ShareBackgroundImageId);
             videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
 
-            if (data.VideoId != null)
+            if (data?.VideoId != null)
             {
-                var videoRecord = _videoMasterService.GetVideoById((int)data.VideoId);
+                var videoRecord = _videoMasterService.GetVideoById((int)data?.VideoId);
 
-                var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord.Key);
+                var videoUrl = _s3BucketService.GetPreSignedURL(videoRecord?.Key);
 
                 videoRecord.VideoUrl = videoUrl;
 
@@ -156,8 +156,9 @@ namespace DeVeeraApp.Controllers
                 videoData.VideoId = data.VideoId;
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
+            if (updatedVideoData != null) { 
             videoData.Id = updatedVideoData.Id;
-          
+            }
             if (userLanguage != null)
             {
                 if (userLanguage.LanguageId == 5)
@@ -167,20 +168,20 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    videoData.FullDescription = updatedVideoData.FullDescription;
+                    videoData.FullDescription = updatedVideoData?.FullDescription;
                 }
             }
             else if (_workContext.CurrentUser.UserRole.Name == "User")
             {
-                videoData.FullDescription = updatedVideoData.FullDescription;
+                videoData.FullDescription = updatedVideoData?.FullDescription;
             }
             else if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {
-                videoData.FullDescription = updatedVideoData.FullDescription;
+                videoData.FullDescription = updatedVideoData?.FullDescription;
             }
-            videoData.Video = updatedVideoData.Video;
-            videoData.Subtitle = updatedVideoData.Subtitle;
-            videoData.Title = updatedVideoData.Title;
+            videoData.Video = updatedVideoData?.Video;
+            videoData.Subtitle = updatedVideoData?.Subtitle;
+            videoData.Title = updatedVideoData?.Title;
             var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId== data.Id).FirstOrDefault();
             if (likesdata != null)
             {
@@ -188,7 +189,7 @@ namespace DeVeeraApp.Controllers
                 videoData.IsDisLike = likesdata.IsDisLike;
                 videoData.Comments = likesdata.Comments;
             }
-            videoData.LevelNo = updatedVideoData.LevelNo;
+            videoData.LevelNo = updatedVideoData?.LevelNo;
 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             //quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
