@@ -9,6 +9,7 @@ namespace CRM.Services.Likes
     {
 
         IList<LikesUnlikess> GetAllLikes();
+        List<LikesUnlikess> GetAllLikesModules(); 
         void InsertLikes(LikesUnlikess model);
 
 
@@ -22,5 +23,10 @@ namespace CRM.Services.Likes
         public IList<LikesUnlikess> GetDisLikesByModuleId(int ModuleId);
         public LikesUnlikess GetLikesByLevelIdandUserId(int LevelId , int UserId);
         public LikesUnlikess GetLikesByModuleIdandUserId(int ModuleId, int UserId);
+
+
+        public List<LikesUnlikess> GetLikesByLevelIdandUserIdlist(int LevelId, int UserId); 
+
+
     }
 }

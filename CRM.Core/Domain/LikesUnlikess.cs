@@ -1,6 +1,7 @@
 ﻿using CRM.Core.Domain.Users;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace CRM.Core.Domain
@@ -20,5 +21,10 @@ namespace CRM.Core.Domain
         public string Comments { get; set; }
         public bool Deleted { get; set; }
         public virtual User User { get; set; }
+      
+        public DateTime CreatedDate { get; set; }
+
     }
+   
+
 }

@@ -34,6 +34,13 @@ namespace CRM.Services.Likes
             return data.ToList();
         }
 
+        public List<LikesUnlikess> GetAllLikesModules()
+        {
+            var data = _likesrepository.Table.ToList();
+
+            return data.ToList();
+        }
+
 
         public void InsertLikes(LikesUnlikess model)
         {
@@ -90,6 +97,14 @@ namespace CRM.Services.Likes
             var data = _likesrepository.Table.Where(a => a.LevelId == LevelId && a.UserId == UserId).FirstOrDefault();
             return data;
         }
+
+        public List<LikesUnlikess> GetLikesByLevelIdandUserIdlist(int LevelId, int UserId)
+        {
+            var data = _likesrepository.Table.Where(a => a.LevelId == LevelId && a.UserId == UserId).ToList();
+            return data;
+        }
+
+
         public LikesUnlikess GetLikesByModuleIdandUserId(int ModuleId, int UserId)
         {
             var data = _likesrepository.Table.Where(a => a.ModuleId == ModuleId && a.UserId == UserId).FirstOrDefault();
