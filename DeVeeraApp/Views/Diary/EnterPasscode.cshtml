@@ -81,10 +81,12 @@
                             <div class="login-form">
                                 <form asp-controller="Diary" asp-action="EnterPasscode" method="post">
                                     <div class="form-group">
-                                        @{ string mobnumber = Model.MobileNumber.ToString();
-                                            var value = Model.MobileNumber.Count() - 4;
-                                            mobnumber = mobnumber.Substring(value, 4);
-                                            mobnumber = "XXXXXX" + mobnumber;
+                                        @{ string mobnumber = Model.MobileNumber?.ToString();
+                                            if (Model.MobileNumber != null) {
+                                                var value = Model.MobileNumber.Count() - 4;
+                                                mobnumber = mobnumber.Substring(value, 4);
+                                                mobnumber = "XXXXXX" + mobnumber;
+                                            }
                                             <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                         }
                                         <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="Enter passcode ">

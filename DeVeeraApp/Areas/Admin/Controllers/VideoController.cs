@@ -83,6 +83,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var videonameCheck = _videoMasterService.GetAllVideos().Where(a=>a.Name==model.Name).ToList().FirstOrDefault();
+                    if (videonameCheck!= null)
+                    {
+                        _notificationService.SuccessNotification("Video Name already Exist .");
+                        return RedirectToAction("Create");
+                    }
+
                     var data = new Video();
                     var url = UploadVideo(model.FileName);
                     var url2 = UploadVideo(model.SpanishFileName);

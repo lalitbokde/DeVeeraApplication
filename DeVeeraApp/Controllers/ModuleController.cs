@@ -190,6 +190,7 @@ namespace DeVeeraApp.Controllers
             {
                 moduleData.LikeCommentslModulelist.Add(datacomment);
             }
+            ViewBag.totalmodulefirstidcount = 1;
             return View(moduleData);
         }
 
@@ -197,6 +198,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Previous(int id, int srno, int levelSrno)
         {
+            TempData["Previousmodule"]= 1;
             var level = _levelServices.GetLevelByLevelNo(levelSrno);
             var data = _moduleService.GetAllModules().OrderByDescending(a => a.Id).Where(a => a.Id < id && a.LevelId == level.Id).FirstOrDefault();
             if (data != null)
@@ -212,13 +214,38 @@ namespace DeVeeraApp.Controllers
             // var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
 
             var level = _levelServices.GetLevelByLevelNo(levelSrno);
-
-            var data = _moduleService.GetAllModules().Where(a => a.Id > id && a.LevelId == level.Id).FirstOrDefault();
+           
+            var totalModules = _moduleService.GetAllModules().Where(a => a.LevelId == level.Id).FirstOrDefault();
+            if (totalModules.Id == id)
+            {
+                
+               
+                var data = _moduleService.GetAllModules().Where(a => a.Id >= id && a.LevelId == level.Id).FirstOrDefault();
+              if (Convert.ToInt32(TempData["totalmodulefirstidcount"]) == 1)
+                { 
+                if (data != null)
+                {
+                    return RedirectToAction("Index", new { id = data.Id+1, srno = srno + 1, levelsrno = levelSrno });
+                }
+                return RedirectToAction("Index", new { id = id+1, srno = srno + 1, levelsrno = levelSrno });
+                }
+                else
+                {
+                    if (data != null)
+                    {
+                        return RedirectToAction("Index", new { id = data.Id, srno = srno + 1, levelsrno = levelSrno });
+                    }
+                    return RedirectToAction("Index", new { id = id, srno = srno + 1, levelsrno = levelSrno });
+                }
+            }
+            else { 
+            var data = _moduleService.GetAllModules().Where(a => a.Id >id && a.LevelId == level.Id).FirstOrDefault();
             if (data != null)
             {
                 return RedirectToAction("Index", new { id = data.Id, srno = srno + 1, levelsrno = levelSrno });
             }
             return RedirectToAction("Index", new { id = id, srno = srno + 1, levelsrno = levelSrno });
+            }
         }
 
         #endregion

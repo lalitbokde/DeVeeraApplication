@@ -303,9 +303,18 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult NewUser(int QuoteType)
+        public IActionResult NewUser(int QuoteType,int langId)
         {
             var random = new Random();
+            //setting language
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+            if (userLanguage != null)
+            {
+               
+                userLanguage.LanguageId = langId;
+                _settingService.UpdateSetting(userLanguage);
+            }
+            //end of setting language
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Registration);

@@ -75,15 +75,15 @@
     <div class="header-information">Header Information</div>
 
     <div class="top-header-area bg-color">
-        <div class="container">
+        <div class="container" style="max-width:inherit;">
             <div class="row align-items-center">
                  
-                            <div class="col-lg-2 col-md-3 flex">
+                            <div class="col-lg-2 col-md-2 flex">
                               
                          @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel())
                                </div>
                        
-                <div class="col-lg-10 col-md-12 flex">
+                <div class="col-lg-10 col-md-10 flex">
                      
                     <ul class="top-header-information">
 
@@ -102,7 +102,7 @@
                         </li>
 
                         <li>
-                           
+                           @*<i class="flaticon-play"></i>*@<i class="bx bxs-right-arrow"></i>
                             <a asp-controller="User" asp-action="Logout">@T("Logout")</a>
                         </li>
                        
