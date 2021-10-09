@@ -369,12 +369,15 @@
                                 <div class="intro-y  col-span-6 ml-auto">
 
                                     <button type="submit" class="btn btn-primary w-24">Save</button>
-
+                                    @{ 
+                                        var i = 3;
+                                        var j = 5;
+                                    }
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
                                             <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">English</a>
-                                            <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">Spanish</a>
+                                            <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)&langId=@j">Spanish</a>
 
                                         </div>
                                     </div>
