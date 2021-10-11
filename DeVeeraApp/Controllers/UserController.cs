@@ -354,9 +354,11 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP)
         {
-
+       
+            var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
+            if (final == "6") { 
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
-           var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
+            var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
             if (true)
             {
                 //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
@@ -453,6 +455,7 @@ namespace DeVeeraApp.Controllers
                    
 
                 }
+            }
             }
             return View(model);
         }
