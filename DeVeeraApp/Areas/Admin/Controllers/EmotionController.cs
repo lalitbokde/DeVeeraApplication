@@ -32,7 +32,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IVideoMasterService _videoServices;
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ITranslationService _translationService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         #endregion
 
@@ -46,6 +46,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                  IHttpContextAccessor httpContextAccessor,
                                  IAuthenticationService authenticationService,
                                  ITranslationService translationService,
+                                  ILocalStringResourcesServices localStringResourcesServices,
                                   IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -57,6 +58,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _videoServices = videoMasterService;
             _dashboardQuoteService = dashboardQuoteService;
             _translationService = translationService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
         #endregion
         #region Utilities
@@ -137,9 +139,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 var emotion = model.ToEntity<Emotion>();
                 emotion.CreatedOn = DateTime.UtcNow;
                 _emotionService.InsertEmotion(emotion);
-                _translationService.Translate(emotion.Title, key);
-                _translationService.Translate(emotion.Subtitle, key);
-                _translationService.Translate(emotion.Description, key);
+                _translationService.Translate(model.EmotionName, model.SpanishEmotionName);
+                _translationService.Translate(model.Title, model.SpanishTitle);
+                _translationService.Translate(model.Subtitle, model.SpanishSubtitle);
+                _translationService.Translate(model.Description, model.SpanishDescription);
                 _notificationService.SuccessNotification("Emotion added successfully.");
                 return RedirectToAction("List");
             }
@@ -153,6 +156,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs("Emotion", "Edit", "/Admin/Emotion/List", $"/Admin/Emotion/Edit/{id}");
             var emotion = _emotionService.GetEmotionById(id);
             var model = emotion.ToModel<EmotionModel>();
+            model.SpanishEmotionName = _localStringResourcesServices.GetResourceValueByResourceName(model.EmotionName);
+            model.SpanishTitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+            model.SpanishSubtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+            model.SpanishDescription = _localStringResourcesServices.GetResourceValueByResourceName(model.Description);
             model.EmotionHeaderImageUrl = emotion.EmotionHeaderImageId > 0 ? _imageMasterService.GetImageById(emotion.EmotionHeaderImageId)?.ImageUrl : null;
             model.EmotionBannerImageUrl = emotion.EmotionBannerImageId > 0 ? _imageMasterService.GetImageById(emotion.EmotionBannerImageId)?.ImageUrl : null;
             model.EmotionThumbnailImageUrl = emotion.EmotionThumbnailImageId > 0 ? _imageMasterService.GetImageById(emotion.EmotionThumbnailImageId)?.ImageUrl : null;
@@ -182,9 +189,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 emotion.QuoteId = model.QuoteId;
 
                 _emotionService.UpdateEmotion(emotion);
-                _translationService.Translate(emotion.Title, key);
-                _translationService.Translate(emotion.Subtitle, key);
-                _translationService.Translate(emotion.Description, key);
+                _translationService.Translate(model.EmotionName, model.SpanishEmotionName);
+                _translationService.Translate(model.Title, model.SpanishTitle);
+                _translationService.Translate(model.Subtitle, model.SpanishSubtitle);
+                _translationService.Translate(model.Description, model.SpanishDescription);
                 _notificationService.SuccessNotification("Emotion updated successfully.");
 
                 return RedirectToAction("List");
@@ -218,6 +226,34 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             return Json(response);
         }
+        #endregion
+
+
+        #region Translate
+
+        [HttpPost]
+        public IActionResult TranslateSpanish(EmotionModel level)
+        {
+            EmotionModel model = new EmotionModel();
+            model.EmotionName = level.EmotionName != null ? _translationService.TranslateLevel(level.EmotionName, key) : "";
+            model.Title = level.Title != null ? _translationService.TranslateLevel(level.Title, key) : "";
+            model.Subtitle = level.Subtitle != null ? _translationService.TranslateLevel(level.Subtitle, key) : "";
+            model.Description = level.Description != null ? _translationService.TranslateLevel(level.Description, key) : "";
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateEnglish(EmotionModel level)
+        {
+            EmotionModel model = new EmotionModel();
+            model.SpanishEmotionName = level.SpanishEmotionName != null ? _translationService.TranslateLevel(level.SpanishEmotionName, key) : "";
+            model.SpanishTitle = level.SpanishTitle != null ? _translationService.TranslateLevel(level.SpanishTitle, key) : "";
+            model.SpanishSubtitle = level.SpanishSubtitle != null ? _translationService.TranslateLevel(level.SpanishSubtitle, key) : "";
+            model.SpanishDescription = level.SpanishDescription != null ? _translationService.TranslateLevel(level.SpanishDescription, key) : "";
+            return Json(model);
+        }
+
+       
         #endregion
     }
 }

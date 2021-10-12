@@ -23,35 +23,115 @@
                     }
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
+
+                                <a onclick="TranslateSpanishCreate()" class="btn btn-primary w-40 " style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
+                            </div>
                             <label class="form-label text-theme-21 star">Emotion No</label>
                             <input asp-for="EmotionNo" type="number" min="0" class="form-control" placeholder="Emotion Number" />
                             <span asp-validation-for="EmotionNo" class="text-theme-21 mt-2"></span>
                         </div>
+
+                        <div class="col-span-6 mt-5">
+                            <div>
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Spanish </label>
+                                <a class="btn btn-primary w-40" onclick="TranslateEnglishCreate()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
+                            </div>
+
+
+                        </div>
                         <div class="col-span-6 mt-5">
                             <label class="form-label text-theme-21 star">Emotion Name</label>
-                            <input asp-for="EmotionName" type="text" class="form-control" placeholder="Emotion" />
+                            <input asp-for="EmotionName" type="text" id="engName" class="form-control" placeholder="Emotion" />
                             <span asp-validation-for="EmotionName" class="text-theme-21 mt-2"></span>
                         </div>
-                    </div>
 
-                    <div class="flex items-center pt-5 border-b border-gray-200 dark:border-dark-5">
-                        <h2 class="font-medium text-theme-21 mr-auto">
-                            Emotion Page
-                        </h2>
-                    </div>
-                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-6 mt-5">
+
+                            <label class="form-label text-theme-21 star">Emotion Name</label>
+                            <input asp-for="SpanishEmotionName" type="text" id="spaName" class="form-control" placeholder="Emotion" />
+                            <span asp-validation-for="SpanishEmotionName" class="text-theme-21 mt-2"></span>
+                            <p id="SpanishTitletag" class="temp"></p>
+                        </div>
+                        @*<div class="flex items-center pt-5 border-b border-gray-200 dark:border-dark-5">
+                                <h2 class="font-medium text-theme-21 mr-auto">
+                                    Emotion Page
+                                </h2>
+                            </div>*@
                         <div class="col-span-6 mt-5">
                             <label class="form-label text-theme-21 star">Title</label>
-                            <input asp-for="Title" type="text" class="form-control" placeholder="Title" />
+                            <input asp-for="Title" type="text" id="engtitle" class="form-control" placeholder="Title" />
                             <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
-
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Title</label>
+                            <input asp-for="SpanishTitle" type="text" id="spatitle" class="form-control" placeholder="Title" />
+                            <span asp-validation-for="SpanishTitle" class="text-theme-21 mt-2"></span>
                         </div>
                         <div class="col-span-6 mt-5">
                             <label class="form-label text-theme-21 star">Sub Title</label>
-                            <input asp-for="Subtitle" type="text" class="form-control" placeholder="Subtitle" />
+                            <input asp-for="Subtitle" type="text" id="engsubtitle" class="form-control" placeholder="Subtitle" />
                             <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
                         </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Sub Title</label>
+                            <input asp-for="SpanishSubtitle" type="text" id="spaSubtitle" class="form-control" placeholder="Subtitle" />
+                            <span asp-validation-for="SpanishSubtitle" class="text-theme-21 mt-2"></span>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Description</label>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorEnglish" asp-for="Description" class="editorEnglish"> </textarea>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-span-6 mt-5">
+                            <label class="form-label text-theme-21 star">Description</label>
+                            <div class="" id="standard-editor">
+                                <div class="preview">
+                                    <textarea id="editorSpanish" asp-for="SpanishDescription" class="editorSpanish"> </textarea>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
+                    @*//old*@
+                    @*<div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <label class="form-label text-theme-21 star">Emotion No</label>
+                                <input asp-for="EmotionNo" type="number" min="0" class="form-control" placeholder="Emotion Number" />
+                                <span asp-validation-for="EmotionNo" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label class="form-label text-theme-21 star">Emotion Name</label>
+                                <input asp-for="EmotionName" type="text" class="form-control" placeholder="Emotion" />
+                                <span asp-validation-for="EmotionName" class="text-theme-21 mt-2"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center pt-5 border-b border-gray-200 dark:border-dark-5">
+                            <h2 class="font-medium text-theme-21 mr-auto">
+                                Emotion Page
+                            </h2>
+                        </div>*@
+                    @*<div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-6 mt-5">
+                                <label class="form-label text-theme-21 star">Title</label>
+                                <input asp-for="Title" type="text" class="form-control" placeholder="Title" />
+                                <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
+
+                            </div>
+                            <div class="col-span-6 mt-5">
+                                <label class="form-label text-theme-21 star">Sub Title</label>
+                                <input asp-for="Subtitle" type="text" class="form-control" placeholder="Subtitle" />
+                                <span asp-validation-for="Subtitle" class="text-theme-21 mt-2"></span>
+                            </div>
+                        </div>*@
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 mt-5">
                             <label class="form-label text-theme-21 star">Video</label>
@@ -68,81 +148,81 @@
                             <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder=""></select>
                         </div>
                     </div>
-                        <div class="mt-5">
-                            <label class="form-label text-theme-21">Images</label>
-                            @{
-                                var HeaderImage = Model.EmotionHeaderImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionHeaderImageUrl;
-                                var BannerImage = Model.EmotionBannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionBannerImageUrl;
-                                var ThumbnailImage = Model.EmotionThumbnailImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionThumbnailImageUrl;
-                                <div class="grid grid-cols-12 gap-4 mt-5 pt-5 border-t border-theme-31">
-                                    <a onclick="OpenImageSelectionModal('EmotionHeaderImageId','EmotionHeaderImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="EmotionHeaderImageId" hidden>
-                                                    <img id="EmotionHeaderImageUrl" alt="" src="@HeaderImage" style="Width:100%;height:100%">
-                                                </div>
+                    <div class="mt-5">
+                        <label class="form-label text-theme-21">Images</label>
+                        @{
+                            var HeaderImage = Model.EmotionHeaderImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionHeaderImageUrl;
+                            var BannerImage = Model.EmotionBannerImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionBannerImageUrl;
+                            var ThumbnailImage = Model.EmotionThumbnailImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.EmotionThumbnailImageUrl;
+                            <div class="grid grid-cols-12 gap-4 mt-5 pt-5 border-t border-theme-31">
+                                <a onclick="OpenImageSelectionModal('EmotionHeaderImageId','EmotionHeaderImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                    <div class="box rounded-md p-3 relative zoom-in">
+                                        <div class="flex-none pos-image relative block">
+                                            <div class="pos-image__preview">
+                                                <input asp-for="EmotionHeaderImageId" hidden>
+                                                <img id="EmotionHeaderImageUrl" alt="" src="@HeaderImage" style="Width:100%;height:100%">
                                             </div>
-                                            <div class="block font-medium text-center truncate mt-3">Header</div>
                                         </div>
-                                    </a>
-                                    <a onclick="OpenImageSelectionModal('EmotionBannerImageId','EmotionBannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="EmotionBannerImageId" hidden>
-                                                    <img id="EmotionBannerImageUrl" alt="" src="@BannerImage" style="Width:100%;height:100%">
-                                                </div>
-                                                <div class="block font-medium text-center truncate mt-3">Banner</div>
+                                        <div class="block font-medium text-center truncate mt-3">Header</div>
+                                    </div>
+                                </a>
+                                <a onclick="OpenImageSelectionModal('EmotionBannerImageId','EmotionBannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                    <div class="box rounded-md p-3 relative zoom-in">
+                                        <div class="flex-none pos-image relative block">
+                                            <div class="pos-image__preview">
+                                                <input asp-for="EmotionBannerImageId" hidden>
+                                                <img id="EmotionBannerImageUrl" alt="" src="@BannerImage" style="Width:100%;height:100%">
                                             </div>
+                                            <div class="block font-medium text-center truncate mt-3">Banner</div>
+                                        </div>
 
-                                        </div>
-                                    </a>
-                                    <a onclick="OpenImageSelectionModal('EmotionThumbnailImageId','EmotionThumbnailImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
-                                        <div class="box rounded-md p-3 relative zoom-in">
-                                            <div class="flex-none pos-image relative block">
-                                                <div class="pos-image__preview">
-                                                    <input asp-for="EmotionThumbnailImageId" hidden>
-                                                    <img id="EmotionThumbnailImageUrl" alt="" src="@ThumbnailImage" style="Width:100%;height:100%">
-                                                </div>
+                                    </div>
+                                </a>
+                                <a onclick="OpenImageSelectionModal('EmotionThumbnailImageId','EmotionThumbnailImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                    <div class="box rounded-md p-3 relative zoom-in">
+                                        <div class="flex-none pos-image relative block">
+                                            <div class="pos-image__preview">
+                                                <input asp-for="EmotionThumbnailImageId" hidden>
+                                                <img id="EmotionThumbnailImageUrl" alt="" src="@ThumbnailImage" style="Width:100%;height:100%">
                                             </div>
-                                            <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
                                         </div>
-                                    </a>
-                                </div>
-                            }
-                        </div>
+                                        <div class="block font-medium text-center truncate mt-3">Video Thumbnail</div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
 
-                        <div class="mt-5">
+                    @*<div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Description</label>
                         </div>
                         <div class="" id="standard-editor">
                             <div class="preview">
-                                <textarea id="editor2" asp-for="Description" class="editor2"> </textarea>
+                                <textarea id="editorEnglish" asp-for="Description" class="editorEnglish"> </textarea>
 
                             </div>
 
-                        </div>
+                        </div>*@
 
-                        <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
-                            <div class="grid grid-cols-12  gap-y-5 mt-5">
-                                <div class="intro-y   col-span-6">
-                                    @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
-                                    <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                        <label class="pl-10">Back to List</label>
-                                        <a asp-controller="Emotion" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
-                                            <i data-feather="arrow-left" class="w-4 h-4"></i>
-                                        </a>
-                                    </span>
-                                </div>
-                                <div class="intro-y  col-span-6 ml-auto">
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <div class="grid grid-cols-12  gap-y-5 mt-5">
+                            <div class="intro-y   col-span-6">
+                                @*<a asp-controller="Video" asp-action="List" class="btn btn-primary w-24"> List</a>*@
+                                <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
+                                    <label class="pl-10">Back to List</label>
+                                    <a asp-controller="Emotion" asp-action="List" class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding ">
+                                        <i data-feather="arrow-left" class="w-4 h-4"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="intro-y  col-span-6 ml-auto">
 
-                                    <button type="submit" class="btn btn-primary w-24">Save</button>
-                                </div>
+                                <button type="submit" class="btn btn-primary w-24">Save</button>
                             </div>
                         </div>
-
                     </div>
+
+                </div>
 
             </div>
 
@@ -153,3 +233,56 @@
 
 </form>
 @await Component.InvokeAsync("ImageSelection")
+<script type="text/javascript">
+
+    function TranslateSpanishCreate() {
+
+        var EmotionName = document.getElementById('engName').value;
+        var Title = document.getElementById('engtitle').value;
+        var Subtitle = document.getElementById('engsubtitle').value;
+        /*   var FullDescription = document.getElementById('editorEnglish').value;*/
+        var Description = CKEDITOR.instances.editorEnglish.getData();
+
+        $.ajax({
+            url: "/Admin/Emotion/TranslateSpanish",
+            type: "POST",
+            data: { EmotionName, Title, Subtitle, Description },
+
+            success: function (data, status) {
+                $("#spaName").val(data.emotionName);
+                $("#spatitle").val(data.title);
+                $("#spaSubtitle").val(data.subtitle);
+                CKEDITOR.instances['editorSpanish'].setData(data.description);
+            },
+
+
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    function TranslateEnglishCreate() {
+        var SpanishEmotionName = document.getElementById('spaName').value;
+        var SpanishTitle = document.getElementById('spatitle').value;
+        var SpanishSubtitle = document.getElementById('spaSubtitle').value;
+        /*   var FullDescription = document.getElementById('editorEnglish').value;*/
+        var SpanishDescription = CKEDITOR.instances.editorEnglish.getData();
+        $.ajax({
+            url: "/Admin/Level/TranslateEnglish",
+            type: "POST",
+            data: { SpanishEmotionName, SpanishTitle, SpanishSubtitle, SpanishDescription },
+
+            success: function (data, status) {
+                $("#engName").val(data.spanishEmotionName);
+                $("#engtitle").val(data.spanishTitle);
+                $("#engsubtitle").val(data.spanishSubtitle);
+                CKEDITOR.instances['editorEnglish'].setData(data.spanishDescription);
+            },
+
+
+        });
+
+    }
+
+</script>

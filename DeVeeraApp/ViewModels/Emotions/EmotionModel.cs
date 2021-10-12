@@ -56,7 +56,25 @@ namespace DeVeeraApp.ViewModels.Emotions
         public string EmotionHeaderImageUrl{ get; set; }
         public string EmotionBannerImageUrl { get; set; }
         public string EmotionThumbnailImageUrl { get; set; }
+        //Spanish
 
+        [StringLength(150)]
+        [Required(ErrorMessage = "Please enter Emotion name")]
+        public string SpanishEmotionName { get; set; }
+
+        [StringLength(150)]
+        [Required(ErrorMessage = "Please enter title")]
+        public string SpanishTitle { get; set; }
+
+        [StringLength(150)]
+        [Required(ErrorMessage = "Please enter sub title")]
+        public string SpanishSubtitle { get; set; }
+
+        //[Required(ErrorMessage = "Please enter Quote")]
+        public string SpanishQuote { get; set; }
+
+
+        public string SpanishDescription { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
         public bool Deleted { get; set; }
