@@ -379,7 +379,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("Passcode", "Passcode not exist's");
+                ModelState.AddModelError("Passcode", "Enter Passcode!!");
             }
             return View(model);
         }
@@ -389,10 +389,11 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 var currentUser = _workContext.CurrentUser;
-
+                var enterpass = model.Passcode.Length;
+                if (enterpass == 6) { 
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
                 var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
                 if (result.IsValid==false)
@@ -407,6 +408,11 @@ namespace DeVeeraApp.Controllers
 
                     return RedirectToAction("Create");
 
+                }
+                }
+                else
+                {
+                    ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
                 }
             }
             return View(model);

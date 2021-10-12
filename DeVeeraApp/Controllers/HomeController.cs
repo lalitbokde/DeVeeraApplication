@@ -117,13 +117,16 @@ namespace DeVeeraApp.Controllers
                 {
                     int index = random.Next(quoteList.Count);
                     model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
-                   
-                    
+                  
+
                     if (userLanguagem != null) {
-                    if (userLanguagem.LanguageId ==5) {
+                    if (userLanguagem.LanguageId ==5) { 
                     model.LandingPageModel.WeeklyUpdate.Title= _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
                     model.LandingPageModel.WeeklyUpdate.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
-                    }
+                    var quote = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Title);
+                    var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
+                   model.LandingPageModel.WeeklyUpdate.LandingQuote= quote + " -- " + auth;
+                        }
                     }
 
                     //model.LandingPageModel.WeeklyUpdate.LandingQuote = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
@@ -135,7 +138,7 @@ namespace DeVeeraApp.Controllers
                 {
                     ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
                 }
-                else
+                else 
                 {
                     ViewBag.VideoUrl = dataForVideo.VideoUrl;
                 }

@@ -769,12 +769,20 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid)
             {
                 var currentUser = _UserService.GetUserById(model.UserId);
-                //string passcode = "1234";
-                var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
-                if (result.IsValid == false)
-                {
-                    ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                var enterpass = model.OTP.Length;
+                if (enterpass==6) {
+                    //string passcode = "1234";
+                    var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
+                    if (result.IsValid == false)
+                    {
+                        ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                    }
                 }
+                else
+                {
+                    ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
+                }
+               
                 //if (model.OTP == null)
                 //{
                 //    ModelState.AddModelError("", "Invalid Code");

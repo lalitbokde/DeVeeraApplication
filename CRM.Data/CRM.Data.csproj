@@ -17,6 +17,8 @@
     <Compile Include="Migrations\20210729102156_error.Designer.cs" />
     <Compile Include="Migrations\20210730111047_null.cs" />
     <Compile Include="Migrations\20210730111047_null.Designer.cs" />
+    <Compile Include="Migrations\20211008144635_date.cs" />
+    <Compile Include="Migrations\20211008144635_date.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
     <Compile Include="Migrations\20210802062129_isactive.cs" />
     <Compile Include="Migrations\20210802062129_isactive.Designer.cs" />
