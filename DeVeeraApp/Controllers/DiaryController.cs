@@ -212,7 +212,8 @@ namespace DeVeeraApp.Controllers
                             Comment = model.Comment,
                             DiaryColor = model.DiaryColor,
                             UserId = _workContext.CurrentUser.Id,
-                            CreatedOn = DateTime.UtcNow
+                            CreatedOn = DateTime.UtcNow,
+                            LastUpdatedOn= DateTime.UtcNow
                         };
                         _DiaryMasterService.InsertDiary(newdiary);
                         _translationService.Translate(newdiary.Title,key);
@@ -393,13 +394,12 @@ namespace DeVeeraApp.Controllers
             {
                 var currentUser = _workContext.CurrentUser;
                 var enterpass = model.Passcode.Length;
-                if (enterpass == 6) { 
+              if (enterpass == 6) { 
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
                 var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
                 if (result.IsValid==false)
                 {
-                   
-                    ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                      ModelState.AddModelError("Passcode", "Passcode Doesn't match");
                 }
                 else
                 {
@@ -413,8 +413,8 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                     ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
+                   }
                 }
-            }
             return View(model);
         }
         public IActionResult ChangePasscode()

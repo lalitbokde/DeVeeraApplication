@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "List";
 }
-@if (@ViewBag.TableData != null)
+@if (Model.LevelListPaged.Count() != 0)
 {
     <div class="intro-y  py-5 sm:py-5  ">
         <div class="px-5 ">
