@@ -311,6 +311,21 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                                 //Level = (workSheet.Cells[row, 4].Value != null) ? Convert.ToBoolean(workSheet.Cells[row, 4].Value.ToString().Trim()) : false,
                             });
+                            if (_localStringResourcesServices.GetAllLocalStringResources().Where(r => r.LanguageId == 5 && r.ResourceName == workSheet.Cells[row, 2].Value.ToString().Trim()).FirstOrDefault() == null)
+                            {
+                                var resourseval = workSheet.Cells[row, 2].Value.ToString().Trim() != null ? _translationService.TranslateLevel(workSheet.Cells[row, 2].Value.ToString().Trim(), key) : "";
+                                LocaleStringResource data = new LocaleStringResource()
+                                {
+                                    LanguageId = 5,
+                                    ResourceName = workSheet.Cells[row, 2].Value.ToString().Trim(),
+                                    ResourceValue = resourseval,
+                                    IsActive = true,
+
+                                };
+                                _localStringResourcesServices.InsertLocalStringResource(data);
+
+                            }
+
                         }
 
                     }

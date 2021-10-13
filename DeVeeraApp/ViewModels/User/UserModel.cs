@@ -26,6 +26,11 @@ namespace DeVeeraApp.ViewModels.User
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage ="Please enter contact number")]
         public string MobileNumber { get; set; }
+
+        
+        [Required]
+        public string ErrorMessage { get; set; }
+
         public Gender? GenderType { get; set; }
         public int Age { get; set; }
         public string Occupation { get; set; }

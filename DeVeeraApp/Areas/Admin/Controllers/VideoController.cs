@@ -271,11 +271,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return true;
         }
 
-        public IActionResult Play(int Id,int i)
+        [HttpGet]
+        public IActionResult Play(int Id,int srno)
         {
                 var data = _videoMasterService.GetVideoById(Id);
               
                 var model = data.ToModel<VideoModel>();
+            ViewBag.srno = srno;
                 return View(model);
         
         }

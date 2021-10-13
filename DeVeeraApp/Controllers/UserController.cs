@@ -336,7 +336,7 @@ namespace DeVeeraApp.Controllers
                 CreatedOnUtc = DateTime.UtcNow,
             };
             model.UserPassword = password;
-
+          
             return View(model);
         }
 
@@ -359,6 +359,11 @@ namespace DeVeeraApp.Controllers
             if (final == "6") { 
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
             var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
+                if (result.IsValid== false)
+                {
+                    ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");                 
+                    return RedirectToAction("VerifyOTP",model); 
+                }
             if (true)
             {
                 //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
@@ -367,7 +372,8 @@ namespace DeVeeraApp.Controllers
                     if (model.countryCode == null)
                     {
                         ModelState.AddModelError("MobileNumber", "please select country code.!!!");
-                    }
+                            
+                        }
                     if (model.MobileNumber == null)
                     {
                         ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
