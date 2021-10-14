@@ -100,7 +100,8 @@
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
-                         <input type="hidden" asp-for="ErrorMessage" value="@Model.ErrorMessage">
+                       <input asp-for="ErrorMessage" type="text"  hidden   >
+                        <span asp-validation-for="ErrorMessage" class="text-theme-6 mt-2"></span>
                         @{ string mobnumber = Model.MobileNumber.ToString();
                             var value = Model.MobileNumber.Count() - 4;
                             mobnumber = mobnumber.Substring(value, 4);

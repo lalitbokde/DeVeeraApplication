@@ -336,7 +336,10 @@ namespace DeVeeraApp.Controllers
                 CreatedOnUtc = DateTime.UtcNow,
             };
             model.UserPassword = password;
-          
+            if (model.ErrorMessage != null)
+            {
+                ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+            }
             return View(model);
         }
 
@@ -361,12 +364,13 @@ namespace DeVeeraApp.Controllers
             var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
                 if (result.IsValid== false)
                 {
-                    ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");                 
+                    ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                    model.ErrorMessage = "Wrong Passcode";
                     return RedirectToAction("VerifyOTP",model); 
                 }
             if (true)
             {
-                //ModelState.Remove("LandingPageModel.WeeklyUpdate.Title");
+               ModelState.Remove("UserModel.ErrorMessage");
                 if (ModelState.IsValid)
                 {
                     if (model.countryCode == null)

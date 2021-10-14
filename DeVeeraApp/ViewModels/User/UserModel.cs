@@ -28,7 +28,7 @@ namespace DeVeeraApp.ViewModels.User
         public string MobileNumber { get; set; }
 
         
-        [Required]
+        [Required(ErrorMessage = "Please enter Passcode")]
         public string ErrorMessage { get; set; }
 
         public Gender? GenderType { get; set; }
