@@ -32,6 +32,7 @@ namespace DeVeeraApp.ViewModels
             DisLikeUser = new List<LikesUnlikess>();
             LikeModule = new List<LikesUnlikess>();
             DisLikeModule = new List<LikesUnlikess>();
+            AvilableQuotelevel = new List<SelectListItem>();
         }
 
         [Required(ErrorMessage ="Enter the level")]
@@ -39,7 +40,9 @@ namespace DeVeeraApp.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
         [Required]
         public int? VideoId { get; set; }
+        public int? QuoteId { get; set; }
 
+        public bool IsRandom { get; set; }
         public int BannerImageId { get; set; }
         public string BannerImageUrl { get; set; }
 
@@ -128,6 +131,7 @@ namespace DeVeeraApp.ViewModels
         public IList<LikesUnlikess> DisLikeUser { get; set; }
         public IList<LikesUnlikess> LikeModule { get; set; }
         public IList<LikesUnlikess> DisLikeModule { get; set; }
+        public List<SelectListItem> AvilableQuotelevel { get; }
         public IList<LikesUnlikess> CommentsModule { get; set; }
     }
 

@@ -3,6 +3,7 @@ using DeVeeraApp.ViewModels.LayoutSetups;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeVeeraApp.ViewModels
 {
@@ -29,6 +30,8 @@ namespace DeVeeraApp.ViewModels
         public string Level { get; set; }
 
         //public bool IsActive { get; set; } = false;
+
+        [NotMapped]
         public bool IsDashboardQuote { get; set; }
         public bool IsRandom { get; set; }
         public bool IsWeeklyInspiringQuotes { get; set; }

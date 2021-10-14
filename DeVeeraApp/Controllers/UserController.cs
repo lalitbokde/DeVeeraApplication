@@ -343,13 +343,13 @@ namespace DeVeeraApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
+       
         public async Task<VerificationResult> ResendOTP(string channel)
         {
             var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             return await _verificationService.StartVerificationAsync(user.MobileNumber, channel);
 
-
+           
             // return new VerificationResult(new List<string> { "Your phone number is already verified" });
         }
 
