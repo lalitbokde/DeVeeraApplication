@@ -23,7 +23,17 @@
             <div class="-intro-x ">
                 <div class="grid grid-cols-12 gap-6 mt-5">
                     <div class="intro-y col-span-12 lg:col-span-12">
-                        @{string src = Model.VideoUrl;}
+                        @{
+                            string src = "";
+                            if (ViewBag.srno == 1)
+                            {
+                                src = Model.VideoUrl;
+                            }
+                            else
+                            {
+                                src = Model.SpanishVideoUrl;
+                            }
+                        }
                         <video src="@Url.Content(src)" controls style="width:100%; height:400px" loop />
                     </div>
                 </div>

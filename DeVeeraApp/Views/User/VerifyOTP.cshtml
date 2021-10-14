@@ -100,11 +100,14 @@
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
+                       <input asp-for="ErrorMessage" type="text"  hidden   >
+                        <span asp-validation-for="ErrorMessage" class="text-theme-6 mt-2"></span>
                         @{ string mobnumber = Model.MobileNumber.ToString();
                             var value = Model.MobileNumber.Count() - 4;
                             mobnumber = mobnumber.Substring(value, 4);
                             mobnumber = "XXXXXX" + mobnumber;
                             <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
+                          
                         }
                         <div class=" flex-wrap d-flex justify-content-center row col-lg-12 ">
                             <div class="  col-2">
@@ -126,9 +129,10 @@
                                 <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt6" required autocomplete="off" class="colj-2  input-newsletter">
                             </div>
                         </div>
-
+                       
+                  
                         <button type="submit" class="default-btn mt-3 verifybtn">@T("Verify")</button>
-
+                       
                         @*<div class="intro-y " style="margin-left: 500px; ">
             <div class="m-2">
                 <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>

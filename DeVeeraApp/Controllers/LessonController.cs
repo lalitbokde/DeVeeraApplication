@@ -379,7 +379,8 @@ namespace DeVeeraApp.Controllers
                         likesdata.LikeId = 1;
                         likesdata.IsDisLike = false;
                         likesdata.UserId = currentUser.Id;
-                        likesdata.LevelId = levelData.Id;                        
+                        likesdata.LevelId = levelData.Id;
+                        likesdata.CreatedDate = DateTime.Now;
                         _likesService.InsertLikes(likesdata);
                     }
                     else
@@ -390,6 +391,7 @@ namespace DeVeeraApp.Controllers
                         likesbylevelid.IsDisLike = false;
                         likesbylevelid.UserId = currentUser.Id;
                         likesbylevelid.LevelId = levelData.Id;
+                        likesbylevelid.CreatedDate = DateTime.Now;
                         _likesService.UpdateLikes(likesbylevelid);
                     }
                }
@@ -402,6 +404,7 @@ namespace DeVeeraApp.Controllers
                         likesdata.IsDisLike = true;
                         likesdata.UserId = currentUser.Id;
                         likesdata.LevelId = levelData.Id;
+                        likesdata.CreatedDate = DateTime.Now;
                         _likesService.InsertLikes(likesdata);
                     }
                     else
@@ -412,6 +415,7 @@ namespace DeVeeraApp.Controllers
                         likesbylevelid.IsDisLike = true;
                         likesbylevelid.UserId = currentUser.Id;
                         likesbylevelid.LevelId = levelData.Id;
+                        likesbylevelid.CreatedDate = DateTime.Now;
                         _likesService.UpdateLikes(likesbylevelid);
                     }
                 }

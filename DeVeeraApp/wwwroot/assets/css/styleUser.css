@@ -9486,3 +9486,8 @@ Go Top CSS
     height: 415px;
     width: 543px;
 }
+
+.logout-fnt {
+    font-size: 20px;
+    padding-right: 5px;
+}
