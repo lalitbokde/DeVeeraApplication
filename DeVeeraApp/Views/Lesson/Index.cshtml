@@ -24,6 +24,11 @@
         background-color: #F0B9B2;
         padding: 6px 24px 3px 4px;
     }
+
+    .imgfit {
+      
+    }
+   
 </style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl !=null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
@@ -49,24 +54,24 @@
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
             }
 
-            <img src="@imageUrl2" alt="image" width="100%">
+            <img src="@imageUrl2" alt="image"  class="" style="width:100%;" >
             @if(userLanguage!=null) {
             @if (userLanguage.LanguageId == 5)
             {
-                <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                <a href="@Spanishvideourl" class="video-btn popup-youtube " >
                     <i class="flaticon-play"></i>
                 </a>
             }
             else
             {
-                <a href="@videourl" class="video-btn popup-youtube">
+                <a href="@videourl" class="video-btn popup-youtube ">
                     <i class="flaticon-play"></i>
                 </a>
             }
             }
             else
             {
-                 <a href="@videourl" class="video-btn popup-youtube">
+                 <a href="@videourl" class="video-btn popup-youtube ">
                     <i class="flaticon-play"></i>
                 </a>
             }
@@ -207,7 +212,7 @@
                             <span class="image-prev">
 
                                 @{var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl; }
-                                <img src="@prevImageUrl" alt="image">
+                                <img src="@prevImageUrl" alt="image" >
                                 <span class="post-nav-title">@T("Prev")</span>
                             </span>
 
@@ -238,7 +243,7 @@
 
                                 <span class="image-next">
                                     @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
-                                    <img src="@nextImageUrl" alt="image">
+                                    <img src="@nextImageUrl" alt="image" style=" " >
                                     <span class="post-nav-title">@T("Next")</span>
                                 </span>
                             </a>
@@ -260,7 +265,7 @@
 
                                 <span class="image-next">
                                     @{var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl; }
-                                    <img src="@nextImageUrl" alt="image">
+                                    <img src="@nextImageUrl" alt="image" >
                                     <span class="post-nav-title">@T("Next")</span>
                                 </span>
                             </a>

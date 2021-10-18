@@ -97,8 +97,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     if (item.LevelId != null && item.LevelId != 0)
                     {
                         item.Level = _levelService.GetLevelById(Convert.ToInt32(item.LevelId))?.Title;
+                    
                     }
                     model.Add(item.ToModel<DashboardQuoteModel>());
+                   
                 }
                 foreach(var list in model)
                 {

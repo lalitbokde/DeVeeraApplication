@@ -205,6 +205,15 @@
 
                             </div>
 
+                              <div class="mt-5">
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotesedit" class=""  hidden>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                        </div>
+
+
                             <div class="mt-5">
                                 @{
                                     var BannerImageUrl = Model.BannerImageUrl != null ? Model.BannerImageUrl : "/dist/images/food-beverage-9.jpg";
@@ -918,3 +927,24 @@
     }
 
 </script>   
+
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquote").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quotesedit").removeAttr('hidden');
+      }
+else
+{
+ $("#quotesedit").attr('hidden',true);
+}
+
+  });
+});
+
+</script>

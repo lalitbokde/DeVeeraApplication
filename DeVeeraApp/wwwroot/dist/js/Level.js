@@ -52,3 +52,18 @@ function DisplaySelectedImages() {
 
 }
 
+
+
+
+
+function hideshowqoute(){
+$("randomquote").attr("checked",true);
+
+  $("#quotes").removeClass("hidden",true);
+
+
+//document.getElementById("quotes").removeAttribute("hidden");
+}
+
+
+

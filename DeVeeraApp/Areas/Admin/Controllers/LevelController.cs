@@ -5,6 +5,7 @@ using CRM.Core.Domain.VideoModules;
 using CRM.Core.ViewModels;
 using CRM.Services;
 using CRM.Services.Authentication;
+using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
 using CRM.Services.Likes;
 using CRM.Services.Localization;
@@ -42,6 +43,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly ITranslationService _translationService;
         private readonly ILikesService _likesService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        private readonly IDashboardQuoteService _dashboardQuoteService;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
@@ -62,7 +64,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                                      IModuleImageListService moduleImageListService,
                                      ITranslationService translationService,
                                      ILikesService likesService,
-                                       ILocalStringResourcesServices localStringResourcesServices) : base(workContext: workContext,
+                                       ILocalStringResourcesServices localStringResourcesServices,
+                                        IDashboardQuoteService dashboardQuoteService) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
         {
@@ -78,6 +81,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             this._moduleImageListService = moduleImageListService;
             _translationService = translationService;
             _localStringResourcesServices = localStringResourcesServices;
+            _dashboardQuoteService = dashboardQuoteService; 
         }
         #endregion
 
@@ -119,6 +123,20 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     Text = item.EmotionName,
                 });
             }
+
+            model.AvilableQuotelevel.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+            var AvilableQuotelevel = _dashboardQuoteService.GetAllDashboardQuotes();
+            foreach (var quote in AvilableQuotelevel)
+            {
+                model.AvilableQuotelevel.Add(new SelectListItem
+                {
+                    Value = quote.Id.ToString(),
+                    Text = quote.Title + " - " + quote.Author,
+                    Selected = quote.Id == model.QuoteId
+                });
+            }
+
+
         }
 
 
@@ -134,7 +152,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             AddBreadcrumbs("Level", "Create", "/Admin/Level/List", "/Admin/Level/Create");
             LevelModel model = new LevelModel();
+            
             PrepareLevelModel(model);
+
             return View(model);
         }
 
@@ -180,6 +200,21 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
                 //    _levelImageListServices.InsertLevelImage(record);
                 //}
+
+                model.AvilableQuotelevel.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+                var AvilableQuotelevel = _dashboardQuoteService.GetAllDashboardQuotes();
+                foreach (var quote in AvilableQuotelevel)
+                {
+                    model.AvilableQuotelevel.Add(new SelectListItem
+                    {
+                        Value = quote.Id.ToString(),
+                        Text = quote.Title + " - " + quote.Author,
+                        Selected = quote.Id == model.QuoteId
+                    });
+                }
+
+
+
 
                 _notificationService.SuccessNotification("New video lesson has been created successfully.");
                 return RedirectToAction("List");
@@ -387,6 +422,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         });
                     }
                 }
+
+                model.AvilableQuotelevel.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+                var AvilableQuotelevel = _dashboardQuoteService.GetAllDashboardQuotes();
+                foreach (var quote in AvilableQuotelevel)
+                {
+                    model.AvilableQuotelevel.Add(new SelectListItem
+                    {
+                        Value = quote.Id.ToString(),
+                        Text = quote.Title + " - " + quote.Author,
+                        Selected = quote.Id == model.QuoteId
+                    });
+                }
+
 
                 _levelServices.UpdateLevel(levelData);
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");

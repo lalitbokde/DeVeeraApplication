@@ -132,7 +132,9 @@
                        
                   
                         <button type="submit" class="default-btn mt-3 verifybtn">@T("Verify")</button>
-                       
+                       <div>
+                           <a asp-controller="User" asp-action="ResendOTP"   class="text-start"  style="color: #f0b9b2">Resend Otp</a>
+                       </div>
                         @*<div class="intro-y " style="margin-left: 500px; ">
             <div class="m-2">
                 <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>

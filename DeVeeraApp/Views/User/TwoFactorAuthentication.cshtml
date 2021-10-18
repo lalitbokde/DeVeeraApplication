@@ -89,9 +89,11 @@
                                     <input type="hidden" asp-for="@Model.ModuleId" />
                                     <input type="hidden" asp-for="@Model.UserId" />
                                     @{ string mobnumber = Model.MobileNumber.ToString();
-                                        var value = Model.MobileNumber.Count() - 4;
-                                        mobnumber = mobnumber.Substring(value, 4);
-                                        mobnumber = "XXXXXX" + mobnumber;
+                                        if (mobnumber != "") {
+                                            var value = Model.MobileNumber.Count() - 4;
+                                            mobnumber = mobnumber.Substring(value, 4);
+                                            mobnumber = "XXXXXX" + mobnumber;
+                                        }
                                         <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                     }
                                     <div class="form-group">

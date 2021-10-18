@@ -49,13 +49,13 @@
                             <span asp-validation-for="Author" class="text-theme-21 mt-2"></span>
                         </div>
 
-                        <div class="mt-5">
+                        <div class="mt-5" hidden>
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Select Level</label>
                             <select id="input-wizard-1" asp-for="LevelId" asp-items="Model.AvailableLevels" type="text" class="form-control" placeholder="title"></select>
                         
                         </div>
 
-                        <div class="mt-5">
+                        <div class="mt-5" hidden>
                             <input asp-for="IsDashboardQuote" class="form-check-input" type="checkbox">
                             <label for="input-wizard-1" class="form-label text-theme-21 ">Dashboard Quote</label>
                           

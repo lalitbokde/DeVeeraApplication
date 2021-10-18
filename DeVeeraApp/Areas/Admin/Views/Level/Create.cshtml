@@ -192,6 +192,15 @@
 
                     </div>
                     <div class="mt-5">
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotes" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                        </div>
+
+
+                    <div class="mt-5">
                         <div class="grid grid-cols-12 gap-5 mt-5 pt-5 border-t border-theme-31">
                             <a onclick="OpenImageSelectionModal('BannerImageId','BannerImageUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
                                 <div class="box rounded-md p-3 relative zoom-in">
@@ -360,5 +369,25 @@
             });
         }
     }
+
+</script>
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquote").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quotes").removeAttr('hidden');
+      }
+else
+{
+ $("#quotes").attr('hidden',true);
+}
+
+  });
+});
 
 </script>
