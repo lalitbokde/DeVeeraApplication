@@ -35,7 +35,7 @@ using CRM.Services.Localization;
 using CRM.Services.TwilioConfiguration;
 using System.Threading.Tasks;
 using CRM.Core.TwilioConfig;
-
+using System.Collections.Generic;
 
 namespace DeVeeraApp.Controllers
 {
@@ -330,6 +330,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult VerifyOTP(UserModel model)
         {
+            ViewData["MobileNumber"] = model.MobileNumber;
             UserPassword password = new UserPassword
             {
                 Password = model.ConfirmPassword,
@@ -344,20 +345,31 @@ namespace DeVeeraApp.Controllers
         }
 
        
-        public async Task<VerificationResult> ResendOTP(string channel)
+        public async Task<IActionResult> ResendOTP(string channel,string Mobilenumber)
         {
-            var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
-            return await _verificationService.StartVerificationAsync(user.MobileNumber, channel);
+            UserModel model = new UserModel();
+            // var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+            Mobilenumber = "+" + Mobilenumber;
+            var result = await _verificationService.StartVerificationAsync(Mobilenumber, "sms");
 
-           
+
+            if (result.IsValid == true)
+            {
+
+                model.MobileNumber = Mobilenumber;
+            }
             // return new VerificationResult(new List<string> { "Your phone number is already verified" });
+            return View("VerifyOTP");
+          
+
+
         }
 
 
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP)
         {
-       
+           
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
             if (final == "6") { 
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
@@ -370,7 +382,8 @@ namespace DeVeeraApp.Controllers
                 }
             if (true)
             {
-               ModelState.Remove("UserModel.ErrorMessage");
+               ModelState.Remove("ErrorMessage");
+                 
                 if (ModelState.IsValid)
                 {
                     if (model.countryCode == null)
