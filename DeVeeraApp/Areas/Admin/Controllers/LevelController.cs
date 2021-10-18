@@ -352,6 +352,10 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                
                 PrepareLevelModel(model);
 
+             
+                var quotelevel = _dashboardQuoteService.GetDashboardQuoteById((int)model.LevelNo);
+
+                model.QuoteId = quotelevel.Id;
                 //foreach (var result in imagedata)
                 //{
                 //    model.ImageLists.Where(a => a.Id == result.ImageId).ToList().ForEach(c => c.Selected = true);
@@ -437,6 +441,25 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
 
                 _levelServices.UpdateLevel(levelData);
+                //// first set all level to zero with same same level set for other quotes /////
+                var level = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.LevelId == model.LevelNo).ToList();
+
+                foreach(var datalevel in level)
+                {
+                    datalevel.LevelId = 0;
+                    _dashboardQuoteService.UpdateDashboardQuote(datalevel);
+                }
+                //setting for respected quote to that level /////////
+                var quotelevel = _dashboardQuoteService.GetDashboardQuoteById(model.QuoteId);
+             
+                quotelevel.IsRandom=true;
+                quotelevel.LevelId = model.Id;               
+                quotelevel.LevelId = model.LevelNo;
+                quotelevel.IsDashboardQuote = false;
+                quotelevel.IsWeeklyInspiringQuotes = false;
+
+                _dashboardQuoteService.UpdateDashboardQuote(quotelevel);
+                ////////  end of setting level ////
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");
 
                 return RedirectToAction("Edit", "Level", model.Id);
