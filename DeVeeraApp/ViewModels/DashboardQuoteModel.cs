@@ -31,7 +31,7 @@ namespace DeVeeraApp.ViewModels
 
         //public bool IsActive { get; set; } = false;
 
-        [NotMapped]
+       
         public bool IsDashboardQuote { get; set; }
         public bool IsRandom { get; set; }
         public bool IsWeeklyInspiringQuotes { get; set; }

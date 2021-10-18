@@ -40,7 +40,7 @@ namespace DeVeeraApp.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
         [Required]
         public int? VideoId { get; set; }
-        public int? QuoteId { get; set; }
+        public int  QuoteId { get; set; }
 
         public bool IsRandom { get; set; }
         public int BannerImageId { get; set; }

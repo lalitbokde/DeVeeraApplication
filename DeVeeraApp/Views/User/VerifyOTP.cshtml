@@ -64,6 +64,9 @@
         .background {
             background: radial-gradient( #fff4f2 10%, #fcd2cb 90%)
         }
+        .coming-soon-content .OtpForm {
+            padding: 15px;
+        }
     </style>
 </head>
 <!-- Required meta tags -->
@@ -95,7 +98,7 @@
                         <h2>@T("Enter Your OTP")</h2>
                     </div>
 
-                    <form asp-controller="User" asp-action="VerifyOTP" method="post" class="OtpForm">
+                    <form asp-controller="User" asp-action="VerifyOTP" method="post" class="OtpForm ">
                         <input type="hidden" asp-for="UserRoleId" value="1" />
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
@@ -132,15 +135,18 @@
                        
                   
                         <button type="submit" class="default-btn mt-3 verifybtn">@T("Verify")</button>
-                       <div>
-                           <a asp-controller="User" asp-action="ResendOTP"   class="text-start"  style="color: #f0b9b2">Resend Otp</a>
-                       </div>
+                       
                         @*<div class="intro-y " style="margin-left: 500px; ">
             <div class="m-2">
                 <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
             </div>
         </div>*@
+
+                        <div class="text-start mt-4 mb-0">
+                           <a  href="/User/ResendOTP/?Email=@Model.Email&Mobilenumber=@ViewData["MobileNumber"]"  class="text-start"  style="color: #f0b9b2;font:800;">Resend otp</a>
+                       </div>
                     </form>
+                    
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
-﻿
+﻿@model DeVeeraApp.ViewModels.User.UserModel
+
 
 
 <html lang="zxx">
@@ -14,9 +15,13 @@
                         Enter Your six digit OTP
                     </h2>
 
-                    <form class="newsletter-form" data-toggle="validator">
+                    <form class="newsletter-form" data-toggle="validator" action="VerifyOTP" method="get">
                         <div class="container body-content">
-
+                             <input type="hidden" asp-for="UserRoleId" value="1" />
+                        <input type="hidden" asp-for="Email" value="@Model.Email">
+                        <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
+                        <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
+                       <input asp-for="ErrorMessage" type="text"  hidden   >
 
                             <div id="SMSArea" class="row SMSArea">
                                 <div class="col-2">
@@ -45,9 +50,11 @@
                             <button type="submit" class="default-btn">@T("Verify")</button>
                             
                         </div>
-                        @*<div class="intro-y">
+                       
+                        <div class="intro-y">
                             <a href="#">@T("Resend OTP")</a>
-                        </div>*@
+                        </div>
+                           
                     </form>
 
                 </div>

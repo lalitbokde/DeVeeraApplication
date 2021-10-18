@@ -195,6 +195,14 @@ namespace DeVeeraApp.Controllers
 
             videoData.LikeComments = likesdata;
 
+
+            var quoteListlevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true && a.LevelId==videoData.LevelNo).ToList().FirstOrDefault();
+            if (quoteListlevel != null)
+            {
+                videoData.Quote = quoteListlevel.Title; ;
+                videoData.Author = quoteListlevel.Author;
+            }
+            else { 
             var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
             //quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
 
@@ -204,6 +212,10 @@ namespace DeVeeraApp.Controllers
                 videoData.Quote = quoteList[index].Title;
                 videoData.Author = quoteList[index].Author;
             }
+
+            }
+
+
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {
