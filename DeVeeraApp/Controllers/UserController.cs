@@ -302,11 +302,13 @@ namespace DeVeeraApp.Controllers
 
                 if (verification.IsValid == true)
                 {
-
+                    
                 }
                 else
                 {
-                    return RedirectToAction("Register", "User");
+                 return RedirectToAction("Register", "User");
+                   
+
                 }
 
                 return RedirectToAction(nameof(VerifyOTP),
@@ -345,21 +347,17 @@ namespace DeVeeraApp.Controllers
         }
 
        
-        public async Task<IActionResult> ResendOTP(string channel,string Mobilenumber)
+        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model)
         {
-            UserModel model = new UserModel();
+
             // var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
-            Mobilenumber = "+" + Mobilenumber;
-            var result = await _verificationService.StartVerificationAsync(Mobilenumber, "sms");
+            model.MobileNumber = "+" + model.MobileNumber;
+            var result = await _verificationService.StartVerificationAsync(model.MobileNumber, "sms");
 
 
-            if (result.IsValid == true)
-            {
-
-                model.MobileNumber = Mobilenumber;
-            }
+            
             // return new VerificationResult(new List<string> { "Your phone number is already verified" });
-            return View("VerifyOTP");
+            return RedirectToAction("VerifyOTP","User",model);
           
 
 

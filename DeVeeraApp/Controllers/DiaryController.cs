@@ -236,6 +236,7 @@ namespace DeVeeraApp.Controllers
                         _translationService.Translate(diary.Title, key);
                         _translationService.Translate(diary.Comment, key);
                         _notificationService.SuccessNotification("Diary updated successfully.");
+                        return RedirectToAction(nameof(AskUserEmotion));
                     }
                     return RedirectToAction("Create", "Diary");
 
@@ -399,8 +400,13 @@ namespace DeVeeraApp.Controllers
                 var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
                 if (result.IsValid==false)
                 {
-                      ModelState.AddModelError("Passcode", "Passcode Doesn't match");
-                }
+                        //  ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+
+                        passcode.DiaryLoginDate = DateTime.UtcNow;
+                        _diaryPasscodeService.UpdateDiaryPasscode(passcode);
+
+                        return RedirectToAction("Create");
+                    }
                 else
                 {
                     passcode.DiaryLoginDate = DateTime.UtcNow;
