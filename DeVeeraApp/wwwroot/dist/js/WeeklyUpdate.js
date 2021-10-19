@@ -2,6 +2,8 @@
 
 var table = new Tabulator("#tabulatorW",
     {
+
+
          index: "id",
         layout: "fitColumns",
         responsiveLayout: "collapse",
@@ -16,6 +18,8 @@ var table = new Tabulator("#tabulatorW",
            
             { title: "#", width: 150, headerSort: true, sorter: "number", formatter: "rownum" },
             { title: "Title", field: "Title", headerSort: false, sorter: "string", width: 170 },
+
+
             { title: "Video", field: "VideoName", sorter: "boolean", width: 170 },
             { title: "Play", field: "VideoId", width: 150, headerSort: false, formatter: function (e, t) { return `<a href="/Admin/Video/Play/${e.getValue()}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a></div>` }, },
             { title: "Active", field: "IsActive", sorter: "boolean", width: 140, formatter: function (e, t) { return `<input class="checkbox-custom" type="checkbox" ${e.getValue() == true ? "checked" : ""}>` }, },
