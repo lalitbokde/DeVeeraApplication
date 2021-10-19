@@ -302,8 +302,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<WeeklyUpdate, WeeklyUpdateModel>(model);
+              
 
+                
                 ViewBag.TableData = JsonConvert.SerializeObject(model);
+
                 return View(model);
             }
             return View(model);

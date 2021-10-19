@@ -338,24 +338,32 @@ namespace DeVeeraApp.Controllers
                 Password = model.ConfirmPassword,
                 CreatedOnUtc = DateTime.UtcNow,
             };
+           
             model.UserPassword = password;
+            if (TempData["resend"] != null) {
+
+                TempData["resend"] = 1;
+                model.countryCode = "";
+            }
             if (model.ErrorMessage != null)
             {
                 ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
             }
+           
             return View(model);
         }
 
        
-        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model)
+        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model,string Confirmpwd)
         {
 
             // var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             model.MobileNumber = "+" + model.MobileNumber;
+            model.ConfirmPassword = Confirmpwd;
             var result = await _verificationService.StartVerificationAsync(model.MobileNumber, "sms");
 
+            TempData["resend"] = 1;
 
-            
             // return new VerificationResult(new List<string> { "Your phone number is already verified" });
             return RedirectToAction("VerifyOTP","User",model);
           
@@ -369,6 +377,12 @@ namespace DeVeeraApp.Controllers
         {
            
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
+            if(Convert.ToInt32(final)<6)
+            {
+                ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                model.ErrorMessage = "Wrong Passcode";
+                return RedirectToAction("VerifyOTP", model);
+            }
             if (final == "6") { 
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
             var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
@@ -381,10 +395,10 @@ namespace DeVeeraApp.Controllers
             if (true)
             {
                ModelState.Remove("ErrorMessage");
-                 
-                if (ModelState.IsValid)
+                   
+                    if (ModelState.IsValid)
                 {
-                    if (model.countryCode == null)
+                    if (model.countryCode == null && TempData["resend"] == null)
                     {
                         ModelState.AddModelError("MobileNumber", "please select country code.!!!");
                             
