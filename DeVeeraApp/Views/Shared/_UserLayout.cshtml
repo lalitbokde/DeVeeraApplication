@@ -4,8 +4,8 @@
 @inject CRM.Services.IImageMasterService ImageService
 @inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
 @{ var currentLevel = _workContext.CurrentUser.LastLevel;
-    var firstLevel = levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
-    var userLevel = currentLevel > 0 ? levelServices.GetLevelById((int)currentLevel)?.LevelNo : null;
+
+    var userLevel = levelServices.GetLevelById((int)currentLevel)?.LevelNo ?? 1;
     var FooterImgid = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterImageId).Where(a => a.IsActive == true).FirstOrDefault()?.FooterImageId;
     var Imageurl = ImageService.GetImageById((int)FooterImgid)?.ImageUrl;
 
@@ -182,7 +182,7 @@
                         <div class="others-options d-flex align-items-center">
 
 
-                            @if (userLevel > firstLevel)
+                            @if (userLevel > 1)
                             {
                                 <div class="option-item">
                                     <div class="navbar-btn">
