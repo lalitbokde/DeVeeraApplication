@@ -185,7 +185,7 @@ namespace DeVeeraApp.Controllers
             //    videoData.PrevImageUrl = level?.ImageUrl;
             //}
             var likesdatacomment = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId == data.Id).ToList();
-
+           
             foreach (var datacomment in likesdata)
             {
                 moduleData.LikeCommentslModulelist.Add(datacomment);

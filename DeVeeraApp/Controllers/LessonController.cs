@@ -194,7 +194,10 @@ namespace DeVeeraApp.Controllers
             videoData.LevelNo = updatedVideoData?.LevelNo;
 
             videoData.LikeComments = likesdata;
-
+            foreach (var com in videoData.LikeComments)
+            {
+                videoData.CreatedOn = com.CreatedDate;
+            }
 
             var quoteListlevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true && a.LevelId==videoData.LevelNo).ToList().FirstOrDefault();
             if (quoteListlevel != null)

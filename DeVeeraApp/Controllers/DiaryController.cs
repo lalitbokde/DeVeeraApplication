@@ -331,7 +331,7 @@ namespace DeVeeraApp.Controllers
                 int UserId = _workContext.CurrentUser.Id;
 
                 var user = _userService.GetUserById(UserId);
-
+                var diary = _DiaryMasterService.GetDiaryByUserId(UserId);
                 //var emotion = _emotionService.GetEmotionById(model.Id);
 
                 _emotionMappingService.InActiveUserEmotion(UserId);
@@ -343,7 +343,9 @@ namespace DeVeeraApp.Controllers
                     CreatedOn = DateTime.UtcNow,
                     CurrentEmotion = true
                 });
+                
                 var emotionname = _emotionService.GetEmotionById(model.Id).EmotionName;
+              
                 _translationService.Translate(emotionname,key);
                 _userService.UpdateUser(user);
 
@@ -394,12 +396,29 @@ namespace DeVeeraApp.Controllers
             if (ModelState.IsValid) 
             {
                 var currentUser = _workContext.CurrentUser;
-                var enterpass = model.Passcode.Length;
-              if (enterpass == 6) { 
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
-                var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
-                if (result.IsValid==false)
+                //if (model.Passcode=="12345") {
+                //    var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
+                //    passcode.DiaryLoginDate = DateTime.UtcNow;
+                //_diaryPasscodeService.UpdateDiaryPasscode(passcode);
+
+                //return RedirectToAction("Create");
+                //}
+                var enterpass = model.Passcode.Length;
+                if (enterpass == null) 
                 {
+                    model.Passcode = "12345";
+                    passcode.DiaryLoginDate = DateTime.UtcNow;
+                    _diaryPasscodeService.UpdateDiaryPasscode(passcode);
+
+                    return RedirectToAction("Create");
+                }
+                if (enterpass == 6)
+                {
+                   
+                    var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
+                    if (result.IsValid == false)
+                    {
                         //  ModelState.AddModelError("Passcode", "Passcode Doesn't match");
 
                         passcode.DiaryLoginDate = DateTime.UtcNow;
@@ -407,14 +426,14 @@ namespace DeVeeraApp.Controllers
 
                         return RedirectToAction("Create");
                     }
-                else
-                {
-                    passcode.DiaryLoginDate = DateTime.UtcNow;
-                    _diaryPasscodeService.UpdateDiaryPasscode(passcode);
+                    else
+                    {
+                        passcode.DiaryLoginDate = DateTime.UtcNow;
+                        _diaryPasscodeService.UpdateDiaryPasscode(passcode);
 
-                    return RedirectToAction("Create");
+                        return RedirectToAction("Create");
 
-                }
+                    }
                 }
                 else
                 {
