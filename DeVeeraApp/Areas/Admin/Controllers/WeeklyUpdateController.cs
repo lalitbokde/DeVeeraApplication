@@ -77,6 +77,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 });
             }
 
+          
 
             //prepare available images
             var AvailableImages = _imageMasterService.GetAllImages();
@@ -98,16 +99,29 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             //prepare Available Quotes
 
             model.AvilableQuote.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+            model.AvilableQuoteSpanish.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
             var AvailableQuote = _dashboardQuoteService.GetAllDashboardQuotes();
             foreach (var quote in AvailableQuote)
             {
+                var quotespanish = quote.Title != null ? _translationService.TranslateLevel(quote.Title + " - " + quote.Author, key) : "";
                 model.AvilableQuote.Add(new SelectListItem
                 {
                     Value = quote.Id.ToString(),
                     Text = quote.Title + " - " + quote.Author,
                     Selected = quote.Id == model.QuoteId
                 });
+
+                model.AvilableQuoteSpanish.Add(new SelectListItem
+                {
+                    Value = quote.Id.ToString(),
+                    Text = quotespanish,
+                    Selected = quote.Id == model.QuoteId
+                });
+
             }
+
+           
+           
 
 
 
@@ -153,7 +167,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
+                _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteId);
 
                 var data = model.ToEntity<WeeklyUpdate>();
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
@@ -164,7 +178,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 _translationService.Translate(data.Subtitle, model.SubtitleRegistration);
                 _translationService.Translate(data.VideoHeader, model.VideoHeaderRegistration);
                 _notificationService.SuccessNotification("Video created successfully.");
-                return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteType });
+                return RedirectToAction("List", "WeeklyUpdate", new { typeId = (int)model.QuoteId });
             }
             PrepareVideo(model);
             return View(model);
@@ -414,6 +428,17 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             model.Title = weeklyupdate.Title != null ? _translationService.TranslateLevel(weeklyupdate.Title, key) : "";
             model.Subtitle = weeklyupdate.Subtitle != null ? _translationService.TranslateLevel(weeklyupdate.Subtitle, key) : "";
+
+            return Json(model);
+
+        }
+        [HttpPost]
+        public IActionResult TranslateQuoteDropSpanish(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Quote = weeklyupdate.Quote != null ? _translationService.TranslateLevel(weeklyupdate.Quote, key) : "";
+           
 
             return Json(model);
 

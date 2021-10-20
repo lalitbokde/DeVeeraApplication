@@ -220,7 +220,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        model.Quote = data.Quote;
+                        model.Quote = data?.Quote;
                     }
                 }
                 if (model.BodyImageId != 0 && model.BannerImageId != 0)
@@ -263,7 +263,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        model.Quote = data.Quote;
+                        model.Quote = data?.Quote;
                     }
                 }
                 if (model.BodyImageId != 0 && model.BannerImageId != 0)

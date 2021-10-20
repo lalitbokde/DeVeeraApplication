@@ -143,7 +143,12 @@
                                 <input id="quoteslogin" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
                                 <p id="QuoteEngWBS" class="temp"></p>
+
+                                 
+                                 
+
                             </div>
+
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
 
@@ -307,21 +312,36 @@
                                 <p id="SubtitletagEng" class="temp"></p>
 
                             </div>
-                            <div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                            <div class="col-span-6 mt-3">
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                                <p id="QuoteSpan" class="temp"></p>
+                                <p id="QuoteSpan" class="temp"></p>*@
+
+                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotes" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuotedropSpanish(this)" id="quotedropdowneng"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                      
                             </div>
                             <div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquoteSpanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqouteSpanish();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotesSpanish" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>
-                                <p id="QuoteEng" class="temp"></p>
+                                <p id="QuoteEng" class="temp"></p>*@
+
+                                 @*<label for="input-wizard-1" class="form-label text-theme-21 star" hidden></label>
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  hidden type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star" hidden></label>*@
+                    <div id="quotesSpanish"  hidden class="mt-5" >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" id="quotedropdownspan" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
 
                             </div>
                             <div class="col-span-6 mt-5">
@@ -596,14 +616,25 @@
                                     <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                                 </div>*@
 
-                            <div class="col-span-6 mt-5">
+                            @*<div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <div id="quotes" class="@((Model.IsRandom==true)? "hidden":"")">
                                     <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                                 </div>
-                            </div>
+                            </div>*@
+
+                               <div class="col-span-12 mt-5">
+                                   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquotelanding" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quoteslanding" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                        </div>
+
+
                         </div>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
@@ -709,7 +740,7 @@
 
         var Title = document.getElementById('titleRegistration').value;
         var Subtitle = document.getElementById('Subtilteregistration').value;
-        var Quote = document.getElementById('quotes').value;
+        //var Quote = document.getElementById('quotes').value;
         var VideoHeader = document.getElementById('videoheaderregistation').value;
         if (Title == null || Title == '') {
             document.getElementById("TitletagSpan").innerHTML = "Please Enter Title.";
@@ -718,24 +749,24 @@
         if (Subtitle == null || Subtitle == '') {
             document.getElementById("SubtitletagSpan").innerHTML = "Please Enter Subtitle.";
         }
-        if (Quote == null || Quote == '') {
-            document.getElementById("QuoteSpan").innerHTML = "Please Enter Quote.";
-        }
+        //if (Quote == null || Quote == '') {
+        //    document.getElementById("QuoteSpan").innerHTML = "Please Enter Quote.";
+        //}
 
         if (VideoHeader == null || VideoHeader == '') {
             document.getElementById("VideoHeaderSpan").innerHTML = "Please Enter Video Header.";
         }
-        else if (Title != null || Title != '' && Subtitle != null || Subtitle != '' && Quote != null || Quote != '' && VideoHeader != null || VideoHeader != '') {
+        else if (Title != null || Title != '' && Subtitle != null || Subtitle != ''  && VideoHeader != null || VideoHeader != '') {
             $.ajax({
                 url: "/Admin/WeeklyUpdate/TranslateSpanish",
                 type: "POST",
-                data: { Title, Subtitle, Quote, VideoHeader },
+                data: { Title, Subtitle,  VideoHeader },
 
                 success: function (data, status) {
                     debugger
                     $("#titleSpanishregistration").val(data.title);
                     $("#SubtitleSpanishregistration").val(data.subtitle);
-                    $("#quotesSpanish").val(data.quote);
+                   // $("#quotesSpanish").val(data.quote);
                     $(".VideoHeaderSpanishR").val(data.videoHeader);
 
                 },
@@ -848,6 +879,86 @@
 
             });
         }
+    }
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquotelanding").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quoteslanding").removeAttr('hidden');
+      }
+else
+{
+ $("#quoteslanding").attr('hidden',true);
+}
+
+  });
+});
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquote").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quotes").removeAttr('hidden');
+ $("#quotesSpanish").removeAttr('hidden');
+
+      }
+else
+{
+ $("#quotes").attr('hidden',true);
+
+ $("#quotesSpanish").attr('hidden',true);
+}
+
+  });
+});
+
+</script>
+<script>
+
+       function TranslateQuotedropSpanish(sel) {
+
+       // var Quote = sel.options[sel.selectedIndex].text;//document.getElementById('quotedropdowneng').innerText;
+       //if (Quote != null || Quote != '') {
+       //     $.ajax({
+       //         url: "/Admin/WeeklyUpdate/TranslateQuoteDropSpanish",
+       //         type: "POST",
+       //         data: { Quote },
+
+       //         success: function (data, status) {
+       //             //$("#quotedropdownspan").val(data.quote);alert(data.quote);
+       //             document.getElementById("quotedropdownspan").options[this.selectedIndex].text=data.quote;
+       //         },
+
+
+       //     });
+       // }
+
+var Quote = document.getElementById('quotedropdowneng').value;alert(Quote);
+
+$('#quotesSpanish option[value='+Quote+']').attr("selected","selected");
+document.getElementById("quotedropdownspan").value=Quote;
+
+
+
+//document.getElementById('quotedropdownspan').value="test";
+
+
+//document.getElementById('quotedropdownspan').selected=true;
     }
 
 </script>
