@@ -443,8 +443,20 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return Json(model);
 
         }
-        
 
+        [HttpPost]
+        public IActionResult TranslateQuotedropEng(WeeklyUpdate weeklyupdate)
+        {
+            WeeklyUpdateModel model = new WeeklyUpdateModel();
+
+            model.Quote = weeklyupdate.Quote != null ? _translationService.TranslateLevelSpanish(weeklyupdate.Quote, key) : "";
+            //string str = "&quot;";
+            //model.Quote.TrimStart(str.ToCharArray());
+
+            return Json(model);
+
+        }
+        
         #endregion
     }
 }
