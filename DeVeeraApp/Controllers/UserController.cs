@@ -302,12 +302,12 @@ namespace DeVeeraApp.Controllers
 
                 //if (verification.IsValid == true)
                 //{
-                    
+
                 //}
                 //else
                 //{
                 // return RedirectToAction("Register", "User");
-                   
+
 
                 //}
 
@@ -338,9 +338,10 @@ namespace DeVeeraApp.Controllers
                 Password = model.ConfirmPassword,
                 CreatedOnUtc = DateTime.UtcNow,
             };
-           
+
             model.UserPassword = password;
-            if (TempData["resend"] != null) {
+            if (TempData["resend"] != null)
+            {
 
                 TempData["resend"] = 1;
                 model.countryCode = "";
@@ -349,12 +350,12 @@ namespace DeVeeraApp.Controllers
             {
                 ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
             }
-           
+
             return View(model);
         }
 
-       
-        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model,string Confirmpwd)
+
+        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model, string Confirmpwd)
         {
 
             // var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
@@ -365,8 +366,8 @@ namespace DeVeeraApp.Controllers
             TempData["resend"] = 1;
 
             // return new VerificationResult(new List<string> { "Your phone number is already verified" });
-            return RedirectToAction("VerifyOTP","User",model);
-          
+            return RedirectToAction("VerifyOTP", "User", model);
+
 
 
         }
@@ -375,22 +376,23 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP)
         {
-           
+
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
-            if(Convert.ToInt32(final)<6)
+            if (Convert.ToInt32(final) < 6)
             {
                 ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
                 model.ErrorMessage = "Wrong Passcode";
                 return RedirectToAction("VerifyOTP", model);
             }
             string FinalOTP = string.Join(' ', OTP).Replace(" ", "");
-            if (FinalOTP !="123456") {
-            var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
-                if (result.IsValid== false)
+            if (FinalOTP != "123456")
+            {
+                var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
+                if (result.IsValid == false)
                 {
                     ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
                     model.ErrorMessage = "Wrong Passcode";
-                    return RedirectToAction("VerifyOTP",model); 
+                    return RedirectToAction("VerifyOTP", model);
                 }
             }
             else
@@ -398,16 +400,16 @@ namespace DeVeeraApp.Controllers
 
             }
             if (true)
-                 {
-               ModelState.Remove("ErrorMessage");
-                   
-                    if (ModelState.IsValid)
+            {
+                ModelState.Remove("ErrorMessage");
+
+                if (ModelState.IsValid)
                 {
                     if (model.countryCode == null && TempData["resend"] == null)
                     {
                         ModelState.AddModelError("MobileNumber", "please select country code.!!!");
-                            
-                        }
+
+                    }
                     if (model.MobileNumber == null)
                     {
                         ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
@@ -452,8 +454,8 @@ namespace DeVeeraApp.Controllers
                                     HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
                                     _notificationService.SuccessNotification("User registered successfull.");
-                                    
-                                         //return RedirectToAction("Index", "Dashboard");
+
+                                    //return RedirectToAction("Index", "Dashboard");
                                     return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
 
 
@@ -492,10 +494,10 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                     ModelState.AddModelError("Email", "Email Already Exists");
-                   
+
 
                 }
-            
+
             }
             return View(model);
         }
@@ -810,7 +812,7 @@ namespace DeVeeraApp.Controllers
             {
                 var currentUser = _UserService.GetUserById(model.UserId);
                 var enterpass = model.OTP.Length;
-                if (enterpass == 6 )
+                if (enterpass == 6)
                 {
                     //string passcode = "1234";
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
@@ -819,23 +821,24 @@ namespace DeVeeraApp.Controllers
                         ModelState.AddModelError("Passcode", "Passcode Doesn't match");
                     }
                 }
-               
-               else if (model.OTP == "12345")
+
+                else if (model.OTP == "12345")
                 {
                 }
                 else
                 {
                     ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
                 }
-               
+
                 //if (model.OTP == null)
                 //{
                 //    ModelState.AddModelError("", "Invalid Code");
 
                 //    return View();
                 //}
-                    
-                    if (true) {
+
+                if (true)
+                {
                     currentUser.TwoFactorAuthentication = true;
                     _UserService.UpdateUser(currentUser);
 
@@ -849,8 +852,8 @@ namespace DeVeeraApp.Controllers
                     _diaryPasscodeService.InsertDiaryPasscode(diaryPasscode);
 
                     return RedirectToAction("ChangePasscode", "Diary");
-                    }
-                
+                }
+
 
             }
             return View();
