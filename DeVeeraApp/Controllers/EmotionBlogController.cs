@@ -90,7 +90,7 @@ namespace DeVeeraApp.Controllers
 
             var user = _userService.GetUserById(UserId);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == UserId).FirstOrDefault();
-            var diary = _DiaryMasterService.GetAllDiarys().Where(a =>a.UserId==UserId);
+            var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(UserId).FirstOrDefault();
             var emotion = _emotionService.GetEmotionById(emotionid);
             var model = new EmotionModel();
             if (emotion != null)

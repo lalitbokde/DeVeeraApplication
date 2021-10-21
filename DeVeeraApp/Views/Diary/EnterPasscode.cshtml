@@ -92,7 +92,7 @@
                                             }
                                             <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                         }
-                                        <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="Enter passcode " required>
+                                        <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="Enter passcode " required value="12345">
                                         <span asp-validation-for="Passcode" class="text-theme-6 mt-2"></span>
                                     </div>
                                     <button type="submit">@T("Continue")</button>

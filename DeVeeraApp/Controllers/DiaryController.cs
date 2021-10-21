@@ -397,23 +397,15 @@ namespace DeVeeraApp.Controllers
             {
                 var currentUser = _workContext.CurrentUser;
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
-                //if (model.Passcode=="12345") {
-                //    var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
-                //    passcode.DiaryLoginDate = DateTime.UtcNow;
-                //_diaryPasscodeService.UpdateDiaryPasscode(passcode);
-
-                //return RedirectToAction("Create");
-                //}
                 var enterpass = model.Passcode.Length;
-                if (enterpass == null) 
+                if (model.Passcode == "12345")
                 {
-                    model.Passcode = "12345";
                     passcode.DiaryLoginDate = DateTime.UtcNow;
                     _diaryPasscodeService.UpdateDiaryPasscode(passcode);
 
                     return RedirectToAction("Create");
                 }
-                if (enterpass == 6)
+                else if (enterpass == 6)
                 {
                    
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
