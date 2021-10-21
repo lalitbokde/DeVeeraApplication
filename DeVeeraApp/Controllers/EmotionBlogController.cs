@@ -90,7 +90,7 @@ namespace DeVeeraApp.Controllers
 
             var user = _userService.GetUserById(UserId);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == UserId).FirstOrDefault();
-            var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(UserId).FirstOrDefault();
+            var diar = _DiaryMasterService.GetDiaryByUserId(UserId).FirstOrDefault();
             var emotion = _emotionService.GetEmotionById(emotionid);
             var model = new EmotionModel();
             if (emotion != null)
@@ -124,10 +124,10 @@ namespace DeVeeraApp.Controllers
                     int index = random.Next(quoteList.Count);
                     model.Quote = quoteList[index].Title + " -- " + quoteList[index].Author;
                 }
-                foreach ( var diar in diary) { 
+              
                 diar.EmotionId = emotion.Id;
                 _DiaryMasterService.UpdateDiary(diar);
-                }
+               
             }
             return View(model);
         }

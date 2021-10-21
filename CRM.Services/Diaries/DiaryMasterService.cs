@@ -52,13 +52,17 @@ namespace CRM.Services
 
             return _DiaryRepository.GetById(DiaryId);
         }
-        public Diary GetDiaryByUserId(int? UserId)
+        public IList<Diary> GetDiaryByUserId(int? UserId)
         {
             if (UserId == 0)
                 return null;
+            var query = from a in _DiaryRepository.Table
+                        where a.UserId == UserId
+                        select a;
 
+            var data = query.ToList();
 
-            return _DiaryRepository.GetById(UserId);
+            return data;
         }
 
         public IList<Diary> GetDiaryByIds(int[] DiaryIds)
