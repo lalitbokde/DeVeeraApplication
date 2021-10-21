@@ -14,7 +14,7 @@ namespace CRM.Services
 
 
         Diary GetDiaryById(int DiaryId);
-
+        Diary GetDiaryByUserId(int? UserId);
 
         IList<Diary> GetDiaryByIds(int[] DiaryIds);
 

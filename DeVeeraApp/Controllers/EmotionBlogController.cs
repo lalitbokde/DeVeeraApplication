@@ -5,6 +5,7 @@ using CRM.Services.Customers;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
 using CRM.Services.Message;
+using CRM.Services.Settings;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -34,6 +35,7 @@ namespace DeVeeraApp.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        private readonly ISettingService _settingService;
         #endregion
 
 
@@ -52,6 +54,7 @@ namespace DeVeeraApp.Controllers
                         IHttpContextAccessor httpContextAccessor,
                         IVideoMasterService videoMasterService,
                         IDashboardQuoteService dashboardQuoteService,
+                        ISettingService settingService,
                         ILocalStringResourcesServices localStringResourcesServices,
                                IAuthenticationService authenticationService
                                ) : base(workContext: workContext,
@@ -70,6 +73,7 @@ namespace DeVeeraApp.Controllers
             _videoMasterService = videoMasterService;
             _imageMasterService = imageMasterService;
             _dashboardQuoteService = dashboardQuoteService;
+            _settingService = settingService;
             _localStringResourcesServices = localStringResourcesServices;
         }
 
@@ -82,21 +86,47 @@ namespace DeVeeraApp.Controllers
         public IActionResult Index(int emotionid)
         {
             var random = new Random();
+            int UserId = _workContext.CurrentUser.Id;
+
+            var user = _userService.GetUserById(UserId);
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == UserId).FirstOrDefault();
+            var diary = _DiaryMasterService.GetAllDiarys().Where(a =>a.UserId==UserId);
             var emotion = _emotionService.GetEmotionById(emotionid);
             var model = new EmotionModel();
             if (emotion != null)
             {
+
                  model = emotion.ToModel<EmotionModel>();
                  model.EmotionHeaderImageUrl = emotion.EmotionHeaderImageId > 0 ?_imageMasterService.GetImageById(emotion.EmotionHeaderImageId)?.ImageUrl:null;
                  model.EmotionBannerImageUrl = emotion.EmotionBannerImageId > 0 ?_imageMasterService.GetImageById(emotion.EmotionBannerImageId)?.ImageUrl:null;
                  model.EmotionThumbnailImageUrl = emotion.EmotionThumbnailImageId> 0 ? _imageMasterService.GetImageById(emotion.EmotionThumbnailImageId)?.ImageUrl:null;
                  model.Video = _videoMasterService.GetVideoById(emotion.VideoId);
-                model.Description = _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Description);
+                if (userLanguage != null)
+                {
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                        model.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                        model.Description = _localStringResourcesServices.GetResourceValueByResourceName(model.Description);
+
+                    }
+                    else
+                    {
+                        model.Title = emotion.Title;
+                        model.Subtitle = emotion.Subtitle;
+                        model.Description = emotion.Description;
+                    }
+                }
+               
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
                 if (quoteList != null && quoteList.Count > 0 && emotion.IsRandom == true)
                 {
                     int index = random.Next(quoteList.Count);
                     model.Quote = quoteList[index].Title + " -- " + quoteList[index].Author;
+                }
+                foreach ( var diar in diary) { 
+                diar.EmotionId = emotion.Id;
+                _DiaryMasterService.UpdateDiary(diar);
                 }
             }
             return View(model);

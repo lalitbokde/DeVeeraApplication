@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "EnterPasscode";
 }
-
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
 <!doctype html>
 <html lang="zxx">
 <head>
@@ -82,14 +84,15 @@
                                 <form asp-controller="Diary" asp-action="EnterPasscode" method="post">
                                     <div class="form-group">
                                         @{ string mobnumber = Model.MobileNumber?.ToString();
-                                            if (Model.MobileNumber != null) {
+                                            if (Model.MobileNumber != null)
+                                            {
                                                 var value = Model.MobileNumber.Count() - 4;
                                                 mobnumber = mobnumber.Substring(value, 4);
                                                 mobnumber = "XXXXXX" + mobnumber;
                                             }
                                             <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                         }
-                                        <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="Enter passcode "required>
+                                        <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="Enter passcode " required>
                                         <span asp-validation-for="Passcode" class="text-theme-6 mt-2"></span>
                                     </div>
                                     <button type="submit">@T("Continue")</button>
@@ -179,7 +182,7 @@
                 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5">
                     <div class="intro-y col-span-3"></div>
                     <div class="intro-y box p-5 col-span-6">
-                       
+
 
                         <div class="mt-5">
                             <label for="input-wizard-2" class="form-label text-theme-21 star">
