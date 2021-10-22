@@ -154,11 +154,20 @@
                             <div class="comment">
                                 <div class="comment-body" >
                                     <footer class="comment-meta">
-                                       <div class="comment-author vcard"></div>
+                                        <div class="comment-author vcard"></div>
+                                        @if (data.CreatedDate.ToString()== "1/1/0001 12:00:00 AM")
+                                        {
+                                            <div class="comment-metadata">
+                                                @*<a href="#">@data.CreatedDate</a>*@
+                                            </div>
 
-                                        <div class="comment-metadata">
-                                            <a href="#">@data.CreatedDate</a>
-                                        </div>
+                                         }
+                                        else
+                                        {
+                                            <div class="comment-metadata">
+                                                <a href="#">@data.CreatedDate</a>
+                                            </div>
+                                        }
                                     </footer>
 
                                     <div class="comment-content " style="margin-top:3px;">

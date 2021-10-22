@@ -61,14 +61,14 @@
                         </a>
                     }
                 }
-            else
-            {
- <a href="@videourl" class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-            }
+                else
+                {
+                    <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
                 }
-            </div>
+            }
+        </div>
 
         <div class="row">
             <div class="col-lg-8 col-md-12">
@@ -176,54 +176,65 @@
             }
 
 
-              @if (Model?.LikeCommentslModulelist != null) { 
-                  foreach(var comments in Model.LikeCommentslModulelist.OrderByDescending(a=>a.CreatedDate)) { 
-             <div class="comment-list mt-5 ">
-                            <div class="comment">
-                                <div class="comment-body" >
-                                    <footer class="comment-meta">
-                                       <div class="comment-author vcard"></div>
+            @if (Model?.LikeCommentslModulelist != null)
+            {
+                foreach (var comments in Model.LikeCommentslModulelist.OrderByDescending(a => a.CreatedDate))
+                {
+                    <div class="comment-list mt-5 ">
+                        <div class="comment">
+                            <div class="comment-body">
+                                <footer class="comment-meta">
+                                    <div class="comment-author vcard"></div>
+                                    @if (comments.CreatedDate.ToString() == "1/1/0001 12:00:00 AM")
+                                    {
+                                        <div class="comment-metadata">
+                                            @*<a href="#">@data.CreatedDate</a>*@
+                                        </div>
 
+                                    }
+                                    else
+                                    {
                                         <div class="comment-metadata">
                                             <a href="#">@comments.CreatedDate</a>
                                         </div>
-                                    </footer>
+                                    }
+                                </footer>
 
-                                    <div class="comment-content " style="margin-top:3px;">
-                                        <p>@comments.Comments</p>
-                                    </div>
+                                <div class="comment-content " style="margin-top:3px;">
+                                    <p>@comments.Comments</p>
+                                </div>
                             </div>
-                          </div>
-                   </div>
-                  }
-              }
+                        </div>
+                    </div>
+                }
+            }
 
-              <div class="comment-respond mt-4">
+            <div class="comment-respond mt-4">
                 <h3 class="comment-reply-title " style="font-weight:200;font-size:18px;">@T("Leave A Comment")</h3>
 
                 <form class="comment-form">
                     <div class="row">
-                                   
+
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <textarea name="message"  class="form-control" id="comments" placeholder="@T("Your Comment")"></textarea>
+                                <textarea name="message" class="form-control" id="comments" placeholder="@T("Your Comment")"></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="default-btn "  style="margin-top:7px;" onclick="ModuleComments(@Model.Id);"  >@T("Submit") <i class="flaticon-right-arrow"></i></button>
+                    <button type="submit" class="default-btn " style="margin-top:7px;" onclick="ModuleComments(@Model.Id);">@T("Submit") <i class="flaticon-right-arrow"></i></button>
                 </form>
-              </div>
+            </div>
 
 
 
             @*<div class="col-3 mt-5">
-                <label for="input-wizard-1" class="form-check-label ">Add a Comments here..</label>
-                <textarea rows="4" class="form-check" id="comments" placeholder="Add Comments here......"> </textarea>
-            </div>
+                    <label for="input-wizard-1" class="form-check-label ">Add a Comments here..</label>
+                    <textarea rows="4" class="form-check" id="comments" placeholder="Add Comments here......"> </textarea>
+                </div>
 
 
-            <a class="default-btn" onclick="ModuleComments(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>*@
+                <a class="default-btn" onclick="ModuleComments(@Model.Id);">@T("Submit") <i class="flaticon-anxiety-1"></i></a>*@
         </div>
 
         <div class="psylo-post-navigation">
@@ -253,15 +264,16 @@
 
 
             }
-              @{
-                  if (Convert.ToInt32(TempData["Previousmodule"]) == 1)
-                  {
-                      TempData["totalmodulefirstidcount"] = 0;
-                  }
-                  else {
-                      TempData["totalmodulefirstidcount"] = 1;
-                  }
-                                    }
+            @{
+                if (Convert.ToInt32(TempData["Previousmodule"]) == 1)
+                {
+                    TempData["totalmodulefirstidcount"] = 0;
+                }
+                else
+                {
+                    TempData["totalmodulefirstidcount"] = 1;
+                }
+            }
             @if (ViewBag.TotalModules > ViewBag.SrNo)
 
             {
