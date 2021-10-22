@@ -104,7 +104,7 @@
                                 <input id="quotes" asp-for="Subtitle" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
                                 <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>*@
 
-                                     @if (Model.QuoteId != null)
+                                     @if (Model.QuoteId != 0)
                 {
   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
@@ -130,7 +130,7 @@
                                 <input id="quotesspanish" asp-for="SpanishSubtitleLogin" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
                                 <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>*@
 
-                                 @if (Model.QuoteId != null)
+                                 @if (Model.QuoteId != 0)
                                  {
                                 <div id="quotesSpanishuseredit"   class="mt-5" >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuoteuserEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
@@ -306,7 +306,7 @@
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotesregistraion" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>*@
-                                @if (Model.QuoteId!=null)
+                                @if (Model.QuoteId!=0)
                 {
   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
@@ -330,7 +330,7 @@
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotesSpanishregistration" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>*@
-                                 @if (Model.QuoteId != null)
+                                 @if (Model.QuoteId != 0)
                                  {
                                 <div id="quotesSpanishedit"   class="mt-5" >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuotedropdEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
@@ -644,7 +644,7 @@
                                 </div>
                             </div>*@
 
-                            @if (Model.QuoteId == null) {
+                            @if (Model.QuoteId == 0) {
                             <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
@@ -978,7 +978,7 @@ function TranslateQuoteloginSpanish(sel) {
                 data: { Quote },
 
                 success: function (data, status) {
-                    $('#quotesSpanishuseredit .label-inner').text(data.quote);
+                    $('#quotesSpanishuseredit .select2-selection__rendered').text(data.quote);
                 },
 
 
@@ -1002,7 +1002,7 @@ function TranslateQuoteloginSpanish(sel) {
                 data: { Quote },
 
                 success: function (data, status) {
-                    $('#quoteseditlogin .label-inner').text(data.quote);
+                    $('#quoteseditlogin .select2-selection__rendered').text(data.quote);
                 },
 
 

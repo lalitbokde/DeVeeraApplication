@@ -113,7 +113,10 @@ namespace DeVeeraApp.Controllers
                 //_localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.SliderThreeDescription);
 
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
-                if (quoteList != null && quoteList.Count > 0 && data.IsRandom == true)
+                var quotelanding = quoteList.Where(a => a.Id == model.LandingPageModel.WeeklyUpdate.QuoteId).ToList().FirstOrDefault();
+                model.LandingPageModel.WeeklyUpdate.Quote = quotelanding.Title + quotelanding.Author;
+
+                if (quoteList != null || quoteList.Count()!=0 && quoteList.Count > 0 && data.IsRandom == true)
                 {
                     int index = random.Next(quoteList.Count);
                     model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
@@ -125,7 +128,11 @@ namespace DeVeeraApp.Controllers
                     model.LandingPageModel.WeeklyUpdate.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
                     var quote = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Title);
                     var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
-                   model.LandingPageModel.WeeklyUpdate.LandingQuote= quote + " -- " + auth;
+                            if (model.LandingPageModel.WeeklyUpdate.Quote != null) { 
+                                var quoteland = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Quote);
+                                model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteland;
+                            }
+                            model.LandingPageModel.WeeklyUpdate.LandingQuote= quote + " -- " + auth;
                         }
                     }
 
@@ -210,6 +217,8 @@ namespace DeVeeraApp.Controllers
             {
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
                 var model = data?.ToModel<WeeklyUpdateModel>();
+                var quotewelcome = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Id == model.QuoteId).ToList().FirstOrDefault();
+                model.Quote = quotewelcome.Title + quotewelcome.Author;
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
                 if (userLanguage != null)
                 {
@@ -220,7 +229,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        model.Quote = data?.Quote;
+                        model.Quote = model.Quote;
                     }
                 }
                 if (model.BodyImageId != 0 && model.BannerImageId != 0)
