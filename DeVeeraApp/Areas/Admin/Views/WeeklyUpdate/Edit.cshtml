@@ -97,7 +97,32 @@
                                 @*<span asp-validation-for="Title" class="text-theme-21 mt-2"></span>*@
                                 <input asp-for="@Model.SpanishTitleLogin" id="titleSpanishLogin" type="text" class="form-control ">
                             </div>
-                            <div class="col-span-6 mt-3">
+                           
+                            <!--<div class="col-span-6 mt-5">-->
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquotespanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoutetrans();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesspanish" asp-for="SpanishSubtitleLogin" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
+                                <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>*@
+
+                                 @*@if (Model.QuoteId != 0)
+                                 {
+                                <div id="quotesSpanishuseredit"   class="mt-5" >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuoteuserEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
+                    </div>
+                }
+                else
+                {
+ <div id="quotesSpanishuseredit"  hidden class="mt-5" >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuoteuserEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
+                    </div>
+                }*@
+
+                            @*</div>*@
+
+
+                        </div>
+                         <div class=" mt-3">
                                 @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
@@ -110,7 +135,7 @@
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quoteseditlogin"  >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuoteloginSpanish(this)" id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                 }
                 else { 
@@ -118,35 +143,12 @@
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quoteseditlogin" hidden >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuoteloginSpanish(this)" id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                 }
 
                             </div>
-                            <div class="col-span-6 mt-5">
-                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                                <input id="randomquotespanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoutetrans();" />
-                                <label class="form-label text-theme-21 star">Random Quote</label>
-                                <input id="quotesspanish" asp-for="SpanishSubtitleLogin" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" ) />
-                                <span asp-validation-for="Subtitle" class="text-theme-6 mt-2"></span>*@
 
-                                 @if (Model.QuoteId != 0)
-                                 {
-                                <div id="quotesSpanishuseredit"   class="mt-5" >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuoteuserEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
-                    </div>
-                }
-                else
-                {
- <div id="quotesSpanishuseredit"  hidden class="mt-5" >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuoteuserEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
-                    </div>
-                }
-
-                            </div>
-
-
-                        </div>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" id="video" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
@@ -300,37 +302,14 @@
                                 <input asp-for="SubtitleRegistration" type="text" id="SubtitleSpanishregistration" class="form-control w-full" />
                                 <span asp-validation-for="SubtitleRegistration" class="text-theme-21 mt-2"></span>
                             </div>
-                            <div class="col-span-6 mt-3">
-                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                                <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
-                                <label class="form-label text-theme-21 star">Random Quote</label>
-                                <input id="quotesregistraion" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
-                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>*@
-                                @if (Model.QuoteId!=0)
-                {
-  <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
-                    <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit"  >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuotedropdSpanish(this)" id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                    </div>
-                }
-                else { 
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
-                    <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit" hidden >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuotedropdSpanish(this)" id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
-                    </div>
-                                }
-                            </div>
-                            <div class="col-span-6 mt-5">
+                           
+                            @*<div class="col-span-6 mt-5">*@
                                 @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquoteSpanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqouteSpanish();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotesSpanishregistration" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>*@
-                                 @if (Model.QuoteId != 0)
+                                 @*@if (Model.QuoteId != 0)
                                  {
                                 <div id="quotesSpanishedit"   class="mt-5" >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuotedropdEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
@@ -341,8 +320,8 @@
  <div id="quotesSpanishedit"  hidden class="mt-5" >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuotedropdEng(this)" id="quotedropdownspanedit" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
                     </div>
-                }
-                            </div>
+                }*@
+                            @*</div>*@
                             <div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
                                 <input asp-for="VideoHeader" type="text" id="videoheaderregistation" class="form-control w-full" placeholder="Video Header" />
@@ -354,6 +333,31 @@
                                 <span asp-validation-for="VideoHeaderRegistration" class="text-theme-21 mt-2"></span>
                             </div>
                         </div>
+
+                         <div class=" mt-3">
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
+                                <label class="form-label text-theme-21 star">Random Quote</label>
+                                <input id="quotesregistraion" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
+                                <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>*@
+                                @if (Model.QuoteId!=0)
+                {
+  <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotesedit"  >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                }
+                else { 
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotesedit" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                                }
+                            </div>
 
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>

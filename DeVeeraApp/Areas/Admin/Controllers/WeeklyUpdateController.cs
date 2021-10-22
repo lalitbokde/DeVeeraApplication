@@ -99,7 +99,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             //prepare Available Quotes
 
             model.AvilableQuote.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
-            model.AvilableQuoteSpanish.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
+           //model.AvilableQuoteSpanish.Add(new SelectListItem { Text = "Select Quote", Value = "0" });
             var AvailableQuote = _dashboardQuoteService.GetAllDashboardQuotes();
             foreach (var quote in AvailableQuote)
             {
@@ -111,12 +111,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     Selected = quote.Id == model.QuoteId
                 });
 
-                model.AvilableQuoteSpanish.Add(new SelectListItem
-                {
-                    Value = quote.Id.ToString(),
-                    Text = quotespanish,
-                    Selected = quote.Id == model.QuoteId
-                });
+                //model.AvilableQuoteSpanish.Add(new SelectListItem
+                //{
+                //    Value = quote.Id.ToString(),
+                //    Text = quotespanish,
+                //    Selected = quote.Id == model.QuoteId
+                //});
 
             }
 
