@@ -137,19 +137,34 @@
                                 <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                                 <p id="TitleSpanWBS" class="temp"></p>
                             </div>
-                            <div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                            <div class="col-span-6 mt-3">
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
 
                                 <input id="quoteslogin" asp-for="Quote" type="text" class="form-control w-full" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                                <p id="QuoteEngWBS" class="temp"></p>
+                                <p id="QuoteEngWBS" class="temp"></p>*@
+
+                                   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquoteuser" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotesuser" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuoteuserSpanish(this)" id="quotedropdowneng"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                                 
+
                             </div>
+
                             <div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
 
                                 <input id="quotesLoginspanish" asp-for="SpanishQuoteLogin" type="text" class="form-control w-full" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                                <p id="QuoteSpanWBS" class="temp"></p>
+                                <p id="QuoteSpanWBS" class="temp"></p>*@
+
+                                 <div id="quotesSpanishuser"  hidden class="mt-5" >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuoteuserEng(this)" id="quotedropdownspan" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
+                    </div>
+
                             </div>
                         </div>
 
@@ -307,30 +322,45 @@
                                 <p id="SubtitletagEng" class="temp"></p>
 
                             </div>
-                            <div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                            <div class="col-span-6 mt-3">
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotes" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="Quote" class="text-theme-6 mt-2"></span>
-                                <p id="QuoteSpan" class="temp"></p>
+                                <p id="QuoteSpan" class="temp"></p>*@
+
+                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quotes" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuotedropSpanish(this)" id="quotedropdowneng"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                      
                             </div>
                             <div class="col-span-6 mt-5">
-                                <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                                @*<label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquoteSpanish" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqouteSpanish();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <input id="quotesSpanish" asp-for="Quote" type="text" class="form-control w-full @((Model.IsRandom==true)? "hidden":"")" placeholder="Quote" />
                                 <span asp-validation-for="QuoteRegistration" class="text-theme-6 mt-2"></span>
-                                <p id="QuoteEng" class="temp"></p>
+                                <p id="QuoteEng" class="temp"></p>*@
+
+                                 @*<label for="input-wizard-1" class="form-label text-theme-21 star" hidden></label>
+                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  hidden type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star" hidden></label>*@
+                    <div id="quotesSpanish"  hidden class="mt-5" >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuoteSpanish" value="" onchange="TranslateQuotedropEng(this)" id="quotedropdownspan" type="text"  data-search="true" class="tail-select w-full"  placeholder="video name"></select>
+                    </div>
 
                             </div>
-                            <div class="col-span-6 mt-5">
+                            <div class="col-span-6 ">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
                                 <input asp-for="VideoHeaderRegistration" type="text" id="videoheaderregistation" class="form-control w-full" placeholder="Video Header" />
                                 <span asp-validation-for="VideoHeaderRegistration" class="text-theme-21 mt-2"></span>
                                 <p id="VideoHeaderSpan" class="temp"></p>
                             </div>
-                            <div class="col-span-6 mt-5">
+                            <div class="col-span-6 ">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video Header</label>
                                 <input asp-for="VideoHeader" type="text" id="videoSpanish" class="form-control w-full VideoHeaderSpanishR" placeholder="Video Header" />
                                 <span asp-validation-for="VideoHeader" class="text-theme-21 mt-2"></span>
@@ -596,14 +626,25 @@
                                     <span asp-validation-for="Title" class="text-theme-21 mt-2"></span>
                                 </div>*@
 
-                            <div class="col-span-6 mt-5">
+                            @*<div class="col-span-6 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                                 <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" onclick="hideshowqoute();" />
                                 <label class="form-label text-theme-21 star">Random Quote</label>
                                 <div id="quotes" class="@((Model.IsRandom==true)? "hidden":"")">
                                     <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                                 </div>
-                            </div>
+                            </div>*@
+
+                               <div class="col-span-12 mt-5">
+                                   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
+                    <input id="randomquotelanding" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <label class="form-label text-theme-21 star">Random Quote</label>
+                    <div id="quoteslanding" hidden >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    </div>
+                        </div>
+
+
                         </div>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
@@ -709,7 +750,7 @@
 
         var Title = document.getElementById('titleRegistration').value;
         var Subtitle = document.getElementById('Subtilteregistration').value;
-        var Quote = document.getElementById('quotes').value;
+        //var Quote = document.getElementById('quotes').value;
         var VideoHeader = document.getElementById('videoheaderregistation').value;
         if (Title == null || Title == '') {
             document.getElementById("TitletagSpan").innerHTML = "Please Enter Title.";
@@ -718,24 +759,24 @@
         if (Subtitle == null || Subtitle == '') {
             document.getElementById("SubtitletagSpan").innerHTML = "Please Enter Subtitle.";
         }
-        if (Quote == null || Quote == '') {
-            document.getElementById("QuoteSpan").innerHTML = "Please Enter Quote.";
-        }
+        //if (Quote == null || Quote == '') {
+        //    document.getElementById("QuoteSpan").innerHTML = "Please Enter Quote.";
+        //}
 
         if (VideoHeader == null || VideoHeader == '') {
             document.getElementById("VideoHeaderSpan").innerHTML = "Please Enter Video Header.";
         }
-        else if (Title != null || Title != '' && Subtitle != null || Subtitle != '' && Quote != null || Quote != '' && VideoHeader != null || VideoHeader != '') {
+        else if (Title != null || Title != '' && Subtitle != null || Subtitle != ''  && VideoHeader != null || VideoHeader != '') {
             $.ajax({
                 url: "/Admin/WeeklyUpdate/TranslateSpanish",
                 type: "POST",
-                data: { Title, Subtitle, Quote, VideoHeader },
+                data: { Title, Subtitle,  VideoHeader },
 
                 success: function (data, status) {
                     debugger
                     $("#titleSpanishregistration").val(data.title);
                     $("#SubtitleSpanishregistration").val(data.subtitle);
-                    $("#quotesSpanish").val(data.quote);
+                   // $("#quotesSpanish").val(data.quote);
                     $(".VideoHeaderSpanishR").val(data.videoHeader);
 
                 },
@@ -849,5 +890,162 @@
             });
         }
     }
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquotelanding").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quoteslanding").removeAttr('hidden');
+      }
+else
+{
+ $("#quoteslanding").attr('hidden',true);
+}
+
+  });
+});
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquote").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quotes").removeAttr('hidden');
+ $("#quotesSpanish").removeAttr('hidden');
+
+      }
+else
+{
+ $("#quotes").attr('hidden',true);
+
+ $("#quotesSpanish").attr('hidden',true);
+}
+
+  });
+});
+
+</script>
+<script>
+
+       function TranslateQuotedropSpanish(sel) {
+
+        var Quote = sel.options[sel.selectedIndex].text;//document.getElementById('quotedropdowneng').innerText;
+       if (Quote != null || Quote != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateQuoteDropSpanish",
+                type: "POST",
+                data: { Quote },
+
+                success: function (data, status) {
+                    $('#quotesSpanish .label-inner').text(data.quote);
+                },
+
+
+            });
+        }
+    }
+
+</script>
+<script>
+
+
+ function TranslateQuotedropEng(sel) {
+
+        var Quote = sel.options[sel.selectedIndex].text;//document.getElementById('quotedropdowneng').innerText;
+
+
+       if (Quote != null || Quote != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateQuotedropEng",
+                type: "POST",
+                data: { Quote },
+
+                success: function (data, status) {
+                    $('#quotes .label-inner').text(data.quote);
+                },
+
+
+            });
+        }
+    }
+</script>
+
+<script>
+  function TranslateQuoteuserSpanish(sel) {
+
+        var Quote = sel.options[sel.selectedIndex].text;//document.getElementById('quotedropdowneng').innerText;
+       if (Quote != null || Quote != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateQuoteDropSpanish",
+                type: "POST",
+                data: { Quote },
+
+                success: function (data, status) {
+                    $('#quotesSpanishuser .label-inner').text(data.quote);
+                },
+
+
+            });
+        }
+    }
+</script>
+
+<script>
+    function TranslateQuoteuserEng(sel) {
+
+        var Quote = sel.options[sel.selectedIndex].text;//document.getElementById('quotedropdowneng').innerText;
+
+
+       if (Quote != null || Quote != '') {
+            $.ajax({
+                url: "/Admin/WeeklyUpdate/TranslateQuotedropEng",
+                type: "POST",
+                data: { Quote },
+
+                success: function (data, status) {
+                    $('#quotesuser .label-inner').text(data.quote);
+                },
+
+
+            });
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+
+ // $("#quotes").attr('disabled','disabled');
+
+// $("#quotes").removeClass("hidden",true);
+
+  $("#randomquoteuser").change(function(){
+      if ($(this).is(':checked')) {
+          $("#quotesuser").removeAttr('hidden');
+ $("#quotesSpanishuser").removeAttr('hidden');
+
+      }
+else
+{
+ $("#quotesuser").attr('hidden',true);
+
+ $("#quotesSpanishuser").attr('hidden',true);
+}
+
+  });
+});
 
 </script>

@@ -376,13 +376,57 @@
                             <div class="mt-5">
 
                                 <label class="form-label text-theme-21 pl-1">Comments</label> -
-                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsleveldatamodal">Check Comments Here - @Model.LikeComments.Count()</a>
+                                <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsleveldatamodal">@*Check Comments Here - @Model.LikeComments.Count()*@</a>
                                 <!-- BEGIN: Modal like Content -->
-                                <div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
+
+                                 @*<div class="intro-y  py-5 sm:py-5 ">*@
+
+                              
+                                <div class="intro-y box p-5 mt-6">
+                                    <div class="overflow-x-auto scrollbar-hidden ">
+                                         <table class="table">
+                                        @if (Model.LikeComments.Count() != 0)
+                                        {
+                                             
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Comment</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">User Name</th>
+                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Date </th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{ int a = 1;
+                                                    @foreach (var likesuser in Model.LikeComments)
+                                            {
+                                                <tr>
+                                                    <td class="border-b dark:border-dark-5">@a</td>
+                                                    <td class="border-b dark:border-dark-5">@likesuser.Comments</td>
+                                                    <td class="border-b dark:border-dark-5">@likesuser.User.Email</td>
+                                                    <td class="border-b dark:border-dark-5">@likesuser.CreatedDate</td>
+                                                    
+                                                </tr>
+                                                        a++;
+                                                    }
+                                                    }
+                                            </tbody>
+                                        }
+                                           
+                                         </table>
+                                    </div>
+                                </div>
+
+                              
+                             @*</div>*@
+                               
+
+                              @*<div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
-                                            <!-- BEGIN: Modal Body -->
+                                             
                                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                                 <div class="col-span-12 sm:col-span-12">
 
@@ -427,7 +471,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div>*@
                                 <!-- END: Modal Content -->
                             </div>
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
