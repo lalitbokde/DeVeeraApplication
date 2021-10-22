@@ -14,6 +14,7 @@ namespace DeVeeraApp.ViewModels
             AvailableImages = new List<SelectListItem>();
             AvailableBannerImage = new List<SelectListItem>();
             AvilableQuote = new List<SelectListItem>();
+            AvilableQuoteSpanish = new List<SelectListItem>();
         }
 
         //[Range(1, int.MaxValue, ErrorMessage = "Please select the video")]
@@ -49,7 +50,7 @@ namespace DeVeeraApp.ViewModels
         public List<SelectListItem> AvailableImages { get; }
         public List<SelectListItem> AvailableBannerImage { get; set; }
         public List<SelectListItem> AvilableQuote { get; set; }
-
+        public List<SelectListItem> AvilableQuoteSpanish { get; }
         public string FileName { get; set; }
 
         //[NotMapped]

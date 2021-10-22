@@ -185,6 +185,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
 
                 _levelServices.InsertLevel(data);
+
+                var quotedata = _dashboardQuoteService.GetDashboardQuoteById(model.QuoteId);
+                quotedata.IsRandom = true; 
+                quotedata.LevelId = data.LevelNo;
+                _dashboardQuoteService.UpdateDashboardQuote(quotedata);
+
+
                 /// This is used for translate English To spanish
                 _translationService.Translate(model.Title, model.SpanishTitle);
                 _translationService.Translate(model.Subtitle, model.SpanishSubtitle);
@@ -353,9 +360,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 PrepareLevelModel(model);
 
              
-                var quotelevel = _dashboardQuoteService.GetDashboardQuoteById((int)model.LevelNo);
-
+               
+                var quotelevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a=>a.LevelId== (int)model.LevelNo).ToList().FirstOrDefault();
+                if (quotelevel != null){ 
                 model.QuoteId = quotelevel.Id;
+                }
                 //foreach (var result in imagedata)
                 //{
                 //    model.ImageLists.Where(a => a.Id == result.ImageId).ToList().ForEach(c => c.Selected = true);
@@ -454,9 +463,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
              
                 quotelevel.IsRandom=true;
                 quotelevel.LevelId = model.Id;               
-                quotelevel.LevelId = model.LevelNo;
-                quotelevel.IsDashboardQuote = false;
-                quotelevel.IsWeeklyInspiringQuotes = false;
+                quotelevel.LevelId = model.LevelNo;               
 
                 _dashboardQuoteService.UpdateDashboardQuote(quotelevel);
                 ////////  end of setting level ////

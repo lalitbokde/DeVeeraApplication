@@ -139,7 +139,16 @@
                             @Html.Raw(Model.LandingPageModel.WeeklyUpdate.Subtitle)
                             <div class="philosophy-quote">
                                 <i class="flaticon-close"></i>
-                                <p>@Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.LandingQuote)</p>
+                                <p>
+                                    @if (Model.LandingPageModel.WeeklyUpdate.QuoteId != null)
+                                    {
+                                        @Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.Quote)
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.LandingQuote)
+                                    }
+                                </p>
                             </div>
                             <div class="philosophy-btn">
                                 <a href="@ViewBag.VideoUrl" class="default-btn popup-youtube">@T("Watch Video") <i class="flaticon-play"></i></a>

@@ -86,7 +86,7 @@
                             <div class="col-lg-6">
                                 <div class="main-banner-content span">
                                     <h1> @T(Model.Title )<span>@T(Model.Subtitle)</span></h1>
-                                    @Html.Raw(@Model.Quote)
+                                  @Html.Raw(@Model.Quote)
                                 <div class="banner-btn">
                                     <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.FirstLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn">@T("Start From Begining")<i class="flaticon-pointer"></i></a><br>
                                     <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel"  class="default-btn mt-2">@T("Start From Where You Left Off")<i class="flaticon-right-arrow"></i></a>
