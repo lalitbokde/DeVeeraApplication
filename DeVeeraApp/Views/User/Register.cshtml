@@ -322,6 +322,7 @@
                     <label>@T("Password")</label>
                     <input asp-for="@Model.ConfirmPassword" type="password" class="form-control" placeholder="@T("Password")">
                     <span asp-validation-for="ConfirmPassword" class="text-theme-21 mt-2"></span>
+                    <p id="temp" class="temp"> @TempData["ConfirmPassword"]  </p>
                 </div>
 
                 <p class="description">@T("The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers")</p>

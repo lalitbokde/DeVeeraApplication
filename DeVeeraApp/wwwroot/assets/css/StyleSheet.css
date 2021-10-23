@@ -11,7 +11,8 @@
 
 .paper {
     position: relative;
-    height: 750px;
+    /* height: 750px;*/
+    height: 760px;
     width: 100%;
     background: rgba(255,255,255,0.9);
     /*margin: -275px -225px;*/
@@ -24,14 +25,16 @@
         content: '';
         position: absolute;
         left: 75px;
-        height: 105%;
+        /* height: 105%;*/
+        height: 100%;
         width: 2px;
         background: rgba(255,0,0,0.4);
     }
 
 .lines {
     margin-top: 12px;
-    height: calc(100% - 50px);
+    /* height: calc(100% - 50px);*/
+    height: calc(100% - 61px);
     width: 100%;
     background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
 }

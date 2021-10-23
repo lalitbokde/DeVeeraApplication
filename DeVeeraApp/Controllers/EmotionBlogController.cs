@@ -4,6 +4,7 @@ using CRM.Services.Authentication;
 using CRM.Services.Customers;
 using CRM.Services.DashboardQuotes;
 using CRM.Services.Emotions;
+using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.Settings;
 using CRM.Services.Users;
@@ -36,6 +37,10 @@ namespace DeVeeraApp.Controllers
         private readonly IDashboardQuoteService _dashboardQuoteService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
+        private readonly ITranslationService _translationService;
+      
+        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+
         #endregion
 
 
@@ -56,7 +61,8 @@ namespace DeVeeraApp.Controllers
                         IDashboardQuoteService dashboardQuoteService,
                         ISettingService settingService,
                         ILocalStringResourcesServices localStringResourcesServices,
-                               IAuthenticationService authenticationService
+                               IAuthenticationService authenticationService,
+                               ITranslationService translationService
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
                                     authenticationService: authenticationService)
@@ -75,6 +81,7 @@ namespace DeVeeraApp.Controllers
             _dashboardQuoteService = dashboardQuoteService;
             _settingService = settingService;
             _localStringResourcesServices = localStringResourcesServices;
+            _translationService = translationService; 
         }
 
         #endregion
@@ -105,9 +112,12 @@ namespace DeVeeraApp.Controllers
                 {
                     if (userLanguage.LanguageId == 5)
                     {
-                        model.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                        model.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
-                        model.Description = _localStringResourcesServices.GetResourceValueByResourceName(model.Description);
+                        //model.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                        //model.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                        //model.Description = _localStringResourcesServices.GetResourceValueByResourceName(model.Description);
+                        model.Title = model.Title != null ? _translationService.TranslateLevel(model.Title, key) : "";                        
+                        model.Subtitle = model.Subtitle != null ? _translationService.TranslateLevel(model.Subtitle, key) : "";
+                        model.Description = model.Description != null ? _translationService.TranslateLevel(model.Description, key) : "";
 
                     }
                     else
