@@ -277,14 +277,26 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SendOTP(UserModel model)
         {
+
+            ModelState.Remove("ErrorMessage");
+            if (ModelState.IsValid==false)
+            {
+                return RedirectToAction("Register", "User");
+            }
             if (model.countryCode == null)
             {
-                ModelState.AddModelError("countryCode", "please select country code.!!!");
+                ModelState.AddModelError("countryCode", "Please select country code.!!!");
                 return RedirectToAction("Register", "User");
             }
             if (model.MobileNumber == null)
             {
-                ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
+                ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
+                return RedirectToAction("Register", "User");
+
+            }
+            if (model.ConfirmPassword == null)
+            {
+                TempData["ConfirmPassword"] = "Please enter the password....!!!"; 
                 return RedirectToAction("Register", "User");
 
             }

@@ -82,10 +82,12 @@
 function getDiaryContent() {
     debugger
     var title = document.getElementById("title");
-    title = title == null ? "" : title.innerHTML
+    title = title == null ? "" : title.innerHTML;
     var comment = document.getElementById("comment");
-    comment = comment == null ? "" : comment.innerHTML
-    if (title == "" || comment == "") {
+    comment = comment == null ? "" : comment.innerHTML;
+    if (title == "" || comment == "" ||title==null||comment==null) {
+
+alert("Empty diary can not be saved!");
         swal({
             type: 'info',
             title: 'Empty diary can not be saved!',

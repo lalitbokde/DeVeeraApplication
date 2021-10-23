@@ -82,7 +82,7 @@
                                     <a><div class="sticky-note-fall-green" id="#efe6c1" onclick="getDiaryColor(this.id)"></div></a>
                                 </div>
                             </div>*@
-                            <div class="paper" id="diaryPaper" style="background-color:@Model.Diary.DiaryColor">
+                            <div class="paper" id="diaryPaper" style="background-color:@Model.Diary.DiaryColor;border-bottom-color:#888;">
                                 <div class="paper-header">
 
                                     <div class="row">
@@ -107,7 +107,7 @@
                                     </div>
 
                                 </div>
-                                <div class="lines" id="lines" style="background-image:repeating-linear-gradient(@Model.Diary.DiaryColor 0px, @Model.Diary.DiaryColor 24px, steelblue 25px)">
+                                <div class="lines" id="lines" style="background-image:repeating-linear-gradient(@Model.Diary.DiaryColor 0px, @Model.Diary.DiaryColor 24px, steelblue 25px);">
                                     <div class="text">
                                         <input asp-for="Diary.Id" hidden />
                                         <input asp-for="Diary.Title" hidden />

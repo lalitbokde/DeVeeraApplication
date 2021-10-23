@@ -45,9 +45,15 @@ namespace DeVeeraApp.ViewModels.User
         public string OldPassword { get; set; }
 
         //[NotMapped]
-        //[Required(ErrorMessage ="Enter correct password")]
-        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
-        //ErrorMessage = "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
+        [Required(ErrorMessage = "Enter correct password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
+        ErrorMessage = "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
+
+
+        //[DataType(DataType.Password)]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
+        //[Display(Name = "Password")]
+        //[RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be at least 8 characters and contain at 3 of 4 of the following: upper case (A-Z), lower case (a-z), number (0-9) and special character (e.g. !@#$%^&*)")]
         public string ConfirmPassword { get; set; }
         [NotMapped]
         public bool TwoFactorAuthentication { get; set; }
