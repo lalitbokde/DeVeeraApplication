@@ -361,6 +361,11 @@
         debugger
         var id = id;
         var comments = document.getElementById('comments').value;
+
+if(comments==null || comments==""){
+alert("Please add comment !!!.");
+
+}
         var url = '/Module/ModuleComments';
         $.ajax({
             url: url,
