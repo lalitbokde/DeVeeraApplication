@@ -41,7 +41,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
-        
+
         #endregion
 
 
@@ -62,7 +62,7 @@ namespace DeVeeraApp.Controllers
                               IUserService userService,
                                ILayoutSetupService layoutSetupService,
                                ISettingService settingService,
-                              
+
                                ILocalStringResourcesServices localStringResourcesServices
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
@@ -83,7 +83,7 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _localStringResourcesServices = localStringResourcesServices;
             _settingService = settingService;
-   
+
         }
 
         #endregion
@@ -116,36 +116,39 @@ namespace DeVeeraApp.Controllers
                 var quotelanding = quoteList.Where(a => a.Id == model.LandingPageModel.WeeklyUpdate.QuoteId).ToList().FirstOrDefault();
                 model.LandingPageModel.WeeklyUpdate.Quote = quotelanding.Title + quotelanding.Author;
 
-                if (quoteList != null || quoteList.Count()!=0 && quoteList.Count > 0 && data.IsRandom == true)
+                if (quoteList != null || quoteList.Count() != 0 && quoteList.Count > 0 && data.IsRandom == true)
                 {
                     int index = random.Next(quoteList.Count);
                     model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteList[index].Title + " -- " + quoteList[index].Author;
-                  
 
-                    if (userLanguagem != null) {
-                    if (userLanguagem.LanguageId ==5) { 
-                    model.LandingPageModel.WeeklyUpdate.Title= _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
-                    model.LandingPageModel.WeeklyUpdate.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
-                    var quote = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Title);
-                    var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
-                            if (model.LandingPageModel.WeeklyUpdate.Quote != null) { 
+
+                    if (userLanguagem != null)
+                    {
+                        if (userLanguagem.LanguageId == 5)
+                        {
+                            model.LandingPageModel.WeeklyUpdate.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
+                            model.LandingPageModel.WeeklyUpdate.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
+                            var quote = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Title);
+                            var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
+                            if (model.LandingPageModel.WeeklyUpdate.Quote != null)
+                            {
                                 var quoteland = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Quote);
                                 model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteland;
                             }
-                            model.LandingPageModel.WeeklyUpdate.LandingQuote= quote + " -- " + auth;
+                            model.LandingPageModel.WeeklyUpdate.LandingQuote = quote + " -- " + auth;
                         }
                     }
 
                     //model.LandingPageModel.WeeklyUpdate.LandingQuote = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
                 }
-                var master = _languageService.GetLanguageById(userLanguagem!=null?userLanguagem.LanguageId : 0);
+                var master = _languageService.GetLanguageById(userLanguagem != null ? userLanguagem.LanguageId : 0);
                 var dataForVideo = _videoMasterService.GetVideoById(data.VideoId);
 
                 if (master != null && master.Name == "Spanish")
                 {
                     ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
                 }
-                else 
+                else
                 {
                     ViewBag.VideoUrl = dataForVideo.VideoUrl;
                 }
@@ -218,7 +221,10 @@ namespace DeVeeraApp.Controllers
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
                 var model = data?.ToModel<WeeklyUpdateModel>();
                 var quotewelcome = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Id == model.QuoteId).ToList().FirstOrDefault();
-                model.Quote = quotewelcome.Title + quotewelcome.Author;
+                if (model.Quote != null)
+                {
+                    model.Quote = quotewelcome.Title + quotewelcome.Author;
+                }
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
                 if (userLanguage != null)
                 {
@@ -315,14 +321,14 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult NewUser(int QuoteType,int langId)
+        public IActionResult NewUser(int QuoteType, int langId)
         {
             var random = new Random();
             //setting language
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
             if (userLanguage != null)
             {
-               
+
                 userLanguage.LanguageId = langId;
                 _settingService.UpdateSetting(userLanguage);
             }
@@ -421,7 +427,7 @@ namespace DeVeeraApp.Controllers
             var list = _feelGoodStoryServices.GetAllFeelGoodStoriesSp(page_size: command.PageSize, page_num: command.Page, GetAll: command.GetAll, SortBy: "", ImageId: 0);
             model.FeelGoodListPaged = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<FeelGoodViewModel>();
             model.FeelGoodModel.Link_3_bannerImage = data?.ImageId > 0 ? _imageMasterService.GetImageById(data.ImageId)?.ImageUrl : null;
-         //  model.FeelGoodModel.Link_3_Title = data.
+            //  model.FeelGoodModel.Link_3_Title = data.
             return View(model);
         }
 

@@ -206,12 +206,13 @@
 
                             </div>
 
+
                               <div class="mt-5">
                                   @if (Model.QuoteId == 0) {
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quotesedit" class=""  hidden>
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel" style="z-index: 9999;" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                   }
                                   else
@@ -219,10 +220,11 @@
  <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quotesedit" class=""  >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel"  style="z-index: 9999;" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel"   type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                   }
                         </div>
+
 
 
                             <div class="mt-5">
@@ -379,12 +381,12 @@
                                 <label class="form-label text-theme-21 pl-1">Comments</label> -
                                 <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsleveldatamodal">@*Check Comments Here - @Model.LikeComments.Count()*@</a>
                                 <!-- BEGIN: Modal like Content -->
+                                @*<div class="intro-y  py-5 sm:py-5 ">*@
 
-                                 @*<div class="intro-y  py-5 sm:py-5 ">*@
 
-                              
                                 <div class="intro-y box p-5 mt-6">
                                     <div class="overflow-x-auto scrollbar-hidden ">
+
                                          <table class="table">
                                         @if (Model.LikeComments.Count() != 0)
                                         {
@@ -416,63 +418,64 @@
                                                     }
                                            
                                          </table>
+
                                     </div>
                                 </div>
 
-                              
-                             @*</div>*@
-                               
 
-                              @*<div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
+                                @*</div>*@
 
-                                             
-                                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                                <div class="col-span-12 sm:col-span-12">
 
-                                                    <div id="single-file-upload" class="p-5">
-                                                        <div class="preview">
-                                                            <div data-single="true" fallback="true">
-                                                                <div class="fallback">
+                                @*<div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
 
-                                                                </div>
-                                                                @{
-                                                                    @if (Model.LikeComments.Count != 0)
-                                                                    {
 
-                                                                        foreach (var likesuser in Model.LikeComments)
+                                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                                    <div class="col-span-12 sm:col-span-12">
+
+                                                        <div id="single-file-upload" class="p-5">
+                                                            <div class="preview">
+                                                                <div data-single="true" fallback="true">
+                                                                    <div class="fallback">
+
+                                                                    </div>
+                                                                    @{
+                                                                        @if (Model.LikeComments.Count != 0)
                                                                         {
 
-                                                                            if (likesuser.Comments != null)
+                                                                            foreach (var likesuser in Model.LikeComments)
                                                                             {
-                                                                                <label for="input-wizard-1" class="form-label text-theme-21 ">* @likesuser.User.Email :</label>
-                                                                                <div class="dz-message" data-dz-message>
-                                                                                    <div class="text-md font-medium">@likesuser.Comments</div>
-                                                                                </div>
-                                                                                <br />
+
+                                                                                if (likesuser.Comments != null)
+                                                                                {
+                                                                                    <label for="input-wizard-1" class="form-label text-theme-21 ">* @likesuser.User.Email :</label>
+                                                                                    <div class="dz-message" data-dz-message>
+                                                                                        <div class="text-md font-medium">@likesuser.Comments</div>
+                                                                                    </div>
+                                                                                    <br />
+                                                                                }
+
+
                                                                             }
 
-
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
                                                                         }
 
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
-                                                                    }
 
-
-                                                                }
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>*@
+                                    </div>*@
                                 <!-- END: Modal Content -->
                             </div>
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
@@ -802,7 +805,7 @@
                                                                                 </div>
                                                                                 <br />
                                                                             }
-                                                                          
+
 
                                                                         }
 
@@ -1026,26 +1029,25 @@
         }
     }
 
-</script>   
+</script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
- // $("#quotes").attr('disabled','disabled');
+        // $("#quotes").attr('disabled','disabled');
 
-// $("#quotes").removeClass("hidden",true);
+        // $("#quotes").removeClass("hidden",true);
 
-  $("#randomquote").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quotesedit").removeAttr('hidden');
-      }
-else
-{
- $("#quotesedit").attr('hidden',true);
-}
+        $("#randomquote").change(function () {
+            if ($(this).is(':checked')) {
+                $("#quotesedit").removeAttr('hidden');
+            }
+            else {
+                $("#quotesedit").attr('hidden', true);
+            }
 
-  });
-});
+        });
+    });
 
 </script>
 <script>
