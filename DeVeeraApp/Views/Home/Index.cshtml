@@ -140,7 +140,7 @@
                             <div class="philosophy-quote">
                                 <i class="flaticon-close"></i>
                                 <p>
-                                    @if (Model.LandingPageModel.WeeklyUpdate.QuoteId != null)
+                                    @if (Model.LandingPageModel.WeeklyUpdate.QuoteId != 0)
                                     {
                                         @Html.Raw(Model.LandingPageModel?.WeeklyUpdate?.Quote)
                                     }

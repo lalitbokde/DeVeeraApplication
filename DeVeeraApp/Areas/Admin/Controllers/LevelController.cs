@@ -377,13 +377,14 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(LevelModel model)
+        public IActionResult Edit(LevelModel model, IFormCollection form)
         {
             AddBreadcrumbs("Level", "Edit", "/Admin/Level/List", $"/Admin/Level/Edit/{model.Id}");
             _ = Request.Form["selectedImages"];
 
             if (ModelState.IsValid)
             {
+                string name = Request.Form["selectcheck"];
                 model.VideoId = (model.VideoId == 0) ? model.VideoId = null : model.VideoId;
 
                 var levelData = _levelServices.GetLevelById(model.Id);
@@ -460,11 +461,11 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
                 //setting for respected quote to that level /////////
                 var quotelevel = _dashboardQuoteService.GetDashboardQuoteById(model.QuoteId);
-             
+                if (name !="2") { 
                 quotelevel.IsRandom=true;
                 quotelevel.LevelId = model.Id;               
-                quotelevel.LevelId = model.LevelNo;               
-
+                quotelevel.LevelId = model.LevelNo;     
+                }                
                 _dashboardQuoteService.UpdateDashboardQuote(quotelevel);
                 ////////  end of setting level ////
                 _notificationService.SuccessNotification("video lesson has been edited successfully.");

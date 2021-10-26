@@ -217,7 +217,7 @@
                                   }
                                   else
                                   {
- <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" checked />
+                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quotesedit" class=""  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel"   type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
@@ -225,7 +225,7 @@
                                   }
                         </div>
 
-
+                            <input  type="text" value="" id="selectcheck" name="selectcheck" hidden/>
 
                             <div class="mt-5">
                                 @{
@@ -1041,9 +1041,13 @@
         $("#randomquote").change(function () {
             if ($(this).is(':checked')) {
                 $("#quotesedit").removeAttr('hidden');
+document.getElementById("selectcheck").value=1;
             }
             else {
                 $("#quotesedit").attr('hidden', true);
+
+document.getElementById("selectcheck").value=2;
+
             }
 
         });

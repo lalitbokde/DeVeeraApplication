@@ -113,8 +113,8 @@ namespace DeVeeraApp.Controllers
                 //_localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.SliderThreeDescription);
 
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
-                var quotelanding = quoteList.Where(a => a.Id == model.LandingPageModel.WeeklyUpdate.QuoteId).ToList().FirstOrDefault();
-                model.LandingPageModel.WeeklyUpdate.Quote = quotelanding.Title + quotelanding.Author;
+                var quotelanding = quoteList.Where(a => a.Id == model.LandingPageModel.WeeklyUpdate.QuoteId).ToList().FirstOrDefault();               
+                model.LandingPageModel.WeeklyUpdate.Quote = quotelanding?.Title + quotelanding?.Author;
 
                 if (quoteList != null || quoteList.Count() != 0 && quoteList.Count > 0 && data.IsRandom == true)
                 {

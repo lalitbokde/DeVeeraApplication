@@ -215,7 +215,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(WeeklyUpdateModel model)
+        public IActionResult Edit(WeeklyUpdateModel model, IFormCollection form)
         {
             AddBreadcrumbs($"{model.QuoteType} Page", "Edit", $"/Admin/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/Admin/WeeklyUpdate/Edit/{model.Id}?type={model.QuoteType}");
             if (model.QuoteType.ToString() == "Registration" || model.QuoteType.ToString() == "Login")
@@ -231,6 +231,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 if (model.IsActive == true)
                 {
                     _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteType);
@@ -259,6 +260,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 val.Quote = model.Quote;
                
                 val.VideoHeader = model.VideoHeader;
+
+                string userlogin = Request.Form["userlogin"];
+                string userRegistration = Request.Form["userRegistration"];
+                string userlanding = Request.Form["userlanding"];
+                if (userlogin == "2" || userRegistration == "2" || userlanding == "2")
+                {
+                    val.QuoteId = 0;
+                    val.IsRandom = true;
+                }
 
 
                 _weeklyUpdateServices.UpdateWeeklyUpdate(val);

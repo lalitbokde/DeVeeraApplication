@@ -146,9 +146,9 @@
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                 }
-
+                             <input  type="text" value="" id="userlogin" name="userlogin" hidden/>
                             </div>
-
+                        
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" id="video" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
@@ -358,7 +358,7 @@
                     </div>
                                 }
                             </div>
-
+                         <input  type="text" value="" id="userRegistration" name="userRegistration" hidden/>
                         <div class="mt-5">
                             <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
                             <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" id="video" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
@@ -651,7 +651,7 @@
                             @if (Model.QuoteId == 0) {
                             <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
+                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quoteslandingedit" hidden >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
@@ -662,14 +662,17 @@
 
                              <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked/>
+                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" checked/>
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quoteslandingedit"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                         </div>
                             }
+                             
+
                         </div>
+                          <input  type="text" value="" id="userlanding" name="userlanding" hidden/>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-12 mt-5">
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Video</label>
@@ -890,10 +893,12 @@
   $("#randomquotelandingedit").change(function(){
       if ($(this).is(':checked')) {
           $("#quoteslandingedit").removeAttr('hidden');
+
+document.getElementById("userlanding").value=1;
       }
 else
 {
- $("#quoteslandingedit").attr('hidden',true);
+ $("#quoteslandingedit").attr('hidden',true);document.getElementById("userlanding").value=2;
 }
 
   });
@@ -956,14 +961,14 @@ else
   $("#randomquote").change(function(){
       if ($(this).is(':checked')) {
           $("#quotesedit").removeAttr('hidden');
- $("#quotesSpanishedit").removeAttr('hidden');
+document.getElementById("userRegistration").value=1;
 
       }
 else
 {
  $("#quotesedit").attr('hidden',true);
 
- $("#quotesSpanishedit").attr('hidden',true);
+ document.getElementById("userRegistration").value=1;
 }
 
   });
@@ -1025,14 +1030,13 @@ function TranslateQuoteloginSpanish(sel) {
   $("#randomquotelogin").change(function(){
       if ($(this).is(':checked')) {
           $("#quoteseditlogin").removeAttr('hidden');
- $("#quotesSpanishuseredit").removeAttr('hidden');
+ document.getElementById("userlogin").value=1;
 
       }
 else
 {
  $("#quoteseditlogin").attr('hidden',true);
-
- $("#quotesSpanishuseredit").attr('hidden',true);
+ document.getElementById("userlogin").value=2;
 }
 
   });
