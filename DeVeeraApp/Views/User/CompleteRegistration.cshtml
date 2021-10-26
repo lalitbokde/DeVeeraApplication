@@ -63,8 +63,10 @@
                             <input type="radio" asp-for="@Model.FamilyOrRelationshipType" class="form-check-input" value="@FamilyOrRelationship.Other">
                             <label class="form-check-label" for="checkme">@T("Other")</label>
                         </div>
-
+                        <p id="temp" class="temp mt-5" style="color:red;"> @TempData["Family"]  </p>
                     </div>
+                   
+                   
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="register-form">
@@ -89,8 +91,10 @@
                             <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
                             <label class="form-check-label">@T("Doctorate")</label>
                         </div>
-
+                        <p id="temp" class="temp mt-5" style="color:red;"> @TempData["Education"]  </p>
                     </div>
+                   
+                   
                 </div>
             </div>
             <div class="row mt-5">
@@ -113,7 +117,10 @@
                             <input type="radio" asp-for="@Model.GenderType" class="form-check-input" value="@Gender.DontWantToSay">
                             <label class="form-check-label" for="checkme">@T("Remember me")</label>
                         </div>
+                        <p id="temp" class="temp mt-5" style="color:red;"> @TempData["Gender"]  </p>
                     </div>
+                   
+                 
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="login-form mb-30">
@@ -126,10 +133,12 @@
                             <input type="radio" asp-for="@Model.IncomeAboveOrBelow80K" class="form-check-input" value="@Income.IncomeBelow80K">
                             <label class="form-check-label" for="checkme">@T("Below $80K")</label>
                         </div>
-
+                        <p id="temp" class="temp mt-5" style="color:red;"> @TempData["Income"]  </p>
 
 
                     </div>
+                   
+                  
                 </div>
 
             </div>
@@ -143,13 +152,16 @@
                                 <div class="form-group">
                                     <label>@T("Occupation")</label>
                                     <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="occupation">
-                                </div>
+                                    <p id="temp" class="temp mt-5" style="color:red;"> @TempData["Occupation"]  </p>
+                                </div>                               
+                              
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>@T("Age")</label>
                                     <input asp-for="@Model.Age" type="number" min="1" class="form-control" placeholder="age">
-                                </div>
+                                </div>                              
+                                <p id="temp" class="temp mt-5" style="color:red;"> @TempData["Age"]  </p>
                             </div>
                         </div>
                     </div>

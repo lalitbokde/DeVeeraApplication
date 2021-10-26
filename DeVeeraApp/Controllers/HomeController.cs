@@ -18,10 +18,12 @@ using Microsoft.AspNetCore.Localization;
 using CRM.Services.Layoutsetup;
 using CRM.Core.ViewModels;
 using CRM.Services.Settings;
+using DeVeeraApp.Filters;
+using CRM.Services.Security;
 
 namespace DeVeeraApp.Controllers
 {
-
+   
     public class HomeController : BaseController
     {
         #region fields
@@ -41,7 +43,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILayoutSetupService _LayoutSetupService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
-
+        private readonly IPermissionService _permissionService;
         #endregion
 
 
@@ -63,7 +65,8 @@ namespace DeVeeraApp.Controllers
                                ILayoutSetupService layoutSetupService,
                                ISettingService settingService,
 
-                               ILocalStringResourcesServices localStringResourcesServices
+                               ILocalStringResourcesServices localStringResourcesServices,
+                               IPermissionService permissionService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -83,7 +86,7 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _localStringResourcesServices = localStringResourcesServices;
             _settingService = settingService;
-
+            _permissionService = permissionService;
         }
 
         #endregion
@@ -95,8 +98,11 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index()
-        {
+        public IActionResult Index(DataSourceRequest command)        
+      {
+
+
+
             var random = new Random();
             var model = new UserModel();
 
