@@ -8,9 +8,9 @@
         paginationSize: 10, 
         paginationSizeSelector: [10, 20, 30, 40],
         columns: [
-            {
-                formatter: "responsiveCollapse",
-            },
+            ////{
+            ////    formatter: "responsiveCollapse",
+            ////},
 
             { title: "#", width: 90, headerSort: false, formatter: "rownum" },
           

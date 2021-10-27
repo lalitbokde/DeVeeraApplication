@@ -4,17 +4,18 @@ var table = new Tabulator("#tabulatorVideo",
     {
         index: "id",
         layout: "fitColumns",
-        responsiveLayout: "collapse",
+        //responsiveLayout: "collapse",
         pagination: "local",
         paginationSize: 10,
         paginationSizeSelector: [10, 20, 30, 40],
-        resizableColumns: true,
-        
+        resizableColumns: true,        
         columns: [
-            {
-                formatter: "responsiveCollapse",
-            },
-            { title: "#", width: 90, headerSort: true, sorter:"number",formatter: "rownum", width:150},
+            //{
+            //    formatter: "responsiveCollapse",
+            //},
+
+
+            { title: "#", width: 90, headerSort: true, sorter:"number",formatter: "rownum", width:150 },
             { title: "Video", field: "Name",  headerSort: false, sorter: "string", width: 270 },
            //{ title: "New", field: "IsNew", sorter: "boolean", width: 120 },
             { title: "English", field: "actions", hozAlign: " ", width: 190, headerSort: false, formatter: function (e, t) { return `<a target="_blank" href="/Admin/Video/Play/?Id=${e.getData().Id}&&srno=${1}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a></div>` }, },
@@ -29,3 +30,7 @@ var table = new Tabulator("#tabulatorVideo",
 
 var tableData = $("#Video").val();
 table.setData(tableData);
+
+//document.getElementsByClassName("")
+
+

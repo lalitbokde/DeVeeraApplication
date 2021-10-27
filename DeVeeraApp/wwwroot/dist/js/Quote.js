@@ -29,9 +29,9 @@ var table = new Tabulator("#tabulator1",
         paginationSize: 10,
         paginationSizeSelector: [10, 20, 30, 40],
         columns: [
-            {
-                formatter: "responsiveCollapse",
-            },
+            //{
+            //    formatter: "responsiveCollapse",
+            //},
             
             //{ title: "#", field: "", sorter: "number", width: 50, editor: true, headerSort: false},
             { title: "#", width: 50, headerSort: false, formatter: "rownum"},

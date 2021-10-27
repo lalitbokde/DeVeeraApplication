@@ -5,17 +5,18 @@ var table = new Tabulator("#tabulatorReg",
         
         index: "id",
         layout: "fitColumns",
-        responsiveLayout: "collapse",
+       //responsiveLayout: "collapse",
         pagination: "local",
         paginationSize: 10,
         paginationSizeSelector: [10, 20, 30, 40],
         resizableColumns: true,
         columns: [
-            {
-                formatter: "responsiveCollapse",
-            },
+            //{
+            //    formatter: "responsiveCollapse",
+            //},
 
-         
+
+           //{ title: "#", field: "", sorter: "number", width: 50, editor: true, headerSort: false},  
             { title: "#", width: 90, headerSort: false, formatter: "rownum", width: 100 },
             { title: "User Name", field: "Email", headerSort: true, sorter: "string", width: 170 },
             { title: "Gender", field: "GenderType", headerSort: true, sorter: "string", width: 170 },
@@ -27,6 +28,9 @@ var table = new Tabulator("#tabulatorReg",
 
     });
 
+
+
 var tableData = $("#Register").val();
 table.setData(tableData);
+
 

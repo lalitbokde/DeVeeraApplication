@@ -12,9 +12,9 @@ var table = new Tabulator("#tabulatorW",
         paginationSizeSelector: [10, 20, 30, 40],
         resizableColumns: true,
         columns: [
-            {
-                formatter: "responsiveCollapse",
-            },
+            //{
+            //    formatter: "responsiveCollapse",
+            //},
            
             { title: "#", width: 150, headerSort: true, sorter: "number", formatter: "rownum" },
             { title: "Title", field: "Title", headerSort: false, sorter: "string", width: 170 },

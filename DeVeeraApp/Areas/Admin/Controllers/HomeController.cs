@@ -16,10 +16,11 @@ using CRM.Services.Authentication;
 using CRM.Services.DashboardMenu;
 using CRM.Services.Localization;
 using CRM.Services.VideoModules;
+using CRM.Services.Security;
 
 namespace DeVeeraApp.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+   [Area("Admin")]
     [AuthorizeAdmin]
     public class HomeController : BaseController
     {
@@ -38,6 +39,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         private readonly IS3BucketService _s3BucketService;
         private readonly ITranslationService _translationService;
         private readonly IModuleService _moduleService;
+        private readonly IPermissionService _permissionService;
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         #endregion
@@ -58,7 +60,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                               IS3BucketService s3BucketService,
                               ITranslationService translationService,
                               IModuleService moduleService,
-                              IUserService userService
+                              IUserService userService,
+                              IPermissionService permissionService
                               ) : base(workContext: workContext,
                                                                                   httpContextAccessor: httpContextAccessor,
                                                                                   authenticationService: authenticationService)
@@ -76,16 +79,18 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             _s3BucketService = s3BucketService;
             _translationService = translationService;
             _moduleService = moduleService;
+            _permissionService = permissionService;
         }
 
         #endregion
 
         #region Method
+     
         public IActionResult Index()
         {
-
+           
             AddBreadcrumbs("Application", "Dashboard", "/Home/Index", "/Admin");
-
+           
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var model = new DashboardQuoteModel();

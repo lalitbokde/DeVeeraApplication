@@ -9,9 +9,9 @@
         paginationSizeSelector: [10, 20, 30, 40],
         resizableColumns: true,
         columns: [
-            {
-                formatter: "responsiveCollapse",
-            },
+            //{
+            //    formatter: "responsiveCollapse",
+            //},
 
             //{ title: "#", field: "", sorter: "number", width: 50, editor: true, headerSort: false},
             { title: "#", width: 90, headerSort: false, formatter: "rownum",width: 250 },
