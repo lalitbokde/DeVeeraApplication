@@ -770,26 +770,7 @@ namespace DeVeeraApp.Controllers
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
-            if (model.Occupation == null)
-            {
-                TempData["Occupation"] = "Please enter the Occupation !!";
-            }
-            if (model.FamilyOrRelationshipType == 0)
-            {
-                TempData["Family"] = "Please select the Family type !!";
-            }
-            if (model.EducationType == 0)
-            {
-                TempData["Education"] = "Please select the Education type !!";
-            }
-            if (model.GenderType == 0)
-            {
-                TempData["Gender"] = "Please select the gender !!";
-            }
-            if (model.IncomeAboveOrBelow80K == 0)
-            {
-                TempData["Income"]= "Please select Income !! ";
-            }
+            
 
             if (ModelState.IsValid)
             {
