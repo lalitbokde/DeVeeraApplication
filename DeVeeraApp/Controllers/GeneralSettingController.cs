@@ -57,7 +57,7 @@ namespace DeVeeraApp.Controllers
                         model.LandingPageModel.Language.ReturnUrl = model.LandingPageModel.Language.ReturnUrl ?? "/Home/Index";
                     }
                 }
-               
+                TempData["LangaugeId"] = model.LandingPageModel.Language.Id;
             }
             return LocalRedirect(model.LandingPageModel.Language.ReturnUrl);
         }
