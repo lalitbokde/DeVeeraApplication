@@ -770,8 +770,22 @@ namespace DeVeeraApp.Controllers
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
-            
-
+            if (model.GenderType == 0)
+            {
+                ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
+            }
+            if (model.EducationType == 0)
+            {
+                ModelState.AddModelError("EducationType", "Please select EducationType!!!");
+            }
+            if (model.GenderType == 0)
+            {
+                ModelState.AddModelError("GenderType", "Please select GenderType!!!");
+            }
+            if (model.IncomeAboveOrBelow80K == 0)
+            {
+                ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select INcome!!!");
+            }
             if (ModelState.IsValid)
             {
                 var currentUser = _UserService.GetUserById(model.UserId);

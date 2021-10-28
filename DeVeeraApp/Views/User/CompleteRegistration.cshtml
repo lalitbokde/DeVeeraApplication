@@ -39,7 +39,11 @@
                         </div>
                     </div>
                 </div>
-
+                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                {
+                    <div asp-validation-summary="All" class="text-theme-6 mt-4">
+                    </div>
+                }
                 <div class="col-lg-6 col-md-12">
                     <div class="register-form">
                         <h2>@T("Family/relationship status")</h2>
@@ -65,8 +69,8 @@
                         </div>
                         <span asp-validation-for="FamilyOrRelationshipType" class="text-theme-6 mt-2"></span>
                     </div>
-                   
-                   
+
+
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="register-form">
@@ -93,8 +97,8 @@
                         </div>
                         <span asp-validation-for="EducationType" class="text-theme-6 mt-2"></span>
                     </div>
-                   
-                   
+
+
                 </div>
             </div>
             <div class="row mt-5">

@@ -6,17 +6,17 @@ namespace DeVeeraApp.ViewModels.User
     {
 
 
-        [Required(ErrorMessage = "Please select the gender !!")]
-        public Gender GenderType { get; set; }
         [Required]
+        public Gender GenderType { get; set; }
+        [Required(ErrorMessage ="Please enter the Age !!!")]
         public int Age { get; set; }
-        [Required(ErrorMessage ="Please enter the Occupation!!")]
+        [Required(ErrorMessage ="Please enter the Occupation !!!")]
         public string Occupation { get; set; }
-        [Required(ErrorMessage = "Please select the Education type !!")]
+        [Required]
         public Education EducationType { get; set; }
-        [Required(ErrorMessage = "Please select Income !!")]
+        [Required]
         public Income IncomeAboveOrBelow80K { get; set; }
-        [Required(ErrorMessage = "Please select the Family type !!")]
+        [Required]
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
         public string Reason { get; set; }
 
