@@ -99,7 +99,7 @@ namespace DeVeeraApp.Controllers
         {
             var random = new Random();
             var model = new UserModel();
-
+         var langId=  TempData["LangaugeId"];
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
             if (data != null)
@@ -132,13 +132,34 @@ namespace DeVeeraApp.Controllers
                             var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
                             if (model.LandingPageModel.WeeklyUpdate.Quote != null)
                             {
-                                var quoteland = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Quote);
-                                model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteland;
+                                //var quoteland = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Quote);
+                                //model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteland;
+                                var quotelandingPg = _localStringResourcesServices.GetResourceValueByResourceName(quotelanding?.Title);
+                                var authlanding = _localStringResourcesServices.GetResourceValueByResourceName(quotelanding?.Author);
+                                model.LandingPageModel.WeeklyUpdate.Quote= quotelandingPg + " -- " + authlanding;//when from admin landing qoute is fixed and userlanguage spanish
                             }
                             model.LandingPageModel.WeeklyUpdate.LandingQuote = quote + " -- " + auth;
                         }
                     }
-
+                    if(userLanguagem==null&& langId != null)
+                    {
+                        if (Convert.ToInt32(langId) == 5)
+                        {
+                            model.LandingPageModel.WeeklyUpdate.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Title);
+                            model.LandingPageModel.WeeklyUpdate.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Subtitle);
+                            var quote = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Title);
+                            var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
+                            if (model.LandingPageModel.WeeklyUpdate.Quote != null)
+                            {
+                                //var quoteland = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.Quote);
+                                //model.LandingPageModel.WeeklyUpdate.LandingQuote = quoteland;
+                                var quotelandingPg = _localStringResourcesServices.GetResourceValueByResourceName(quotelanding?.Title);
+                                var authlanding = _localStringResourcesServices.GetResourceValueByResourceName(quotelanding?.Author);
+                                model.LandingPageModel.WeeklyUpdate.Quote = quotelandingPg + " -- " + authlanding;//when from admin landing qoute is fixed and userlanguage spanish
+                            }
+                            model.LandingPageModel.WeeklyUpdate.LandingQuote = quote + " -- " + auth;
+                        }
+                    }
                     //model.LandingPageModel.WeeklyUpdate.LandingQuote = _localStringResourcesServices.GetResourceValueByResourceName(model.LandingPageModel.WeeklyUpdate.LandingQuote);
                 }
                 var master = _languageService.GetLanguageById(userLanguagem != null ? userLanguagem.LanguageId : 0);
@@ -221,17 +242,20 @@ namespace DeVeeraApp.Controllers
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
                 var model = data?.ToModel<WeeklyUpdateModel>();
                 var quotewelcome = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Id == model.QuoteId).ToList().FirstOrDefault();
-                if (model.Quote != null)
-                {
+                
                     model.Quote = quotewelcome.Title + quotewelcome.Author;
-                }
+                
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
                 if (userLanguage != null)
                 {
                     if (userLanguage.LanguageId == 5)
                     {
-                        model.Quote = _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
-
+                       // model.Quote = _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
+                        var quote = _localStringResourcesServices.GetResourceValueByResourceName(quotewelcome?.Title);
+                        var auth = _localStringResourcesServices.GetResourceValueByResourceName(quotewelcome?.Author);
+                        model.Quote = quote + " -- " + auth;
+                        model.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                        model.Subtitle= _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
                     }
                     else
                     {
