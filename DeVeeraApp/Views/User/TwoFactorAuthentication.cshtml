@@ -100,7 +100,7 @@
                                         <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                     }
                                     <div class="form-group">
-                                        <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("passcode")" required value="12345">
+                                        <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("passcode")" required >
                                         <span asp-validation-for="OTP" class="text-theme-6 mt-2"></span>
                                     </div>
                                     <button type="submit">@T("Submit")</button>

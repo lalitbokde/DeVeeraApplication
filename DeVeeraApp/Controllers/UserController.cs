@@ -309,19 +309,19 @@ namespace DeVeeraApp.Controllers
             var verifymobno = model.countryCode + model.MobileNumber;
             if (_UserService.GetUserByMobileNo(verifymobno) == null)
             {
-                //var verification =
-                //    await _verificationService.StartVerificationAsync(verifymobno, "sms");
+                var verification =
+                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-                //if (verification.IsValid == true)
-                //{
+                if (verification.IsValid == true)
+                {
 
-                //}
-                //else
-                //{
-                // return RedirectToAction("Register", "User");
+                }
+                else
+                {
+                    return RedirectToAction("Register", "User");
 
 
-                //}
+                }
 
                 return RedirectToAction(nameof(VerifyOTP),
                                                  new UserModel
