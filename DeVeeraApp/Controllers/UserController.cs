@@ -804,6 +804,17 @@ namespace DeVeeraApp.Controllers
             var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
             model.MobileNumber = verifymobno;
+            var passcode = TempData["WrongPasscode"];
+            if (passcode != null)
+            {
+                if(passcode.ToString()== "WrongPasscode")
+                {
+                    ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                }
+            }
+            else { 
+           
+            
             var verification =
                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
             if (verification.IsValid == true)
@@ -813,6 +824,7 @@ namespace DeVeeraApp.Controllers
             else
             {
                 ModelState.AddModelError("OTP", "OTP Doesn't match");
+            }
             }
             return View(model);
         }
@@ -830,7 +842,9 @@ namespace DeVeeraApp.Controllers
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
                     if (result.IsValid == false)
                     {
-                        ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                        ModelState.AddModelError("OTP", "Passcode Doesn't match !!!");
+                        TempData["WrongPasscode"] = "WrongPasscode";
+                        return RedirectToAction("TwoFactorAuthentication","User");
                     }
                 }
 
@@ -839,7 +853,9 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
+                    ModelState.AddModelError("OTP", "Passcode Doesn't match !!!");
+                    TempData["WrongPasscode"] = "WrongPasscode";
+                    return RedirectToAction("TwoFactorAuthentication", "User");
                 }
 
                 //if (model.OTP == null)

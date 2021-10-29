@@ -90,7 +90,7 @@
                                     <input type="hidden" asp-for="@Model.LevelId" />
                                     <input type="hidden" asp-for="@Model.ModuleId" />
                                     <input type="hidden" asp-for="@Model.UserId" />
-                                    @{ string mobnumber = Model.MobileNumber.ToString();
+                                    @{ string mobnumber = Model.MobileNumber?.ToString();
                                         if (mobnumber != "")
                                         {
                                             var value = Model.MobileNumber.Count() - 4;
