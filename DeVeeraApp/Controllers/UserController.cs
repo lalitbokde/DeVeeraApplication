@@ -36,10 +36,11 @@ using CRM.Services.TwilioConfiguration;
 using System.Threading.Tasks;
 using CRM.Core.TwilioConfig;
 using System.Collections.Generic;
+using DeVeeraApp.Filters;
 
 namespace DeVeeraApp.Controllers
 {
-
+   
     public class UserController : BaseController
     {
         #region fields
@@ -192,6 +193,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public virtual IActionResult Login(DeVeeraApp.ViewModels.User.LoginModel model, string returnUrl, bool captchaValid)
         {
+           
 
             if (ModelState.IsValid)
             {
@@ -779,7 +781,22 @@ namespace DeVeeraApp.Controllers
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
-
+            if (model.FamilyOrRelationshipType == 0)
+            {
+                ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
+            }
+            if (model.EducationType == 0)
+            {
+                ModelState.AddModelError("EducationType", "Please select EducationType!!!");
+            }
+            if (model.GenderType == 0)
+            {
+                ModelState.AddModelError("GenderType", "Please select GenderType!!!");
+            }
+            if (model.IncomeAboveOrBelow80K == 0)
+            {
+                ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");
+            }
             if (ModelState.IsValid)
             {
                 var currentUser = _UserService.GetUserById(model.UserId);
