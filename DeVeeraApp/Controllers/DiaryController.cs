@@ -10,6 +10,7 @@ using CRM.Services.Emotions;
 using CRM.Services.Layoutsetup;
 using CRM.Services.Localization;
 using CRM.Services.Message;
+using CRM.Services.Settings;
 using CRM.Services.TwilioConfiguration;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
@@ -46,6 +47,7 @@ namespace DeVeeraApp.Controllers
 
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
         private readonly IVerificationService _verificationService;
+        private readonly ISettingService _settingService;
         #endregion
 
 
@@ -65,7 +67,8 @@ namespace DeVeeraApp.Controllers
                        IVerificationService verificationService,
                         IHttpContextAccessor httpContextAccessor,
                         ITranslationService translationService,
-                               IAuthenticationService authenticationService
+                               IAuthenticationService authenticationService,
+                                ISettingService settingService
                                ) : base(workContext: workContext,
                                     httpContextAccessor: httpContextAccessor,
                                     authenticationService: authenticationService)
@@ -83,6 +86,7 @@ namespace DeVeeraApp.Controllers
             _imageMasterService = imageMasterService;
             _translationService = translationService;
             _verificationService = verificationService;
+            _settingService = settingService; 
         }
 
         #endregion
@@ -158,10 +162,13 @@ namespace DeVeeraApp.Controllers
                 }
                 #region DiaryList
 
+                
+
                 command.PageSize = (command.PageSize == 0) ? 5 : command.PageSize;
                 var list = _DiaryMasterService.GetAllDiaries(page_num: command.Page, page_size: command.PageSize, GetAll: command.GetAll, SortBy: "", SearchByDate: "", UserId: currentUser.Id);
                 model.DiaryList = list.FirstOrDefault() != null ? list.GetPaged(command.Page, command.PageSize, list.FirstOrDefault().TotalRecords) : new PagedResult<DiaryViewModel>();
                 #endregion
+                
 
                 return View(model);
 
@@ -216,8 +223,8 @@ namespace DeVeeraApp.Controllers
                             LastUpdatedOn= DateTime.UtcNow
                         };
                         _DiaryMasterService.InsertDiary(newdiary);
-                        _translationService.Translate(newdiary.Title,key);
-                        _translationService.Translate(newdiary.Comment, key);
+                        _translationService.TranslateEnglishToSpanish(newdiary.Title,key);
+                        _translationService.TranslateEnglishToSpanish(newdiary.Comment, key);
                         _notificationService.SuccessNotification("Diary added successfully.");                
 
                         if (diary == null )
@@ -233,8 +240,8 @@ namespace DeVeeraApp.Controllers
                         diary.LastUpdatedOn = DateTime.UtcNow;
                         diary.DiaryColor = model.DiaryColor;
                         _DiaryMasterService.UpdateDiary(diary);
-                        _translationService.Translate(diary.Title, key);
-                        _translationService.Translate(diary.Comment, key);
+                        _translationService.TranslateEnglishToSpanish(diary.Title, key);
+                        _translationService.TranslateEnglishToSpanish(diary.Comment, key);
                         _notificationService.SuccessNotification("Diary updated successfully.");
                         return RedirectToAction(nameof(AskUserEmotion));
                     }
