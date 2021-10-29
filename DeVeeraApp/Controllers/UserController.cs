@@ -374,9 +374,9 @@ namespace DeVeeraApp.Controllers
         }
 
 
-        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model, string Confirmpwd)
+        public async Task<IActionResult> ResendOTP(string Email, string Mobilenumber, UserModel model, string Confirmpwd,int langId)
         {
-
+            model.LandingPageModel.Language.Id = langId; TempData["LangaugeId"] = langId;
             // var user = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             model.MobileNumber = "+" + model.MobileNumber;
             model.ConfirmPassword = Confirmpwd;
