@@ -118,7 +118,7 @@ namespace DeVeeraApp.Controllers
         public IActionResult Index(int levelno, DateTime? lastLoginDateUtc)
         {
             var random = new Random();
-
+           var ch= TempData["LangaugeId"];
             var AllLevels = _levelServices.GetAllLevels().ToList();
            
             ViewBag.TotalLevels = AllLevels.Count;

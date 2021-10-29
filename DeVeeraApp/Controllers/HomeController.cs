@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Localization;
 using CRM.Services.Layoutsetup;
 using CRM.Core.ViewModels;
 using CRM.Services.Settings;
+using CRM.Core.Domain;
 
 namespace DeVeeraApp.Controllers
 {
@@ -180,6 +181,7 @@ namespace DeVeeraApp.Controllers
                 model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
 
             }
+            TempData["LangaugeId"]=   langId;
             return View(model);
         }
 
@@ -234,7 +236,7 @@ namespace DeVeeraApp.Controllers
         {
             var random = new Random();
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
-
+          
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
             var currentLevel = currentUser?.LastLevel > 0 ? _levelServices.GetLevelById((int)currentUser.LastLevel)?.LevelNo : null;
             if (QuoteType != 0)
@@ -242,26 +244,48 @@ namespace DeVeeraApp.Controllers
                 var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType(QuoteType);
                 var model = data?.ToModel<WeeklyUpdateModel>();
                 var quotewelcome = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Id == model.QuoteId).ToList().FirstOrDefault();
-                
+                if (model.QuoteId != null) { 
                     model.Quote = quotewelcome.Title + quotewelcome.Author;
-                
-                var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
-                if (userLanguage != null)
-                {
-                    if (userLanguage.LanguageId == 5)
-                    {
-                       // model.Quote = _localStringResourcesServices.GetResourceValueByResourceName(model.Quote);
-                        var quote = _localStringResourcesServices.GetResourceValueByResourceName(quotewelcome?.Title);
-                        var auth = _localStringResourcesServices.GetResourceValueByResourceName(quotewelcome?.Author);
-                        model.Quote = quote + " -- " + auth;
-                        model.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
-                        model.Subtitle= _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
-                    }
-                    else
-                    {
-                        model.Quote = model.Quote;
-                    }
                 }
+                var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+                var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();//Allquote when quote id not set
+                var langId = TempData["LangaugeId"];
+                if (quoteList != null || quoteList.Count() != 0 && quoteList.Count > 0 && data.IsRandom == true)
+                {
+                    int index = random.Next(quoteList.Count);
+                    model.Quote = quoteList[index].Title + " -- " + quoteList[index].Author;
+                    if (userLanguage != null)
+                    {
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            if (quotewelcome != null) { 
+                            var quote = _localStringResourcesServices.GetResourceValueByResourceName(quotewelcome?.Title);
+                            var auth = _localStringResourcesServices.GetResourceValueByResourceName(quotewelcome?.Author);
+                            model.Quote = quote + " -- " + auth;
+                            }
+                            else
+                            {
+                                var quote = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Title);
+                                var auth = _localStringResourcesServices.GetResourceValueByResourceName(quoteList[index].Author);
+                                model.Quote = quote + " -- " + auth;
+                            }
+                            if (model.Title != null) { 
+                            model.Title = _localStringResourcesServices.GetResourceValueByResourceName(model.Title);
+                            }
+                            if (model.Subtitle != null) { 
+                            model.Subtitle = _localStringResourcesServices.GetResourceValueByResourceName(model.Subtitle);
+                            }
+                        }
+                        else
+                        {
+                            model.Quote = model.Quote;
+                        }
+                    }
+                   
+                    
+                    }
+
+                       
                 if (model.BodyImageId != 0 && model.BannerImageId != 0)
                 {
                     var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
@@ -356,6 +380,17 @@ namespace DeVeeraApp.Controllers
                 userLanguage.LanguageId = langId;
                 _settingService.UpdateSetting(userLanguage);
             }
+            if (userLanguage == null && langId!=0)
+           {
+
+                var settingData = new Setting
+                {
+                    UserId = _workContext.CurrentUser.Id,
+                        LanguageId = langId
+                    };
+                    _settingService.InsertSetting(settingData);
+            }
+
             //end of setting language
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
