@@ -862,6 +862,10 @@ namespace DeVeeraApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.UserId == 0)
+                {
+                    model.UserId = _WorkContextService.CurrentUser.Id;
+                }
                 var currentUser = _UserService.GetUserById(model.UserId);
                 var enterpass = model.OTP.Length;
                 if (enterpass == 6)
@@ -907,7 +911,7 @@ namespace DeVeeraApp.Controllers
                     };
                     _diaryPasscodeService.InsertDiaryPasscode(diaryPasscode);
 
-                    return RedirectToAction("ChangePasscode", "Diary");
+                    return RedirectToAction("Create", "Diary");
                 }
 
 
