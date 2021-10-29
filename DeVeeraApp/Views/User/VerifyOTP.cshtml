@@ -98,7 +98,7 @@
                         <h2>@T("Enter Your OTP")</h2>
                     </div>
 
-                    <form asp-controller="User" asp-action="VerifyOTP" method="post" class="OtpForm ">
+                    <form asp-controller="User" asp-action="VerifyOTP" method="post" asp-route-langId="@TempData["LangaugeId"]" class="OtpForm ">
                         <input type="hidden" asp-for="UserRoleId" value="1" />
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">

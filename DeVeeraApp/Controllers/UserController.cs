@@ -270,16 +270,22 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Register()
         {
+
             var model = new UserModel();
+            if (model.LandingPageModel.Language.Id == 0)
+            {
+                model.LandingPageModel.Language.Id = Convert.ToInt32(TempData["LangaugeId"]);
+            }
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
             model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendOTP(UserModel model)
+        public async Task<IActionResult> SendOTP(UserModel model,int langId)
         {
-
+           
+          TempData["LangaugeId"]= langId;
             ModelState.Remove("ErrorMessage");
             if (ModelState.IsValid==false)
             {
@@ -346,6 +352,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult VerifyOTP(UserModel model)
         {
+            var c = TempData["LangaugeId"];
             ViewData["MobileNumber"] = model.MobileNumber;
             UserPassword password = new UserPassword
             {
@@ -388,9 +395,13 @@ namespace DeVeeraApp.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP)
+        public async Task<IActionResult> VerifyOTP(UserModel model, string[] OTP,int langId)
         {
-
+            if (model.LandingPageModel.Language.Id == 0)
+            {
+                model.LandingPageModel.Language.Id = langId;
+                TempData["LangaugeId"] = langId;
+            }
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
             if (Convert.ToInt32(final) < 6)
             {
@@ -470,7 +481,7 @@ namespace DeVeeraApp.Controllers
                                     _notificationService.SuccessNotification("User registered successfull.");
 
                                     //return RedirectToAction("Index", "Dashboard");
-                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
+                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration, langId=model.LandingPageModel.Language.Id });
 
 
                                 }
