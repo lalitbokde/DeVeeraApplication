@@ -8,9 +8,9 @@ namespace DeVeeraApp.ViewModels.User
 
         [Required]
         public Gender GenderType { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please enter the Age !!!")]
         public int Age { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Please enter the Occupation !!!")]
         public string Occupation { get; set; }
         [Required]
         public Education EducationType { get; set; }
