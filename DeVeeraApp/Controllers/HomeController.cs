@@ -389,15 +389,20 @@ namespace DeVeeraApp.Controllers
                 userLanguage.LanguageId = langId;
                 _settingService.UpdateSetting(userLanguage);
             }
-            if (userLanguage == null && langId!=0)
+            if (userLanguage == null )
            {
-
+                if (langId == 0)
+                {
+                    langId = _settingService.GetSettingByUserId(34).LanguageId;//Get the language set by Admin if user Manuaaly has not change from its side
+                }
+               
                 var settingData = new Setting
                 {
                     UserId = _workContext.CurrentUser.Id,
                         LanguageId = langId
                     };
                     _settingService.InsertSetting(settingData);
+              
             }
 
             //end of setting language
