@@ -114,19 +114,19 @@
                         }
                         <div class=" flex-wrap d-flex justify-content-center row col-lg-12 ">
                             <div class="  col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt1" onkeyup="moveCursor(this,'txt2')" class=" colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt1" onkeyup="moveCursor(this,'txt2','txt1')" class=" colj-2 input-newsletter" >
                             </div>
                             <div class="col-2  ">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3')" class="colj-2   input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3','txt2')" class="colj-2   input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4')" class="  colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4','txt3')" class="  colj-2 input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5')" class="colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5','txt4')" class="colj-2 input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6')" class=" colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6','txt5')" class=" colj-2 input-newsletter" >
                             </div>
                             <div class=" col-2">
                                 <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt6" required autocomplete="off" class="colj-2  input-newsletter" >
@@ -141,11 +141,21 @@
                 <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
             </div>
         </div>*@
-
-                        <div class="text-start mt-4 mb-0">
+                      
+                        @*var difference = TempData["firstOtpsentTime"];
+                            var sendotp = DateTime.Now;var checkDiff = Convert.ToDateTime(difference) -Convert.ToDateTime(sendotp);
+                            if (Convert.ToInt32(checkDiff.TotalSeconds) < 120000)*@ 
+                            @*<div class="text-start mt-4 mb-0" >
+                           <a     id="resend"   class="text-start"  style="color:#f0b9b2;font:800;pointer-events:none;cursor:default;">Resend otp</a>
+                          
+                       </div>*@
+                           
+                        <div class="text-start mt-4 mb-0" >
                            <a   href="/User/ResendOTP/?Email=@Model.Email&Mobilenumber=@ViewData["MobileNumber"]&Confirmpwd=@Model.ConfirmPassword&langId=@TempData["LangaugeId"]"   id="resend"   class="text-start"  style="color: #f0b9b2;font:800;">Resend otp</a>
                           
                        </div>
+                          
+                      
                     </form>
                     
                 </div>
@@ -215,13 +225,17 @@
         );
     }
 
-    function moveCursor(fromTextbox, toTextbox)
+    function moveCursor(fromTextbox, toTextbox,currenttxtbox)
     {
+
+var currenttext=document.getElementById(currenttxtbox).value;
+
+if(currenttext!=null&& currenttext!=""){
         var length = fromTextbox.value.length;
         var maxLength = fromTextbox.getAttribute("maxLength");
         if (length=maxLength) {
             document.getElementById(toTextbox).focus();
-        }
+        }}
     }
 </script>
 <script>
