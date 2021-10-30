@@ -284,7 +284,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SendOTP(UserModel model,int langId)
         {
-           
+            TempData["firstOtpsentTime"] = DateTime.Now;
           TempData["LangaugeId"]= langId;
             ModelState.Remove("ErrorMessage");
             if (ModelState.IsValid==false)
@@ -352,6 +352,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult VerifyOTP(UserModel model)
         {
+            var t = TempData["firstOtpsentTime"];
             var c = TempData["LangaugeId"];
             ViewData["MobileNumber"] = model.MobileNumber;
             UserPassword password = new UserPassword
