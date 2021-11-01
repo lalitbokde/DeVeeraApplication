@@ -163,7 +163,7 @@ namespace DeVeeraApp.Controllers
             {
                 if (userLanguage.LanguageId == 5)
                 {
-                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
+                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData?.FullDescription);
 
                 }
                 else
@@ -202,7 +202,7 @@ namespace DeVeeraApp.Controllers
             var quoteListlevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true && a.LevelId==videoData.LevelNo).ToList().FirstOrDefault();
             if (quoteListlevel != null)
             {
-                videoData.Quote = quoteListlevel.Title; ;
+                videoData.Quote = quoteListlevel.Title;
                 videoData.Author = quoteListlevel.Author;
             }
             else { 

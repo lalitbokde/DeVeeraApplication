@@ -9,7 +9,7 @@
 @inject CRM.Services.IS3BucketService s3BucketService
 @inject CRM.Services.Settings.ISettingService settingService
 @{var Description = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Description).Where(a => a.IsActive == true).FirstOrDefault()?.Description; }
-@{var video = videoMasterService.GetVideoById((int)Model.VideoId)?.Key;}
+@{var video = videoMasterService.GetVideoById((int)Model?.VideoId)?.Key;}
 @{ var videourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(video) : ""; }
 @{var Spanishvideo = videoMasterService.GetVideoById((int)Model.VideoId)?.SpanishKey;}
 @{ var Spanishvideourl = (s3BucketService.GetPreSignedURL(video) != null) ? s3BucketService.GetPreSignedURL(Spanishvideo) : ""; }

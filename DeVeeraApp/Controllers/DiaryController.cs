@@ -159,6 +159,7 @@ namespace DeVeeraApp.Controllers
                     model.Diary.DiaryColor = diary.DiaryColor;
                     model.Diary.CreatedOn = diary.CreatedOn;
                     model.Diary.LastUpdatedOn = diary.LastUpdatedOn;
+                   
                 }
                 #region DiaryList
 
@@ -229,7 +230,7 @@ namespace DeVeeraApp.Controllers
 
                         if (diary == null )
                         {
-                            return RedirectToAction(nameof(AskUserEmotion));
+                            return RedirectToAction(nameof(AskUserEmotion),new {DiaryId = newdiary.Id});
                         }
 
                     }
@@ -243,7 +244,7 @@ namespace DeVeeraApp.Controllers
                         _translationService.TranslateEnglishToSpanish(diary.Title, key);
                         _translationService.TranslateEnglishToSpanish(diary.Comment, key);
                         _notificationService.SuccessNotification("Diary updated successfully.");
-                        return RedirectToAction(nameof(AskUserEmotion));
+                        return RedirectToAction(nameof(AskUserEmotion), new { DiaryId = diary.Id });
                     }
                     return RedirectToAction("Create", "Diary");
 
@@ -316,10 +317,10 @@ namespace DeVeeraApp.Controllers
             return Json(result);
         }
 
-        public IActionResult AskUserEmotion()
+        public IActionResult AskUserEmotion(int DiaryId)
         {
             EmotionModel model = new EmotionModel();
-
+            TempData["DiaryId"] = DiaryId;
             var list = _emotionService.GetAllEmotions().ToList();
 
             if (list.Count != 0)
