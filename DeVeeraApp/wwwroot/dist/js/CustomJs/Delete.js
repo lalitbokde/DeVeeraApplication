@@ -448,11 +448,11 @@ location.reload();
 }
 
 
-function DeleteEditPageImage(Id) {
+function DeleteEditPageImage(Id,imagekey) {
 
     var jsonData = {
 
-        imageId: Id
+        imageId: Id,imagekeyval:imagekey
 
     };
     $.post("/Admin/Image/DeleteImage",
@@ -481,8 +481,11 @@ function DeleteEditPageImage(Id) {
                         buttonsStyling: false
                     }).then(function () {
                         debugger
-                        $("#previousImage").hide();
-                        $("#uploadImageFile").show();
+                        $("#previousImage1").hide();
+                        $("#uploadImageFile1").show();
+
+                        $("#previousImage2").hide();
+                        $("#uploadImageFile2").show(); 
 
                     })
                 }

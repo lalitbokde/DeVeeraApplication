@@ -34,15 +34,20 @@
             <div class="intro-y col-span-12">
                 <!-- BEGIN: Recent Activities -->
                 <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3">
+                    @{var i = 0; var Id = 0;
+                        @foreach (var item in Model.DiaryList.Results)
+                        {
 
-                    @foreach (var item in Model.DiaryList.Results)
-                    {
                         <div class="intro-x relative flex items-center mb-3">
 
                             <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
                                 <div class="flex items-center">
-                                    <div class="font-medium line-clamp1">@Html.Raw(item.Title)</div>
+                                
+                                    <div class="font-medium line-clamp1"> <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#DiaryDetail"  id="clickdiary" onclick="test(@item.Id);" >@Html.Raw(item.Title)</a></div>
                                 </div>
+                                <input id="diarytitle_@item.Id" hidden value="@item.Title"/>   <input id="diarycomment_@item.Id" hidden value="@item.Comment"/>
+                                <input id="diarycreatedDate_@item.Id" hidden value="@item.CreatedOn"/>
+                                 <input id="diaryupdatedate_@item.Id" hidden value="@item.LastUpdatedOn"/>
                                 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-1">
                                     <div class="intro-y  col-span-6">
                                         <div class="text-xs text-gray-500 ">Created On : @item.CreatedOn.ToShortDateString() @item.CreatedOn.ToShortTimeString()</div>
@@ -53,10 +58,47 @@
                                     <div class="font-medium text-theme-24 line-clamp2 mt-1">~ @(_userService.GetUserById(item.UserId).Email)</div>
                                 </div>
                             </div>
-                        </div>
-                    }
 
+                        </div>
+
+                            i++;
+             
+              
+
+                        }
+           <div class="modal fade"id="DiaryDetail" tabindex="-1" role="dialog" aria-labelledby="DiaryDetail" aria-hidden="true">
+                    <div class="modal-dialog " role="document">
+                        <div class="modal-content">
+                             <div class="modal-header"> <h5 class="modal-title" 
+                            id="exampleModalLabel">
+                            Diary Details
+                        </h5></div> <button type="button" 
+                            class="close" 
+                            data-dismiss="modal" 
+                            aria-label="Close">
+                            <span aria-hidden="true">
+                              x
+                            </span>
+                        </button>
+
+                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                <div class="col-span-12 sm:col-span-12">
+                             <p id="modal_body"></p>
+                                   @*@Model.DiaryList.Results.Where(a=>a.Id==Id).FirstOrDefault().Title<br />
+                                   @Model.DiaryList.Results.Where(a=>a.Id==Id).FirstOrDefault().Comment<br />
+                                      @Model.DiaryList.Results.Where(a=>a.Id==Id).FirstOrDefault().CreatedOn.ToShortDateString()<br>
+                                  @Model.DiaryList.Results.Where(a=>a.Id==Id).FirstOrDefault().LastUpdatedOn.ToShortTimeString()*@
+                                  
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                   </div>
+     
+                   }
                 </div>
+                 
+
                 <!-- END: Recent Activities -->
             </div>
             <div class="mt-4">
@@ -70,5 +112,33 @@
 
 
 <script src="~/dist/js/Diary.js"></script>
+<script type="text/javascript">
+        $("#clickdiary").click(function () {alert("text");
+            var title = $("#diarytitle").val();
+            var diarycomment = $("#diarycomment").val();
+  var createDate = $("#diarycreatedDate").val();
+            var updateDate = $("#diaryupdatedate").val();
 
+            var str =  title  + diarycomment+createDate+updateDate;
+               
+            $("#modal_body").html(str);
+        });
+    </script>
+<script>
+function test(Id){
+var title=(document.getElementById('diarytitle_'+Id).value);
+
+var comment=(document.getElementById('diarycomment_'+Id).value);
+
+var createDate=(document.getElementById('diarycreatedDate_'+Id).value);
+var updateDate=(document.getElementById('diaryupdatedate_'+Id).value);
+
+
+
+            var str =  "Title  :"+title+"<br/>"+"Comment  :"+comment+"<br/>"+"Create Date  :"+createDate+"<br/>"+"Update Date  :"+updateDate  ;
+               
+         $("#modal_body").html(str);
+
+}
+</script>
 

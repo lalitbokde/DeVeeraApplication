@@ -84,7 +84,7 @@
                                 <form asp-controller="Diary" asp-action="EnterPasscode" method="post">
                                     <div class="form-group">
                                         @{ string mobnumber = Model.MobileNumber?.ToString();
-                                            if (Model.MobileNumber != null)
+                                            if (Model.MobileNumber != null && Model.MobileNumber!="")
                                             {
                                                 var value = Model.MobileNumber.Count() - 4;
                                                 mobnumber = mobnumber.Substring(value, 4);
