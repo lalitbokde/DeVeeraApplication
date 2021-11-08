@@ -183,7 +183,7 @@ namespace DeVeeraApp.Controllers
                 {
                     ViewBag.VideoUrl = dataForVideo.VideoUrl;
                 }
-                if (userLanguagem.LanguageId == 5) {
+                if (userLanguagem?.LanguageId == 5) {
                     model.LandingPageModel.SliderOneImageUrl = _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl;
 
                     model.LandingPageModel.SliderTwoImageUrl = _imageMasterService.GetImageById(data.SliderTwoImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl;
