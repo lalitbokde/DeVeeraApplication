@@ -150,7 +150,7 @@ namespace DeVeeraApp.Controllers
 
                 var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
                 if (userLanguage?.LanguageId == 5) { 
-                model.Diary.DiaryHeaderImageUrl = data?.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.SpanishImageUrl : null;
+                model.Diary.DiaryHeaderImageUrl = _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.SpanishImageUrl!=null?_imageMasterService.GetImageById(data.DiaryHeaderImageId)?.SpanishImageUrl:_imageMasterService.GetImageById(data.DiaryHeaderImageId)?.ImageUrl;
                 }
                 else
                 {

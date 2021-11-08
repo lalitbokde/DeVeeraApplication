@@ -120,7 +120,7 @@ namespace DeVeeraApp.Controllers
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
             if (userLanguage?.LanguageId == 5)
             {
-                moduleData.BannerImageUrl = imagesRecord?.SpanishImageUrl;
+                moduleData.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null ? imagesRecord?.SpanishImageUrl : imagesRecord?.ImageUrl;
             }
             else { 
             moduleData.BannerImageUrl = imagesRecord?.ImageUrl;
@@ -128,7 +128,7 @@ namespace DeVeeraApp.Controllers
             var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
             if (userLanguage?.LanguageId == 5)
             {
-                moduleData.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl;
+                moduleData.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl!=null? imagesRecord1?.SpanishImageUrl: imagesRecord1?.ImageUrl;
             }
             else
             {
@@ -140,7 +140,7 @@ namespace DeVeeraApp.Controllers
             var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
             if (userLanguage?.LanguageId == 5)
             {
-                moduleData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl;
+                moduleData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl!=null? imagesRecord2?.SpanishImageUrl: imagesRecord2?.ImageUrl;
             }
             else
             {
@@ -159,7 +159,7 @@ namespace DeVeeraApp.Controllers
                 moduleData.NextTitle = usernextmodule?.Title;
                 var module = _imageMasterService.GetImageById(usernextmodule.BannerImageId);
                 if (userLanguage?.LanguageId == 5) { 
-                moduleData.NextImageUrl = module?.SpanishImageUrl;
+                moduleData.NextImageUrl = module?.SpanishImageUrl!=null ? module?.SpanishImageUrl : module?.ImageUrl;
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace DeVeeraApp.Controllers
                 var module = _imageMasterService.GetImageById(userprevmodule.BannerImageId);
                 if (userLanguage?.LanguageId == 5)
                 {
-                    moduleData.PrevImageUrl = module?.SpanishImageUrl;
+                    moduleData.PrevImageUrl = module?.SpanishImageUrl!=null? module?.SpanishImageUrl: module?.ImageUrl;
                 }
                 else
                 {
@@ -190,7 +190,7 @@ namespace DeVeeraApp.Controllers
                 var level = _imageMasterService.GetImageById(nextlevel.BannerImageId);
                 if (userLanguage?.LanguageId == 5)
                 {
-                    moduleData.NextLevelUrl = level?.SpanishImageUrl;
+                    moduleData.NextLevelUrl = level?.SpanishImageUrl!=null? level?.SpanishImageUrl: level?.ImageUrl;
                 }
                 else
                 {

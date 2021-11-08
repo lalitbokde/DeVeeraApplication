@@ -8,8 +8,8 @@
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
-            <div class="font-medium text-center text-lg">Edit Local String Resources</div>
-            <div class="text-gray-600 text-center mt-2">Please edit resources</div>
+            <div class="font-medium text-center text-lg">Edit Translations</div>
+            <div class="text-gray-600 text-center mt-2">Please edit translation</div>
         </div>
 
 
@@ -24,13 +24,13 @@
                     }
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">English</label>
-                        <input asp-for="ResourceName" id="ResourceName" type="text" class="form-control" placeholder="resource name" onchange="TranslationSpanish(this.id);" />
+                        <input asp-for="ResourceName" id="ResourceName" type="text" class="form-control" placeholder="English" onchange="TranslationSpanish(this.id);" />
                         <span asp-validation-for="ResourceName" class="text-theme-21 mt-2"></span>
 
                     </div>
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">Spanish</label>
-                        <input asp-for="ResourceValue" id="spanish" type="text" class="form-control" placeholder="resource value" onchange="TranslatationEnglish(this.id);" />
+                        <input asp-for="ResourceValue" id="spanish" type="text" class="form-control" placeholder="Spanish" onchange="TranslatationEnglish(this.id);" />
                         <span asp-validation-for="ResourceValue" class="text-theme-21 mt-2"></span>
 
                     </div>

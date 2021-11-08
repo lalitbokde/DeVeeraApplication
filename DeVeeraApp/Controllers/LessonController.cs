@@ -137,7 +137,7 @@ namespace DeVeeraApp.Controllers
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             var imagesRecord = _imageMasterService.GetImageById(data?.BannerImageId);
             if (userLanguage.LanguageId == 5) { 
-            videoData.BannerImageUrl = imagesRecord?.SpanishImageUrl;
+            videoData.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null? imagesRecord?.SpanishImageUrl: imagesRecord?.ImageUrl;
             }
             else
             {
@@ -145,12 +145,17 @@ namespace DeVeeraApp.Controllers
             }
 
             var imagesRecord1 = _imageMasterService.GetImageById(data?.VideoThumbImageId);
-            videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
-
+            if (userLanguage.LanguageId == 5) { 
+            videoData.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl!=null? imagesRecord1?.SpanishImageUrl: imagesRecord1?.ImageUrl;
+            }
+            else
+            {
+                videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+            }
             var imagesRecord2 = _imageMasterService.GetImageById(data?.ShareBackgroundImageId);
             if (userLanguage.LanguageId == 5)
             {
-                videoData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl;
+                videoData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl!=null? imagesRecord2?.SpanishImageUrl: imagesRecord2?.ImageUrl;
             }
             else
             {
@@ -283,7 +288,7 @@ namespace DeVeeraApp.Controllers
                 videoData.NextTitle = userNextLevel?.Title;
                 var level = _imageMasterService.GetImageById(userNextLevel.BannerImageId);
                 if (userLanguage?.LanguageId == 5) { 
-                videoData.NextImageUrl = level?.SpanishImageUrl;
+                videoData.NextImageUrl = level?.SpanishImageUrl!=null? level?.SpanishImageUrl: level?.ImageUrl;
                 }
                 else
                 {
@@ -299,7 +304,7 @@ namespace DeVeeraApp.Controllers
                 videoData.PrevTitle = userPreviousLevel?.Title;
                 var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
                 if (userLanguage?.LanguageId == 5) { 
-                videoData.PrevImageUrl = level?.SpanishImageUrl;
+                videoData.PrevImageUrl = level?.SpanishImageUrl!=null? level?.SpanishImageUrl: level?.ImageUrl;
                 }
                 else
                 {

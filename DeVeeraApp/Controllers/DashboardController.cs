@@ -104,7 +104,7 @@ namespace DeVeeraApp.Controllers
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
                 var imagesRecord = _imageMasterService.GetImageById(result.BannerImageId);
                 if (userLanguage.LanguageId == 5) { 
-                model.layoutSetup.BannerImageUrl = imagesRecord?.SpanishImageUrl;
+                model.layoutSetup.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null?imagesRecord?.SpanishImageUrl:imagesRecord?.ImageUrl;
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace DeVeeraApp.Controllers
                 var imagesRecord1 = _imageMasterService.GetImageById(result.VideoThumbImageId);
                 if (userLanguage.LanguageId == 5)
                 {
-                    model.layoutSetup.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl;
+                    model.layoutSetup.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl!=null ? imagesRecord1?.SpanishImageUrl : imagesRecord1?.ImageUrl;
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace DeVeeraApp.Controllers
                 var imagesRecord2 = _imageMasterService.GetImageById(result.ShareBackgroundImageId);
                 if (userLanguage.LanguageId == 5)
                 {
-                    model.layoutSetup.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl;
+                    model.layoutSetup.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl!=null? imagesRecord2?.SpanishImageUrl: imagesRecord2?.ImageUrl;
                 }
                 else
                 {
@@ -196,7 +196,7 @@ namespace DeVeeraApp.Controllers
                                         {
                                             if (userLanguage?.LanguageId == 5)
                                             {
-                                                level.BannerImageUrl = img.SpanishImageUrl;
+                                                level.BannerImageUrl = img.SpanishImageUrl!=null? img.SpanishImageUrl: img.ImageUrl;
                                             }
                                             else
                                             {
@@ -247,7 +247,7 @@ namespace DeVeeraApp.Controllers
                                             {
                                                 if (userLanguage?.LanguageId == 5)
                                                 {
-                                                    level.BannerImageUrl = img.SpanishImageUrl;
+                                                    level.BannerImageUrl = img.SpanishImageUrl!=null? img.SpanishImageUrl: img.ImageUrl;
                                                 }
                                                 else
                                                 {
