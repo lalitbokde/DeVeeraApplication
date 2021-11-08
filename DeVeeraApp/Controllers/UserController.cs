@@ -37,6 +37,7 @@ using System.Threading.Tasks;
 using CRM.Core.TwilioConfig;
 using System.Collections.Generic;
 using DeVeeraApp.Filters;
+using CRM.Services.Settings;
 
 namespace DeVeeraApp.Controllers
 {
@@ -74,7 +75,7 @@ namespace DeVeeraApp.Controllers
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         private readonly IVerificationService _verificationService;
-
+        private readonly ISettingService _settingService;
         #endregion
 
         #region CTOR
@@ -99,7 +100,8 @@ namespace DeVeeraApp.Controllers
                                   IDiaryPasscodeService diaryPasscodeService,
                                   ILayoutSetupService layoutSetupService,
                                   IImageMasterService imageMasterService,
-                                  ITranslationService translationService
+                                  ITranslationService translationService,
+                                   ISettingService settingService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -129,6 +131,7 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
             _translationService = translationService;
+            _settingService = settingService;
         }
 
         #endregion
@@ -186,7 +189,14 @@ namespace DeVeeraApp.Controllers
         {
             var model = _UserModelFactory.PrepareLoginModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem.LanguageId == 5) { 
+            model.BannerImageUrl =  _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl!=null ? _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl;
+            }
+            else
+            {
+                model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
+            }
             return View(model);
         }
 
@@ -782,13 +792,15 @@ namespace DeVeeraApp.Controllers
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
+            var langId = _settingService.GetSettingByUserId(model.UserId).LanguageId;
             if (model.FamilyOrRelationshipType == 0)
-            {
+            {              
                 ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
             }
             if (model.EducationType == 0)
             {
                 ModelState.AddModelError("EducationType", "Please select EducationType!!!");
+               
             }
             if (model.GenderType == 0)
             {
@@ -796,7 +808,7 @@ namespace DeVeeraApp.Controllers
             }
             if (model.IncomeAboveOrBelow80K == 0)
             {
-                ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");
+                ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");                
             }
             if (ModelState.IsValid)
             {
@@ -833,13 +845,15 @@ namespace DeVeeraApp.Controllers
             var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
             model.MobileNumber = verifymobno;
+            var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
             var passcode = TempData["WrongPasscode"];
             if (passcode != null)
             {
-                if(passcode.ToString()== "WrongPasscode")
+                if(passcode.ToString()== "WrongPasscode" )
                 {
                     ModelState.AddModelError("OTP", "Passcode Doesn't match");
                 }
+                
             }
             else { 
            
@@ -868,6 +882,7 @@ namespace DeVeeraApp.Controllers
                     model.UserId = _WorkContextService.CurrentUser.Id;
                 }
                 var currentUser = _UserService.GetUserById(model.UserId);
+                var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
                 var enterpass = model.OTP.Length;
                 if (enterpass == 6)
                 {
@@ -875,7 +890,16 @@ namespace DeVeeraApp.Controllers
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
                     if (result.IsValid == false)
                     {
-                        ModelState.AddModelError("OTP", "Passcode Doesn't match !!!");
+                        if (langId == 3)
+                        {
+                            ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                        }
+                        if (langId == 5)
+                        {
+                            var spanishmsg = _translationService.TranslateLevel("Passcode Doesn't match", key);
+                            ModelState.AddModelError("OTP", spanishmsg);
+                        }
+                       
                         TempData["WrongPasscode"] = "WrongPasscode";
                         return RedirectToAction("TwoFactorAuthentication","User");
                     }
@@ -886,7 +910,15 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("OTP", "Passcode Doesn't match !!!");
+                    if (langId == 3)
+                    {
+                        ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                    }
+                    if (langId == 5)
+                    {
+                        var spanishmsg = _translationService.TranslateLevel("Passcode Doesn't match", key);
+                        ModelState.AddModelError("OTP", spanishmsg);
+                    }
                     TempData["WrongPasscode"] = "WrongPasscode";
                     return RedirectToAction("TwoFactorAuthentication", "User");
                 }

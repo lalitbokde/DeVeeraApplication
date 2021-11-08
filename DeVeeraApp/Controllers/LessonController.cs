@@ -136,13 +136,33 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             var imagesRecord = _imageMasterService.GetImageById(data?.BannerImageId);
-            videoData.BannerImageUrl = imagesRecord?.ImageUrl;
+            if (userLanguage.LanguageId == 5) { 
+            videoData.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null? imagesRecord?.SpanishImageUrl: imagesRecord?.ImageUrl;
+            }
+            else
+            {
+                videoData.BannerImageUrl = imagesRecord?.ImageUrl;
+            }
 
             var imagesRecord1 = _imageMasterService.GetImageById(data?.VideoThumbImageId);
-            videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
-
+            if (userLanguage.LanguageId == 5) { 
+            videoData.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl!=null? imagesRecord1?.SpanishImageUrl: imagesRecord1?.ImageUrl;
+            }
+            else
+            {
+                videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+            }
             var imagesRecord2 = _imageMasterService.GetImageById(data?.ShareBackgroundImageId);
-            videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+            if (userLanguage.LanguageId == 5)
+            {
+                videoData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl!=null? imagesRecord2?.SpanishImageUrl: imagesRecord2?.ImageUrl;
+            }
+            else
+            {
+                videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+            }
+
+            
 
             if (data?.VideoId != null)
             {
@@ -163,7 +183,7 @@ namespace DeVeeraApp.Controllers
             {
                 if (userLanguage.LanguageId == 5)
                 {
-                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
+                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData?.FullDescription);
 
                 }
                 else
@@ -202,7 +222,7 @@ namespace DeVeeraApp.Controllers
             var quoteListlevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true && a.LevelId==videoData.LevelNo).ToList().FirstOrDefault();
             if (quoteListlevel != null)
             {
-                videoData.Quote = quoteListlevel.Title; ;
+                videoData.Quote = quoteListlevel.Title;
                 videoData.Author = quoteListlevel.Author;
             }
             else { 
@@ -253,6 +273,8 @@ namespace DeVeeraApp.Controllers
                     seletedImages5.Key = imagesRecord5.Key;
                     seletedImages5.Name = imagesRecord5.Name;
                     seletedImages5.ImageId = imagesRecord5.Id;
+                    seletedImages5.SpanishKey = imagesRecord5.SpanishKey;
+                    seletedImages5.SpanishImageUrl = imagesRecord5.SpanishImageUrl;
                     module.SelectedModuleImages.Add(seletedImages5);
                 }
 
@@ -265,7 +287,13 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.NextTitle = userNextLevel?.Title;
                 var level = _imageMasterService.GetImageById(userNextLevel.BannerImageId);
-                videoData.NextImageUrl = level?.ImageUrl;
+                if (userLanguage?.LanguageId == 5) { 
+                videoData.NextImageUrl = level?.SpanishImageUrl!=null? level?.SpanishImageUrl: level?.ImageUrl;
+                }
+                else
+                {
+                    videoData.NextImageUrl = level?.ImageUrl;
+                }
 
             }
 
@@ -275,7 +303,13 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.PrevTitle = userPreviousLevel?.Title;
                 var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
-                videoData.PrevImageUrl = level?.ImageUrl;
+                if (userLanguage?.LanguageId == 5) { 
+                videoData.PrevImageUrl = level?.SpanishImageUrl!=null? level?.SpanishImageUrl: level?.ImageUrl;
+                }
+                else
+                {
+                    videoData.PrevImageUrl = level?.ImageUrl;
+                }
             }
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Subtitle);
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Title);

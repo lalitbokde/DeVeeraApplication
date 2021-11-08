@@ -158,7 +158,9 @@
                             {
                                 <li>
                                     <a href="#" onclick="GetDiaryByDate('@item.CreatedOn');">
-                                        <label>@T(item.Title)</label>
+                                        <div class="row">
+                                        <label class="col-8">@T(item.Title)</label><span class=" col-4 text-end">@T(item.EmotionName)</span>
+                                            </div>
                                         <p>Created On : @item.CreatedOn.ToShortDateString() </p>
                                         <p>Updated On : @item.LastUpdatedOn.ToShortDateString() </p>
 

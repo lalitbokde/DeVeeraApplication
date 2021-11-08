@@ -118,13 +118,35 @@ namespace DeVeeraApp.Controllers
             var moduleImages = _moduleImageListService.GetModuleImageListByModuleId(data.Id);
 
             var imagesRecord = _imageMasterService.GetImageById(data.BannerImageId);
+            if (userLanguage?.LanguageId == 5)
+            {
+                moduleData.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null ? imagesRecord?.SpanishImageUrl : imagesRecord?.ImageUrl;
+            }
+            else { 
             moduleData.BannerImageUrl = imagesRecord?.ImageUrl;
-
+            }
             var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
-            moduleData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+            if (userLanguage?.LanguageId == 5)
+            {
+                moduleData.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl!=null? imagesRecord1?.SpanishImageUrl: imagesRecord1?.ImageUrl;
+            }
+            else
+            {
+               
+                moduleData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+            }
+           
 
             var imagesRecord2 = _imageMasterService.GetImageById(data.ShareBackgroundImageId);
-            moduleData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+            if (userLanguage?.LanguageId == 5)
+            {
+                moduleData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl!=null? imagesRecord2?.SpanishImageUrl: imagesRecord2?.ImageUrl;
+            }
+            else
+            {
+                moduleData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+            }
+            
 
             var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
@@ -136,14 +158,28 @@ namespace DeVeeraApp.Controllers
             {
                 moduleData.NextTitle = usernextmodule?.Title;
                 var module = _imageMasterService.GetImageById(usernextmodule.BannerImageId);
-                moduleData.NextImageUrl = module?.ImageUrl;
+                if (userLanguage?.LanguageId == 5) { 
+                moduleData.NextImageUrl = module?.SpanishImageUrl!=null ? module?.SpanishImageUrl : module?.ImageUrl;
+                }
+                else
+                {
+                    moduleData.NextImageUrl = module?.ImageUrl;
+                }
 
             }
             if (userprevmodule != null)
             {
                 moduleData.PrevTitle = userprevmodule?.Title;
                 var module = _imageMasterService.GetImageById(userprevmodule.BannerImageId);
-                moduleData.PrevImageUrl = module?.ImageUrl;
+                if (userLanguage?.LanguageId == 5)
+                {
+                    moduleData.PrevImageUrl = module?.SpanishImageUrl!=null? module?.SpanishImageUrl: module?.ImageUrl;
+                }
+                else
+                {
+                    moduleData.PrevImageUrl = module?.ImageUrl;
+                }
+               
 
             }
 
@@ -152,7 +188,15 @@ namespace DeVeeraApp.Controllers
             {
                 moduleData.NextLeveltitle = nextlevel?.Title;
                 var level = _imageMasterService.GetImageById(nextlevel.BannerImageId);
-                moduleData.NextLevelUrl = level?.ImageUrl;
+                if (userLanguage?.LanguageId == 5)
+                {
+                    moduleData.NextLevelUrl = level?.SpanishImageUrl!=null? level?.SpanishImageUrl: level?.ImageUrl;
+                }
+                else
+                {
+                    moduleData.NextLevelUrl = level?.ImageUrl;
+                }
+                
 
             }
             if (moduleData.VideoId != null)

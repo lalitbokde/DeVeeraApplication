@@ -74,7 +74,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult List()
         {
-            AddBreadcrumbs("LocalStringResources", "List", "/Admin/LocalStringResources/List", "/Admin/LocalStringResources/List");
+            AddBreadcrumbs("Translations", "List", "/Admin/Translations/List", "/Admin/Translations/List");
             var model = new List<LocalStringResourceModel>();
             var data = _localStringResourcesServices.GetAllLocalStringResources();
             var staticLabel = _localStringResourcesServices.GetAllLocalStringResources().OrderBy(a => a.Id).Where(a => a.IsActive == true);
@@ -95,7 +95,7 @@ namespace DeVeeraApp.Controllers
         }
         public IActionResult Create()
         {
-            AddBreadcrumbs("LocalStringResources", "Create", "/Admin/LocalStringResources/List", "/Admin/LocalStringResources/Create");
+            AddBreadcrumbs("Translations", "Create", "/Admin/Translations/List", "/Admin/Translations/Create");
             var model = new LocalStringResourceModel();
             PrepareLanguages(model.Language);
             return View(model);
@@ -144,7 +144,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Edit(int id)
         {
-            AddBreadcrumbs("LocalStringResources", "Edit", "/Admin/LocalStringResources/List", $"/Admin/LocalStringResources/Edit/{id}");
+            AddBreadcrumbs("Translations", "Edit", "/Admin/Translations/List", $"/Admin/Translations/Edit/{id}");
             if (id != 0)
             {
                 var data = _localStringResourcesServices.GetLocalStringResourceById(id);

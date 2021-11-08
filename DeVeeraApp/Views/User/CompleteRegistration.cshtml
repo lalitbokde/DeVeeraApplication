@@ -39,11 +39,11 @@
                         </div>
                     </div>
                 </div>
-                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                @*@if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                 {
                     <div asp-validation-summary="All" class="text-theme-6 mt-4">
                     </div>
-                }
+                }*@
             <div class="col-lg-6 col-md-12">
                 <div class="register-form">
                     <h2>@T("Family/relationship status")</h2>
@@ -72,34 +72,36 @@
 
                 <span asp-validation-for="FamilyOrRelationshipType" class="text-theme-6 mt-2" style="color:red;"></span>
             </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="register-form">
-                        <h2>@T("Education")</h2>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.HighSchool">
-                            <label class="form-check-label"> @T("High school")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.AssociateDegree">
-                            <label class="form-check-label"> @T("Associate degree")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Bachelor">
-                            <label class="form-check-label">@T("Bachelor")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Master">
-                            <label class="form-check-label">@T("Master ")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
-                            <label class="form-check-label">@T("Doctorate")</label>
-                        </div>
-
+            <div class="col-lg-6 col-md-12">
+                <div class="register-form">
+                    <h2>@T("Education")</h2>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.HighSchool">
+                        <label class="form-check-label"> @T("High school")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.AssociateDegree">
+                        <label class="form-check-label"> @T("Associate degree")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Bachelor">
+                        <label class="form-check-label">@T("Bachelor")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Master">
+                        <label class="form-check-label">@T("Master ")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
+                        <label class="form-check-label">@T("Doctorate")</label>
                     </div>
 
-                    <span asp-validation-for="EducationType" class="text-theme-6 mt-2"  style="color:red;"></span>
                 </div>
+
+                <span asp-validation-for="EducationType" class="text-theme-6 mt-2"  style="color:red;"></span>
+               
+
+            </div>
             </div>
             <div class="row mt-5">
                 <div class="col-lg-6 col-md-12">

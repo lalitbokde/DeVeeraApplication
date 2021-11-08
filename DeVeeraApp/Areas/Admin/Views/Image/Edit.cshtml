@@ -3,7 +3,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<form asp-controller="Image" asp-action="Edit" method="post" id="imageeditform" enctype="multipart/form-data" onsubmit="return GetFileName();">
+<form asp-controller="Image" asp-action="Edit" method="post" id="imageeditform" enctype="multipart/form-data" onsubmit="return GetFileNameEdit();">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
@@ -25,19 +25,24 @@
                     <div class="mt-5">
                         <label class="form-label text-theme-21 star">Name</label>
                          <input asp-for="FileName" hidden />
+                          <input asp-for="SpanishFileName" hidden />
                         <input asp-for="Name" type="text" class="form-control" placeholder="image name" />
                         <span asp-validation-for="Name" class="text-theme-21  mt-2"></span>
 
                     </div>
+                     <div class="grid grid-cols-12 gap-4 mt-5">
                     @if (!string.IsNullOrEmpty(Model.Key))
                     {
-
-                        <div class="mt-3" id="previousImage">
+                        int imagekey = 0;
+                         
+                        <div class="col-span-6 col-sm-12 mt-3" id="previousImage1">
                             <div class=" pt-4">
                                 <div class="flex flex-wrap px-4">
                                     <div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
                                         <img class="rounded-md" src="@Model.ImageUrl">
-                                        <a onclick="ShowDeleteConfirmation('DeleteEditPageImage(@Model.Id)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                       @{imagekey = 1;
+                                        <a onclick="ShowDeleteConfirmation('DeleteEditPageImage(@Model.Id,@imagekey)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                           }
                                     </div>
                                 </div>
                                 <div class="px-4 pb-4 flex items-center cursor-pointer relative dark:text-gray-500">
@@ -45,37 +50,26 @@
                                     <input type="file" class="w-full h-full top-0 left-0 absolute opacity-0">
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-5" id="uploadImageFile" style="display:none;">
-                            <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
-                                <label class="font-label  mr-auto text-theme-21">
-                                    Upload File
-                                </label>
                             </div>
-                            <div id="single-file-upload" class="p-5">
-                                <div class="preview">
-                                    <div data-single="true" fallback="true" action="/Admin/Image/Uploadlocal" class="dropzone">
-                                        <div class="fallback">
-
-                                        </div>
-                                        <div class="dz-message" data-dz-message>
-                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                            
+                     
+                           
+              
                     }
+
+
+
                     else
                     {
-                        <div class="mt-5">
+                       
+                         <div class="col-span-6 col-sm-12">
+                        
                             <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
                                 <label class="font-label  mr-auto text-theme-21">
-                                    Upload File
+                                   English
                                 </label>
                             </div>
-                            <div id="single-file-upload" class="p-5">
+                            <div id="single-file-upload1edit" class="p-5">
                                 <div class="preview">
                                     <div data-single="true" fallback="true" action="/Image/Uploadlocal" class="dropzone">
                                         <div class="fallback">
@@ -87,8 +81,73 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                              </div>
+                              
+                     
                     }
+
+
+                     @if (!string.IsNullOrEmpty(Model.SpanishKey))
+                    {
+                        int imagekey = 0;
+                        
+                       
+                               <div class="col-span-6 col-sm-12 mt-3" id="previousImage2">
+                            <div class=" pt-4">
+                                <div class="flex flex-wrap px-4">
+                                    <div class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
+                                        <img class="rounded-md" src="@Model.SpanishImageUrl">
+                                         @{imagekey =2;
+                                        <a onclick="ShowDeleteConfirmation('DeleteEditPageImage(@Model.Id,@imagekey)')" title="Remove this video to add new" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-24 right-0 top-0 -mr-2 -mt-2"> <i data-feather="x" class="w-4 h-4"></i> </a>
+                                             }
+                                    </div>
+                                </div>
+                                <div class="px-4 pb-4 flex items-center cursor-pointer relative dark:text-gray-500">
+                                    <i data-feather="play-circle" class="w-4 h-4 mr-2"></i> <span class="text-theme-1 dark:text-gray-300 mr-1">@Model.SpanishKey</span>
+                                    <input type="file" class="w-full h-full top-0 left-0 absolute opacity-0">
+                                </div>
+                            </div>
+                         </div>
+                      
+                
+                    }
+
+
+
+                    else
+                    {
+                    
+                      
+                              <div class="col-span-6 col-sm-12">
+                              <div class="flex flex-col sm:flex-row items-center  border-gray-200 dark:border-dark-5">
+                            <label class="font-label  mr-auto text-theme-21">
+                               Spanish
+                            </label>
+                        </div>
+                        <div id="single-file-upload2edit" class="p-5">
+                            <div class="preview">
+                                <div data-single="true" fallback="true" action="/Admin/Image/Uploadlocal" class="dropzone">
+                                    <div class="fallback">
+
+                                    </div>
+                                    <div class="dz-message" data-dz-message>
+                                        <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                              </div>
+                       
+                    }
+ </div> 
+
+
+
+
+
+
+
+
 
                     <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                         <div class="grid grid-cols-12  gap-y-5 mt-5">
@@ -121,9 +180,17 @@
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="~/dist/js/CustomJs/Delete.js"></script>
 <script>
-    function GetFileName() {
-        var filename = $(".dz-filename").text();
+    //function GetFileName() {
+    //    var filename = $(".dz-filename").text();
+    //    document.getElementById("FileName").value = filename;
+    //}
+
+function GetFileNameEdit() {
+        var filename = $("#single-file-upload1edit .dz-filename").text();//document.getElementById("single-file-upload1edit").getElementsByClassName("dz-filename")[0];
         document.getElementById("FileName").value = filename;
+
+   var SpanishFileName = $("#single-file-upload2edit .dz-filename").text();//document.getElementById("single-file-upload2edit").getElementsByClassName("dz-filename")[0];alert(SpanishFileName);//$(".single-file-upload2 dz-filename").text();
+        document.getElementById("SpanishFileName").value = SpanishFileName;
     }
 </script>
 

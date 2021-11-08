@@ -31,6 +31,7 @@ namespace DeVeeraApp.Controllers
                 if(model.Id != 0)
                 {
                     var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == model.Id).FirstOrDefault();
+                   
                     if(userLanguage != null)
                     {
                         userLanguage.UserId = model.Id;
@@ -46,6 +47,7 @@ namespace DeVeeraApp.Controllers
                         };
                         _settingService.InsertSetting(settingData);
                     }
+                    
                 }
                 else
                 {

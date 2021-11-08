@@ -30,3 +30,16 @@ function ShowLoaderUser(formid) {
     }
     window.onload();
 }
+
+ 
+
+
+ function GetFileName() {debugger
+        var filename = $("#single-file-upload1 .dz-filename").text();
+
+ 
+        document.getElementById("FileName").value = filename;
+
+   var SpanishFileName = $("#single-file-upload2 .dz-filename").text();//document.getElementById("single-file-upload2").getElementsByClassName("dz-filename")[0];alert(SpanishFileName);//
+        document.getElementById("SpanishFileName").value = SpanishFileName;
+    }

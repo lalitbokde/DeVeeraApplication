@@ -11,7 +11,7 @@ namespace CRM.Core.ViewModels
         public string DiaryColor { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
-        
-    
+
+        public string EmotionName { get; set; }
     }
 }

@@ -90,14 +90,14 @@ namespace DeVeeraApp.Controllers
 
         #region Method
 
-        public IActionResult Index(int emotionid)
+        public IActionResult Index(int emotionid,int DiaryId)
         {
             var random = new Random();
             int UserId = _workContext.CurrentUser.Id;
 
             var user = _userService.GetUserById(UserId);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == UserId).FirstOrDefault();
-            var diar = _DiaryMasterService.GetDiaryByUserId(UserId).FirstOrDefault();
+            var diar = _DiaryMasterService.GetDiaryById(DiaryId);
             var emotion = _emotionService.GetEmotionById(emotionid);
             var model = new EmotionModel();
             if (emotion != null)

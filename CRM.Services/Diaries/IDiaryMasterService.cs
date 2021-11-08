@@ -30,8 +30,9 @@ namespace CRM.Services
              bool GetAll = false,
              string SortBy = "",
              string SearchByDate = "",
-              int UserId = 0
-              
+              int UserId = 0,
+               string EmotionName = ""
+
            );
 
     }

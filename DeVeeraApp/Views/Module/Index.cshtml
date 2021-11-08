@@ -48,7 +48,7 @@
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
                 @if (userLanguage != null)
                 {
-                    @if (userLanguage.LanguageId == 5)
+                    @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
                     {
                         <a href="@Spanishvideourl" class="video-btn popup-youtube">
                             <i class="flaticon-play"></i>
