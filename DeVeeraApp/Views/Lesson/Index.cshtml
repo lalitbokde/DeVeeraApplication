@@ -317,7 +317,18 @@
                             @{
                                 if (item.SelectedModuleImages.Count > 0)
                                 {
-                                    string imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                    string imageUrl = "";
+                                    if (userLanguage != null) {
+                                        if (userLanguage.LanguageId == 5) {
+                                            imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl==null? "../../assets/images/blog/blog-2.jpg": item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl;
+
+                                        }
+                                        else
+                                        {
+                                            imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl==null? "../../assets/images/blog/blog-2.jpg": item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                        }
+                                    }
+
                                     if (imageUrl != null)
                                     {
                                         <a asp-controller="Module" asp-action="Index" asp-route-id="@item.Id" asp-route-srno="@i" asp-route-levelSrno="@Model.LevelNo"><img src=@imageUrl width="750" style="min-height:200px" height="650" alt="image"></a>

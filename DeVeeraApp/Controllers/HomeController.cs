@@ -183,12 +183,19 @@ namespace DeVeeraApp.Controllers
                 {
                     ViewBag.VideoUrl = dataForVideo.VideoUrl;
                 }
-
-                model.LandingPageModel.SliderOneImageUrl = data.SliderOneImageId > 0 ? _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl : null;
-                model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
-                model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : null;
-                model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
-
+                if (userLanguagem.LanguageId == 5) { 
+                model.LandingPageModel.SliderOneImageUrl = data.SliderOneImageId > 0 ? _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl : null;
+                model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.SpanishImageUrl : null;
+                model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.SpanishImageUrl : null;
+                model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.SpanishImageUrl : null;
+                }
+                else
+                {
+                    model.LandingPageModel.SliderOneImageUrl = data.SliderOneImageId > 0 ? _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl : null;
+                    model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
+                    model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : null;
+                    model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
+                }
             }
             TempData["LangaugeId"]=   langId;
             return View(model);
@@ -302,16 +309,38 @@ namespace DeVeeraApp.Controllers
 
                     if (bannerImageData != null)
                     {
-                        model.BannerImageURL = bannerImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5) { 
+                        model.BannerImageURL = bannerImageData.SpanishImageUrl;
+                        }
+                        else
+                        {
+                            model.BannerImageURL = bannerImageData.ImageUrl;
+                        }
                     }
                     if (bodyImageData != null)
                     {
-                        model.BodyImageURL = bodyImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            model.BodyImageURL = bodyImageData.SpanishImageUrl;
+                        }
+                        else
+                        {
+                            model.BodyImageURL = bodyImageData.ImageUrl;
+                        }
+                        
                     }
                 }
                 if (model != null)
                 {
-                    model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl;
+                    }
+                    else
+                    {
+                        model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+                    }
+                   
 
                     model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a => a.LevelNo)) ? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
 
@@ -345,17 +374,39 @@ namespace DeVeeraApp.Controllers
 
                     if (bannerImageData != null)
                     {
-                        model.BannerImageURL = bannerImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            model.BannerImageURL = bannerImageData.SpanishImageUrl;
+                        }
+                        else
+                        {
+                            model.BannerImageURL = bannerImageData.ImageUrl;
+                        }
+                       
                     }
                     if (bodyImageData != null)
                     {
-                        model.BodyImageURL = bodyImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            model.BodyImageURL = bodyImageData.SpanishImageUrl;
+                        }
+                        else
+                        {
+                            model.BodyImageURL = bodyImageData.ImageUrl;
+                        }
+                       
                     }
                 }
                 if (model != null)
                 {
-                    model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
-
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl;
+                    }
+                    else
+                    {
+                        model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+                    }
                     model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a => a.LevelNo)) ? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
 
                     model.FirstLevel = (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;

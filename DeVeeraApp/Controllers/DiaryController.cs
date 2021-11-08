@@ -128,6 +128,7 @@ namespace DeVeeraApp.Controllers
             DiaryListModel model = new DiaryListModel();
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             if (currentUser.TwoFactorAuthentication == false && currentUser.UserRole.Name != "Admin")
             {
                 //var verification =
@@ -148,7 +149,13 @@ namespace DeVeeraApp.Controllers
                 }
 
                 var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-                model.Diary.DiaryHeaderImageUrl = data?.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.ImageUrl : null;
+                if (userLanguage?.LanguageId == 5) { 
+                model.Diary.DiaryHeaderImageUrl = data?.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.SpanishImageUrl : null;
+                }
+                else
+                {
+                    model.Diary.DiaryHeaderImageUrl = data?.DiaryHeaderImageId > 0 ? _imageMasterService.GetImageById(data.DiaryHeaderImageId)?.ImageUrl : null;
+                }
 
                 var diary = _DiaryMasterService.GetAllDiarys().Where(a => a.UserId == currentUser.Id && a.CreatedOn.ToShortDateString() == DateTime.UtcNow.ToShortDateString()).FirstOrDefault();
                 if (diary != null) {
