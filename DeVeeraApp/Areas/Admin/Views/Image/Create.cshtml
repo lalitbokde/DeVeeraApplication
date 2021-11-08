@@ -101,12 +101,5 @@
 
 </form>
 
-<script>
-    function GetFileName() {
-        var filename = document.getElementById("single-file-upload1").getElementsByClassName("dz-filename")[0];
-        document.getElementById("FileName").value = filename.textContent;
-
-   var SpanishFileName = document.getElementById("single-file-upload2").getElementsByClassName("dz-filename")[0];//$(".single-file-upload2 dz-filename").text();
-        document.getElementById("SpanishFileName").value = SpanishFileName.textContent;
-    }
+<script src="~/CustomJS/Common.js"> 
 </script>
