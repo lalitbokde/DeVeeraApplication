@@ -190,10 +190,14 @@ namespace DeVeeraApp.Controllers
             var model = _UserModelFactory.PrepareLoginModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
-            if (userLanguagem.LanguageId == 5) { 
+            if (userLanguagem?.LanguageId == 5) { 
             model.BannerImageUrl =  _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl!=null ? _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl;
             }
             else
+            {
+                model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
+            }
+            if (userLanguagem == null)
             {
                 model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
             }
