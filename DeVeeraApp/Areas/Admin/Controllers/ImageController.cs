@@ -80,15 +80,26 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var data = model.ToEntity<Image>();
-                    var imageUrl = UploadToAWS(model.FileName);
-                    var spanishimageUrl = UploadToAWS(model.SpanishFileName);
-                    data.ImageUrl = imageUrl.Result.ToString();
+                    var imageUrl = ""; var spanishimageUrl = "";
+                    if (model.FileName != null) { 
+                     imageUrl = UploadToAWS(model.FileName).Result.ToString();
+                    }
+                    if (model.SpanishFileName != null)
+                    {
+                        spanishimageUrl = UploadToAWS(model.SpanishFileName).Result.ToString();
+                    }
+                    if (imageUrl != "") { 
+                    data.ImageUrl = imageUrl;
+                    }
                     data.Key = model.FileName;
                     data.CreatedOn = DateTime.Now;
                     data.UpdatedOn = DateTime.Now;
-
-                    data.SpanishKey = model.SpanishFileName;
-                    data.SpanishImageUrl = spanishimageUrl.Result.ToString();
+                   
+                        data.SpanishKey = model.SpanishFileName;
+                    if (spanishimageUrl != "")
+                    {
+                        data.SpanishImageUrl = spanishimageUrl;
+                    }
                     _imageMasterService.InsertImage(data);
                     _notificationService.SuccessNotification("Image url added successfully");
                     return RedirectToAction("List");
