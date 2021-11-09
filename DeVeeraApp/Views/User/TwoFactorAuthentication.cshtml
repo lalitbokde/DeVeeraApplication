@@ -91,7 +91,7 @@
                                     <input type="hidden" asp-for="@Model.ModuleId" />
                                     <input type="hidden" asp-for="@Model.UserId" />
                                     @{ string mobnumber = Model.MobileNumber?.ToString();
-                                        if (mobnumber != "")
+                                        if (mobnumber != "" && Model.MobileNumber!=null)
                                         {
                                             var value = Model.MobileNumber.Count() - 4;
                                             mobnumber = mobnumber.Substring(value, 4);
