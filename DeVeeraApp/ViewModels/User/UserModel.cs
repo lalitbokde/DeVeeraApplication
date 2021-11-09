@@ -21,6 +21,7 @@ namespace DeVeeraApp.ViewModels.User
 
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Please enter username")]
+
         public string Email { get; set; }
         
         [DataType(DataType.PhoneNumber)]

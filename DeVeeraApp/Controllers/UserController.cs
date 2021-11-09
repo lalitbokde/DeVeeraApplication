@@ -301,28 +301,36 @@ namespace DeVeeraApp.Controllers
             TempData["firstOtpsentTime"] = DateTime.Now;
           TempData["LangaugeId"]= langId;
             ModelState.Remove("ErrorMessage");
-            if (ModelState.IsValid==false)
-            {
-                return RedirectToAction("Register", "User");
-            }
+
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
+
             if (model.countryCode == null)
             {
                 ModelState.AddModelError("countryCode", "Please select country code.!!!");
-                return RedirectToAction("Register", "User");
+                return View("Register", model);
             }
             if (model.MobileNumber == null)
             {
                 ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
-                return RedirectToAction("Register", "User");
+                return View("Register",model);
 
             }
             if (model.ConfirmPassword == null)
             {
-                TempData["ConfirmPassword"] = "Please enter the password....!!!"; 
-                return RedirectToAction("Register", "User");
-
+                ModelState.AddModelError("ConfirmPassword", " Please enter the password....!!! ");
+                return View("Register", model);
+            }
+            if (model.Email == null)
+            {
+                ModelState.AddModelError("Email", "Please enter Email.!!!");
+                return View("Register", model);
             }
 
+            if (ModelState.IsValid == false)
+            {
+                return RedirectToAction("Register", "User");
+            }
             if (_UserService.GetUserByEmail(model.Email) != null)
             {
                 TempData["Email"] = "Email Already Registered";
@@ -340,7 +348,10 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Register", "User");
+                    ModelState.AddModelError("MobileNumber", "Please enter correct mobile No to receive otp .!!!"); 
+                    return View("Register", model);
+
+                    //return RedirectToAction("Register", "User");
 
 
                 }
@@ -356,8 +367,11 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                TempData["Message"] = "Mobile Number is already Registered";
-                return RedirectToAction("Register");
+                ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered .!!!");
+                return View("Register", model);
+
+                //TempData["Message"] = "Mobile Number is already Registered";
+                //return RedirectToAction("Register");
             }
 
         }
@@ -905,7 +919,8 @@ namespace DeVeeraApp.Controllers
                         }
                        
                         TempData["WrongPasscode"] = "WrongPasscode";
-                        return RedirectToAction("TwoFactorAuthentication","User");
+                        //return RedirectToAction("TwoFactorAuthentication","User");
+                        return View("TwoFactorAuthentication", model);
                     }
                 }
 
@@ -922,9 +937,12 @@ namespace DeVeeraApp.Controllers
                     {
                         var spanishmsg = _translationService.TranslateLevel("Passcode Doesn't match", key);
                         ModelState.AddModelError("OTP", spanishmsg);
+                       
                     }
                     TempData["WrongPasscode"] = "WrongPasscode";
-                    return RedirectToAction("TwoFactorAuthentication", "User");
+                    // return RedirectToAction("TwoFactorAuthentication", "User");
+                    return View("TwoFactorAuthentication", model);
+
                 }
 
                 //if (model.OTP == null)
