@@ -476,7 +476,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Comments(int id, string comments)
         {
-
+           
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
@@ -508,6 +508,7 @@ namespace DeVeeraApp.Controllers
                     //}
                 }
             }
+           
             return Json(model);
         }
         #endregion
