@@ -480,15 +480,18 @@ function DeleteEditPageImage(Id,imagekey) {
                         confirmButtonClass: 'btn btn-lg btn-primary',
                         buttonsStyling: false
                     }).then(function () {
-                        debugger
+                        debugger 
                         $("#previousImage1").hide();
                         $("#uploadImageFile1").show();
 
                         $("#previousImage2").hide();
                         $("#uploadImageFile2").show(); 
-
                     })
+
+
                 }
+
+location.reload();
 
             }
             else
