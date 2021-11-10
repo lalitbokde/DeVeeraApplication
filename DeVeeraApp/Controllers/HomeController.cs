@@ -265,7 +265,7 @@ namespace DeVeeraApp.Controllers
                 var model = data?.ToModel<WeeklyUpdateModel>();
                 var quotewelcome = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Id == model.QuoteId).ToList().FirstOrDefault();
                 if (model.QuoteId != null) { 
-                    model.Quote = quotewelcome.Title + quotewelcome.Author;
+                    model.Quote = quotewelcome?.Title + quotewelcome?.Author;
                 }
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();//Allquote when quote id not set

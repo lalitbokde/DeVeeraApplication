@@ -13,6 +13,7 @@ using CRM.Services.DashboardMenu;
 using CRM.Services.Layoutsetup;
 using DeVeeraApp.ViewModels.LayoutSetups;
 using CRM.Services.Settings;
+using System;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -88,7 +89,7 @@ namespace DeVeeraApp.Controllers
         //(Changes in redirecting new/exististing user to home page)
         public IActionResult Index()
         {
-
+            try { 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var model = new DashboardQuoteModel();
@@ -272,6 +273,13 @@ namespace DeVeeraApp.Controllers
                     }
                 }
                 return View(model);
+            }
+
+
+            }
+            catch(Exception ex)
+            {
+
             }
             return View();
         }
