@@ -474,6 +474,11 @@ namespace DeVeeraApp.Controllers
             //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
             //}
 
+
+            
+
+
+
             if (model.BodyImageId != 0 && model.BannerImageId != 0)
             {
                 var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
@@ -490,7 +495,21 @@ namespace DeVeeraApp.Controllers
             }
             if (model != null)
             {
-                model.VideoUrl = data?.Video?.VideoUrl;
+                var lang = _settingService.GetSettingByUserId(34).LanguageId;
+                if (lang == 5)
+                {
+                    model.VideoUrl = data?.Video?.SpanishVideoUrl!=null? data?.Video?.SpanishVideoUrl: data?.Video?.VideoUrl;
+                }
+                else
+                {
+                    model.VideoUrl = data?.Video?.VideoUrl;
+                }
+                if (lang == null)
+                {
+                    model.VideoUrl = data?.Video?.VideoUrl;
+                }
+
+              
                 var firstLevel = _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault();
                 if (firstLevel != null)
                 {
