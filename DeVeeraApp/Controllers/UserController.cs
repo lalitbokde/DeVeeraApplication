@@ -307,23 +307,23 @@ namespace DeVeeraApp.Controllers
 
             if (model.countryCode == null)
             {
-                ModelState.AddModelError("countryCode", "Please select country code.!!!");
+                ViewData.ModelState.AddModelError("countryCode", "Please select country code.!!!");
                 return View("Register", model);
             }
             if (model.MobileNumber == null)
             {
-                ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
                 return View("Register",model);
 
             }
             if (model.ConfirmPassword == null)
             {
-                ModelState.AddModelError("ConfirmPassword", " Please enter the password....!!! ");
+                ViewData.ModelState.AddModelError("ConfirmPassword", " Please enter the password....!!! ");
                 return View("Register", model);
             }
             if (model.Email == null)
             {
-                ModelState.AddModelError("Email", "Please enter Email.!!!");
+                ViewData.ModelState.AddModelError("Email", "Please enter username .!!!");
                 return View("Register", model);
             }
 
@@ -367,7 +367,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered .!!!");
+                ViewData.ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered .!!!");
                 return View("Register", model);
 
                 //TempData["Message"] = "Mobile Number is already Registered";
@@ -398,7 +398,7 @@ namespace DeVeeraApp.Controllers
             }
             if (model.ErrorMessage != null)
             {
-                ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
             }
 
             return View(model);
@@ -434,7 +434,7 @@ namespace DeVeeraApp.Controllers
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
             if (Convert.ToInt32(final) < 6)
             {
-                ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
                 model.ErrorMessage = "Wrong Passcode";
                 return RedirectToAction("VerifyOTP", model);
             }
@@ -444,7 +444,7 @@ namespace DeVeeraApp.Controllers
                 var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
                 if (result.IsValid == false)
                 {
-                    ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                    ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
                     model.ErrorMessage = "Wrong Passcode";
                     return RedirectToAction("VerifyOTP", model);
                 }
@@ -461,12 +461,12 @@ namespace DeVeeraApp.Controllers
                 {
                     if (model.countryCode == null && TempData["resend"] == null)
                     {
-                        ModelState.AddModelError("MobileNumber", "please select country code.!!!");
+                        ViewData.ModelState.AddModelError("MobileNumber", "please select country code.!!!");
 
                     }
                     if (model.MobileNumber == null)
                     {
-                        ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
+                        ViewData.ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
                     } //validate unique user
                     if (_UserService.GetUserByEmail(model.Email) == null)
                     {
@@ -810,23 +810,27 @@ namespace DeVeeraApp.Controllers
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
-            var langId = _settingService.GetSettingByUserId(model.UserId).LanguageId;
+            var langId = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
             if (model.FamilyOrRelationshipType == 0)
             {              
-                ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
+                ViewData.ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
             }
             if (model.EducationType == 0)
             {
-                ModelState.AddModelError("EducationType", "Please select EducationType!!!");
+                ViewData.ModelState.AddModelError("EducationType", "Please select EducationType!!!");
                
             }
             if (model.GenderType == 0)
             {
-                ModelState.AddModelError("GenderType", "Please select GenderType!!!");
+                ViewData.ModelState.AddModelError("GenderType", "Please select GenderType!!!");
             }
             if (model.IncomeAboveOrBelow80K == 0)
             {
-                ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");                
+                ViewData.ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");                
+            }
+            if (model.Occupation == null)
+            {
+                ViewData.ModelState.AddModelError("Occupation", "Please enter the Occupation !!!"); 
             }
             if (ModelState.IsValid)
             {
@@ -869,7 +873,7 @@ namespace DeVeeraApp.Controllers
             {
                 if(passcode.ToString()== "WrongPasscode" )
                 {
-                    ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                    ViewData.ModelState.AddModelError("OTP", "Passcode Doesn't match");
                 }
                 
             }
@@ -908,15 +912,9 @@ namespace DeVeeraApp.Controllers
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
                     if (result.IsValid == false)
                     {
-                        if (langId == 3)
-                        {
-                            ModelState.AddModelError("OTP", "Passcode Doesn't match");
-                        }
-                        if (langId == 5)
-                        {
-                            var spanishmsg = _translationService.TranslateLevel("Passcode Doesn't match", key);
-                            ModelState.AddModelError("OTP", spanishmsg);
-                        }
+                      
+                            ViewData.ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                       
                        
                         TempData["WrongPasscode"] = "WrongPasscode";
                         //return RedirectToAction("TwoFactorAuthentication","User");
@@ -929,16 +927,9 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    if (langId == 3)
-                    {
-                        ModelState.AddModelError("OTP", "Passcode Doesn't match");
-                    }
-                    if (langId == 5)
-                    {
-                        var spanishmsg = _translationService.TranslateLevel("Passcode Doesn't match", key);
-                        ModelState.AddModelError("OTP", spanishmsg);
-                       
-                    }
+
+                    ViewData.ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                   
                     TempData["WrongPasscode"] = "WrongPasscode";
                     // return RedirectToAction("TwoFactorAuthentication", "User");
                     return View("TwoFactorAuthentication", model);

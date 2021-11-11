@@ -103,8 +103,11 @@
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
-                       <input asp-for="ErrorMessage" type="text"  hidden   >
-                        <span asp-validation-for="ErrorMessage" class="text-theme-6 mt-2"></span>
+                     
+                        <span  class="text-theme-6 mt-2"> @T(ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage ?? "")</span>
+                            
+
+
                         @{ string mobnumber = Model.MobileNumber?.ToString();
                             var value = Model.MobileNumber.Count() - 4;
                             mobnumber = mobnumber.Substring(value, 4);
@@ -151,7 +154,7 @@
                        </div>*@
                            
                         <div class="text-start mt-4 mb-0" >
-                           <a   href="/User/ResendOTP/?Email=@Model.Email&Mobilenumber=@ViewData["MobileNumber"]&Confirmpwd=@Model.ConfirmPassword&langId=@TempData["LangaugeId"]"   id="resend"   class="text-start"  style="color: #f0b9b2;font:800;">Resend otp</a>
+                           <a   href="/User/ResendOTP/?Email=@Model.Email&Mobilenumber=@ViewData["MobileNumber"]&Confirmpwd=@Model.ConfirmPassword&langId=@TempData["LangaugeId"]"   id="resend"   class="text-start"  style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
                           
                        </div>
                           

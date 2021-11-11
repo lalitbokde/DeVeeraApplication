@@ -70,7 +70,9 @@
 
                 </div>
 
-                <span asp-validation-for="FamilyOrRelationshipType" class="text-theme-6 mt-2" style="color:red;"></span>
+              
+                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["FamilyOrRelationshipType"]?.Errors[0].ErrorMessage ?? "")</span>
+
             </div>
             <div class="col-lg-6 col-md-12">
                 <div class="register-form">
@@ -97,10 +99,7 @@
                     </div>
 
                 </div>
-
-                <span asp-validation-for="EducationType" class="text-theme-6 mt-2"  style="color:red;"></span>
-               
-
+                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["EducationType"]?.Errors[0].ErrorMessage ?? "")</span>
             </div>
             </div>
             <div class="row mt-5">
@@ -123,10 +122,8 @@
                             <input type="radio" asp-for="@Model.GenderType" class="form-check-input" value="@Gender.DontWantToSay">
                             <label class="form-check-label" for="checkme">@T("Remember me")</label>
                         </div>
-                        
+                        <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["GenderType"]?.Errors[0].ErrorMessage ?? "")</span>
                     </div>
-                    <span asp-validation-for="GenderType" class="text-theme-6 mt-2"  style="color:red;"></span>
-                 
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="login-form mb-30">
@@ -139,14 +136,9 @@
                             <input type="radio" asp-for="@Model.IncomeAboveOrBelow80K" class="form-check-input" value="@Income.IncomeBelow80K">
                             <label class="form-check-label" for="checkme">@T("Below $80K")</label>
                         </div>
-                        
-
-
                     </div>
-                    <span asp-validation-for="IncomeAboveOrBelow80K" class="text-theme-6 mt-2"  style="color:red;"></span>
-                  
+                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["IncomeAboveOrBelow80K"]?.Errors[0].ErrorMessage ?? "")</span>
                 </div>
-
             </div>
             <div class="row">
 
@@ -157,8 +149,8 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>@T("Occupation")</label>
-                                    <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="occupation">
-                                    <span asp-validation-for="Occupation" class="text-theme-6 mt-2"  style="color:red;"></span>
+                                    <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="occupation">                                    
+                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Occupation"]?.Errors[0].ErrorMessage ?? "")</span>
                                 </div>                               
                               
                             </div>
@@ -166,8 +158,9 @@
                                 <div class="form-group">
                                     <label>@T("Age")</label>
                                     <input asp-for="@Model.Age" type="number" min="1" class="form-control" placeholder="age">
-                                </div>                              
-                                <span asp-validation-for="Age" class="text-theme-6 mt-2"  style="color:red;"></span>
+                                </div>
+                             
+                               
                             </div>
                         </div>
                     </div>
