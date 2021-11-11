@@ -92,8 +92,9 @@
                                             }
                                             <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                         }
-                                        <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="Enter passcode " required >
-                                        <span asp-validation-for="Passcode" class="text-theme-6 mt-2"></span>
+                                        <input asp-for="Passcode" type="text" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("Enter passcode") " required >
+                                        @*<span asp-validation-for="Passcode" class="text-theme-6 mt-2"></span>*@
+                                        <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Passcode"]?.Errors[0].ErrorMessage ?? "")</span>
                                     </div>
                                     <button type="submit">@T("Continue")</button>
                                 </form>

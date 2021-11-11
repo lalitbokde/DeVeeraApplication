@@ -965,6 +965,31 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ResendotpTwoFactorAuth()
+        {
+            var model = new TwoFactorAuthModel();
+            
+            var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+            var verifymobno = currentUser?.MobileNumber;
+            model.MobileNumber = verifymobno;
+            var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
+          
+           
+
+                var verification =
+                       await _verificationService.StartVerificationAsync(verifymobno, "sms");
+                if (verification.IsValid == true)
+                {
+
+                }
+                else
+                {
+                    ModelState.AddModelError("OTP", "OTP Doesn't match");
+                }
+           
+            return View(model);
+        }
+        
         public IActionResult ChangePasscode()
         {
             AddBreadcrumbs("User", "Change Passcode", $"/User/ChangePasscode", $"/User/ChangePasscode");

@@ -398,7 +398,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("Passcode", "Enter Passcode!!");
+                ViewData.ModelState.AddModelError("Passcode", "Enter Passcode!!");
             }
             return View(model);
         }
@@ -426,10 +426,10 @@ namespace DeVeeraApp.Controllers
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
                     if (result.IsValid == false)
                     {
-                        //  ModelState.AddModelError("Passcode", "Passcode Doesn't match");
+                        ViewData.ModelState.AddModelError("Passcode", "Add correct Passcode !! ");
 
-                        passcode.DiaryLoginDate = DateTime.UtcNow;
-                        _diaryPasscodeService.UpdateDiaryPasscode(passcode);
+                        //passcode.DiaryLoginDate = DateTime.UtcNow;
+                        //_diaryPasscodeService.UpdateDiaryPasscode(passcode);
 
                         return RedirectToAction("Create");
                     }
@@ -444,7 +444,7 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
+                    ViewData.ModelState.AddModelError("Passcode", "Add Proper Passcode !! ");
                    }
                 }
             return View(model);

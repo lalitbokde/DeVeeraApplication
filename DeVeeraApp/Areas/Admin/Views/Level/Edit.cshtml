@@ -194,11 +194,24 @@
 
 
 
-                            <div class="mt-5">
+                            
+
+
+                              <div class="grid grid-cols-12 gap-4 mt-5">
+                         <div class="col-span-6 mt-5">
                                 <label class="form-label text-theme-21 star">Video</label>
                                 <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                                 <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
-                            </div>
+                             </div>
+                          <div class="col-span-6 mt-5">
+                              <label for="input-wizard-1" class="form-label text-theme-21 star">Youtube Url</label>
+                            <input id="youtunbeVideourledit" asp-for="YoutubeVideoUrl" type="text" class="form-control subtitleenglish" placeholder="Youtube Video">
+                             
+                          </div>
+                    </div>
+
+
+
                             <div class="mt-5">
 
                                 <label class="form-label text-theme-21 star">Emotion</label>
