@@ -77,8 +77,9 @@
                 <div class="form-group">
                     <label>@T("User Name")</label>
                     <input asp-for="@Model.Email" type="email" class="form-control" placeholder="@T("User Name")">
-                    <span asp-validation-for="Email" class="text-theme-21 mt-2" style="color:red;"></span>
-                    <p id="email" class="temp"> @TempData["Email"]</p>
+                    @*<span asp-validation-for="Email" class="text-theme-21 mt-2" style="color:red;"></span>*@
+                      <span  class="text-theme-21 mt-2 " style="color:red;">  @T(ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage ?? "")</span>
+                    @*<p id="email" class="temp"> @TempData["Email"]</p>*@
                 </div>
                 @{ 
                     Model.LandingPageModel.Language.Id = Convert.ToInt32(TempData["LangaugeId"]);
@@ -314,7 +315,7 @@
 
                             <input type="text" asp-for="@Model.MobileNumber" onkeydown="return isNumberKey(this, event);" maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
 
-                            <span asp-validation-for="MobileNumber" class="text-theme-21 mt-2 " style="color:red;"></span>
+                           <span  class="text-theme-21 mt-2 " style="color:red;">  @T(ViewData.ModelState["MobileNumber"]?.Errors[0].ErrorMessage ?? "")</span> 
                            
                         </div>
                     </div>
@@ -322,8 +323,10 @@
                 <div class="form-group">
                     <label>@T("Password")</label>
                     <input asp-for="@Model.ConfirmPassword" type="password" class="form-control" placeholder="@T("Password")">
-                    <span asp-validation-for="ConfirmPassword" class="text-theme-21 mt-2" style="color:red;"></span>
-                    <p id="temp" class="temp"> @TempData["ConfirmPassword"]  </p>
+                    @*<span asp-validation-for="ConfirmPassword" class="text-theme-21 mt-2" style="color:red;"></span>
+                    <p id="temp" class="temp"> @TempData["ConfirmPassword"]  </p>*@
+                     <span  class="text-theme-21 mt-2 " style="color:red;">  @T(ViewData.ModelState["ConfirmPassword"]?.Errors[0].ErrorMessage ?? "")</span>
+
                 </div>
 
                 <p class="description">@T("The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers")</p>

@@ -20,16 +20,16 @@ namespace DeVeeraApp.ViewModels.User
         public string countryCode { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "Please enter username")]
+        [Required]
 
         public string Email { get; set; }
         
-        [DataType(DataType.PhoneNumber)]
-        [Required(ErrorMessage ="Please enter contact number")]
+        //[DataType(DataType.PhoneNumber)]
+        //[Required]
         public string MobileNumber { get; set; }
 
         
-        [Required(ErrorMessage = "Please enter Passcode")]
+       
         public string ErrorMessage { get; set; }
 
         public Gender? GenderType { get; set; }
