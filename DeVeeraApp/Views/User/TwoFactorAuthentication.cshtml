@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="~/assets/css/styleUser.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/assets/css/responsive.css">
-
+    <link href="~/assets/css/OTPForm.css" rel="stylesheet" />
     <link href="~/dist/css/Rating.css" rel="stylesheet" />
 
 
@@ -52,6 +52,39 @@
     <style>
         .background {
             background: radial-gradient( #fff4f2 10%, #fcd2cb 90%)
+        }
+    </style>
+    <style>
+        .colj-2 {
+            flex: 0 0 auto;
+            width: 83px;
+            height: 66px;
+            margin-left: 12px;
+            border-radius: 10px;
+            border: solid 1px #f38c8c;
+            text-align: center;
+            /* size: 24px; */
+        }
+
+        .verifybtn {
+            width: 100%;
+            border-radius: 15px;
+            border: none;
+            position: relative;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+
+        .background {
+            background: radial-gradient( #fff4f2 10%, #fcd2cb 90%)
+        }
+
+        .coming-soon-content .OtpForm {
+            padding: 15px;
+        }
+
+        .restricte {
         }
     </style>
 </head>
@@ -71,55 +104,145 @@
     <!-- End Preloader Area -->
     <!-- Start Coming Soon Area -->
 
-    <div class="coming-soon-area" style="background-color:lightgray">
+
+    <div class="coming-soon-area">
         <div class="d-table background">
             <div class="d-table-cell">
                 <div class="coming-soon-content">
-                    <h1>
-                        <a href="#">@T("Two Factor Authentication")</a>
-                    </h1>
+                    <div>
+                        <img src="/assets/images/logo.png" alt="logo" style="margin-right:80px" width="300" height="300">
+                    </div>
+                    <div style="margin-right:20px">
+                        <h2>
+                            <a href="#">@T("Two Factor Authentication")</a>
+                        </h2>
 
-                    <h2>@T("Please enter one time password (OTP).")</h2>
+                        <h3>@T("Please enter one time password (OTP).")</h3>
+                    </div>
+
+                    <form asp-controller="User" asp-action="TwoFactorAuthentication" method="post">
+                        <input type="hidden" asp-for="@Model.LevelId" />
+                        <input type="hidden" asp-for="@Model.ModuleId" />
+                        <input type="hidden" asp-for="@Model.UserId" />
+                        <span class="text-theme-6 mt-2" style="color:red;">  @T(ViewData.ModelState["OTP"]?.Errors.Count() != 0 ? ViewData.ModelState["OTP"]?.Errors[0].ErrorMessage : "")</span>
 
 
 
-                    <section class="login-area mt-5">
-                        <div class="container">
-                            <div class="login-form">
-                                <form asp-controller="User" asp-action="TwoFactorAuthentication" method="post">
-                                    <input type="hidden" asp-for="@Model.LevelId" />
-                                    <input type="hidden" asp-for="@Model.ModuleId" />
-                                    <input type="hidden" asp-for="@Model.UserId" />
-                                    @{ string mobnumber = Model.MobileNumber?.ToString();
-                                        if (mobnumber != "" && Model.MobileNumber!=null)
-                                        {
-                                            var value = Model.MobileNumber.Count() - 4;
-                                            mobnumber = mobnumber.Substring(value, 4);
-                                            mobnumber = "XXXXXX" + mobnumber;
-                                        }
-                                        <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
-                                    }
-                                    <div class="form-group">
-                                        <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("Enter passcode")" required >
-                                        <span class="text-theme-6 mt-2">  @T(ViewData.ModelState["OTP"]?.Errors.Count()!=0?ViewData.ModelState["OTP"]?.Errors[0].ErrorMessage : "")</span>
+                        @{ string mobnumber = Model.MobileNumber?.ToString();
+                            if (mobnumber != "" && Model.MobileNumber != null)
+                            {
+                                var value = Model.MobileNumber.Count() - 4;
+                                mobnumber = mobnumber.Substring(value, 4);
+                                mobnumber = "XXXXXX" + mobnumber;
+                            }
+                            <h5 class="txt-lightblack  ml-4 mt-3 text-center" >@mobnumber</h5>
+                        }
 
-                                      
 
-                                    </div>
-                                    <button type="submit">@T("Submit")</button>
-                                      <div class="text-start mt-4 mb-0" hidden >
-                           <a   href="/User/ResendotpTwoFactorAuth"   id="resendotptwo"   class="text-start"  style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
-                          
-                       </div>
 
-                                </form>
+
+                        <div class=" flex-wrap d-flex justify-content-center row col-lg-12  mt-3">
+                            <div class="  col-2">
+                                <input type="text" name="TwoFacotrOTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt1" onkeyup="moveCursor(this,'txt2','txt1')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter">
+                            </div>
+                            <div class="col-2  ">
+                                <input type="text" name="TwoFacotrOTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3','txt2')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2   input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" name="TwoFacotrOTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4','txt3')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="  colj-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" name="TwoFacotrOTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5','txt4')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" name="TwoFacotrOTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6','txt5')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter">
+                            </div>
+                            <div class=" col-2">
+                                <input type="text" name="TwoFacotrOTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt6" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2   input-newsletter">
                             </div>
                         </div>
-                    </section>
+
+
+                        <button type="submit" class="default-btn mt-3 verifybtn">@T("Submit")</button>
+
+                        @*<div class="intro-y " style="margin-left: 500px; ">
+            <div class="m-2">
+                <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
+            </div>
+        </div>*@
+
+                        @*var difference = TempData["firstOtpsentTime"];
+        var sendotp = DateTime.Now;var checkDiff = Convert.ToDateTime(difference) -Convert.ToDateTime(sendotp);
+        if (Convert.ToInt32(checkDiff.TotalSeconds) < 120000)*@
+                        @*<div class="text-start mt-4 mb-0" >
+            <a     id="resend"   class="text-start"  style="color:#f0b9b2;font:800;pointer-events:none;cursor:default;">Resend otp</a>
+
+        </div>*@
+
+                        <div class="text-start mt-4 mb-0" hidden>
+                            <a href="/User/ResendotpTwoFactorAuth" id="resendotptwo" class="text-start" style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
+
+                        </div>
+
+
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
+
+    @*old code view*@
+
+    @*<div class="coming-soon-area" style="background-color:lightgray">
+            <div class="d-table background">
+                <div class="d-table-cell">
+                    <div class="coming-soon-content">
+                        <h1>
+                            <a href="#">@T("Two Factor Authentication")</a>
+                        </h1>
+
+                        <h2>@T("Please enter one time password (OTP).")</h2>
+
+
+
+                        <section class="login-area mt-5">
+                            <div class="container">
+                                <div class="login-form">
+                                    <form asp-controller="User" asp-action="TwoFactorAuthentication" method="post">
+                                        <input type="hidden" asp-for="@Model.LevelId" />
+                                        <input type="hidden" asp-for="@Model.ModuleId" />
+                                        <input type="hidden" asp-for="@Model.UserId" />
+                                        @{ string mobnumber = Model.MobileNumber?.ToString();
+                                            if (mobnumber != "" && Model.MobileNumber != null)
+                                            {
+                                                var value = Model.MobileNumber.Count() - 4;
+                                                mobnumber = mobnumber.Substring(value, 4);
+                                                mobnumber = "XXXXXX" + mobnumber;
+                                            }
+                                            <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
+                                        }
+                                        <div class="form-group">
+                                            <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("Enter passcode")" required>
+                                            <span class="text-theme-6 mt-2">  @T(ViewData.ModelState["OTP"]?.Errors.Count() != 0 ? ViewData.ModelState["OTP"]?.Errors[0].ErrorMessage : "")</span>
+
+
+
+                                        </div>
+                                        <button type="submit">@T("Submit")</button>
+                                        <div class="text-start mt-4 mb-0" hidden>
+                                            <a href="/User/ResendotpTwoFactorAuth" id="resendotptwo" class="text-start" style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 
     <!-- End Coming Soon Area -->
     <!-- Jquery Slim JS -->
@@ -178,6 +301,27 @@
             return false;
         }
 
+    </script>
+    <script>
+        function moveCursor(fromTextbox, toTextbox, currenttxtbox) {
+
+            var currenttext = document.getElementById(currenttxtbox).value;
+
+            if (currenttext != null && currenttext != "") {
+                var length = fromTextbox.value.length;
+                var maxLength = fromTextbox.getAttribute("maxLength");
+                if (length = maxLength) {
+                    document.getElementById(toTextbox).focus();
+                }
+            }
+        }
+    </script>
+    <script>
+        document.querySelector(".input-newsletter").addEventListener("keypress", function (evt) {
+            if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+                evt.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
