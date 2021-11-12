@@ -105,7 +105,7 @@
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
                      
-                        <span  class="text-theme-6 mt-2"> @T(ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage ?? "")</span>
+                        <span  class="text-theme-6 mt-2"> @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count()!=0?ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
                             
 
 
