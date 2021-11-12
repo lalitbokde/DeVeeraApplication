@@ -926,7 +926,7 @@ namespace DeVeeraApp.Controllers
                     }
                 }
 
-                else if (model.OTP == "12345")
+                else if (model.OTP == "123456")
                 {
                 }
                 else
