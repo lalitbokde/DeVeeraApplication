@@ -317,8 +317,20 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List(int typeId)
         {
-            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
-
+            
+            if (typeId == 2)
+            {
+                
+                AddBreadcrumbs($"Welcome Screen Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
+            }
+            else if (typeId == 1)
+            {
+                AddBreadcrumbs($"Welcome back Screen Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
+            }
+            else
+            {
+                AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
+            }
             ViewBag.QuoteType = EnumDescription.GetDescription((CRM.Core.Domain.Quote)typeId);
             ViewBag.Quote = (CRM.Core.Domain.Quote)typeId;
             var model = new List<WeeklyUpdateModel>();
