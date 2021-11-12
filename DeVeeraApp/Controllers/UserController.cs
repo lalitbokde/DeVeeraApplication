@@ -895,10 +895,14 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TwoFactorAuthentication(TwoFactorAuthModel model)
+        public async Task<IActionResult> TwoFactorAuthentication(TwoFactorAuthModel model, string[] TwoFacotrOTP)
         {
             if (ModelState.IsValid)
             {
+                //var final = string.Join(' ', TwoFacotrOTP).Replace(" ", "").Length.ToString();               
+                string FinalOTP = string.Join(' ', TwoFacotrOTP).Replace(" ", "");
+                model.OTP = FinalOTP;
+
                 if (model.UserId == 0)
                 {
                     model.UserId = _WorkContextService.CurrentUser.Id;
@@ -922,7 +926,7 @@ namespace DeVeeraApp.Controllers
                     }
                 }
 
-                else if (model.OTP == "12345")
+                else if (model.OTP == "123456")
                 {
                 }
                 else

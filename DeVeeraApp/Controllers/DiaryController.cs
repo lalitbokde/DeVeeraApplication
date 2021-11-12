@@ -404,12 +404,16 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EnterPasscode(EnterPasscodeModel model)
+        public async Task<IActionResult> EnterPasscode(EnterPasscodeModel model,string[] DiaryOTP)
         {
             AddBreadcrumbs("Diary", "Passcode", $"/Diary/EnterPasscode", $"/Diary/EnterPasscode");
 
             if (ModelState.IsValid) 
             {
+
+                string FinalOTP = string.Join(' ', DiaryOTP).Replace(" ", "");
+                model.Passcode = FinalOTP;
+
                 var currentUser = _workContext.CurrentUser;
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
                 var enterpass = model.Passcode.Length;
