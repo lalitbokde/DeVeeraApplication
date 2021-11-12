@@ -100,13 +100,18 @@
                                         <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
                                     }
                                     <div class="form-group">
-                                        <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("passcode")" required >
+                                        <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("Enter passcode")" required >
                                         <span class="text-theme-6 mt-2">  @T(ViewData.ModelState["OTP"]?.Errors[0].ErrorMessage ?? "")</span>
 
                                       
 
                                     </div>
                                     <button type="submit">@T("Submit")</button>
+                                      <div class="text-start mt-4 mb-0" hidden >
+                           <a   href="/User/ResendotpTwoFactorAuth"   id="resendotptwo"   class="text-start"  style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
+                          
+                       </div>
+
                                 </form>
                             </div>
                         </div>

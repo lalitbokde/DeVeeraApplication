@@ -15,7 +15,7 @@
             <h2>@T("Complete-Registration")</h2>
             <ul>
                 <li>
-                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Dashboard" asp-action="Index">Home</a>
                 </li>
                 <li>@T("Complete-Registration")</li>
             </ul>
@@ -71,7 +71,7 @@
                 </div>
 
               
-                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["FamilyOrRelationshipType"]?.Errors[0].ErrorMessage ?? "")</span>
+                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["FamilyOrRelationshipType"]?.Errors.Count()!=0?ViewData.ModelState["FamilyOrRelationshipType"]?.Errors[0].ErrorMessage :"")</span>
 
             </div>
             <div class="col-lg-6 col-md-12">
@@ -99,7 +99,7 @@
                     </div>
 
                 </div>
-                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["EducationType"]?.Errors[0].ErrorMessage ?? "")</span>
+                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["EducationType"]?.Errors.Count()!=0?ViewData.ModelState["EducationType"]?.Errors[0].ErrorMessage : "")</span>
             </div>
             </div>
             <div class="row mt-5">
@@ -122,7 +122,7 @@
                             <input type="radio" asp-for="@Model.GenderType" class="form-check-input" value="@Gender.DontWantToSay">
                             <label class="form-check-label" for="checkme">@T("Remember me")</label>
                         </div>
-                        <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["GenderType"]?.Errors[0].ErrorMessage ?? "")</span>
+                        <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["GenderType"]?.Errors.Count()!=0?ViewData.ModelState["GenderType"]?.Errors[0].ErrorMessage :"")</span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
@@ -137,7 +137,7 @@
                             <label class="form-check-label" for="checkme">@T("Below $80K")</label>
                         </div>
                     </div>
-                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["IncomeAboveOrBelow80K"]?.Errors[0].ErrorMessage ?? "")</span>
+                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["IncomeAboveOrBelow80K"]?.Errors.Count()!=0?ViewData.ModelState["IncomeAboveOrBelow80K"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
             </div>
             <div class="row">
@@ -149,8 +149,9 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>@T("Occupation")</label>
-                                    <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="occupation">                                    
-                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Occupation"]?.Errors[0].ErrorMessage ?? "")</span>
+                                    <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="occupation">  
+                                    
+                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Occupation"]?.Errors.Count()!=0?ViewData.ModelState["Occupation"]?.Errors[0]?.ErrorMessage : "")</span>
                                 </div>                               
                               
                             </div>

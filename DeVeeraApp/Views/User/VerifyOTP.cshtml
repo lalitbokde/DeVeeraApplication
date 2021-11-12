@@ -67,6 +67,7 @@
         .coming-soon-content .OtpForm {
             padding: 15px;
         }
+        .restricte{}
     </style>
 </head>
 <!-- Required meta tags -->
@@ -117,22 +118,22 @@
                         }
                         <div class=" flex-wrap d-flex justify-content-center row col-lg-12 ">
                             <div class="  col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt1" onkeyup="moveCursor(this,'txt2','txt1')" class=" colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*"  id="txt1" onkeyup="moveCursor(this,'txt2','txt1')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter" >
                             </div>
                             <div class="col-2  ">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3','txt2')" class="colj-2   input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3','txt2')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2   input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4','txt3')" class="  colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4','txt3')"  oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="  colj-2 input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5','txt4')" class="colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5','txt4')"  oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2 input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6','txt5')" class=" colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6','txt5')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter" >
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" max="6" pattern="\d*" id="txt6"  autocomplete="off" class="colj-2  input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt6"  autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  class="colj-2   input-newsletter" >
                             </div>
                         </div>
                        
@@ -260,4 +261,12 @@ if(currenttext!=null&& currenttext!=""){
         })
     }
 
+</script>
+<script>
+document.querySelector(".input-newsletter").addEventListener("keypress", function (evt) {
+    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+    {
+        evt.preventDefault();
+    }
+});
 </script>
