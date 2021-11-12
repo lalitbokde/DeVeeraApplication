@@ -101,7 +101,7 @@
                                     }
                                     <div class="form-group">
                                         <input type="text" asp-for="@Model.OTP" onkeydown="return isNumberKey(this, event);" class="form-control" placeholder="@T("Enter passcode")" required >
-                                        <span class="text-theme-6 mt-2">  @T(ViewData.ModelState["OTP"]?.Errors[0].ErrorMessage ?? "")</span>
+                                        <span class="text-theme-6 mt-2">  @T(ViewData.ModelState["OTP"]?.Errors.Count()!=0?ViewData.ModelState["OTP"]?.Errors[0].ErrorMessage : "")</span>
 
                                       
 
