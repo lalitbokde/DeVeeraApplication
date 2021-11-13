@@ -54,7 +54,17 @@
     <link rel="stylesheet" href="~/assets/css/responsive.css">
     <!-- Date Picker -->
     <link href="~/dist/js/datetimepicker/css/duDatepicker.css" rel="stylesheet" />
-    <title>Three Happy Pals</title>
+
+     <link href="~/assets/css/OTPForm.css" rel="stylesheet" />
+    <link href="~/dist/css/Rating.css" rel="stylesheet" />
+
+
+    <title>Psylo - Life Coach & Psychologist HTML Template</title>
+
+    <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+
+
+    <title>@T("Three Happy Pals")</title>
 
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
 </head>
@@ -72,6 +82,23 @@
         .psylo-post-navigation .prev-link-wrapper .image-prev img {
             object-fit: cover;
         }
+       /* .nice-select .list {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 0 1px rgb(68 68 68 / 11%);
+            box-sizing: border-box;
+            margin-top: 4px;
+            overflow: hidden;
+            padding: 0;
+            transform-origin: 50% 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000!important;
+        }*/
+        .nice-select .list{
+            z-index:1000!important;
+        }
     </style>
     <!-- Start Preloader Area -->
     <div class="preloader-area">
@@ -88,14 +115,16 @@
     <div class="header-information">Header Information</div>
 
     <div class="top-header-area bg-color">
-        <div class="container" style="max-width:inherit;">
-            <div class="row align-items-center">
+       
+        <div class="container" style="max-width: inherit;">
+            
+            <div class="row align-items-center start-0">
                  
-                            <div class="col-lg-2 col-md-2 flex">
-                              
-                         @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel())
+                        <div class="col-lg-2 col-md-2 flex">
+                                @await Component.InvokeAsync("SelectLanguage", new DeVeeraApp.ViewModels.User.UserModel())
+                        
                                </div>
-                       
+                           
                 <div class="col-lg-10 col-md-10 flex">
                      
                     <ul class="top-header-information">

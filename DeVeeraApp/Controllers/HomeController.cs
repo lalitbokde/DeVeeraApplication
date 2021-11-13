@@ -252,7 +252,7 @@ namespace DeVeeraApp.Controllers
         }
 
 
-        public IActionResult ExistingUser(int QuoteType, DateTime LastLoginDateUtc)
+        public IActionResult ExistingUser(int QuoteType, DateTime LastLoginDateUtc,string Lang)
         {
             var random = new Random();
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
@@ -268,6 +268,13 @@ namespace DeVeeraApp.Controllers
                     model.Quote = quotewelcome?.Title + quotewelcome?.Author;
                 }
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+                if (Lang != null)
+                {
+                    if (Lang == "English")
+                        userLanguage.LanguageId = 3;
+                    if (Lang == "Spanish")
+                        userLanguage.LanguageId = 5;
+                }
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();//Allquote when quote id not set
                 var langId = TempData["LangaugeId"];
                 if (quoteList != null || quoteList.Count() != 0 && quoteList.Count > 0 && data.IsRandom == true)
