@@ -308,62 +308,76 @@ namespace DeVeeraApp.Controllers
             if (model.countryCode == null)
             {
                 ViewData.ModelState.AddModelError("countryCode", "Please select country code.!!!");
-                return View("Register", model);
+               // return View("Register", model);
             }
             if (model.MobileNumber == null)
             {
                 ViewData.ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
-                return View("Register",model);
+              //  return View("Register",model);
 
             }
+            if (model.MobileNumber?.Length <10)
+            {
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter correct mobile No.!!!");
+               // return View("Register", model);
+
+            }
+
             if (model.ConfirmPassword == null)
             {
                 ViewData.ModelState.AddModelError("ConfirmPassword", " Please enter the password....!!! ");
-                return View("Register", model);
+                //return View("Register", model);
             }
+       
+
+        //    "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!"
+
             if (model.Email == null)
             {
                 ViewData.ModelState.AddModelError("Email", "Please enter username .!!!");
-                return View("Register", model);
+               // return View("Register", model);
             }
 
-            if (ModelState.IsValid == false)
+            if (ModelState.IsValid==false)
             {
-                return RedirectToAction("Register", "User");
+                return View("Register", model);
+                //return RedirectToAction("Register", "User");
             }
             if (_UserService.GetUserByEmail(model.Email) != null)
             {
-                TempData["Email"] = "Email Already Registered";
-                return RedirectToAction("Register");
+                ViewData.ModelState.AddModelError("Email", "Email Already Registered .!!!");
+                // return View("Register", model);
             }
+
             var verifymobno = model.countryCode + model.MobileNumber;
             if (_UserService.GetUserByMobileNo(verifymobno) == null)
             {
-                var verification =
+               
+                    var verification =
                     await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-                if (verification.IsValid == true)
-                {
+                    if (verification.IsValid == true)
+                    {
 
-                }
-                else
-                {
-                    ModelState.AddModelError("MobileNumber", "Please enter correct mobile No to receive otp .!!!"); 
-                    return View("Register", model);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("MobileNumber", "Please enter correct mobile No to receive otp .!!!");
+                        return View("Register", model);
 
-                    //return RedirectToAction("Register", "User");
+                        //return RedirectToAction("Register", "User");
 
 
-                }
+                    }
 
-                return RedirectToAction(nameof(VerifyOTP),
-                                                 new UserModel
-                                                 {
-                                                     MobileNumber = verifymobno,
-                                                     Email = model.Email,
-                                                     ConfirmPassword = model.ConfirmPassword
-                                                 });
-
+                    return RedirectToAction(nameof(VerifyOTP),
+                                                     new UserModel
+                                                     {
+                                                         MobileNumber = verifymobno,
+                                                         Email = model.Email,
+                                                         ConfirmPassword = model.ConfirmPassword
+                                                     });
+                
             }
             else
             {
