@@ -15,7 +15,7 @@
             <h2>@T("Complete-Registration")</h2>
             <ul>
                 <li>
-                    <a asp-controller="Dashboard" asp-action="Index">Home</a>
+                    <a asp-controller="Dashboard" asp-action="Index">@T("Home")</a>
                 </li>
                 <li>@T("Complete-Registration")</li>
             </ul>
@@ -157,8 +157,9 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>@T("Age")</label>
-                                    <input asp-for="@Model.Age" type="number" min="1" class="form-control" placeholder="age">
+                                    <label>@T("Age")</label> 
+                                    <input asp-for="@Model.Age" type="text" min="1" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" placeholder="age">
+                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Age"]?.Errors.Count()!=0?ViewData.ModelState["Age"]?.Errors[0]?.ErrorMessage : "")</span>
                                 </div>
                              
                                

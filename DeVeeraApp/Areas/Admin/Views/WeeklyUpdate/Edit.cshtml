@@ -134,7 +134,7 @@
   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quoteseditlogin"  >
+                    <div id="quoteseditlogin" hidden >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                 }
@@ -142,7 +142,7 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quoteseditlogin" hidden >
+                    <div id="quoteseditlogin"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                 }
@@ -345,7 +345,7 @@
   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit"  >
+                    <div id="quotesedit" hidden >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                 }
@@ -353,7 +353,7 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit" hidden >
+                    <div id="quotesedit"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                 }
@@ -649,7 +649,7 @@
                                 </div>
                             </div>*@
 
-                            @if (Model.QuoteId == 0) {
+                            @if (Model.QuoteId != 0) {
                             <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" />
@@ -663,10 +663,10 @@
 
                              <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" checked/>
+                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quoteslandingedit"  >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                     </div>
                         </div>
                             }
@@ -893,14 +893,14 @@
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquotelandingedit").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quoteslandingedit").removeAttr('hidden');
+      if ($(this).is(':checked')) {$("#quoteslandingedit").attr('hidden',true);
+         
 
 document.getElementById("userlanding").value=1;
       }
 else
 {
- $("#quoteslandingedit").attr('hidden',true);document.getElementById("userlanding").value=2;
+  $("#quoteslandingedit").removeAttr('hidden');document.getElementById("userlanding").value=2;
 }
 
   });
@@ -961,15 +961,15 @@ else
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquote").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quotesedit").removeAttr('hidden');
+      if ($(this).is(':checked')) { $("#quotesedit").attr('hidden',true);
+         
 document.getElementById("userRegistration").value=1;
 
       }
 else
 {
- $("#quotesedit").attr('hidden',true);
 
+ $("#quotesedit").removeAttr('hidden');
  document.getElementById("userRegistration").value=1;
 }
 
@@ -1030,14 +1030,14 @@ function TranslateQuoteloginSpanish(sel) {
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquotelogin").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quoteseditlogin").removeAttr('hidden');
+      if ($(this).is(':checked')) {$("#quoteseditlogin").attr('hidden',true);
+         
  document.getElementById("userlogin").value=1;
 
       }
 else
 {
- $("#quoteseditlogin").attr('hidden',true);
+  $("#quoteseditlogin").removeAttr('hidden');
  document.getElementById("userlogin").value=2;
 }
 
