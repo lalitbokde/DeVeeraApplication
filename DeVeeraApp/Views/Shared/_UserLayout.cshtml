@@ -3,19 +3,25 @@
 @inject CRM.Services.ILevelServices levelServices
 @inject CRM.Services.IImageMasterService ImageService
 @inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
-@{ var currentLevel = _workContext.CurrentUser.LastLevel!=null? _workContext.CurrentUser.LastLevel:1;
+@{
 
-    var userLevel = levelServices.GetLevelById((int)currentLevel)?.LevelNo ?? 1;
-    var FooterImgid = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterImageId).Where(a => a.IsActive == true).FirstOrDefault()?.FooterImageId;
-    var Imageurl = ImageService.GetImageById((int)FooterImgid)?.ImageUrl;
+@if (_workContext.CurrentUser.LastLevel == null) {
+    _workContext.CurrentUser.LastLevel = 1;
+}
 
-    var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_1;
-    var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
-    var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
-    var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
-    var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
-    var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
-    var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+var currentLevel = _workContext.CurrentUser.LastLevel;
+
+var userLevel = levelServices.GetLevelById((int)currentLevel)?.LevelNo ?? 1;
+var FooterImgid = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterImageId).Where(a => a.IsActive == true).FirstOrDefault()?.FooterImageId;
+var Imageurl = ImageService.GetImageById((int)FooterImgid)?.ImageUrl;
+
+var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_1;
+var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
+var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
+var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
+var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
+var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
+var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
 }
 
 <!doctype html>
@@ -80,6 +86,7 @@
         }
 
         .psylo-post-navigation .prev-link-wrapper .image-prev img {
+
             object-fit: cover;
         }
        /* .nice-select .list {

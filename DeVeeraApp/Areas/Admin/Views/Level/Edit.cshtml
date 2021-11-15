@@ -863,9 +863,10 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank" href="/Module/Index/@Model.Modules.Id">English</a>
-                                            <a target="_blank" href="/Module/Index/@Model.Modules.Id">Spanish</a>
-
+                                            @{  var English = 3;var Spanish = 5;
+                                            <a target="_blank" href="/Module/Index/?id=@Model.Modules.Id&PreviewLangId=@English">English</a>
+                                            <a target="_blank" href="/Module/Index/?id=@Model.Modules.Id&PreviewLangId=@Spanish">Spanish</a>
+                                            }
                                         </div>
                                     </div>
                                     @*<a target="_blank" class="btn btn-primary w-24" href="/Module/Index/@Model.Modules.Id">Preview</a>*@
