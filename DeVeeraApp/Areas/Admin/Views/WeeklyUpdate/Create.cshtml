@@ -84,9 +84,9 @@
             width: 0;
         }
 </style>
-<form asp-controller="WeeklyUpdate" asp-action="Create" method="post" id="RegistartionForm" onsubmit="ShowLoader('RegistartionForm');">
+<form asp-controller="WeeklyUpdate" asp-action="Create"  asp-route-typeId="@(ViewData["Quotetype"])"   method="post" id="RegistartionForm" onsubmit="ShowLoader('RegistartionForm');">
     <div class="intro-y inbox py-10 sm:py-20 ">
-
+        @{ var s = ViewData["Quotetype"];}
         @if (ViewBag.QuoteType == "Login")
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
@@ -163,7 +163,7 @@
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquoteuser" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesuser" hidden >
+                    <div id="quotesuser"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote" onchange="TranslateQuoteuserSpanish(this)" id="quotedropdowneng"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                             </div>
@@ -362,7 +362,7 @@
                                  <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotes" hidden >
+                    <div id="quotes"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdowneng"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                       
@@ -639,8 +639,8 @@
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelanding" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quoteslanding" hidden >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                    <div id="quoteslanding"  >
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                     </div>
                         </div>
 
@@ -902,11 +902,11 @@
 
   $("#randomquotelanding").change(function(){
       if ($(this).is(':checked')) {
-          $("#quoteslanding").removeAttr('hidden');
+          $("#quoteslanding").attr('hidden',true);
       }
 else
 {
- $("#quoteslanding").attr('hidden',true);
+ $("#quoteslanding").removeAttr('hidden');
 }
 
   });
@@ -922,15 +922,15 @@ else
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquote").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quotes").removeAttr('hidden');
+      if ($(this).is(':checked')) { $("#quotes").attr('hidden',true);
+         
  $("#quotesSpanish").removeAttr('hidden');
 
       }
 else
 {
- $("#quotes").attr('hidden',true);
 
+ $("#quotes").removeAttr('hidden');
  $("#quotesSpanish").attr('hidden',true);
 }
 
@@ -1033,15 +1033,15 @@ else
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquoteuser").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quotesuser").removeAttr('hidden');
+      if ($(this).is(':checked')) { $("#quotesuser").attr('hidden',true);
+        
  $("#quotesSpanishuser").removeAttr('hidden');
 
       }
 else
 {
- $("#quotesuser").attr('hidden',true);
 
+  $("#quotesuser").removeAttr('hidden');
  $("#quotesSpanishuser").attr('hidden',true);
 }
 

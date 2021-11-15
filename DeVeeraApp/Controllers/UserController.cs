@@ -846,6 +846,14 @@ namespace DeVeeraApp.Controllers
             {
                 ViewData.ModelState.AddModelError("Occupation", "Please enter the Occupation !!!"); 
             }
+            if(model.Age==null )
+            {
+                ViewData.ModelState.AddModelError("Age", "Please enter the Age !!!"); 
+            }
+            if(model.Age == 0)
+            {
+                ViewData.ModelState.AddModelError("Age", "Please enter the Age properly ,can not be 0 !!!");
+            }
             if (ModelState.IsValid)
             {
                 var currentUser = _UserService.GetUserById(model.UserId);
