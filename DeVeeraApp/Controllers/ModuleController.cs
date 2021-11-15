@@ -68,7 +68,7 @@ namespace DeVeeraApp.Controllers
 
         #region methods
 
-        public IActionResult Index(int id, int srno, int levelSrno)
+        public IActionResult Index(int id, int srno, int levelSrno,int PreviewLangId)
         {
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             AddBreadcrumbs("Module", "Index", "/Module/Index", "/Module/Index");
@@ -78,6 +78,7 @@ namespace DeVeeraApp.Controllers
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a => a.LevelId == data.LevelId).Count();
             var moduleData = data.ToModel<ModulesModel>();
 
+           
             var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId==data.Id ).ToList();
             if (likesdata.Count()!=0)
             {
@@ -94,6 +95,11 @@ namespace DeVeeraApp.Controllers
                     moduleData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(moduleData.FullDescription);
                 }
             }
+            if (PreviewLangId != null && PreviewLangId != 0)
+            {
+                userLanguage.LanguageId = PreviewLangId;
+            }
+
             Diary diary = new Diary();
             if (_workContext.CurrentUser.UserRole.Name == "Admin")
             {

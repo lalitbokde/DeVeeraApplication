@@ -102,7 +102,7 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(DataSourceRequest command)        
+        public IActionResult Index(DataSourceRequest command,string PreviewLangId)        
       {
 
 
@@ -112,6 +112,10 @@ namespace DeVeeraApp.Controllers
          var langId=  TempData["LangaugeId"];
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
+            if (PreviewLangId != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(PreviewLangId);
+            }
             if (data != null)
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
@@ -440,7 +444,7 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult NewUser(int QuoteType, int langId)
+        public IActionResult NewUser(int QuoteType, int langId,int PreviewLangId)
         {
             var random = new Random();
             //setting language
@@ -466,7 +470,10 @@ namespace DeVeeraApp.Controllers
                     _settingService.InsertSetting(settingData);
               
             }
-
+            if(PreviewLangId != null && PreviewLangId != 0)
+            {
+                userLanguage.LanguageId = PreviewLangId;
+            }
             //end of setting language
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
