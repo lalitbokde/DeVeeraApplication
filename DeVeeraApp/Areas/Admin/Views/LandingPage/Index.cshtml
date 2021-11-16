@@ -69,8 +69,15 @@
                         <div class="hero-media">
 
                             <div class="hero-video-container">
+
                                 @{string src = ViewBag.VideoUrl;}
+                                @if (src == "" || src == null)
+                                {
+                                    <video controls onclick="showvideopop();" style="width:500px; height:400px" loop />
+                                }
+                                else { 
                                 <video src="@Url.Content(src)" controls style="width:500px; height:400px" loop />
+                                }
                             </div>
                         </div>
                     </div>
@@ -158,3 +165,11 @@
     <script src="~/LandingPage/dist/js/main.min.js"></script>
 </body>
 </html>
+<script>
+function showvideopop(){
+alert("Video not Avaible !!.");
+//document.getElementById("VideoNotAvailable").style.display='inline';     
+ //$("#VideoNotAvailable").removeAttr('hidden');
+}
+
+</script>

@@ -683,11 +683,8 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
-
-        public IActionResult ForgetPassword()
-        {
-            return View();
-        }
+      
+       
 
 
         public IActionResult UserProfile(int userId)
@@ -1150,21 +1147,70 @@ namespace DeVeeraApp.Controllers
             return Json(response);
         }
 
-        //[HttpPost]
-        //public IActionResult ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model)
-        //{
-        //    if(model.Email != null)
-        //    {
-        //        var checkUserEmail = _UserService.GetUserByEmail(model.Email);
 
-        //        if(checkUserEmail != null)
-        //        {
+        [HttpGet]
+        public async Task<IActionResult> VerfiyFogotPassword(string username)
+        {
+            if (username != null)
+            {
+                var checkUserEmail = _UserService.GetUserByEmail(username);
+                var verification =
+                  await _verificationService.StartVerificationAsync(checkUserEmail.MobileNumber, "sms");
+                if (verification.IsValid == true)
+                {
+                    //return RedirectToAction(nameof(VerfiyFogotPassword),
+                    //                                     new LoginModel
+                    //                                     {
+                    //                                         Email = checkUserEmail.Email                                                            
+                    //                                     });
+                }
+                
+            }
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> VerfiyFogotPassword(string username,string[] verifyFO)
+        {
+            if (username != null)
+            {
+                var checkUserEmail = _UserService.GetUserByEmail(username);
+                if (checkUserEmail != null)
+                {
+                    var verification =
+                  await _verificationService.StartVerificationAsync(checkUserEmail.MobileNumber, "sms");
+                    if (verification.IsValid == true)
+                    {
+                       
+                    }
+                }
+            }
+            return View();
+        }
+        
 
-        //        }
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model,string username)
+        {
+            if (model.Email != null)
+            {
+                var checkUserEmail = _UserService.GetUserByEmail(model.Email);
 
-        //    return View();
-        //}
+                if (checkUserEmail != null)
+                {
+                    //var result = await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
+                    //if (result.IsValid == true)
+                    //{
+
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError("OTP", "OTP Doesn't match");
+                    //}
+                }
+            }
+
+            return View(model);
+        }
         #endregion
 
 

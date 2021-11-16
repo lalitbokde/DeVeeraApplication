@@ -27,7 +27,13 @@
                             string src = "";
                             if (ViewBag.srno == 1)
                             {
-                                src = Model.VideoUrl;
+                                if(Model.VideoUrl == "" || Model.VideoUrl == null)
+                                {
+                                  
+                                }
+                                else {
+                                    src = Model.VideoUrl;
+                                }
                             }
                             else
                             {

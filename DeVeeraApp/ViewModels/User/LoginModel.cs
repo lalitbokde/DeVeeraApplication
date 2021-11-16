@@ -7,6 +7,7 @@ namespace DeVeeraApp.ViewModels.User
     {    
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage ="Enter valid email address")]
+        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
         public string Email { get; set; }
 
         public bool UsernamesEnabled { get; set; }
