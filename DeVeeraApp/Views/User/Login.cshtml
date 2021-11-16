@@ -42,7 +42,7 @@
                     @*<span asp-validation-for="Password" class="text-theme-6 mt-2"></span>*@
                     <span class="text-theme-21 mt-2 " style="color:red;">@T(ViewData.ModelState["Password"]?.Errors.Count() != 0 ? ViewData.ModelState["Password"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
-                <span class="text-theme-21 mt-2 " style="color:red;">@T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span> 
+                <span class="text-theme-21 mt-2 " style="color:red;">@T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-check">
@@ -55,7 +55,7 @@
                         <a href="#" class="lost-your-password">@T("Forgot your password?")</a>
                     </div>
                 </div>
-
+                @*href="/User/VerfiyFogotPassword/?username=@Model.Email"*@
                 <button type="submit">@T("Login")</button>
             </form>
         </div>

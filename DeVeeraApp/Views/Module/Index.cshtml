@@ -50,24 +50,49 @@
                 {
                     @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
                     {
-                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                        if(Spanishvideourl==""|| Spanishvideourl == null)
+                    {
+                            <a onclick="alert('Video not Avaible !!.');" class="video-btn popup-youtube">
                             <i class="flaticon-play"></i>
                         </a>
                     }
+                    else { 
+                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                            <i class="flaticon-play"></i>
+                        </a>
+                        }
+                    }
                     else
                     {
+                    if (videourl == "" || videourl == null)
+                    {
+                        <a onclick="alert('Video not Avaible !!.');"  class="video-btn popup-youtube">
+                            <i class="flaticon-play"></i>
+                        </a>
+                    }
+                    else { 
                         <a href="@videourl" class="video-btn popup-youtube">
                             <i class="flaticon-play"></i>
                         </a>
+                        }
                     }
                 }
                 else
                 {
-                    <a href="@videourl" class="video-btn popup-youtube">
+                    if (videourl == "" || videourl == null)
+                    {
+                    <a onclick="alert('Video not Avaible !!.');" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                        }
+                else
+                {
+                     <a href="@videourl" class="video-btn popup-youtube">
                         <i class="flaticon-play"></i>
                     </a>
                 }
-            }
+                    }
+                }
         </div>
 
         <div class="row">
