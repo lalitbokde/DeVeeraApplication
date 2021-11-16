@@ -115,7 +115,7 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(int levelno, DateTime? lastLoginDateUtc)
+        public IActionResult Index(int levelno, DateTime? lastLoginDateUtc, int QuoteType, string Lang)
         {
             var random = new Random();
            var ch= TempData["LangaugeId"];
@@ -143,6 +143,15 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.BannerImageUrl = imagesRecord?.ImageUrl;
             }
+
+            if (Lang != null)
+            {
+                if (Lang == "English")
+                    userLanguage.LanguageId = 3;
+                if (Lang == "Spanish")
+                    userLanguage.LanguageId = 5;
+            }
+
 
             var imagesRecord1 = _imageMasterService.GetImageById(data?.VideoThumbImageId);
             if (userLanguage.LanguageId == 5) { 

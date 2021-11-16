@@ -83,6 +83,9 @@
             top: 50%;
             width: 0;
         }
+    .camelclass {
+        text-transform: capitalize;
+    }
 </style>
 <form asp-controller="WeeklyUpdate" asp-action="Create"  asp-route-typeId="@(ViewData["Quotetype"])"   method="post" id="RegistartionForm" onsubmit="ShowLoader('RegistartionForm');">
     <div class="intro-y inbox py-10 sm:py-20 ">
@@ -92,7 +95,7 @@
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
             <div class="px-5 ">
                 <div class="font-medium text-center text-lg">Create Welcome Back Screen </div>
-                <div class="text-gray-600 text-center mt-2">Please add below detail to show on Welcome back screen</div>
+                <div class="text-gray-600 text-center mt-2 camelclass">Please add below detail to show on Welcome back screen</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -272,7 +275,7 @@
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
                 <div class="font-medium text-center text-lg">Create Welcome Screen</div>
-                <div class="text-gray-600 text-center mt-2">Please add below details to show on Welcome screen</div>
+                <div class="text-gray-600 text-center mt-2 camelclass">Please add below details to show on Welcome screen</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -449,7 +452,7 @@
 
             <div class="px-5 ">
                 <div class="font-medium text-center text-lg">Create Landing Page </div>
-                <div class="text-gray-600 text-center mt-2">Please add below details to show on the landing page</div>
+                <div class="text-gray-600 text-center mt-2 camelclass">Please add below details to show on the landing page</div>
             </div>
 
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">

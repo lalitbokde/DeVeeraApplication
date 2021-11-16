@@ -48,7 +48,7 @@ namespace DeVeeraApp.ViewModels.User
         //[NotMapped]
         [Required(ErrorMessage = "Enter correct password")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
-        ErrorMessage = "The password length must be minimum 8 characters.The password must \n contain one or more special characters,uppercase characters,lowercase \n characters,numeric values..!!")]
+        ErrorMessage = "The password length must be minimum 8 characters.The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
 
 
         //[DataType(DataType.Password)]

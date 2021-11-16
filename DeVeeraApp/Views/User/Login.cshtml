@@ -30,17 +30,19 @@
                 <div class="form-group">
                     <label>@T("Username")</label>
                     <input type="email" asp-for="Email" class="form-control" placeholder="@T("Username")">
-                    <span asp-validation-for="Email" class="text-theme-6 mt-2"></span>
+                    @*<span asp-validation-for="Email" class="text-theme-6 mt-2"></span>*@
+                    <span class="text-theme-21 mt-2 " style="color:red;">@T(ViewData.ModelState["Email"]?.Errors.Count() != 0 ? ViewData.ModelState["Email"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
 
-              
+
 
                 <div class="form-group">
                     <label>@T("Password")</label>
                     <input type="password" asp-for="Password" class="form-control" placeholder="@T("Password")">
-                    <span asp-validation-for="Password" class="text-theme-6 mt-2"></span>
+                    @*<span asp-validation-for="Password" class="text-theme-6 mt-2"></span>*@
+                    <span class="text-theme-21 mt-2 " style="color:red;">@T(ViewData.ModelState["Password"]?.Errors.Count() != 0 ? ViewData.ModelState["Password"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
-
+                <span class="text-theme-21 mt-2 " style="color:red;">@T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span> 
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-check">

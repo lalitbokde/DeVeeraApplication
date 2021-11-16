@@ -493,10 +493,10 @@ namespace DeVeeraApp.Controllers
 
 
 
-            if (model.BodyImageId != 0 && model.BannerImageId != 0)
+            if (model?.BodyImageId != 0 && model?.BannerImageId != 0)
             {
-                var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
-                var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
+                var bannerImageData = _imageMasterService.GetImageById(model?.BannerImageId);
+                var bodyImageData = _imageMasterService.GetImageById(model?.BodyImageId);
 
                 if (bannerImageData != null)
                 {
@@ -533,7 +533,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(currentUser);
 
             }
-            _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Subtitle);
+            _localStringResourcesServices.GetLocalStringResourceByResourceName(model?.Subtitle);
             return View(model);
 
 

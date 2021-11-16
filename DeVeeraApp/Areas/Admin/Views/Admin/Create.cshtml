@@ -4,12 +4,17 @@
 @{
     ViewData["Title"] = "Create";
 }
+<style>
+.camelclass {
+        text-transform: capitalize;
+    }
+</style>
 <form asp-controller="Admin" asp-action="Create" method="post"  id="adminPage" onsubmit="ShowLoader('adminPage');">
     <div class="intro-y  py-10 sm:py-20 ">
 
         <div class="px-5 ">
             <div class="font-medium text-center text-lg">Create Admin</div>
-            <div class="text-gray-600 text-center mt-2">Here you can create new admin user.</div>
+            <div class="text-gray-600 text-center mt-2 camelclass">Here you can create new admin user.</div>
 
         </div>
 
