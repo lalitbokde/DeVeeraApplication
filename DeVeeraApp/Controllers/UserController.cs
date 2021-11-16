@@ -1197,15 +1197,15 @@ namespace DeVeeraApp.Controllers
 
                 if (checkUserEmail != null)
                 {
-                    var result = await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
-                    if (result.IsValid == true)
-                    {
+                    //var result = await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
+                    //if (result.IsValid == true)
+                    //{
 
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("OTP", "OTP Doesn't match");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError("OTP", "OTP Doesn't match");
+                    //}
                 }
             }
 
