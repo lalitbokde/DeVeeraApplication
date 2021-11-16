@@ -76,6 +76,7 @@ namespace DeVeeraApp.Controllers
 
         private readonly IVerificationService _verificationService;
         private readonly ISettingService _settingService;
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         #endregion
 
         #region CTOR
@@ -101,7 +102,8 @@ namespace DeVeeraApp.Controllers
                                   ILayoutSetupService layoutSetupService,
                                   IImageMasterService imageMasterService,
                                   ITranslationService translationService,
-                                   ISettingService settingService
+                                   ISettingService settingService,
+                                   ILocalStringResourcesServices localStringResourcesServices
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -132,6 +134,7 @@ namespace DeVeeraApp.Controllers
             _imageMasterService = imageMasterService;
             _translationService = translationService;
             _settingService = settingService;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
         #endregion
@@ -743,11 +746,35 @@ namespace DeVeeraApp.Controllers
 
                     }
                 }
+               
                 PrepareLanguages(model.LandingPageModel.Language);
+                var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
+                if (userlang == 5)
+                {
+
+                    //model.LandingPageModel.Language.AvailableLanguages.Clear();
+                    //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
+                 
+                    //var AvailableLanguage = _languageService.GetAllLanguages();
+                    //foreach (var item in AvailableLanguage)
+                    //{
+                    //    item.Name= _localStringResourcesServices.GetResourceValueByResourceName(item?.Name);
+                    //    model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                    //    {
+                    //        Value = item.Id.ToString(),
+                    //        Text = item.Name
+                    //    });
+                    //}
+
+                    //Above code to set language in spanish 
+
+                 // model.EducationType= _localStringResourcesServices.GetResourceValueByResourceName();
+
+                }
                 return View(model);
 
             }
-            PrepareLanguages(model.LandingPageModel.Language);
+            
             return RedirectToAction("Index", "Home");
         }
 
