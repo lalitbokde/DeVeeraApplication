@@ -91,11 +91,16 @@
             width: 0;
         }
    
+        
+    .camelclass {
+        text-transform: capitalize;
+    }
+
 </style>
 <div class="intro-y inbox py-10 sm:py-20 ">
     <div class="px-5 ">
         <div class="font-medium text-center text-lg">Edit Level</div>
-        <div class="text-gray-600 text-center mt-2">Please add Level name and description</div>
+        <div class="text-gray-600 text-center mt-2 camelclass">Please add Level name and description</div>
     </div>
     <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -516,8 +521,8 @@
                                         <div class="dropdown">
                                             <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                             <div class="dropdown-content">
-                                                <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)&Lang=English">English</a>
-                                                <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)&Lang=Spanish">Spanish</a>
+                                                <a target="_blank" href="/Lesson/Index?levelno=@(Model.LevelNo)&Lang=English">English</a>
+                                                <a target="_blank" href="/Lesson/Index?levelno=@(Model.LevelNo)&Lang=Spanish">Spanish</a>
 
                                             </div>
                                         </div>
@@ -847,7 +852,7 @@
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <span class="mr-5">
                                     <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                        <label class="pl-10">Back to List</label>
+                                        <label class="pl-10">Back to List </label>
 
                                         <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name">
 

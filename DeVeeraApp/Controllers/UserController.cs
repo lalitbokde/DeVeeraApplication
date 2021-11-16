@@ -210,8 +210,16 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public virtual IActionResult Login(DeVeeraApp.ViewModels.User.LoginModel model, string returnUrl, bool captchaValid)
         {
-           
 
+            if (model.Email == null)
+            {
+                ViewData.ModelState.AddModelError("Email", "");
+            }
+            if (model.Password == null)
+            {
+                ViewData.ModelState.AddModelError("Password", "");
+            }
+            ModelState.Remove("ErrorMessage");
             if (ModelState.IsValid)
             {
                 var LastLoginDateUtc = _UserService.GetUserByEmail(model.Email)?.LastLoginDateUtc;
@@ -251,25 +259,32 @@ namespace DeVeeraApp.Controllers
                         }
                     case UserLoginResults.UserNotExist:
                         ModelState.AddModelError("", "UserNotExist");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User Does Not Exist !!!");
                         break;
                     case UserLoginResults.Deleted:
                         ModelState.AddModelError("", "Deleted");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is Deleted !!!");
                         break;
                     case UserLoginResults.NotActive:
                         ModelState.AddModelError("", "NotActive");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  NotActive !!!");
                         break;
                     case UserLoginResults.NotRegistered:
                         ModelState.AddModelError("", "NotRegistered");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  not NotRegistered !!!");
                         break;
                     case UserLoginResults.LockedOut:
                         ModelState.AddModelError("", "LockedOut");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "LockedOut !!!");
                         break;
                     case UserLoginResults.WrongPassword:
                     default:
                         ModelState.AddModelError("", "WrongCredentials");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter proper email and Password !!!");
                         break;
                     case UserLoginResults.NotAllow:
                         ModelState.AddModelError("", "Not Allowed");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Not Allowed!!!");
                         break;
                 }
             }
@@ -754,7 +769,7 @@ namespace DeVeeraApp.Controllers
 
                     //model.LandingPageModel.Language.AvailableLanguages.Clear();
                     //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
-                 
+
                     //var AvailableLanguage = _languageService.GetAllLanguages();
                     //foreach (var item in AvailableLanguage)
                     //{
@@ -768,8 +783,9 @@ namespace DeVeeraApp.Controllers
 
                     //Above code to set language in spanish 
 
-                 // model.EducationType= _localStringResourcesServices.GetResourceValueByResourceName();
 
+
+                   
                 }
                 return View(model);
 
@@ -785,8 +801,7 @@ namespace DeVeeraApp.Controllers
 
             var User = _UserService.GetUserById(model.Id);
 
-            if (ModelState.IsValid)
-            {
+           
                 if (User != null)
                 {
                     if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword.Password)
@@ -816,7 +831,7 @@ namespace DeVeeraApp.Controllers
                     return View(model);
                 }
 
-            }
+           
 
 
             return View(model);

@@ -67,7 +67,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6">
                                 <div class="main-banner-image">
-                                    <img src=@((string.IsNullOrWhiteSpace(Model.BannerImageURL))?"/assets/images/main-banner/banner-1.jpg":Model.BannerImageURL) alt="image">
+                                    <img src=@((string.IsNullOrWhiteSpace(Model?.BannerImageURL))?"/assets/images/main-banner/banner-1.jpg":Model?.BannerImageURL) alt="image">
 
                                     <div class="image-shape">
                                         <img src="~/assets/images/main-banner/shape.png" alt="image">
@@ -79,8 +79,8 @@
                             <div class="col-lg-6">
                                 <div class="main-banner-content span">
 
-                                    <h1> @T(Model.Title) <span>@T(Model.Subtitle)</span></h1> 
-                                    @Html.Raw(@Model.Quote)
+                                    <h1> @T(Model?.Title) <span>@T(Model?.Subtitle)</span></h1> 
+                                    @Html.Raw(@Model?.Quote)
 
                                     <div class="banner-btn">
                                         <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel" class="default-btn">@T("Lets Start") <i class="flaticon-pointer"></i></a>

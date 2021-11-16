@@ -4,13 +4,17 @@
     ViewData["Title"] = "List";
 }
 
-
+<style>
+    .camelclass {
+        text-transform: capitalize;
+    }
+</style>
 @if (@ViewBag.LayOut != null)
 {
     <div class="intro-y  py-10 sm:py-20 ">
         <div class="px-5 ">
             <div class="font-medium text-center text-lg"> Layout Setup List</div>
-            <div class="text-gray-600 text-center mt-2">Below are the list of layout setup.</div>
+            <div class="text-gray-600 text-center mt-2 camelclass ">Below are the list of layout setup.</div>
         </div>
 
         <div class="px-5 sm:px-20  border-t border-gray-200 dark:border-dark-5">
