@@ -797,7 +797,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={model.Id}", $"/User/UserProfile?userId={model.Id}");
 
             var User = _UserService.GetUserById(model.Id);
-
+            try { 
            
                 if (User != null)
                 {
@@ -809,11 +809,18 @@ namespace DeVeeraApp.Controllers
                         _Userpasswordservice.UpdatePassword(userPassword);
                         _notificationService.SuccessNotification("Password updated successfull.");
                     }
+                    else if(model.ConfirmPassword!=null&& model.UserPassword.Password!=null&& model.ConfirmPassword != model.UserPassword.Password)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
+                    }
                     else
                     {
+                   
                         User.Username = model.Username;
+                    if (model.GenderType != null) { 
                         User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
-                        User.Age = model.Age;
+                    }
+                       User.Age = model.Age;
                         User.Occupation = model.Occupation;
                         User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                         User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
@@ -827,8 +834,13 @@ namespace DeVeeraApp.Controllers
 
                     return View(model);
                 }
+            }
+            catch(Exception ex)
+            {
 
-           
+            }
+
+
 
 
             return View(model);
