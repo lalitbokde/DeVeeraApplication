@@ -25,24 +25,66 @@
             }
 
             <img src="@imageUrl2" alt="image" style="width:100%;">
-            @if (userLanguage!=null) {
-            @if (userLanguage.LanguageId==5 && Spanishvideourl!="")
+            @if (userLanguage != null)
             {
-                <a href="@Spanishvideourl" class="video-btn popup-youtube">
-                    <i class="flaticon-play"></i>
-                </a>
-            }
-            else
-            {
-                <a href="@videourl" class="video-btn popup-youtube">
-                    <i class="flaticon-play"></i>
-                </a>
-            }
-            }
+                @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
+                {
+                    if (Spanishvideourl == "" || Spanishvideourl == null)
+                    {
+                        <a onclick = "showvideopop();" class="video-btn popup-youtube">
+                            <i class="flaticon-play"></i>
+                        </a> 
+                        }
+                    else { 
+                    <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>}
+                }
+                else
+                {
+                    if (videourl == "" || videourl == null)
+                    {
+                    <a onclick = "showvideopop();" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                        }
+                    else
+                    {
+                     <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                    }
+                    }
+                }
         </div>
 
     </div>
+      <div id="VideoNotAvailable"   class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">Oops !!! .... <i class="btn-close" onclick="hidepopup();"></i></div>
+                <!-- BEGIN: Modal Body -->
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12 sm:col-span-12">
+
+                        <div id="single-file-upload" class="p-5">
+                            <div class="preview">
+                                <div data-single="true" fallback="true">
+                                    <div class="fallback">
+                                       @T("Video Not Available !!!")
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
+   
 <!-- End Main Slides Area -->
 <div class="container pt-56">
     <div class="courses-details-desc">
@@ -156,6 +198,7 @@
         </div>
     </div>
 </section>
+<script src="~/CustomJS/Common.js"></script>
 <!-- End Blog Area -->
 <!-- Start Subscribe Area -->
 @*<div class="subscribe-area bg-top">
