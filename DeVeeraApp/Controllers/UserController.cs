@@ -807,11 +807,29 @@ namespace DeVeeraApp.Controllers
                         userPassword.Password = model.UserPassword.Password;
 
                         _Userpasswordservice.UpdatePassword(userPassword);
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated successfull !!!");//
                         _notificationService.SuccessNotification("Password updated successfull.");
+
                     }
-                    else if(model.ConfirmPassword!=null&& model.UserPassword.Password!=null&& model.ConfirmPassword != model.UserPassword.Password)
+                    else if((model.ConfirmPassword!=null|| model.UserPassword.Password!=null)&& model.ConfirmPassword != model.UserPassword.Password)
                     {
+                        if (model.ConfirmPassword == null)
+                        {
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password !!!");
+                        }
+                        else if(model.UserPassword.Password == null)
+                        {
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter  Password !!!");
+                        }
+                        else
+                        {
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
+                        }
                         ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
+                    }
+                    else if ((model.ConfirmPassword == null && model.UserPassword.Password == null) )
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password !!!");//
                     }
                     else
                     {
