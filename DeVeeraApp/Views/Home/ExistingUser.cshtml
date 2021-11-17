@@ -134,6 +134,32 @@
                             }
                         </div>
 
+                          <div id="VideoNotAvailable"   class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">Oops !!! .... <i class="btn-close" onclick="hidepopup();"></i></div>
+                <!-- BEGIN: Modal Body -->
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12 sm:col-span-12">
+
+                        <div id="single-file-upload" class="p-5">
+                            <div class="preview">
+                                <div data-single="true" fallback="true">
+                                    <div class="fallback">
+                                       @T("Video Not Available !!!")
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
                         @*<div class="about-btn">
                             <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.FirstLevel" asp-route-lastLoginDateUtc="@ViewBag.LastLoginDateUtc" class="default-btn">@T("Start From Begining")<i class="flaticon-pointer"></i></a> <br>
                             <a asp-controller="Lesson" asp-action="Index" asp-route-levelno="@Model.LastLevel"  class="default-btn mt-2">@T("Start From Where You Left Off")<i class="flaticon-right-arrow"></i></a>
@@ -206,14 +232,9 @@
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
-    <script>
-function showvideopop(){
-alert("Video not Avaible !!.");
-//document.getElementById("VideoNotAvailable").style.display='inline';     
- //$("#VideoNotAvailable").removeAttr('hidden');
-}
 
-</script>
+    <script src="~/CustomJS/Common.js"></script>
+   
 </body>
 </html>
 

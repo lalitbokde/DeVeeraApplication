@@ -797,61 +797,65 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={model.Id}", $"/User/UserProfile?userId={model.Id}");
 
             var User = _UserService.GetUserById(model.Id);
-            try { 
-           
-                if (User != null)
-                {
-                    if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword.Password)
+         
+            try {
+            
+                
+                    if (User != null)
                     {
-                        var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
-                        userPassword.Password = model.UserPassword.Password;
-
-                        _Userpasswordservice.UpdatePassword(userPassword);
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated successfull !!!");//
-                        _notificationService.SuccessNotification("Password updated successfull.");
-
-                    }
-                    else if((model.ConfirmPassword!=null|| model.UserPassword.Password!=null)&& model.ConfirmPassword != model.UserPassword.Password)
-                    {
-                        if (model.ConfirmPassword == null)
+                        if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword.Password)
                         {
-                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password !!!");
+                            var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
+                            userPassword.Password = model.UserPassword.Password;
+
+                            _Userpasswordservice.UpdatePassword(userPassword);
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated successfull !!!");//
+                            _notificationService.SuccessNotification("Password updated successfull.");
+
                         }
-                        else if(model.UserPassword.Password == null)
+                        else if ((model.ConfirmPassword != null || model.UserPassword.Password != null) && model.ConfirmPassword != model.UserPassword.Password)
                         {
-                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter  Password !!!");
+                            if (model.ConfirmPassword == null)
+                            {
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password !!!");
+                            }
+                            else if (model.UserPassword.Password == null)
+                            {
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter  Password !!!");
+                            }
+                            else
+                            {
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Password and confirm password does not match !!!");
+                            }
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
+                        }
+                        else if ((model.ConfirmPassword == null && model.UserPassword.Password == null))
+                        {
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password !!!");//
                         }
                         else
                         {
-                            ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
+
+                            User.Username = model.Username;
+                            if (model.GenderType != null)
+                            {
+                                User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
+                            }
+                            User.Age = model.Age;
+                            User.Occupation = model.Occupation;
+                            User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
+                            User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
+                            _notificationService.SuccessNotification("User info updated successfull.");
+
+                            _UserService.UpdateUser(User);
+
                         }
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
-                    }
-                    else if ((model.ConfirmPassword == null && model.UserPassword.Password == null) )
-                    {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password !!!");//
-                    }
-                    else
-                    {
-                   
-                        User.Username = model.Username;
-                    if (model.GenderType != null) { 
-                        User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
-                    }
-                       User.Age = model.Age;
-                        User.Occupation = model.Occupation;
-                        User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
-                        User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
-                        _notificationService.SuccessNotification("User info updated successfull.");
 
-                        _UserService.UpdateUser(User);
+                        model = User.ToModel<UserModel>();
 
+                        return View(model);
                     }
-
-                    model = User.ToModel<UserModel>();
-
-                    return View(model);
-                }
+               
             }
             catch(Exception ex)
             {
