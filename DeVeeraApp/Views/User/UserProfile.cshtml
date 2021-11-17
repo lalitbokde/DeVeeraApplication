@@ -100,11 +100,11 @@
                                                     <input asp-for="@Model.Email" id="hiddenEmail" hidden />
 
                                                     <div class="form-group">
-                                                        <input type="text" asp-for="@Model.UserPassword.Password" class="form-control" placeholder="@T("password")">
+                                                        <input type="password" asp-for="@Model.UserPassword.Password" class="form-control" placeholder="@T("Password")">
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <input type="text" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="@T("Confirm Password")">
+                                                        <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="@T("Confirm Password")">
                                                     </div>
                                                     <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
                                                     <div class="book-online-btn">
