@@ -106,6 +106,7 @@
                                                     <div class="form-group">
                                                         <input type="text" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="@T("Confirm Password")">
                                                     </div>
+                                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
                                                     <div class="book-online-btn">
                                                         <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
                                                     </div>
