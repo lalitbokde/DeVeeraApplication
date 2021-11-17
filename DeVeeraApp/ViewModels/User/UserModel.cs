@@ -19,8 +19,11 @@ namespace DeVeeraApp.ViewModels.User
         public string Username { get; set; }
         public string countryCode { get; set; }
 
+        
+
         [DataType(DataType.EmailAddress)]
-        [Required]
+        [Required(ErrorMessage = "Enter valid email address")]
+        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
 
         public string Email { get; set; }
         
