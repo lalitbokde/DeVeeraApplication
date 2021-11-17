@@ -165,7 +165,7 @@
                         </div>
                     </div>
 
-                    <div class="modal-dialog ">
+                    <div class="modal-dialog " hidden>
                         <div class="modal-content">
                             <div class="modal-header">Oops !!! .... <i class="btn-close" onclick="hidepopup();"></i></div>
                             <!-- BEGIN: Modal Body -->
@@ -208,3 +208,9 @@
 </section>
 <script src="~/CustomJS/Common.js"></script>
 <!-- End Philosophy Area -->
+<script>
+function hidepopup(){
+document.getElementById("VideoNotAvailable").style.display='none';     
+ //$("#VideoNotAvailable").removeAttr('hidden');
+}
+</script>
