@@ -311,7 +311,7 @@
 
                         <div class="col-lg-7">
 
-                            <input type="text" asp-for="@Model.MobileNumber" onkeydown="return isNumberKey(this, event);" maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
+                            <input type="text" asp-for="@Model.MobileNumber"   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
 
                            <span  class="text-theme-21 mt-2 " style="color:red;">  @T(ViewData.ModelState["MobileNumber"]?.Errors.Count()!=0?ViewData.ModelState["MobileNumber"]?.Errors[0].ErrorMessage :"")</span> 
                            
@@ -358,6 +358,10 @@
                           //if (charCode > 31 &&
                           //    (charCode < 48 || charCode > 57))
                           //    return false;
+
+       if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
                           if ((charCode == 8) //backspace
                               || (charCode >= 48 && charCode <= 57) //keypad: 0 to 9
                               || (charCode >= 96 && charCode <= 105)) //numpad: 0 to 9

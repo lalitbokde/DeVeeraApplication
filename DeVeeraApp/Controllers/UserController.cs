@@ -691,10 +691,11 @@ namespace DeVeeraApp.Controllers
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
-
+            model.ActiveTab = "3";
             if (userId != 0)
             {
 
+                ViewData["Tabprofile"] = 1;
                 var userData = _UserService.GetUserById(userId);
                 if (userData != null)
                 {
@@ -792,20 +793,42 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserProfile(UserModel model)
+        public IActionResult UserProfile(UserModel model,int userId,int TabchngPassword,int Tabprofile,int TabComments,int ChangesLanguage)
         {
-            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={model.Id}", $"/User/UserProfile?userId={model.Id}");
+            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
 
             var User = _UserService.GetUserById(model.Id);
          
             try {
-            
+                if (TabchngPassword == 2) { 
+                ViewData["TabchngPassword"] = 2; ViewData["Tabprofile"] = 0;
+                }
+                else if (Tabprofile == 1)
+                {
+                    ViewData["TabchngPassword"] = 0; ViewData["Tabprofile"] = 1;
+                    ModelState.Remove("UserPassword.Password"); ModelState.Remove("ConfirmPassword");
+                }
+                else if (TabComments == 4)
+                {
+                    ViewData["TabchngPassword"] = 0; ViewData["Tabprofile"] = 0; ViewData["TabComments"] = 4;
+                }                
+                else 
+                {
+                    ViewData["TabchngPassword"] = 0; ViewData["Tabprofile"] = 0; ViewData["TabComments"] = 0; ViewData["ChangesLanguage"] = 3;
+
+                    
+                }
                 
-                    if (User != null)
+               ///Above logic to set tab Enable
+                if (ModelState.IsValid == true)
+                {
+               
+                if (User != null)
                     {
-                        if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword.Password)
+                        if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword?.Password && TabchngPassword==2)
                         {
-                            var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
+                           
+                             var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
                             userPassword.Password = model.UserPassword.Password;
 
                             _Userpasswordservice.UpdatePassword(userPassword);
@@ -813,8 +836,9 @@ namespace DeVeeraApp.Controllers
                             _notificationService.SuccessNotification("Password updated successfull.");
 
                         }
-                        else if ((model.ConfirmPassword != null || model.UserPassword.Password != null) && model.ConfirmPassword != model.UserPassword.Password)
+                        else if ((model.ConfirmPassword != null || model.UserPassword?.Password != null) && model.ConfirmPassword != model.UserPassword?.Password && TabchngPassword == 2)
                         {
+                            
                             if (model.ConfirmPassword == null)
                             {
                                 ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password !!!");
@@ -829,13 +853,14 @@ namespace DeVeeraApp.Controllers
                             }
                             ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
                         }
-                        else if ((model.ConfirmPassword == null && model.UserPassword.Password == null))
+                        else if ((model.ConfirmPassword == null && model.UserPassword?.Password == null && TabchngPassword == 2))
                         {
+                           
                             ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password !!!");//
                         }
                         else
                         {
-
+                            
                             User.Username = model.Username;
                             if (model.GenderType != null)
                             {
@@ -846,16 +871,17 @@ namespace DeVeeraApp.Controllers
                             User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                             User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
                             _notificationService.SuccessNotification("User info updated successfull.");
-
+                            ViewData.ModelState.AddModelError("ErrorMessage2", "User Updated Successfull !!!");//
                             _UserService.UpdateUser(User);
 
                         }
 
                         model = User.ToModel<UserModel>();
+                    
 
-                        return View(model);
+                    return View(model);
                     }
-               
+                }
             }
             catch(Exception ex)
             {
