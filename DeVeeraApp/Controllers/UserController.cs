@@ -687,7 +687,7 @@ namespace DeVeeraApp.Controllers
        
 
 
-        public IActionResult UserProfile(int userId)
+        public IActionResult UserProfile(int userId,string userprofile)
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
@@ -695,7 +695,15 @@ namespace DeVeeraApp.Controllers
             if (userId != 0)
             {
 
-                ViewData["Tabprofile"] = 1;
+                if (userprofile == "userprofile")
+                {
+                    ViewData["ChangesLanguage"] = 3; ViewData["Tabprofile"] = 0;
+                    ViewData["TabchngPassword"] = 0; ViewData["TabComments"] = 0;
+                }
+                else
+                {
+                    ViewData["Tabprofile"] = 1;
+                }
                 var userData = _UserService.GetUserById(userId);
                 if (userData != null)
                 {
@@ -759,7 +767,10 @@ namespace DeVeeraApp.Controllers
 
                     }
                 }
+
+
                
+
                 PrepareLanguages(model.LandingPageModel.Language);
                 var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
                 if (userlang == 5)
@@ -818,8 +829,12 @@ namespace DeVeeraApp.Controllers
 
                     
                 }
-                
-               ///Above logic to set tab Enable
+
+
+               
+
+
+                ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
                 {
                
@@ -861,7 +876,8 @@ namespace DeVeeraApp.Controllers
                         else
                         {
                             
-                            User.Username = model.Username;
+                            User.Username = model.Username;                            
+                            User.Email = model.Email;
                             if (model.GenderType != null)
                             {
                                 User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
