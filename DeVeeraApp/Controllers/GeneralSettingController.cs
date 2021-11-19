@@ -66,6 +66,10 @@ namespace DeVeeraApp.Controllers
             {
                 return RedirectToAction("UserProfile","User", new { userId = model?.Id, userprofile= "userprofile" });
             }
+            if (model?.LandingPageModel?.Language?.ReturnUrl == "/User/SendOTP?langId=0" || model?.LandingPageModel?.Language?.ReturnUrl == "/User/SendOTP?langId=3" || model?.LandingPageModel?.Language?.ReturnUrl == "/User/SendOTP?langId=5" || model?.LandingPageModel?.Language?.ReturnUrl == "/User/SendOTP")
+            {
+                return RedirectToAction("Register", "User");
+            }
             return LocalRedirect(model.LandingPageModel.Language.ReturnUrl);
         }
     }
