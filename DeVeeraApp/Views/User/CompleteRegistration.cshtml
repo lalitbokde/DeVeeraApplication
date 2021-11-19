@@ -165,7 +165,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>@T("Age")</label> 
-                                    <input asp-for="@Model.Age" type="text" min="1" placeholder="@T("Age")" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" placeholder="age">
+                                    <input asp-for="@Model.Age" type="text" min="1" placeholder="@T("Age")" autocomplete="off" value="" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" >
                                     <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Age"]?.Errors.Count()!=0?ViewData.ModelState["Age"]?.Errors[0]?.ErrorMessage : "")</span>
                                 </div>
                              
