@@ -61,6 +61,11 @@ namespace DeVeeraApp.Controllers
                 }
                 TempData["LangaugeId"] = model.LandingPageModel.Language.Id;
             }
+
+            if(model?.LandingPageModel?.Language?.ReturnUrl== "/User/UserProfile?userId=" + model?.Id)
+            {
+                return RedirectToAction("UserProfile","User", new { userId = model?.Id, userprofile= "userprofile" });
+            }
             return LocalRedirect(model.LandingPageModel.Language.ReturnUrl);
         }
     }
