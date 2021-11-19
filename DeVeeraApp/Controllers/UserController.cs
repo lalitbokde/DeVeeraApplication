@@ -325,25 +325,25 @@ namespace DeVeeraApp.Controllers
 
             if (model.countryCode == null)
             {
-                ViewData.ModelState.AddModelError("countryCode", "Please select country code.!!!");
+                ViewData.ModelState.AddModelError("countryCode", "Please select country code");
                // return View("Register", model);
             }
             if (model.MobileNumber == null)
             {
-                ViewData.ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter your mobile No");
               //  return View("Register",model);
 
             }
             if (model.MobileNumber?.Length <10)
             {
-                ViewData.ModelState.AddModelError("MobileNumber", "Please enter correct mobile No.!!!");
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter correct mobile No");
                // return View("Register", model);
 
             }
 
             if (model.ConfirmPassword == null)
             {
-                ViewData.ModelState.AddModelError("ConfirmPassword", " Please enter the password....!!! ");
+                ViewData.ModelState.AddModelError("ConfirmPassword", "Please enter the password");
                 //return View("Register", model);
             }
        
@@ -352,18 +352,19 @@ namespace DeVeeraApp.Controllers
 
             if (model.Email == null)
             {
-                ViewData.ModelState.AddModelError("Email", "Please enter username .!!!");
+                ViewData.ModelState.AddModelError("Email", "Please enter username");
                // return View("Register", model);
             }
 
             if (ModelState.IsValid==false)
             {
+                
                 return View("Register", model);
                 //return RedirectToAction("Register", "User");
             }
             if (_UserService.GetUserByEmail(model.Email) != null)
             {
-                ViewData.ModelState.AddModelError("Email", "Email Already Registered .!!!");
+                ViewData.ModelState.AddModelError("Email", "Email Already Registered");
                 // return View("Register", model);
             }
 
@@ -380,7 +381,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("MobileNumber", "Please enter correct mobile No to receive otp .!!!");
+                        ModelState.AddModelError("MobileNumber", "Please enter correct mobile No to receive otp ");
                         return View("Register", model);
 
                         //return RedirectToAction("Register", "User");
@@ -399,7 +400,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                ViewData.ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered .!!!");
+                ViewData.ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered");
                 return View("Register", model);
 
                 //TempData["Message"] = "Mobile Number is already Registered";
@@ -430,7 +431,7 @@ namespace DeVeeraApp.Controllers
             }
             if (model.ErrorMessage != null)
             {
-                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
             }
 
             return View(model);
@@ -466,7 +467,7 @@ namespace DeVeeraApp.Controllers
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
             if (Convert.ToInt32(final) < 6)
             {
-                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
                 model.ErrorMessage = "Wrong Passcode";
                 return RedirectToAction("VerifyOTP", model);
             }
@@ -476,7 +477,7 @@ namespace DeVeeraApp.Controllers
                 var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
                 if (result.IsValid == false)
                 {
-                    ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                    ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
                     model.ErrorMessage = "Wrong Passcode";
                     return RedirectToAction("VerifyOTP", model);
                 }
@@ -493,12 +494,12 @@ namespace DeVeeraApp.Controllers
                 {
                     if (model.countryCode == null && TempData["resend"] == null)
                     {
-                        ViewData.ModelState.AddModelError("MobileNumber", "please select country code.!!!");
+                        ViewData.ModelState.AddModelError("MobileNumber", "please select country code");
 
                     }
                     if (model.MobileNumber == null)
                     {
-                        ViewData.ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
+                        ViewData.ModelState.AddModelError("MobileNumber", "please enter your mobile No");
                     } //validate unique user
                     if (_UserService.GetUserByEmail(model.Email) == null)
                     {
@@ -539,7 +540,7 @@ namespace DeVeeraApp.Controllers
 
                                     HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                                    _notificationService.SuccessNotification("User registered successfull.");
+                                    _notificationService.SuccessNotification("User registered successfully");
 
                                     //return RedirectToAction("Index", "Dashboard");
                                     return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration, langId=model.LandingPageModel.Language.Id });
@@ -643,7 +644,7 @@ namespace DeVeeraApp.Controllers
 
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                                _notificationService.SuccessNotification("User registered successfull.");
+                                _notificationService.SuccessNotification("User registered successfull");
 
                                 return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
 
@@ -847,8 +848,8 @@ namespace DeVeeraApp.Controllers
                             userPassword.Password = model.UserPassword.Password;
 
                             _Userpasswordservice.UpdatePassword(userPassword);
-                            ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated successfull !!!");//
-                            _notificationService.SuccessNotification("Password updated successfull.");
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated Successfully");//
+                            _notificationService.SuccessNotification("Password Updated Successfully");
 
                         }
                         else if ((model.ConfirmPassword != null || model.UserPassword?.Password != null) && model.ConfirmPassword != model.UserPassword?.Password && TabchngPassword == 2)
@@ -856,38 +857,38 @@ namespace DeVeeraApp.Controllers
                             
                             if (model.ConfirmPassword == null)
                             {
-                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password !!!");
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password");
                             }
                             else if (model.UserPassword.Password == null)
                             {
-                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter  Password !!!");
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter  Password ");
                             }
                             else
                             {
-                                ViewData.ModelState.AddModelError("ErrorMessage", "Password and confirm password does not match !!!");
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Password and confirm password does not match");
                             }
-                            ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match !!!");
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match");
                         }
                         else if ((model.ConfirmPassword == null && model.UserPassword?.Password == null && TabchngPassword == 2))
                         {
                            
-                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password !!!");//
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password");//
                         }
                         else
                         {
                             
-                            User.Username = model.Username;                            
-                            User.Email = model.Email;
+                            User.Username = model.Username;  
                             if (model.GenderType != null)
                             {
                                 User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
                             }
                             User.Age = model.Age;
                             User.Occupation = model.Occupation;
+                            //User.MobileNumber = model.MobileNumber;
                             User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                             User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
-                            _notificationService.SuccessNotification("User info updated successfull.");
-                            ViewData.ModelState.AddModelError("ErrorMessage2", "User Updated Successfull !!!");//
+                            _notificationService.SuccessNotification("User Info Updated Successfully");
+                            ViewData.ModelState.AddModelError("ErrorMessage2", "User Updated Successfully");//
                             _UserService.UpdateUser(User);
 
                         }
@@ -930,7 +931,7 @@ namespace DeVeeraApp.Controllers
                 Reason = result?.ReasonToSubmit
 
             };
-
+            
             return View(model);
         }
 
@@ -942,32 +943,32 @@ namespace DeVeeraApp.Controllers
             var langId = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
             if (model.FamilyOrRelationshipType == 0)
             {              
-                ViewData.ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
+                ViewData.ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family");
             }
             if (model.EducationType == 0)
             {
-                ViewData.ModelState.AddModelError("EducationType", "Please select EducationType!!!");
+                ViewData.ModelState.AddModelError("EducationType", "Please select EducationType");
                
             }
             if (model.GenderType == 0)
             {
-                ViewData.ModelState.AddModelError("GenderType", "Please select GenderType!!!");
+                ViewData.ModelState.AddModelError("GenderType", "Please select GenderType");
             }
             if (model.IncomeAboveOrBelow80K == 0)
             {
-                ViewData.ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");                
+                ViewData.ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income");                
             }
             if (model.Occupation == null)
             {
-                ViewData.ModelState.AddModelError("Occupation", "Please enter the Occupation !!!"); 
+                ViewData.ModelState.AddModelError("Occupation", "Please enter the Occupation"); 
             }
             if(model.Age==null )
             {
-                ViewData.ModelState.AddModelError("Age", "Please enter the Age !!!"); 
+                ViewData.ModelState.AddModelError("Age", "Please enter the Age"); 
             }
             if(model.Age == 0)
             {
-                ViewData.ModelState.AddModelError("Age", "Please enter the Age properly ,can not be 0 !!!");
+                ViewData.ModelState.AddModelError("Age", "Please enter the Age properly ,can not be 0");
             }
             if (ModelState.IsValid)
             {
@@ -985,7 +986,7 @@ namespace DeVeeraApp.Controllers
 
                 _UserService.UpdateUser(currentUser);
 
-                _notificationService.SuccessNotification("User info updated successfull.");
+                _notificationService.SuccessNotification("User info updated successfully.");
                 return RedirectToAction("Next", "Lesson", new { levelno = model.LevelNo, srno = model.SrNo });
             }
 
@@ -1111,7 +1112,7 @@ namespace DeVeeraApp.Controllers
             var model = new TwoFactorAuthModel();
             
             var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
-            var verifymobno = currentUser?.MobileNumber;
+            var verifymobno = currentUser?.MobileNumber;            
             model.MobileNumber = verifymobno;
             var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
           
@@ -1227,38 +1228,59 @@ namespace DeVeeraApp.Controllers
         [HttpGet]
         public async Task<IActionResult> VerfiyFogotPassword(string username)
         {
+            UserModel model = new UserModel();
+            try { 
             if (username != null)
             {
                 var checkUserEmail = _UserService.GetUserByEmail(username);
-                var verification =
-                  await _verificationService.StartVerificationAsync(checkUserEmail.MobileNumber, "sms");
-                if (verification.IsValid == true)
-                {
-                    //return RedirectToAction(nameof(VerfiyFogotPassword),
-                    //                                     new LoginModel
-                    //                                     {
-                    //                                         Email = checkUserEmail.Email                                                            
-                    //                                     });
+                    if (checkUserEmail != null) {
+                        model.Email = checkUserEmail?.Email;
+                        model.MobileNumber = checkUserEmail?.MobileNumber;
+                    var verification =
+                  await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+                    
+                    if (verification.IsValid == true)
+                    {
+                        //    return RedirectToAction(nameof(VerfiyFogotPassword),
+                        //                                         new UserModel
+                        //                                         {
+                        //                                             Email = checkUserEmail.Email
+                        //                                         });
+                       }                
+                    }
+                    else if (checkUserEmail == null)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Email Id Does Not Exist ");
+                    }
                 }
-                
             }
-            return View();
+            catch(Exception ex)
+            {
+
+            }
+            return RedirectToAction("VerfiyFogotPassword", "User", new { username = username, i = 1 });
         }
-        [HttpGet]
-        public async Task<IActionResult> VerfiyFogotPassword(string username,string[] verifyFO)
+        [HttpPost]
+        public async Task<IActionResult> VerfiyFogotPassword(string username,int i,string[] verifyFO)
         {
+            try { 
             if (username != null)
             {
                 var checkUserEmail = _UserService.GetUserByEmail(username);
                 if (checkUserEmail != null)
                 {
                     var verification =
-                  await _verificationService.StartVerificationAsync(checkUserEmail.MobileNumber, "sms");
+                  await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, "sms");
                     if (verification.IsValid == true)
                     {
                        
                     }
                 }
+            }
+            }
+            catch(Exception ex)
+            {
+
             }
             return View();
         }
