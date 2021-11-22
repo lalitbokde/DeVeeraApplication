@@ -280,7 +280,7 @@ namespace DeVeeraApp.Controllers
                     case UserLoginResults.WrongPassword:
                     default:
                         ModelState.AddModelError("", "WrongCredentials");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter proper email and Password !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter correct email and Password !!!");
                         break;
                     case UserLoginResults.NotAllow:
                         ModelState.AddModelError("", "Not Allowed");
@@ -1225,64 +1225,194 @@ namespace DeVeeraApp.Controllers
         }
 
 
+        
+
         [HttpGet]
-        public async Task<IActionResult> VerfiyFogotPassword(string username)
+        public async Task<IActionResult> ChangeForgotPassword(string username, string EmailId)
         {
+
             UserModel model = new UserModel();
-            try { 
-            if (username != null)
+            model.Email = username;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string Password,string ConfirmPassword)
+        {
+            try {
+                userModel.PasswordUpdate = Password;userModel.ConfirmPassword = ConfirmPassword;
+            if (userModel?.PasswordUpdate == null)
             {
-                var checkUserEmail = _UserService.GetUserByEmail(username);
-                    if (checkUserEmail != null) {
-                        model.Email = checkUserEmail?.Email;
-                        model.MobileNumber = checkUserEmail?.MobileNumber;
-                    var verification =
-                  await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
-                    
-                    if (verification.IsValid == true)
-                    {
-                        //    return RedirectToAction(nameof(VerfiyFogotPassword),
-                        //                                         new UserModel
-                        //                                         {
-                        //                                             Email = checkUserEmail.Email
-                        //                                         });
-                       }                
+                ViewData.ModelState.AddModelError("UserPassword.Password", "Please Enter Password ");
+            }
+            if (userModel?.ConfirmPassword == null)
+            {
+                ViewData.ModelState.AddModelError("ConfirmPassword", "Please Enter ConfirmPassword ");
+            }
+            if (userModel?.PasswordUpdate != userModel?.ConfirmPassword)
+            {
+                ViewData.ModelState.AddModelError("ErrorMessage", "Password And ConfirmPassword Should Match ");
+            }
+                if ((userModel?.PasswordUpdate != null&& userModel?.ConfirmPassword != null) && (userModel?.PasswordUpdate == userModel?.ConfirmPassword != null)) {
+                    userModel.Email = TempData["Emailval"].ToString();
+                        var checkUserEmail = _UserService.GetUserByEmail(userModel?.Email);
+                    if (checkUserEmail != null) { 
+                    var userpassword = _UserService.GetCurrentPassword(checkUserEmail.Id);
+                    if (userpassword != null) { 
+                    userpassword.Password = userModel?.ConfirmPassword;
+                _UserService.UpdateUserPassword(userpassword);
+                ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated Successfully ");
+                            return RedirectToAction("Login", "User");
                     }
-                    else if (checkUserEmail == null)
-                    {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Email Id Does Not Exist ");
+
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-            return RedirectToAction("VerfiyFogotPassword", "User", new { username = username, i = 1 });
+            return View(userModel);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ForgotPasswordEmailAsk(string username, string EmailId)
+        {
+            UserModel model = new UserModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPasswordEmailAsk(string username)
+        {
+            UserModel model = new UserModel();
+
+            try
+            {
+                if (username != null)
+                {
+                    var checkUserEmail = _UserService.GetUserByEmail(username);
+                    if (checkUserEmail != null)
+                    {
+                        model.Email = checkUserEmail?.Email;
+                        model.MobileNumber = checkUserEmail?.MobileNumber;
+                        var verification =
+                      await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+
+                        if (verification.IsValid == true)
+                        {
+                           return RedirectToAction("VerfiyFogotPassword","User",new { username = username });
+                        }
+                    }
+                    else if (checkUserEmail == null)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "UserName Does Not Exist ");
+                       
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+
+
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> VerfiyFogotPassword(string username ,string EmailId)
+        {           
+            UserModel model = new UserModel();
+            try
+            {
+                model.Email = username;
+                TempData["Emailval"] = model?.Email;
+                if (username != null)
+                {
+                    //var checkUserEmail = _UserService.GetUserByEmail(username);
+                    //    if (checkUserEmail != null) {
+                    //        model.Email = checkUserEmail?.Email;
+                    //        model.MobileNumber = checkUserEmail?.MobileNumber;
+                    //    var verification =
+                    //  await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+
+                    //    if (verification.IsValid == true)
+                    //    {
+                    //        //    return RedirectToAction(nameof(VerfiyFogotPassword),
+                    //        //                                         new UserModel
+                    //        //                                         {
+                    //        //                                             Email = checkUserEmail.Email
+                    //        //                                         });
+                    //       }                
+                    //    }
+                    //    else if (checkUserEmail == null)
+                    //    {
+                    //        ViewData.ModelState.AddModelError("ErrorMessage", "Email Id Does Not Exist ");
+                    //        RedirectToAction("ForgotPasswordEmailAsk");
+
+                    //    }
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> VerfiyFogotPassword(string username,int i,string[] verifyFO)
         {
-            try { 
+            UserModel model = new UserModel();
+            try {
+                 username= TempData["Emailval"].ToString();
+                
             if (username != null)
             {
-                var checkUserEmail = _UserService.GetUserByEmail(username);
-                if (checkUserEmail != null)
+                    
+                    var checkUserEmail = _UserService.GetUserByEmail(username);
+
+                    string FinalOTP = string.Join(' ', verifyFO).Replace(" ", "");
+                    model.OTP = FinalOTP;
+                    model.Email = username;
+                    string OtpLength = model?.OTP?.Length.ToString();
+                    if (Convert.ToInt32(OtpLength) == 6) { 
+                    if (checkUserEmail != null)
                 {
                     var verification =
-                  await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, "sms");
+                  await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
                     if (verification.IsValid == true)
                     {
-                       
+                        return RedirectToAction("ChangeForgotPassword",new { username = username });
                     }
-                }
+                    else
+                    {
+                       ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");
+
+                      
+                    }
+
+                     }
+                  }
+                    else
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");
+                    }
+
+
             }
             }
             catch(Exception ex)
             {
 
             }
-            return View();
+            return View(model);
         }
         
 
