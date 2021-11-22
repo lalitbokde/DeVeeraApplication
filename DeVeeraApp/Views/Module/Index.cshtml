@@ -43,7 +43,7 @@
 <section class="courses-details-area ptb-100">
     <div class="container">
         <div class="courses-details-image">
-            <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
+            <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image" style="width:100%;" >
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
                 @if (userLanguage != null)
