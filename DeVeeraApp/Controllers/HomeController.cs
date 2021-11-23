@@ -116,6 +116,10 @@ namespace DeVeeraApp.Controllers
             {
                 userLanguagem.LanguageId = Convert.ToInt32(PreviewLangId);
             }
+            if(langId==null&& userLanguagem == null)
+            {
+                userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId ==36).FirstOrDefault();
+            }
             if (data != null)
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();

@@ -145,7 +145,7 @@ namespace DeVeeraApp.Controllers
         public virtual void PrepareLanguages(LanguageModel model)
         {
 
-            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
+           // model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
             var AvailableLanguage = _languageService.GetAllLanguages();
             foreach (var item in AvailableLanguage)
             {
@@ -695,7 +695,7 @@ namespace DeVeeraApp.Controllers
             model.ActiveTab = "3";
             if (userId != 0)
             {
-
+                string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
                 if (userprofile == "userprofile")
                 {
                     ViewData["ChangesLanguage"] = 3; ViewData["Tabprofile"] = 0;
@@ -711,13 +711,22 @@ namespace DeVeeraApp.Controllers
                     model.Id = userData.Id;
                     model.Email = userData.Email;
                     model.MobileNumber = userData.MobileNumber;
-                    model.Age = (int)userData.Age;
-                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
-                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
-                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+                    model.Age = (int)userData.Age;                   
                     model.Occupation = userData.Occupation;
                     model.UserRoleName = userData.UserRole.Name;
                     model.TwoFactorAuthentication = userData.TwoFactorAuthentication;
+
+                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
+                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
+                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+
+
+
+                    foreach (string item in Enum.GetNames(typeof(Gender)))
+                    {
+                      
+                    }
+
 
                     if (_WorkContextService.CurrentUser.UserRole.Name == "Admin")
                     {
@@ -770,32 +779,40 @@ namespace DeVeeraApp.Controllers
                 }
 
 
-               
 
-                PrepareLanguages(model.LandingPageModel.Language);
+                model.Occupation = _translationService.TranslateLevelSpanish(model.Occupation, key);
+                //PrepareLanguages(model.LandingPageModel.Language);
                 var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
                 if (userlang == 5)
-                {
-
-                    //model.LandingPageModel.Language.AvailableLanguages.Clear();
+                {   
+                    model.Occupation = _translationService.TranslateLevel(model.Occupation, key);
+                   model.LandingPageModel.Language.AvailableLanguages.Clear();
                     //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
 
-                    //var AvailableLanguage = _languageService.GetAllLanguages();
-                    //foreach (var item in AvailableLanguage)
-                    //{
-                    //    item.Name= _localStringResourcesServices.GetResourceValueByResourceName(item?.Name);
-                    //    model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
-                    //    {
-                    //        Value = item.Id.ToString(),
-                    //        Text = item.Name
-                    //    });
-                    //}
+                    var AvailableLanguage = _languageService.GetAllLanguages();
+                    foreach (var item in AvailableLanguage)
+                    {
+                        item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                        model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                        {
+                            Value = item.Id.ToString(),
+                            Text = item.Name
+                        });
+                    }
+                   
+
+                    string gentertyp = _localStringResourcesServices.GetResourceValueByResourceName(model.GenderType.ToString()); 
+                    model.GenderType= (ViewModels.User.Gender?)(Gender)Enum.Parse(typeof(Gender), gentertyp);
+                    string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
+                    model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
+                    string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
+                    model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
 
                     //Above code to set language in spanish 
 
 
 
-                   
+
                 }
                 return View(model);
 
@@ -832,9 +849,9 @@ namespace DeVeeraApp.Controllers
                 }
 
 
-               
 
 
+                ModelState.Remove("Email");
                 ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
                 {
