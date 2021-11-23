@@ -259,32 +259,32 @@ namespace DeVeeraApp.Controllers
                         }
                     case UserLoginResults.UserNotExist:
                         ModelState.AddModelError("", "UserNotExist");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User Does Not Exist !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User Does Not Exist");
                         break;
                     case UserLoginResults.Deleted:
                         ModelState.AddModelError("", "Deleted");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User is Deleted !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is Deleted ");
                         break;
                     case UserLoginResults.NotActive:
                         ModelState.AddModelError("", "NotActive");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  NotActive !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  NotActive ");
                         break;
                     case UserLoginResults.NotRegistered:
                         ModelState.AddModelError("", "NotRegistered");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  not NotRegistered !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  not NotRegistered");
                         break;
                     case UserLoginResults.LockedOut:
                         ModelState.AddModelError("", "LockedOut");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "LockedOut !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "LockedOut ");
                         break;
                     case UserLoginResults.WrongPassword:
                     default:
                         ModelState.AddModelError("", "WrongCredentials");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter correct email and Password !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter correct email and Password ");
                         break;
                     case UserLoginResults.NotAllow:
                         ModelState.AddModelError("", "Not Allowed");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Not Allowed!!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Not Allowed");
                         break;
                 }
             }
@@ -1253,7 +1253,9 @@ namespace DeVeeraApp.Controllers
             {
                 ViewData.ModelState.AddModelError("ErrorMessage", "Password And ConfirmPassword Should Match ");
             }
-                if ((userModel?.PasswordUpdate != null&& userModel?.ConfirmPassword != null) && (userModel?.PasswordUpdate == userModel?.ConfirmPassword != null)) {
+                if ((userModel?.PasswordUpdate != null&& userModel?.ConfirmPassword != null) && (userModel?.PasswordUpdate == userModel?.ConfirmPassword)) {
+                    ModelState.Remove("Email");ModelState.Remove("ErrorMessage");
+                    if (ModelState.IsValid == true) { 
                     userModel.Email = TempData["Emailval"].ToString();
                         var checkUserEmail = _UserService.GetUserByEmail(userModel?.Email);
                     if (checkUserEmail != null) { 
@@ -1262,9 +1264,10 @@ namespace DeVeeraApp.Controllers
                     userpassword.Password = userModel?.ConfirmPassword;
                 _UserService.UpdateUserPassword(userpassword);
                 ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated Successfully ");
-                            return RedirectToAction("Login", "User");
+                         //   return RedirectToAction("Login", "User");
                     }
 
+                    }
                     }
                 }
             }

@@ -153,8 +153,8 @@
 
 
                                
-    <div id="VideoNotAvailableland"  hidden class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog ">
+   
+        <div class="modal-dialog " id="VideoNotAvailableland"  style="display:none;" hidden>
             <div class="modal-content">
                 <div class="modal-header">@T("Oops !!! ....") <i class="btn-close" onclick="hidepopuplnd();"></i></div>
                 <!-- BEGIN: Modal Body -->
@@ -176,7 +176,7 @@
 
             </div>
         </div>
-    </div>
+    
 
                          
                             <div class="philosophy-btn" >
@@ -202,7 +202,6 @@
                     <div class="col-lg-6">
                         @{var DescriptionImageUrl = Model.LandingPageModel?.DescriptionImageUrl == null ? "/assets/images/philosophy/philosophy-1.png" : Model.LandingPageModel.DescriptionImageUrl;}
                         <div class="philosophy-image">
-
                             <img src="@DescriptionImageUrl" class="responsive">
                         </div>
                     </div>
@@ -216,21 +215,21 @@
         <img src="~/assets/images/philosophy/line-shape.png" alt="image">
     </div>
 </section>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+
 <script src="~/CustomJS/Common.js"></script>
 <!-- End Philosophy Area -->
 <script>
-function hidepopuplnd(){
-//document.getElementById("VideoNotAvailable").style.display='none'; 
-
-document.getElementById("VideoNotAvailableland").style.display='none';     
-    
- //$("#VideoNotAvailable").removeAttr('hidden');
+function hidepopuplnd(){    
+ document.getElementById("VideoNotAvailableland").style.display='none'; 
 }
 </script>
 <script>
 
-function showvideopopland(){$('VideoNotAvailableland').removeattr("hidden",true);
-//document.getElementById("VideoNotAvailableland").style.display="contents";
+function showvideopopland(){
+ Swal.fire("Oops", "Video Not Available!");
 
+//document.getElementById("VideoNotAvailableland").style.display='inline';  
 
 }</script>
