@@ -36,11 +36,17 @@ namespace DeVeeraApp.ViewModels.User
         public string ErrorMessage { get; set; }
 
         public Gender? GenderType { get; set; }
+
+        public GenderSpanish? GenderTypeSpanish { get; set; }
         public int Age { get; set; }
         public string Occupation { get; set; }
         public Education EducationType { get; set; }
+        public EducationSpanish EducationTypeSpanish { get; set; }
+
         public Income IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
+        public FamilyOrRelationshipTypeSpanish FamilyOrRelationshipTypeSpanish { get; set; }
+        
         public string ImageUrl { get; set; }
         public string BannerImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
@@ -218,6 +224,15 @@ namespace DeVeeraApp.ViewModels.User
         DontWantToSay = 4
     }
 
+    public enum GenderSpanish
+    {
+        Masculina = 1,
+        Mujer = 2,
+        Otra = 3,
+        [Display(Name = "No quiero decir.")]
+        Noquierodecir = 4
+    }
+
     public enum Income
     {
         IncomeAbove80K = 1,
@@ -233,6 +248,15 @@ namespace DeVeeraApp.ViewModels.User
         Doctorate = 5
     }
 
+    public enum EducationSpanish
+    {
+        Escuelasecundaria = 1,
+        Gradoasociado = 2,
+        Soltero = 3,
+        Maestra = 4,
+        Doctorado = 5
+    }
+
     public enum FamilyOrRelationship
     {
         Married = 1,
@@ -241,4 +265,13 @@ namespace DeVeeraApp.ViewModels.User
         Other = 4,
         Single = 5
     }
+    public enum FamilyOrRelationshipTypeSpanish
+    {
+        Casada = 1,
+        Divorciada = 2,
+        Apartada = 3,
+        Otra = 4,
+        Soltera = 5
+    }
+    
 }

@@ -779,41 +779,44 @@ namespace DeVeeraApp.Controllers
                 }
 
 
-
-               //model.Occupation = _translationService.TranslateLevelSpanish(model.Occupation, key);
+              
                 //PrepareLanguages(model.LandingPageModel.Language);
                 var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
                 if (userlang == 5)
-                {   
-                   // model.Occupation = _translationService.TranslateLevel(model.Occupation, key);
-                   //model.LandingPageModel.Language.AvailableLanguages.Clear();
-                   // //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
-
-                   // var AvailableLanguage = _languageService.GetAllLanguages();
-                   // foreach (var item in AvailableLanguage)
-                   // {
-                   //     item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
-                   //     model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
-                   //     {
-                   //         Value = item.Id.ToString(),
-                   //         Text = item.Name
-                   //     });
-                   // }
+                {
                    
+                    model.LandingPageModel.Language.AvailableLanguages.Clear();
+                    //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
 
-                   // string gentertyp = _localStringResourcesServices.GetResourceValueByResourceName(model.GenderType.ToString()); 
-                   // model.GenderType= (ViewModels.User.Gender?)(Gender)Enum.Parse(typeof(Gender), gentertyp);
-                   // string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
-                   // model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
-                   // string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
-                   // model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
+                    var AvailableLanguage = _languageService.GetAllLanguages();
+                    foreach (var item in AvailableLanguage)
+                    {
+                        item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                        model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                        {
+                            Value = item.Id.ToString(),
+                            Text = item.Name
+                        });
+                    }
 
-                    //Above code to set language in spanish 
+
+                   
+                    model.GenderTypeSpanish = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.GenderSpanish)userData.GenderType : 0;
+                   model.EducationTypeSpanish= userData.GenderType != null ? (DeVeeraApp.ViewModels.User.EducationSpanish)userData.GenderType : 0;
+                    model.FamilyOrRelationshipTypeSpanish = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationshipTypeSpanish)userData.GenderType : 0;
+                   
+                    //string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
+                    //model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
+                    //string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
+                    //model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
+
+                    //Above code to set language in spanish
 
 
 
 
                 }
+                model.LandingPageModel.Language.Id = userlang;
                 return View(model);
 
             }
@@ -850,7 +853,8 @@ namespace DeVeeraApp.Controllers
 
 
 
-
+                
+                
                 ModelState.Remove("Email");
                 ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
@@ -893,6 +897,7 @@ namespace DeVeeraApp.Controllers
                         }
                         else
                         {
+                            var userlangs = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
                             
                             User.Username = model.Username;  
                             if (model.GenderType != null)
@@ -904,6 +909,62 @@ namespace DeVeeraApp.Controllers
                             //User.MobileNumber = model.MobileNumber;
                             User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                             User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
+
+                            if (userlangs == 5)
+                            {
+                                switch (Convert.ToString(model?.GenderTypeSpanish))
+                                {
+                                    case "Masculina":
+                                        User.GenderType = Gender.Male;
+                                        break;
+                                    case "Mujer":
+                                        User.GenderType = Gender.Female;
+                                        break;
+                                    case "Otra":
+                                        User.GenderType = Gender.Other;
+                                        break;
+                                    case "Noquierodecir":
+                                        User.GenderType = Gender.DontWantToSay;
+                                        break;
+                                }
+                                switch (Convert.ToString(model?.EducationTypeSpanish))
+                                {
+                                    case "Escuelasecundaria":
+                                        User.EducationType = Education.HighSchool;
+                                        break;
+                                    case "Gradoasociado":
+                                        User.EducationType = Education.AssociateDegree;
+                                        break;
+                                    case "Soltero":
+                                        User.EducationType = Education.Bachelor;
+                                        break;
+                                    case "Maestra":
+                                        User.EducationType = Education.Master;
+                                        break;
+                                    case "Doctorado":
+                                        User.EducationType = Education.Doctorate;
+                                        break;
+                                }
+                                switch (Convert.ToString(model?.FamilyOrRelationshipTypeSpanish))
+                                {
+                                    case "Casada":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Married;
+                                        break;
+                                    case "Divorciada":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Divorced;
+                                        break;
+                                    case "Apartada":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Separated;
+                                        break;
+                                    case "Otra":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Other;
+                                        break;
+                                    case "Soltera":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Single;
+                                        break;
+                                }
+                            }
+
                             _notificationService.SuccessNotification("User Info Updated Successfully");
                             ViewData.ModelState.AddModelError("ErrorMessage2", "User Updated Successfully");//
                             _UserService.UpdateUser(User);
@@ -1034,10 +1095,11 @@ namespace DeVeeraApp.Controllers
             }
             else { 
            
-            
+            if(TempData["LangaugeId"]==null|| TempData["LangaugeId"] == "") { 
             var verification =
                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
-            if (verification.IsValid == true)
+               
+             if (verification.IsValid == true)
             {
 
             }
@@ -1045,6 +1107,7 @@ namespace DeVeeraApp.Controllers
             {
                 ModelState.AddModelError("OTP", "OTP Doesn't match");
             }
+                }
             }
             return View(model);
         }
