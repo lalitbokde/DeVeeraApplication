@@ -785,28 +785,28 @@ namespace DeVeeraApp.Controllers
                 var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
                 if (userlang == 5)
                 {   
-                    model.Occupation = _translationService.TranslateLevel(model.Occupation, key);
-                   model.LandingPageModel.Language.AvailableLanguages.Clear();
-                    //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
+                   // model.Occupation = _translationService.TranslateLevel(model.Occupation, key);
+                   //model.LandingPageModel.Language.AvailableLanguages.Clear();
+                   // //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
 
-                    var AvailableLanguage = _languageService.GetAllLanguages();
-                    foreach (var item in AvailableLanguage)
-                    {
-                        item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
-                        model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
-                        {
-                            Value = item.Id.ToString(),
-                            Text = item.Name
-                        });
-                    }
+                   // var AvailableLanguage = _languageService.GetAllLanguages();
+                   // foreach (var item in AvailableLanguage)
+                   // {
+                   //     item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                   //     model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                   //     {
+                   //         Value = item.Id.ToString(),
+                   //         Text = item.Name
+                   //     });
+                   // }
                    
 
-                    string gentertyp = _localStringResourcesServices.GetResourceValueByResourceName(model.GenderType.ToString()); 
-                    model.GenderType= (ViewModels.User.Gender?)(Gender)Enum.Parse(typeof(Gender), gentertyp);
-                    string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
-                    model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
-                    string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
-                    model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
+                   // string gentertyp = _localStringResourcesServices.GetResourceValueByResourceName(model.GenderType.ToString()); 
+                   // model.GenderType= (ViewModels.User.Gender?)(Gender)Enum.Parse(typeof(Gender), gentertyp);
+                   // string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
+                   // model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
+                   // string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
+                   // model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
 
                     //Above code to set language in spanish 
 
