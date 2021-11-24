@@ -75,20 +75,27 @@
                                                                 </div>
 
                                                                 <div class="form-group">
+                                                                    @if(Model?.LandingPageModel?.Language?.Id==3 ) { 
                                                                     <select type="text" asp-for="@Model.GenderType" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                         <select type="text" asp-for="@Model.GenderTypeSpanish" asp-items="@Html.GetEnumSelectList<GenderSpanish>()"></select>
+                                                                    }
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                     <input type="text" asp-for="@Model.Age" class="form-control" placeholder="@T("Age")">
                                                                 </div>
                                                                 <div class="form-group">
-                                                               <select type="text" asp-for="@Model.EducationType"  asp-items="@Html.GetEnumSelectList<Education>()" class="form-control">
-                                                                        @*<option value="1">@T("HighSchool")</option>
-                                                                        <option value="2">@T("AssociateDegree")</option>
-                                                                        <option value="3">@T("Bachelor")</option>
-                                                                        <option value="4">@T("Master")</option>
-                                                                        <option value="5">@T("Doctorate")</option>*@
-                                                                </select>
+                                                                @if(Model?.LandingPageModel?.Language?.Id==3 ) { 
+                                                               <select type="text" asp-for="@Model.EducationType"  asp-items="@Html.GetEnumSelectList<Education>()" class="form-control"> </select>    
+                                                                   }
+                                                                   else
+                                                                   {
+                                                                    <select type="text" asp-for="@Model.EducationTypeSpanish"  asp-items="@Html.GetEnumSelectList<EducationSpanish>()" class="form-control"></select>     
+                                                                        }
+                                                                
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <input type="text" asp-for="@Model.Occupation" class="form-control" placeholder="@T("Occupation")">
@@ -97,7 +104,14 @@
                                                                     <input type="text" asp-for="@Model.MobileNumber"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  maxlength="10" class="form-control" placeholder="@T("Phone Number")">
                                                                 </div>*@
                                                                 <div class="form-group">
+                                                                      @if (Model?.LandingPageModel?.Language?.Id == 3)
+                                                                      {
                                                                     <select type="text" asp-for="@Model.FamilyOrRelationshipType" asp-items="@Html.GetEnumSelectList<FamilyOrRelationship>()" class="form-control"></select>
+                                                                      }
+                                                                        else
+                                                                        {
+                                                                           <select type="text" asp-for="@Model.FamilyOrRelationshipTypeSpanish" asp-items="@Html.GetEnumSelectList<FamilyOrRelationshipTypeSpanish>()" class="form-control"></select>
+                                                                        }
                                                                 </div>
 
                                                                 <span class="text-theme-6 mt-2" style="color: red; text-transform: capitalize;"> @T(ViewData.ModelState["ErrorMessage2"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage2"]?.Errors[0].ErrorMessage : "")</span>
