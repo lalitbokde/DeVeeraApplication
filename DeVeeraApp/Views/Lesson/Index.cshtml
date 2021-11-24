@@ -28,8 +28,11 @@
     .imgfit {
       
     }
-   
+    .swal2-styled.swal2-confirm {
+        background-color: #212529;
+    }
 </style>
+
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl !=null ? Model.BannerImageUrl: "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
     <div class="container">
@@ -59,7 +62,7 @@
             @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
             {
                 if (Spanishvideourl == "" || Spanishvideourl == null) {
-                <a onclick="showvideopop();" class="video-btn popup-youtube " >                   
+                <a onclick="showvideopopland();" class="video-btn popup-youtube " >                   
                 </a>
                 }
                 else {
@@ -72,7 +75,7 @@
             {
                 if (videourl == "" || videourl == null)
                 {
-                <a onclick="showvideopop();" class="video-btn popup-youtube ">
+                <a onclick="showvideopopland();" class="video-btn popup-youtube ">
                     <i class="flaticon-play" ></i>
                 </a>
                 
@@ -89,7 +92,7 @@
             {
                 if (videourl == "" || videourl == null)
                 {
-                 <a onclick="showvideopop();" class="video-btn popup-youtube ">
+                 <a onclick="showvideopopland();" class="video-btn popup-youtube ">
                     <i class="flaticon-play"></i>
                 </a>
                     }
