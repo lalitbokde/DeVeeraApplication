@@ -60,8 +60,8 @@ document.getElementById("VideoNotAvailable").style.display='none';
 
 
 
-function showvideopopland(){
- Swal.fire("Oops", "Video Not Available!");
+function showvideopopland(a,b){
+ Swal.fire(a,b );
 
 //document.getElementById("VideoNotAvailableland").style.display='inline';  
 

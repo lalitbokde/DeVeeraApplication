@@ -23,6 +23,10 @@
         background-color: #F0B9B2;
         padding: 6px 24px 3px 4px;
     }
+
+    .swal2-styled.swal2-confirm {
+        background-color: #F0B9B2;
+    }
 </style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl != null ? Model.BannerImageUrl : "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
@@ -52,7 +56,7 @@
                     {
                         if(Spanishvideourl==""|| Spanishvideourl == null)
                     {
-                            <a onclick="showvideopop();" class="video-btn popup-youtube">
+                            <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
                             <i class="flaticon-play"></i>
                         </a>
                     }
@@ -66,7 +70,7 @@
                     {
                     if (videourl == "" || videourl == null)
                     {
-                        <a onclick="showvideopop();"  class="video-btn popup-youtube">
+                        <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
                             <i class="flaticon-play"></i>
                         </a>
                     }
@@ -81,7 +85,7 @@
                 {
                     if (videourl == "" || videourl == null)
                     {
-                    <a onclick="showvideopop();" class="video-btn popup-youtube">
+                    <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
                         <i class="flaticon-play"></i>
                     </a>
                         }

@@ -1307,9 +1307,13 @@ namespace DeVeeraApp.Controllers
         public async Task<IActionResult> ForgotPasswordEmailAsk(string username)
         {
             UserModel model = new UserModel();
-
+            if (username != null) { 
+            model.Email = username;
+            }
             try
             {
+                ModelState.Remove("ErrorMessage");
+                if (ModelState.IsValid == true) { 
                 if (username != null)
                 {
                     var checkUserEmail = _UserService.GetUserByEmail(username);
@@ -1331,6 +1335,12 @@ namespace DeVeeraApp.Controllers
                        
 
                     }
+                }
+                else
+                {
+                    ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Username ");
+                }
+
                 }
             }
             catch (Exception ex)
@@ -1391,9 +1401,10 @@ namespace DeVeeraApp.Controllers
         {
             UserModel model = new UserModel();
             try {
+                if (TempData["Emailval"] != null) { 
                  username= TempData["Emailval"].ToString();
-                
-            if (username != null)
+                }
+                if (username != null)
             {
                     
                     var checkUserEmail = _UserService.GetUserByEmail(username);
@@ -1420,6 +1431,10 @@ namespace DeVeeraApp.Controllers
 
                      }
                   }
+                    else if (model.OTP == "" || model.OTP == null)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Otp");
+                    }
                     else
                     {
                         ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");

@@ -42,6 +42,8 @@
     <title>Psylo - Life Coach & Psychologist HTML Template</title>
 
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  
 </head>
 
 
@@ -116,13 +118,13 @@
                             <h4 class="sub-title">@T("Three Happy Pals")</h4>
                             @if (Model.VideoUrl == "" || Model.VideoUrl == null)
                             {
-                                <a onclick="showvideopop();"   class="video-btn popup-youtube">
+                                <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"   class="video-btn popup-youtube">
                                 
                                 <i class="flaticon-play"></i>
                             </a>
                             }
                             else { 
-                            <a href="@Model.VideoUrl" class="video-btn popup-youtube">
+                            <a href="@Model.VideoUrl"   class="video-btn popup-youtube">
                                 
                                 <i class="flaticon-play"></i>
                             </a>
@@ -194,6 +196,11 @@
         <i class='flaticon-up-arrow'></i>
     </div>
     <!-- End Go Top Area -->
+      <style>
+        .swal2-styled.swal2-confirm {
+            background-color: #F0B9B2;
+        }
+    </style>
     <!-- Jquery Slim JS -->
     <script src="~/assets/js/jquery.min.js"></script>
     <!-- Bootstrap Bundle JS -->
@@ -225,6 +232,7 @@
     <!-- Custom JS -->
     <script src="~/assets/js/main.js"></script>
     <script src="~/CustomJS/Common.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
 
