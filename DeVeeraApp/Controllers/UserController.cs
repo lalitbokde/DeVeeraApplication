@@ -145,7 +145,7 @@ namespace DeVeeraApp.Controllers
         public virtual void PrepareLanguages(LanguageModel model)
         {
 
-            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
+           // model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
             var AvailableLanguage = _languageService.GetAllLanguages();
             foreach (var item in AvailableLanguage)
             {
@@ -259,32 +259,32 @@ namespace DeVeeraApp.Controllers
                         }
                     case UserLoginResults.UserNotExist:
                         ModelState.AddModelError("", "UserNotExist");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User Does Not Exist !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User Does Not Exist");
                         break;
                     case UserLoginResults.Deleted:
                         ModelState.AddModelError("", "Deleted");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User is Deleted !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is Deleted ");
                         break;
                     case UserLoginResults.NotActive:
                         ModelState.AddModelError("", "NotActive");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  NotActive !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  NotActive ");
                         break;
                     case UserLoginResults.NotRegistered:
                         ModelState.AddModelError("", "NotRegistered");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  not NotRegistered !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  not NotRegistered");
                         break;
                     case UserLoginResults.LockedOut:
                         ModelState.AddModelError("", "LockedOut");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "LockedOut !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "LockedOut ");
                         break;
                     case UserLoginResults.WrongPassword:
                     default:
                         ModelState.AddModelError("", "WrongCredentials");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter proper email and Password !!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter correct email and Password ");
                         break;
                     case UserLoginResults.NotAllow:
                         ModelState.AddModelError("", "Not Allowed");
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Not Allowed!!!");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Not Allowed");
                         break;
                 }
             }
@@ -695,7 +695,7 @@ namespace DeVeeraApp.Controllers
             model.ActiveTab = "3";
             if (userId != 0)
             {
-
+                string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
                 if (userprofile == "userprofile")
                 {
                     ViewData["ChangesLanguage"] = 3; ViewData["Tabprofile"] = 0;
@@ -711,13 +711,22 @@ namespace DeVeeraApp.Controllers
                     model.Id = userData.Id;
                     model.Email = userData.Email;
                     model.MobileNumber = userData.MobileNumber;
-                    model.Age = (int)userData.Age;
-                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
-                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
-                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+                    model.Age = (int)userData.Age;                   
                     model.Occupation = userData.Occupation;
                     model.UserRoleName = userData.UserRole.Name;
                     model.TwoFactorAuthentication = userData.TwoFactorAuthentication;
+
+                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
+                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
+                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+
+
+
+                    foreach (string item in Enum.GetNames(typeof(Gender)))
+                    {
+                      
+                    }
+
 
                     if (_WorkContextService.CurrentUser.UserRole.Name == "Admin")
                     {
@@ -770,32 +779,40 @@ namespace DeVeeraApp.Controllers
                 }
 
 
-               
 
-                PrepareLanguages(model.LandingPageModel.Language);
+                model.Occupation = _translationService.TranslateLevelSpanish(model.Occupation, key);
+                //PrepareLanguages(model.LandingPageModel.Language);
                 var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
                 if (userlang == 5)
-                {
+                {   
+                   // model.Occupation = _translationService.TranslateLevel(model.Occupation, key);
+                   //model.LandingPageModel.Language.AvailableLanguages.Clear();
+                   // //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
 
-                    //model.LandingPageModel.Language.AvailableLanguages.Clear();
-                    //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
+                   // var AvailableLanguage = _languageService.GetAllLanguages();
+                   // foreach (var item in AvailableLanguage)
+                   // {
+                   //     item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                   //     model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                   //     {
+                   //         Value = item.Id.ToString(),
+                   //         Text = item.Name
+                   //     });
+                   // }
+                   
 
-                    //var AvailableLanguage = _languageService.GetAllLanguages();
-                    //foreach (var item in AvailableLanguage)
-                    //{
-                    //    item.Name= _localStringResourcesServices.GetResourceValueByResourceName(item?.Name);
-                    //    model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
-                    //    {
-                    //        Value = item.Id.ToString(),
-                    //        Text = item.Name
-                    //    });
-                    //}
+                   // string gentertyp = _localStringResourcesServices.GetResourceValueByResourceName(model.GenderType.ToString()); 
+                   // model.GenderType= (ViewModels.User.Gender?)(Gender)Enum.Parse(typeof(Gender), gentertyp);
+                   // string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
+                   // model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
+                   // string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
+                   // model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
 
                     //Above code to set language in spanish 
 
 
 
-                   
+
                 }
                 return View(model);
 
@@ -832,9 +849,9 @@ namespace DeVeeraApp.Controllers
                 }
 
 
-               
 
 
+                ModelState.Remove("Email");
                 ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
                 {
@@ -1225,64 +1242,197 @@ namespace DeVeeraApp.Controllers
         }
 
 
+        
+
         [HttpGet]
-        public async Task<IActionResult> VerfiyFogotPassword(string username)
+        public async Task<IActionResult> ChangeForgotPassword(string username, string EmailId)
         {
+
             UserModel model = new UserModel();
-            try { 
-            if (username != null)
+            model.Email = username;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string Password,string ConfirmPassword)
+        {
+            try {
+                userModel.PasswordUpdate = Password;userModel.ConfirmPassword = ConfirmPassword;
+            if (userModel?.PasswordUpdate == null)
             {
-                var checkUserEmail = _UserService.GetUserByEmail(username);
-                    if (checkUserEmail != null) {
-                        model.Email = checkUserEmail?.Email;
-                        model.MobileNumber = checkUserEmail?.MobileNumber;
-                    var verification =
-                  await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
-                    
-                    if (verification.IsValid == true)
-                    {
-                        //    return RedirectToAction(nameof(VerfiyFogotPassword),
-                        //                                         new UserModel
-                        //                                         {
-                        //                                             Email = checkUserEmail.Email
-                        //                                         });
-                       }                
+                ViewData.ModelState.AddModelError("UserPassword.Password", "Please Enter Password ");
+            }
+            if (userModel?.ConfirmPassword == null)
+            {
+                ViewData.ModelState.AddModelError("ConfirmPassword", "Please Enter ConfirmPassword ");
+            }
+            if (userModel?.PasswordUpdate != userModel?.ConfirmPassword)
+            {
+                ViewData.ModelState.AddModelError("ErrorMessage", "Password And ConfirmPassword Should Match ");
+            }
+                if ((userModel?.PasswordUpdate != null&& userModel?.ConfirmPassword != null) && (userModel?.PasswordUpdate == userModel?.ConfirmPassword)) {
+                    ModelState.Remove("Email");ModelState.Remove("ErrorMessage");
+                    if (ModelState.IsValid == true) { 
+                    userModel.Email = TempData["Emailval"].ToString();
+                        var checkUserEmail = _UserService.GetUserByEmail(userModel?.Email);
+                    if (checkUserEmail != null) { 
+                    var userpassword = _UserService.GetCurrentPassword(checkUserEmail.Id);
+                    if (userpassword != null) { 
+                    userpassword.Password = userModel?.ConfirmPassword;
+                _UserService.UpdateUserPassword(userpassword);
+                ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated Successfully ");
+                         //   return RedirectToAction("Login", "User");
                     }
-                    else if (checkUserEmail == null)
-                    {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Email Id Does Not Exist ");
+
+                    }
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-            return RedirectToAction("VerfiyFogotPassword", "User", new { username = username, i = 1 });
+            return View(userModel);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ForgotPasswordEmailAsk(string username, string EmailId)
+        {
+            UserModel model = new UserModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPasswordEmailAsk(string username)
+        {
+            UserModel model = new UserModel();
+
+            try
+            {
+                if (username != null)
+                {
+                    var checkUserEmail = _UserService.GetUserByEmail(username);
+                    if (checkUserEmail != null)
+                    {
+                        model.Email = checkUserEmail?.Email;
+                        model.MobileNumber = checkUserEmail?.MobileNumber;
+                        var verification =
+                      await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+
+                        if (verification.IsValid == true)
+                        {
+                           return RedirectToAction("VerfiyFogotPassword","User",new { username = username });
+                        }
+                    }
+                    else if (checkUserEmail == null)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "UserName Does Not Exist ");
+                       
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+
+
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> VerfiyFogotPassword(string username ,string EmailId)
+        {           
+            UserModel model = new UserModel();
+            try
+            {
+                model.Email = username;
+                TempData["Emailval"] = model?.Email;
+                if (username != null)
+                {
+                    //var checkUserEmail = _UserService.GetUserByEmail(username);
+                    //    if (checkUserEmail != null) {
+                    //        model.Email = checkUserEmail?.Email;
+                    //        model.MobileNumber = checkUserEmail?.MobileNumber;
+                    //    var verification =
+                    //  await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+
+                    //    if (verification.IsValid == true)
+                    //    {
+                    //        //    return RedirectToAction(nameof(VerfiyFogotPassword),
+                    //        //                                         new UserModel
+                    //        //                                         {
+                    //        //                                             Email = checkUserEmail.Email
+                    //        //                                         });
+                    //       }                
+                    //    }
+                    //    else if (checkUserEmail == null)
+                    //    {
+                    //        ViewData.ModelState.AddModelError("ErrorMessage", "Email Id Does Not Exist ");
+                    //        RedirectToAction("ForgotPasswordEmailAsk");
+
+                    //    }
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> VerfiyFogotPassword(string username,int i,string[] verifyFO)
         {
-            try { 
+            UserModel model = new UserModel();
+            try {
+                 username= TempData["Emailval"].ToString();
+                
             if (username != null)
             {
-                var checkUserEmail = _UserService.GetUserByEmail(username);
-                if (checkUserEmail != null)
+                    
+                    var checkUserEmail = _UserService.GetUserByEmail(username);
+
+                    string FinalOTP = string.Join(' ', verifyFO).Replace(" ", "");
+                    model.OTP = FinalOTP;
+                    model.Email = username;
+                    string OtpLength = model?.OTP?.Length.ToString();
+                    if (Convert.ToInt32(OtpLength) == 6) { 
+                    if (checkUserEmail != null)
                 {
                     var verification =
-                  await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, "sms");
+                  await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
                     if (verification.IsValid == true)
                     {
-                       
+                        return RedirectToAction("ChangeForgotPassword",new { username = username });
                     }
-                }
+                    else
+                    {
+                       ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");
+
+                      
+                    }
+
+                     }
+                  }
+                    else
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");
+                    }
+
+
             }
             }
             catch(Exception ex)
             {
 
             }
-            return View();
+            return View(model);
         }
         
 

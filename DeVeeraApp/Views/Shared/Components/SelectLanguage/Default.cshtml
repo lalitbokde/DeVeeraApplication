@@ -1,4 +1,9 @@
 ﻿@model DeVeeraApp.ViewModels.User.UserModel
+<style>
+    .nice-select .option {
+        padding-right: 115px;
+    }
+</style>
 <form asp-controller="GeneralSetting" asp-action="Create" method="post">
     <input type="hidden" asp-for="@Model.Id" value="@_workContext?.CurrentUser?.Id" />
     <input type="hidden" asp-for="@Model.LandingPageModel.Language.ReturnUrl"  value=@($"{Context.Request.Path}{(Context.Request.QueryString.Value != null ? Context.Request.QueryString.Value : "")}")/>

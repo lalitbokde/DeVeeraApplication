@@ -82,7 +82,13 @@
                                                                     <input type="text" asp-for="@Model.Age" class="form-control" placeholder="@T("Age")">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <select type="text" asp-for="@Model.EducationType" asp-items="@Html.GetEnumSelectList<Education>()" class="form-control"></select>
+                                                               <select type="text" asp-for="@Model.EducationType"  asp-items="@Html.GetEnumSelectList<Education>()" class="form-control">
+                                                                        @*<option value="1">@T("HighSchool")</option>
+                                                                        <option value="2">@T("AssociateDegree")</option>
+                                                                        <option value="3">@T("Bachelor")</option>
+                                                                        <option value="4">@T("Master")</option>
+                                                                        <option value="5">@T("Doctorate")</option>*@
+                                                                </select>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <input type="text" asp-for="@Model.Occupation" class="form-control" placeholder="@T("Occupation")">

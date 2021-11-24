@@ -28,7 +28,7 @@ namespace DeVeeraApp.Areas.Admin.ViewComponents
 
         public IViewComponentResult Invoke(UserModel model)
         {
-            model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
+           // model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
             var AvailableLanguage = _languageService.GetAllLanguages();
 
             foreach (var item in AvailableLanguage)
