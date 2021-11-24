@@ -29,7 +29,7 @@
       
     }
     .swal2-styled.swal2-confirm {
-        background-color: #212529;
+        background-color: #F0B9B2;
     }
 </style>
 
@@ -62,11 +62,11 @@
             @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
             {
                 if (Spanishvideourl == "" || Spanishvideourl == null) {
-                <a onclick="showvideopopland();" class="video-btn popup-youtube " >                   
+                <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube " >                   
                 </a>
                 }
                 else {
-                 <a href="@Spanishvideourl" class="video-btn popup-youtube " >
+                 <a href="@Spanishvideourl"  class="video-btn popup-youtube " >
                     <i class="flaticon-play"></i>
                 </a>
                 }
@@ -75,7 +75,7 @@
             {
                 if (videourl == "" || videourl == null)
                 {
-                <a onclick="showvideopopland();" class="video-btn popup-youtube ">
+                <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube ">
                     <i class="flaticon-play" ></i>
                 </a>
                 
@@ -92,7 +92,7 @@
             {
                 if (videourl == "" || videourl == null)
                 {
-                 <a onclick="showvideopopland();" class="video-btn popup-youtube ">
+                 <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube ">
                     <i class="flaticon-play"></i>
                 </a>
                     }

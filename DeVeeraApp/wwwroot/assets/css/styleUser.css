@@ -9491,3 +9491,6 @@ Go Top CSS
     font-size: 20px;
     padding-right: 5px;
 }
+.swal2-styled.swal2-confirm {
+    background-color: #F0B9B2;
+}

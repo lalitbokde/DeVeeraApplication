@@ -43,14 +43,15 @@
 
     <link href="~/dist/css/Rating.css" rel="stylesheet" />
 
-
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     <title>Psylo - Life Coach & Psychologist HTML Template</title>
 
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+     
 </head>
 
 <body>
-
+   
     <!-- Start Preloader Area -->
     <div class="preloader-area">
         <div class="spinner">
@@ -122,13 +123,13 @@
                             <h4 class="sub-title">@T("3 Happy Pals")</h4>
                             @if (Model.VideoUrl == "" || Model.VideoUrl == null)
                             {
-                                <a onclick="showvideopop();" class="video-btn popup-youtube">
+                                <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube">
                                 <i class="flaticon-play"></i>
                             </a> 
                             }
                             else
                             {
-                            <a href="@Model.VideoUrl" class="video-btn popup-youtube">
+                            <a href="@Model.VideoUrl"  class="video-btn popup-youtube">
                                 <i class="flaticon-play"></i>
                             </a>
                             }
@@ -200,6 +201,13 @@
     <!-- End About Area -->
     <!-- End Coming Soon Area -->
     <!-- Jquery Slim JS -->
+    <style>
+        .swal2-styled.swal2-confirm {
+            background-color: #F0B9B2;
+        }
+    </style>
+
+
     <script src="~/assets/js/jquery.min.js"></script>
     <!-- Bootstrap Bundle JS -->
     <script src="~/assets/js/bootstrap.bundle.min.js"></script>
@@ -234,7 +242,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG7gNHAhDzgYmq4-EHvM4bqW1DNj2UCuk&amp;libraries=places"></script>
 
     <script src="~/CustomJS/Common.js"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+
 </body>
+
 </html>
 

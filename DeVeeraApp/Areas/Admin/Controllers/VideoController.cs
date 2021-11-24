@@ -287,7 +287,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
               
                 var model = data.ToModel<VideoModel>();
             ViewBag.srno = srno;
-                return View(model);
+            if(srno==1 && model.VideoUrl == null)
+            {
+                TempData["VideoUrl"] = 1;
+            }
+            if (srno == 2 && model.SpanishVideoUrl == null)
+            {
+                TempData["SpanishVideoUrl"] = 2;
+            }
+            return View(model);
         
         }
         public IActionResult DeleteVideo(int videoId,int keyId)
