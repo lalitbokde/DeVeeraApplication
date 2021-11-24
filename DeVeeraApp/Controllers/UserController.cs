@@ -336,7 +336,7 @@ namespace DeVeeraApp.Controllers
             }
             if (model.MobileNumber?.Length <10)
             {
-                ViewData.ModelState.AddModelError("MobileNumber", "Please enter correct mobile No");
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter correct mobile No.");
                // return View("Register", model);
 
             }

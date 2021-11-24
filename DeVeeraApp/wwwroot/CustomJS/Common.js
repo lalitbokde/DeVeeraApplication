@@ -58,3 +58,12 @@ document.getElementById("VideoNotAvailable").style.display='none';
  //$("#VideoNotAvailable").removeAttr('hidden');
 }
 
+
+
+function showvideopopland(){
+ Swal.fire("Oops", "Video Not Available!");
+
+//document.getElementById("VideoNotAvailableland").style.display='inline';  
+
+}
+
