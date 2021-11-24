@@ -13,14 +13,16 @@ namespace DeVeeraApp.ViewComponents
         private readonly ILanguageService _languageService;
         private readonly ISettingService _settingService;
         private readonly IWorkContext _WorkContextService;
-
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
         public SelectLanguageViewComponent(ILanguageService languageService,
                                            ISettingService settingService ,    
-                                           IWorkContext workContext)
+                                           IWorkContext workContext,
+                                            ILocalStringResourcesServices localStringResourcesServices)
         {
             _languageService = languageService;
             _settingService = settingService;
             _WorkContextService = workContext;
+            _localStringResourcesServices = localStringResourcesServices;
         }
 
 
@@ -40,6 +42,20 @@ namespace DeVeeraApp.ViewComponents
                    
                 }) ;
             }
+            if (model.UserprofilechangeLang == "SpanishchangeLang")
+            {
+                model.LandingPageModel.Language.AvailableLanguages.Clear();
+                foreach (var item in AvailableLanguage)
+                {
+                    item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                    model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                    {
+                        Value = item.Id.ToString(),
+                        Text = item.Name
+                    });
+                }
+            }
+
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
             var guestLanguage = _settingService.GetSetting();
             if (userLanguage != null)

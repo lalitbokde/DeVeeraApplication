@@ -411,7 +411,7 @@ namespace DeVeeraApp.Controllers
 
 
 
-        public IActionResult VerifyOTP(UserModel model)
+        public IActionResult VerifyOTP(UserModel model, string[] OTP)
         {
             var t = TempData["firstOtpsentTime"];
             var c = TempData["LangaugeId"];
@@ -429,6 +429,8 @@ namespace DeVeeraApp.Controllers
                 TempData["resend"] = 1;
                 model.countryCode = "";
             }
+            model.OTP=  string.Join(' ', OTP).Replace(" ", "").Length.ToString();
+           
             if (model.ErrorMessage != null)
             {
                 ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
@@ -788,19 +790,19 @@ namespace DeVeeraApp.Controllers
                     model.LandingPageModel.Language.AvailableLanguages.Clear();
                     //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
 
-                    var AvailableLanguage = _languageService.GetAllLanguages();
-                    foreach (var item in AvailableLanguage)
-                    {
-                        item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
-                        model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
-                        {
-                            Value = item.Id.ToString(),
-                            Text = item.Name
-                        });
-                    }
+                    //var AvailableLanguage = _languageService.GetAllLanguages();
+                    //foreach (var item in AvailableLanguage)
+                    //{
+                    //    item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                    //    model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                    //    {
+                    //        Value = item.Id.ToString(),
+                    //        Text = item.Name
+                    //    });
+                    //}
 
 
-                   
+                    model.UserprofilechangeLang = "SpanishchangeLang";
                     model.GenderTypeSpanish = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.GenderSpanish)userData.GenderType : 0;
                    model.EducationTypeSpanish= userData.GenderType != null ? (DeVeeraApp.ViewModels.User.EducationSpanish)userData.GenderType : 0;
                     model.FamilyOrRelationshipTypeSpanish = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationshipTypeSpanish)userData.GenderType : 0;
@@ -1317,19 +1319,19 @@ namespace DeVeeraApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string Password,string ConfirmPassword)
+        public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string PasswordUpdate, string ConfirmPassword)
         {
             try {
-                userModel.PasswordUpdate = Password;userModel.ConfirmPassword = ConfirmPassword;
+                userModel.PasswordUpdate = PasswordUpdate; userModel.ConfirmPassword = ConfirmPassword;
             if (userModel?.PasswordUpdate == null)
             {
-                ViewData.ModelState.AddModelError("UserPassword.Password", "Please Enter Password ");
+                ViewData.ModelState.AddModelError("PasswordUpdate", "Please Enter Password ");
             }
             if (userModel?.ConfirmPassword == null)
             {
                 ViewData.ModelState.AddModelError("ConfirmPassword", "Please Enter ConfirmPassword ");
             }
-            if (userModel?.PasswordUpdate != userModel?.ConfirmPassword)
+            if (userModel?.PasswordUpdate != userModel?.ConfirmPassword &&(userModel?.PasswordUpdate!=null&& userModel?.ConfirmPassword!=null))
             {
                 ViewData.ModelState.AddModelError("ErrorMessage", "Password And ConfirmPassword Should Match ");
             }
@@ -1487,7 +1489,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                       ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");
+                       ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct Otp ");
 
                       
                     }
@@ -1500,7 +1502,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "InCorrect Otp ");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct Otp ");
                     }
 
 
