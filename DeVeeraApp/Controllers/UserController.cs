@@ -491,7 +491,7 @@ namespace DeVeeraApp.Controllers
             if (true)
             {
                 ModelState.Remove("ErrorMessage");
-
+                ModelState.Remove("PasswordUpdate");
                 if (ModelState.IsValid)
                 {
                     if (model.countryCode == null && TempData["resend"] == null)
