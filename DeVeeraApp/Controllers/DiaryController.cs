@@ -137,7 +137,7 @@ namespace DeVeeraApp.Controllers
                 //{
 
                 //}
-                return RedirectToAction("TwoFactorAuthentication", "User", new { UserId = currentUser.Id });
+                return RedirectToAction("TwoFactorAuthentication", "User", new { UserId = currentUser.Id,SendOtp= "SendOtp" });
             }
             else
             {
