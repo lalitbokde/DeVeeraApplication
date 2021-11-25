@@ -355,7 +355,7 @@ namespace DeVeeraApp.Controllers
                 ViewData.ModelState.AddModelError("Email", "Please enter username");
                // return View("Register", model);
             }
-
+            ModelState.Remove("PasswordUpdate");
             if (ModelState.IsValid==false)
             {
                 
@@ -1076,7 +1076,7 @@ namespace DeVeeraApp.Controllers
 
         #region 2-FactorAuthentication
 
-        public async Task<IActionResult> TwoFactorAuthentication(int UserId)
+        public async Task<IActionResult> TwoFactorAuthentication(int UserId,string SendOtp)
         {
             var model = new TwoFactorAuthModel()
             {
@@ -1097,7 +1097,7 @@ namespace DeVeeraApp.Controllers
             }
             else { 
            
-            if(TempData["LangaugeId"]==null|| TempData["LangaugeId"] == "") { 
+            if((TempData["LangaugeId"]==null|| TempData["LangaugeId"] == "" )&& SendOtp== "SendOtp") { 
             var verification =
                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
                
@@ -1337,8 +1337,10 @@ namespace DeVeeraApp.Controllers
             }
                 if ((userModel?.PasswordUpdate != null&& userModel?.ConfirmPassword != null) && (userModel?.PasswordUpdate == userModel?.ConfirmPassword)) {
                     ModelState.Remove("Email");ModelState.Remove("ErrorMessage");
-                    if (ModelState.IsValid == true) { 
+                    if (ModelState.IsValid == true) {
+                        if (TempData["Emailval"] != null) { 
                     userModel.Email = TempData["Emailval"].ToString();
+                        }
                         var checkUserEmail = _UserService.GetUserByEmail(userModel?.Email);
                     if (checkUserEmail != null) { 
                     var userpassword = _UserService.GetCurrentPassword(checkUserEmail.Id);
