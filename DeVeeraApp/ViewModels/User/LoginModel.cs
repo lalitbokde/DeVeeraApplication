@@ -4,8 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DeVeeraApp.ViewModels.User
 {
     public partial class LoginModel : BaseEntityModel
-    {    
-       
+    {
+        public LoginModel()
+        {
+            
+            this.UserModel = new UserModel();
+        }
+
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Enter email address")]
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
@@ -28,6 +33,7 @@ namespace DeVeeraApp.ViewModels.User
         [NotMapped]
         public string ErrorMessage { get; set; }
 
-
+        
+        public UserModel UserModel { get; }
     }
 }

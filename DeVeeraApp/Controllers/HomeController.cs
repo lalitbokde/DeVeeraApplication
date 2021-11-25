@@ -28,6 +28,7 @@ using CRM.Services.Security;
 namespace DeVeeraApp.Controllers
 {
    
+
     public class HomeController : BaseController
     {
         #region fields
@@ -106,20 +107,36 @@ namespace DeVeeraApp.Controllers
       {
 
 
-
+            
             var random = new Random();
             var model = new UserModel();
-         var langId=  TempData["LangaugeId"];
+            var langId = TempData["LangaugeId"];
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
-            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
+             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
+
+            if (userLanguagem == null)
+            {
+                userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+                
+            }
+            if (langId != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(langId);
+            }
+
             if (PreviewLangId != null)
             {
                 userLanguagem.LanguageId = Convert.ToInt32(PreviewLangId);
             }
-            if(langId==null&& userLanguagem == null)
+            if (langId == null && userLanguagem == null)
             {
-                userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId ==36).FirstOrDefault();
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
             }
+            
+            //if (langId != null)
+            //{
+            //    userLanguagem.LanguageId = Convert.ToInt32(langId);
+            //}
             if (data != null)
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
@@ -452,7 +469,7 @@ namespace DeVeeraApp.Controllers
         {
             var random = new Random();
             //setting language
-            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
             if (userLanguage != null)
             {
 
@@ -468,7 +485,7 @@ namespace DeVeeraApp.Controllers
                
                 var settingData = new Setting
                 {
-                    UserId = _workContext.CurrentUser.Id,
+                    UserId = _workContext.CurrentUser?.Id,
                         LanguageId = langId
                     };
                     _settingService.InsertSetting(settingData);

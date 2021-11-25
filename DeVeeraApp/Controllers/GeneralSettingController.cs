@@ -28,7 +28,8 @@ namespace DeVeeraApp.Controllers
         {
             if(model.LandingPageModel.Language.Id != 0)
             {
-                if(model.Id != 0)
+               
+                if(model.Id != 0 && model.Id!=34)
                 {
                     var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == model.Id).FirstOrDefault();
                    
@@ -52,13 +53,15 @@ namespace DeVeeraApp.Controllers
                 else
                 {
                     var guestLanguage = _settingService.GetSetting();
-                    if (guestLanguage != null)
+                    if (guestLanguage != null  && guestLanguage.UserId!=34)
                     {
                         guestLanguage.LanguageId = model.LandingPageModel.Language.Id;
                         _settingService.UpdateSetting(guestLanguage);
                         model.LandingPageModel.Language.ReturnUrl = model.LandingPageModel.Language.ReturnUrl ?? "/Home/Index";
                     }
                 }
+
+                
                 TempData["LangaugeId"] = model.LandingPageModel.Language.Id;
             }
 

@@ -38,7 +38,13 @@
                     <span class="text-theme-21 mt-2 capitalizetxt" style="color:red;">@T(ViewData.ModelState["Email"]?.Errors.Count() != 0 ? ViewData.ModelState["Email"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
 
+                @{ if (TempData["LangaugeId"] != null)
+                    {
+                        Model.UserModel.LandingPageModel.Language.Id= Convert.ToInt32(TempData["LangaugeId"]);
+                        
+                     }
 
+                }
 
                 <div class="form-group">
                     <label>@T("Password")</label>

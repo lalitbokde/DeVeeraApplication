@@ -77,6 +77,7 @@ namespace DeVeeraApp.Controllers
         private readonly IVerificationService _verificationService;
         private readonly ISettingService _settingService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
+       
         #endregion
 
         #region CTOR
@@ -190,9 +191,26 @@ namespace DeVeeraApp.Controllers
 
         public virtual IActionResult Login()
         {
+
+
+            
             var model = _UserModelFactory.PrepareLoginModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.UserModel.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
             if (userLanguagem?.LanguageId == 5) { 
             model.BannerImageUrl =  _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl!=null ? _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl;
             }
@@ -220,6 +238,7 @@ namespace DeVeeraApp.Controllers
                 ViewData.ModelState.AddModelError("Password", "");
             }
             ModelState.Remove("ErrorMessage");
+            ModelState.Remove("UserModel.Email"); ModelState.Remove("UserModel.PasswordUpdate"); ModelState.Remove("UserModel.ConfirmPassword");
             if (ModelState.IsValid)
             {
                 var LastLoginDateUtc = _UserService.GetUserByEmail(model.Email)?.LastLoginDateUtc;
@@ -300,18 +319,7 @@ namespace DeVeeraApp.Controllers
         //   return View(model);
         //}
 
-        public IActionResult Register()
-        {
-
-            var model = new UserModel();
-            if (model.LandingPageModel.Language.Id == 0)
-            {
-                model.LandingPageModel.Language.Id = Convert.ToInt32(TempData["LangaugeId"]);
-            }
-            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
-            return View(model);
-        }
+       
 
         [HttpPost]
         public async Task<IActionResult> SendOTP(UserModel model,int langId)
@@ -320,6 +328,17 @@ namespace DeVeeraApp.Controllers
           TempData["LangaugeId"]= langId;
             ModelState.Remove("ErrorMessage");
 
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId ==34).FirstOrDefault(); 
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+            
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
             model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
 
@@ -381,13 +400,9 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("MobileNumber", "Please enter correct mobile No to receive otp ");
-                        return View("Register", model);
-
-                        //return RedirectToAction("Register", "User");
-
-
-                    }
+                    ModelState.AddModelError("MobileNumber", "Please enter correct mobile No ");
+                    return View("Register", model);
+                }
 
                     return RedirectToAction(nameof(VerifyOTP),
                                                      new UserModel
@@ -415,6 +430,19 @@ namespace DeVeeraApp.Controllers
         {
             var t = TempData["firstOtpsentTime"];
             var c = TempData["LangaugeId"];
+
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+            
             ViewData["MobileNumber"] = model.MobileNumber;
             UserPassword password = new UserPassword
             {
@@ -466,6 +494,19 @@ namespace DeVeeraApp.Controllers
                 model.LandingPageModel.Language.Id = langId;
                 TempData["LangaugeId"] = langId;
             }
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+            
+
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
             if (Convert.ToInt32(final) < 6)
             {
@@ -590,6 +631,33 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
+
+
+
+        public IActionResult Register()
+        {
+
+            var model = new UserModel();
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+            }
+
+            if (model.LandingPageModel.Language.Id == 0)
+            {
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
+            return View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Register(UserModel model)
@@ -1314,6 +1382,20 @@ namespace DeVeeraApp.Controllers
         {
 
             UserModel model = new UserModel();
+
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
             model.Email = username;
             return View(model);
         }
@@ -1322,6 +1404,18 @@ namespace DeVeeraApp.Controllers
         public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string PasswordUpdate, string ConfirmPassword)
         {
             try {
+                var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+                if (userLanguagem == null)
+                {
+                    userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+                }
+                if (TempData["LangaugeId"] != null)
+                {
+                    userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                    userModel.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+                }
+
                 userModel.PasswordUpdate = PasswordUpdate; userModel.ConfirmPassword = ConfirmPassword;
             if (userModel?.PasswordUpdate == null)
             {
@@ -1367,6 +1461,20 @@ namespace DeVeeraApp.Controllers
         public async Task<IActionResult> ForgotPasswordEmailAsk(string username, string EmailId)
         {
             UserModel model = new UserModel();
+            var userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
+            
             return View(model);
         }
 
@@ -1374,6 +1482,19 @@ namespace DeVeeraApp.Controllers
         public async Task<IActionResult> ForgotPasswordEmailAsk(string username)
         {
             UserModel model = new UserModel();
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
             if (username != null) { 
             model.Email = username;
             }
@@ -1426,8 +1547,23 @@ namespace DeVeeraApp.Controllers
         public async Task<IActionResult> VerfiyFogotPassword(string username ,string EmailId)
         {           
             UserModel model = new UserModel();
+
             try
             {
+                var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+                if (userLanguagem == null)
+                {
+                    userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+                }
+                if (TempData["LangaugeId"] != null)
+                {
+                    userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                    model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+                }
+
+
+
                 model.Email = username;
                 TempData["Emailval"] = model?.Email;
                 if (username != null)
@@ -1468,6 +1604,21 @@ namespace DeVeeraApp.Controllers
         {
             UserModel model = new UserModel();
             try {
+
+                var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+                if (userLanguagem == null)
+                {
+                    userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+                }
+                if (TempData["LangaugeId"] != null)
+                {
+                    userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                    model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+                }
+
+
+
                 if (TempData["Emailval"] != null) { 
                  username= TempData["Emailval"].ToString();
                 }
