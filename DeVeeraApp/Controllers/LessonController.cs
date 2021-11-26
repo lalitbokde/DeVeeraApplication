@@ -141,7 +141,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                videoData.BannerImageUrl = imagesRecord?.ImageUrl;
+                videoData.BannerImageUrl = imagesRecord?.ImageUrl != null ? imagesRecord?.ImageUrl : imagesRecord?.SpanishImageUrl;
             }
 
             if (Lang != null)
@@ -159,7 +159,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+                videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl != null ? imagesRecord1?.ImageUrl : imagesRecord1?.SpanishImageUrl;
             }
             var imagesRecord2 = _imageMasterService.GetImageById(data?.ShareBackgroundImageId);
             if (userLanguage.LanguageId == 5)
@@ -168,7 +168,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+                videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl!=null ? imagesRecord2?.ImageUrl : imagesRecord2?.SpanishImageUrl;
             }
 
             
@@ -301,7 +301,7 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    videoData.NextImageUrl = level?.ImageUrl;
+                    videoData.NextImageUrl = level?. ImageUrl!= null ? level?.ImageUrl : level?.SpanishImageUrl;
                 }
 
             }
@@ -317,7 +317,7 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    videoData.PrevImageUrl = level?.ImageUrl;
+                    videoData.PrevImageUrl = level?.ImageUrl != null ? level?.ImageUrl : level?.SpanishImageUrl;
                 }
             }
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Subtitle);

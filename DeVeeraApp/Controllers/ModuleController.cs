@@ -129,7 +129,7 @@ namespace DeVeeraApp.Controllers
                 moduleData.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null ? imagesRecord?.SpanishImageUrl : imagesRecord?.ImageUrl;
             }
             else { 
-            moduleData.BannerImageUrl = imagesRecord?.ImageUrl;
+            moduleData.BannerImageUrl = imagesRecord?.ImageUrl != null ? imagesRecord?.ImageUrl : imagesRecord?.SpanishImageUrl;
             }
             var imagesRecord1 = _imageMasterService.GetImageById(data.VideoThumbImageId);
             if (userLanguage?.LanguageId == 5)
@@ -139,7 +139,7 @@ namespace DeVeeraApp.Controllers
             else
             {
                
-                moduleData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+                moduleData.VideoThumbImageUrl = imagesRecord1?.ImageUrl != null ? imagesRecord1?.ImageUrl : imagesRecord1?.SpanishImageUrl;
             }
            
 
@@ -150,7 +150,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                moduleData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+                moduleData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl != null ? imagesRecord2?.ImageUrl : imagesRecord2?.SpanishImageUrl;
             }
             
 
@@ -169,7 +169,7 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    moduleData.NextImageUrl = module?.ImageUrl;
+                    moduleData.NextImageUrl = module?.ImageUrl != null ? module?.ImageUrl : module?.SpanishImageUrl;
                 }
 
             }
@@ -183,7 +183,7 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    moduleData.PrevImageUrl = module?.ImageUrl;
+                    moduleData.PrevImageUrl = module?.ImageUrl != null ? module?.ImageUrl : module?.SpanishImageUrl;
                 }
                
 
@@ -200,7 +200,7 @@ namespace DeVeeraApp.Controllers
                 }
                 else
                 {
-                    moduleData.NextLevelUrl = level?.ImageUrl;
+                    moduleData.NextLevelUrl = level?.ImageUrl != null ? level?.ImageUrl : level?.SpanishImageUrl;
                 }
                 
 

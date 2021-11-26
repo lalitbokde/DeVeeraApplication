@@ -235,7 +235,7 @@ namespace DeVeeraApp.Controllers
             }
             else
             {
-                model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
+                model.BannerImageUrl =  _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl != null ? _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl : _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl;
             }
             if (userLanguagem == null)
             {
