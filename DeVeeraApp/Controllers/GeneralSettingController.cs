@@ -1,7 +1,9 @@
 ﻿using CRM.Core.Domain;
 using CRM.Services.Settings;
 using DeVeeraApp.ViewModels.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace DeVeeraApp.Controllers
@@ -26,7 +28,8 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Create(UserModel model)
         {
-            if(model.LandingPageModel.Language.Id != 0)
+            string SessionLangId = "0";
+            if (model.LandingPageModel.Language.Id != 0)
             {
                
                 if(model.Id != 0 && model.Id!=34)
@@ -73,6 +76,16 @@ namespace DeVeeraApp.Controllers
             {
                 return RedirectToAction("Register", "User");
             }
+
+            if (TempData["LangaugeId"] != null)
+            {
+                SessionLangId = Convert.ToString(TempData["LangaugeId"]);
+            }
+
+            HttpContext.Session.SetInt32(SessionLangId, Convert.ToInt32(SessionLangId));
+            Response.Cookies.Append("SessionLangId", SessionLangId);
+
+
             return LocalRedirect(model.LandingPageModel.Language.ReturnUrl);
         }
     }

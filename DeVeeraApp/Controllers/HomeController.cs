@@ -49,6 +49,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
         private readonly IPermissionService _permissionService;
+        
         #endregion
 
 
@@ -105,12 +106,25 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index(DataSourceRequest command,string PreviewLangId)        
       {
-
-
-            
             var random = new Random();
             var model = new UserModel();
-            var langId = TempData["LangaugeId"];
+            try { 
+            string SessionLangId = Request.Cookies["SessionLangId"];
+            
+            if (TempData["LangaugeId"] != null) {
+                SessionLangId = Convert.ToString(TempData["LangaugeId"]);
+            }
+                if (SessionLangId != null) { 
+            HttpContext.Session.SetInt32(SessionLangId, Convert.ToInt32(SessionLangId));
+            Response.Cookies.Append("SessionLangId", SessionLangId);
+                    if (TempData["LangaugeId"] == null)
+                    {
+                        TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                    }
+                }
+                
+
+                    var langId = TempData["LangaugeId"];
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
              var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
 
@@ -227,6 +241,11 @@ namespace DeVeeraApp.Controllers
 
             }
             TempData["LangaugeId"]=   langId;
+            }
+            catch(Exception ex)
+            {
+
+            }
             return View(model);
         }
 

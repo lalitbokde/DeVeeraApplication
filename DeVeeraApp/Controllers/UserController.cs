@@ -77,7 +77,7 @@ namespace DeVeeraApp.Controllers
         private readonly IVerificationService _verificationService;
         private readonly ISettingService _settingService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
-       
+        string SessionLangId = "0";
         #endregion
 
         #region CTOR
@@ -191,9 +191,28 @@ namespace DeVeeraApp.Controllers
 
         public virtual IActionResult Login()
         {
+            string SessionLangId = "0";
+            if (SessionLangId == "0")
+            {
+                 SessionLangId = Request.Cookies["SessionLangId"];
+            }
 
+            if (TempData["LangaugeId"] != null)
+            {
+                SessionLangId = Convert.ToString(TempData["LangaugeId"]);
+            }
+            if (SessionLangId != null) { 
+            HttpContext.Session.SetInt32(SessionLangId, Convert.ToInt32(SessionLangId));
+                Response.Cookies.Append("SessionLangId", SessionLangId);
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                }
+            }
+            
 
             
+
             var model = _UserModelFactory.PrepareLoginModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
 
@@ -636,7 +655,7 @@ namespace DeVeeraApp.Controllers
 
         public IActionResult Register()
         {
-
+            string SessionLangId = Request.Cookies["SessionLangId"];
             var model = new UserModel();
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
             if (userLanguagem == null)
@@ -644,9 +663,13 @@ namespace DeVeeraApp.Controllers
                 userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
 
             }
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
             if (TempData["LangaugeId"] != null)
             {
-                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);                
             }
 
             if (model.LandingPageModel.Language.Id == 0)
@@ -1380,8 +1403,13 @@ namespace DeVeeraApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ChangeForgotPassword(string username, string EmailId)
         {
-
+            string SessionLangId = Request.Cookies["SessionLangId"];
             UserModel model = new UserModel();
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
+
 
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
             if (userLanguagem == null)
@@ -1404,11 +1432,16 @@ namespace DeVeeraApp.Controllers
         public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string PasswordUpdate, string ConfirmPassword)
         {
             try {
+                string SessionLangId = Request.Cookies["SessionLangId"];
                 var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
                 if (userLanguagem == null)
                 {
                     userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
 
+                }
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
                 }
                 if (TempData["LangaugeId"] != null)
                 {
@@ -1460,7 +1493,14 @@ namespace DeVeeraApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ForgotPasswordEmailAsk(string username, string EmailId)
         {
+            string SessionLangId = Request.Cookies["SessionLangId"];
             UserModel model = new UserModel();
+            var s = HttpContext.Session.GetInt32(SessionLangId);
+
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
             var userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
             if (userLanguagem == null)
             {
@@ -1481,12 +1521,17 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPasswordEmailAsk(string username)
         {
+            string SessionLangId = Request.Cookies["SessionLangId"];
             UserModel model = new UserModel();
             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
             if (userLanguagem == null)
             {
                 userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
 
+            }
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
             }
             if (TempData["LangaugeId"] != null)
             {
@@ -1550,11 +1595,16 @@ namespace DeVeeraApp.Controllers
 
             try
             {
+                string SessionLangId = Request.Cookies["SessionLangId"];
                 var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
                 if (userLanguagem == null)
                 {
                     userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
 
+                }
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
                 }
                 if (TempData["LangaugeId"] != null)
                 {
@@ -1604,12 +1654,16 @@ namespace DeVeeraApp.Controllers
         {
             UserModel model = new UserModel();
             try {
-
+                string SessionLangId = Request.Cookies["SessionLangId"];
                 var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
                 if (userLanguagem == null)
                 {
                     userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
 
+                }
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
                 }
                 if (TempData["LangaugeId"] != null)
                 {
