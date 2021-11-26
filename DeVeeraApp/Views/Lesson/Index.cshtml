@@ -58,7 +58,7 @@
             }
 
             <img src="@imageUrl2" alt="image"  class="" style="width:100%;" >
-            @if (userLanguage != null) {
+            @*@if (userLanguage != null) {
             @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
             {
                 if (Spanishvideourl == "" || Spanishvideourl == null) {
@@ -102,7 +102,64 @@
                     <i class="flaticon-play"></i>
                 </a>
                 }
-            }
+            }*@
+              
+            
+             @if (userLanguage != null)
+             {
+                @if (userLanguage.LanguageId == 5)
+                {
+                    if(Spanishvideourl != "" && Spanishvideourl != null) { 
+                    <a href="@Spanishvideourl"  class="video-btn popup-youtube " >
+                        <i class="flaticon-play"></i>
+                    
+                    </a>
+                    }
+                    else if(videourl != "" && videourl != null)
+                    {
+                         <a href="@videourl"  class="video-btn popup-youtube " >
+                        <i class="flaticon-play"></i>
+                    
+                    </a>
+                    }
+                    else
+                    {
+                <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube ">
+                    <i class="flaticon-play"></i>
+                </a>
+                    }
+                }
+                else if(userLanguage.LanguageId == 3)
+                {
+                    if(videourl != "" && videourl != null) { 
+                <a href="@videourl"  class="video-btn popup-youtube " >
+                    <i class="flaticon-play"></i>
+                </a>
+                    }
+                    else if(Spanishvideourl != "" && Spanishvideourl != null)
+                    {
+                        <a href="@Spanishvideourl"  class="video-btn popup-youtube " >
+                            <i class="flaticon-play"></i>
+                        </a>
+                    }
+                    else
+                    {
+                     <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube ">
+                        <i class="flaticon-play"></i>
+                    </a>
+                    }
+                }
+                else
+                {
+                 <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');" class="video-btn popup-youtube ">
+                    <i class="flaticon-play"></i>
+                </a>
+                }
+
+             }
+
+
+
         </div>
 
             <div id="VideoNotAvailable"   class="modal" tabindex="-1" aria-hidden="true">

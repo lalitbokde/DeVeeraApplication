@@ -28,7 +28,7 @@ namespace DeVeeraApp.Controllers
         [HttpPost]
         public IActionResult Create(UserModel model)
         {
-            string SessionLangId = "0";
+            string SessionLangId = "0";string FirstLangaugeCheck = "0";
             if (model.LandingPageModel.Language.Id != 0)
             {
                
@@ -80,11 +80,17 @@ namespace DeVeeraApp.Controllers
             if (TempData["LangaugeId"] != null)
             {
                 SessionLangId = Convert.ToString(TempData["LangaugeId"]);
+
+                FirstLangaugeCheck = Convert.ToString(TempData["LangaugeId"]);
             }
 
             HttpContext.Session.SetInt32(SessionLangId, Convert.ToInt32(SessionLangId));
             Response.Cookies.Append("SessionLangId", SessionLangId);
 
+            HttpContext.Session.SetInt32(FirstLangaugeCheck, Convert.ToInt32(FirstLangaugeCheck));
+            Response.Cookies.Append("FirstLangaugeCheck", FirstLangaugeCheck);
+
+          
 
             return LocalRedirect(model.LandingPageModel.Language.ReturnUrl);
         }

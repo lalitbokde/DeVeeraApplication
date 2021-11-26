@@ -50,53 +50,65 @@
             <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image" style="width:100%;" >
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-                @if (userLanguage != null)
-                {
-                    @if (userLanguage.LanguageId == 5 && Spanishvideourl != "")
-                    {
-                        if(Spanishvideourl==""|| Spanishvideourl == null)
-                    {
-                            <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                    }
-                    else { 
-                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                        }
-                    }
-                    else
-                    {
-                    if (videourl == "" || videourl == null)
-                    {
-                        <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                    }
-                    else { 
-                        <a href="@videourl" class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                        }
-                    }
                 }
-                else
+                
+               @if (userLanguage != null)
                 {
-                    if (videourl == "" || videourl == null)
-                    {
+                  @if (userLanguage.LanguageId == 5)
+                  {
+                      if (Spanishvideourl != "" && Spanishvideourl != null)
+                      {
+                    <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                      }
+                      else if (videourl != "" && videourl != null)
+                      {
+                         <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>                          
+                      }
+                      else
+                          {
+                       <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                      </a>
+                          }
+                  }
+                  else if (userLanguage.LanguageId == 3)
+                  {
+                      if (videourl != "" && videourl != null)
+                      {
+                         <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                      }
+                      else if (Spanishvideourl != "" && Spanishvideourl != null)
+                      {
+                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                         </a>
+                      }
+                      else
+                      {
                     <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
                         <i class="flaticon-play"></i>
+                      </a>
+                      }
+                  }
+                  else
+                  {
+                   <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
                     </a>
-                        }
-                else
-                {
-                     <a href="@videourl" class="video-btn popup-youtube">
-                        <i class="flaticon-play"></i>
-                    </a>
-                }
-                    }
-                }
+                  }
+
+
+            }
+
+
+
+               
         </div>
 
 
