@@ -401,6 +401,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
         {
             if (model.LandingPageModel.Language.Id != 0)
             {
+                TempData["LangaugeId"] = null;
+                if (Request.Cookies["SessionLangId"] != null)
+                {
+                    Response.Cookies.Delete("SessionLangId");
+                }
+
                 if (model.Id != 0)
                 {
                     var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == model.Id).FirstOrDefault();

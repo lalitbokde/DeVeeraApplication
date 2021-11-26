@@ -61,6 +61,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 }
                
             }
+
+          
+
             return LocalRedirect(model.LandingPageModel.Language.ReturnUrl);
         }
     }

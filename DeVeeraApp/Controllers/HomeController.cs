@@ -106,12 +106,12 @@ namespace DeVeeraApp.Controllers
         #region Method
         public IActionResult Index(DataSourceRequest command,string PreviewLangId)        
       {
-            var random = new Random();
+            var random = new Random(); string FirstLangaugeCheck = "0";
             var model = new UserModel();
-            try { 
-            string SessionLangId = Request.Cookies["SessionLangId"];
-            
-            if (TempData["LangaugeId"] != null) {
+            try {
+              string SessionLangId = Request.Cookies["SessionLangId"];
+               
+                if (TempData["LangaugeId"] != null) {
                 SessionLangId = Convert.ToString(TempData["LangaugeId"]);
             }
                 if (SessionLangId != null) { 
@@ -216,11 +216,24 @@ namespace DeVeeraApp.Controllers
 
                 if (master != null && master.Name == "Spanish")
                 {
+                        if (dataForVideo.SpanishVideoUrl != null&& dataForVideo.SpanishVideoUrl!="") { 
                     ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
-                }
+                        }
+                        else
+                        {
+                            ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                        }
+                    }
                 else
                 {
-                    ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                        if (dataForVideo.VideoUrl != null && dataForVideo.VideoUrl != "")
+                        {
+                            ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                        }
+                        else
+                        {
+                            ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
+                        }
                 }
                 if (userLanguagem?.LanguageId == 5) {
                     model.LandingPageModel.SliderOneImageUrl = _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl;
