@@ -126,7 +126,15 @@
                                                     </div>
 
                                                     <div class="col-lg-6">
-                                                        <div class="book-online-image"></div>
+                                                        <div class="book-online-image">
+                                                            <div class="form-group">  
+                                                            @*<label asp-for="ProfileImage" class="control-label"></label>*@  
+                                                            <div class="custom-file">  
+                                                                <input asp-for="ProfileImage" class="custom-file-input" id="customFile">  
+                                                                <label class="custom-file-label" for="customFile">Choose file</label>  
+                                                            </div>  
+                                                        </div>  
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -376,4 +384,10 @@ function setTabData(){
  @ViewData["ChangesLanguage"] = 3; @ViewData["Tabprofile"] = 0;
 @ViewData["TabchngPassword"] = 0;  @ViewData["TabComments"] = 0;
 }
+</script>
+<script>
+ $(".custom-file-input").on("change", function () {  
+            var fileName = $(this).val().split("\\").pop();  
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);  
+        });  
 </script>
