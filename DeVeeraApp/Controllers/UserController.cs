@@ -794,7 +794,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
             if (ProfileImage != null) { 
-            model.ProfileImage = ProfileImage; 
+            model.ProfileImageUrl = ProfileImage; 
                 if (userId == 0)
                 {
                     userId = _WorkContextService.CurrentUser.Id;
@@ -1017,7 +1017,7 @@ namespace DeVeeraApp.Controllers
                             //User.MobileNumber = model.MobileNumber;
                             User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                             User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
-
+                            User.ProfileImageUrl = model.ProfileImage;
                             if (userlangs == 5)
                             {
                                 switch (Convert.ToString(model?.GenderTypeSpanish))
