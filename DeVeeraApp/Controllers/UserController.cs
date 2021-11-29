@@ -663,7 +663,7 @@ namespace DeVeeraApp.Controllers
                 userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
 
             }
-            if (TempData["LangaugeId"] == null)
+            if (TempData["LangaugeId"] == null && SessionLangId!=null)
             {
                 TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
             }
