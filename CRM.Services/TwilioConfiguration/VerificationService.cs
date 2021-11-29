@@ -1,5 +1,7 @@
 ﻿
 using CRM.Core.TwilioConfig;
+using CRM.Data.Interfaces;
+using CRM.Services.Twilio;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,22 +15,27 @@ namespace CRM.Services.TwilioConfiguration
     public class VerificationService : IVerificationService
     {
 
-        private readonly Configuration.Twilio _config;
+       // private readonly Configuration.Twilio _config;
+        private readonly ITwilioService _ITwilioService;
 
-        public VerificationService(Configuration.Twilio configuration)
+        public VerificationService(ITwilioService ITwilioService)
         {
-            _config = configuration;
-            TwilioClient.Init(_config.AccountSid, _config.AuthToken);
+            //_config = configuration;
+            //TwilioClient.Init(_config.AccountSid, _config.AuthToken);
+            this._ITwilioService = ITwilioService;
         }
 
+
+        
         public async Task<VerificationResult> StartVerificationAsync(string phoneNumber, string channel)
         {
             try
             {
+                var verficationsid = _ITwilioService.GetAllTwillioConfiguration();
                 var verificationResource = VerificationResource.Create(
                     to: phoneNumber,
                     channel: channel,
-                    pathServiceSid: _config.VerificationSid
+                    pathServiceSid: verficationsid.VerificationSid
 
                 );
                 Console.WriteLine(verificationResource.Status);
@@ -45,10 +52,11 @@ namespace CRM.Services.TwilioConfiguration
         {
             try
             {
+                var verficationsid = _ITwilioService.GetAllTwillioConfiguration();
                 var verificationCheckResource = await VerificationCheckResource.CreateAsync(
                     to: phoneNumber,
                     code: code,
-                    pathServiceSid: _config.VerificationSid
+                    pathServiceSid: verficationsid.VerificationSid
                 );
                 return verificationCheckResource.Status.Equals("approved") ?
                     new VerificationResult(verificationCheckResource.Sid) :
@@ -59,5 +67,15 @@ namespace CRM.Services.TwilioConfiguration
                 return new VerificationResult(new List<string> { e.Message });
             }
         }
+
+
+        //public  Twilio GetTwillioConfiguration(int LayoutSetupId)
+        //{
+        //    if (LayoutSetupId == 0)
+        //        return null;
+
+
+        //    return _LayoutSetupRepository.GetById(LayoutSetupId);
+        //}
     }
 }

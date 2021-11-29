@@ -6,8 +6,16 @@
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var dataProperty = _workContext.CurrentUser.UserRole.Name == "Admin" ? "disabled" : "";
+    if (Model.ProfileImage == "" || Model.ProfileImage == null)
+    {
+        Model.ProfileImage = "(../../assets/images/book-online.jpg)";
+    }
 }
-
+<style>
+    .book-online-image {
+        background-image:url(@Model.ProfileImage);
+    }
+</style>
 <div class="page-banner-with-full-image item-bg3">
     <div class="container">
         <div class="page-banner-content-two">
@@ -28,7 +36,7 @@
             <div class="col-lg-12 col-md-12">
                 <div class="courses-details-desc">
                     @{
-                        int Tabprofile = 1; var showP = "show active"; var showC = "";var activeP = "active";var activeC = "";var showT = ""; var activeT = "";
+                        int Tabprofile = 1; var showP = "show active"; var showC = ""; var activeP = "active"; var activeC = ""; var showT = ""; var activeT = "";
 
                         var showL = ""; var activeL = "";
                         if ((ViewData["TabchngPassword"] != null ? Convert.ToInt32(ViewData["TabchngPassword"]) : 0) == 2)
@@ -45,7 +53,7 @@
                         }
                         else if ((ViewData["ChangesLanguage"] != null ? Convert.ToInt32(ViewData["ChangesLanguage"]) : 0) == 3)
                         {
-                            showP = ""; showC = ""; activeP = ""; activeC = ""; showT = ""; activeT = ""; showL = "show active";  activeL = "active";
+                            showP = ""; showC = ""; activeP = ""; activeC = ""; showT = ""; activeT = ""; showL = "show active"; activeL = "active";
                         }
                                 <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item"><a class="nav-link @activeP" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("My Profile")</a></li>
@@ -68,7 +76,7 @@
                                                         <div class="book-online-form">
                                                             <h3>@T("My Profile")</h3>
 
-                                                            <form href="/User/UserProfile/?userId=@_workContext.CurrentUser.Id" method="post">
+                                                            <form href="/User/UserProfile/?userId=@_workContext.CurrentUser.Id" method="post" onsubmit="GetProfilePicName();">
                                                                 <input asp-for="Id" hidden />
                                                                 <input type="number" hidden id="Tabprofile" name="Tabprofile" value="@Tabprofile" />
                                                                 <div class="form-group">
@@ -76,7 +84,7 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    @if(Model?.LandingPageModel?.Language?.Id==3 ) { 
+                                                                    @if (Model?.LandingPageModel?.Language?.Id == 3) {
                                                                     <select type="text" asp-for="@Model.GenderType" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
                                                                     }
                                                                     else
@@ -89,13 +97,13 @@
                                                                     <input type="text" asp-for="@Model.Age" class="form-control" placeholder="@T("Age")">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                @if(Model?.LandingPageModel?.Language?.Id==3 ) { 
+                                                                @if (Model?.LandingPageModel?.Language?.Id == 3) {
                                                                <select type="text" asp-for="@Model.EducationType"  asp-items="@Html.GetEnumSelectList<Education>()" class="form-control"> </select>    
-                                                                   }
-                                                                   else
-                                                                   {
+                                                                }
+                                                                else
+                                                                {
                                                                     <select type="text" asp-for="@Model.EducationTypeSpanish"  asp-items="@Html.GetEnumSelectList<EducationSpanish>()" class="form-control"></select>     
-                                                                        }
+                                                                }
                                                                 
                                                                 </div>
                                                                 <div class="form-group">
@@ -109,10 +117,10 @@
                                                                       {
                                                                     <select type="text" asp-for="@Model.FamilyOrRelationshipType" asp-items="@Html.GetEnumSelectList<FamilyOrRelationship>()" class="form-control"></select>
                                                                       }
-                                                                        else
-                                                                        {
+                                                                      else
+                                                                      {
                                                                            <select type="text" asp-for="@Model.FamilyOrRelationshipTypeSpanish" asp-items="@Html.GetEnumSelectList<FamilyOrRelationshipTypeSpanish>()" class="form-control"></select>
-                                                                        }
+                                                                      }
                                                                 </div>
 
                                                                 <span class="text-theme-6 mt-2" style="color: red; text-transform: capitalize;"> @T(ViewData.ModelState["ErrorMessage2"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage2"]?.Errors[0].ErrorMessage : "")</span>
@@ -124,18 +132,42 @@
 
                                                         </div>
                                                     </div>
+                                                    @{ 
 
+                                                            var profileImageUrl = Model.ProfileImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.ProfileImageUrl;
+                                                            var show = "";
                                                     <div class="col-lg-6">
-                                                        <div class="book-online-image">
-                                                            <div class="form-group">  
+                                                        <div class="book-online-image" >
+                                                              <input hidden id="ProfileImageUrl" asp-for="ProfileImageUrl"/>
+                                                            <div class="form-group" action="/User/UploadProfilelocal" >  
                                                             @*<label asp-for="ProfileImage" class="control-label"></label>*@  
-                                                            <div class="custom-file">  
-                                                                <input asp-for="ProfileImage" class="custom-file-input" id="customFile">  
-                                                                <label class="custom-file-label" for="customFile">Choose file</label>  
+                                                            <div class="custom-file"> 
+                                                                @if (Model.ProfileImageUrl == "" || Model.ProfileImageUrl == null) {
+                                                                    show = "";
+                                                                }
+                                                                else { show = "hidden"; }
+                                                                @using (Html.BeginForm("UploadProfilePicAWS", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                             {
+                                                                <input  class="custom-file-input @show" type="file" name="uploadFile" id="customFile" > 
+                                                                <input id = "uploadfile" type="submit" class="@show" value="Upload"> 
+                                                             }
+                                                                @*<label class="custom-file-label" for="customFile">Choose file</label>*@  
                                                             </div>  
-                                                        </div>  
+                                                        </div> 
+                                                                
+                                                            <!--<a onclick="OpenImageSelectionModal('ProfileImage','ProfileImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                                <div class="flex-none pos-image relative block">
+                                                                    <div class="pos-image__preview">
+                                                                        <input asp-for="ProfileImage" hidden>
+                                                                        <img id="ProfileImageIdUrl" alt="" src="@profileImageUrl" style="Width:100%;height:100%">
+                                                                    </div>
+                                                                </div>-->
+                                                                @*<div class="block font-medium text-center truncate mt-3">Description Image</div>*@
+                                                            <!--</div>
+                                                            </a>-->
                                                         </div>
-                                                    </div>
+                                                    </div> }
                                                 </div>
                                             </div>
 
@@ -380,6 +412,8 @@
     </div>
 </section>
 <script>
+
+
 function setTabData(){
  @ViewData["ChangesLanguage"] = 3; @ViewData["Tabprofile"] = 0;
 @ViewData["TabchngPassword"] = 0;  @ViewData["TabComments"] = 0;
@@ -391,3 +425,11 @@ function setTabData(){
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);  
         });  
 </script>
+<link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<script>
+    $('.select2').select2({ closeOnSelect: true, width: '100%' });
+</script>
+<script src="/dist/js/CustomJs/Common.js"></script>

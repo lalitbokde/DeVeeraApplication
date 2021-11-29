@@ -85,7 +85,9 @@ namespace DeVeeraApp.ViewModels.User
 
        
         [Display(Name = "Profile Picture")]
-        public IFormFile ProfileImage { get; set; }
+        public string ProfileImage { get; set; }
+
+        public string ProfileImageUrl { get; set; }
 
         [NotMapped]
         public bool TwoFactorAuthentication { get; set; }
