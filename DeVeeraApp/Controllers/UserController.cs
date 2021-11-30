@@ -827,7 +827,7 @@ namespace DeVeeraApp.Controllers
                     model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
                     model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
                     model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
-
+                    model.ProfileImageUrl = userData.ProfileImageUrl;
 
 
                     foreach (string item in Enum.GetNames(typeof(Gender)))
@@ -963,7 +963,7 @@ namespace DeVeeraApp.Controllers
 
                 
                 
-                ModelState.Remove("Email");
+                ModelState.Remove("Email"); ModelState.Remove("PasswordUpdate"); 
                 ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
                 {

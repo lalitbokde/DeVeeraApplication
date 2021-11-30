@@ -3,25 +3,27 @@
 @inject CRM.Services.ILevelServices levelServices
 @inject CRM.Services.IImageMasterService ImageService
 @inject CRM.Services.Layoutsetup.ILayoutSetupService LayoutService
+@inject CRM.Services.Users.IUserService UserService
 @{
 
 @if (_workContext.CurrentUser.LastLevel == null) {
     _workContext.CurrentUser.LastLevel = 1;
 }
 
-var currentLevel = _workContext.CurrentUser.LastLevel;
+    var currentLevel = _workContext.CurrentUser.LastLevel;
 
-var userLevel = levelServices.GetLevelById((int)currentLevel)?.LevelNo ?? 1;
-var FooterImgid = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterImageId).Where(a => a.IsActive == true).FirstOrDefault()?.FooterImageId;
-var Imageurl = ImageService.GetImageById((int)FooterImgid)?.ImageUrl;
+    var userLevel = levelServices.GetLevelById((int)currentLevel)?.LevelNo ?? 1;
+    var FooterImgid = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterImageId).Where(a => a.IsActive == true).FirstOrDefault()?.FooterImageId;
+    var Imageurl = ImageService.GetImageById((int)FooterImgid)?.ImageUrl;
 
-var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_1;
-var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
-var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
-var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
-var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
-var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
-var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+    var Title1 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_1;
+    var Title2 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_2;
+    var Title3 = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.Link_3;
+    var phone = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Id).Where(a => a.IsActive == true).FirstOrDefault()?.PhoneNo;
+    var email = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Email).Where(a => a.IsActive == true).FirstOrDefault()?.Email;
+    var location = LayoutService.GetAllLayoutSetups().OrderBy(a => a.Location).Where(a => a.IsActive == true).FirstOrDefault()?.Location;
+    var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription).Where(a => a.IsActive == true).FirstOrDefault()?.FooterDescription;
+    var userData = UserService.GetUserById(_workContext.CurrentUser.Id);
 }
 
 <!doctype html>
@@ -107,6 +109,11 @@ var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription
         .nice-select .list{
             z-index:1000!important;
         }
+        .htwth10px {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+        }
     </style>
     <!-- Start Preloader Area -->
     <div class="preloader-area">
@@ -147,7 +154,7 @@ var Footer = LayoutService.GetAllLayoutSetups().OrderBy(a => a.FooterDescription
                 
                        
                         <li>
-                            <i class="flaticon-user"></i>
+                            @*<i class="flaticon-user"></i>*@<img src="@userData.ProfileImageUrl" class="htwth10px"  />
                             <a asp-controller="User" asp-action="UserProfile" asp-route-userId="@_workContext.CurrentUser.Id">@T("My Account")</a>
                         </li>
 

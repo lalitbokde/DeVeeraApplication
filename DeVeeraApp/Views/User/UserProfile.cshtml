@@ -6,7 +6,7 @@
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var dataProperty = _workContext.CurrentUser.UserRole.Name == "Admin" ? "disabled" : "";
-    if (Model.ProfileImageUrl == "" || Model.ProfileImageUrl == null)
+    if (Model.ProfileImageUrl == "" && Model.ProfileImageUrl == null)
     {
         Model.ProfileImageUrl = "(../../assets/images/book-online.jpg)";
     }
@@ -149,8 +149,11 @@
                                                                 @using (Html.BeginForm("UploadProfilePicAWS", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                                              {
                                                                       <input hidden id="ProfileImageUrl" asp-for="ProfileImageUrl"/>
-                                                                <input  class="custom-file-input "  @show type="file" name="uploadFile" id="customFile" > 
-                                                                <input id = "uploadfile" type="submit" class=""  @show value="Upload"> 
+                                                                      <div class="row ">  <div class="col-6 "></div>
+                                                                            <div class="col-3  pl-4">
+                                                                <input  class="custom-file-input "  @show type="file" name="uploadFile" id="customFile" > </div>
+                                                                <div class="col-3 pl-4"> <input id = "uploadfile" type="submit" class=""  @show value="Upload"> 
+                                                                          </div>  </div>
                                                              }
                                                                 @*<label class="custom-file-label" for="customFile">Choose file</label>*@  
                                                             </div>  
