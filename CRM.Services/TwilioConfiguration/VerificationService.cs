@@ -15,29 +15,45 @@ namespace CRM.Services.TwilioConfiguration
     public class VerificationService : IVerificationService
     {
 
-       // private readonly Configuration.Twilio _config;
-        private readonly ITwilioService _ITwilioService;
+        //// private readonly Configuration.Twilio _config;
+        // private readonly ITwilioService _ITwilioService;
 
-        public VerificationService(ITwilioService ITwilioService)
+        // public VerificationService(ITwilioService ITwilioService)
+        // {
+        //     //_config = configuration;
+        //     //TwilioClient.Init(_config.AccountSid, _config.AuthToken);
+        //     this._ITwilioService = ITwilioService;
+        // }
+
+        private readonly Configuration.Twilio _config;
+
+        public VerificationService(Configuration.Twilio configuration)
         {
-            //_config = configuration;
-            //TwilioClient.Init(_config.AccountSid, _config.AuthToken);
-            this._ITwilioService = ITwilioService;
+            _config = configuration;
+            TwilioClient.Init(_config.AccountSid, _config.AuthToken);
         }
 
 
-        
         public async Task<VerificationResult> StartVerificationAsync(string phoneNumber, string channel)
         {
             try
             {
-                var verficationsid = _ITwilioService.GetAllTwillioConfiguration();
-                var verificationResource = VerificationResource.Create(
-                    to: phoneNumber,
-                    channel: channel,
-                    pathServiceSid: verficationsid.VerificationSid
+                //var verficationsid = _ITwilioService.GetAllTwillioConfiguration();
+                //var verificationResource = VerificationResource.Create(
+                //    to: phoneNumber,
+                //    channel: channel,
+                //    pathServiceSid: verficationsid.VerificationSid
 
-                );
+                //);
+                //Console.WriteLine(verificationResource.Status);
+                //return new VerificationResult(verificationResource.Sid);
+
+                var verificationResource = VerificationResource.Create(
+                   to: phoneNumber,
+                   channel: channel,
+                   pathServiceSid: _config.VerificationSid
+
+               );
                 Console.WriteLine(verificationResource.Status);
                 return new VerificationResult(verificationResource.Sid);
             }
@@ -52,15 +68,27 @@ namespace CRM.Services.TwilioConfiguration
         {
             try
             {
-                var verficationsid = _ITwilioService.GetAllTwillioConfiguration();
+                //var verficationsid = _ITwilioService.GetAllTwillioConfiguration();
+                //var verificationCheckResource = await VerificationCheckResource.CreateAsync(
+                //    to: phoneNumber,
+                //    code: code,
+                //    pathServiceSid: verficationsid.VerificationSid
+                //);
+                //return verificationCheckResource.Status.Equals("approved") ?
+                //    new VerificationResult(verificationCheckResource.Sid) :
+                //    new VerificationResult(new List<string> { "Wrong code. Try again." });
+
+
                 var verificationCheckResource = await VerificationCheckResource.CreateAsync(
                     to: phoneNumber,
                     code: code,
-                    pathServiceSid: verficationsid.VerificationSid
+                    pathServiceSid: _config.VerificationSid
                 );
                 return verificationCheckResource.Status.Equals("approved") ?
                     new VerificationResult(verificationCheckResource.Sid) :
                     new VerificationResult(new List<string> { "Wrong code. Try again." });
+
+
             }
             catch (TwilioException e)
             {
