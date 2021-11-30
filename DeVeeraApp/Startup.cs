@@ -139,10 +139,10 @@ namespace DeVeeraApp
             services.AddScoped<ILikesService, LikesService>();
             services.AddScoped<IVerificationService, VerificationService>();
 
-            //services.AddSingleton<IVerificationService>(new VerificationService(
-            //  Configuration.GetSection("Twilio").Get<Configuration.Twilio>()));
+            services.AddSingleton<IVerificationService>(new VerificationService(
+              Configuration.GetSection("Twilio").Get<Configuration.Twilio>()));
 
-           // services.AddSingleton<IVerificationService>(new VerificationService());
+            // services.AddSingleton<IVerificationService>(new VerificationService());
 
 
             services.AddScoped<ITranslationService, TranslationService>();

@@ -427,7 +427,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                    ModelState.AddModelError("MobileNumber", "Please enter correct mobile No ");
+                    ModelState.AddModelError("MobileNumber", "Due to Technical error OTP service UnAvailable ");
                     return View("Register", model);
                 }
 
@@ -1711,7 +1711,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                       ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct Otp ");
+                       ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct OTP ");
 
                       
                     }
@@ -1720,11 +1720,11 @@ namespace DeVeeraApp.Controllers
                   }
                     else if (model.OTP == "" || model.OTP == null)
                     {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Otp");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter OTP");
                     }
                     else
                     {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct Otp ");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct OTP ");
                     }
 
 
