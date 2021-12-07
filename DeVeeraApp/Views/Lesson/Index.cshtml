@@ -347,7 +347,6 @@
                     </div>
                 </div>
             }
-                    @{  TempData["totalmodulefirstidcount"] = 0;}              
             @if (ViewBag.TotalLevels >= Convert.ToInt32(Model.LevelNo))
             {
                 if (Model.ModuleList.Count() > 0)
@@ -355,7 +354,7 @@
                   
                     <div class="next-link-wrapper">
                         <div class="info-next-link-wrapper">
-                            <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo">
+                            <a asp-controller="Module" asp-action="Next" asp-route-moduleno="@Model.ModuleList.FirstOrDefault().ModuleNo" asp-route-levelSrno="@Model.LevelNo">
                                 <span class="next-link-info-wrapper">
                                     <span class="next-title">
                                         @T(Model.ModuleList.FirstOrDefault().Title)
@@ -368,7 +367,7 @@
                                     <span class="post-nav-title">@T("Next")</span>
                                 </span>
                             </a>
-                            <a asp-controller="Module" asp-action="Index" asp-route-id="@Model.ModuleList.FirstOrDefault().Id" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo" class="default-btn">@T("Start Module") <i class="flaticon-right-arrow"></i></a>
+                            <a asp-controller="Module" asp-action="Index" asp-route-moduleno="@Model.ModuleList.FirstOrDefault().ModuleNo" asp-route-srno="1" asp-route-levelSrno="@Model.LevelNo" class="default-btn">@T("Start Module") <i class="flaticon-right-arrow"></i></a>
                         </div>
                     </div>
 

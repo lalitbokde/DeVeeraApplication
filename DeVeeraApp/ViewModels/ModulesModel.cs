@@ -13,6 +13,7 @@ namespace DeVeeraApp.ViewModels
             SelectedModuleImages = new List<SelectedImage>();
             LikeCommentslModulelist = new List<LikesUnlikess>();
         }
+        public int ModuleNo { get; set; }
         public string Title { get; set; }
         public int LevelId { get; set; }
         public string VideoURL { get; set; }

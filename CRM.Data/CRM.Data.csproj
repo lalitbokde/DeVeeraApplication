@@ -42,6 +42,10 @@
     <Compile Include="Migrations\20210923143650_spanishvideo.Designer.cs" />
     <Compile Include="Migrations\20210924215057_mappingColumns.cs" />
     <Compile Include="Migrations\20210924215057_mappingColumns.Designer.cs" />
+    <Compile Include="Migrations\20211109060106_imagespanish.Designer.cs" />
+    <Compile Include="Migrations\20211109060106_imagespanish.cs" />
+    <Compile Include="Migrations\20211207081650_moduleNoAdded.Designer.cs" />
+    <Compile Include="Migrations\20211207081650_moduleNoAdded.cs" />
   </ItemGroup>
 
   <ItemGroup>

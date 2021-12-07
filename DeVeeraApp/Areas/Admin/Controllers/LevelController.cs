@@ -314,7 +314,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     model.Modules.BannerImageId = module.BannerImageId;
                     model.Modules.VideoThumbImageId = module.VideoThumbImageId;
                     model.Modules.ShareBackgroundImageId = module.ShareBackgroundImageId;
-
+                    model.Modules.ModuleNo = module.ModuleNo;
                     model.Modules.FullDescription = module.FullDescription;
                     model.Modules.Id = module.Id;
                     ViewBag.ActiveTab = "Add Module";
@@ -494,7 +494,8 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                         BannerImageId = model.Modules.BannerImageId,
                         VideoThumbImageId = model.Modules.VideoThumbImageId,
                         ShareBackgroundImageId = model.Modules.ShareBackgroundImageId,
-                        FullDescription = model.Modules.FullDescription
+                        FullDescription = model.Modules.FullDescription,
+                        ModuleNo = model.Modules.ModuleNo
                     };
                     _moduleServices.InsertModule(modules);
                     _translationService.Translate(modules.Title, model.SpanishTitleModule);
@@ -528,7 +529,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     modules.VideoThumbImageId = model.Modules.VideoThumbImageId;
                     modules.ShareBackgroundImageId = model.Modules.ShareBackgroundImageId;
                     modules.FullDescription = model.Modules.FullDescription;
-                    
+                    modules.ModuleNo = model.Modules.ModuleNo;
                     _moduleServices.UpdateModule(modules);
                     _translationService.Translate(modules.Title, model.SpanishTitleModule);
                     _translationService.Translate(modules.FullDescription, model.SpanishFullDescriptionModule);

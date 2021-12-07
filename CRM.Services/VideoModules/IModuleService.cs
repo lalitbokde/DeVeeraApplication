@@ -8,6 +8,7 @@ namespace CRM.Services.VideoModules
         void DeleteModule(Modules modules);
         IList<Modules> GetAllModules();
         IList<Modules> GetModulesByLevelId(int ModuleId);
+        Modules GetModuleByModuleNo(int moduleNo, int levelid);
         Modules GetModuleById(int ModuleId);
         void InsertModule(Modules modules);
         void UpdateModule(Modules modules);
