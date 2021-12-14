@@ -117,17 +117,17 @@ namespace CRM.Services
             var data = _imageRepository.GetById(imageId); 
             if(data != null)
             {
-                if (data.UpdatedOn.ToShortDateString() != DateTime.Now.ToShortDateString())
-                {
-                    if(data.Key != null)
+               
+                    if(data.Key != null || data.SpanishKey != null)
                     {
-                        data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key);
+                        data.ImageUrl = _s3BucketService.GetPreSignedURL(data.Key?? data.SpanishKey);
+                        data.SpanishImageUrl = _s3BucketService.GetPreSignedURL(data.SpanishKey?? data.Key);
                         data.UpdatedOn = DateTime.Now;
                         UpdateImage(data);
 
                     }
 
-                }
+                
             }
             return data;
         }
