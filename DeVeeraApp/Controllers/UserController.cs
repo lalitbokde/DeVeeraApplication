@@ -38,6 +38,8 @@ using CRM.Core.TwilioConfig;
 using System.Collections.Generic;
 using DeVeeraApp.Filters;
 using CRM.Services.Settings;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace DeVeeraApp.Controllers
 {
@@ -77,6 +79,8 @@ namespace DeVeeraApp.Controllers
         private readonly IVerificationService _verificationService;
         private readonly ISettingService _settingService;
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IS3BucketService _s3BucketService;
         string SessionLangId = "0";
         #endregion
 
@@ -104,7 +108,9 @@ namespace DeVeeraApp.Controllers
                                   IImageMasterService imageMasterService,
                                   ITranslationService translationService,
                                    ISettingService settingService,
-                                   ILocalStringResourcesServices localStringResourcesServices
+                                   ILocalStringResourcesServices localStringResourcesServices,
+                                   IWebHostEnvironment hostingEnvironment,
+                                    IS3BucketService s3BucketService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -136,6 +142,8 @@ namespace DeVeeraApp.Controllers
             _translationService = translationService;
             _settingService = settingService;
             _localStringResourcesServices = localStringResourcesServices;
+            _hostingEnvironment = hostingEnvironment;
+            _s3BucketService = s3BucketService;
         }
 
         #endregion
@@ -405,7 +413,7 @@ namespace DeVeeraApp.Controllers
                 ViewData.ModelState.AddModelError("Email", "Email Already Registered");
                 // return View("Register", model);
             }
-
+           
             var verifymobno = model.countryCode + model.MobileNumber;
             if (_UserService.GetUserByMobileNo(verifymobno) == null)
             {
@@ -419,7 +427,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                    ModelState.AddModelError("MobileNumber", "Please enter correct mobile No ");
+                    ModelState.AddModelError("MobileNumber", "Due to Technical error OTP service UnAvailable ");
                     return View("Register", model);
                 }
 
@@ -781,10 +789,17 @@ namespace DeVeeraApp.Controllers
        
 
 
-        public IActionResult UserProfile(int userId,string userprofile)
+        public IActionResult UserProfile(int userId,string userprofile,string ProfileImage,string val)
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
+            if (ProfileImage != null) { 
+            model.ProfileImageUrl = ProfileImage; 
+                if (userId == 0)
+                {
+                    userId = _WorkContextService.CurrentUser.Id;
+                }
+            }
             model.ActiveTab = "3";
             if (userId != 0)
             {
@@ -812,7 +827,7 @@ namespace DeVeeraApp.Controllers
                     model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
                     model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
                     model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
-
+                    model.ProfileImageUrl = userData.ProfileImageUrl;
 
 
                     foreach (string item in Enum.GetNames(typeof(Gender)))
@@ -948,7 +963,7 @@ namespace DeVeeraApp.Controllers
 
                 
                 
-                ModelState.Remove("Email");
+                ModelState.Remove("Email"); ModelState.Remove("PasswordUpdate"); 
                 ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
                 {
@@ -1002,7 +1017,7 @@ namespace DeVeeraApp.Controllers
                             //User.MobileNumber = model.MobileNumber;
                             User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
                             User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
-
+                            User.ProfileImageUrl = model.ProfileImage;
                             if (userlangs == 5)
                             {
                                 switch (Convert.ToString(model?.GenderTypeSpanish))
@@ -1696,7 +1711,7 @@ namespace DeVeeraApp.Controllers
                     }
                     else
                     {
-                       ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct Otp ");
+                       ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct OTP ");
 
                       
                     }
@@ -1705,11 +1720,11 @@ namespace DeVeeraApp.Controllers
                   }
                     else if (model.OTP == "" || model.OTP == null)
                     {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Otp");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter OTP");
                     }
                     else
                     {
-                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct Otp ");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct OTP ");
                     }
 
 
@@ -1748,6 +1763,60 @@ namespace DeVeeraApp.Controllers
         }
         #endregion
 
+        public bool UploadProfilelocal(IFormFile file)
+        {
+            var FileDic = "Files/ProfilePicture";
+
+            string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+            if (!Directory.Exists(FilePath))
+
+                Directory.CreateDirectory(FilePath);
+
+            var filePath = Path.Combine(FilePath, file.FileName);
+
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                file.CopyTo(fs);
+            }
+
+            return true;
+        }
+
+
+        public async Task<IActionResult> UploadProfilePicAWS(IFormFile uploadFile)
+        {
+            string val="";
+            var FileDic = "Files/ProfilePicture";
+
+            string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+            if (!Directory.Exists(FilePath))
+
+                Directory.CreateDirectory(FilePath);
+
+            var filePath = Path.Combine(FilePath, uploadFile.FileName);
+
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                uploadFile.CopyTo(fs);
+            }
+
+
+
+            UserModel userModel = new UserModel();
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files//ProfilePicture", uploadFile.FileName);
+            _ = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                val = await _s3BucketService.UploadFileAsync(stream, path, uploadFile.FileName);
+
+
+            }
+            System.IO.File.Delete(path);
+            userModel.ProfileImage = val;
+            return RedirectToAction("UserProfile", "User", new { ProfileImage = userModel.ProfileImage});
+        }
 
     }
 }

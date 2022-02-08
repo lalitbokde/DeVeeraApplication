@@ -117,6 +117,9 @@ namespace CRM.Core.Domain.Users
         /// </summary>
         public DateTime LastActivityDateUtc { get; set; }
 
+        public string ProfileImageUrl { get; set; }
+        
+
         #region Navigation 
         /// <summary>
         /// Default billing address

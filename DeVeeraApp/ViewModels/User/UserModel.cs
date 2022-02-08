@@ -1,4 +1,5 @@
 ﻿using CRM.Core.Domain.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,11 @@ namespace DeVeeraApp.ViewModels.User
         public string PasswordUpdate { get; set; }
 
 
+       
+        [Display(Name = "Profile Picture")]
+        public string ProfileImage { get; set; }
+
+        public string ProfileImageUrl { get; set; }
 
         [NotMapped]
         public bool TwoFactorAuthentication { get; set; }

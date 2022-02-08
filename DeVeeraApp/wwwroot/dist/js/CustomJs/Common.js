@@ -43,7 +43,7 @@ function onFailed() {
 
 
 function OpenImageSelectionModal(ImageFieldId, ImageFieldUrl) {
-    
+   
     $("#ImageFieldId").val(ImageFieldId);
     $("#ImageFieldUrl").val(ImageFieldUrl);  
   
@@ -101,4 +101,27 @@ function hideshowqouteSpanish() {
     } else {
         $('#quotesSpanish').removeClass('hidden', true)
     }
+}
+
+function UploadProfilepic()
+{
+
+var filename = $("#single-file-upload1 .dz-filename").text();
+
+
+
+
+$.ajax({
+        url: "/User/UploadProfilePicAWS",
+    datatype: "text",
+    type: "POST",
+    data: { json: ch },
+    success: function (data) {
+        alert(data.message);
+    },
+    error: function () {
+        // $("#testarea").html("ERROR");
+        alert("Error");
+    }
+});
 }

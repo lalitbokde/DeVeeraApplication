@@ -431,12 +431,36 @@
                                     string imageUrl = "";
                                     if (userLanguage != null) {
                                         if (userLanguage.LanguageId == 5) {
-                                            imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl==null? "../../assets/images/blog/blog-2.jpg": item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl;
+
+                                            //  imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl==null? "../../assets/images/blog/blog-2.jpg": item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl;
+                                            if(item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl!=null&& item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl != "")
+                                            {
+                                                imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl;
+                                            }
+                                            else if (item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl!=null && item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl != "") {
+                                                imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                            }
+                                            else
+                                            {
+                                                imageUrl = "../../assets/images/blog/blog-2.jpg";
+                                            }
 
                                         }
                                         else
                                         {
-                                            imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl==null? "../../assets/images/blog/blog-2.jpg": item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                            //imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl==null? "../../assets/images/blog/blog-2.jpg": item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                            if (item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl != null && item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl != "")
+                                            {
+                                                imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().ImageUrl;
+                                            }
+                                            else if (item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl != null && item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl != "")
+                                            {
+                                                imageUrl = item.SelectedModuleImages.Where(i => i.ImageUrl != null).FirstOrDefault().SpanishImageUrl;
+                                            }
+                                            else
+                                            {
+                                                imageUrl = "../../assets/images/blog/blog-2.jpg";
+                                            }
                                         }
                                     }
 

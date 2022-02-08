@@ -67,3 +67,16 @@ function showvideopopland(a,b){
 
 }
 
+function GetProfilePicName()
+{
+
+var filename = $("#custom-file-input").text();
+
+ 
+        document.getElementById("ProfileImageUrl").value = filename;
+
+}
+
+
+
+
