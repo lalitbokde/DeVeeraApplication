@@ -50,8 +50,8 @@ namespace CRM.Services.VideoModules
 
         public Modules GetModuleByModuleNo(int moduleNo, int levelid)
         {
-            if (moduleNo == 0)
-                return null;
+            //if (moduleNo == 0)
+            //    return null;
             var query = from a in _modulesRepository.Table
                         where a.ModuleNo == moduleNo && a.LevelId == levelid
                         select a;
@@ -60,7 +60,18 @@ namespace CRM.Services.VideoModules
 
             return data;
         }
+        public Modules GetModulesdataByLevelId(int levelId)
+        {
+            if (levelId == 0)
+                return null;
+            var query = from a in _modulesRepository.Table
+                        where a.LevelId == levelId
+                        select a;
 
+            var data = query.OrderBy(a => a.ModuleNo).FirstOrDefault();
+
+            return data;
+        }
 
         public IList<Modules> GetModulesByLevelId(int levelId)
         {

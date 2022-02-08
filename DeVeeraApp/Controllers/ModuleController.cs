@@ -76,7 +76,9 @@ namespace DeVeeraApp.Controllers
             ViewBag.LevelSrNo = levelSrno;
             var level = _levelServices.GetLevelByLevelNo(levelSrno);
             var data = _moduleService.GetModuleByModuleNo(moduleNo, level.Id);
+            if (data!=null) {
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a => a.LevelId == data.LevelId).Count();
+            }
             var moduleData = data.ToModel<ModulesModel>();
            
             var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.ModuleId==data.Id ).ToList();

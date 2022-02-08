@@ -584,7 +584,7 @@ namespace DeVeeraApp.Controllers
                         user.MobileNumber = model.MobileNumber;
 
                         _UserService.InsertUser(user);
-
+                      
                         // password
                         if (!string.IsNullOrWhiteSpace(model.ConfirmPassword))
                         {

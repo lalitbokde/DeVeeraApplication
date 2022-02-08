@@ -520,7 +520,7 @@ namespace DeVeeraApp.Controllers
                 userLanguage.LanguageId = langId;
                 _settingService.UpdateSetting(userLanguage);
             }
-            if (userLanguage == null )
+            if (userLanguage.LanguageId == 0 )
            {
                 if (langId == 0)
                 {
@@ -530,7 +530,7 @@ namespace DeVeeraApp.Controllers
                 var settingData = new Setting
                 {
                     UserId = _workContext.CurrentUser?.Id,
-                        LanguageId = langId
+                        LanguageId = 3
                     };
                     _settingService.InsertSetting(settingData);
               

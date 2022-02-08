@@ -107,10 +107,6 @@ function UploadProfilepic()
 {
 
 var filename = $("#single-file-upload1 .dz-filename").text();
-
-
-
-
 $.ajax({
         url: "/User/UploadProfilePicAWS",
     datatype: "text",
@@ -125,3 +121,8 @@ $.ajax({
     }
 });
 }
+
+$(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});

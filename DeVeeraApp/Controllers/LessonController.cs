@@ -136,6 +136,7 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             var imagesRecord = _imageMasterService.GetImageById(data?.BannerImageId);
+            if (userLanguage!=null) { 
             if (userLanguage.LanguageId == 5)
             {
                 videoData.BannerImageUrl = imagesRecord?.SpanishImageUrl != null ? imagesRecord?.SpanishImageUrl : imagesRecord?.ImageUrl;
@@ -144,7 +145,7 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.BannerImageUrl = imagesRecord?.ImageUrl != null ? imagesRecord?.ImageUrl : imagesRecord?.SpanishImageUrl;
             }
-
+            }
             if (Lang != null)
             {
                 if (Lang == "English")
@@ -163,7 +164,7 @@ namespace DeVeeraApp.Controllers
                 videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl != null ? imagesRecord1?.ImageUrl : imagesRecord1?.SpanishImageUrl;
             }
             var imagesRecord2 = _imageMasterService.GetImageById(data?.ShareBackgroundImageId);
-            if (userLanguage.LanguageId == 5)
+            if (userLanguage?.LanguageId == 5)
             {
                 videoData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl != null ? imagesRecord2?.SpanishImageUrl : imagesRecord2?.ImageUrl;
             }
