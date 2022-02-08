@@ -21,6 +21,8 @@
     <Compile Include="Migrations\20211008144635_date.Designer.cs" />
     <Compile Include="Migrations\20211020134513_emotion.cs" />
     <Compile Include="Migrations\20211020134513_emotion.Designer.cs" />
+    <Compile Include="Migrations\20220208094215_ProfileImageUrl.cs" />
+    <Compile Include="Migrations\20220208094215_ProfileImageUrl.Designer.cs" />
     <Compile Include="Migrations\dbContextCRMModelSnapshot.cs" />
     <Compile Include="Migrations\20210802062129_isactive.cs" />
     <Compile Include="Migrations\20210802062129_isactive.Designer.cs" />
