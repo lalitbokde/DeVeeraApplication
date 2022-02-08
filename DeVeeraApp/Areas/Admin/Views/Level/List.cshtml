@@ -2,12 +2,17 @@
 @{
     ViewData["Title"] = "List";
 }
+<style>
+    .camelclass {
+        text-transform: capitalize;
+    }
+</style>
 @if (Model.LevelListPaged.Count() != 0)
 {
     <div class="intro-y  py-5 sm:py-5  ">
         <div class="px-5 ">
             <div class="font-medium text-center text-lg"> Level List</div>
-            <div class="text-gray-600 text-center mt-2">Below are the list of levels.</div>
+            <div class="text-gray-600 text-center mt-2 camelclass">Below are the list of levels.</div>
         </div>
        
         <div class="  border-t border-gray-200 dark:border-dark-5">

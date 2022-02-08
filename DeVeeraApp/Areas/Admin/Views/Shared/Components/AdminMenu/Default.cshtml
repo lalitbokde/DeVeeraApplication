@@ -259,19 +259,20 @@
                             </div>
                         </a>
                         <ul class="">
-                            <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@((int)Quote.Landing)" class="side-menu">
-                                    <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
-                                    <div class="side-menu__title">Create</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@((int)Quote.Landing)" class="side-menu">
-                                    <div class="side-menu__icon"> <i data-feather="list"></i>  </div>
-                                    <div class="side-menu__title">List</div>
-                                </a>
-                            </li>
-
+                            @{ var Landing = 3;
+                                <li>
+                                    <a asp-controller="WeeklyUpdate" asp-action="Create" asp-route-type="@Landing" class="side-menu">
+                                        <div class="side-menu__icon"> <i data-feather="edit"></i> </div>
+                                        <div class="side-menu__title">Create</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="WeeklyUpdate" asp-action="List" asp-route-typeId="@Landing" class="side-menu">
+                                        <div class="side-menu__icon"> <i data-feather="list"></i>  </div>
+                                        <div class="side-menu__title">List</div>
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </li>
                     <li>
@@ -490,7 +491,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-feather="file-text"></i> </div>
                             <div class="side-menu__title">
-                                Questionarrie
+                                Questionnaire
                                 <div class="side-menu__sub-icon "> <i data-feather="chevron-down"></i> </div>
                             </div>
                         </a>

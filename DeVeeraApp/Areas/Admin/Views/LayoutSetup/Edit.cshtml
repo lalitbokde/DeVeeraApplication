@@ -83,12 +83,15 @@
             top: 50%;
             width: 0;
         }
+    .camelclass {
+        text-transform: capitalize;
+    }
 </style>
 <form asp-controller="LayoutSetup" asp-action="Edit" method="post" id="LayoutSetupForm" onsubmit="ShowLoader('LayoutSetupForm');">
     <div class="intro-y inbox py-10 sm:py-20 "></div>
     <div class="px-5 ">
         <div class="font-medium text-center text-lg">Edit Layout Setup </div>
-        <div class="text-gray-600 text-center mt-2">Please layout setup to show on the dashboad page</div>
+        <div class="text-gray-600 text-center mt-2 camelclass">Please edit below details to layout setup</div>
     </div>
     <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 

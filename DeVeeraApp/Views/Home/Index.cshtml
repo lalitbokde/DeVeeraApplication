@@ -1,4 +1,11 @@
 ﻿    <!-- Start Main Slides Area -->
+<style>
+    .swal2-styled.swal2-confirm {
+        background-color: #F0B9B2;
+    }
+
+</style>
+
 <div class="main-slides-area">
     <div class="home-slides owl-carousel owl-theme">
         <div class="main-slides-item-box">
@@ -150,20 +157,62 @@
                                     }
                                 </p>
                             </div>
-                            <div class="philosophy-btn">
-                                <a href="@ViewBag.VideoUrl" class="default-btn popup-youtube">@T("Watch Video") <i class="flaticon-play"></i></a>
+
+
+                               
+   
+        <div class="modal-dialog " id="VideoNotAvailableland"  style="display:none;" hidden>
+            <div class="modal-content">
+                <div class="modal-header">@T("Oops !!! ....") <i class="btn-close" onclick="hidepopuplnd();"></i></div>
+                <!-- BEGIN: Modal Body -->
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12 sm:col-span-12">
+
+                        <div id="single-file-upload" class="p-5">
+                            <div class="preview">
+                                <div data-single="true" fallback="true">
+                                    <div class="fallback">
+                                       @T("Video Not Available !!!")
+                                    </div>
+                                   
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+            </div>
+        </div>
+    
+
+                         
+                            <div class="philosophy-btn" >
+                                @{
+                                    if (ViewBag.VideoUrl == "" || ViewBag.VideoUrl == null)
+                                    {
+                                        <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="default-btn popup-youtube">@T("Watch Video") <i class="flaticon-play"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@ViewBag.VideoUrl" class="default-btn popup-youtube">@T("Watch Video") <i class="flaticon-play"></i></a>
+                                    }
+                                }
+                            </div>
+
+                            
+                        </div>
+                    </div>
+
+                   
+
 
                     <div class="col-lg-6">
                         @{var DescriptionImageUrl = Model.LandingPageModel?.DescriptionImageUrl == null ? "/assets/images/philosophy/philosophy-1.png" : Model.LandingPageModel.DescriptionImageUrl;}
                         <div class="philosophy-image">
-                            
-                                <img src="@DescriptionImageUrl" class="responsive" >
-                            </div>
+                            <img src="@DescriptionImageUrl" class="responsive">
                         </div>
-                        </div>
+                    </div>
+                </div>
                         </div>
             </div>
         </div>
@@ -173,4 +222,11 @@
         <img src="~/assets/images/philosophy/line-shape.png" alt="image">
     </div>
 </section>
+
+<script src="~/CustomJS/Common.js"></script>
 <!-- End Philosophy Area -->
+<script>
+function hidepopuplnd(){    
+ document.getElementById("VideoNotAvailableland").style.display='none'; 
+}
+</script>

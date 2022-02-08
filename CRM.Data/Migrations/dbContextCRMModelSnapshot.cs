@@ -193,6 +193,10 @@ namespace CRM.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("SpanishImageUrl");
+
+                    b.Property<string>("SpanishKey");
+
                     b.Property<DateTime>("UpdatedOn");
 
                     b.HasKey("Id");
@@ -743,6 +747,8 @@ namespace CRM.Data.Migrations
                     b.Property<int>("LevelId");
 
                     b.Property<int>("LikeId");
+
+                    b.Property<int>("ModuleNo");
 
                     b.Property<int>("ShareBackgroundImageId");
 

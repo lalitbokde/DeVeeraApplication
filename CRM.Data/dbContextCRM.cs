@@ -11,7 +11,7 @@ using CRM.Core.Domain.VideoModules;
 using CRM.Core.Domain.Emotions;
 using CRM.Core.Domain.LayoutSetups;
 using CRM.Core.ViewModels;
-
+using CRM.Core.Domain.Twillio;
 
 namespace CRM.Data
 {
@@ -67,7 +67,8 @@ namespace CRM.Data
         public DbSet<Setting> Setting { get; set; }
 
         public DbSet<LocaleStringResource> LocaleStringResources { get; set; }
-
+        public DbSet<Twilio> Twilio { get; set; }
+        
 
         //Emotion
 

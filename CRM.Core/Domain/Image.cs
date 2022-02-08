@@ -10,6 +10,8 @@ namespace CRM.Core.Domain
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
 
+        public string SpanishKey { get; set; }
+        public string SpanishImageUrl { get; set; }
 
     }
 }

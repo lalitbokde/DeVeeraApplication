@@ -47,6 +47,9 @@
             top: 50%;
             width: 0;
         }
+        .capitalizetxt{
+            text-transform:capitalize;
+        }
 </style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl != null ? Model.BannerImageUrl: "../../assest/images/page-banner/register.jpg")')">
@@ -77,8 +80,7 @@
                 <div class="form-group">
                     <label>@T("User Name")</label>
                     <input asp-for="@Model.Email" type="email" class="form-control" placeholder="@T("User Name")">
-                    <span asp-validation-for="Email" class="text-theme-21 mt-2"></span>
-                    <p id="email" class="temp"> @TempData["Email"]</p>
+                 <span  class="text-theme-21 mt-2 capitalizetxt" style="color:red;">@T(ViewData.ModelState["Email"]?.Errors.Count()!=0?ViewData.ModelState["Email"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
                 @{ 
                     Model.LandingPageModel.Language.Id = Convert.ToInt32(TempData["LangaugeId"]);
@@ -307,27 +309,33 @@
                                 <option data-countryCode="ZW" value="+263">Zimbabwe (+263)</option>
 
                             </select>
-                            <span asp-validation-for="countryCode" class="text-theme-21 mt-2"></span>
+                            @*<span asp-validation-for="countryCode" class="text-theme-21 mt-2"></span>*@
                         </div>
 
                         <div class="col-lg-7">
 
-                            <input type="text" asp-for="@Model.MobileNumber" onkeydown="return isNumberKey(this, event);" maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
+                            <input type="text" asp-for="@Model.MobileNumber"   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  maxlength="10" class="form-control iti1  w-full " placeholder="@T("Mobile Number")">
 
-                            <span asp-validation-for="MobileNumber" class="text-theme-21 mt-2"></span>
-                            <p id="temp" class="temp"> @TempData["Message"]  </p>
-
+                           <span  class="text-theme-21 mt-2 capitalizetxt" style="color:red;">  @T(ViewData.ModelState["MobileNumber"]?.Errors.Count()!=0?ViewData.ModelState["MobileNumber"]?.Errors[0].ErrorMessage :"")</span> 
+                           
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>@T("Password")</label>
+                  
                     <input asp-for="@Model.ConfirmPassword" type="password" class="form-control" placeholder="@T("Password")">
-                    <span asp-validation-for="ConfirmPassword" class="text-theme-21 mt-2"></span>
-                    <p id="temp" class="temp"> @TempData["ConfirmPassword"]  </p>
+                 @if ((ViewData.ModelState["ConfirmPassword"]?.Errors.Count() != 0 ? ViewData.ModelState["ConfirmPassword"]?.Errors[0].ErrorMessage : "") == "Enter Confirm Password ")
+                 {
+                      <span  class="text-theme-21 mt-2 capitalizetxt" style="color:red;">  @T("Enter Password")</span>
+                 }
+            else { 
+
+                    <span  class="text-theme-21 mt-2 capitalizetxt" style="color:red;">  @T(ViewData.ModelState["ConfirmPassword"]?.Errors.Count()!=0?ViewData.ModelState["ConfirmPassword"]?.Errors[0].ErrorMessage : "")</span>
+                 }
                 </div>
 
-                <p class="description">@T("The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers")</p>
+                <p class="description capitalizetxt">@T("The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers")</p>
 
                 <button  type="submit">@T("Register Now")</button>
             </form>
@@ -338,32 +346,36 @@
 <script>
     $(document).ready(function () {
         $('.select2').select2({
-            closeOnSelect: true
+                      closeOnSelect: true
         });
-    });
+                  });
 </script>
 <script>
     function isNumberKey(txt, evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        //console.log(charCode);
-        if (charCode == 46) {
-            //Check if the text already contains the . character
-            if (txt.value.indexOf('.') === -1) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            //if (charCode > 31 &&
-            //    (charCode < 48 || charCode > 57))
-            //    return false;
-            if ((charCode == 8) //backspace
-                || (charCode >= 48 && charCode <= 57) //keypad: 0 to 9
-                || (charCode >= 96 && charCode <= 105)) //numpad: 0 to 9
-                return true;
-        }
-        return false;
-    }
+                      var charCode = (evt.which) ? evt.which : evt.keyCode;
+                      //console.log(charCode);
+                      if (charCode == 46) {
+                          //Check if the text already contains the . character
+                          if (txt.value.indexOf('.') === -1) {
+                              return true;
+                          } else {
+                              return false;
+                          }
+                      } else {
+                          //if (charCode > 31 &&
+                          //    (charCode < 48 || charCode > 57))
+                          //    return false;
+
+       if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+                          if ((charCode == 8) //backspace
+                              || (charCode >= 48 && charCode <= 57) //keypad: 0 to 9
+                              || (charCode >= 96 && charCode <= 105)) //numpad: 0 to 9
+                              return true;
+                      }
+                      return false;
+                  }
 
 </script>
 

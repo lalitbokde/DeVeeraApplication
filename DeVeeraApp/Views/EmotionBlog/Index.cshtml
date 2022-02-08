@@ -3,7 +3,11 @@
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-
+ <style>
+        .swal2-styled.swal2-confirm {
+            background-color: #F0B9B2;
+        }
+    </style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-area">
     <div class="container-fluid">
@@ -53,7 +57,7 @@
                     <h2>@T(Model.Title)</h2>
                     <div class="entry-meta">
                         <ul>
-                            <li><i class="flaticon-calendar"></i> <a href="#">@Model.CreatedOn.ToString("MMMM d, yyyy")</a></li>
+                            @*<li><i class="flaticon-calendar"></i> <a href="#">@Model.CreatedOn.ToString("MMMM d, yyyy")</a></li>*@
                             @*<li><i class="flaticon-user"></i> <a href="#">Angela Hopper</a></li>
                             <li><i class="flaticon-chat-bubble"></i> <a href="#">03 Comments</a></li>*@
                         </ul>
@@ -75,11 +79,46 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="courses-details-image mt-4">
-                            <img src="@ThumbnailImage" alt="image" width="100%" style="height:300px;">                           
-                            <a href="@videoUrl" class="video-btn popup-youtube">
-                                <i class="flaticon-play"></i>
-                            </a>
+                            <img src="@ThumbnailImage" alt="image" width="100%" style="height:300px;">
+                            @{
+                                if (videoUrl == "" || videoUrl == null)
+                                {
+                                    <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
+                                        <i class="flaticon-play"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@videoUrl" class="video-btn popup-youtube">
+                                        <i class="flaticon-play"></i>
+                                    </a>
+                                }
+                            }
 
+                        </div>
+                        <div id="VideoNotAvailable" class="modal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+                                    <div class="modal-header">Oops !!! .... <i class="btn-close" onclick="hidepopup();"></i></div>
+                                    <!-- BEGIN: Modal Body -->
+                                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                        <div class="col-span-12 sm:col-span-12">
+
+                                            <div id="single-file-upload" class="p-5">
+                                                <div class="preview">
+                                                    <div data-single="true" fallback="true">
+                                                        <div class="fallback">
+                                                            @T("Video Not Available !!!")
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,4 +126,5 @@
         </div>
     </div>
 </div>
+    <script src="~/CustomJS/Common.js"></script>
 <!-- End Blog Details Area -->

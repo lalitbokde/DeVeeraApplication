@@ -1,4 +1,5 @@
 ﻿using CRM.Core.Domain.Users;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -19,24 +20,35 @@ namespace DeVeeraApp.ViewModels.User
         public string Username { get; set; }
         public string countryCode { get; set; }
 
+        
+
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "Please enter username")]
+        [Required(ErrorMessage = "Enter email address")]
+        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
+
         public string Email { get; set; }
         
-        [DataType(DataType.PhoneNumber)]
-        [Required(ErrorMessage ="Please enter contact number")]
+        //[DataType(DataType.PhoneNumber)]
+        //[Required]
         public string MobileNumber { get; set; }
 
-        
-        [Required(ErrorMessage = "Please enter Passcode")]
+
+        public string ErrorMessage2 { get; set; }
         public string ErrorMessage { get; set; }
 
+        public string UserprofilechangeLang { get; set; }
         public Gender? GenderType { get; set; }
+
+        public GenderSpanish? GenderTypeSpanish { get; set; }
         public int Age { get; set; }
         public string Occupation { get; set; }
         public Education EducationType { get; set; }
+        public EducationSpanish EducationTypeSpanish { get; set; }
+
         public Income IncomeAboveOrBelow80K { get; set; }
         public FamilyOrRelationship FamilyOrRelationshipType { get; set; }
+        public FamilyOrRelationshipTypeSpanish FamilyOrRelationshipTypeSpanish { get; set; }
+        
         public string ImageUrl { get; set; }
         public string BannerImageUrl { get; set; }
         public UserPassword UserPassword { get; set; }
@@ -45,9 +57,9 @@ namespace DeVeeraApp.ViewModels.User
         public string OldPassword { get; set; }
 
         //[NotMapped]
-        [Required(ErrorMessage = "Enter correct password")]
+        [Required(ErrorMessage = "Please Enter Confirm Password ")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
-        ErrorMessage = "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
+        ErrorMessage = "The password length must be minimum 8 characters.The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
 
 
         //[DataType(DataType.Password)]
@@ -55,6 +67,28 @@ namespace DeVeeraApp.ViewModels.User
         //[Display(Name = "Password")]
         //[RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be at least 8 characters and contain at 3 of 4 of the following: upper case (A-Z), lower case (a-z), number (0-9) and special character (e.g. !@#$%^&*)")]
         public string ConfirmPassword { get; set; }
+
+
+
+
+        [Required(ErrorMessage = "Please Enter Password ")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
+         ErrorMessage = "The password length must be minimum 8 characters.The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
+
+
+        //[DataType(DataType.Password)]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
+        //[Display(Name = "Password")]
+        //[RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be at least 8 characters and contain at 3 of 4 of the following: upper case (A-Z), lower case (a-z), number (0-9) and special character (e.g. !@#$%^&*)")]
+        public string PasswordUpdate { get; set; }
+
+
+       
+        [Display(Name = "Profile Picture")]
+        public string ProfileImage { get; set; }
+
+        public string ProfileImageUrl { get; set; }
+
         [NotMapped]
         public bool TwoFactorAuthentication { get; set; }
         public string CompanyName { get; set; }
@@ -198,6 +232,15 @@ namespace DeVeeraApp.ViewModels.User
         DontWantToSay = 4
     }
 
+    public enum GenderSpanish
+    {
+        Masculina = 1,
+        Mujer = 2,
+        Otra = 3,
+        [Display(Name = "No quiero decir.")]
+        Noquierodecir = 4
+    }
+
     public enum Income
     {
         IncomeAbove80K = 1,
@@ -213,6 +256,15 @@ namespace DeVeeraApp.ViewModels.User
         Doctorate = 5
     }
 
+    public enum EducationSpanish
+    {
+        Escuelasecundaria = 1,
+        Gradoasociado = 2,
+        Soltero = 3,
+        Maestra = 4,
+        Doctorado = 5
+    }
+
     public enum FamilyOrRelationship
     {
         Married = 1,
@@ -221,4 +273,13 @@ namespace DeVeeraApp.ViewModels.User
         Other = 4,
         Single = 5
     }
+    public enum FamilyOrRelationshipTypeSpanish
+    {
+        Casada = 1,
+        Divorciada = 2,
+        Apartada = 3,
+        Otra = 4,
+        Soltera = 5
+    }
+    
 }

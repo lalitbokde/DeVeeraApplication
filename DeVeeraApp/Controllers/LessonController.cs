@@ -115,12 +115,12 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(int levelno, DateTime? lastLoginDateUtc)
+        public IActionResult Index(int levelno, DateTime? lastLoginDateUtc, int QuoteType, string Lang)
         {
             var random = new Random();
-           var ch= TempData["LangaugeId"];
+            var ch = TempData["LangaugeId"];
             var AllLevels = _levelServices.GetAllLevels().ToList();
-           
+
             ViewBag.TotalLevels = AllLevels.Count;
             var videoData = new LevelModel
             {
@@ -136,13 +136,41 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             var imagesRecord = _imageMasterService.GetImageById(data?.BannerImageId);
-            videoData.BannerImageUrl = imagesRecord?.ImageUrl;
+            if (userLanguage.LanguageId == 5)
+            {
+                videoData.BannerImageUrl = imagesRecord?.SpanishImageUrl != null ? imagesRecord?.SpanishImageUrl : imagesRecord?.ImageUrl;
+            }
+            else
+            {
+                videoData.BannerImageUrl = imagesRecord?.ImageUrl != null ? imagesRecord?.ImageUrl : imagesRecord?.SpanishImageUrl;
+            }
+
+            if (Lang != null)
+            {
+                if (Lang == "English")
+                    userLanguage.LanguageId = 3;
+                if (Lang == "Spanish")
+                    userLanguage.LanguageId = 5;
+            }
 
             var imagesRecord1 = _imageMasterService.GetImageById(data?.VideoThumbImageId);
-            videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
-
+            if (userLanguage.LanguageId == 5)
+            {
+                videoData.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl != null ? imagesRecord1?.SpanishImageUrl : imagesRecord1?.ImageUrl;
+            }
+            else
+            {
+                videoData.VideoThumbImageUrl = imagesRecord1?.ImageUrl != null ? imagesRecord1?.ImageUrl : imagesRecord1?.SpanishImageUrl;
+            }
             var imagesRecord2 = _imageMasterService.GetImageById(data?.ShareBackgroundImageId);
-            videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+            if (userLanguage.LanguageId == 5)
+            {
+                videoData.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl != null ? imagesRecord2?.SpanishImageUrl : imagesRecord2?.ImageUrl;
+            }
+            else
+            {
+                videoData.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl != null ? imagesRecord2?.ImageUrl : imagesRecord2?.SpanishImageUrl;
+            }
 
             if (data?.VideoId != null)
             {
@@ -156,14 +184,15 @@ namespace DeVeeraApp.Controllers
                 videoData.VideoId = data.VideoId;
             }
             var updatedVideoData = _levelServices.GetLevelByLevelNo(levelno);
-            if (updatedVideoData != null) { 
-            videoData.Id = updatedVideoData.Id;
+            if (updatedVideoData != null)
+            {
+                videoData.Id = updatedVideoData.Id;
             }
             if (userLanguage != null)
             {
                 if (userLanguage.LanguageId == 5)
                 {
-                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData.FullDescription);
+                    videoData.FullDescription = _localStringResourcesServices.GetResourceValueByResourceName(updatedVideoData?.FullDescription);
 
                 }
                 else
@@ -182,9 +211,9 @@ namespace DeVeeraApp.Controllers
             videoData.Video = updatedVideoData?.Video;
             videoData.Subtitle = updatedVideoData?.Subtitle;
             videoData.Title = updatedVideoData?.Title;
-            
-            
-            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId== (data?.Id==null?1:data.Id)).ToList();
+
+
+            var likesdata = _likesService.GetAllLikes().Where(a => a.UserId == currentUser.Id && a.LevelId == (data?.Id == null ? 1 : data.Id)).ToList();
             if (likesdata.Count() != 0)
             {
                 videoData.IsLike = likesdata[0].IsLike;
@@ -199,22 +228,23 @@ namespace DeVeeraApp.Controllers
                 videoData.CreatedOn = com.CreatedDate;
             }
 
-            var quoteListlevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true && a.LevelId==videoData.LevelNo).ToList().FirstOrDefault();
+            var quoteListlevel = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true && a.LevelId == videoData.LevelNo).ToList().FirstOrDefault();
             if (quoteListlevel != null)
             {
-                videoData.Quote = quoteListlevel.Title; ;
+                videoData.Quote = quoteListlevel.Title;
                 videoData.Author = quoteListlevel.Author;
             }
-            else { 
-            var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
-            //quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
-
-            if (quoteList != null && quoteList.Count > 0)
+            else
             {
-                int index = random.Next(quoteList.Count);
-                videoData.Quote = quoteList[index].Title;
-                videoData.Author = quoteList[index].Author;
-            }
+                var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();
+                //quoteList = quoteList.Where(a => a.LevelId == data.Id || a.Level == "All Level").ToList();
+
+                if (quoteList != null && quoteList.Count > 0)
+                {
+                    int index = random.Next(quoteList.Count);
+                    videoData.Quote = quoteList[index].Title;
+                    videoData.Author = quoteList[index].Author;
+                }
 
             }
 
@@ -231,32 +261,35 @@ namespace DeVeeraApp.Controllers
             }
             videoData.DiaryText = diary != null ? diary.Comment : "";
             videoData.DiaryLatestUpdateDate = diary != null ? diary.CreatedOn.ToShortDateString() : "";
-            var moduleList = _moduleServices.GetModulesByLevelId((data==null)?0:data.Id);
+            var moduleList = _moduleServices.GetModulesByLevelId((data == null) ? 0 : data.Id);
             videoData.ModuleList = moduleList?.ToList().ToModelList<Modules, ModulesModel>(videoData.ModuleList.ToList());
-            if (videoData.ModuleList != null) { 
-            
-            foreach (var module in videoData.ModuleList)
+            if (videoData.ModuleList != null)
             {
-                if (userLanguage != null)
+
+                foreach (var module in videoData.ModuleList)
                 {
-                    if (userLanguage.LanguageId == 5)
+                    if (userLanguage != null)
                     {
-                        module.Title = _localStringResourcesServices.GetResourceValueByResourceName(module.Title);
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            module.Title = _localStringResourcesServices.GetResourceValueByResourceName(module.Title);
 
+                        }
                     }
-                }
-                var seletedImages5 = new SelectedImage();
-                var imagesRecord5 = _imageMasterService.GetImageById(module.BannerImageId);
-                if (imagesRecord5 != null)
-                {
-                    seletedImages5.ImageUrl = imagesRecord5.ImageUrl;
-                    seletedImages5.Key = imagesRecord5.Key;
-                    seletedImages5.Name = imagesRecord5.Name;
-                    seletedImages5.ImageId = imagesRecord5.Id;
-                    module.SelectedModuleImages.Add(seletedImages5);
-                }
+                    var seletedImages5 = new SelectedImage();
+                    var imagesRecord5 = _imageMasterService.GetImageById(module.BannerImageId);
+                    if (imagesRecord5 != null)
+                    {
+                        seletedImages5.ImageUrl = imagesRecord5.ImageUrl;
+                        seletedImages5.Key = imagesRecord5.Key;
+                        seletedImages5.Name = imagesRecord5.Name;
+                        seletedImages5.ImageId = imagesRecord5.Id;
+                        seletedImages5.SpanishKey = imagesRecord5.SpanishKey;
+                        seletedImages5.SpanishImageUrl = imagesRecord5.SpanishImageUrl;
+                        module.SelectedModuleImages.Add(seletedImages5);
+                    }
 
-            }
+                }
             }
 
             var userNextLevel = AllLevels.Where(a => a.LevelNo > levelno).FirstOrDefault();
@@ -265,7 +298,14 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.NextTitle = userNextLevel?.Title;
                 var level = _imageMasterService.GetImageById(userNextLevel.BannerImageId);
-                videoData.NextImageUrl = level?.ImageUrl;
+                if (userLanguage?.LanguageId == 5)
+                {
+                    videoData.NextImageUrl = level?.SpanishImageUrl != null ? level?.SpanishImageUrl : level?.ImageUrl;
+                }
+                else
+                {
+                    videoData.NextImageUrl = level?.ImageUrl != null ? level?.ImageUrl : level?.SpanishImageUrl;
+                }
 
             }
 
@@ -275,106 +315,52 @@ namespace DeVeeraApp.Controllers
             {
                 videoData.PrevTitle = userPreviousLevel?.Title;
                 var level = _imageMasterService.GetImageById(userPreviousLevel.BannerImageId);
-                videoData.PrevImageUrl = level?.ImageUrl;
+                if (userLanguage?.LanguageId == 5)
+                {
+                    videoData.PrevImageUrl = level?.SpanishImageUrl != null ? level?.SpanishImageUrl : level?.ImageUrl;
+                }
+                else
+                {
+                    videoData.PrevImageUrl = level?.ImageUrl != null ? level?.ImageUrl : level?.SpanishImageUrl;
+                }
             }
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Subtitle);
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Title);
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Quote);
             _localStringResourcesServices.GetResourceValueByResourceName(videoData.Author);
 
-             
+
             return View(videoData);
         }
 
-
-
         public IActionResult Previous(int levelno)
         {
-            var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-
-            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.LevelNo);
-
-            var level = (currentUser.UserRole.Name == "Admin") ? data.Where(a => a.LevelNo < levelno).FirstOrDefault() : data.Where(a => a.LevelNo < levelno).FirstOrDefault();
-
-            if (level != null)
-            {
-                return RedirectToAction("Index", new { levelno = level.LevelNo });
-            }
-            return RedirectToAction("Index", new { levelno = levelno });
-
-
-            //if (!(currentUser.UserRole.Name == "Admin"))
-            //{
-            //    var userPreviousLevel = data.OrderByDescending(a => a.Id).Where(a => a.Id < id && a.Active == true).FirstOrDefault();
-
-            //    if (userPreviousLevel != null)
-            //    {
-            //        return RedirectToAction("Index", new { id = userPreviousLevel.Id, srno = srno - 1 });
-            //    }
-            //    return RedirectToAction("Index", new { id = id, srno = srno - 1 });
-
-            //}
-            //else
-            //{
-            //    var adminPreviousLevel = data.OrderByDescending(a => a.Id).Where(a => a.Id < id).FirstOrDefault();
-
-            //    if(adminPreviousLevel != null)
-            //    {
-            //        return RedirectToAction("Index", new { id = adminPreviousLevel.Id, srno = srno - 1 });
-            //    }
-            //    return RedirectToAction("Index", new { id = id, srno = srno - 1 });
-
-            //}
-
+            var data = _levelServices.GetAllLevels().OrderByDescending(a => a.LevelNo).Where(a => a.LevelNo < levelno).FirstOrDefault();
+            if (data != null)
+                return RedirectToAction("Index", new { levelno = data.LevelNo });
+            else
+                return RedirectToAction("Index", new { levelno = levelno });
         }
 
         public IActionResult Next(int levelno)
         {
+          
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
-            var data = _levelServices.GetAllLevels();
+            if (currentUser.RegistrationComplete == false)
+                return RedirectToAction("CompleteRegistration", "User", new { levelno = levelno, userId = currentUser.Id });
 
-            if (!(currentUser.UserRole.Name == "Admin"))
+            var data = _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).Where(a => a.LevelNo > levelno).FirstOrDefault();
+            if (data != null)
             {
-                if (currentUser.RegistrationComplete == false)
-                {
-                    return RedirectToAction("CompleteRegistration", "User", new { levelno = levelno, userId = currentUser.Id });
-                }
-                else
-                {
-
-                    var userNextLevel = data.OrderBy(a => a.LevelNo).Where(a => a.LevelNo > levelno).FirstOrDefault();
-
-                    if (userNextLevel != null)
-                    {
-                        if (userNextLevel.LevelNo > levelno)
-                        {
-                            currentUser.LastLevel = userNextLevel.Id;
-
-                            _userService.UpdateUser(currentUser);
-                        }
-                        return RedirectToAction("Index", new { levelno = userNextLevel.LevelNo });
-                    }
-                    return RedirectToAction("Index", new { levelno = levelno });
-
-                }
-
+                var userLevel = _levelServices.GetLevelById((int)currentUser.LastLevel);
+                currentUser.LastLevel = userLevel.LevelNo < data.LevelNo ? data.LevelNo : currentUser.LastLevel;
+                _userService.UpdateUser(currentUser);
+                return RedirectToAction("Index", new { levelno = data.LevelNo });
             }
             else
-            {
-
-
-                var adminNextLevel = data.Where(a => a.LevelNo > levelno).FirstOrDefault();
-
-                if (adminNextLevel != null)
-                {
-                    return RedirectToAction("Index", new { levelno = adminNextLevel.LevelNo });
-
-                }
                 return RedirectToAction("Index", new { levelno = levelno });
-
-            }
-
         }
+
 
         #region like/dislike
         [HttpPost]
@@ -387,9 +373,10 @@ namespace DeVeeraApp.Controllers
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
-                if (islike==true) { 
-                if (likesbylevelid== null)
+                if (islike == true)
                 {
+                    if (likesbylevelid == null)
+                    {
                         likesdata.IsLike = true;
                         likesdata.LikeId = 1;
                         likesdata.IsDisLike = false;
@@ -402,14 +389,14 @@ namespace DeVeeraApp.Controllers
                     {
                         likesbylevelid.IsLike = true;
                         likesbylevelid.DisLikeId = 0;
-                        likesbylevelid.LikeId =  1;
+                        likesbylevelid.LikeId = 1;
                         likesbylevelid.IsDisLike = false;
                         likesbylevelid.UserId = currentUser.Id;
                         likesbylevelid.LevelId = levelData.Id;
                         //likesbylevelid.CreatedDate = DateTime.Now;
                         _likesService.UpdateLikes(likesbylevelid);
                     }
-               }
+                }
                 else
                 {
                     if (likesbylevelid == null)
@@ -435,8 +422,8 @@ namespace DeVeeraApp.Controllers
                     }
                 }
             }
-          
-         
+
+
             return Json(model);
         }
         [HttpPost]
@@ -447,7 +434,7 @@ namespace DeVeeraApp.Controllers
             var likesdata = new LikesUnlikess();
             var levelData = _levelServices.GetLevelById(id);
             var likesbylevelid = _likesService.GetLikesByLevelIdandUserId(levelData.Id, currentUser.Id);
-            
+
             var model = levelData.ToModel<LevelModel>();
             if (levelData != null)
             {
@@ -455,11 +442,11 @@ namespace DeVeeraApp.Controllers
                 {
                     //if (likesbylevelid == null) 
                     //{
-                        likesdata.UserId = currentUser.Id;
-                        likesdata.LevelId = levelData.Id;
-                        likesdata.Comments = comments;
-                        likesdata.IsLike = false;
-                        likesdata.IsDisLike = false;
+                    likesdata.UserId = currentUser.Id;
+                    likesdata.LevelId = levelData.Id;
+                    likesdata.Comments = comments;
+                    likesdata.IsLike = false;
+                    likesdata.IsDisLike = false;
                     likesdata.CreatedDate = DateTime.Now;
                     _likesService.InsertLikes(likesdata);
                     //}
@@ -474,6 +461,7 @@ namespace DeVeeraApp.Controllers
                     //}
                 }
             }
+
             return Json(model);
         }
         #endregion

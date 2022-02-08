@@ -3,13 +3,32 @@
     ViewData["Title"] = "List";
 }
 
+<style>
+    .camelclass {
+        text-transform: capitalize;
+    }
+</style>
 @if (@ViewBag.TableData != null)
 {
+    @if (@ViewBag.QuoteType == "Registration")
+    {
+        ViewBag.QuoteType= "Welcome Screen Page";
+}
+else if (@ViewBag.QuoteType == "Login")
+{
+ViewBag.QuoteType= "Welcome Back Screen Page";
+}
+else
+{
+ViewBag.QuoteType= "Landing Page ";
+}
     <div class="intro-y  py-5 sm:py-5 ">
 
         <div class="px-5 ">
-            <div class="font-medium text-center text-lg"> @ViewBag.QuoteType Video List</div>
-            <div class="text-gray-600 text-center mt-2">Below Are The List Of @ViewBag.QuoteType Video</div>
+            <div class="font-medium text-center text-lg">
+                @ViewBag.QuoteType List
+            </div>
+            <div class="text-gray-600 text-center mt-2 camelclass ">Below are the list Of @ViewBag.QuoteType </div>
 
         </div>
 
@@ -29,7 +48,7 @@
                 </div>
             </div>
 
-          
+
 
         </div>
 

@@ -7,7 +7,14 @@
 }
 
 
-
+<style>
+    
+    .rating input[type='radio']:hover ~ label,
+    input[type='radio']:checked ~ label {
+        background: none;
+        color: #221d48;
+    }
+</style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(string.IsNullOrWhiteSpace(Model.HeaderImageUrl)? "../../assest/images/page-banner/login.jpg" : Model.HeaderImageUrl)')">
     <div class="container">
@@ -15,7 +22,7 @@
             <h2>@T("Complete-Registration")</h2>
             <ul>
                 <li>
-                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Dashboard" asp-action="Index">@T("Home")</a>
                 </li>
                 <li>@T("Complete-Registration")</li>
             </ul>
@@ -39,11 +46,11 @@
                         </div>
                     </div>
                 </div>
-                @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                @*@if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
                 {
                     <div asp-validation-summary="All" class="text-theme-6 mt-4">
                     </div>
-                }
+                }*@
             <div class="col-lg-6 col-md-12">
                 <div class="register-form">
                     <h2>@T("Family/relationship status")</h2>
@@ -70,36 +77,37 @@
 
                 </div>
 
-                <span asp-validation-for="FamilyOrRelationshipType" class="text-theme-6 mt-2" style="color:red;"></span>
-            </div>
-                <div class="col-lg-6 col-md-12">
-                    <div class="register-form">
-                        <h2>@T("Education")</h2>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.HighSchool">
-                            <label class="form-check-label"> @T("High school")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.AssociateDegree">
-                            <label class="form-check-label"> @T("Associate degree")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Bachelor">
-                            <label class="form-check-label">@T("Bachelor")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Master">
-                            <label class="form-check-label">@T("Master ")</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
-                            <label class="form-check-label">@T("Doctorate")</label>
-                        </div>
+              
+                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["FamilyOrRelationshipType"]?.Errors.Count()!=0?ViewData.ModelState["FamilyOrRelationshipType"]?.Errors[0].ErrorMessage :"")</span>
 
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="register-form">
+                    <h2>@T("Education")</h2>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.HighSchool">
+                        <label class="form-check-label"> @T("High school")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.AssociateDegree">
+                        <label class="form-check-label"> @T("Associate degree")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Bachelor">
+                        <label class="form-check-label">@T("Bachelor")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Master">
+                        <label class="form-check-label">@T("Master ")</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" asp-for="@Model.EducationType" value="@Education.Doctorate">
+                        <label class="form-check-label">@T("Doctorate")</label>
                     </div>
 
-                    <span asp-validation-for="EducationType" class="text-theme-6 mt-2"  style="color:red;"></span>
                 </div>
+                <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["EducationType"]?.Errors.Count()!=0?ViewData.ModelState["EducationType"]?.Errors[0].ErrorMessage : "")</span>
+            </div>
             </div>
             <div class="row mt-5">
                 <div class="col-lg-6 col-md-12">
@@ -121,10 +129,8 @@
                             <input type="radio" asp-for="@Model.GenderType" class="form-check-input" value="@Gender.DontWantToSay">
                             <label class="form-check-label" for="checkme">@T("Remember me")</label>
                         </div>
-                        
+                        <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["GenderType"]?.Errors.Count()!=0?ViewData.ModelState["GenderType"]?.Errors[0].ErrorMessage :"")</span>
                     </div>
-                    <span asp-validation-for="GenderType" class="text-theme-6 mt-2"  style="color:red;"></span>
-                 
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="login-form mb-30">
@@ -137,14 +143,9 @@
                             <input type="radio" asp-for="@Model.IncomeAboveOrBelow80K" class="form-check-input" value="@Income.IncomeBelow80K">
                             <label class="form-check-label" for="checkme">@T("Below $80K")</label>
                         </div>
-                        
-
-
                     </div>
-                    <span asp-validation-for="IncomeAboveOrBelow80K" class="text-theme-6 mt-2"  style="color:red;"></span>
-                  
+                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["IncomeAboveOrBelow80K"]?.Errors.Count()!=0?ViewData.ModelState["IncomeAboveOrBelow80K"]?.Errors[0].ErrorMessage : "")</span>
                 </div>
-
             </div>
             <div class="row">
 
@@ -155,17 +156,20 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>@T("Occupation")</label>
-                                    <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="occupation">
-                                    <span asp-validation-for="Occupation" class="text-theme-6 mt-2"  style="color:red;"></span>
+                                    <input asp-for="@Model.Occupation" type="text" class="form-control" placeholder="@T("Occupation")">  
+                                    
+                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Occupation"]?.Errors.Count()!=0?ViewData.ModelState["Occupation"]?.Errors[0]?.ErrorMessage : "")</span>
                                 </div>                               
                               
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>@T("Age")</label>
-                                    <input asp-for="@Model.Age" type="number" min="1" class="form-control" placeholder="age">
-                                </div>                              
-                                <span asp-validation-for="Age" class="text-theme-6 mt-2"  style="color:red;"></span>
+                                    <label>@T("Age")</label> 
+                                    <input asp-for="@Model.Age" type="text" min="1" placeholder="@T("Age")" autocomplete="off" value="" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" >
+                                    <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["Age"]?.Errors.Count()!=0?ViewData.ModelState["Age"]?.Errors[0]?.ErrorMessage : "")</span>
+                                </div>
+                             
+                               
                             </div>
                         </div>
                     </div>

@@ -4,16 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DeVeeraApp.ViewModels.User
 {
     public partial class LoginModel : BaseEntityModel
-    {    
+    {
+        public LoginModel()
+        {
+            
+            this.UserModel = new UserModel();
+        }
+
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage ="Enter valid email address")]
+        [Required(ErrorMessage = "Enter email address")]
+        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Incorrect Email Format")]
         public string Email { get; set; }
 
         public bool UsernamesEnabled { get; set; }
 
         public string Username { get; set; }
 
-        [DataType(DataType.Password)]
+       
         [Required(ErrorMessage = "Please enter Password")]
         public string Password { get; set; }
         [NotMapped]
@@ -23,6 +30,10 @@ namespace DeVeeraApp.ViewModels.User
         public bool DisplayCaptcha { get; set; }
 
         public string BannerImageUrl { get; set; }
+        [NotMapped]
+        public string ErrorMessage { get; set; }
 
+        
+        public UserModel UserModel { get; }
     }
 }

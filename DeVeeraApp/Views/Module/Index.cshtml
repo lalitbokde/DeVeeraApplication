@@ -23,6 +23,10 @@
         background-color: #F0B9B2;
         padding: 6px 24px 3px 4px;
     }
+
+    .swal2-styled.swal2-confirm {
+        background-color: #F0B9B2;
+    }
 </style>
 <!-- Start Page Banner Area -->
 <div class="page-banner-with-full-image" style="background-image:url('@(Model.BannerImageUrl != null ? Model.BannerImageUrl : "../../assets/images/page-banner/page-banner-bg-1.jpg")')">
@@ -43,32 +47,97 @@
 <section class="courses-details-area ptb-100">
     <div class="container">
         <div class="courses-details-image">
-            <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image">
+            <img src=@(Model.VideoThumbImageUrl != null ? Model.VideoThumbImageUrl : "../../assets/images/courses/courses-details.jpg") alt="image" style="width:100%;" >
             @{
                 var src = Model.Video?.VideoUrl == null ? "/dist/images/profile-14.jpg" : Model.Video.VideoUrl;
-                @if (userLanguage != null)
-                {
-                    @if (userLanguage.LanguageId == 5)
-                    {
-                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                    }
-                    else
-                    {
-                        <a href="@videourl" class="video-btn popup-youtube">
-                            <i class="flaticon-play"></i>
-                        </a>
-                    }
                 }
-                else
+                
+               @if (userLanguage != null)
                 {
-                    <a href="@videourl" class="video-btn popup-youtube">
+                  @if (userLanguage.LanguageId == 5)
+                  {
+                      if (Spanishvideourl != "" && Spanishvideourl != null)
+                      {
+                    <a href="@Spanishvideourl" class="video-btn popup-youtube">
                         <i class="flaticon-play"></i>
                     </a>
-                }
+                      }
+                      else if (videourl != "" && videourl != null)
+                      {
+                         <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>                          
+                      }
+                      else
+                          {
+                       <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                      </a>
+                          }
+                  }
+                  else if (userLanguage.LanguageId == 3)
+                  {
+                      if (videourl != "" && videourl != null)
+                      {
+                         <a href="@videourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                    </a>
+                      }
+                      else if (Spanishvideourl != "" && Spanishvideourl != null)
+                      {
+                        <a href="@Spanishvideourl" class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                         </a>
+                      }
+                      else
+                      {
+                    <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
+                        <i class="flaticon-play"></i>
+                      </a>
+                      }
+                  }
+                  else
+                  {
+                   <a onclick="showvideopopland('@T("Oops")' ,'@T("Video Not Available!")');"  class="video-btn popup-youtube">
+                    <i class="flaticon-play"></i>
+                    </a>
+                  }
+
+
             }
+
+
+
+               
         </div>
+
+
+          <div id="VideoNotAvailable"   class="modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">Oops !!! .... <i class="btn-close" onclick="hidepopup();"></i></div>
+                <!-- BEGIN: Modal Body -->
+                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                    <div class="col-span-12 sm:col-span-12">
+
+                        <div id="single-file-upload" class="p-5">
+                            <div class="preview">
+                                <div data-single="true" fallback="true">
+                                    <div class="fallback">
+                                         @T("Video Not Available !!!")
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
         <div class="row">
             <div class="col-lg-8 col-md-12">
@@ -240,12 +309,12 @@
         <div class="psylo-post-navigation">
 
 
-            @if (Convert.ToInt32(ViewBag.SrNo) != 1)
+            @if (Convert.ToInt32(Model.ModuleNo) != 1)
             {
                 var prevImageUrl = Model.PrevImageUrl == null ? "../../assets/images/blog/blog-1.jpg" : Model.PrevImageUrl;
                 <div class="prev-link-wrapper">
                     <div class="info-prev-link-wrapper">
-                        <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
+                        <a asp-controller="Module" asp-action="Previous" asp-route-moduleno="@Model.ModuleNo"  asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="image-prev">
                                 <img src="@prevImageUrl" alt="image">
                                 <span class="post-nav-title">@T("Prev")</span>
@@ -258,31 +327,20 @@
                                 </span>
                             </span>
                         </a>
-                        <a asp-controller="Module" asp-action="Previous" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Previous Module") <i class="flaticon-left-arrow"></i></a>
+                        <a asp-controller="Module" asp-action="Previous" asp-route-moduleno="@Model.ModuleNo" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Previous Module") <i class="flaticon-left-arrow"></i></a>
                     </div>
                 </div>
 
 
             }
-            @{
-                if (Convert.ToInt32(TempData["Previousmodule"]) == 1)
-                {
-                    TempData["totalmodulefirstidcount"] = 0;
-                }
-                else
-                {
-                    TempData["totalmodulefirstidcount"] = 1;
-                }
-            }
-            @if (ViewBag.TotalModules > ViewBag.SrNo)
-
+            @if (ViewBag.TotalModules > Model.ModuleNo)
             {
 
                 var nextImageUrl = Model.NextImageUrl == null ? "../../assets/images/blog/blog-2.jpg" : Model.NextImageUrl;
 
                 <div class="next-link-wrapper">
                     <div class="info-next-link-wrapper">
-                        <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo">
+                        <a asp-controller="Module" asp-action="Next" asp-route-moduleno="@Model.ModuleNo"  asp-route-levelSrno="@ViewBag.LevelSrNo">
                             <span class="next-link-info-wrapper">
                                 <span class="next-title">
                                     @*@T("How Does Consulting A Psychologist Help To Solve Your Problem?")*@
@@ -295,13 +353,10 @@
                                 <span class="post-nav-title">@T("Next")</span>
                             </span>
                         </a>
-                        <a asp-controller="Module" asp-action="Next" asp-route-id="@Model.Id" asp-route-srno="@ViewBag.SrNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Next Module") <i class="flaticon-right-arrow"></i></a>
+                        <a asp-controller="Module" asp-action="Next"  asp-route-moduleno="@Model.ModuleNo" asp-route-levelSrno="@ViewBag.LevelSrNo" class="default-btn">@T("Next Module") <i class="flaticon-right-arrow"></i></a>
                     </div>
                 </div>
 
-            }
-            else if (Model.NextLeveltitle == null)
-            {
             }
             else
             {
@@ -380,3 +435,4 @@ alert("Please add comment !!!.");
 
     }
 </script>
+<script src="~/CustomJS/Common.js"></script>

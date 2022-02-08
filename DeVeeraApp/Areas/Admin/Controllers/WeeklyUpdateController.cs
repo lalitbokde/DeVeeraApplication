@@ -146,12 +146,13 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             AddBreadcrumbs($"{type} Page", "Create", $"/Admin/WeeklyUpdate/List?typeId={(int)type}", $"/Admin/WeeklyUpdate/Create?type={type}");
             WeeklyUpdateModel model = new WeeklyUpdateModel();
             ViewBag.QuoteType = type.ToString();
+            ViewData["Quotetype"]= type.ToString();
             PrepareVideo(model);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Create(WeeklyUpdateModel model)
+        public IActionResult Create(WeeklyUpdateModel model, string  typeId)
         {
             AddBreadcrumbs($"{model.QuoteType} Page", "Create", $"/WeeklyUpdate/List?typeId={(int)model.QuoteType}", $"/WeeklyUpdate/Create?type={model.QuoteType}");
 
@@ -160,18 +161,37 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 ModelState.Remove("SliderOneTitle"); ModelState.Remove("SliderOneDescription"); ModelState.Remove("SliderTwoTitle");
                 ModelState.Remove("SliderTwoDescription"); ModelState.Remove("SliderThreeTitle"); ModelState.Remove("SliderThreeDescription");
                 ModelState.Remove("LandingQuote");
+                
             }
             if (model.QuoteType.ToString() == "Landing")
             {
+
                 ModelState.Remove("Subtitle");
             }
+
+
+            if (typeId == "Registration")
+            { model.QuoteType = (ViewModels.Quote)2; }
+            else if (typeId == "Login")
+            { model.QuoteType = (ViewModels.Quote)1; }
+          else  if (typeId == "Landing")
+            {
+                model.QuoteType = (ViewModels.Quote)3;
+            }
+           
+           
             if (ModelState.IsValid)
             {
+                if(model.QuoteId!=null&& model.QuoteId != 0) { 
                 _weeklyUpdateServices.InActiveAllActiveQuotes((int)model.QuoteId);
-
+                }
+               
                 var data = model.ToEntity<WeeklyUpdate>();
+               
                 _weeklyUpdateServices.InsertWeeklyUpdate(data);
+                if (data.Quote != null) { 
                 _translationService.Translate(data.Quote, model.QuoteRegistration);
+                }
                 _translationService.Translate(data.Title, model.TitleRegistration);
                 _translationService.Translate(data.Title, model.TitleSpanishLanding);
                 _translationService.Translate(data.Subtitle, model.SubtitleSpanishLanding);
@@ -264,9 +284,9 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 string userlogin = Request.Form["userlogin"];
                 string userRegistration = Request.Form["userRegistration"];
                 string userlanding = Request.Form["userlanding"];
-                if (userlogin == "2" || userRegistration == "2" || userlanding == "2")
+                if (userlogin == "2" || userRegistration == "2" || userlanding == "2" && model.QuoteId==0)
                 {
-                    val.QuoteId = 0;
+                    
                     val.IsRandom = true;
                 }
 
@@ -317,12 +337,27 @@ namespace DeVeeraApp.Areas.Admin.Controllers
 
         public IActionResult List(int typeId)
         {
-            AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
-
+            var model = new List<WeeklyUpdateModel>();
+            try { 
+            if (typeId == 2)
+            {
+                
+                AddBreadcrumbs($"Welcome Screen Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
+            }
+            else if (typeId == 1)
+            {
+                AddBreadcrumbs($"Welcome back Screen Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
+            }
+            else
+            {
+                AddBreadcrumbs($"{(CRM.Core.Domain.Quote)typeId} Page", "List", $"/Admin/WeeklyUpdate/List?typeId={typeId}", $"/Admin/WeeklyUpdate/List?typeId={typeId}");
+            }
             ViewBag.QuoteType = EnumDescription.GetDescription((CRM.Core.Domain.Quote)typeId);
             ViewBag.Quote = (CRM.Core.Domain.Quote)typeId;
-            var model = new List<WeeklyUpdateModel>();
-            var data = _weeklyUpdateServices.GetWeeklyUpdatesByQuoteType(typeId);
+                if (typeId != 0)
+                {
+                    var data = _weeklyUpdateServices.GetWeeklyUpdatesByQuoteType(typeId);
+                
             if (data.Count() != 0)
             {
                 model = data.ToList().ToModelList<WeeklyUpdate, WeeklyUpdateModel>(model);
@@ -332,6 +367,12 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 ViewBag.TableData = JsonConvert.SerializeObject(model);
 
                 return View(model);
+            }
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
             return View(model);
         }

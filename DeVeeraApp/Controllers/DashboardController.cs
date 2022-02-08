@@ -13,6 +13,7 @@ using CRM.Services.DashboardMenu;
 using CRM.Services.Layoutsetup;
 using DeVeeraApp.ViewModels.LayoutSetups;
 using CRM.Services.Settings;
+using System;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -88,27 +89,49 @@ namespace DeVeeraApp.Controllers
         //(Changes in redirecting new/exististing user to home page)
         public IActionResult Index()
         {
-
+            try { 
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
             var model = new DashboardQuoteModel();
 
             var result = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             if (result != null)
             {
+                
                 model.layoutSetup = result.ToModel<LayoutSetupModel>();
                 model.layoutSetup.SliderOneImageUrl = result.SliderOneImageId > 0 ? _imageMasterService.GetImageById(result.SliderOneImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderTwoImageUrl = result.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(result.SliderTwoImageId)?.ImageUrl : null;
                 model.layoutSetup.SliderThreeImageUrl = result.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(result.SliderThreeImageId)?.ImageUrl : null;
                 var imagesRecord = _imageMasterService.GetImageById(result.BannerImageId);
-                model.layoutSetup.BannerImageUrl = imagesRecord?.ImageUrl;
-
+                if (userLanguage.LanguageId == 5) { 
+                model.layoutSetup.BannerImageUrl = imagesRecord?.SpanishImageUrl!=null?imagesRecord?.SpanishImageUrl:imagesRecord?.ImageUrl;
+                }
+                else
+                {
+                    model.layoutSetup.BannerImageUrl = imagesRecord?.ImageUrl;
+                }
                 var imagesRecord1 = _imageMasterService.GetImageById(result.VideoThumbImageId);
-                model.layoutSetup.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+                if (userLanguage.LanguageId == 5)
+                {
+                    model.layoutSetup.VideoThumbImageUrl = imagesRecord1?.SpanishImageUrl!=null ? imagesRecord1?.SpanishImageUrl : imagesRecord1?.ImageUrl;
+                }
+                else
+                {
+                    model.layoutSetup.VideoThumbImageUrl = imagesRecord1?.ImageUrl;
+                }
+               
 
                 var imagesRecord2 = _imageMasterService.GetImageById(result.ShareBackgroundImageId);
-                model.layoutSetup.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+                if (userLanguage.LanguageId == 5)
+                {
+                    model.layoutSetup.ShareBackgroundImageUrl = imagesRecord2?.SpanishImageUrl!=null? imagesRecord2?.SpanishImageUrl: imagesRecord2?.ImageUrl;
+                }
+                else
+                {
+                    model.layoutSetup.ShareBackgroundImageUrl = imagesRecord2?.ImageUrl;
+                }
+               
                 model.layoutSetup.HomeTitle = result.HomeTitle;
                 model.layoutSetup.HomeSubTitle = result.HomeSubTitle;
                 if (model.layoutSetup.VideoId != null)
@@ -118,7 +141,7 @@ namespace DeVeeraApp.Controllers
                     model.VideoUrl = videoUrl;
                     model.VideoId = (int)model.layoutSetup.VideoId;
                 }
-                var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+               
                 if (userLanguage != null)
                 {
                     if (userLanguage.LanguageId == 5)
@@ -172,7 +195,15 @@ namespace DeVeeraApp.Controllers
                                         var img = _imageMasterService.GetImageById(leveldata.BannerImageId);
                                         if (img != null)
                                         {
-                                            level.BannerImageUrl = img.ImageUrl;
+                                            if (userLanguage?.LanguageId == 5)
+                                            {
+                                                level.BannerImageUrl = img.SpanishImageUrl!=null? img.SpanishImageUrl: img.ImageUrl;
+                                            }
+                                            else
+                                            {
+                                                level.BannerImageUrl = img.ImageUrl;
+                                            }
+                                               
                                         }
 
                                     }
@@ -215,7 +246,15 @@ namespace DeVeeraApp.Controllers
                                             var img = _imageMasterService.GetImageById(leveldata.BannerImageId);
                                             if (img != null)
                                             {
-                                                level.BannerImageUrl = img.ImageUrl;
+                                                if (userLanguage?.LanguageId == 5)
+                                                {
+                                                    level.BannerImageUrl = img.SpanishImageUrl!=null? img.SpanishImageUrl: img.ImageUrl;
+                                                }
+                                                else
+                                                {
+                                                    level.BannerImageUrl = img.ImageUrl;
+                                                }
+                                                
                                             }
 
                                         }
@@ -234,6 +273,13 @@ namespace DeVeeraApp.Controllers
                     }
                 }
                 return View(model);
+            }
+
+
+            }
+            catch(Exception ex)
+            {
+
             }
             return View();
         }

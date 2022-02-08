@@ -12,7 +12,7 @@
             <div class="d-table-cell">
                 <div class="coming-soon-content">
                     <h2>
-                        Enter Your six digit OTP
+                        @T("Enter Your six digit OTP")
                     </h2>
 
                     <form class="newsletter-form" data-toggle="validator" action="VerifyOTP" method="get">
@@ -21,8 +21,10 @@
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
-                       <input asp-for="ErrorMessage" type="text"  hidden   >
+                       @*<input asp-for="ErrorMessage" type="text"  hidden   >*@
 
+                            @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count()!=0?ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage :"")
+                           
                             <div id="SMSArea" class="row SMSArea">
                                 <div class="col-2">
                                     <input type="text" maxlength="1" size="1" min="0" max="6" pattern="\d*" class="smsCode text-center rounded-lg" />

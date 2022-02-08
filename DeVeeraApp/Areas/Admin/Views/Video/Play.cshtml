@@ -25,16 +25,28 @@
                     <div class="intro-y col-span-12 lg:col-span-12">
                         @{
                             string src = "";
-                            if (ViewBag.srno == 1)
+                            if (ViewBag.srno == 1 && (Model.VideoUrl==null|| Model.VideoUrl==""))
                             {
-                                src = Model.VideoUrl;
+                               <span style="color:white;">Video Unnvailable!</span>
+                            }
+                            else if(ViewBag.srno == 2 && (Model.SpanishVideoUrl == null || Model.SpanishVideoUrl ==""))
+                            {
+                            <span style="color:white;">Video Unavailable!</span>
                             }
                             else
                             {
-                                src = Model.SpanishVideoUrl;
+                                if (ViewBag.srno == 1)
+                                {
+                                    src = Model.VideoUrl;
+                                }
+                                if (ViewBag.srno == 2)
+                                {
+                                    src = Model.SpanishVideoUrl;
+                                }
+                                  <video src="@Url.Content(src)" controls style="width:100%; height:400px" loop />
                             }
                         }
-                        <video src="@Url.Content(src)" controls style="width:100%; height:400px" loop />
+                      
                     </div>
                 </div>
 

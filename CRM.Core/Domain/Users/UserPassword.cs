@@ -24,9 +24,14 @@ namespace CRM.Core.Domain.Users
         /// <summary>
         /// Gets or sets the password
         /// </summary>
-        [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$",
-         ErrorMessage = "Password must be between 6 and 20 characters and contain one uppercase letter, one lowercase letter, one digit and one special character.")]
+
+        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$",
+        // ErrorMessage = "Password must be between 6 and 20 characters and contain one uppercase letter, one lowercase letter, one digit and one special character.")]
+
+        [Required(ErrorMessage = "Enter  Password")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,25}$",
+        ErrorMessage = "The password length must be minimum 8 characters.The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!")]
+
         public string Password { get; set; }
 
         /// <summary>

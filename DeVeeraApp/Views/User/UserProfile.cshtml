@@ -6,7 +6,16 @@
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
     var dataProperty = _workContext.CurrentUser.UserRole.Name == "Admin" ? "disabled" : "";
+    if (Model.ProfileImageUrl == "" && Model.ProfileImageUrl == null)
+    {
+        Model.ProfileImageUrl = "(../../assets/images/book-online.jpg)";
+    }
 }
+<style>
+    .book-online-image {
+        background-image:url(@Model.ProfileImageUrl);
+    }
+</style>
 <div class="page-banner-with-full-image item-bg3">
     <div class="container">
         <div class="page-banner-content-two">
@@ -26,278 +35,405 @@
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="courses-details-desc">
-                    <ul class="nav nav-tabs"  role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("My Profile")</a></li>
-                        <li class="nav-item"><a class="nav-link" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">@T("Change Password")</a></li>
-                        <li class="nav-item"><a class="nav-link" id="instructor-tab" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">@T("Change Language")</a></li>
-                        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">@T("Reviews")</a></li>
-                    </ul>
+                    @{
+                        int Tabprofile = 1; var showP = "show active"; var showC = ""; var activeP = "active"; var activeC = ""; var showT = ""; var activeT = "";
 
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
-                            <div class="courses-overview">
-                              
-                                <!-- Start Book Online Area -->
+                        var showL = ""; var activeL = "";
+                        if ((ViewData["TabchngPassword"] != null ? Convert.ToInt32(ViewData["TabchngPassword"]) : 0) == 2)
+                        {
+                            showP = ""; showC = "show active"; activeP = ""; activeC = "active";
+                        }
+                        else if ((ViewData["Tabprofile"] != null ? Convert.ToInt32(ViewData["Tabprofile"]) : 0) == 1)
+                        {
+                            showP = "show active"; activeP = "active"; showC = ""; activeC = "";
+                        }
+                        else if ((ViewData["TabComments"] != null ? Convert.ToInt32(ViewData["TabComments"]) : 0) == 4)
+                        {
+                            showP = ""; showC = ""; activeP = ""; activeC = ""; showT = "show active"; activeT = "active";
+                        }
+                        else if ((ViewData["ChangesLanguage"] != null ? Convert.ToInt32(ViewData["ChangesLanguage"]) : 0) == 3)
+                        {
+                            showP = ""; showC = ""; activeP = ""; activeC = ""; showT = ""; activeT = ""; showL = "show active"; activeL = "active";
+                        }
+                                <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"><a class="nav-link @activeP" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-controls="overview">@T("My Profile")</a></li>
+                            <li class="nav-item"><a class="nav-link @activeC" id="curriculum-tab" data-bs-toggle="tab" href="#curriculum" role="tab" aria-controls="curriculum">@T("Change Password")</a></li>
+                            <li class="nav-item"><a class="nav-link @activeL" id="instructor-tab" onclick="setTabData();" data-bs-toggle="tab" href="#instructor" role="tab" aria-controls="instructor">@T("Change Language")</a></li>
+                            <li class="nav-item"><a class="nav-link @activeT" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews">@T("Reviews")</a></li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            @{
+
+                                <div class="tab-pane fade @showP" id="overview" role="tabpanel">
+                                    <div class="courses-overview">
+
+                                        <!-- Start Book Online Area -->
+                                        <section class="book-online-area">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="book-online-form">
+                                                            <h3>@T("My Profile")</h3>
+
+                                                            <form href="/User/UserProfile/?userId=@_workContext.CurrentUser.Id" method="post" onsubmit="GetProfilePicName();">
+                                                                <input asp-for="Id" hidden />
+                                                                <input type="number" hidden id="Tabprofile" name="Tabprofile" value="@Tabprofile" />
+                                                                <div class="form-group">
+                                                                    <input type="text" asp-for="@Model.Email" class="form-control" placeholder="@T("Username")" disabled>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    @if (Model?.LandingPageModel?.Language?.Id == 3) {
+                                                                    <select type="text" asp-for="@Model.GenderType" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                         <select type="text" asp-for="@Model.GenderTypeSpanish" asp-items="@Html.GetEnumSelectList<GenderSpanish>()"></select>
+                                                                    }
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <input type="text" asp-for="@Model.Age" class="form-control" placeholder="@T("Age")">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                @if (Model?.LandingPageModel?.Language?.Id == 3) {
+                                                               <select type="text" asp-for="@Model.EducationType"  asp-items="@Html.GetEnumSelectList<Education>()" class="form-control"> </select>    
+                                                                }
+                                                                else
+                                                                {
+                                                                    <select type="text" asp-for="@Model.EducationTypeSpanish"  asp-items="@Html.GetEnumSelectList<EducationSpanish>()" class="form-control"></select>     
+                                                                }
+                                                                
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="text" asp-for="@Model.Occupation" class="form-control" placeholder="@T("Occupation")">
+                                                                </div>
+                                                                 @*<div class="form-group">
+                                                                    <input type="text" asp-for="@Model.MobileNumber"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  maxlength="10" class="form-control" placeholder="@T("Phone Number")">
+                                                                </div>*@
+                                                                <div class="form-group">
+                                                                      @if (Model?.LandingPageModel?.Language?.Id == 3)
+                                                                      {
+                                                                    <select type="text" asp-for="@Model.FamilyOrRelationshipType" asp-items="@Html.GetEnumSelectList<FamilyOrRelationship>()" class="form-control"></select>
+                                                                      }
+                                                                      else
+                                                                      {
+                                                                           <select type="text" asp-for="@Model.FamilyOrRelationshipTypeSpanish" asp-items="@Html.GetEnumSelectList<FamilyOrRelationshipTypeSpanish>()" class="form-control"></select>
+                                                                      }
+                                                                </div>
+
+                                                                <span class="text-theme-6 mt-2" style="color: red; text-transform: capitalize;"> @T(ViewData.ModelState["ErrorMessage2"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage2"]?.Errors[0].ErrorMessage : "")</span>
+
+                                                                <div class="book-online-btn">
+                                                                    <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                    @{ 
+
+                                                            var profileImageUrl = Model.ProfileImageUrl == null ? "/dist/images/food-beverage-5.jpg" : Model.ProfileImageUrl;
+                                                            var show = "";
+                                                    <div class="col-lg-6">
+                                                        <div class="book-online-image" >
+                                                            
+                                                            <div class="form-group" action="/User/UploadProfilelocal" >  
+                                                            @*<label asp-for="ProfileImage" class="control-label"></label>*@  
+                                                            <div class="custom-file"> 
+                                                                @if (Model.ProfileImageUrl == "(../../assets/images/book-online.jpg)" || Model.ProfileImageUrl == null) {
+                                                                    show = "";
+                                                                }
+                                                                else { show = "hidden"; }
+                                                                @using (Html.BeginForm("UploadProfilePicAWS", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                             {
+                                                                      <input hidden id="ProfileImageUrl" asp-for="ProfileImageUrl"/>
+                                                                      <div class="row ">  <div class="col-6 "></div>
+                                                                            <div class="col-3  pl-4">
+                                                                <input  class="custom-file-input "  @show type="file" name="uploadFile" id="customFile" > </div>
+                                                                <div class="col-3 pl-4"> <input id = "uploadfile" type="submit" class=""  @show value="Upload"> 
+                                                                          </div>  </div>
+                                                             }
+                                                                @*<label class="custom-file-label" for="customFile">Choose file</label>*@  
+                                                            </div>  
+                                                        </div> 
+                                                                
+                                                            <!--<a onclick="OpenImageSelectionModal('ProfileImage','ProfileImageIdUrl')" data-toggle="modal" data-target="#superlarge-modal-size-preview" class="intro-y block col-span-12 sm:col-span-4 xxl:col-span-3">
+                                                            <div class="box rounded-md p-3 relative zoom-in">
+                                                                <div class="flex-none pos-image relative block">
+                                                                    <div class="pos-image__preview">
+                                                                        <input asp-for="ProfileImage" hidden>
+                                                                        <img id="ProfileImageIdUrl" alt="" src="@profileImageUrl" style="Width:100%;height:100%">
+                                                                    </div>
+                                                                </div>-->
+                                                                @*<div class="block font-medium text-center truncate mt-3">Description Image</div>*@
+                                                            <!--</div>
+                                                            </a>-->
+                                                        </div>
+                                                    </div> }
+                                                </div>
+                                            </div>
+
+
+                                        </section>
+                                        <!-- End Book Online Area -->
+                                    </div>
+                                </div>
+                            }
+                            @{ int TabchngPassword = 2;
+                                <div class="tab-pane fade @showC" id="curriculum" role="tabpanel">
+                                    <!-- Start Book Online Area -->
+                                    <section class="book-online-area">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="book-online-form">
+                                                        <h3>@T("Change Password")</h3>
+                                                       
+                                                        <form href="/User/UserProfile/?userId=@_workContext.CurrentUser.Id" method="post">
+                                                            <input asp-for="Id" hidden />
+                                                            <input asp-for="@Model.Email" id="hiddenEmail" hidden />
+                                                            <input type="number" hidden id="TabchngPassword" name="TabchngPassword" value="@TabchngPassword" />
+                                                            <div class="form-group">
+                                                                <input type="password" asp-for="@Model.UserPassword.Password" class="form-control" placeholder="@T("Password")">
+                                                            </div>
+                                                            <span class="text-theme-6 mt-2" style="color:red;text-transform:capitalize;"> @T(ViewData.ModelState["UserPassword.Password"]?.Errors.Count() != 0 ? ViewData.ModelState["UserPassword.Password"]?.Errors[0].ErrorMessage : "")</span>
+                                                            <div class="form-group">
+                                                                <input type="password" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="@T("Confirm Password")">
+                                                            </div>
+
+                                                            <span class="text-theme-6 mt-2" style="color: red; text-transform: capitalize;"> @T(ViewData.ModelState["ConfirmPassword"]?.Errors.Count() != 0 ? ViewData.ModelState["ConfirmPassword"]?.Errors[0].ErrorMessage : "")</span><br />
+                                                            <span class="text-theme-6 mt-2" style="color: red; text-transform: capitalize;"> @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
+                                                            <div class="book-online-btn">
+                                                                <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </section>
+                                    <!-- End Book Online Area -->
+                                </div>
+                            }
+                        <div class="tab-pane fade @showL" id="instructor" role="tabpanel">
+                            @{ var ChangesLanguage = 3;
+                                @*<form href="/User/UserProfile/?userId=@_workContext.CurrentUser.Id" method="post">*@
+                                <input hidden id="ChangesLanguage" name="ChangesLanguage" value="@ChangesLanguage" />
                                 <section class="book-online-area">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-12">
                                                 <div class="book-online-form">
-                                                    <h3>@T("My Profile")</h3>
-
-                                                    <form asp-controller="User" asp-action="UserProfile" method="post">
-                                                        <input asp-for="Id" hidden />
-                                                        <div class="form-group">
-                                                            <input type="text" asp-for="@Model.Email" class="form-control" placeholder="@T("Username")">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <select type="text" asp-for="@Model.GenderType" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <input type="text" asp-for="@Model.Age" class="form-control" placeholder="@T("age")">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select type="text" asp-for="@Model.EducationType" asp-items="@Html.GetEnumSelectList<Education>()" class="form-control"></select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" asp-for="@Model.Occupation" class="form-control" placeholder="@T("Phone Number")">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select type="text" asp-for="@Model.FamilyOrRelationshipType" asp-items="@Html.GetEnumSelectList<FamilyOrRelationship>()" class="form-control"></select>
-                                                        </div>
-                                                        <div class="book-online-btn">
-                                                            <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
-                                                        </div>
-                                                    </form>
+                                                    <h3>@T("Change Language")</h3>
+                                                    <div class="form-group">
+                                                        @{
+                                                            @await Component.InvokeAsync("SelectLanguage", Model)
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-6">
-                                                <div class="book-online-image"></div>
-                                            </div>
+
                                         </div>
                                     </div>
 
-                                  
+
                                 </section>
-                                <!-- End Book Online Area -->
-                            </div>
+                           
+                            @*</form>*@
+                             }
                         </div>
-
-                        <div class="tab-pane fade" id="curriculum" role="tabpanel">
-                            <!-- Start Book Online Area -->
-                            <section class="book-online-area">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="book-online-form">
-                                                <h3>@T("Change Password")</h3>
-
-                                                <form asp-controller="User" asp-action="UserProfile" method="post">
-                                                    <input asp-for="Id" hidden />
-                                                    <input asp-for="@Model.Email" id="hiddenEmail" hidden />
-
-                                                    <div class="form-group">
-                                                        <input type="text" asp-for="@Model.UserPassword.Password" class="form-control" placeholder="@T("password")">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <input type="text" asp-for="@Model.ConfirmPassword" class="form-control" placeholder="@T("Confirm Password")">
-                                                    </div>
-                                                    <div class="book-online-btn">
-                                                        <button type="submit" class="default-btn">@T("Save") <i class="flaticon-pointer"></i></button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                            
+                            <div class="tab-pane fade @showT" id="reviews" role="tabpanel">
+                                <form href="/User/UserProfile/?userId=@_workContext.CurrentUser.Id" method="post">
+                                    @{ int TabComments = 3;
+                                        <input type="number" hidden id="TabComments" name="TabComments" value="@TabComments" />
+                                    }
+                                    <div class="courses-reviews">
+                                        <h3>@T("Course Rating")</h3>
+                                        <div class="rating">
+                                            <span class="bx bxs-star checked"></span>
+                                            <span class="bx bxs-star checked"></span>
+                                            <span class="bx bxs-star checked"></span>
+                                            <span class="bx bxs-star checked"></span>
+                                            <span class="bx bxs-star"></span>
                                         </div>
-
-                                       
-                                    </div>
-                                </div>
-
-                             
-                            </section>
-                            <!-- End Book Online Area -->
-                        </div>
-
-                        <div class="tab-pane fade" id="instructor" role="tabpanel">
-                            <section class="book-online-area">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="book-online-form">
-                                                <h3>@T("Change Language")</h3>
-                                                <div class="form-group">
-                                                    @await Component.InvokeAsync("SelectLanguage", Model)
+                                        <div class="rating-count">
+                                            <span>4.1 @T("average based on") 4 @T("reviews").</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="side">
+                                                <div>5 @T("star")</div>
+                                            </div>
+                                            <div class="middle">
+                                                <div class="bar-container">
+                                                    <div class="bar-5"></div>
                                                 </div>
                                             </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-
-
-                            </section>
-                        </div>
-
-                        <div class="tab-pane fade" id="reviews" role="tabpanel">
-                            <div class="courses-reviews">
-                                <h3>@T("Course Rating")</h3>
-                                <div class="rating">
-                                    <span class="bx bxs-star checked"></span>
-                                    <span class="bx bxs-star checked"></span>
-                                    <span class="bx bxs-star checked"></span>
-                                    <span class="bx bxs-star checked"></span>
-                                    <span class="bx bxs-star"></span>
-                                </div>
-                                <div class="rating-count">
-                                    <span>4.1 @T("average based on") 4 @T("reviews").</span>
-                                </div>
-                                <div class="row">
-                                    <div class="side">
-                                        <div>5 @T("star")</div>
-                                    </div>
-                                    <div class="middle">
-                                        <div class="bar-container">
-                                            <div class="bar-5"></div>
-                                        </div>
-                                    </div>
-                                    <div class="side right">
-                                        <div>02</div>
-                                    </div>
-                                    <div class="side">
-                                        <div>4  @T("star")</div>
-                                    </div>
-                                    <div class="middle">
-                                        <div class="bar-container">
-                                            <div class="bar-4"></div>
-                                        </div>
-                                    </div>
-                                    <div class="side right">
-                                        <div>03</div>
-                                    </div>
-                                    <div class="side">
-                                        <div>3  @T("star")</div>
-                                    </div>
-                                    <div class="middle">
-                                        <div class="bar-container">
-                                            <div class="bar-3"></div>
+                                            <div class="side right">
+                                                <div>02</div>
+                                            </div>
+                                            <div class="side">
+                                                <div>4  @T("star")</div>
+                                            </div>
+                                            <div class="middle">
+                                                <div class="bar-container">
+                                                    <div class="bar-4"></div>
+                                                </div>
+                                            </div>
+                                            <div class="side right">
+                                                <div>03</div>
+                                            </div>
+                                            <div class="side">
+                                                <div>3  @T("star")</div>
+                                            </div>
+                                            <div class="middle">
+                                                <div class="bar-container">
+                                                    <div class="bar-3"></div>
+                                                </div>
+                                            </div>
+                                            <div class="side right">
+                                                <div>04</div>
+                                            </div>
+                                            <div class="side">
+                                                <div>2  @T("star")</div>
+                                            </div>
+                                            <div class="middle">
+                                                <div class="bar-container">
+                                                    <div class="bar-2"></div>
+                                                </div>
+                                            </div>
+                                            <div class="side right">
+                                                <div>05</div>
+                                            </div>
+                                            <div class="side">
+                                                <div>1  @T("star")</div>
+                                            </div>
+                                            <div class="middle">
+                                                <div class="bar-container">
+                                                    <div class="bar-1"></div>
+                                                </div>
+                                            </div>
+                                            <div class="side right">
+                                                <div>00</div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="side right">
-                                        <div>04</div>
-                                    </div>
-                                    <div class="side">
-                                        <div>2  @T("star")</div>
-                                    </div>
-                                    <div class="middle">
-                                        <div class="bar-container">
-                                            <div class="bar-2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="side right">
-                                        <div>05</div>
-                                    </div>
-                                    <div class="side">
-                                        <div>1  @T("star")</div>
-                                    </div>
-                                    <div class="middle">
-                                        <div class="bar-container">
-                                            <div class="bar-1"></div>
-                                        </div>
-                                    </div>
-                                    <div class="side right">
-                                        <div>00</div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="courses-review-comments">
-                                <h3>3 @T("Reviews")</h3>
-                                <div class="user-review">
-                                    <img src="assets/images/courses/images-1.jpg" alt="image">
+                                    <div class="courses-review-comments">
+                                        <h3>3 @T("Reviews")</h3>
+                                        <div class="user-review">
+                                            <img src="assets/images/courses/images-1.jpg" alt="image">
 
-                                    <div class="review-rating">
-                                        <div class="review-stars">
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
+                                            <div class="review-rating">
+                                                <div class="review-stars">
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                </div>
+
+                                                <span class="d-inline-block">James Anderson</span>
+                                            </div>
+
+                                            <span class="d-block sub-comment">Excellent</span>
+                                            <p>Very well built theme, couldn't be happier with it. Can't wait for future updates to see what else they add in.</p>
                                         </div>
 
-                                        <span class="d-inline-block">James Anderson</span>
-                                    </div>
+                                        <div class="user-review">
+                                            <img src="assets/images/courses/images-2.jpg" alt="image">
 
-                                    <span class="d-block sub-comment">Excellent</span>
-                                    <p>Very well built theme, couldn't be happier with it. Can't wait for future updates to see what else they add in.</p>
-                                </div>
+                                            <div class="review-rating">
+                                                <div class="review-stars">
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star'></i>
+                                                    <i class='bx bxs-star'></i>
+                                                </div>
 
-                                <div class="user-review">
-                                    <img src="assets/images/courses/images-2.jpg" alt="image">
+                                                <span class="d-inline-block">Sarah Taylor</span>
+                                            </div>
 
-                                    <div class="review-rating">
-                                        <div class="review-stars">
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
+                                            <span class="d-block sub-comment">Video Quality!</span>
+                                            <p>Was really easy to implement and they quickly answer my additional questions!</p>
                                         </div>
 
-                                        <span class="d-inline-block">Sarah Taylor</span>
-                                    </div>
+                                        <div class="user-review">
+                                            <img src="assets/images/courses/images-3.jpg" alt="image">
 
-                                    <span class="d-block sub-comment">Video Quality!</span>
-                                    <p>Was really easy to implement and they quickly answer my additional questions!</p>
-                                </div>
+                                            <div class="review-rating">
+                                                <div class="review-stars">
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                </div>
 
-                                <div class="user-review">
-                                    <img src="assets/images/courses/images-3.jpg" alt="image">
+                                                <span class="d-inline-block">David Warner</span>
+                                            </div>
 
-                                    <div class="review-rating">
-                                        <div class="review-stars">
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
+                                            <span class="d-block sub-comment">Perfect Coding!</span>
+                                            <p>Stunning design, very dedicated crew who welcome new ideas suggested by customers, nice support.</p>
                                         </div>
 
-                                        <span class="d-inline-block">David Warner</span>
-                                    </div>
+                                        <div class="user-review">
+                                            <img src="assets/images/courses/images-4.jpg" alt="image">
 
-                                    <span class="d-block sub-comment">Perfect Coding!</span>
-                                    <p>Stunning design, very dedicated crew who welcome new ideas suggested by customers, nice support.</p>
-                                </div>
+                                            <div class="review-rating">
+                                                <div class="review-stars">
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star checked'></i>
+                                                    <i class='bx bxs-star'></i>
+                                                </div>
 
-                                <div class="user-review">
-                                    <img src="assets/images/courses/images-4.jpg" alt="image">
+                                                <span class="d-inline-block">King Kong</span>
+                                            </div>
 
-                                    <div class="review-rating">
-                                        <div class="review-stars">
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star checked'></i>
-                                            <i class='bx bxs-star'></i>
+                                            <span class="d-block sub-comment">Perfect Video!</span>
+                                            <p>Stunning design, very dedicated crew who welcome new ideas suggested by customers, nice support.</p>
                                         </div>
-
-                                        <span class="d-inline-block">King Kong</span>
                                     </div>
-
-                                    <span class="d-block sub-comment">Perfect Video!</span>
-                                    <p>Stunning design, very dedicated crew who welcome new ideas suggested by customers, nice support.</p>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+<script>
+
+
+function setTabData(){
+ @ViewData["ChangesLanguage"] = 3; @ViewData["Tabprofile"] = 0;
+@ViewData["TabchngPassword"] = 0;  @ViewData["TabComments"] = 0;
+}
+</script>
+<script>
+ $(".custom-file-input").on("change", function () {  
+            var fileName = $(this).val().split("\\").pop();  
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);  
+        });  
+</script>
+<link href="~/assets/css/StyleSheet.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<script>
+    $('.select2').select2({ closeOnSelect: true, width: '100%' });
+</script>
+<script src="/dist/js/CustomJs/Common.js"></script>

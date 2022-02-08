@@ -37,6 +37,9 @@ using System.Threading.Tasks;
 using CRM.Core.TwilioConfig;
 using System.Collections.Generic;
 using DeVeeraApp.Filters;
+using CRM.Services.Settings;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace DeVeeraApp.Controllers
 {
@@ -74,7 +77,11 @@ namespace DeVeeraApp.Controllers
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
 
         private readonly IVerificationService _verificationService;
-
+        private readonly ISettingService _settingService;
+        private readonly ILocalStringResourcesServices _localStringResourcesServices;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IS3BucketService _s3BucketService;
+        string SessionLangId = "0";
         #endregion
 
         #region CTOR
@@ -99,7 +106,11 @@ namespace DeVeeraApp.Controllers
                                   IDiaryPasscodeService diaryPasscodeService,
                                   ILayoutSetupService layoutSetupService,
                                   IImageMasterService imageMasterService,
-                                  ITranslationService translationService
+                                  ITranslationService translationService,
+                                   ISettingService settingService,
+                                   ILocalStringResourcesServices localStringResourcesServices,
+                                   IWebHostEnvironment hostingEnvironment,
+                                    IS3BucketService s3BucketService
                                 ) : base(
                                     workContext: WorkContextService,
                                     httpContextAccessor: httpContextAccessor,
@@ -129,6 +140,10 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
             _translationService = translationService;
+            _settingService = settingService;
+            _localStringResourcesServices = localStringResourcesServices;
+            _hostingEnvironment = hostingEnvironment;
+            _s3BucketService = s3BucketService;
         }
 
         #endregion
@@ -139,7 +154,7 @@ namespace DeVeeraApp.Controllers
         public virtual void PrepareLanguages(LanguageModel model)
         {
 
-            model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
+           // model.AvailableLanguages.Add(new SelectListItem { Text = "Select Language", Value = "0" });
             var AvailableLanguage = _languageService.GetAllLanguages();
             foreach (var item in AvailableLanguage)
             {
@@ -184,17 +199,73 @@ namespace DeVeeraApp.Controllers
 
         public virtual IActionResult Login()
         {
+            string SessionLangId = "0";
+            if (SessionLangId == "0")
+            {
+                 SessionLangId = Request.Cookies["SessionLangId"];
+            }
+
+            if (TempData["LangaugeId"] != null)
+            {
+                SessionLangId = Convert.ToString(TempData["LangaugeId"]);
+            }
+            if (SessionLangId != null) { 
+            HttpContext.Session.SetInt32(SessionLangId, Convert.ToInt32(SessionLangId));
+                Response.Cookies.Append("SessionLangId", SessionLangId);
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                }
+            }
+            
+
+            
+
             var model = _UserModelFactory.PrepareLoginModel();
             var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
+
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.UserModel.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
+            if (userLanguagem?.LanguageId == 5) { 
+            model.BannerImageUrl =  _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl!=null ? _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl;
+            }
+            else
+            {
+                model.BannerImageUrl =  _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl != null ? _imageMasterService.GetImageById(data?.BannerTwoImageId)?.ImageUrl : _imageMasterService.GetImageById(data?.BannerTwoImageId)?.SpanishImageUrl;
+            }
+            if (userLanguagem == null)
+            {
+                model.BannerImageUrl = data?.BannerTwoImageId > 0 ? _imageMasterService.GetImageById(data.BannerTwoImageId)?.ImageUrl : null;
+            }
             return View(model);
         }
 
         [HttpPost]
         public virtual IActionResult Login(DeVeeraApp.ViewModels.User.LoginModel model, string returnUrl, bool captchaValid)
         {
-           
 
+            if (model.Email == null)
+            {
+                ViewData.ModelState.AddModelError("Email", "");
+            }
+            if (model.Password == null)
+            {
+                ViewData.ModelState.AddModelError("Password", "");
+            }
+            ModelState.Remove("ErrorMessage");
+            ModelState.Remove("UserModel.Email"); ModelState.Remove("UserModel.PasswordUpdate"); ModelState.Remove("UserModel.ConfirmPassword");
             if (ModelState.IsValid)
             {
                 var LastLoginDateUtc = _UserService.GetUserByEmail(model.Email)?.LastLoginDateUtc;
@@ -234,25 +305,32 @@ namespace DeVeeraApp.Controllers
                         }
                     case UserLoginResults.UserNotExist:
                         ModelState.AddModelError("", "UserNotExist");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User Does Not Exist");
                         break;
                     case UserLoginResults.Deleted:
                         ModelState.AddModelError("", "Deleted");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is Deleted ");
                         break;
                     case UserLoginResults.NotActive:
                         ModelState.AddModelError("", "NotActive");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  NotActive ");
                         break;
                     case UserLoginResults.NotRegistered:
                         ModelState.AddModelError("", "NotRegistered");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "User is  not NotRegistered");
                         break;
                     case UserLoginResults.LockedOut:
                         ModelState.AddModelError("", "LockedOut");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "LockedOut ");
                         break;
                     case UserLoginResults.WrongPassword:
                     default:
                         ModelState.AddModelError("", "WrongCredentials");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please enter correct email and Password ");
                         break;
                     case UserLoginResults.NotAllow:
                         ModelState.AddModelError("", "Not Allowed");
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Not Allowed");
                         break;
                 }
             }
@@ -268,91 +346,130 @@ namespace DeVeeraApp.Controllers
         //   return View(model);
         //}
 
-        public IActionResult Register()
-        {
-
-            var model = new UserModel();
-            if (model.LandingPageModel.Language.Id == 0)
-            {
-                model.LandingPageModel.Language.Id = Convert.ToInt32(TempData["LangaugeId"]);
-            }
-            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
-            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
-            return View(model);
-        }
+       
 
         [HttpPost]
         public async Task<IActionResult> SendOTP(UserModel model,int langId)
         {
-           
+            TempData["firstOtpsentTime"] = DateTime.Now;
           TempData["LangaugeId"]= langId;
             ModelState.Remove("ErrorMessage");
-            if (ModelState.IsValid==false)
+
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
             {
-                return RedirectToAction("Register", "User");
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId ==34).FirstOrDefault(); 
             }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+            
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
+
             if (model.countryCode == null)
             {
-                ModelState.AddModelError("countryCode", "Please select country code.!!!");
-                return RedirectToAction("Register", "User");
+                ViewData.ModelState.AddModelError("countryCode", "Please select country code");
+               // return View("Register", model);
             }
             if (model.MobileNumber == null)
             {
-                ModelState.AddModelError("MobileNumber", "Please enter your mobile No.!!!");
-                return RedirectToAction("Register", "User");
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter your mobile No");
+              //  return View("Register",model);
 
             }
+            if (model.MobileNumber?.Length <10)
+            {
+                ViewData.ModelState.AddModelError("MobileNumber", "Please enter correct mobile No.");
+               // return View("Register", model);
+
+            }
+
             if (model.ConfirmPassword == null)
             {
-                TempData["ConfirmPassword"] = "Please enter the password....!!!"; 
-                return RedirectToAction("Register", "User");
-
+                ViewData.ModelState.AddModelError("ConfirmPassword", "Please enter the password");
+                //return View("Register", model);
             }
+       
 
+        //    "The password length must be minimum 8 characters.\n The password must contain one or more special characters,uppercase characters,lowercase characters,numeric values..!!"
+
+            if (model.Email == null)
+            {
+                ViewData.ModelState.AddModelError("Email", "Please enter username");
+               // return View("Register", model);
+            }
+            ModelState.Remove("PasswordUpdate");
+            if (ModelState.IsValid==false)
+            {
+                
+                return View("Register", model);
+                //return RedirectToAction("Register", "User");
+            }
             if (_UserService.GetUserByEmail(model.Email) != null)
             {
-                TempData["Email"] = "Email Already Registered";
-                return RedirectToAction("Register");
+                ViewData.ModelState.AddModelError("Email", "Email Already Registered");
+                // return View("Register", model);
             }
+           
             var verifymobno = model.countryCode + model.MobileNumber;
             if (_UserService.GetUserByMobileNo(verifymobno) == null)
             {
-                var verification =
+               
+                    var verification =
                     await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-                if (verification.IsValid == true)
-                {
+                    if (verification.IsValid == true)
+                    {
 
+                    }
+                    else
+                    {
+                    ModelState.AddModelError("MobileNumber", "Due to Technical error OTP service UnAvailable ");
+                    return View("Register", model);
                 }
-                else
-                {
-                    return RedirectToAction("Register", "User");
 
-
-                }
-
-                return RedirectToAction(nameof(VerifyOTP),
-                                                 new UserModel
-                                                 {
-                                                     MobileNumber = verifymobno,
-                                                     Email = model.Email,
-                                                     ConfirmPassword = model.ConfirmPassword
-                                                 });
-
+                    return RedirectToAction(nameof(VerifyOTP),
+                                                     new UserModel
+                                                     {
+                                                         MobileNumber = verifymobno,
+                                                         Email = model.Email,
+                                                         ConfirmPassword = model.ConfirmPassword
+                                                     });
+                
             }
             else
             {
-                TempData["Message"] = "Mobile Number is already Registered";
-                return RedirectToAction("Register");
+                ViewData.ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered");
+                return View("Register", model);
+
+                //TempData["Message"] = "Mobile Number is already Registered";
+                //return RedirectToAction("Register");
             }
 
         }
 
 
 
-        public IActionResult VerifyOTP(UserModel model)
+        public IActionResult VerifyOTP(UserModel model, string[] OTP)
         {
+            var t = TempData["firstOtpsentTime"];
             var c = TempData["LangaugeId"];
+
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+            
             ViewData["MobileNumber"] = model.MobileNumber;
             UserPassword password = new UserPassword
             {
@@ -367,9 +484,11 @@ namespace DeVeeraApp.Controllers
                 TempData["resend"] = 1;
                 model.countryCode = "";
             }
+            model.OTP=  string.Join(' ', OTP).Replace(" ", "").Length.ToString();
+           
             if (model.ErrorMessage != null)
             {
-                ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
             }
 
             return View(model);
@@ -402,10 +521,23 @@ namespace DeVeeraApp.Controllers
                 model.LandingPageModel.Language.Id = langId;
                 TempData["LangaugeId"] = langId;
             }
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+            
+
             var final = string.Join(' ', OTP).Replace(" ", "").Length.ToString();
             if (Convert.ToInt32(final) < 6)
             {
-                ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
                 model.ErrorMessage = "Wrong Passcode";
                 return RedirectToAction("VerifyOTP", model);
             }
@@ -415,7 +547,7 @@ namespace DeVeeraApp.Controllers
                 var result = await _verificationService.CheckVerificationAsync(model.MobileNumber, FinalOTP);
                 if (result.IsValid == false)
                 {
-                    ModelState.AddModelError("ErrorMessage", "Wrong code. Try again..!!!");
+                    ViewData.ModelState.AddModelError("ErrorMessage", "Wrong code. Try again");
                     model.ErrorMessage = "Wrong Passcode";
                     return RedirectToAction("VerifyOTP", model);
                 }
@@ -427,17 +559,17 @@ namespace DeVeeraApp.Controllers
             if (true)
             {
                 ModelState.Remove("ErrorMessage");
-
+                ModelState.Remove("PasswordUpdate");
                 if (ModelState.IsValid)
                 {
                     if (model.countryCode == null && TempData["resend"] == null)
                     {
-                        ModelState.AddModelError("MobileNumber", "please select country code.!!!");
+                        ViewData.ModelState.AddModelError("MobileNumber", "please select country code");
 
                     }
                     if (model.MobileNumber == null)
                     {
-                        ModelState.AddModelError("MobileNumber", "please enter your mobile No.!!!");
+                        ViewData.ModelState.AddModelError("MobileNumber", "please enter your mobile No");
                     } //validate unique user
                     if (_UserService.GetUserByEmail(model.Email) == null)
                     {
@@ -478,7 +610,7 @@ namespace DeVeeraApp.Controllers
 
                                     HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                                    _notificationService.SuccessNotification("User registered successfull.");
+                                    _notificationService.SuccessNotification("User registered successfully");
 
                                     //return RedirectToAction("Index", "Dashboard");
                                     return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration, langId=model.LandingPageModel.Language.Id });
@@ -526,6 +658,37 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
+
+
+
+        public IActionResult Register()
+        {
+            string SessionLangId = Request.Cookies["SessionLangId"];
+            var model = new UserModel();
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] == null && SessionLangId!=null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);                
+            }
+
+            if (model.LandingPageModel.Language.Id == 0)
+            {
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+            var data = _LayoutSetupService.GetAllLayoutSetups().FirstOrDefault();
+            model.BannerImageUrl = data?.BannerOneImageId > 0 ? _imageMasterService.GetImageById(data.BannerOneImageId)?.ImageUrl : null;
+            return View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Register(UserModel model)
@@ -582,7 +745,7 @@ namespace DeVeeraApp.Controllers
 
                                 HttpContext.Session.SetInt32("CurrentUserId", _WorkContextService.CurrentUser.Id);
 
-                                _notificationService.SuccessNotification("User registered successfull.");
+                                _notificationService.SuccessNotification("User registered successfull");
 
                                 return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
 
@@ -622,34 +785,56 @@ namespace DeVeeraApp.Controllers
             }
             return View(model);
         }
-
-        public IActionResult ForgetPassword()
-        {
-            return View();
-        }
+      
+       
 
 
-        public IActionResult UserProfile(int userId)
+        public IActionResult UserProfile(int userId,string userprofile,string ProfileImage,string val)
         {
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
-
+            if (ProfileImage != null) { 
+            model.ProfileImageUrl = ProfileImage; 
+                if (userId == 0)
+                {
+                    userId = _WorkContextService.CurrentUser.Id;
+                }
+            }
+            model.ActiveTab = "3";
             if (userId != 0)
             {
-
+                string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+                if (userprofile == "userprofile")
+                {
+                    ViewData["ChangesLanguage"] = 3; ViewData["Tabprofile"] = 0;
+                    ViewData["TabchngPassword"] = 0; ViewData["TabComments"] = 0;
+                }
+                else
+                {
+                    ViewData["Tabprofile"] = 1;
+                }
                 var userData = _UserService.GetUserById(userId);
                 if (userData != null)
                 {
                     model.Id = userData.Id;
                     model.Email = userData.Email;
                     model.MobileNumber = userData.MobileNumber;
-                    model.Age = (int)userData.Age;
-                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
-                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
-                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+                    model.Age = (int)userData.Age;                   
                     model.Occupation = userData.Occupation;
                     model.UserRoleName = userData.UserRole.Name;
                     model.TwoFactorAuthentication = userData.TwoFactorAuthentication;
+
+                    model.GenderType = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.Gender)userData.GenderType : 0;
+                    model.EducationType = userData.EducationType != null ? (DeVeeraApp.ViewModels.User.Education)userData.EducationType : 0;
+                    model.FamilyOrRelationshipType = userData.FamilyOrRelationshipType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationship)userData.FamilyOrRelationshipType : 0;
+                    model.ProfileImageUrl = userData.ProfileImageUrl;
+
+
+                    foreach (string item in Enum.GetNames(typeof(Gender)))
+                    {
+                      
+                    }
+
 
                     if (_WorkContextService.CurrentUser.UserRole.Name == "Admin")
                     {
@@ -700,53 +885,213 @@ namespace DeVeeraApp.Controllers
 
                     }
                 }
-                PrepareLanguages(model.LandingPageModel.Language);
+
+
+              
+                //PrepareLanguages(model.LandingPageModel.Language);
+                var userlang = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
+                if (userlang == 5)
+                {
+                   
+                    model.LandingPageModel.Language.AvailableLanguages.Clear();
+                    //model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem { Text = _localStringResourcesServices.GetResourceValueByResourceName("Select Language"), Value = "0" });
+
+                    //var AvailableLanguage = _languageService.GetAllLanguages();
+                    //foreach (var item in AvailableLanguage)
+                    //{
+                    //    item.Name = _localStringResourcesServices.GetResourceValueByResourceName(item.Name);
+                    //    model.LandingPageModel.Language.AvailableLanguages.Add(new SelectListItem
+                    //    {
+                    //        Value = item.Id.ToString(),
+                    //        Text = item.Name
+                    //    });
+                    //}
+
+
+                    model.UserprofilechangeLang = "SpanishchangeLang";
+                    model.GenderTypeSpanish = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.GenderSpanish)userData.GenderType : 0;
+                   model.EducationTypeSpanish= userData.GenderType != null ? (DeVeeraApp.ViewModels.User.EducationSpanish)userData.GenderType : 0;
+                    model.FamilyOrRelationshipTypeSpanish = userData.GenderType != null ? (DeVeeraApp.ViewModels.User.FamilyOrRelationshipTypeSpanish)userData.GenderType : 0;
+                   
+                    //string EduType = _localStringResourcesServices.GetResourceValueByResourceName(model.EducationType.ToString());
+                    //model.EducationType = (ViewModels.User.Education)(Education)Enum.Parse(typeof(Education), EduType);
+                    //string FamilyType = _localStringResourcesServices.GetResourceValueByResourceName(model.FamilyOrRelationshipType.ToString());
+                    //model.FamilyOrRelationshipType = (ViewModels.User.FamilyOrRelationship)(FamilyOrRelationship)Enum.Parse(typeof(FamilyOrRelationship), FamilyType);
+
+                    //Above code to set language in spanish
+
+
+
+
+                }
+                model.LandingPageModel.Language.Id = userlang;
                 return View(model);
 
             }
-            PrepareLanguages(model.LandingPageModel.Language);
+            
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public IActionResult UserProfile(UserModel model)
+        public IActionResult UserProfile(UserModel model,int userId,int TabchngPassword,int Tabprofile,int TabComments,int ChangesLanguage)
         {
-            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={model.Id}", $"/User/UserProfile?userId={model.Id}");
+            AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
 
             var User = _UserService.GetUserById(model.Id);
-
-            if (ModelState.IsValid)
-            {
-                if (User != null)
+         
+            try {
+                if (TabchngPassword == 2) { 
+                ViewData["TabchngPassword"] = 2; ViewData["Tabprofile"] = 0;
+                }
+                else if (Tabprofile == 1)
                 {
-                    if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword.Password)
-                    {
-                        var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
-                        userPassword.Password = model.UserPassword.Password;
+                    ViewData["TabchngPassword"] = 0; ViewData["Tabprofile"] = 1;
+                    ModelState.Remove("UserPassword.Password"); ModelState.Remove("ConfirmPassword");
+                }
+                else if (TabComments == 4)
+                {
+                    ViewData["TabchngPassword"] = 0; ViewData["Tabprofile"] = 0; ViewData["TabComments"] = 4;
+                }                
+                else 
+                {
+                    ViewData["TabchngPassword"] = 0; ViewData["Tabprofile"] = 0; ViewData["TabComments"] = 0; ViewData["ChangesLanguage"] = 3;
 
-                        _Userpasswordservice.UpdatePassword(userPassword);
-                        _notificationService.SuccessNotification("Password updated successfull.");
-                    }
-                    else
-                    {
-                        User.Username = model.Username;
-                        User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
-                        User.Age = model.Age;
-                        User.Occupation = model.Occupation;
-                        User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
-                        User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
-                        _notificationService.SuccessNotification("User info updated successfull.");
-
-                        _UserService.UpdateUser(User);
-
-                    }
-
-                    model = User.ToModel<UserModel>();
-
-                    return View(model);
+                    
                 }
 
+
+
+                
+                
+                ModelState.Remove("Email"); ModelState.Remove("PasswordUpdate"); 
+                ///Above logic to set tab Enable
+                if (ModelState.IsValid == true)
+                {
+               
+                if (User != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(model.UserPassword?.Password) && model.ConfirmPassword == model.UserPassword?.Password && TabchngPassword==2)
+                        {
+                           
+                             var userPassword = _Userpasswordservice.GetPasswordByUserId(User.Id);
+                            userPassword.Password = model.UserPassword.Password;
+
+                            _Userpasswordservice.UpdatePassword(userPassword);
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated Successfully");//
+                            _notificationService.SuccessNotification("Password Updated Successfully");
+
+                        }
+                        else if ((model.ConfirmPassword != null || model.UserPassword?.Password != null) && model.ConfirmPassword != model.UserPassword?.Password && TabchngPassword == 2)
+                        {
+                            
+                            if (model.ConfirmPassword == null)
+                            {
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Confirm Password");
+                            }
+                            else if (model.UserPassword.Password == null)
+                            {
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter  Password ");
+                            }
+                            else
+                            {
+                                ViewData.ModelState.AddModelError("ErrorMessage", "Password and confirm password does not match");
+                            }
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Both Password Should Match");
+                        }
+                        else if ((model.ConfirmPassword == null && model.UserPassword?.Password == null && TabchngPassword == 2))
+                        {
+                           
+                            ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Both The Password");//
+                        }
+                        else
+                        {
+                            var userlangs = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
+                            
+                            User.Username = model.Username;  
+                            if (model.GenderType != null)
+                            {
+                                User.GenderType = (CRM.Core.Domain.Users.Gender)model.GenderType;
+                            }
+                            User.Age = model.Age;
+                            User.Occupation = model.Occupation;
+                            //User.MobileNumber = model.MobileNumber;
+                            User.EducationType = (CRM.Core.Domain.Users.Education)model.EducationType;
+                            User.FamilyOrRelationshipType = (CRM.Core.Domain.Users.FamilyOrRelationship)model.FamilyOrRelationshipType;
+                            User.ProfileImageUrl = model.ProfileImage;
+                            if (userlangs == 5)
+                            {
+                                switch (Convert.ToString(model?.GenderTypeSpanish))
+                                {
+                                    case "Masculina":
+                                        User.GenderType = Gender.Male;
+                                        break;
+                                    case "Mujer":
+                                        User.GenderType = Gender.Female;
+                                        break;
+                                    case "Otra":
+                                        User.GenderType = Gender.Other;
+                                        break;
+                                    case "Noquierodecir":
+                                        User.GenderType = Gender.DontWantToSay;
+                                        break;
+                                }
+                                switch (Convert.ToString(model?.EducationTypeSpanish))
+                                {
+                                    case "Escuelasecundaria":
+                                        User.EducationType = Education.HighSchool;
+                                        break;
+                                    case "Gradoasociado":
+                                        User.EducationType = Education.AssociateDegree;
+                                        break;
+                                    case "Soltero":
+                                        User.EducationType = Education.Bachelor;
+                                        break;
+                                    case "Maestra":
+                                        User.EducationType = Education.Master;
+                                        break;
+                                    case "Doctorado":
+                                        User.EducationType = Education.Doctorate;
+                                        break;
+                                }
+                                switch (Convert.ToString(model?.FamilyOrRelationshipTypeSpanish))
+                                {
+                                    case "Casada":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Married;
+                                        break;
+                                    case "Divorciada":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Divorced;
+                                        break;
+                                    case "Apartada":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Separated;
+                                        break;
+                                    case "Otra":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Other;
+                                        break;
+                                    case "Soltera":
+                                        User.FamilyOrRelationshipType = FamilyOrRelationship.Single;
+                                        break;
+                                }
+                            }
+
+                            _notificationService.SuccessNotification("User Info Updated Successfully");
+                            ViewData.ModelState.AddModelError("ErrorMessage2", "User Updated Successfully");//
+                            _UserService.UpdateUser(User);
+
+                        }
+
+                        model = User.ToModel<UserModel>();
+                    
+
+                    return View(model);
+                    }
+                }
             }
+            catch(Exception ex)
+            {
+
+            }
+
+
 
 
             return View(model);
@@ -772,7 +1117,7 @@ namespace DeVeeraApp.Controllers
                 Reason = result?.ReasonToSubmit
 
             };
-
+            
             return View(model);
         }
 
@@ -781,21 +1126,35 @@ namespace DeVeeraApp.Controllers
         public IActionResult CompleteRegistration(CompleteRegistrationModel model)
         {
             AddBreadcrumbs("User", "Registration", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}", $"/User/CompleteRegistration/{model.LevelNo}?SrNo={model.SrNo}&userId={model.UserId}");
+            var langId = _settingService.GetSettingByUserId(_WorkContextService.CurrentUser.Id).LanguageId;
             if (model.FamilyOrRelationshipType == 0)
-            {
-                ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family!!!");
+            {              
+                ViewData.ModelState.AddModelError("FamilyOrRelationshipType", "Please select Family");
             }
             if (model.EducationType == 0)
             {
-                ModelState.AddModelError("EducationType", "Please select EducationType!!!");
+                ViewData.ModelState.AddModelError("EducationType", "Please select EducationType");
+               
             }
             if (model.GenderType == 0)
             {
-                ModelState.AddModelError("GenderType", "Please select GenderType!!!");
+                ViewData.ModelState.AddModelError("GenderType", "Please select GenderType");
             }
             if (model.IncomeAboveOrBelow80K == 0)
             {
-                ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income!!!");
+                ViewData.ModelState.AddModelError("IncomeAboveOrBelow80K", "Please select Income");                
+            }
+            if (model.Occupation == null)
+            {
+                ViewData.ModelState.AddModelError("Occupation", "Please enter the Occupation"); 
+            }
+            if(model.Age==null )
+            {
+                ViewData.ModelState.AddModelError("Age", "Please enter the Age"); 
+            }
+            if(model.Age == 0)
+            {
+                ViewData.ModelState.AddModelError("Age", "Please enter the Age properly ,can not be 0");
             }
             if (ModelState.IsValid)
             {
@@ -813,7 +1172,7 @@ namespace DeVeeraApp.Controllers
 
                 _UserService.UpdateUser(currentUser);
 
-                _notificationService.SuccessNotification("User info updated successfull.");
+                _notificationService.SuccessNotification("User info updated successfully.");
                 return RedirectToAction("Next", "Lesson", new { levelno = model.LevelNo, srno = model.SrNo });
             }
 
@@ -823,7 +1182,7 @@ namespace DeVeeraApp.Controllers
 
         #region 2-FactorAuthentication
 
-        public async Task<IActionResult> TwoFactorAuthentication(int UserId)
+        public async Task<IActionResult> TwoFactorAuthentication(int UserId,string SendOtp)
         {
             var model = new TwoFactorAuthModel()
             {
@@ -832,20 +1191,23 @@ namespace DeVeeraApp.Controllers
             var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
             model.MobileNumber = verifymobno;
+            var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
             var passcode = TempData["WrongPasscode"];
             if (passcode != null)
             {
-                if(passcode.ToString()== "WrongPasscode")
+                if(passcode.ToString()== "WrongPasscode" )
                 {
-                    ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                    ViewData.ModelState.AddModelError("OTP", "Passcode Doesn't match");
                 }
+                
             }
             else { 
            
-            
+            if((TempData["LangaugeId"]==null|| TempData["LangaugeId"] == "" )&& SendOtp== "SendOtp") { 
             var verification =
                    await _verificationService.StartVerificationAsync(verifymobno, "sms");
-            if (verification.IsValid == true)
+               
+             if (verification.IsValid == true)
             {
 
             }
@@ -853,20 +1215,26 @@ namespace DeVeeraApp.Controllers
             {
                 ModelState.AddModelError("OTP", "OTP Doesn't match");
             }
+                }
             }
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> TwoFactorAuthentication(TwoFactorAuthModel model)
+        public async Task<IActionResult> TwoFactorAuthentication(TwoFactorAuthModel model, string[] TwoFacotrOTP)
         {
             if (ModelState.IsValid)
             {
+                //var final = string.Join(' ', TwoFacotrOTP).Replace(" ", "").Length.ToString();               
+                string FinalOTP = string.Join(' ', TwoFacotrOTP).Replace(" ", "");
+                model.OTP = FinalOTP;
+
                 if (model.UserId == 0)
                 {
                     model.UserId = _WorkContextService.CurrentUser.Id;
                 }
                 var currentUser = _UserService.GetUserById(model.UserId);
+                var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
                 var enterpass = model.OTP.Length;
                 if (enterpass == 6)
                 {
@@ -874,20 +1242,28 @@ namespace DeVeeraApp.Controllers
                     var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.OTP);
                     if (result.IsValid == false)
                     {
-                        ModelState.AddModelError("OTP", "Passcode Doesn't match !!!");
+                      
+                            ViewData.ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                       
+                       
                         TempData["WrongPasscode"] = "WrongPasscode";
-                        return RedirectToAction("TwoFactorAuthentication","User");
+                        //return RedirectToAction("TwoFactorAuthentication","User");
+                        return View("TwoFactorAuthentication", model);
                     }
                 }
 
-                else if (model.OTP == "12345")
+                else if (model.OTP == "123456")
                 {
                 }
                 else
                 {
-                    ModelState.AddModelError("OTP", "Passcode Doesn't match !!!");
+
+                    ViewData.ModelState.AddModelError("OTP", "Passcode Doesn't match");
+                   
                     TempData["WrongPasscode"] = "WrongPasscode";
-                    return RedirectToAction("TwoFactorAuthentication", "User");
+                    // return RedirectToAction("TwoFactorAuthentication", "User");
+                    return View("TwoFactorAuthentication", model);
+
                 }
 
                 //if (model.OTP == null)
@@ -919,6 +1295,31 @@ namespace DeVeeraApp.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ResendotpTwoFactorAuth()
+        {
+            var model = new TwoFactorAuthModel();
+            
+            var currentUser = _UserService.GetUserById(_WorkContextService.CurrentUser.Id);
+            var verifymobno = currentUser?.MobileNumber;            
+            model.MobileNumber = verifymobno;
+            var langId = _settingService.GetSettingByUserId(currentUser.Id).LanguageId;
+          
+           
+
+                var verification =
+                       await _verificationService.StartVerificationAsync(verifymobno, "sms");
+                if (verification.IsValid == true)
+                {
+
+                }
+                else
+                {
+                    ModelState.AddModelError("OTP", "OTP Doesn't match");
+                }
+           
+            return View(model);
+        }
+        
         public IActionResult ChangePasscode()
         {
             AddBreadcrumbs("User", "Change Passcode", $"/User/ChangePasscode", $"/User/ChangePasscode");
@@ -1011,23 +1412,411 @@ namespace DeVeeraApp.Controllers
             return Json(response);
         }
 
-        //[HttpPost]
-        //public IActionResult ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model)
-        //{
-        //    if(model.Email != null)
-        //    {
-        //        var checkUserEmail = _UserService.GetUserByEmail(model.Email);
 
-        //        if(checkUserEmail != null)
-        //        {
+        
 
-        //        }
-        //    }
+        [HttpGet]
+        public async Task<IActionResult> ChangeForgotPassword(string username, string EmailId)
+        {
+            string SessionLangId = Request.Cookies["SessionLangId"];
+            UserModel model = new UserModel();
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
 
-        //    return View();
-        //}
+
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
+            model.Email = username;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeForgotPassword(UserModel userModel,string PasswordUpdate, string ConfirmPassword)
+        {
+            try {
+                string SessionLangId = Request.Cookies["SessionLangId"];
+                var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+                if (userLanguagem == null)
+                {
+                    userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+                }
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                }
+                if (TempData["LangaugeId"] != null)
+                {
+                    userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                    userModel.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+                }
+
+                userModel.PasswordUpdate = PasswordUpdate; userModel.ConfirmPassword = ConfirmPassword;
+            if (userModel?.PasswordUpdate == null)
+            {
+                ViewData.ModelState.AddModelError("PasswordUpdate", "Please Enter Password ");
+            }
+            if (userModel?.ConfirmPassword == null)
+            {
+                ViewData.ModelState.AddModelError("ConfirmPassword", "Please Enter ConfirmPassword ");
+            }
+            if (userModel?.PasswordUpdate != userModel?.ConfirmPassword &&(userModel?.PasswordUpdate!=null&& userModel?.ConfirmPassword!=null))
+            {
+                ViewData.ModelState.AddModelError("ErrorMessage", "Password And ConfirmPassword Should Match ");
+            }
+                if ((userModel?.PasswordUpdate != null&& userModel?.ConfirmPassword != null) && (userModel?.PasswordUpdate == userModel?.ConfirmPassword)) {
+                    ModelState.Remove("Email");ModelState.Remove("ErrorMessage");
+                    if (ModelState.IsValid == true) {
+                        if (TempData["Emailval"] != null) { 
+                    userModel.Email = TempData["Emailval"].ToString();
+                        }
+                        var checkUserEmail = _UserService.GetUserByEmail(userModel?.Email);
+                    if (checkUserEmail != null) { 
+                    var userpassword = _UserService.GetCurrentPassword(checkUserEmail.Id);
+                    if (userpassword != null) { 
+                    userpassword.Password = userModel?.ConfirmPassword;
+                _UserService.UpdateUserPassword(userpassword);
+                ViewData.ModelState.AddModelError("ErrorMessage", "Password Updated Successfully ");
+                         //   return RedirectToAction("Login", "User");
+                    }
+
+                    }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(userModel);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ForgotPasswordEmailAsk(string username, string EmailId)
+        {
+            string SessionLangId = Request.Cookies["SessionLangId"];
+            UserModel model = new UserModel();
+            var s = HttpContext.Session.GetInt32(SessionLangId);
+
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
+            var userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPasswordEmailAsk(string username)
+        {
+            string SessionLangId = Request.Cookies["SessionLangId"];
+            UserModel model = new UserModel();
+            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+            if (userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+            }
+            if (TempData["LangaugeId"] == null)
+            {
+                TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+            }
+            if (TempData["LangaugeId"] != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+            }
+
+
+            if (username != null) { 
+            model.Email = username;
+            }
+            try
+            {
+                ModelState.Remove("ErrorMessage");
+                if (ModelState.IsValid == true) { 
+                if (username != null)
+                {
+                    var checkUserEmail = _UserService.GetUserByEmail(username);
+                    if (checkUserEmail != null)
+                    {
+                        model.Email = checkUserEmail?.Email;
+                        model.MobileNumber = checkUserEmail?.MobileNumber;
+                        var verification =
+                      await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+
+                        if (verification.IsValid == true)
+                        {
+                           return RedirectToAction("VerfiyFogotPassword","User",new { username = username });
+                        }
+                    }
+                    else if (checkUserEmail == null)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "UserName Does Not Exist ");
+                       
+
+                    }
+                }
+                else
+                {
+                    ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Username ");
+                }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+
+
+            return View(model);
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> VerfiyFogotPassword(string username ,string EmailId)
+        {           
+            UserModel model = new UserModel();
+
+            try
+            {
+                string SessionLangId = Request.Cookies["SessionLangId"];
+                var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+                if (userLanguagem == null)
+                {
+                    userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+                }
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                }
+                if (TempData["LangaugeId"] != null)
+                {
+                    userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                    model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+                }
+
+
+
+                model.Email = username;
+                TempData["Emailval"] = model?.Email;
+                if (username != null)
+                {
+                    //var checkUserEmail = _UserService.GetUserByEmail(username);
+                    //    if (checkUserEmail != null) {
+                    //        model.Email = checkUserEmail?.Email;
+                    //        model.MobileNumber = checkUserEmail?.MobileNumber;
+                    //    var verification =
+                    //  await _verificationService.StartVerificationAsync(checkUserEmail?.MobileNumber, "sms");
+
+                    //    if (verification.IsValid == true)
+                    //    {
+                    //        //    return RedirectToAction(nameof(VerfiyFogotPassword),
+                    //        //                                         new UserModel
+                    //        //                                         {
+                    //        //                                             Email = checkUserEmail.Email
+                    //        //                                         });
+                    //       }                
+                    //    }
+                    //    else if (checkUserEmail == null)
+                    //    {
+                    //        ViewData.ModelState.AddModelError("ErrorMessage", "Email Id Does Not Exist ");
+                    //        RedirectToAction("ForgotPasswordEmailAsk");
+
+                    //    }
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> VerfiyFogotPassword(string username,int i,string[] verifyFO)
+        {
+            UserModel model = new UserModel();
+            try {
+                string SessionLangId = Request.Cookies["SessionLangId"];
+                var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _WorkContextService.CurrentUser?.Id).FirstOrDefault();
+                if (userLanguagem == null)
+                {
+                    userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+
+                }
+                if (TempData["LangaugeId"] == null)
+                {
+                    TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                }
+                if (TempData["LangaugeId"] != null)
+                {
+                    userLanguagem.LanguageId = Convert.ToInt32(TempData["LangaugeId"]);
+                    model.LandingPageModel.Language.Id = userLanguagem.LanguageId;
+                }
+
+
+
+                if (TempData["Emailval"] != null) { 
+                 username= TempData["Emailval"].ToString();
+                }
+                if (username != null)
+            {
+                    
+                    var checkUserEmail = _UserService.GetUserByEmail(username);
+
+                    string FinalOTP = string.Join(' ', verifyFO).Replace(" ", "");
+                    model.OTP = FinalOTP;
+                    model.Email = username;
+                    string OtpLength = model?.OTP?.Length.ToString();
+                    if (Convert.ToInt32(OtpLength) == 6) { 
+                    if (checkUserEmail != null)
+                {
+                    var verification =
+                  await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
+                    if (verification.IsValid == true)
+                    {
+                        return RedirectToAction("ChangeForgotPassword",new { username = username });
+                    }
+                    else
+                    {
+                       ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct OTP ");
+
+                      
+                    }
+
+                     }
+                  }
+                    else if (model.OTP == "" || model.OTP == null)
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter OTP");
+                    }
+                    else
+                    {
+                        ViewData.ModelState.AddModelError("ErrorMessage", "Please Enter Correct OTP ");
+                    }
+
+
+            }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return View(model);
+        }
+        
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(DeVeeraApp.ViewModels.User.LoginModel model,string username)
+        {
+            if (model.Email != null)
+            {
+                var checkUserEmail = _UserService.GetUserByEmail(model.Email);
+
+                if (checkUserEmail != null)
+                {
+                    //var result = await _verificationService.CheckVerificationAsync(checkUserEmail.MobileNumber, model.OTP);
+                    //if (result.IsValid == true)
+                    //{
+
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError("OTP", "OTP Doesn't match");
+                    //}
+                }
+            }
+
+            return View(model);
+        }
         #endregion
 
+        public bool UploadProfilelocal(IFormFile file)
+        {
+            var FileDic = "Files/ProfilePicture";
+
+            string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+            if (!Directory.Exists(FilePath))
+
+                Directory.CreateDirectory(FilePath);
+
+            var filePath = Path.Combine(FilePath, file.FileName);
+
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                file.CopyTo(fs);
+            }
+
+            return true;
+        }
+
+
+        public async Task<IActionResult> UploadProfilePicAWS(IFormFile uploadFile)
+        {
+            string val="";
+            var FileDic = "Files/ProfilePicture";
+
+            string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
+
+            if (!Directory.Exists(FilePath))
+
+                Directory.CreateDirectory(FilePath);
+
+            var filePath = Path.Combine(FilePath, uploadFile.FileName);
+
+            using (FileStream fs = System.IO.File.Create(filePath))
+            {
+                uploadFile.CopyTo(fs);
+            }
+
+
+
+            UserModel userModel = new UserModel();
+            var path = Path.Combine(_hostingEnvironment.WebRootPath + "//Files//ProfilePicture", uploadFile.FileName);
+            _ = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                val = await _s3BucketService.UploadFileAsync(stream, path, uploadFile.FileName);
+
+
+            }
+            System.IO.File.Delete(path);
+            userModel.ProfileImage = val;
+            return RedirectToAction("UserProfile", "User", new { ProfileImage = userModel.ProfileImage});
+        }
 
     }
 }

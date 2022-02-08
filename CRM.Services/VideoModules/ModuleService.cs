@@ -48,16 +48,29 @@ namespace CRM.Services.VideoModules
             return _modulesRepository.GetById(ModuleId);
         }
 
-       
-        public IList<Modules> GetModulesByLevelId(int ModuleId)
+        public Modules GetModuleByModuleNo(int moduleNo, int levelid)
         {
-            if (ModuleId == 0)
+            if (moduleNo == 0)
                 return null;
             var query = from a in _modulesRepository.Table
-                        where a.LevelId == ModuleId
+                        where a.ModuleNo == moduleNo && a.LevelId == levelid
                         select a;
 
-            var data = query.ToList();
+            var data = query.FirstOrDefault();
+
+            return data;
+        }
+
+
+        public IList<Modules> GetModulesByLevelId(int levelId)
+        {
+            if (levelId == 0)
+                return null;
+            var query = from a in _modulesRepository.Table
+                        where a.LevelId == levelId
+                        select a;
+
+            var data = query.OrderBy(a=>a.ModuleNo).ToList();
 
             return data;
         }

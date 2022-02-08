@@ -4,6 +4,7 @@ namespace CRM.Core.Domain.VideoModules
 {
     public class Modules : BaseEntity
     {
+        public int ModuleNo { get; set; }
         public int LevelId { get; set; }
         public int? VideoId { get; set; }
         public string Title { get; set; }

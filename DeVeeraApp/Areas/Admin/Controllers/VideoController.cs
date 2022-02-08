@@ -91,20 +91,29 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     }
 
                     var data = new Video();
-                    var url = UploadVideo(model.FileName);
-                    var url2 = UploadVideo(model.SpanishFileName);
+                    var url = ""; var url2 = "";
+                    if (model.FileName != null) { 
+                     url = UploadVideo(model.FileName).Result.ToString();
+                    }
+                    if (model.SpanishFileName != null)
+                    {
+                        url2 = UploadVideo(model.SpanishFileName).Result.ToString();
+                    }
                     if (model.SpanishFileName==null && url2 ==null) 
                     {
                         model.SpanishFileName = model.FileName;
                         url2 = url;
                     }
                     data.Key = model.FileName;
-                    if (url!=null && url2!=null) {
-                    data.VideoUrl = url.Result.ToString();
+                    if (url!=null && url!="") {
+                    data.VideoUrl = url;
+                    }
                     data.Name = model.Name;
                     //spanish
                     data.SpanishKey = model.SpanishFileName;
-                    data.SpanishVideoUrl = url2.Result.ToString();
+                    if (url2 != null && url2 != "")
+                    {
+                        data.SpanishVideoUrl = url2;
                     }
                     data.IsNew = model.IsNew;
                     data.CreatedOn = DateTime.Now;
@@ -278,7 +287,15 @@ namespace DeVeeraApp.Areas.Admin.Controllers
               
                 var model = data.ToModel<VideoModel>();
             ViewBag.srno = srno;
-                return View(model);
+            if(srno==1 && model.VideoUrl == null)
+            {
+                TempData["VideoUrl"] = 1;
+            }
+            if (srno == 2 && model.SpanishVideoUrl == null)
+            {
+                TempData["SpanishVideoUrl"] = 2;
+            }
+            return View(model);
         
         }
         public IActionResult DeleteVideo(int videoId,int keyId)

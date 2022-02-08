@@ -2,13 +2,17 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<style>
+.camelclass {
+        text-transform: capitalize;
+    }
+</style>
 <form asp-controller="Emotion" asp-action="Edit" method="post">
     <div class="intro-y inbox  py-10 sm:py-20 ">
 
         <div class="px-5 ">
             <div class="font-medium text-center text-lg">Edit Emotion</div>
-            <div class="text-gray-600 text-center mt-2">Please edit emotion</div>
+            <div class="text-gray-600 text-center mt-2 camelclass">Please edit emotion</div>
         </div>
 
 

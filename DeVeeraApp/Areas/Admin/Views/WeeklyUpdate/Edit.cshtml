@@ -45,6 +45,9 @@
             top: 50%;
             width: 0;
         }
+    .camelclass {
+        text-transform: capitalize;
+    }
 </style>
 <form asp-controller="WeeklyUpdate" asp-action="Edit" method="post" id="Registrationform" onsubmit="ShowLoader('Registrationform');">
     <div class="intro-y inbox  py-10 sm:py-20 ">
@@ -53,8 +56,8 @@
         {
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Login" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Edit Login Video</div>
-                <div class="text-gray-600 text-center mt-2">Please edit video to show on the weekly quote after user login</div>
+                <div class="font-medium text-center text-lg">Edit Welcome Back Screen </div>
+                <div class="text-gray-600 text-center mt-2 camelclass ">Please edit  below detail to show on Welcome back screen</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -134,7 +137,7 @@
   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quoteseditlogin"  >
+                    <div id="quoteseditlogin" hidden >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                 }
@@ -142,7 +145,7 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelogin" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quoteseditlogin" hidden >
+                    <div id="quoteseditlogin"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                 }
@@ -233,8 +236,8 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
-                                            <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">Spanish</a>
+                                            <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)&Lang=English">English</a>
+                                            <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)&Lang=Spanish">Spanish</a>
 
                                         </div>
                                     </div>
@@ -260,8 +263,8 @@
             //Edit Registration Video
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Registration" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Edit Registration Video</div>
-                <div class="text-gray-600 text-center mt-2">Please edit video to show on the weekly video after user Registration</div>
+                <div class="font-medium text-center text-lg">Edit Welcome Screen</div>
+                <div class="text-gray-600 text-center mt-2 camelclass ">Please edit below details to show on Welcome screen</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -345,7 +348,7 @@
   <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" checked />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit"  >
+                    <div id="quotesedit" hidden >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                 }
@@ -353,7 +356,7 @@
                                 <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquote" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit" hidden >
+                    <div id="quotesedit"  >
                         <select asp-for="QuoteId" asp-items="Model.AvilableQuote"  id="quotedropdownengedit"  type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
                     </div>
                                 }
@@ -440,9 +443,10 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">English</a>
-                                            <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)&langId=@j">Spanish</a>
-
+                                            @{ var English = 3;var Spanish = 5;
+                                             <a target="_blank" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)&PreviewLangId=@English">English</a>
+                                             <a target="_blank" href= "/Home/NewUser?QuoteType=@((int)Quote.Registration)&PreviewLangId=@Spanish" > Spanish</a>
+                                            }
                                         </div>
                                     </div>
                                     @*<a target="_blank" class="btn btn-primary w-24" href="/Home/NewUser?QuoteType=@((int)Quote.Registration)">Preview</a>*@
@@ -462,8 +466,8 @@
 
             <input type="hidden" asp-for="@Model.QuoteType" value="@Quote.Landing" />
             <div class="px-5 ">
-                <div class="font-medium text-center text-lg">Edit Landing Page Video</div>
-                <div class="text-gray-600 text-center mt-2">Please edit video to show on the landing page</div>
+                <div class="font-medium text-center text-lg">Edit Landing Page</div>
+                <div class="text-gray-600 text-center mt-2 camelclass ">Please edit below details to show on the landing page</div>
             </div>
             <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -648,7 +652,7 @@
                                 </div>
                             </div>*@
 
-                            @if (Model.QuoteId == 0) {
+                            @if (Model.QuoteId != 0) {
                             <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
                     <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" />
@@ -662,10 +666,10 @@
 
                              <div class="col-span-12 mt-5">
                                    <label for="input-wizard-1" class="form-label text-theme-21 star">Quote</label>
-                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" checked/>
+                    <input id="randomquotelandingedit" asp-for="IsRandom" class="form-check-input ml-4 mr-1 "  type="checkbox" name="randomquotelandingedit" />
                     <label class="form-label text-theme-21 star">Random Quote</label>
                     <div id="quoteslandingedit"  >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="tail-select w-full" placeholder="video name"></select>
+                        <select asp-for="QuoteId" asp-items="Model.AvilableQuote" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                     </div>
                         </div>
                             }
@@ -724,9 +728,10 @@
                             <div class="dropdown">
                                 <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                 <div class="dropdown-content">
-                                    <a target="_blank" href="/Home/index?QuoteType=@((int)Quote.Landing)">English</a>
-                                    <a href="#">Spanish</a>
-
+                                    @{ var English = 3;var Spanish = 5;
+                                    <a target="_blank" href="/Home/index?QuoteType=@((int)Quote.Landing)&PreviewLangId=@English">English</a>
+                                    <a target="_blank" href="/Home/index?QuoteType=@((int)Quote.Landing)&PreviewLangId=@Spanish">Spanish</a>
+                                    }
                                 </div>
                             </div>
 
@@ -891,14 +896,14 @@
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquotelandingedit").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quoteslandingedit").removeAttr('hidden');
+      if ($(this).is(':checked')) {$("#quoteslandingedit").attr('hidden',true);
+         
 
 document.getElementById("userlanding").value=1;
       }
 else
 {
- $("#quoteslandingedit").attr('hidden',true);document.getElementById("userlanding").value=2;
+  $("#quoteslandingedit").removeAttr('hidden');document.getElementById("userlanding").value=2;
 }
 
   });
@@ -959,15 +964,15 @@ else
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquote").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quotesedit").removeAttr('hidden');
+      if ($(this).is(':checked')) { $("#quotesedit").attr('hidden',true);
+         
 document.getElementById("userRegistration").value=1;
 
       }
 else
 {
- $("#quotesedit").attr('hidden',true);
 
+ $("#quotesedit").removeAttr('hidden');
  document.getElementById("userRegistration").value=1;
 }
 
@@ -1028,14 +1033,14 @@ function TranslateQuoteloginSpanish(sel) {
 // $("#quotes").removeClass("hidden",true);
 
   $("#randomquotelogin").change(function(){
-      if ($(this).is(':checked')) {
-          $("#quoteseditlogin").removeAttr('hidden');
+      if ($(this).is(':checked')) {$("#quoteseditlogin").attr('hidden',true);
+         
  document.getElementById("userlogin").value=1;
 
       }
 else
 {
- $("#quoteseditlogin").attr('hidden',true);
+  $("#quoteseditlogin").removeAttr('hidden');
  document.getElementById("userlogin").value=2;
 }
 

@@ -43,7 +43,7 @@ namespace CRM.Core.Domain
         public bool IsNew { get; set; }
         public bool IsDisLike { get; set; }
         public string Comments { get; set; }
-
+       
     }
 
 

@@ -112,7 +112,8 @@ namespace CRM.Services
       bool GetAll = false,
       string SortBy = "",
       string SearchByDate = "",
-      int UserId = 0
+      int UserId = 0,
+      string EmotionName=""
     )
         {
 
@@ -124,7 +125,8 @@ namespace CRM.Services
                                 "@sortBy ='" + SortBy + "' , " +
                                 "@searchBy ='" + SearchByDate + "' , " +
                                 "@UserId ='" + UserId + "' , " +
-                                "@GetAll ='" + GetAll + "'";
+                                "@GetAll ='" + GetAll + "' , " +
+                                "@EmotionName ='"+ EmotionName +"'";
                 var data = _dbContext.DiaryViewModel.FromSql(query).ToList();
                 return (data.FirstOrDefault() != null) ? data : new List<DiaryViewModel>();
 

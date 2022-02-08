@@ -91,11 +91,16 @@
             width: 0;
         }
    
+        
+    .camelclass {
+        text-transform: capitalize;
+    }
+
 </style>
 <div class="intro-y inbox py-10 sm:py-20 ">
     <div class="px-5 ">
         <div class="font-medium text-center text-lg">Edit Level</div>
-        <div class="text-gray-600 text-center mt-2">Please add Level name and description</div>
+        <div class="text-gray-600 text-center mt-2 camelclass">Please add Level name and description</div>
     </div>
     <div class="px-5 sm:px-20 pt-10 border-t border-gray-200 dark:border-dark-5">
 
@@ -140,8 +145,8 @@
                                         <a class="btn btn-primary w-40" onclick="TranslateEnglish()" style="margin-left:176px"><i data-feather="arrow-left" class="mr-2"></i>Translate</a>
                                     </div>
                                     @*<label for="input-wizard-1" class="form-label text-theme-21 star">Level No.</label>
-                                        <input asp-for="@Model.LevelNo" type="number" class="form-control ">
-                                        <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
+                <input asp-for="@Model.LevelNo" type="number" class="form-control ">
+                <span asp-validation-for="LevelNo" class="text-theme-21 mt-2"></span>*@
 
                                 </div>
                                 <div class="col-span-6 mt-5">
@@ -194,11 +199,28 @@
 
 
 
+
+
                             <div class="mt-5">
                                 <label class="form-label text-theme-21 star">Video</label>
                                 <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
                                 <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
                             </div>
+                            @*<div class="grid grid-cols-12 gap-4 mt-5">
+             <div class="col-span-6 mt-5">
+                    <label class="form-label text-theme-21 star">Video</label>
+                    <select asp-for="VideoId" asp-items="Model.AvailableVideo" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
+                    <span asp-validation-for="VideoId" class="text-theme-21 mt-2"></span>
+                 </div>
+              <div class="col-span-6 mt-5">
+                  <label for="input-wizard-1" class="form-label text-theme-21 star">Youtube Url</label>
+                <input id="youtunbeVideourledit" asp-for="YoutubeVideoUrl" type="text" class="form-control subtitleenglish" placeholder="Youtube Video">
+
+              </div>
+        </div>*@
+
+
+
                             <div class="mt-5">
 
                                 <label class="form-label text-theme-21 star">Emotion</label>
@@ -207,25 +229,26 @@
                             </div>
 
 
-                              <div class="mt-5">
-                                  @if (Model.QuoteId == 0) {
-                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" />
-                    <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit" class=""  hidden>
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel"  type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
-                    </div>
-                                  }
-                                  else
-                                  {
-                     <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" checked />
-                    <label class="form-label text-theme-21 star">Random Quote</label>
-                    <div id="quotesedit" class=""  >
-                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel"   type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
-                    </div>
-                                  }
-                        </div>
+                            <div class="mt-5">
+                                @if (Model.QuoteId != 0)
+                                {
+                                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" checked/>
+                                    <label class="form-label text-theme-21 star">Random Quote</label>
+                                    <div id="quotesedit" class="" hidden>
+                                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <input id="randomquote" asp-for="IsRandom" class="form-check-input ml-4 mr-1" type="checkbox" name="randomquote" checked />
+                                    <label class="form-label text-theme-21 star">Random Quote</label>
+                                    <div id="quotesedit" class="">
+                                        <select asp-for="QuoteId" asp-items="Model.AvilableQuotelevel" type="text" data-search="true" class="form-control select2 select2-hidden-accessible w-full" placeholder="video name"></select>
+                                    </div>
+                                }
+                            </div>
 
-                            <input  type="text" value="" id="selectcheck" name="selectcheck" hidden/>
+                            <input type="text" value="" id="selectcheck" name="selectcheck" hidden />
 
                             <div class="mt-5">
                                 @{
@@ -280,7 +303,7 @@
                                 <label class="form-label text-theme-21 pl-1">Like</label> -
                                 <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#likesleveldatamodal" style="cursor:pointer;">@ViewBag.likes</a>
                                 @* dislike *@
-                                <label class="form-label text-theme-21 pl-1">Dislike</label> 
+                                <label class="form-label text-theme-21 pl-1">Dislike</label>
                                 <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#dislikeleveldatamodal" style="cursor:pointer;">@ViewBag.dislikes</a>
                                 <!-- BEGIN: Modal like Content -->
                                 <div id="likesleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
@@ -387,37 +410,37 @@
                                 <div class="intro-y box p-5 mt-6">
                                     <div class="overflow-x-auto scrollbar-hidden ">
 
-                                         <table class="table">
-                                        @if (Model.LikeComments.Count() != 0)
-                                        {
+                                        <table class="table">
+                                            @if (Model.LikeComments.Count() != 0)
+                                            {
 
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Comment</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">User Name</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Date </th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{ int a = 1;
-                                                    @foreach (var likesuser in Model.LikeComments)
-                                                    {
-                                                <tr>
-                                                    <td class="border-b dark:border-dark-5">@a</td>
-                                                    <td class="border-b dark:border-dark-5">@likesuser.Comments</td>
-                                                    <td class="border-b dark:border-dark-5">@likesuser.User.Email</td>
-                                                    <td class="border-b dark:border-dark-5">@likesuser.CreatedDate</td>
-                                                    
-                                                </tr>
-                                                        a++;
+                                                <thead>
+                                                    <tr>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Comment</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">User Name</th>
+                                                        <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Date </th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{ int a = 1;
+                                                        @foreach (var likesuser in Model.LikeComments)
+                                                        {
+                                                            <tr>
+                                                                <td class="border-b dark:border-dark-5">@a</td>
+                                                                <td class="border-b dark:border-dark-5">@likesuser.Comments</td>
+                                                                <td class="border-b dark:border-dark-5">@likesuser.User.Email</td>
+                                                                <td class="border-b dark:border-dark-5">@likesuser.CreatedDate</td>
+
+                                                            </tr>
+                                                            a++;
+                                                        }
                                                     }
-                                                    }
-                                            </tbody>
-                                                    }
-                                           
-                                         </table>
+                                                </tbody>
+                                            }
+
+                                        </table>
 
                                     </div>
                                 </div>
@@ -427,55 +450,55 @@
 
 
                                 @*<div id="Coomentsleveldatamodal" class="modal" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
 
-                                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                                    <div class="col-span-12 sm:col-span-12">
+                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                            <div class="col-span-12 sm:col-span-12">
 
-                                                        <div id="single-file-upload" class="p-5">
-                                                            <div class="preview">
-                                                                <div data-single="true" fallback="true">
-                                                                    <div class="fallback">
-
-                                                                    </div>
-                                                                    @{
-                                                                        @if (Model.LikeComments.Count != 0)
-                                                                        {
-
-                                                                            foreach (var likesuser in Model.LikeComments)
-                                                                            {
-
-                                                                                if (likesuser.Comments != null)
-                                                                                {
-                                                                                    <label for="input-wizard-1" class="form-label text-theme-21 ">* @likesuser.User.Email :</label>
-                                                                                    <div class="dz-message" data-dz-message>
-                                                                                        <div class="text-md font-medium">@likesuser.Comments</div>
-                                                                                    </div>
-                                                                                    <br />
-                                                                                }
-
-
-                                                                            }
-
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
-                                                                        }
-
-
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                <div id="single-file-upload" class="p-5">
+                                    <div class="preview">
+                                        <div data-single="true" fallback="true">
+                                            <div class="fallback">
 
                                             </div>
+                                            @{
+                                                @if (Model.LikeComments.Count != 0)
+                                                {
+
+                                                    foreach (var likesuser in Model.LikeComments)
+                                                    {
+
+                                                        if (likesuser.Comments != null)
+                                                        {
+                                                            <label for="input-wizard-1" class="form-label text-theme-21 ">* @likesuser.User.Email :</label>
+                                                            <div class="dz-message" data-dz-message>
+                                                                <div class="text-md font-medium">@likesuser.Comments</div>
+                                                            </div>
+                                                            <br />
+                                                        }
+
+
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
+                                                }
+
+
+                                            }
                                         </div>
-                                    </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>*@
                                 <!-- END: Modal Content -->
                             </div>
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
@@ -498,8 +521,8 @@
                                         <div class="dropdown">
                                             <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                             <div class="dropdown-content">
-                                                <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">English</a>
-                                                <a target="_blank" href="/Home/ExistingUser?QuoteType=@((int)Quote.Login)">Spanish</a>
+                                                <a target="_blank" href="/Lesson/Index?levelno=@(Model.LevelNo)&Lang=English">English</a>
+                                                <a target="_blank" href="/Lesson/Index?levelno=@(Model.LevelNo)&Lang=Spanish">Spanish</a>
 
                                             </div>
                                         </div>
@@ -516,8 +539,16 @@
                                 <div asp-validation-summary="All" class="text-theme-6 mt-4">
                                 </div>
                             }
-                            <div class="grid grid-cols-12 gap-4 ">
+                            <div class="mt-5">
+
+                                <label for="input-wizard-1" class="form-label text-theme-21 star">Module No.</label>
+                                <input asp-for="Modules.ModuleNo" type="number" class="form-control ">
+                                <span asp-validation-for="Modules.ModuleNo" class="text-theme-21 mt-2"></span>
+                            </div>
+                            <div class="grid grid-cols-12 gap-4 mt-5">
+
                                 <div class=" col-span-6">
+
                                     <div>
                                         <label for="input-wizard-1" class="form-label text-theme-21 star">English </label>
                                         <a onclick="TranslateSpanishModule()" class="btn btn-primary w-40" style="margin-left:176px"><i data-feather="arrow-right" class="mr-2"></i>Translate</a>
@@ -626,7 +657,7 @@
                                 @*//dislikes*@
                                 <label class="form-label text-theme-21 pl-1">Dislike</label> -
                                 <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#dislikemodulesdatamodal" style="cursor:pointer;">@ViewBag.moduledislikes</a>
-                               
+
                                 <div id="likemodulesdatamodal" class="modal" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -674,7 +705,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <!-- BEGIN: Modal Content -->
                                 <div id="dislikemodulesdatamodal" class="modal" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -730,107 +761,104 @@
 
                                 <label class="form-label text-theme-21 pl-1">Comments</label> -
                                 <a class="form-label text-theme-12 pl-1" data-toggle="modal" data-target="#Coomentsmoduledatamodal"></a>
-                               
 
-                                   <div class="intro-y box p-5 mt-6">
+
+                                <div class="intro-y box p-5 mt-6">
                                     <div class="overflow-x-auto scrollbar-hidden ">
-                                         <table class="table">
-                                    @{
-                                        @if (Model.CommentsModule.Count() != 0)
-                                        {
-                                            int b = 1;
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Comment</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">User Name</th>
-                                                    <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Date </th>
-                                                    
-                                                </tr>
-                                            </thead>
+                                        <table class="table">
+                                            @{
+                                                @if (Model.CommentsModule.Count() != 0)
+                                                {
+                                                    int b = 1;
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">#</th>
+                                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Comment</th>
+                                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">User Name</th>
+                                                            <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Date </th>
 
-                                            foreach (var likesuser in Model.CommentsModule)
-                                            {
-                                            <tbody>
-                                                
-                                                    @foreach (var data in Model.CommentsModule)
-                                                    {
-                                                <tr>
-                                                    <td class="border-b dark:border-dark-5">@b</td>
-                                                    <td class="border-b dark:border-dark-5">@data.Comments</td>
-                                                    <td class="border-b dark:border-dark-5">@data.User.Email</td>
-                                                    <td class="border-b dark:border-dark-5">@data.CreatedDate</td>
-                                                    
-                                                </tr>
-                                                        b++;
-                                                    }
-                                                   
-                                            </tbody>
+                                                        </tr>
+                                                    </thead>
+
+
+                                                    <tbody>
+
+                                                        @foreach (var data in Model.CommentsModule)
+                                                        {
+                                                            <tr>
+                                                                <td class="border-b dark:border-dark-5">@b</td>
+                                                                <td class="border-b dark:border-dark-5">@data.Comments</td>
+                                                                <td class="border-b dark:border-dark-5">@data.User.Email</td>
+                                                                <td class="border-b dark:border-dark-5">@data.CreatedDate</td>
+
+                                                            </tr>
+                                                            b++;
+                                                        }
+
+                                                    </tbody>
+
+
+                                                }
                                             }
-
-                                        }
-                                        }
-                                         </table>
+                                        </table>
                                     </div>
                                 </div>
 
 
 
                                 <!--<div id="Coomentsmoduledatamodal" class="modal" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">-->
+        <div class="modal-dialog">
+            <div class="modal-content">-->
+                                @*<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                <div class="col-span-12 sm:col-span-12">
 
-                                          
-                                            @*<div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                                <div class="col-span-12 sm:col-span-12">
+                    <div id="single-file-upload" class="p-5">
+                        <div class="preview">
+                            <div data-single="true" fallback="true">
+                                <div class="fallback">
 
-                                                    <div id="single-file-upload" class="p-5">
-                                                        <div class="preview">
-                                                            <div data-single="true" fallback="true">
-                                                                <div class="fallback">
+                                </div>
+                                @{
+                                    @if (Model.CommentsModule.Count != 0)
+                                    {
 
-                                                                </div>
-                                                                @{
-                                                                    @if (Model.CommentsModule.Count != 0)
-                                                                    {
+                                        foreach (var likesuser in Model.CommentsModule)
+                                        {
 
-                                                                        foreach (var likesuser in Model.CommentsModule)
-                                                                        {
-
-                                                                            if (likesuser.Comments != null)
-                                                                            {
-                                                                                <label for="input-wizard-1" class="form-label text-theme-21 "> * @likesuser.User.Email :</label>
-                                                                                <div class="dz-message" data-dz-message>
-                                                                                    <div class="text-md font-medium">@likesuser.Comments</div>
-                                                                                </div>
-                                                                                <br />
-                                                                            }
-
-
-                                                                        }
-
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
-                                                                    }
-
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            if (likesuser.Comments != null)
+                                            {
+                                                <label for="input-wizard-1" class="form-label text-theme-21 "> * @likesuser.User.Email :</label>
+                                                <div class="dz-message" data-dz-message>
+                                                    <div class="text-md font-medium">@likesuser.Comments</div>
                                                 </div>
-                                            </div>*@
+                                                <br />
+                                            }
 
-                                        <!--</div>
-                                    </div>
-                                </div>-->
-                               
+
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <label for="input-wizard-1" class="form-label text-theme-21 "> *No Comments yet!!!</label>
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+                                <!--</div>
+            </div>
+        </div>-->
+
                             </div>
                             <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
                                 <span class="mr-5">
                                     <span class="btn btn-outline-secondary relative justify-start rounded-full h-10 w-40">
-                                        <label class="pl-10">Back to List</label>
+                                        <label class="pl-10">Back to List </label>
 
                                         <a class="w-8 h-8 absolute flex justify-center items-center bg-theme-17 dark:bg-theme-26 text-white rounded-full  top-0 bottom-0 my-auto pl-24 mr-padding " asp-controller="Level" asp-action="List" asp-route-roleName="@_workContext.CurrentUser.UserRole.Name">
 
@@ -846,9 +874,10 @@
                                     <div class="dropdown">
                                         <button disabled class="dropbtn  btn btn-primary w-24">Preview</button>
                                         <div class="dropdown-content">
-                                            <a target="_blank" href="/Module/Index/@Model.Modules.Id">English</a>
-                                            <a target="_blank" href="/Module/Index/@Model.Modules.Id">Spanish</a>
-
+                                            @{ var English = 3; var Spanish = 5;
+                                                <a target="_blank" href="/Module/Index/?id=@Model.Modules.Id&PreviewLangId=@English">English</a>
+                                                <a target="_blank" href="/Module/Index/?id=@Model.Modules.Id&PreviewLangId=@Spanish">Spanish</a>
+                                            }
                                         </div>
                                     </div>
                                     @*<a target="_blank" class="btn btn-primary w-24" href="/Module/Index/@Model.Modules.Id">Preview</a>*@
@@ -879,7 +908,7 @@
                                                 foreach (var item in Model.ModuleDataList)
                                                 {
                                                     <tr>
-                                                        <td class="border-b dark:border-dark-5">@i</td>
+                                                        <td class="border-b dark:border-dark-5">@item.ModuleNo</td>
                                                         <td class="border-b dark:border-dark-5">@item.Title</td>
                                                         <td class="border-b dark:border-dark-5">@(item.LikeId == null ? 0 : item.LikeId)</td>
                                                         <td class="border-b dark:border-dark-5">@(item.DisLikeId == null ? 0 : item.DisLikeId)</td>
@@ -1039,13 +1068,13 @@
         // $("#quotes").removeClass("hidden",true);
 
         $("#randomquote").change(function () {
-            if ($(this).is(':checked')) {
-                $("#quotesedit").removeAttr('hidden');
+            if ($(this).is(':checked')) {  $("#quotesedit").attr('hidden', true);
+                
 document.getElementById("selectcheck").value=1;
             }
             else {
-                $("#quotesedit").attr('hidden', true);
-
+              
+$("#quotesedit").removeAttr('hidden');
 document.getElementById("selectcheck").value=2;
 
             }

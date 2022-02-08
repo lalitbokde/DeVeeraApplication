@@ -28,6 +28,7 @@ using CRM.Services.Security;
 namespace DeVeeraApp.Controllers
 {
    
+
     public class HomeController : BaseController
     {
         #region fields
@@ -48,6 +49,7 @@ namespace DeVeeraApp.Controllers
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
         private readonly ISettingService _settingService;
         private readonly IPermissionService _permissionService;
+        
         #endregion
 
 
@@ -102,16 +104,53 @@ namespace DeVeeraApp.Controllers
         #endregion
 
         #region Method
-        public IActionResult Index(DataSourceRequest command)        
+        public IActionResult Index(DataSourceRequest command,string PreviewLangId)        
       {
-
-
-
-            var random = new Random();
+            var random = new Random(); string FirstLangaugeCheck = "0";
             var model = new UserModel();
-         var langId=  TempData["LangaugeId"];
+            try {
+              string SessionLangId = Request.Cookies["SessionLangId"];
+               
+                if (TempData["LangaugeId"] != null) {
+                SessionLangId = Convert.ToString(TempData["LangaugeId"]);
+            }
+                if (SessionLangId != null) { 
+            HttpContext.Session.SetInt32(SessionLangId, Convert.ToInt32(SessionLangId));
+            Response.Cookies.Append("SessionLangId", SessionLangId);
+                    if (TempData["LangaugeId"] == null)
+                    {
+                        TempData["LangaugeId"] = HttpContext.Session.GetInt32(SessionLangId);
+                    }
+                }
+                
+
+                    var langId = TempData["LangaugeId"];
             var data = _weeklyUpdateServices.GetWeeklyUpdateByQuoteType((int)ViewModels.Quote.Landing);
-            var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
+             var userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
+
+            if (userLanguagem == null)
+            {
+                userLanguagem= _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+                
+            }
+            if (langId != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(langId);
+            }
+
+            if (PreviewLangId != null)
+            {
+                userLanguagem.LanguageId = Convert.ToInt32(PreviewLangId);
+            }
+            if (langId == null && userLanguagem == null)
+            {
+                userLanguagem = _settingService.GetAllSetting().Where(s => s.UserId == 34).FirstOrDefault();
+            }
+            
+            //if (langId != null)
+            //{
+            //    userLanguagem.LanguageId = Convert.ToInt32(langId);
+            //}
             if (data != null)
             {
                 model.LandingPageModel.WeeklyUpdate = data.ToModel<WeeklyUpdateModel>();
@@ -175,22 +214,63 @@ namespace DeVeeraApp.Controllers
                 var master = _languageService.GetLanguageById(userLanguagem != null ? userLanguagem.LanguageId : 0);
                 var dataForVideo = _videoMasterService.GetVideoById(data.VideoId);
 
-                if (master != null && master.Name == "Spanish")
-                {
-                    ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
+                //if (master != null && master.Name == "Spanish")
+                //{
+                //        if (dataForVideo.SpanishVideoUrl != null&& dataForVideo.SpanishVideoUrl!="") { 
+                //    ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
+                //        }
+                //        else
+                //        {
+                //            ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                //        }
+                //    }
+                //else
+                //{
+                //        if (dataForVideo.VideoUrl != null && dataForVideo.VideoUrl != "")
+                //        {
+                //            ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                //        }
+                //        else
+                //        {
+                //            ViewBag.VideoUrl = dataForVideo.SpanishVideoUrl;
+                //        }
+                //}
+
+                    if (userLanguagem?.LanguageId == 5)
+                    {
+                        ViewBag.VideoUrl = (dataForVideo?.SpanishVideoUrl != null && dataForVideo?.SpanishVideoUrl != "") ? dataForVideo?.SpanishVideoUrl : dataForVideo?.VideoUrl;
+                        
+                    }
+                    else
+                    {
+                        ViewBag.VideoUrl = (dataForVideo?.VideoUrl != null&& dataForVideo?.VideoUrl != "") ? dataForVideo?.VideoUrl : dataForVideo?.SpanishVideoUrl;
+                    }
+
+
+                        if (userLanguagem?.LanguageId == 5) {
+                    model.LandingPageModel.SliderOneImageUrl = _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl;
+
+                    model.LandingPageModel.SliderTwoImageUrl = _imageMasterService.GetImageById(data.SliderTwoImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl;
+                    model.LandingPageModel.SliderThreeImageUrl = _imageMasterService.GetImageById(data.SliderThreeImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl;
+                    model.LandingPageModel.DescriptionImageUrl = _imageMasterService.GetImageById(data.DescriptionImageId)?.SpanishImageUrl != null ? _imageMasterService.GetImageById(data.DescriptionImageId)?.SpanishImageUrl : _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl;
                 }
                 else
                 {
-                    ViewBag.VideoUrl = dataForVideo.VideoUrl;
+                    model.LandingPageModel.SliderOneImageUrl = _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl!= null ? _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl : _imageMasterService.GetImageById(data.SliderOneImageId)?.SpanishImageUrl;
+                    model.LandingPageModel.SliderTwoImageUrl = _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl != null?_imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : _imageMasterService.GetImageById(data.SliderTwoImageId)?.SpanishImageUrl;
+                    model.LandingPageModel.SliderThreeImageUrl =_imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl != null? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : _imageMasterService.GetImageById(data.SliderThreeImageId)?.SpanishImageUrl;
+                    model.LandingPageModel.DescriptionImageUrl = _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl!=null ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : _imageMasterService.GetImageById(data.DescriptionImageId)?.SpanishImageUrl;
                 }
 
-                model.LandingPageModel.SliderOneImageUrl = data.SliderOneImageId > 0 ? _imageMasterService.GetImageById(data.SliderOneImageId)?.ImageUrl : null;
-                model.LandingPageModel.SliderTwoImageUrl = data.SliderTwoImageId > 0 ? _imageMasterService.GetImageById(data.SliderTwoImageId)?.ImageUrl : null;
-                model.LandingPageModel.SliderThreeImageUrl = data.SliderThreeImageId > 0 ? _imageMasterService.GetImageById(data.SliderThreeImageId)?.ImageUrl : null;
-                model.LandingPageModel.DescriptionImageUrl = data.DescriptionImageId > 0 ? _imageMasterService.GetImageById(data.DescriptionImageId)?.ImageUrl : null;
+               
 
             }
             TempData["LangaugeId"]=   langId;
+            }
+            catch(Exception ex)
+            {
+
+            }
             return View(model);
         }
 
@@ -241,7 +321,7 @@ namespace DeVeeraApp.Controllers
         }
 
 
-        public IActionResult ExistingUser(int QuoteType, DateTime LastLoginDateUtc)
+        public IActionResult ExistingUser(int QuoteType, DateTime LastLoginDateUtc,string Lang)
         {
             var random = new Random();
             ViewBag.LastLoginDateUtc = LastLoginDateUtc;
@@ -254,9 +334,16 @@ namespace DeVeeraApp.Controllers
                 var model = data?.ToModel<WeeklyUpdateModel>();
                 var quotewelcome = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.Id == model.QuoteId).ToList().FirstOrDefault();
                 if (model.QuoteId != null) { 
-                    model.Quote = quotewelcome.Title + quotewelcome.Author;
+                    model.Quote = quotewelcome?.Title + quotewelcome?.Author;
                 }
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
+                if (Lang != null)
+                {
+                    if (Lang == "English")
+                        userLanguage.LanguageId = 3;
+                    if (Lang == "Spanish")
+                        userLanguage.LanguageId = 5;
+                }
                 var quoteList = _dashboardQuoteService.GetAllDashboardQuotes().Where(a => a.IsRandom == true).ToList();//Allquote when quote id not set
                 var langId = TempData["LangaugeId"];
                 if (quoteList != null || quoteList.Count() != 0 && quoteList.Count > 0 && data.IsRandom == true)
@@ -302,16 +389,38 @@ namespace DeVeeraApp.Controllers
 
                     if (bannerImageData != null)
                     {
-                        model.BannerImageURL = bannerImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5) { 
+                        model.BannerImageURL = bannerImageData?.SpanishImageUrl!=null? bannerImageData?.SpanishImageUrl: bannerImageData?.ImageUrl;
+                        }
+                        else
+                        {
+                            model.BannerImageURL = bannerImageData?.ImageUrl != null ? bannerImageData?.ImageUrl : bannerImageData?.SpanishImageUrl;
+                        }
                     }
                     if (bodyImageData != null)
                     {
-                        model.BodyImageURL = bodyImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            model.BodyImageURL = bodyImageData?.SpanishImageUrl!=null? bodyImageData?.SpanishImageUrl: bodyImageData?.ImageUrl;
+                        }
+                        else
+                        {
+                            model.BodyImageURL = bodyImageData?.ImageUrl != null ? bodyImageData?.ImageUrl : bodyImageData?.SpanishImageUrl;
+                        }
+                        
                     }
                 }
                 if (model != null)
                 {
-                    model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.VideoUrl =( _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl!=null && _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl !="") ? _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl: _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+                    }
+                    else
+                    {
+                        model.VideoUrl = (_videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl!=null &&(_videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl != "")) ? _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl : _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl;
+                    }
+                   
 
                     model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a => a.LevelNo)) ? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
 
@@ -345,17 +454,39 @@ namespace DeVeeraApp.Controllers
 
                     if (bannerImageData != null)
                     {
-                        model.BannerImageURL = bannerImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            model.BannerImageURL = bannerImageData?.SpanishImageUrl!=null? bannerImageData?.SpanishImageUrl: bannerImageData?.ImageUrl;
+                        }
+                        else
+                        {
+                            model.BannerImageURL = bannerImageData?.ImageUrl != null ? bannerImageData?.ImageUrl : bannerImageData?.SpanishImageUrl;
+                        }
+                       
                     }
                     if (bodyImageData != null)
                     {
-                        model.BodyImageURL = bodyImageData.ImageUrl;
+                        if (userLanguage.LanguageId == 5)
+                        {
+                            model.BodyImageURL = bodyImageData?.SpanishImageUrl!=null? bodyImageData?.SpanishImageUrl: bodyImageData?.ImageUrl;
+                        }
+                        else
+                        {
+                            model.BodyImageURL = bodyImageData?.ImageUrl != null ? bodyImageData?.ImageUrl : bodyImageData?.SpanishImageUrl;
+                        }
+                       
                     }
                 }
                 if (model != null)
                 {
-                    model.VideoUrl = _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
-
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.VideoUrl = (_videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl!=null&& _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl != "") ? _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl: _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl;
+                    }
+                    else
+                    {
+                        model.VideoUrl = (_videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl != null && _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl!="") ? _videoMasterService.GetVideoById((int)data?.Video?.Id).VideoUrl : _videoMasterService.GetVideoById((int)data?.Video?.Id).SpanishVideoUrl;
+                    }
                     model.LastLevel = (currentLevel > _levelServices.GetAllLevels().Max(a => a.LevelNo)) ? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo : currentLevel ?? (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault().LevelNo;
 
                     model.FirstLevel = (int)_levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault()?.LevelNo;
@@ -378,11 +509,11 @@ namespace DeVeeraApp.Controllers
 
         }
 
-        public IActionResult NewUser(int QuoteType, int langId)
+        public IActionResult NewUser(int QuoteType, int langId,int PreviewLangId)
         {
             var random = new Random();
             //setting language
-            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser.Id).FirstOrDefault();
+            var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
             if (userLanguage != null)
             {
 
@@ -398,13 +529,16 @@ namespace DeVeeraApp.Controllers
                
                 var settingData = new Setting
                 {
-                    UserId = _workContext.CurrentUser.Id,
+                    UserId = _workContext.CurrentUser?.Id,
                         LanguageId = langId
                     };
                     _settingService.InsertSetting(settingData);
               
             }
-
+            if(PreviewLangId != null && PreviewLangId != 0)
+            {
+                userLanguage.LanguageId = PreviewLangId;
+            }
             //end of setting language
             var currentUser = _UserService.GetUserById(_workContext.CurrentUser.Id);
 
@@ -419,23 +553,59 @@ namespace DeVeeraApp.Controllers
             //    model.Title = quoteList[index].Title + " -- " + quoteList[index].Author;
             //}
 
-            if (model.BodyImageId != 0 && model.BannerImageId != 0)
+
+            
+
+
+
+            if (model?.BodyImageId != 0 && model?.BannerImageId != 0)
             {
-                var bannerImageData = _imageMasterService.GetImageById(model.BannerImageId);
-                var bodyImageData = _imageMasterService.GetImageById(model.BodyImageId);
+                var bannerImageData = _imageMasterService.GetImageById(model?.BannerImageId);
+                var bodyImageData = _imageMasterService.GetImageById(model?.BodyImageId);
 
                 if (bannerImageData != null)
                 {
-                    model.BannerImageURL = bannerImageData.ImageUrl;
+                    //model.BannerImageURL = bannerImageData.ImageUrl;
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.BannerImageURL = bannerImageData.SpanishImageUrl != null ? bannerImageData.SpanishImageUrl : bannerImageData.ImageUrl;
+                    }
+                    else
+                    {
+                        model.BannerImageURL = bannerImageData.ImageUrl != null ? bannerImageData.ImageUrl : bannerImageData.SpanishImageUrl;
+                    }
+
                 }
                 if (bodyImageData != null)
                 {
-                    model.BodyImageURL = bodyImageData.ImageUrl;
+                    //model.BodyImageURL = bodyImageData.ImageUrl;
+                    if (userLanguage.LanguageId == 5)
+                    {
+                        model.BodyImageURL = bodyImageData?.SpanishImageUrl != null ? bodyImageData?.SpanishImageUrl : bodyImageData?.ImageUrl;
+                    }
+                    else
+                    {
+                        model.BodyImageURL = bodyImageData?.ImageUrl != null ? bodyImageData?.ImageUrl : bodyImageData?.SpanishImageUrl;
+                    }
                 }
             }
             if (model != null)
             {
-                model.VideoUrl = data?.Video?.VideoUrl;
+                var lang = _settingService.GetSettingByUserId(34).LanguageId;
+                if (lang == 5)
+                {
+                    model.VideoUrl = (data?.Video?.SpanishVideoUrl!=null&& data?.Video?.SpanishVideoUrl != "") ? data?.Video?.SpanishVideoUrl: data?.Video?.VideoUrl;
+                }
+                else
+                {
+                    model.VideoUrl = (data?.Video?.VideoUrl!=null && data?.Video?.VideoUrl != "") ? data?.Video?.VideoUrl : data?.Video?.SpanishVideoUrl;
+                }
+                if (lang == null)
+                {
+                    model.VideoUrl = data?.Video?.VideoUrl;
+                }
+
+              
                 var firstLevel = _levelServices.GetAllLevels().OrderBy(a => a.LevelNo).FirstOrDefault();
                 if (firstLevel != null)
                 {
@@ -445,7 +615,7 @@ namespace DeVeeraApp.Controllers
                 _UserService.UpdateUser(currentUser);
 
             }
-            _localStringResourcesServices.GetLocalStringResourceByResourceName(model.Subtitle);
+            _localStringResourcesServices.GetLocalStringResourceByResourceName(model?.Subtitle);
             return View(model);
 
 

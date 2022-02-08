@@ -80,11 +80,26 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                 if (ModelState.IsValid)
                 {
                     var data = model.ToEntity<Image>();
-                    var imageUrl = UploadToAWS(model.FileName);
-                    data.ImageUrl = imageUrl.Result.ToString();
+                    var imageUrl = ""; var spanishimageUrl = "";
+                    if (model.FileName != null) { 
+                     imageUrl = UploadToAWS(model.FileName).Result.ToString();
+                    }
+                    if (model.SpanishFileName != null)
+                    {
+                        spanishimageUrl = UploadToAWS(model.SpanishFileName).Result.ToString();
+                    }
+                    if (imageUrl != "") { 
+                    data.ImageUrl = imageUrl;
+                    }
                     data.Key = model.FileName;
                     data.CreatedOn = DateTime.Now;
                     data.UpdatedOn = DateTime.Now;
+                   
+                        data.SpanishKey = model.SpanishFileName;
+                    if (spanishimageUrl != "")
+                    {
+                        data.SpanishImageUrl = spanishimageUrl;
+                    }
                     _imageMasterService.InsertImage(data);
                     _notificationService.SuccessNotification("Image url added successfully");
                     return RedirectToAction("List");
@@ -126,11 +141,20 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     if (model.FileName != null)
                     {
                         var url = UploadToAWS(model.FileName);
+                       
                         imageData.ImageUrl = url.Result;
+                        
                         imageData.Key = model.FileName;
-                        imageData.UpdatedOn = DateTime.Now;
-
+                        
                     }
+
+                    if (model.SpanishFileName != null)
+                    {
+                        var spanishurl = UploadToAWS(model.SpanishFileName);
+                        imageData.SpanishImageUrl = spanishurl.Result;
+                        imageData.SpanishKey = model.SpanishFileName;
+                    }
+                    imageData.UpdatedOn = DateTime.Now;
                 }
                 catch
                 { }
@@ -219,7 +243,7 @@ namespace DeVeeraApp.Areas.Admin.Controllers
             return Json(new { selectedImage = selectedImage, ImageFieldId = model.ImageFieldId, ImageFieldUrl = model.ImageFieldUrl });
         }
 
-        public IActionResult DeleteImage(int imageId)
+        public IActionResult DeleteImage(int imageId,int imagekeyval)
         {
             ResponseModel response = new ResponseModel();
 
@@ -232,11 +256,19 @@ namespace DeVeeraApp.Areas.Admin.Controllers
                     response.Success = false;
                     response.Message = "No video found";
                 }
+                if (imagekeyval == 1) { 
                 _s3BucketService.DeleteFile(data.Key);
 
                 data.Key = null;
                 data.ImageUrl = null;
+                }
+                if (imagekeyval == 2)
+                {
+                    _s3BucketService.DeleteFile(data.SpanishKey);
 
+                    data.SpanishKey = null;
+                    data.SpanishImageUrl = null;
+                }
                 _imageMasterService.UpdateImage(data);
                 response.Success = true;
 

@@ -448,11 +448,11 @@ location.reload();
 }
 
 
-function DeleteEditPageImage(Id) {
+function DeleteEditPageImage(Id,imagekey) {
 
     var jsonData = {
 
-        imageId: Id
+        imageId: Id,imagekeyval:imagekey
 
     };
     $.post("/Admin/Image/DeleteImage",
@@ -480,12 +480,18 @@ function DeleteEditPageImage(Id) {
                         confirmButtonClass: 'btn btn-lg btn-primary',
                         buttonsStyling: false
                     }).then(function () {
-                        debugger
-                        $("#previousImage").hide();
-                        $("#uploadImageFile").show();
+                        debugger 
+                        $("#previousImage1").hide();
+                        $("#uploadImageFile1").show();
 
+                        $("#previousImage2").hide();
+                        $("#uploadImageFile2").show(); 
                     })
+
+
                 }
+
+location.reload();
 
             }
             else
