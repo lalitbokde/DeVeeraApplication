@@ -337,7 +337,7 @@ namespace DeVeeraApp.Controllers
                     model.Quote = quotewelcome?.Title + quotewelcome?.Author;
                 }
                 var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
-                if (Lang != null)
+                if (userLanguage != null)
                 {
                     if (Lang == "English")
                         userLanguage.LanguageId = 3;
@@ -516,7 +516,10 @@ namespace DeVeeraApp.Controllers
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == _workContext.CurrentUser?.Id).FirstOrDefault();
             if (userLanguage != null)
             {
-
+                if (langId==0)
+                {
+                    langId = 3;
+                }
                 userLanguage.LanguageId = langId;
                 _settingService.UpdateSetting(userLanguage);
             }
@@ -526,13 +529,6 @@ namespace DeVeeraApp.Controllers
                 {
                     langId = _settingService.GetSettingByUserId(34).LanguageId;//Get the language set by Admin if user Manuaaly has not change from its side
                 }
-               
-                var settingData = new Setting
-                {
-                    UserId = _workContext.CurrentUser?.Id,
-                        LanguageId = 3
-                    };
-                    _settingService.InsertSetting(settingData);
               
             }
             if(PreviewLangId != null && PreviewLangId != 0)

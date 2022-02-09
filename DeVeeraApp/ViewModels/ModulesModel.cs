@@ -54,7 +54,7 @@ namespace DeVeeraApp.ViewModels
         public string NextLeveltitle { get; set; }
         //Like Unlike section
         public int LikeId { get; set; }
-
+        public int? IsLast{ get; set; }
         public int DisLikeId { get; set; }
         public bool IsNew { get; set; }
         public bool IsLike { get; set; }

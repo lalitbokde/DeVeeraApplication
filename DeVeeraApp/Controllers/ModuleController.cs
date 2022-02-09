@@ -75,6 +75,7 @@ namespace DeVeeraApp.Controllers
            
             ViewBag.LevelSrNo = levelSrno;
             var level = _levelServices.GetLevelByLevelNo(levelSrno);
+            
             var data = _moduleService.GetModuleByModuleNo(moduleNo, level.Id);
             if (data!=null) {
             ViewBag.TotalModules = _moduleService.GetAllModules().Where(a => a.LevelId == data.LevelId).Count();
@@ -88,7 +89,9 @@ namespace DeVeeraApp.Controllers
                 moduleData.IsDisLike = likesdata[0].IsDisLike;
             //  moduleData.Comments = likesdata.Comments;
             }
-           
+            //if (lastlevel!=null) { 
+            //  moduleData.IsLast = lastlevel?.LevelNo;
+            //}
             var userLanguage = _settingService.GetAllSetting().Where(s => s.UserId == currentUser.Id).FirstOrDefault();
             if (userLanguage != null)
             {
@@ -156,6 +159,12 @@ namespace DeVeeraApp.Controllers
             var leveldata = _levelServices.GetLevelById(data.LevelId);
             var AllmoduleList = _moduleService.GetModulesByLevelId(leveldata.Id);
             var alllevel = _levelServices.GetAllLevels();
+            var lastlevels = alllevel.LastOrDefault();
+            var levelss = alllevel.Where(a => a.LevelNo == leveldata.LevelNo && a.Id==lastlevels.Id).FirstOrDefault();
+            if (levelss != null)
+            {
+                moduleData.IsLast = levelss?.LevelNo;
+            }
             var usernextmodule = AllmoduleList.Where(a => a.ModuleNo > moduleNo).FirstOrDefault();
             var userprevmodule = AllmoduleList.OrderByDescending(a => a.Id).Where(a => a.ModuleNo < moduleNo).FirstOrDefault();
             ViewBag.Previousmodules = userprevmodule;

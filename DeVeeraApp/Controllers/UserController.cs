@@ -40,6 +40,7 @@ using DeVeeraApp.Filters;
 using CRM.Services.Settings;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using CRM.Core.Domain;
 
 namespace DeVeeraApp.Controllers
 {
@@ -291,7 +292,7 @@ namespace DeVeeraApp.Controllers
                                 //}
                                 if (_WorkContextService.CurrentUser.UserRole.Name == "User")
                                 {
-                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)Quote.Login, LastLoginDateUtc = LastLoginDateUtc });
+                                    return RedirectToAction("ExistingUser", "Home", new { QuoteType = (int)CRM.Core.Domain.Quote.Login, LastLoginDateUtc = LastLoginDateUtc });
                                 }
                                 else
                                 {
@@ -598,6 +599,12 @@ namespace DeVeeraApp.Controllers
                             _Userpasswordservice.InsertUserPassword(password);
                         }
                         _UserService.UpdateUser(user);
+                        var settingData = new Setting
+                        {
+                            UserId = user.Id,
+                            LanguageId = 3
+                        };
+                        _settingService.InsertSetting(settingData);
                         var loginResult = _UserRegistrationService.ValidateUserLogin(model.Email, model.ConfirmPassword);
                         switch (loginResult)
                         {
@@ -613,7 +620,7 @@ namespace DeVeeraApp.Controllers
                                     _notificationService.SuccessNotification("User registered successfully");
 
                                     //return RedirectToAction("Index", "Dashboard");
-                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration, langId=model.LandingPageModel.Language.Id });
+                                    return RedirectToAction("NewUser", "Home", new { QuoteType = (int)CRM.Core.Domain.Quote.Registration, langId=model.LandingPageModel.Language.Id });
 
 
                                 }
@@ -747,7 +754,7 @@ namespace DeVeeraApp.Controllers
 
                                 _notificationService.SuccessNotification("User registered successfull");
 
-                                return RedirectToAction("NewUser", "Home", new { QuoteType = (int)Quote.Registration });
+                                return RedirectToAction("NewUser", "Home", new { QuoteType = (int)CRM.Core.Domain.Quote.Registration });
 
 
                             }

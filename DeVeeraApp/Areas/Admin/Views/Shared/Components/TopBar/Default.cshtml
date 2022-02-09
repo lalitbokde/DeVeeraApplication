@@ -41,7 +41,7 @@
                     <div class="text-xs text-gray-600 mt-0.5 dark:text-gray-600">@_workContext.CurrentUser.UserRole.Name</div>
                 </div>
                 <div class="p-2">
-                    <a asp-controller="User" asp-action="UserProfile" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-gray-200 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
+                    <a href="~/Admin/Admin/Edit/@_workContext.CurrentUser.Id"  class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-gray-200 dark:hover:bg-dark-3 rounded-md"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
                     
                     <a asp-controller="Home" asp-action="Help" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-gray-200 dark:hover:bg-dark-3 rounded-md"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
                 </div>
