@@ -801,7 +801,7 @@ namespace DeVeeraApp.Controllers
             AddBreadcrumbs("User", "Profile", $"/User/UserProfile?userId={userId}", $"/User/UserProfile?userId={userId}");
             var model = new UserModel();
             if (ProfileImage != null) { 
-            model.ProfileImageUrl = ProfileImage; 
+           
                 if (userId == 0)
                 {
                     userId = _WorkContextService.CurrentUser.Id;
@@ -821,6 +821,8 @@ namespace DeVeeraApp.Controllers
                     ViewData["Tabprofile"] = 1;
                 }
                 var userData = _UserService.GetUserById(userId);
+                //userData.ProfileImageUrl = ProfileImage;
+                //_UserService.UpdateUser(userData);
                 if (userData != null)
                 {
                     model.Id = userData.Id;
@@ -965,11 +967,6 @@ namespace DeVeeraApp.Controllers
 
                     
                 }
-
-
-
-                
-                
                 ModelState.Remove("Email"); ModelState.Remove("PasswordUpdate"); 
                 ///Above logic to set tab Enable
                 if (ModelState.IsValid == true)
@@ -1097,10 +1094,6 @@ namespace DeVeeraApp.Controllers
             {
 
             }
-
-
-
-
             return View(model);
         }
 
@@ -1786,7 +1779,7 @@ namespace DeVeeraApp.Controllers
             {
                 file.CopyTo(fs);
             }
-
+            //var aws = UploadProfilePicAWS(file);
             return true;
         }
 
@@ -1795,7 +1788,7 @@ namespace DeVeeraApp.Controllers
         {
             string val="";
             var FileDic = "Files/ProfilePicture";
-
+            var userId= _WorkContextService.CurrentUser.Id;
             string FilePath = Path.Combine(_hostingEnvironment.WebRootPath, FileDic);
 
             if (!Directory.Exists(FilePath))
@@ -1821,8 +1814,11 @@ namespace DeVeeraApp.Controllers
 
             }
             System.IO.File.Delete(path);
-            userModel.ProfileImage = val;
-            return RedirectToAction("UserProfile", "User", new { ProfileImage = userModel.ProfileImage});
+            //userModel.ProfileImage = val;
+            var userData = _UserService.GetUserById(userId);
+            userData.ProfileImageUrl = val;
+            _UserService.UpdateUser(userData);
+            return RedirectToAction("UserProfile", "User", new { userId= userData.Id,ProfileImage = userModel.ProfileImage});
         }
 
     }

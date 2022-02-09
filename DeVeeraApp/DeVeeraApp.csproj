@@ -14,9 +14,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\Files\ProfilePicture\" />
     <Folder Include="wwwroot\LandingPage\" />
-    <Folder Include="wwwroot\Files\" />
-    <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\FFmpeg\" />
     <Folder Include="wwwroot\ImportExcel\" />
     <Folder Include="Areas\Admin\Models\" />
