@@ -409,40 +409,40 @@ namespace DeVeeraApp.Controllers
                 // return View("Register", model);
             }
 
-            var verifymobno = model.countryCode + model.MobileNumber;
-            if (_UserService.GetUserByMobileNo(verifymobno) == null)
-            {
+            //var verifymobno = model.countryCode + model.MobileNumber;
+            //if (_UserService.GetUserByMobileNo(verifymobno) == null)
+            //{
 
-                //   var verification =
-                //await _verificationService.StartVerificationAsync(verifymobno, "sms");
+            //    //   var verification =
+            //    //await _verificationService.StartVerificationAsync(verifymobno, "sms");
 
-                if (true)
-                {
+            //    if (true)
+            //    {
 
-                }
-                else
-                {
-                    ModelState.AddModelError("MobileNumber", "Due to Technical error OTP service UnAvailable ");
-                    return View("Register", model);
-                }
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("MobileNumber", "Due to Technical error OTP service UnAvailable ");
+            //        return View("Register", model);
+            //    }
 
                 return RedirectToAction(nameof(VerifyOTP),
                                                  new UserModel
                                                  {
-                                                     MobileNumber = verifymobno,
+                                                     MobileNumber = model.MobileNumber,
                                                      Email = model.Email,
                                                      ConfirmPassword = model.ConfirmPassword
                                                  });
 
-            }
-            else
-            {
-                ViewData.ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered");
-                return View("Register", model);
+            //}
+            //else
+            //{
+            //    ViewData.ModelState.AddModelError("MobileNumber", "Mobile Number is already Registered");
+            //    return View("Register", model);
 
-                //TempData["Message"] = "Mobile Number is already Registered";
-                //return RedirectToAction("Register");
-            }
+            //    //TempData["Message"] = "Mobile Number is already Registered";
+            //    //return RedirectToAction("Register");
+            //}
 
         }
 
@@ -502,8 +502,6 @@ namespace DeVeeraApp.Controllers
 
             // return new VerificationResult(new List<string> { "Your phone number is already verified" });
             return RedirectToAction("VerifyOTP", "User", model);
-
-
 
         }
 
