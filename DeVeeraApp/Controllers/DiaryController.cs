@@ -11,7 +11,7 @@ using CRM.Services.Layoutsetup;
 using CRM.Services.Localization;
 using CRM.Services.Message;
 using CRM.Services.Settings;
-using CRM.Services.TwilioConfiguration;
+
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Utils;
@@ -46,7 +46,7 @@ namespace DeVeeraApp.Controllers
         private readonly ITranslationService _translationService;
 
         public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
-        private readonly IVerificationService _verificationService;
+
         private readonly ISettingService _settingService;
         #endregion
 
@@ -64,7 +64,7 @@ namespace DeVeeraApp.Controllers
                        IDiaryPasscodeService diaryPasscodeService,
                        ILayoutSetupService layoutSetupService,
                        IImageMasterService imageMasterService,
-                       IVerificationService verificationService,
+
                         IHttpContextAccessor httpContextAccessor,
                         ITranslationService translationService,
                                IAuthenticationService authenticationService,
@@ -85,7 +85,7 @@ namespace DeVeeraApp.Controllers
             _LayoutSetupService = layoutSetupService;
             _imageMasterService = imageMasterService;
             _translationService = translationService;
-            _verificationService = verificationService;
+
             _settingService = settingService; 
         }
 
@@ -390,9 +390,8 @@ namespace DeVeeraApp.Controllers
             var currentUser = _userService.GetUserById(_workContext.CurrentUser.Id);
             var verifymobno = currentUser?.MobileNumber;
             model.MobileNumber = verifymobno;
-            var verification =
-                   await _verificationService.StartVerificationAsync(verifymobno, "sms");
-            if (verification.IsValid == true)
+        
+            if (true)
             {
 
             }
@@ -427,8 +426,8 @@ namespace DeVeeraApp.Controllers
                 else if (enterpass == 6)
                 {
                    
-                    var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
-                    if (result.IsValid == false)
+                   // var result = await _verificationService.CheckVerificationAsync(currentUser.MobileNumber, model.Passcode);
+                    if (true)
                     {
                         ViewData.ModelState.AddModelError("Passcode", "Add correct Passcode !! ");
 

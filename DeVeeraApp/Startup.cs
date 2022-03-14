@@ -25,8 +25,6 @@ using CRM.Services.Message;
 using CRM.Services.QuestionsAnswer;
 using CRM.Services.Security;
 using CRM.Services.Settings;
-using CRM.Services.Twilio;
-using CRM.Services.TwilioConfiguration;
 using CRM.Services.Users;
 using CRM.Services.VideoModules;
 using DeVeeraApp.Factories;
@@ -137,16 +135,12 @@ namespace DeVeeraApp
             services.AddScoped<IModuleImageListService, ModuleImageListService>();
             services.AddScoped<ILayoutSetupService, LayoutSetupService>();
             services.AddScoped<ILikesService, LikesService>();
-            services.AddScoped<IVerificationService, VerificationService>();
-
-            services.AddSingleton<IVerificationService>(new VerificationService(
-              Configuration.GetSection("Twilio").Get<Configuration.Twilio>()));
-
+          
             // services.AddSingleton<IVerificationService>(new VerificationService());
 
 
             services.AddScoped<ITranslationService, TranslationService>();
-            services.AddScoped<ITwilioService, TwilioService>(); 
+          
 
             var authenticationBuilder = services.AddAuthentication(options =>
             {
