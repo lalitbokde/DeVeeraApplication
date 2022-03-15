@@ -104,62 +104,66 @@
                         <input type="hidden" asp-for="Email" value="@Model.Email">
                         <input type="hidden" asp-for="MobileNumber" value="@Model.MobileNumber">
                         <input type="hidden" asp-for="ConfirmPassword" value="@Model.ConfirmPassword">
-                     
-                        <span  class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count()!=0?ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
-                            
+
+                        <span class="text-theme-6 mt-2" style="color:red;"> @T(ViewData.ModelState["ErrorMessage"]?.Errors.Count() != 0 ? ViewData.ModelState["ErrorMessage"]?.Errors[0].ErrorMessage : "")</span>
+
 
 
                         @{ string mobnumber = Model.MobileNumber?.ToString();
                             var value = Model.MobileNumber.Count() - 4;
                             mobnumber = mobnumber.Substring(value, 4);
                             mobnumber = "XXXXXX" + mobnumber;
-                            <h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>
-                          
+                            @*<h5 class="txt-lightblack  ml-4 mt-3 text-center">@mobnumber</h5>*@
+                            <h5 class="txt-lightblack  ml-4 mt-3 text-center text-danger">123456</h5>
+
                         }
                         <div class=" flex-wrap d-flex justify-content-center row col-lg-12 ">
                             <div class="  col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*"  id="txt1" onkeyup="moveCursor(this,'txt2','txt1')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt1" onkeyup="moveCursor(this,'txt2','txt1')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter">
                             </div>
                             <div class="col-2  ">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3','txt2')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2   input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt2" onkeyup="moveCursor(this,'txt3','txt2')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2   input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4','txt3')"  oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="  colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt3" onkeyup="moveCursor(this,'txt4','txt3')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="  colj-2 input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5','txt4')"  oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt4" onkeyup="moveCursor(this,'txt5','txt4')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2 input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6','txt5')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt5" onkeyup="moveCursor(this,'txt6','txt5')" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class=" colj-2 input-newsletter">
                             </div>
                             <div class=" col-2">
-                                <input type="text" name="OTP" maxlength="1" size="1" min="0"  pattern="\d*" id="txt6"  autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');"  class="colj-2   input-newsletter" >
+                                <input type="text" name="OTP" maxlength="1" size="1" min="0" pattern="\d*" id="txt6" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="colj-2   input-newsletter">
                             </div>
                         </div>
-                       
-                  
+
+
                         <button type="submit" class="default-btn mt-3 verifybtn">@T("Verify")</button>
-                       
+
                         @*<div class="intro-y " style="margin-left: 500px; ">
             <div class="m-2">
                 <a href="#" onclick=resendOTP() style="color: skyblue; text-decoration: underline; ">@T("Resend OTP")</a>
             </div>
         </div>*@
-                      
+
                         @*var difference = TempData["firstOtpsentTime"];
-                            var sendotp = DateTime.Now;var checkDiff = Convert.ToDateTime(difference) -Convert.ToDateTime(sendotp);
-                            if (Convert.ToInt32(checkDiff.TotalSeconds) < 120000)*@ 
-                            @*<div class="text-start mt-4 mb-0" >
-                           <a     id="resend"   class="text-start"  style="color:#f0b9b2;font:800;pointer-events:none;cursor:default;">Resend otp</a>
-                          
-                       </div>*@
-                           
-                        <div class="text-start mt-4 mb-0" >
-                           <a   href="/User/ResendOTP/?Email=@Model.Email&Mobilenumber=@ViewData["MobileNumber"]&Confirmpwd=@Model.ConfirmPassword&langId=@TempData["LangaugeId"]"   id="resend"   class="text-start"  style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
-                          
-                       </div>
-                          
-                      
+        var sendotp = DateTime.Now;var checkDiff = Convert.ToDateTime(difference) -Convert.ToDateTime(sendotp);
+        if (Convert.ToInt32(checkDiff.TotalSeconds) < 120000)*@
+                        @*<div class="text-start mt-4 mb-0" >
+            <a     id="resend"   class="text-start"  style="color:#f0b9b2;font:800;pointer-events:none;cursor:default;">Resend otp</a>
+
+        </div>*@
+
+                        @* <div class="text-start mt-4 mb-0">
+
+            <h5 class="txt-lightblack  ml-4 mt-3 text-center text-danger">123456</h5>
+
+            <a   href="/User/ResendOTP/?Email=@Model.Email&Mobilenumber=@ViewData["MobileNumber"]&Confirmpwd=@Model.ConfirmPassword&langId=@TempData["LangaugeId"]"   id="resend"   class="text-start"  style="color: #f0b9b2;font:800;">@T("Resend otp")</a>
+
+        </div>
+                        *@
+
                     </form>
                     
                 </div>

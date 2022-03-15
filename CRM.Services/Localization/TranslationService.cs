@@ -13,9 +13,9 @@ namespace CRM.Services.Localization
     {
 
         #region Fields
-        
+
         private readonly ILocalStringResourcesServices _localStringResourcesServices;
-     
+
         #endregion
 
         #region ctor
@@ -26,92 +26,123 @@ namespace CRM.Services.Localization
         #endregion
         public void Translate(string translationStrings, string key)
         {
-
-            //GoogleTranslate google = new GoogleTranslate(key);
-
-            ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
-            //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
-            var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
-           
-           
-            if (matchvalue  !=null) 
+            try
             {
-                matchvalue.ResourceValue = key;
-                _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
-            }
-            else
-            {
-                
-                LocaleStringResource data = new LocaleStringResource()
+
+                //GoogleTranslate google = new GoogleTranslate(key);
+
+                ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
+                //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
+                var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
+
+
+                if (matchvalue != null)
                 {
-                    LanguageId = 5,
-                    ResourceName = translationStrings,
-                    ResourceValue = key
-                };
-                _localStringResourcesServices.InsertLocalStringResource(data);
+                    matchvalue.ResourceValue = key;
+                    _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
+                }
+                else
+                {
+
+                    LocaleStringResource data = new LocaleStringResource()
+                    {
+                        LanguageId = 5,
+                        ResourceName = translationStrings,
+                        ResourceValue = key
+                    };
+                    _localStringResourcesServices.InsertLocalStringResource(data);
+
+                }
+            }
+            catch (Exception ex)
+            {
 
             }
+
 
         }
 
         public string TranslateLevel(string translationStrings, string key)
         {
-            GoogleTranslate google = new GoogleTranslate(key);
+            var Spanish = string.Empty;
+            try
+            {
+                GoogleTranslate google = new GoogleTranslate(key);
 
-            //Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
-            List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
-           var Spanish = results.FirstOrDefault().TranslatedText;
-           
+                //Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
+                List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
+                Spanish = results.FirstOrDefault().TranslatedText;
+            }
+            catch (Exception ex)
+            {
+                Spanish = translationStrings;
+            }
+
             return (Spanish);
         }
 
         public string TranslateLevelSpanish(string translationStrings, string key)
         {
-            GoogleTranslate google = new GoogleTranslate(key);
+            var Spanish = string.Empty;
+            try
+            {
+                GoogleTranslate google = new GoogleTranslate(key);
 
-            //Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
-            List<Translation> results = google.Translate(LanguageEnum.Spanish, LanguageEnum.English, translationStrings);
-            var Spanish = results.FirstOrDefault().TranslatedText;
+                //Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
+                List<Translation> results = google.Translate(LanguageEnum.Spanish, LanguageEnum.English, translationStrings);
+                Spanish = results.FirstOrDefault().TranslatedText;
+            }
+            catch (Exception ex)
+            {
+                Spanish = translationStrings;
+            }
 
             return (Spanish);
         }
 
         public void TranslateEnglishToSpanish(string translationStrings, string key)
         {
+            try
+            {
+                var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
+
+
+                if (matchvalue != null)
+                {
+                    var value = TranslateLevel(translationStrings, key);
+                    matchvalue.ResourceValue = value;
+                    _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
+                }
+                else
+                {
+                    var value = TranslateLevel(translationStrings, key);
+                    LocaleStringResource data = new LocaleStringResource()
+                    {
+                        LanguageId = 5,
+                        ResourceName = translationStrings,
+                        ResourceValue = value
+                    };
+                    _localStringResourcesServices.InsertLocalStringResource(data);
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             //GoogleTranslate google = new GoogleTranslate(key);
 
             ////Notice that we set the source language to Language.Automatic. This means Google Translate automatically detect the source language before translating.
             //List<Translation> results = google.Translate(LanguageEnum.English, LanguageEnum.Spanish, translationStrings);
-            var matchvalue = _localStringResourcesServices.GetLocalStringResourceByKey(translationStrings);
 
-
-            if (matchvalue != null)
-            {
-                var value = TranslateLevel(translationStrings, key);
-                matchvalue.ResourceValue = value;
-                _localStringResourcesServices.UpdateLocalStringResource(matchvalue);
-            }
-            else
-            {
-                string keylevel = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
-                var value = TranslateLevel(translationStrings, key);
-                LocaleStringResource data = new LocaleStringResource()
-                {
-                    LanguageId = 5,
-                    ResourceName = translationStrings,
-                    ResourceValue = value
-                };
-                _localStringResourcesServices.InsertLocalStringResource(data);
-
-            }
 
         }
 
         public string GetLocaleStringResource(string translationStrings, string key)
         {
             var matchvalue = _localStringResourcesServices.GetResourceValueByResourceName(translationStrings);
-            return matchvalue == null?"":matchvalue;
+            return matchvalue == null ? "" : matchvalue;
         }
 
 
