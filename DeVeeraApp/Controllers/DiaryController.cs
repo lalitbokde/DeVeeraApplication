@@ -45,7 +45,7 @@ namespace DeVeeraApp.Controllers
         private readonly IImageMasterService _imageMasterService;
         private readonly ITranslationService _translationService;
 
-        public string key = "AIzaSyC2wpcQiQQ7ASdt4vcJHfmly8DwE3l3tqE";
+        public string key = "AIzaSyAOxUbP8Nya-Urb-qQUrNmngf4W4ZQJp20";
 
         private readonly ISettingService _settingService;
         #endregion
@@ -416,7 +416,7 @@ namespace DeVeeraApp.Controllers
                 var currentUser = _workContext.CurrentUser;
                 var passcode = _diaryPasscodeService.GetDiaryPasscodeByUserId(currentUser.Id).FirstOrDefault();
                 var enterpass = model.Passcode.Length;
-                if (model.Passcode == "12345")
+                if (model.Passcode == "123456")
                 {
                     passcode.DiaryLoginDate = DateTime.UtcNow;
                     _diaryPasscodeService.UpdateDiaryPasscode(passcode);
